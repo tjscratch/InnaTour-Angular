@@ -1,11 +1,12 @@
 <div class="cit">
-    <input autocomplete="off" 
+    <input autocomplete="off"
+           title="{{selectionControl.selectedItem.Name}}"
            ng-click="showCitList($event)"
-           ng-class="{error:!ngValidationModel.isValid}"
            type="text"
            readonly
-           value="{{selectionControl.selectedItem.Name}}" placeholder="Выберите"
-           class="b-field-text b-field-select">
+           value="{{shortName(selectionControl.selectedItem.Name)}}"
+           placeholder="Россия +7"
+           class="b-field-text b-field-select b-phone-prefix">
     <div class="b-auth cit-cont" ng-show="isOpen">
         <div class="cit-cont__inner">
             <ul>

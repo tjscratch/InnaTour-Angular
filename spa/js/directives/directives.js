@@ -472,7 +472,7 @@ innaAppDirectives.directive('maskedInput', [function () {
             //обрабатываем значение, перед присваиванием модели
             ctrl.$parsers.unshift(function (viewValue) {
                 var normValue = viewValue;
-                if (viewValue == '__.__.____') {
+                if (viewValue == '__.__.____') {// || '(___) ___-__-__') {
                     normValue = '';
                 }
                 return normValue;

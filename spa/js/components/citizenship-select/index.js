@@ -1,7 +1,14 @@
 innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
     return {
         replace: true,
-        template: $templateCache.get('components/citizenship-select/templ/index.hbs.html'),
+        template: function(element, attrs) {
+            if (attrs.type == 'phonePrefix'){
+                return $templateCache.get('components/citizenship-select/templ/phonePrefix.hbs.html')
+            }
+            else {
+                return $templateCache.get('components/citizenship-select/templ/index.hbs.html')
+            }
+        },
         scope: {
             value: '=',
             list: '=',
@@ -15,6 +22,15 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
             /*Props*/
             $scope.isOpen = false;
             $scope.listContainer = null;
+
+            $scope.shortName = function (name) {
+                if (name) {
+                    return name.substring(name.length - 15, name.length);
+                }
+                else {
+                    return name;
+                }
+            };
 
             /*Events*/
             $scope.$watch('value', function (newVal, oldVal) {
@@ -44,7 +60,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                             item.isSelected = false;
                         }
                     }
-                }
+                };
 
                 self.selectNext = function () {
                     if (self.list.length > 0) {
@@ -56,7 +72,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                             self.scrollToItem();
                         }
                     }
-                }
+                };
                 self.selectPrev = function () {
                     if (self.list.length > 0) {
                         if ((self.selectedIndex - 1) >= 0) {
@@ -67,7 +83,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                             self.scrollToItem();
                         }
                     }
-                }
+                };
                 self.scrollToItem = function () {
                     var ind = self.selectedIndex;
                     //скролим где-то в середину (во всю высоту влезает где-то 10 итемов)
@@ -107,7 +123,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                 }
 
                 validate(true);
-            }
+            };
 
             function validate(isUserAction) {
                 $scope.ngValidationModel.validationType = $scope.validateType;
@@ -118,7 +134,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                 //console.log('validate; ngValidationModel.value: %s', $scope.ngValidationModel.value);
 
                 $scope.validate({ item: $scope.ngValidationModel, type: type });
-            };
+            }
         },
         link: function ($scope, $element, attrs) {
             $(document).click(function (event) {

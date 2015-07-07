@@ -48,14 +48,35 @@
 		   </div>-->
 		</div>
 		<div class="b-field-block b-field-phone">
-			<label class="b-field-label">Мобильный телефон</label>
-			<input autocomplete="off" validate-events-dir ng-model="validationModel.phone.value"
-			       ng-validation-model="validationModel.phone" validate="validate(item, type)"
-			       validate-type="validateType.phone"
-			       supress-select-on-value="'+7'"
-			       ng-class="{error:isFieldInvalid(validationModel.phone)}"
-			       data-title="Неправильно введен мобильный телефон" name="phone" type="text"
-			       phone-input class="b-field-text">
+			<label class="b-field-label b-label-phone">Мобильный телефон</label>
+			<!--<input autocomplete="off" validate-events-dir ng-model="validationModel.phone.value"-->
+			       <!--ng-validation-model="validationModel.phone" validate="validate(item, type)"-->
+			       <!--validate-type="validateType.phone"-->
+			       <!--supress-select-on-value="'+7'"-->
+			       <!--ng-class="{error:isFieldInvalid(validationModel.phone)}"-->
+			       <!--data-title="Неправильно введен мобильный телефон" name="phone" type="text"-->
+			       <!--phone-input class="b-field-text">-->
+
+            <div citizenship-select type="phonePrefix"
+                 ng-validation-model="validationModel.phonePrefix"
+                 value="validationModel.phonePrefix.value.id"
+                 validate="validate(item, type)"
+                 validate-type="validateType.phonePrefix"
+                 list="phoneCodesList"
+                 result-set="validationModel.phonePrefix.setValue(item)"
+                 class="b-phone-prefix-select"
+            ></div>
+            <input autocomplete="off"
+                   validate-events-dir
+                   ng-model="validationModel.phoneNum.value"
+                   ng-validation-model="validationModel.phoneNum" validate="validate(item, type)"
+                   validate-type="validateType.phoneNum"
+                   ng-class="{error:isFieldInvalid(validationModel.phoneNum)}"
+                   data-title="Неправильно введен мобильный телефон" name="phone" type="text"
+                   masked-input
+                   mask="(999) 999-99-99?9999999"
+                   placeholder="(999) 999-99-99"
+                   class="b-field-text b-phone-num">
 		</div>
 	</div>
 		<!-- <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div> -->
