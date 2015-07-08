@@ -474,4 +474,40 @@ var partnersMap = [
         'showOffers': true,
         'horizontalForm': false
     },
+    {
+        'name': 'relaxxxclub',
+        'src': '',
+        'type': self.WLType.full,
+        'title': 'relaxxxclub',
+        'phone': '+7(495) 133-16-97',
+        'email': 'mddmen@yandex.ru',
+        'skype': '',
+        'aboutLink': 'http://relaxxxclub.ru/index.php/about',
+        'contactsLink': 'http://relaxxxclub.ru/index.php/contacts',
+        'offertaContractLink': 'https://s.inna.ru/files/doc/offer_relaxxxclub.pdf'
+    },
+    {
+        'name': 'tur-radugasveta',
+        'src': '',
+        'type': self.WLType.full,
+        'title': 'Радуга Света',
+        'phone': '+7(950) 304-34-18',
+        'email': 'raduga-sveta-imiss@yandex.ru',
+        'skype': '',
+        'aboutLink': 'http://tur-radugasveta.ru/about',
+        'contactsLink': 'http://tur-radugasveta.ru/about',
+        'offertaContractLink': 'https://s.inna.ru/files/doc/offer_tur-radugasveta.pdf'
+    },
+    {
+        'name': 'mvm-voyage',
+        'src': '',
+        'type': self.WLType.full,
+        'title': 'МВМ-ВОЯЖ',
+        'phone': '+7(495) 585-22-49',
+        'email': 'info@mvm-voyage.ru',
+        'skype': '',
+        'aboutLink': 'http://mvm-voyage.ru/contact-us/about-us',
+        'contactsLink': 'http://mvm-voyage.ru/contact-us',
+        'offertaContractLink': 'https://s.inna.ru/files/doc/offer_mvm-voyage.pdf'
+    }
 ];
