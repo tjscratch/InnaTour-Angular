@@ -508,6 +508,8 @@ var partnersMap = [
         'skype': '',
         'aboutLink': 'http://mvm-voyage.ru/contact-us/about-us',
         'contactsLink': 'http://mvm-voyage.ru/contact-us',
-        'offertaContractLink': 'https://s.inna.ru/files/doc/offer_mvm-voyage.pdf'
+        'offertaContractLink': 'https://s.inna.ru/files/doc/offer_mvm-voyage.pdf',
+        'showOffers': true,
+        'horizontalForm': true
     }
 ];
