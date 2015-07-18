@@ -42,6 +42,8 @@
 
     <link rel="stylesheet" href="/spa/lib/jquery-ui/jquery-ui.1.11.2.min.css"/>
 
+    <!--<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>-->
+
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css"/>
 
     <!-- build:app-stylus -->
@@ -161,7 +163,7 @@
 
 </head>
 <body class="light-theme"
-      ng-class="{'body-bg':isBodyBg(), 'search-form-expanded': FormExpand}"
+      ng-class="{'body-bg':isBodyBg(), 'search-form-expanded': FormExpand, 'transfer-bg':isTransferBg()}"
       ng-click="bodyClick()"
       popup-form
       ng-style="BodyStyleGlobal">
