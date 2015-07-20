@@ -363,6 +363,9 @@
     requestPassword: function () {//Запрос восстановление пароля
         track.writeAnalitics('/virtual/request_password');
     },
+    newAgency: function () {//новое агентство, Успешная регистрация (попап)
+        track.writeAnalitics('/virtual/new_agency');
+    },
     eof:null
 };
 
