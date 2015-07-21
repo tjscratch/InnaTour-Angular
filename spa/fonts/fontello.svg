@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2015 by original authors @ fontello.com</metadata>
+<defs>
+<font id="fontello" horiz-adv-x="1000" >
+<font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="fuel" unicode="&#xe800;" d="m50 800c-28 0-50-22-50-50l0-800c0-25 25-50 50-50l450 0c25 0 50 25 50 50l0 250 25 0c25 0 25-25 25-25l0-100c0-50 25-75 75-75s75 25 75 75c0 58 0 225 0 275 0 50-100 100-100 150l0 150-50 0-50 50 0 50c0 28-22 50-50 50z m50-100l350 0 0-200-350 0z m450-150l50 0s0-42 0-75c0-50 100-100 100-150l0-250c0-25-25-25-25-25s-25 0-25 25c0 0 0 100 0 125 0 25-25 50-50 50-17 0-50 0-50 0z" horiz-adv-x="750" />
+</font>
+</defs>
+</svg>
