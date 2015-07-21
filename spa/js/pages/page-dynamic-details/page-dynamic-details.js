@@ -282,8 +282,7 @@ innaAppControllers
                         //ticket.modelTicket = ticket;
                         $scope.recommendedPair.setTicket(ticket);
                         $scope.recommendedPair.setHotel(hotel);
-                        $scope.recommendedPairStatus = data.Status;
-
+                        $scope.recommendedPairStatus = data.Status;                        
 
                         $location.search('displayHotel', hotel.data.HotelId);
 
@@ -305,6 +304,9 @@ innaAppControllers
                         $timeout(function () {
                             loadMap();
                         }, 50);
+                        
+                        $scope.Additional = data.Additional;
+                        $scope.Included = data.Included;
 
                         deferred.resolve();
                     },
