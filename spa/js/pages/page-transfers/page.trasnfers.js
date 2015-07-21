@@ -145,11 +145,13 @@ innaAppControllers.
             $scope.tabs = [
                 {name:'Индивидуальный', active:true
                     //, url:'spa/files/individual-transfers.xlsx'
+                    , description: 'Стоимость указана за машину в одну сторону (1-3 человека)'
                     , data: dataIndividual
                     , hash: 'individual'
                 },
                 {name:'Групповой'
                     //, url:'spa/files/group-transfers.xlsx'
+                    , description: 'Стоимость указана за человека туда и обратно'
                     , data: dataGroup
                     , hash: 'group'
                 }

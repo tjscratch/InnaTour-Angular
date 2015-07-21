@@ -4,13 +4,13 @@
         <h1>Трансфер аэропорт-отель</h1>
 
         <ul class="b-tabs b-tabs-block">
-            <li ng-repeat="tab in tabs" ng-class="{active:tab.active}">
+            <li ng-repeat="tab in tabs track by $index" ng-class="{active:tab.active}">
                 <a href="#" ng-click="tabs.click(tab, $event)">{{::tab.name}}</a>
             </li>
         </ul>
 
         <div class="b-transfer-text">
-            Стоимость указана за машину в одну сторону (1-3 человека)
+            {{::activeTab.description}}
         </div>
 
         <table class="b-table">
@@ -30,7 +30,7 @@
                     </th>
                 </tr>
             </thead>
-            <tr ng-repeat="item in activeTab.data">
+            <tr ng-repeat="item in activeTab.data track by $index">
                 <td>
                     {{::item.from}}
                 </td>
