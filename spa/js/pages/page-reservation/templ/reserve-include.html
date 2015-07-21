@@ -12,8 +12,8 @@
     {{item.CityTo}} – {{item.CityFrom}} и ОТЕЛЬ {{hotel.HotelName}}
     с {{helper.moment(hotel.CheckInDate).format("D MMMM")}}
     по {{helper.moment(hotel.CheckOutDate).format("D MMMM")}}, {{hotel.NightCount}}
-    {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}. Цена окончательная со
-    всеми налогами и сборами
+    {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}<span ng-if="isInsuranceIncluded">, медицинская страховка</span>, топливный сбор. Цена окончательная со
+    всеми налогами и сборами.
 </p>
 
 <div class="main__center">

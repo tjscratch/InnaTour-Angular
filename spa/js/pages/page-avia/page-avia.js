@@ -651,7 +651,7 @@ innaAppControllers.
                     return item.value;
                 });
 
-                console.log('here');
+                //console.log('here');
 
                 function calcPrices(tcAgg, fnInTransferCount) {
                     //находим элементы с нужным кол-вом пересадок
