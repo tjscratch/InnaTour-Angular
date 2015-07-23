@@ -124,6 +124,21 @@
 					<!--<span ng-if="!buyAction">Пакет с этим отелем</span>
 					<span ng-if="buyAction">Выбранный пакет</span>-->
 				</h2>
+				
+				
+				<div class="hotel-details__section-services">
+					В стоимость пакета включен перелет 
+					{{recommendedPair.ticket.data.CityFrom}} – {{recommendedPair.ticket.data.CityTo}} – {{recommendedPair.ticket.data.CityFrom}}, 
+					проживание {{recommendedPair.hotel.data.HotelName}}
+					с {{recommendedPair.hotel.data.CheckIn | date:"dd MMMM"}} 
+					по {{recommendedPair.hotel.data.CheckOut | date:"dd MMMM yyyy"}},
+					на {{ recommendedPair.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}, 
+					<span ng-repeat="include in Included">
+						<span ng-if="include.Name == 'Страховка'">медицинская страховка,</span>
+						<span ng-if="include.Name == 'Топливный сбор'">топливный сбор.</span>
+					</span>
+					Стоимость окончательная со всеми налогами и сборами.
+				</div>
 			</div>
 
 			<!-- Динамический блок -->
