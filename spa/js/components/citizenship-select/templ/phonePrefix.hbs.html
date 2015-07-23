@@ -4,10 +4,10 @@
            ng-click="showCitList($event)"
            type="text"
            readonly
-           value="{{shortName(selectionControl.selectedItem.Name)}}"
-           placeholder="Россия +7"
+           value="{{selectionControl.selectedItem.Id}}"
+           placeholder="+7"
            class="b-field-text b-field-select b-phone-prefix">
-    <div class="b-auth cit-cont" ng-show="isOpen">
+    <div class="b-auth cit-cont" ng-class="{'b-phone-dropdown-cont':isPhoneControl}" ng-show="isOpen">
         <div class="cit-cont__inner">
             <ul>
                 <li class="cit-item" ng-class="{active:item.isSelected}" ng-repeat="item in list" ng-click="itemClick(item)">{{item.Name}}</li>

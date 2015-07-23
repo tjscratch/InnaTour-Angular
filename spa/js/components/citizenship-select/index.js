@@ -23,14 +23,14 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
             $scope.isOpen = false;
             $scope.listContainer = null;
 
-            $scope.shortName = function (name) {
-                if (name) {
-                    return name.substring(name.length - 15, name.length);
-                }
-                else {
-                    return name;
-                }
-            };
+            //$scope.shortName = function (name) {
+            //    if (name) {
+            //        return name.substring(name.length - 15, name.length);
+            //    }
+            //    else {
+            //        return name;
+            //    }
+            //};
 
             /*Events*/
             $scope.$watch('value', function (newVal, oldVal) {
@@ -137,6 +137,10 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
             }
         },
         link: function ($scope, $element, attrs) {
+            if (attrs.type == 'phonePrefix'){
+                $scope.isPhoneControl = true;
+            }
+
             $(document).click(function (event) {
                 var isInsideComponent = !!$(event.target).closest($element).length;
 
