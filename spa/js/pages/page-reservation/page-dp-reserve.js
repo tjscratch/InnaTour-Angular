@@ -170,6 +170,21 @@
                     $scope.room = data.Hotel.Room;
                     $scope.price = data.Price;
 
+                    //ищем страховку
+                    $scope.isInsuranceIncluded = false;
+                    (function getInsurance(included){
+                        if (included){
+                            var re = /Страховка/ig;
+                            for(var i=0; i<included.length; i++){
+                                var item = included[i];
+                                if (re.test(item.Name)){
+                                    $scope.isInsuranceIncluded = true;
+                                    break;
+                                }
+                            }
+                        }
+                    })(data.Included);
+
                     //грузим тарифы
                     $scope.loadTarifs($scope.item.VariantId1, $scope.item.VariantId2, data.AviaInfo);
 

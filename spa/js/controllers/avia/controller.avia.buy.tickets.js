@@ -515,7 +515,7 @@ innaAppControllers.
             function scrollControl() {
                 var self = this;
                 self.scrollToCards = function () {
-                    console.log('scroll to cards');
+                    //console.log('scroll to cards');
                     $('html, body').animate({
                         scrollTop: $(".b-tickets-info-container").offset().top + 300
                     }, 200);
@@ -783,6 +783,21 @@ innaAppControllers.
                                         $scope.hotel = data.Hotel;
                                         $scope.room = data.Hotel.Room;
                                         $scope.isBuyPage = true;
+
+                                        //ищем страховку
+                                        $scope.isInsuranceIncluded = false;
+                                        (function getInsurance(included){
+                                            if (included){
+                                                var re = /Страховка/ig;
+                                                for(var i=0; i<included.length; i++){
+                                                    var item = included[i];
+                                                    if (re.test(item.Name)){
+                                                        $scope.isInsuranceIncluded = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        })(data.Included);
 
                                         //правила отмены отеля
                                         $scope.hotelRules.fillData(data.Hotel);
