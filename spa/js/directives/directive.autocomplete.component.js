@@ -17,7 +17,8 @@
                 placeholder           : '@',
                 onError               : '@',
                 withCountry           : '=',
-                event                 : '@'
+                event                 : '@',
+                tabIndex              : '='
             },
             controller: ['$scope', '$timeout', function ($scope, $timeout) {
                 /*Properties*/
