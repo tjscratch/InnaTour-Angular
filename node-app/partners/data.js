@@ -75,6 +75,20 @@ var partnersMap = [
         'horizontalForm': true
     },
     {
+        'name': 'demo-vertical',
+        'src': '',
+        'type': self.WLType.full,
+        'title': 'sample',
+        'phone': '+7&nbsp;800 000-1111',
+        'email': 'demo@demo.ru',
+        'skype': 'demo',
+        'aboutLink': 'https://demo.ru/about',
+        'contactsLink': 'https://demo.ru/contacts',
+        'offertaContractLink': '',
+        'showOffers': true,
+        'horizontalForm': false
+    },
+    {
         'name': 'sputnik',
         'domain': 'tours.sputnik.travel',
         'b2b_lk': 'https://lk.sputnik.travel',
