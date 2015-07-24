@@ -75,7 +75,9 @@
                 minDate   : '=',
                 addButtons: '=',
                 data      : '=',
-                maxDate   : '='
+                maxDate   : '=',
+                tabIndexFrom: '=',
+                tabIndexTo: '='
             },
             controller: ['$scope', function ($scope) {
                 /*Properties*/
@@ -108,7 +110,7 @@
                             $scope.data.isToRoamingSelected = $scope.data.isBackRoamingSelected;
                         }
                     }
-                }
+                };
 
 
                 /**
@@ -198,7 +200,7 @@
                         picker          : $scope.datePicker,
                         from            : true
                     });
-                }
+                };
 
                 $scope.toggleTo = function ($event) {
                     eventsHelper.preventDefault($event);
@@ -218,7 +220,7 @@
                         picker          : $scope.datePicker,
                         to              : true
                     });
-                }
+                };
 
                 $scope.oneWayChanged = function () {
                     //console.log($scope.data.isOneWaySelected);
@@ -232,7 +234,7 @@
                         } catch (e) {
                         }
                     }
-                }
+                };
 
                 $scope.getPickerDates = function () {
                     var defaultDates = [];
@@ -242,7 +244,7 @@
                     if ($scope.date2) defaultDates.push(Date.fromDDMMYY($scope.date2));
                     else defaultDates.push(new Date(1));
                     return defaultDates;
-                }
+                };
 
                 //обновляем раз в 100мс
                 var updateThrottled = _.debounce(function () {
@@ -256,7 +258,6 @@
             }],
             link      : function ($scope, element) {
                 var defaultDates = $scope.getPickerDates();
-
 
                 $scope.input1 = $('.search-date-block', element).eq(0);
                 $scope.input2 = $('.search-date-block', element).eq(1);
@@ -341,7 +342,6 @@
 
                 $scope.datePicker = $('.js-datepicker', element).DatePicker(options);
 
-
                 // Вставляем календарь в body
                 document.body.appendChild($scope.datePicker[0]);
 
@@ -350,6 +350,7 @@
 
                     $scope.$apply(function ($scope) {
                         if (isInsideComponent && $scope.headClicked) {
+                            $scope.headClicked = false;
                             //ничего не делаем, уже кликнули по шапке
                         } else {
                             $scope.isOpen = isInsideComponent;
@@ -368,7 +369,7 @@
                             $(document).off('scroll', $scope.hidePicker);
                         }
                     }
-                }
+                };
 
                 $scope.showPicker = function () {
                     //фикс выбора даты - для WL-full скролим страницу вниз
@@ -379,7 +380,7 @@
 
                     $scope.datePicker.show();
                     $(document).on('scroll', $scope.hidePicker);
-                }
+                };
 
                 $(document).on('scroll', $scope.hidePicker);
 

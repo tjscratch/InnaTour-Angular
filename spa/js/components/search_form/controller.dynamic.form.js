@@ -248,7 +248,15 @@ innaAppControllers
 
 
             /*Methods*/
-            $scope.searchStart = function () {
+            $scope.searchStart = function ($event) {
+                if ($event && $event.target) {
+                    var el = $($event.target);
+                    //если клик - пришел из фокуса
+                    if (el.data('simulate')) {
+                        return;
+                    }
+                }
+
                 if (window.partners && window.partners.isFullWL()) {
                     window.partners.scrollToTop();
                 }

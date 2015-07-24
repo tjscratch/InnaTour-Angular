@@ -24,7 +24,8 @@ innaAppDirectives.directive('locationSelector', [
                 placeholder: '@',
                 selectedValue: '=selectedValue',
                 typeSearch: '@',
-                useHorizontalForm: '='
+                useHorizontalForm: '=',
+                tabIndex: '='
             },
             controller: function ($rootScope, $scope, $timeout, $routeParams, eventsHelper, serviceCache, dataService, DynamicPackagesDataProvider) {
 
@@ -46,7 +47,7 @@ innaAppDirectives.directive('locationSelector', [
                     }
 
                     $scope.selectedValue = data;
-                }
+                };
 
 
                 /**
@@ -85,7 +86,7 @@ innaAppDirectives.directive('locationSelector', [
                             $scope.setCurrentCity(data);
                         })
                     }
-                }
+                };
 
                 $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
                     if ($scope.typeSearch == 'DP_from') {
@@ -122,7 +123,7 @@ innaAppDirectives.directive('locationSelector', [
                         case 'DP_to':
                             return dataService.getDPToListByTerm(txt);
                     }
-                }
+                };
 
 
                 /**
@@ -135,7 +136,7 @@ innaAppDirectives.directive('locationSelector', [
                         $scope.fieldError = value.error;
                         $scope.selectedValue = undefined;
                     }
-                })
+                });
 
 
                 /**
@@ -169,10 +170,10 @@ innaAppDirectives.directive('locationSelector', [
                             self.scrollToFirstItem();
                             self.updateInputText();
                         }
-                    }
+                    };
                     self.isItemSelected = function (item) {
                         return (item.isSelected == true);
-                    }
+                    };
                     self.selectNext = function () {
                         if (self.list.length > 0) {
                             if ((self.selectedIndex + 1) < self.list.length) {
@@ -183,7 +184,7 @@ innaAppDirectives.directive('locationSelector', [
                                 self.updateInputText();
                             }
                         }
-                    }
+                    };
                     self.selectPrev = function () {
                         if (self.list.length > 0) {
                             if ((self.selectedIndex - 1) >= 0) {
@@ -194,7 +195,7 @@ innaAppDirectives.directive('locationSelector', [
                                 self.updateInputText();
                             }
                         }
-                    }
+                    };
                     self.scrollToItem = function () {
                         var ind = self.selectedIndex;
                         //скролим где-то в середину (во всю высоту влезает где-то 10 итемов)
@@ -219,7 +220,7 @@ innaAppDirectives.directive('locationSelector', [
                     };
                     self.updateInputText = function () {
                         self.setSelected(true);
-                    }
+                    };
                     self.setSelected = function (doNotUpdateText, item) {
                         if (item) {
                             self.selectedIndex = _.indexOf(self.list, item)
@@ -259,7 +260,7 @@ innaAppDirectives.directive('locationSelector', [
                     $scope.selectionControl.setSelected(false, item);
                     $scope.isOpened = false;
                     $scope.$broadcast("currentCityChangeClick");
-                }
+                };
 
 
                 //ToDO починить при вводе !Москва, ! выводит пустоту
@@ -320,7 +321,7 @@ innaAppDirectives.directive('locationSelector', [
                             getAutocompleteList();
                             break;
                     }
-                }
+                };
 
                 /**
                  * END:: Автокомплит
@@ -346,4 +347,4 @@ innaAppDirectives.directive('locationSelector', [
 
             }
         }
-    }])
+    }]);
