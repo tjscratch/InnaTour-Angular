@@ -37,6 +37,9 @@
             phoneNum: function (s, error) {
                 if (!/^\(\d{3}\)\s\d{3}-\d{2}-\d{2}(\d+)?$/.test(s)) throw error;//(910) 123-45-67
             },
+            phoneNumWoFormat: function (s, error) {//без форматирования мин 7 цифр
+                if (!/^\d{7,}$/.test(s)) throw error;//1234567
+            },
             phone: function (s, error) {
                 if (!/^[+]\d{11,}$/.test(s)) throw error;//+79101234567
             },

@@ -64,18 +64,22 @@
                  validate-type="validateType.phonePrefix"
                  list="phoneCodesList"
                  result-set="validationModel.phonePrefix.setValue(item)"
+				 change-event="'code'"
                  class="b-phone-prefix-select"
             ></div>
             <input autocomplete="off"
+				   depends-on="validationModel.phonePrefix"
                    validate-events-dir
                    ng-model="validationModel.phoneNum.value"
                    ng-validation-model="validationModel.phoneNum" validate="validate(item, type)"
                    validate-type="validateType.phoneNum"
                    ng-class="{error:isFieldInvalid(validationModel.phoneNum)}"
                    data-title="Неправильно введен мобильный телефон" name="phone" type="text"
-                   masked-input
-                   mask="(999) 999-99-99?9999999"
+				   masked-input
+				   phone-input
+				   mask="(999) 999-99-99"
                    placeholder="(999) 999-99-99"
+				   change-event="'code'"
                    class="b-field-text b-phone-num">
 		</div>
 	</div>

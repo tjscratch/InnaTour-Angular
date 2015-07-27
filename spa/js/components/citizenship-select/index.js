@@ -16,7 +16,8 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
             resultSet: '&',
             ngValidationModel: '=',
             validateType: '=',
-            validate: '&'
+            validate: '&',
+            changeEvent: '='
         },
         controller: function ($scope) {
             /*Props*/
@@ -55,6 +56,14 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                             item.isSelected = true;
                             self.selectedIndex = i;
                             self.selectedItem = item;
+
+                            if ($scope.changeEvent) {
+                                $scope.$emit("PHONE_CODE_CHANGED",
+                                    {
+                                        source: $scope.changeEvent,
+                                        code: item.Id
+                                    });
+                            }
                         }
                         else {
                             item.isSelected = false;
@@ -123,6 +132,14 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                 }
 
                 validate(true);
+
+                if ($scope.changeEvent){
+                    $scope.$emit("PHONE_CODE_CHANGED",
+                        {
+                            source: $scope.changeEvent,
+                            code: item.id
+                        });
+                }
             };
 
             function validate(isUserAction) {

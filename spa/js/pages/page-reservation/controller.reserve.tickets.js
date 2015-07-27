@@ -709,8 +709,16 @@
                         }
                         case validateType.phoneNum:
                         {
+                            var phoneCode = item.dependsOnField ? item.dependsOnField.value.id : null;
+                            //console.log('validateType.phoneNum', item.value, 'phoneCode', phoneCode);
+
                             tryValidate(item, function () {
-                                Validators.phoneNum(item.value, 'err');
+                                if (phoneCode == '+7'){ //для России
+                                    Validators.phoneNum(item.value, 'err');
+                                }
+                                else {
+                                    Validators.phoneNumWoFormat(item.value, 'err');
+                                }
                             });
                             break;
                         }
