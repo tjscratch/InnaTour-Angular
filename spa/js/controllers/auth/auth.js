@@ -300,12 +300,16 @@ var authController = angular.module('innaApp.controllers')
                             switch ($scope.$root.user.getType()) {
                                 case 2:
                                 {//B2B = 2, b2b.inna.ru
-                                    window.location = $scope.B2B_HOST;
+                                    $route.reload();
+                                    // закоментировал редирект в b2b задача https://innatec.atlassian.net/browse/IN-4892
+                                    //window.location = $scope.B2B_HOST;
                                     break;
                                 }
                                 case 4:
                                 {//Partner = 4, partner.inna.ru
-                                    window.location = $scope.b2bPartnerHost;
+                                    $route.reload();
+                                    // закоментировал редирект в b2b задача https://innatec.atlassian.net/browse/IN-4892
+                                    //window.location = $scope.b2bPartnerHost;
                                     break;
                                 }
                             }
