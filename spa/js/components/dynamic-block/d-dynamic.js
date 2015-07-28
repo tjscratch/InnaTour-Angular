@@ -99,7 +99,7 @@ angular.module('innaApp.components').directive('dynamicBlock', [
 				$scope.bundleTicketDetails = function (evt) {
 					evt.stopPropagation();
 					var ticket = $scope.recommendedPair.ticket;
-					$scope.$emit(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED,
+					$scope.$emit(innaAppApiEvents.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED,
 						{ticket: ticket, noChoose: $location.search().displayHotel}
 					);
 				};
@@ -130,7 +130,7 @@ angular.module('innaApp.components').directive('dynamicBlock', [
 							$routeParams.Children
 						].join('-');
 					$location.hash('');
-					$location.path(replaceTicketUrl).search({display: 'tickets'});
+					$location.path(replaceTicketUrl).search({display: 'tickets', ticket: $routeParams.TicketId, hotel: $routeParams.HotelId});
 				};
 			}
 		}
