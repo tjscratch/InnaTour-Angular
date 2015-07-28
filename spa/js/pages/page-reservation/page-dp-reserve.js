@@ -441,7 +441,7 @@
                         goToSearch();
                     }
                 });
-            }
+            };
 
 
             $scope.$on('$destroy', function () {
