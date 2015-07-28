@@ -526,5 +526,19 @@ var partnersMap = [
         'offertaContractLink': 'https://s.inna.ru/files/doc/offer_mvm-voyage.pdf',
         'showOffers': true,
         'horizontalForm': true
+    },
+    {
+        'name': 'visrael',
+        'src': '',
+        'type': self.WLType.full,
+        'title': 'visrael',
+        'phone': '+7(499) 251-16-61',
+        'email': 'mail@visrael.ru',
+        'skype': '',
+        'aboutLink': 'http://www.visrael.ru/about.html',
+        'contactsLink': 'http://www.visrael.ru/contacts.html',
+        'offertaContractLink': 'https://s.inna.ru/files/doc/offer_visrael.pdf',
+        'showOffers': true,
+        'horizontalForm': true
     }
 ];
