@@ -215,7 +215,6 @@
                 '378|Сан Марино +378',
                 '262|Реюнион +262',
                 '40|Румыния +40',
-                '7|Россия +7',
                 '250|Руанда +250',
                 '247|О-ва Святой Елены +247',
                 '508|Сент Пьер +508',
@@ -288,6 +287,23 @@
                 var name = split[1];
                 phoneCodesList.push({Id: id, Name: name});
             }
+
+            phoneCodesList.sort(function (a, b) {
+                if (a.Name < b.Name) {
+                    return -1;
+                }
+                else if (a.Name > b.Name) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            });
+
+            //for (var i = 0; i < phoneCodesList.length; i++) {
+            //    var item = phoneCodesList[i];
+            //    console.log(item.Name);
+            //}
 
             $scope.phoneCodesList = phoneCodesList;
         })();
