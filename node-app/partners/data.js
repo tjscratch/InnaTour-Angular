@@ -27,7 +27,8 @@ module.exports = {
     }
 };
 
-var domainsList = ['lh.inna.ru', 'test.inna.ru', 'beta.inna.ru', 'inna.ru'];
+var domainsList = ['lh.bookinna.ru', 'test.bookinna.ru', 'beta.bookinna.ru', 'bookinna.ru',
+    'lh.inna.ru', 'test.inna.ru', 'beta.inna.ru', 'inna.ru'];
 
 function getPartnerFromHostName(text) {
     if (text) {
