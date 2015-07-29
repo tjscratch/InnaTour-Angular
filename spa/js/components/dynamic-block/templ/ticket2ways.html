@@ -110,6 +110,11 @@
 
 
 	<div class="bottom-actions" ng-if="moreInfo">
+		<a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_replace"
+		   ng-click="replaceTicket()"
+		   >
+			Заменить перелет
+		</a>
             <span class="like-link bottom-actions__button bottom-actions__button_action_details"
                   ng-click="bundleTicketDetails($event)">
                 Подробнее
