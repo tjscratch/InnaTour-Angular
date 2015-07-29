@@ -5,7 +5,7 @@
     <ul class="header__user-nav" ng-if="user">
         <li>
 	        <a href="javascript:void(0);" ng-click="showProfile($event)" class="header__user-nav-name">
-		        <i class="icon-sprite-header-user header__user-nav-name__icon"></i><span class="header__user-nav-name-text">{{user.displayName()}}</span>
+		        <i class="icon-sprite-header-user header__user-nav-name__icon"></i><span title="{{user.displayName()}}" class="header__user-nav-name-text">{{user.displayName()}}</span>
 	        </a>
         </li>
         <li ng-if="user.raw.MessagesCount > 0">
