@@ -1126,6 +1126,7 @@
                     $scope.validationModel.phonePrefix.value.id +
                     //' ' +
                     normalizePhoneNum($scope.validationModel.phoneNum.value);
+                //console.log('$scope.validationModel.phone.value', $scope.validationModel.phone.value);
             }
         });
 
@@ -1735,11 +1736,12 @@
 
         function normalizePhoneNum(phone) {
             if (phone) {
-                //phone = phone.replace('(', '');
-                //phone = phone.replace(')', '');
+                //phone = phone.replace(/\(/, '');
+                //phone = phone.replace(/\)/, '');
                 //phone = phone.replace(/-/g, '');
-                phone = phone.replace(/\s/g, '');
-                phone = phone.replace(/_/g, '');
+                //phone = phone.replace(/\s/g, '');
+                //phone = phone.replace(/_/g, '');
+                phone = phone.replace(/[\(\)\s\-\_]/g, '');//убираем '(', ')', 'пробелы', '-', '_'
             }
             return phone;
         }
