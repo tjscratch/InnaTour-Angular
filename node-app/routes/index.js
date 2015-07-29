@@ -1,7 +1,8 @@
 var express  = require('express'),
     router   = express.Router(),
     //counters    = require('./../counters'),
-    partners = require('./../partners/data');
+    partners = require('./../partners/data'),
+    path = require('path');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -40,6 +41,23 @@ router.get('/dev/lk/search-widget', function (req, res, next) {
     });
 });
 
+router.get('/wl-test/:partner/', function(req, res, next){
+    var partner = req.params.partner;
+    var urlRootGeneric = '../spa/full-wl-test/_generic/';
+
+    var urlRoot;
+    if (partner){
+        urlRoot = '../spa/full-wl-test/' + partner + '/';
+        if (!path.existsSync(urlRoot)) {
+            urlRoot = urlRootGeneric;
+        }
+    }
+    else {
+        urlRoot = urlRootGeneric;
+    }
+
+    res.sendFile('index.html', {root: urlRoot });
+});
 
 //все остальные запросы, если попадут в обход nginx - ведут на 404
 router.get('*', function (req, res, next) {
