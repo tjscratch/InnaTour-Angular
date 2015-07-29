@@ -57,7 +57,7 @@
 
             //дата до - для проверки доков
             $scope.expireDateTo = null;
-            if (searchParams.EndVoyageDate){
+            if (searchParams.EndVoyageDate) {
                 $scope.expireDateTo = dateHelper.apiDateToJsDate(searchParams.EndVoyageDate);
             }
             else {
@@ -114,6 +114,7 @@
                 $location.url(url);
             }
 
+            //http://lh.inna.ru/#/packages/search/6733-6623-17.08.2015-23.08.2015-0-2-?hotel=397940&ticket=10000145429&display=tickets
             $scope.goBackUrl = function () {
                 var url = '/#' + Urls.URL_DYNAMIC_PACKAGES_SEARCH +
                     [
@@ -219,6 +220,68 @@
             }
 
 
+            //http://lh.inna.ru/#/packages/search/6733-6623-17.08.2015-23.08.2015-0-2-?hotel=397940&ticket=10000145429&display=tickets
+            function goToAvia() {
+                var url = Urls.URL_DYNAMIC_PACKAGES_SEARCH +
+                    [
+                        $routeParams.DepartureId,
+                        $routeParams.ArrivalId,
+                        $routeParams.StartVoyageDate,
+                        $routeParams.EndVoyageDate,
+                        $routeParams.TicketClass,
+                        $routeParams.Adult,
+                        $routeParams.Children > 0 ? $routeParams.Children : '',
+                        "?display=tickets&hotel=" + $scope.hotel.HotelId + "&ticket=" + $scope.item.VariantId1
+                    ].join('-');
+                var url = url.replace('--', '-');
+                $location.url(url);
+            };
+
+
+            function goToHotelDetails() {
+                var detailsUrl = $scope.getHotelInfoLink($scope.item.VariantId1, $scope.item.VariantId2, $scope.hotel.HotelId, $scope.hotel.ProviderId);
+                var url = detailsUrl.replace('/#', '');
+                $location.url(url);
+            }
+
+
+            function noAvailability(data) {
+
+
+                function showBaloon(text1, text2) {
+                    $scope.safeApply(function () {
+                        $scope.baloon.showNotFound(text1, text2,
+                            function () {
+                                $timeout.cancel($scope.tmId);
+                                //goToSearch();
+                            });
+                    });
+                }
+
+                if (data != null) {
+                    if (data.IsTicketAvailable == false) {
+                        showBaloon("К сожалению, билеты на выбранный вариант уже недоступны.", "Пожалуйста, выберите новый вариант перелета")
+                    }
+                    if (data.Rooms != null && data.Rooms.length && data.Rooms[0].IsAvailable == false) {
+                        showBaloon("К сожалению, выбранный номер уже недоступен.", "Пожалуйста, выберите другой тип номера или отель")
+                    }
+                }
+
+                $scope.tmId = $timeout(function () {
+                    //очищаем хранилище для нового поиска
+                    storageService.clearAviaSearchResults();
+                    $scope.baloon.hide();
+                    //билеты не доступны - отправляем на поиск
+                    //goToSearch();
+                    if (data.IsTicketAvailable == false) {
+                        goToAvia();
+                    }
+                    if (data.Rooms != null && data.Rooms.length && data.Rooms[0].IsAvailable == false) {
+                        goToHotelDetails();
+                    }
+                }, 3000);
+            }
+
             /**
              * проверяем, что остались билеты для покупки
              */
@@ -237,6 +300,7 @@
                             //правила отмены отеля
                             $scope.hotelRules.fillData($scope.hotel);
 
+                            noAvailability(data);
                             //загружаем все
                             $scope.initPayModel();
                         }
@@ -252,7 +316,8 @@
                             track.dpPackageNotAvialable();
                             //================analytics========================
 
-                            errorSearch();
+                            //errorSearch();
+                            noAvailability(data);
                         }
                     },
                     error: function (data) {
@@ -291,10 +356,9 @@
                 success: successSearch,
                 error: errorSearch
             }).done(function (data) {
-                if(data && !$scope.hotel){
+                if (data && !$scope.hotel) {
                     $scope.hotel = data.Hotel;
                 }
-                //console.log('done');
                 packageCheckAvailability()
             });
 
