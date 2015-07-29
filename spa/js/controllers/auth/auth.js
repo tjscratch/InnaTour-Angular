@@ -47,7 +47,7 @@ var authController = angular.module('innaApp.controllers')
 
             /*Methods*/
             $scope.close = function () {
-                utils.scrollFix(true)
+                utils.scrollFix(true);
                 $scope.isLoginPopupOpened = false;
                 $scope.display = $scope.DISPLAY_SIGNIN;
             };
@@ -72,10 +72,10 @@ var authController = angular.module('innaApp.controllers')
                 track.registrationOpen();
                 //================analytics========================
                 $scope.open();
-            }
+            };
 
             $scope.open = function () {
-                utils.scrollFix()
+                utils.scrollFix();
                 $scope.isLoginPopupOpened = true;
             };
 
@@ -87,7 +87,7 @@ var authController = angular.module('innaApp.controllers')
             $scope.$on('open-auth-form', function () {
                 $location.url('/');
                 $scope.open();
-            })
+            });
 
 
             /**
@@ -362,7 +362,7 @@ var authController = angular.module('innaApp.controllers')
 
                 self.destroy = function () {
                     $(window).off('focus');
-                }
+                };
 
                 self.checkReloadPage = function () {
                     var curUser = self.getCurrentUser();
