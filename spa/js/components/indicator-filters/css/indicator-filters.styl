@@ -1,4 +1,4 @@
-.button-map-list
+.button-map-list{
     border-radius: 2px;
     background #fff
     
@@ -11,42 +11,46 @@
     margin 0
     position relative
     
-    &:before, &:after
+    &:before, &:after{
         content ''
         display block
         position absolute
         top 50%
+    }
     
-    &:before
+    &:before{
         @extend .icon-sprite-switch-map-left
         height 13px
         width 16px
         left -24px
         margin-top -6px
-    
-    &:after
+    }
+    &:after{
         @extend .icon-sprite-switch-map-right
         height 17px
         width 14px
         left 10px
         margin-top -8px
-    
-    &.checked
+    }
+    &.checked{
         border-left 32px solid #e6e7e9
         border-right 32px solid #89c13a
         padding 0 1px 0 0
         
-        &:before
+        &:before{
             @extend .icon-sprite-switch-map-left-gray
-        
-        &:after
+        }
+        &:after{
             @extend .icon-sprite-switch-map-right-white
-.results-aside_mod
+        }
+    }
+}
+.results-aside_mod{
     
-    &.avia
+    &.avia{
         margin-top: 0px;
-    
-    &.results-aside_mod-fixed
+    }
+    &.results-aside_mod-fixed{
         position: fixed;
         top: 190px;
         z-index: 100;
@@ -55,22 +59,27 @@
         -webkit-transform: translate3d(0, 0, 0);
         margin-top: 0;
         width: 230px;
-    
-    .ra-tags-container
+    }
+    .ra-tags-container{
         margin 0 0 10px
-.ra-tags-container_fixed
+    }
+}
+.ra-tags-container_fixed{
     position fixed
     top 200px
     z-index 10
     width 230px
-.ra-tags-title
+}
+.ra-tags-title{
     font-size 14px
     color #333
     font-weight normal
     padding 12px 0 8px
-.ra-tags-title_white
+}
+.ra-tags-title_white{
     color #fff
-.ra-tags-reset
+}
+.ra-tags-reset{
     display inline-block
     margin 0 0 21px
     padding 6px 0 0 0px
@@ -78,12 +87,14 @@
     color #1a1a1a
     text-decoration underline
     
-    &.avia
+    &.avia{
         padding 5px 0 0 0
-    
-    &:hover
+    }
+    &:hover{
         text-decoration none
-.ra-best-block
+    }
+}
+.ra-best-block{
     background #edc63f
     border-radius 4px
     overflow hidden
@@ -92,7 +103,8 @@
     padding 16px 10px 54px
     text-align center
     margin 0 0 10px
-.ra-best-select
+}
+.ra-best-select{
     font-size 15px
     color #fff
     font-weight bold
@@ -105,31 +117,37 @@
     right 0
     bottom 0
     padding 10px
-.ra-best-descr
+}
+.ra-best-descr{
     font-size 14px
     line-height 20px
     color #4d4d4d
-.ra-best-descr-info
+}
+.ra-best-descr-info{
     display block
     font-size 20px
     text-decoration line-through
-.ra-best-price
+}
+.ra-best-price{
     color #fff
     font-size 36px
     line-height 1
     padding 0 0 8px
     font-weight bold
     text-shadow 0 3px 3px rgba(0, 0, 0, .25)
-.ra-best-title
+}
+.ra-best-title{
     font-size 15px
     color #fff
     font-weight bold
     padding 0 0 7px
     text-shadow 0 3px 3px rgba(0, 0, 0, .25)
-.ra-separator
+}
+.ra-separator{
     height 1px
     background #c0c0c2
     margin 10px 0 0
+}
 .b-switch-filters{
     width: 228px;
     /*background: #fff;*/
