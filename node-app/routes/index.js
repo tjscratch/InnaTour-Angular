@@ -43,11 +43,11 @@ router.get('/dev/lk/search-widget', function (req, res, next) {
 
 router.get('/wl-test/:partner/', function(req, res, next){
     var partner = req.params.partner;
-    var urlRootGeneric = '../spa/full-wl-test/_generic/';
+    var urlRootGeneric = '../spa/wl-test/_generic/';
 
     var urlRoot;
     if (partner){
-        urlRoot = '../spa/full-wl-test/' + partner + '/';
+        urlRoot = '../spa/wl-test/' + partner + '/';
         if (!fs.existsSync(urlRoot)) {
             urlRoot = urlRootGeneric;
         }
