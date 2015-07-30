@@ -2,7 +2,7 @@ var express  = require('express'),
     router   = express.Router(),
     //counters    = require('./../counters'),
     partners = require('./../partners/data'),
-    path = require('path');
+    fs = require('fs');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -48,7 +48,7 @@ router.get('/wl-test/:partner/', function(req, res, next){
     var urlRoot;
     if (partner){
         urlRoot = '../spa/full-wl-test/' + partner + '/';
-        if (!path.existsSync(urlRoot)) {
+        if (!fs.existsSync(urlRoot)) {
             urlRoot = urlRootGeneric;
         }
     }

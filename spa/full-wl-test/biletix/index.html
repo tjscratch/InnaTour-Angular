@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru-ru" lang="ru-ru">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Windows-1251" />
+<meta http-equiv="Content-Type" content="text/html;" />
 <meta name="robots" content="all" />
 <title>
-    Авиабилеты онлайн на Biletix.ru    </title>
+    РђРІРёР°Р±РёР»РµС‚С‹ РѕРЅР»Р°Р№РЅ РЅР° Biletix.ru    </title>
 <link rel="icon" href="http://biletix.ru/biletix.ru/images/favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="http://biletix.ru/biletix.ru/images/favicon.ico" type="image/x-icon" />
 
@@ -29,7 +29,7 @@
 </style>
 
 <script type="text/javascript" src="http://biletix.ru/bitrix/js/main/core/core.js?1409748758"></script>
-<script type="text/javascript">BX.message({'LANGUAGE_ID':'ru','FORMAT_DATE':'DD.MM.YYYY','FORMAT_DATETIME':'DD.MM.YYYY HH:MI:SS','COOKIE_PREFIX':'BILETIX_NEW_','bitrix_sessid':'f759c106aedb048cdea44150f1701c15','JS_CORE_LOADING':'Загрузка...','JS_CORE_WINDOW_CLOSE':'Закрыть','JS_CORE_WINDOW_EXPAND':'Развернуть','JS_CORE_WINDOW_NARROW':'Свернуть в окно','JS_CORE_WINDOW_SAVE':'Сохранить','JS_CORE_WINDOW_CANCEL':'Отменить','JS_CORE_H':'ч','JS_CORE_M':'м','JS_CORE_S':'с'})</script>
+<script type="text/javascript">BX.message({'LANGUAGE_ID':'ru','FORMAT_DATE':'DD.MM.YYYY','FORMAT_DATETIME':'DD.MM.YYYY HH:MI:SS','COOKIE_PREFIX':'BILETIX_NEW_','bitrix_sessid':'f759c106aedb048cdea44150f1701c15','JS_CORE_LOADING':'Р—Р°РіСЂСѓР·РєР°...','JS_CORE_WINDOW_CLOSE':'Р—Р°РєСЂС‹С‚СЊ','JS_CORE_WINDOW_EXPAND':'Р Р°Р·РІРµСЂРЅСѓС‚СЊ','JS_CORE_WINDOW_NARROW':'РЎРІРµСЂРЅСѓС‚СЊ РІ РѕРєРЅРѕ','JS_CORE_WINDOW_SAVE':'РЎРѕС…СЂР°РЅРёС‚СЊ','JS_CORE_WINDOW_CANCEL':'РћС‚РјРµРЅРёС‚СЊ','JS_CORE_H':'С‡','JS_CORE_M':'Рј','JS_CORE_S':'СЃ'})</script>
 <script type="text/javascript" src="http://biletix.ru/bitrix/js/main/core/core_ajax.js?1333985949"></script>
 <script type="text/javascript" src="http://biletix.ru/bitrix/js/main/session.js?1333985773"></script>
 <script type="text/javascript">
@@ -141,7 +141,7 @@ function tooltip(selector) {
   }
 };
 
-//кастомные элементы форм
+//РєР°СЃС‚РѕРјРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹ С„РѕСЂРј
 function updateUniform( container, element ) {
   container = container || $('body');
   var el = $(element);
@@ -196,7 +196,7 @@ function updateUniform( container, element ) {
 
 <body id="wrap">
 
-<!-- Блок контента -->
+<!-- Р‘Р»РѕРє РєРѕРЅС‚РµРЅС‚Р° -->
 <!-- defined: false -->
 <div id="header">
     <div class="nav_fixed_top">
@@ -210,8 +210,8 @@ function updateUniform( container, element ) {
 <div id="auth_line" class="clearfix" style="display:none;">
   <div class="container">
     <div class="today">
-      <span class="title">Сегодня:</span>
-      <span class="date">27 октября 2014</span>
+      <span class="title">РЎРµРіРѕРґРЅСЏ:</span>
+      <span class="date">27 РѕРєС‚СЏР±СЂСЏ 2014</span>
     </div>
 		<form action="/packages/index.php?login=yes" class="line_auth_form" method="post" id="auth_form_line" onsubmit="return on_auth_form_line_submit(this,event)">
               <input type="hidden" name="backurl" value="/packages/index.php" />
@@ -219,32 +219,32 @@ function updateUniform( container, element ) {
       <input type="hidden" name="TYPE" value="AUTH" />
       <input type="hidden" name="login" value="yes">
       <div class="info_field login">
-        <label for="header-login">Логин</label>
+        <label for="header-login">Р›РѕРіРёРЅ</label>
         <div class="input_wrap">
           <input tabindex="1" class="text" id="header-login" type="text" name="USER_LOGIN" maxlength="50" value="" />
         </div>
                 <div class="link register">
-          <a href="/personal/registration/">Регистрация</a>
+          <a href="/personal/registration/">Р РµРіРёСЃС‚СЂР°С†РёСЏ</a>
         </div>
               </div>
       <div class="info_field password">
-        <label for="header-password">Пароль</label>
+        <label for="header-password">РџР°СЂРѕР»СЊ</label>
         <div class="input_wrap">
           <input tabindex="2" class="password" id="header-password" type="password" name="USER_PASSWORD" maxlength="50" />
         </div>
-        <div class="link forgot"><a href="/auth.php?forgot_password=yes">Напомнить пароль</a></div>
+        <div class="link forgot"><a href="/auth.php?forgot_password=yes">РќР°РїРѕРјРЅРёС‚СЊ РїР°СЂРѕР»СЊ</a></div>
       </div>
              <div class="info_field remember">
         <input type="checkbox" name="USER_REMEMBER" value="Y" id="header-remember" />
-        <label for="header-remember">запомнить меня</label>
+        <label for="header-remember">Р·Р°РїРѕРјРЅРёС‚СЊ РјРµРЅСЏ</label>
       </div>
-            <div class="submit"><div class="c-button"><input class="button" type="submit" name="Login" value="Войти" /></div></div>
+            <div class="submit"><div class="c-button"><input class="button" type="submit" name="Login" value="Р’РѕР№С‚Рё" /></div></div>
     </form>
   </div>
 </div>
 <script type="text/javascript">/*<![CDATA[*/
   var on_auth_form_line_submit = function(el,event){ return true };
-  /* Оставить форму видимой */
+  /* РћСЃС‚Р°РІРёС‚СЊ С„РѕСЂРјСѓ РІРёРґРёРјРѕР№ */
   if ( $('#header_navigation .cabinet_link_close').length ) {
     $('#auth_line').show();
   }
@@ -254,7 +254,7 @@ function updateUniform( container, element ) {
             <div id="ts_ag_header_navigation">
                                 <div id="header_navigation">
 
-                                        <div class="cabinet_link cabinet_link_open"><a href="#" class="nav_link">Личный кабинет</a></div>
+                                        <div class="cabinet_link cabinet_link_open"><a href="#" class="nav_link">Р›РёС‡РЅС‹Р№ РєР°Р±РёРЅРµС‚</a></div>
                     <script type="text/javascript">
                         //<!CDATA[
                         $('#header_navigation .cabinet_link').toggle(
@@ -282,7 +282,7 @@ function updateUniform( container, element ) {
     </div>
   <header>
     <div class="header_container clearfix" style="position: relative;">
-        <a  class="logo" title="Авиабилеты онлайн на Biletix.ru"  href="/"><img src="http://biletix.ru/bitrix/templates/biletix-2012/img/logo.png" class="logo"  width="130" height="79" alt="Авиабилеты онлайн на Biletix.ru" /></a>
+        <a  class="logo" title="РђРІРёР°Р±РёР»РµС‚С‹ РѕРЅР»Р°Р№РЅ РЅР° Biletix.ru"  href="/"><img src="http://biletix.ru/bitrix/templates/biletix-2012/img/logo.png" class="logo"  width="130" height="79" alt="РђРІРёР°Р±РёР»РµС‚С‹ РѕРЅР»Р°Р№РЅ РЅР° Biletix.ru" /></a>
 <!--
         <a href="//biletix.ru/promo/mau/"><img src="/bitrix/templates/biletix-2012/images/mau.gif" class="logo" width="598" height="87" alt="" style="margin-left: 13px; margin-top: 15px; position: absolute;"></a>
  -->
@@ -293,31 +293,31 @@ function updateUniform( container, element ) {
       <script src="http://biletix.ru/bitrix/templates/biletix-2012/components/new_template/menu/design_since_09_2012/script.js?1407770965" type="text/javascript"></script>
 <menu>
     
-                                            <a href="http://biletix.ru/" id="link0" class="pink"><div class="i"><span>Авиабилеты</span></div></a>
+                                            <a href="http://biletix.ru/" id="link0" class="pink"><div class="i"><span>РђРІРёР°Р±РёР»РµС‚С‹</span></div></a>
                             
     
     
-                                            <a href="https://biletix.ru/booking_charter/" id="link1" class="blue"><div class="i"><span>Чартеры</span></div></a>
+                                            <a href="https://biletix.ru/booking_charter/" id="link1" class="blue"><div class="i"><span>Р§Р°СЂС‚РµСЂС‹</span></div></a>
                             
     
     
-                                            <a href="https://biletix.ru/traintickets/" id="link2" class="orange"><div class="i"><span>Ж/Д билеты</span></div></a>
+                                            <a href="https://biletix.ru/traintickets/" id="link2" class="orange"><div class="i"><span>Р–/Р” Р±РёР»РµС‚С‹</span></div></a>
                             
     
     
-                                            <a href="https://biletix.ru/hotel/" id="link3" class="green"><div class="i"><span>Отели</span></div></a>
+                                            <a href="https://biletix.ru/hotel/" id="link3" class="green"><div class="i"><span>РћС‚РµР»Рё</span></div></a>
                             
     
     
-                                            <a href="https://biletix.ru/insurance/" id="link4" class="pink"><div class="i"><span>Страхование для визы</span></div></a>
+                                            <a href="https://biletix.ru/insurance/" id="link4" class="pink"><div class="i"><span>РЎС‚СЂР°С…РѕРІР°РЅРёРµ РґР»СЏ РІРёР·С‹</span></div></a>
                             
     
     
-                                            <a href="http://biletix.ru/rentalcars/" id="link5" class="blue"><div class="i"><span>Аренда автомобиля</span></div></a>
+                                            <a href="http://biletix.ru/rentalcars/" id="link5" class="blue"><div class="i"><span>РђСЂРµРЅРґР° Р°РІС‚РѕРјРѕР±РёР»СЏ</span></div></a>
                             
     
     
-                                            <a href="https://vozvrat.biletix.ru/?utm_source=site&utm_medium=site&utm_campaign=twiket" id="link6" class="orange"><div class="i"><span>Мой заказ</span></div></a>
+                                            <a href="https://vozvrat.biletix.ru/?utm_source=site&utm_medium=site&utm_campaign=twiket" id="link6" class="orange"><div class="i"><span>РњРѕР№ Р·Р°РєР°Р·</span></div></a>
                             
     
 
@@ -360,10 +360,10 @@ function updateUniform( container, element ) {
   <div id="content" style=" background: url('http://biletix.ru/upload/iblock/8a8/pandomania_banner_2.jpg') center top no-repeat; " >
 
   <div class="container ">
-              <h1 class="every_page_h1">Авиабилеты онлайн на Biletix.ru</h1>
+              <h1 class="every_page_h1">РђРІРёР°Р±РёР»РµС‚С‹ РѕРЅР»Р°Р№РЅ РЅР° Biletix.ru</h1>
         <script type="text/javascript">
         $(document).ready(function() {
-            if($("h1.every_page_h1").text() == "" || $("h1.every_page_h1").text() == "Авиабилеты онлайн на Biletix.ru") $("h1.every_page_h1").remove();
+            if($("h1.every_page_h1").text() == "" || $("h1.every_page_h1").text() == "РђРІРёР°Р±РёР»РµС‚С‹ РѕРЅР»Р°Р№РЅ РЅР° Biletix.ru") $("h1.every_page_h1").remove();
         });
     </script>
         <div>
@@ -389,7 +389,7 @@ function updateUniform( container, element ) {
 
 <script type="text/javascript">
 // <![CDATA[
-// Кастомные элементы ввода
+// РљР°СЃС‚РѕРјРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹ РІРІРѕРґР°
 $("input:radio, input:checkbox, select").uniform();
 
  tooltip();
@@ -401,10 +401,10 @@ $("input:radio, input:checkbox, select").uniform();
 <script type="text/javascript">
 //<![CDATA[
 /*
-    Работаем с пунктом меню "О компании" 
+    Р Р°Р±РѕС‚Р°РµРј СЃ РїСѓРЅРєС‚РѕРј РјРµРЅСЋ "Рћ РєРѕРјРїР°РЅРёРё" 
 */
 $(document).ready(function() {
-    /*$("#horizontal-multilevel-menu [href='/about/']").parent().replaceWith('<li class="pjck"><a href="javascript:void(0);">О проекте&nbsp;</a><ul><li><a href="/about_biletix/">О Biletix</a></li><li><a href="/press/">Пресса о нас</a></li><li><a href="/partners/">Наши партнёры</a></li><li><a href="/events/">Мероприятия</a></li><li><a href="/props/">Реквизиты</a></li><li class="partners"><a href="/affiliate/">Партнёрская программа</a></li><li><a href="/vacancy/">Вакансии</a></li><li><a href="/contacts/">Контакты</a></li></ul></li>');
+    /*$("#horizontal-multilevel-menu [href='/about/']").parent().replaceWith('<li class="pjck"><a href="javascript:void(0);">Рћ РїСЂРѕРµРєС‚Рµ&nbsp;</a><ul><li><a href="/about_biletix/">Рћ Biletix</a></li><li><a href="/press/">РџСЂРµСЃСЃР° Рѕ РЅР°СЃ</a></li><li><a href="/partners/">РќР°С€Рё РїР°СЂС‚РЅС‘СЂС‹</a></li><li><a href="/events/">РњРµСЂРѕРїСЂРёСЏС‚РёСЏ</a></li><li><a href="/props/">Р РµРєРІРёР·РёС‚С‹</a></li><li class="partners"><a href="/affiliate/">РџР°СЂС‚РЅС‘СЂСЃРєР°СЏ РїСЂРѕРіСЂР°РјРјР°</a></li><li><a href="/vacancy/">Р’Р°РєР°РЅСЃРёРё</a></li><li><a href="/contacts/">РљРѕРЅС‚Р°РєС‚С‹</a></li></ul></li>');
     var href = "" + window.location;
     if(href.search(/.ru\/about_biletix/) != -1 ||
         href.search(/.ru\/press/) != -1 ||
@@ -437,67 +437,67 @@ $(document).ready(function() {
                 <a target="_blank" class="inst" href="http://instagram.com/biletix_ru"></a>
             </div>
             <div class="hot-line">
-                <span>ГОРЯЧАЯ ЛИНИЯ +7 (495) <b>741 46 72</b></span>
+                <span>Р“РћР РЇР§РђРЇ Р›РРќРРЇ +7 (495) <b>741 46 72</b></span>
             </div>
-            <div class="ctcts"><a href="https://biletix.ru/contacts/">КОНТАКТЫ</a></div>
+            <div class="ctcts"><a href="https://biletix.ru/contacts/">РљРћРќРўРђРљРўР«</a></div>
         </div> 
-        <!--первая линия-->
+        <!--РїРµСЂРІР°СЏ Р»РёРЅРёСЏ-->
         <div class="first-line" >
             <ul>
                 <li class="title">Biletix.ru</li>
-                <li><a href="https://biletix.ru/">Авиабилеты</a></li>
-                <li><a href="https://biletix.ru/booking_charter/">Чартерные авиабилеты</a></li>
-                <li><a href="https://biletix.ru/traintickets/">Ж/Д билеты</a></li>
-                <li><a href="https://biletix.ru/hotel/">Отели</a></li>
-                <li><a href="https://biletix.ru/insurance/">Туристическое страхование</a></li>
-                <li><a href="http://biletix.ru/rentalcars/">Аренда автомобилей</a></li>
+                <li><a href="https://biletix.ru/">РђРІРёР°Р±РёР»РµС‚С‹</a></li>
+                <li><a href="https://biletix.ru/booking_charter/">Р§Р°СЂС‚РµСЂРЅС‹Рµ Р°РІРёР°Р±РёР»РµС‚С‹</a></li>
+                <li><a href="https://biletix.ru/traintickets/">Р–/Р” Р±РёР»РµС‚С‹</a></li>
+                <li><a href="https://biletix.ru/hotel/">РћС‚РµР»Рё</a></li>
+                <li><a href="https://biletix.ru/insurance/">РўСѓСЂРёСЃС‚РёС‡РµСЃРєРѕРµ СЃС‚СЂР°С…РѕРІР°РЅРёРµ</a></li>
+                <li><a href="http://biletix.ru/rentalcars/">РђСЂРµРЅРґР° Р°РІС‚РѕРјРѕР±РёР»РµР№</a></li>
                             </ul>
             <ul>
-                <li class="title">О проекте</li>
+                <li class="title">Рћ РїСЂРѕРµРєС‚Рµ</li>
                 <li><a href="https://biletix.ru/about_biletix/">O Biletix</a></li>
-                <li><a href="https://biletix.ru/press_center/">Пресс-центр</a></li>
-                <li><a href="https://biletix.ru/press/">Пресса о нас</a></li>
-                <li><a href="https://biletix.ru/in_the_air/">Мы в эфире</a></li>
-                <li><a href="https://biletix.ru/partners/">Наши партнеры</a></li>
-                <li><a href="https://biletix.ru/events/">Мероприятия</a></li>
-                <li><a href="https://biletix.ru/props/">Реквизиты</a></li>
-                <li><a href="https://biletix.ru/vacancy/">Вакансии</a></li>
+                <li><a href="https://biletix.ru/press_center/">РџСЂРµСЃСЃ-С†РµРЅС‚СЂ</a></li>
+                <li><a href="https://biletix.ru/press/">РџСЂРµСЃСЃР° Рѕ РЅР°СЃ</a></li>
+                <li><a href="https://biletix.ru/in_the_air/">РњС‹ РІ СЌС„РёСЂРµ</a></li>
+                <li><a href="https://biletix.ru/partners/">РќР°С€Рё РїР°СЂС‚РЅРµСЂС‹</a></li>
+                <li><a href="https://biletix.ru/events/">РњРµСЂРѕРїСЂРёСЏС‚РёСЏ</a></li>
+                <li><a href="https://biletix.ru/props/">Р РµРєРІРёР·РёС‚С‹</a></li>
+                <li><a href="https://biletix.ru/vacancy/">Р’Р°РєР°РЅСЃРёРё</a></li>
             </ul>
                         <ul>
-                <li class="title">Справочная информация</li>
-                <li><a href="https://biletix.ru/for-passengers3/#a6">Как найти дешевые авиабилеты</a></li>
-                <li><a href="https://biletix.ru/for-passengers3/#r3">Как забронировать авиабилеты</a></li>
-                <li><a href="https://biletix.ru/for-passengers3/#r14">Как оплатить авиабилеты</a></li>
-                <li><a href="https://biletix.ru/adictionary/">Авиасловарь</a></li>
-                <li><a href="https://biletix.ru/for-passengers3/#r14">Способы оплаты</a></li>
+                <li class="title">РЎРїСЂР°РІРѕС‡РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</li>
+                <li><a href="https://biletix.ru/for-passengers3/#a6">РљР°Рє РЅР°Р№С‚Рё РґРµС€РµРІС‹Рµ Р°РІРёР°Р±РёР»РµС‚С‹</a></li>
+                <li><a href="https://biletix.ru/for-passengers3/#r3">РљР°Рє Р·Р°Р±СЂРѕРЅРёСЂРѕРІР°С‚СЊ Р°РІРёР°Р±РёР»РµС‚С‹</a></li>
+                <li><a href="https://biletix.ru/for-passengers3/#r14">РљР°Рє РѕРїР»Р°С‚РёС‚СЊ Р°РІРёР°Р±РёР»РµС‚С‹</a></li>
+                <li><a href="https://biletix.ru/adictionary/">РђРІРёР°СЃР»РѕРІР°СЂСЊ</a></li>
+                <li><a href="https://biletix.ru/for-passengers3/#r14">РЎРїРѕСЃРѕР±С‹ РѕРїР»Р°С‚С‹</a></li>
                 <li>&nbsp;</li>
-                <li><a href="https://biletix.ru/for-passengers3/" class="note">Читать справку целиком</a></li>
+                <li><a href="https://biletix.ru/for-passengers3/" class="note">Р§РёС‚Р°С‚СЊ СЃРїСЂР°РІРєСѓ С†РµР»РёРєРѕРј</a></li>
             </ul>
             <ul style="margin: 0;">
-                <li class="title">Популярные направления</li>
-                <li><a href="https://biletix.ru/avia/city/krasnodar.htm">Авиабилеты Москва - Краснодар</a></li>
-                <li><a href="https://biletix.ru/avia/city/sankt-peterburg.htm">Авиабилеты Москва - Санкт-Петербург</a></li>
-                <li><a href="https://biletix.ru/avia/city/sochi.htm">Авиабилеты Москва - Сочи</a></li>
-                <li><a href="https://biletix.ru/avia/city/bangkok.htm">Авиабилеты Москва - Бангкок</a></li>
-                <li><a href="https://biletix.ru/avia/city/parizh.htm">Авиабилеты Москва - Париж</a></li>
-                <li><a href="https://biletix.ru/avia/city/london.htm">Авиабилеты Москва - Лондон</a></li>
-                <li><a href="https://biletix.ru/avia/city/myunhen.htm">Авиабилеты Москва - Мюнхен</a></li>
-                <li><a href="https://biletix.ru/avia/city/vena.htm">Авиабилеты Москва - Вена</a></li>
+                <li class="title">РџРѕРїСѓР»СЏСЂРЅС‹Рµ РЅР°РїСЂР°РІР»РµРЅРёСЏ</li>
+                <li><a href="https://biletix.ru/avia/city/krasnodar.htm">РђРІРёР°Р±РёР»РµС‚С‹ РњРѕСЃРєРІР° - РљСЂР°СЃРЅРѕРґР°СЂ</a></li>
+                <li><a href="https://biletix.ru/avia/city/sankt-peterburg.htm">РђРІРёР°Р±РёР»РµС‚С‹ РњРѕСЃРєРІР° - РЎР°РЅРєС‚-РџРµС‚РµСЂР±СѓСЂРі</a></li>
+                <li><a href="https://biletix.ru/avia/city/sochi.htm">РђРІРёР°Р±РёР»РµС‚С‹ РњРѕСЃРєРІР° - РЎРѕС‡Рё</a></li>
+                <li><a href="https://biletix.ru/avia/city/bangkok.htm">РђРІРёР°Р±РёР»РµС‚С‹ РњРѕСЃРєРІР° - Р‘Р°РЅРіРєРѕРє</a></li>
+                <li><a href="https://biletix.ru/avia/city/parizh.htm">РђРІРёР°Р±РёР»РµС‚С‹ РњРѕСЃРєРІР° - РџР°СЂРёР¶</a></li>
+                <li><a href="https://biletix.ru/avia/city/london.htm">РђРІРёР°Р±РёР»РµС‚С‹ РњРѕСЃРєРІР° - Р›РѕРЅРґРѕРЅ</a></li>
+                <li><a href="https://biletix.ru/avia/city/myunhen.htm">РђРІРёР°Р±РёР»РµС‚С‹ РњРѕСЃРєРІР° - РњСЋРЅС…РµРЅ</a></li>
+                <li><a href="https://biletix.ru/avia/city/vena.htm">РђРІРёР°Р±РёР»РµС‚С‹ РњРѕСЃРєРІР° - Р’РµРЅР°</a></li>
             </ul>
         </div>    
-        <!--первая линия end-->   
+        <!--РїРµСЂРІР°СЏ Р»РёРЅРёСЏ end-->   
         
-        <!--вторая линия-->   
+        <!--РІС‚РѕСЂР°СЏ Р»РёРЅРёСЏ-->   
         <div class="second-line">
             <div class="copy">
-                © 2008 - 2014 Biletix.ru<br />
-                <a href="https://biletix.ru/agreementb/index.php" class="u">Пользовательское соглашениe</a>
-                <a href="https://biletix.ru/map/" style="margin-left: 54px;">Карта сайта</a><br />
-                Все права защищены. При полном или частичном использовании материалов сайта ссылка на www.biletix.ru обязательна.
+                В© 2008 - 2014 Biletix.ru<br />
+                <a href="https://biletix.ru/agreementb/index.php" class="u">РџРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРµ СЃРѕРіР»Р°С€РµРЅРёe</a>
+                <a href="https://biletix.ru/map/" style="margin-left: 54px;">РљР°СЂС‚Р° СЃР°Р№С‚Р°</a><br />
+                Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹. РџСЂРё РїРѕР»РЅРѕРј РёР»Рё С‡Р°СЃС‚РёС‡РЅРѕРј РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРё РјР°С‚РµСЂРёР°Р»РѕРІ СЃР°Р№С‚Р° СЃСЃС‹Р»РєР° РЅР° www.biletix.ru РѕР±СЏР·Р°С‚РµР»СЊРЅР°.
             </div>
             <div class="copy-iata"></div>
         </div>
-        <!--вторая линия end-->   
+        <!--РІС‚РѕСЂР°СЏ Р»РёРЅРёСЏ end-->   
     </div>
 
   
