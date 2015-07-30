@@ -23,8 +23,6 @@ else if (reRelease.test(hostName)){
     scriptHost = '';
 }
 
-//scriptHost = 'lh.';
-
 var scriptUrl = scriptScheme + scriptHost + scriptPath;
 document.write('<script type="text/javascript" src="' + scriptUrl + '"><\/script>');
 console.log('loaded inna script:', scriptUrl);
