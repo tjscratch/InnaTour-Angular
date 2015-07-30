@@ -1,11 +1,181 @@
 // Filters
 
 //b-filter-panel
-.filters__body {
-  min-height 41px
-  position relative;
-
-  &_position_fixed {
+.filters__body{
+    min-height 41px
+    position relative;
+    
+    &.filters__body_dp{
+        position: absolute;
+        left: 50%;
+        margin-left: -($site-width / 2);
+        bottom: -41px;
+    }
+    
+    &.b-filter-panel{
+        .filters__baloon{
+            display: none;
+        }
+    }
+    
+    .filters__baloon{
+        position absolute
+        left 0
+        background #fff
+        z-index 100
+        width 290px
+        box-shadow 0 3px 5px rgba(0, 0, 0, .3)
+        padding 3px 0
+        
+        &.filters__baloon_show{
+            display: block;
+        }
+        
+        &.filters__baloon_avia-baloon{
+            width: 290px;
+            margin-top: 0px;
+            right: 0;
+            left: auto;
+            z-index: 101;
+        }
+    }
+    
+    .filters__baloon__item{
+        padding-bottom: 10px;
+        border-bottom: 1px solid #c0c0c2;
+        
+        &:last-child{
+            border-bottom: 0 none;
+        }
+    }
+    .filters__baloon_240{
+        width 240px
+    }
+    
+    .filters__baloon-radio{
+        margin 0 12px 5px
+        clearfix()
+        
+        input{
+            display none
+            
+            &:checked + .ra-radio{
+                background #89c13a
+                color #fff
+            }
+        }
+    }
+    
+    .filters__baloon-days{
+        margin 0 12px
+        clearfix()
+        
+        .ra-fly-type-list{
+            float left
+            overflow hidden
+            width 108px
+        }
+        .ra-fly-type-list_style_full-width{
+            width auto
+            
+            .ra-fly-type-list__item{
+                width 50%
+                float left
+            }
+        }
+    }
+    
+    .filters__container{
+        clearfix()
+        background: #fff;
+        min-height: 41px;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+        
+        > li
+        li.filter{
+            float left
+            position relative
+            margin 0 5px 0 0
+            
+            &_position_last{
+                margin-right 0
+            }
+        }
+        
+        .filters__sort{
+            float right
+            margin 0
+            position: relative;
+            white-space nowrap
+            
+            a{
+                color #666
+            }
+            
+            .filters__baloon{
+                left auto
+                right 0;
+            }
+        }
+    }
+    
+    .filters__link{
+        transition all .3s
+        display block
+        padding 14px 30px 13px 10px
+        color #666
+        font-size 14px
+        line-height 1
+        position relative
+        cursor: pointer;
+        
+        &:before{
+            content ''
+            display block
+            position absolute
+            right 17px
+            top 19px
+            width 12px
+            height 12px
+            background url("/spa/img/i.png") no-repeat right -195px
+        }
+        
+        &:hover{
+            background-color #e6e7e9
+            text-decoration none
+            color #1a1a1a
+        }
+    }
+    .filters__link_selected{
+        color #89c13a
+    }
+    
+    &.filters__body_avia{
+        .filters__baloon-radio{
+            li{
+                float left
+                border-left 1px solid #fff
+                
+                &:first-child{
+                    border 0
+                    
+                    .ra-radio{
+                        border-radius 3px 0 0 3px
+                    }
+                }
+                
+                &:last-child .ra-radio{
+                    border-radius 0 3px 3px 0
+                }
+            }
+            label{
+                display block
+                width 107px
+            }
+        }
+    }
+}
+.filters__body_position_fixed{
     //фикс бага с перерисовкой в хроме
     -webkit-transform: translate3d(0, 0, 0);
     position fixed
@@ -14,298 +184,103 @@
     left 50%
     margin-left -480px
     z-index 102
-  }
-
-  &.filters__body_dp {
-    position: absolute;
-    left: 50%;
-    margin-left: -($site-width / 2);
-    bottom: -41px;
-  }
-
-  &.b-filter-panel {
-    .filters__baloon {
-      display: none;
-    }
-  }
-
-  .filters__baloon {
-    position absolute
-    left 0
-    background #fff
-    z-index 100
-    width 320px
-    box-shadow 0 3px 5px rgba(0, 0, 0, .3)
-    padding 3px 0
-
-    &__item {
-      padding-bottom: 10px;
-      border-bottom: 1px solid #c0c0c2;
-
-      &:last-child {
-        border-bottom: 0 none;
-      }
-    }
-
-    &.filters__baloon_show {
-      display: block;
-    }
-
-    &.filters__baloon_avia-baloon {
-      width: 290px;
-      margin-top: 0px;
-      right : 0;
-      left : auto;
-      z-index: 101;
-    }
-
-    &_240 {
-      width 240px
-    }
-
-    &-radio {
-      margin 0 12px 5px
-      clearfix()
-
-      input {
-        display none
-
-        &:checked + .ra-radio {
-          background #89c13a
-          color #fff
-        }
-      }
-    }
-
-    &-days {
-      margin 0 12px
-      clearfix()
-
-      .ra-fly-type-list {
-        float left
-        overflow hidden
-        width 108px
-
-        &_style_full-width {
-          width auto
-
-          .ra-fly-type-list__item {
-            width 50%
-            float left
-          }
-        }
-      }
-    }
-  }
-
-
-  .filters__container {
-    clearfix()
-    background: #fff;
-    min-height: 41px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
-
-    > li
-    li.filter {
-      float left
-      position relative
-      margin 0 5px 0 0
-
-      &_position_last {
-        margin-right 0
-      }
-    }
-
-    .filters__sort {
-      float right
-      margin 0
-      position: relative;
-      white-space nowrap
-
-      a {
-        color #666
-      }
-
-      .filters__baloon {
-        left auto
-        right 0;
-      }
-    }
-  }
-
-  .filters__link {
-    transition all .3s
-    display block
-    padding 14px 35px 13px 10px
-    color #666
-    font-size 14px
-    line-height 1
-    position relative
+}
+.ra-radio{
+    text-align: center;
+    font-size: 14px;
+    background: #e6e7e9;
+    padding: 6px 0;
     cursor: pointer;
-
-    &_selected {
-      color #89c13a
-    }
-
-    &:before {
-      content ''
-      display block
-      position absolute
-      right 17px
-      top 19px
-      width 12px
-      height 12px
-      background url("/spa/img/i.png") no-repeat right -195px
-    }
-
-    &:hover {
-      background-color #e6e7e9
-      text-decoration none
-      color #1a1a1a
-    }
-  }
-
-
-
-  &.filters__body_avia {
-    .filters__baloon-radio {
-      li {
-        float left
-        border-left 1px solid #fff
-
-        &:first-child {
-          border 0
-
-          .ra-radio {
-            border-radius 3px 0 0 3px
-          }
-        }
-
-        &:last-child .ra-radio {
-          border-radius 0 3px 3px 0
-        }
-      }
-      label {
+    display: block;
+}
+.ra-fly-type-list{
+    padding 5px 14px 0 0
+    color #1a1a1a
+    margin 0 -14px 0 0
+    max-height 294px
+    overflow-y: auto
+    position relative
+}
+.ra-fly-type-list-container{
+    position relative
+    
+    &:before{
+        content ''
         display block
-        width 107px
-      }
+        position absolute
+        left 0
+        right 0
+        top 0
+        height 10px
+        background linear-gradient(to bottom, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 0) 100%)
+        z-index 5
     }
-  }
+    
+    &:after{
+        content ''
+        display block
+        position absolute
+        left 0
+        right 0
+        bottom 0
+        height 10px
+        background linear-gradient(to top, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 0) 100%)
+        z-index 5
+    }
 }
-
-
-
-
-.ra-radio {
-  text-align: center;
-  font-size: 14px;
-  background: #e6e7e9;
-  padding: 6px 0;
-  cursor: pointer;
-  display: block;
+.ra-fly-type-list li{
+    clearfix()
+    font-size 14px
+    padding 6px 0
+    //position relative
 }
-
-
-.ra-fly-type-list {
-  padding 5px 14px 0 0
-  color #1a1a1a
-  margin 0 -14px 0 0
-  max-height 294px
-  overflow-y: auto
-  position relative
+.ra-fly-type-list input{
+    display none
 }
-
-.ra-fly-type-list-container {
-  position relative
-
-  &:before {
-    content ''
-    display block
+.ra-fly-type{
+    float left
+    max-width 200px
+}
+.ra-checkbox{
+    width 15px
+    height 15px
+    background #fff
+    border 2px solid #89c13a
+    float left
+    border-radius 3px
+    margin -2px 10px 0 0
+}
+.ra-fly-type-list input:checked + .ra-checkbox{
+    background url(/spa/img/i.png) no-repeat 2px -590px #89c13a
+}
+.ra-fly-price{
+    float right
+    color #666
+}
+.rl-filter{
+    float right
+    position relative
+}
+.rl-filter-current{
+    cursor pointer
+    background url(/spa/img/i.png) no-repeat right 12px top -176px
+    padding 12px 34px 12px 12px
+}
+.rl-filter-menu{
     position absolute
-    left 0
     right 0
-    top 0
-    height 10px
-    background linear-gradient(to bottom, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 0) 100%)
-    z-index 5
-  }
-
-  &:after {
-    content ''
-    display block
-    position absolute
-    left 0
-    right 0
-    bottom 0
-    height 10px
-    background linear-gradient(to top, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 0) 100%)
-    z-index 5
-  }
+    background #fff
+    list-style none
+    box-shadow: 0 8px 8px rgba(0, 0, 0, .4)
+    padding 0 0 5px
+    z-index 1
 }
-
-.ra-fly-type-list li {
-  clearfix()
-  font-size 14px
-  padding 6px 0
-  //position relative
+.rl-filter-menu li{
+    text-align right
+    padding 6px 34px 6px 12px
+    min-width 140px
+    cursor pointer
 }
-
-.ra-fly-type-list input {
-  display none
-}
-
-.ra-fly-type {
-  float left
-  max-width 200px
-}
-
-.ra-checkbox {
-  width 15px
-  height 15px
-  background #fff
-  border 2px solid #89c13a
-  float left
-  border-radius 3px
-  margin -2px 10px 0 0
-}
-
-.ra-fly-type-list input:checked + .ra-checkbox {
-  background url(/spa/img/i.png) no-repeat 2px -590px #89c13a
-}
-
-.ra-fly-price {
-  float right
-  color #666
-}
-
-.rl-filter {
-  float right
-  position relative
-}
-
-.rl-filter-current {
-  cursor pointer
-  background url(/spa/img/i.png) no-repeat right 12px top -176px
-  padding 12px 34px 12px 12px
-}
-
-.rl-filter-menu {
-  position absolute
-  right 0
-  background #fff
-  list-style none
-  box-shadow: 0 8px 8px rgba(0, 0, 0, .4)
-  padding 0 0 5px
-  z-index 1
-}
-
-.rl-filter-menu li {
-  text-align right
-  padding 6px 34px 6px 12px
-  min-width 140px
-  cursor pointer
-}
-
-.rl-filter-menu li:hover {
-  background #eee
+.rl-filter-menu li:hover{
+    background #eee
 }

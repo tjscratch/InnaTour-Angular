@@ -1,7 +1,7 @@
-.button-map-list
+.button-map-list{
     border-radius: 2px;
     background #fff
-
+    
     border 0
     border-left 32px solid #89c13a
     border-right 32px solid #e6e7e9
@@ -10,44 +10,47 @@
     padding 0 1px 0 0
     margin 0
     position relative
-
-    &:before, &:after
+    
+    &:before, &:after{
         content ''
         display block
         position absolute
         top 50%
-
-    &:before
+    }
+    
+    &:before{
         @extend .icon-sprite-switch-map-left
         height 13px
         width 16px
         left -24px
         margin-top -6px
-
-    &:after
+    }
+    &:after{
         @extend .icon-sprite-switch-map-right
         height 17px
         width 14px
         left 10px
         margin-top -8px
-
-    &.checked
+    }
+    &.checked{
         border-left 32px solid #e6e7e9
         border-right 32px solid #89c13a
         padding 0 1px 0 0
-
-        &:before
+        
+        &:before{
             @extend .icon-sprite-switch-map-left-gray
-
-        &:after
+        }
+        &:after{
             @extend .icon-sprite-switch-map-right-white
-
-.results-aside_mod
-
-    &.avia
+        }
+    }
+}
+.results-aside_mod{
+    
+    &.avia{
         margin-top: 0px;
-
-    &.results-aside_mod-fixed
+    }
+    &.results-aside_mod-fixed{
         position: fixed;
         top: 190px;
         z-index: 100;
@@ -56,41 +59,42 @@
         -webkit-transform: translate3d(0, 0, 0);
         margin-top: 0;
         width: 230px;
-
-    .ra-tags-container
+    }
+    .ra-tags-container{
         margin 0 0 10px
-
-    
-.ra-tags-container_fixed
+    }
+}
+.ra-tags-container_fixed{
     position fixed
     top 200px
     z-index 10
     width 230px
-
-.ra-tags-title
+}
+.ra-tags-title{
     font-size 14px
     color #333
     font-weight normal
     padding 12px 0 8px
-
-.ra-tags-title_white
+}
+.ra-tags-title_white{
     color #fff
-
-.ra-tags-reset
+}
+.ra-tags-reset{
     display inline-block
     margin 0 0 21px
     padding 6px 0 0 0px
     font-size 12px
     color #1a1a1a
     text-decoration underline
-
-    &.avia
+    
+    &.avia{
         padding 5px 0 0 0
-
-    &:hover
+    }
+    &:hover{
         text-decoration none
-
-.ra-best-block
+    }
+}
+.ra-best-block{
     background #edc63f
     border-radius 4px
     overflow hidden
@@ -99,8 +103,8 @@
     padding 16px 10px 54px
     text-align center
     margin 0 0 10px
-
-.ra-best-select
+}
+.ra-best-select{
     font-size 15px
     color #fff
     font-weight bold
@@ -113,136 +117,130 @@
     right 0
     bottom 0
     padding 10px
-
-.ra-best-descr
+}
+.ra-best-descr{
     font-size 14px
     line-height 20px
     color #4d4d4d
-
-.ra-best-descr-info
+}
+.ra-best-descr-info{
     display block
     font-size 20px
     text-decoration line-through
-
-.ra-best-price
+}
+.ra-best-price{
     color #fff
     font-size 36px
     line-height 1
     padding 0 0 8px
     font-weight bold
     text-shadow 0 3px 3px rgba(0, 0, 0, .25)
-
-.ra-best-title
+}
+.ra-best-title{
     font-size 15px
     color #fff
     font-weight bold
     padding 0 0 7px
     text-shadow 0 3px 3px rgba(0, 0, 0, .25)
-
-.ra-separator
+}
+.ra-separator{
     height 1px
     background #c0c0c2
     margin 10px 0 0
-
-.b-switch-filters {
+}
+.b-switch-filters{
     width: 228px;
     /*background: #fff;*/
     //overflow: hidden;
     position: absolute;
     right: 0;
     top: 81px;
-
-    &.b-switch-filters_map {
+    
+    &.b-switch-filters_map{
         top: 47px;
         right: 4px;
     }
-
-    &_buttons {
-        margin-bottom: 4px;
-
-        &_right {
-            position: relative;
-            margin-bottom: 7px
-            /*left: 10px;*/
-            font-size: 16px;
-            width: 710px;
-        }
-    }
-
-    &__result {
-        overflow: hidden;
-    }
-
-    &__list {
-        list-style: none;
-        margin: 0;
-    }
-
-    &__item {
-        background: #fff;
-        padding: 10px 26px 10px 11px;
-        position: relative;
-        display: inline-block;
-        font-size: 14px;
-        line-height: 1em;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
-        margin: 0 4px 5px 0;
-    }
-
-    &__item_close {
-        cursor: pointer;
-        position: absolute;
-        right: 8px;
-        top: 50%;
-        margin-top: -4px;
-    }
 }
-
-.b-switch-filters_mod-wrapper {
+.b-switch-filters_buttons{
+    margin-bottom: 4px;
+}
+.b-switch-filters_buttons_right{
+    position: relative;
+    height: 25px;
+    margin-bottom: 8px;
+    /*left: 10px;*/
+    font-size: 16px;
+    line-height: 25px;
+    width: 710px;
+}
+.b-switch-filters__result{
+    overflow: hidden;
+}
+.b-switch-filters__list{
+    list-style: none;
+    margin: 0;
+}
+.b-switch-filters__item{
+    background: #fff;
+    padding: 10px 26px 10px 11px;
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1em;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+    margin: 0 4px 5px 0;
+}
+.b-switch-filters__item_close{
+    cursor: pointer;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    margin-top: -4px;
+}
+.b-switch-filters_mod-wrapper{
     width: auto;
     margin: 0;
-
-    .b-switch-filters_buttons {
+    
+    .b-switch-filters_buttons{
         box-shadow 0 3px 5px rgba(0, 0, 0, .3)
         background-color: #fff;
         padding: 6px 0 5px 3px;
         margin-bottom: 0;
         margin-left: 8px;
         width: 228px;
-
-        &_right {
-            padding-top: 8px;
-        }
     }
-
-    .b-switch-filters__result {
+    
+    .b-switch-filters_buttons_right{
+        padding-top: 8px;
+    }
+    .b-switch-filters__result{
         margin: 4px 0 0 4px;
     }
 }
-
-.b-switch-dynamic-serp-display
+.b-switch-dynamic-serp-display{
     background: url(/spa/img/dynamic-serp-switch-to-map.png) no-repeat center center
     box-shadow 0 1px 4px rgba(0, 0, 0, 0.25)
     cursor pointer
-
-    &_state_map
-        box-shadow none
-        height auto
-        background none
-
-    &__title
-        color $blue
-        vertical-align middle
-        padding-left 25px
-
-        &_at_map
-            font-size 14px
-            line-height 30px
-            background #fff
-
-        &_at_list
-            float right
-            cursor pointer
-
-        &-icon
-            vertical-align middle
+}
+.b-switch-dynamic-serp-display_state_map{
+    box-shadow none
+    height auto
+    background none
+}
+.b-switch-dynamic-serp-display__title{
+    color $blue
+    vertical-align middle
+    padding-left 25px
+}
+.b-switch-dynamic-serp-display__title_at_map{
+    font-size 14px
+    line-height 30px
+    background #fff
+}
+.b-switch-dynamic-serp-display__title_at_list{
+    float right
+    cursor pointer
+}
+.b-switch-dynamic-serp-display__title-icon{
+    vertical-align middle
+}

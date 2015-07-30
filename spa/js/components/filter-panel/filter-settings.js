@@ -112,7 +112,7 @@ angular.module('innaApp.services')
                                     value: 'byName'
                                 },
                                 {
-                                    name: 'По размеру скидки в руб',
+                                    name: 'По размеру скидки',
                                     value: 'byProfit'
                                 }
                             ],
