@@ -69,7 +69,8 @@ function getPartnersMap(callback) {
     };
 
     getJSON(options, function (statusCode, result) {
-        return callback('err', null);
+        //ToDo: debug err
+        //return callback('err', null);
 
         if (statusCode != 200){
             return callback('err', null);
