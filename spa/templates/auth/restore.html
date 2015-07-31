@@ -5,7 +5,7 @@
     <div ng-show="!showLanding">
         <div class="popup-form-row">
             <label for="" class="popup-form-label">E-mail при регистрации</label>
-            <input type="text" class="popup-form-field {{({'true': 'error', 'false': ''})[errors.email || requestFailure]}}" ng-model="email"/>
+            <input type="text" placeholder="user@example.com" class="popup-form-field {{({'true': 'error', 'false': ''})[errors.email || requestFailure]}}" ng-model="email"/>
             <span class="message" ng-show="errors.email">Пожалуйста, введите действующий адрес электронно почты</span>
             <span class="message" ng-show="requestFailure">Пользователь с таким адресом электронной почты не обнаружен</span>
         </div>
