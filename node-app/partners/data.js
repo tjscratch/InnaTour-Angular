@@ -10,7 +10,7 @@ module.exports = {
         var partnerName = getPartnerFromHostName(hostName);
         //console.log(partnerName);
 
-        getPartnersMap(function (err, partnersMap) {
+        cacheLogic.getData(function (err, partnersMap) {
             if (err) {
                 return callback(err, partner);
             }
@@ -150,6 +150,66 @@ function getJSON(options, onResult) {
 
     req.end();
 }
+
+function CacheLogic() {
+    var self = this;
+
+    //время жизни в ms
+    self.MAX_LIFE_TIME = 600000;//10 min
+    //self.MAX_LIFE_TIME = 20000;//20 sec
+    //кэшированные данные
+    self.data = null;
+    //последний запрос в API
+    self.lastApiAccess = 0;
+
+    self.getData = function (callback) {
+        var isExpire = false;
+
+        var nowDate = +(new Date());
+        //сколько прошло ms с последнего доступа в API
+        var timeDiff = nowDate - self.lastApiAccess;
+        //если прошло более 10 min - то нужно в API
+        if (timeDiff > self.MAX_LIFE_TIME){
+            isExpire = true;
+        }
+
+        if (self.data && !isExpire) {
+            //console.log('CacheLogic:getData - hit cache', 'timeDiff', timeDiff);
+            //отдаем кэшированный результат
+            callback(null, self.data);
+        }
+        else {
+
+            //сохраняем время последнего доступа в API
+            self.lastApiAccess = +(new Date());
+            //прямой запрос в api
+            getPartnersMap(function (err, data) {
+                //если ошибки
+                if (err) {
+                    //пробуем отдать последний кэш
+                    if (self.data){
+                        //console.log('CacheLogic:getData - miss cache', 'timeDiff', timeDiff, 'err, return last cache');
+                        return callback(null, self.data);
+                    }
+                    else {
+                        //console.log('CacheLogic:getData - miss cache', 'timeDiff', timeDiff, 'err, return err and null');
+                        //а если кэш пуст и первый запрос - то падаем
+                        return callback(err, null);
+                    }
+                }
+
+                //сохраняем данные в кэш
+                self.data = data;
+                //отдаем
+                //console.log('CacheLogic:getData - miss cache', 'timeDiff', timeDiff, 'return data');
+                callback(null, data);
+            });
+        }
+    };
+}
+
+var cacheLogic = new CacheLogic();
+
 
 //var partnersMap = [
 //    {
