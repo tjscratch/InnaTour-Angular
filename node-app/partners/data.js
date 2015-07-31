@@ -57,7 +57,6 @@ var self = {
 };
 
 function getPartnersMap(callback) {
-    //http://test.inna.ru/api/v1/partner/getall?key=123
     var options = {
         host: 'test.inna.ru',
         port: 80,
@@ -74,33 +73,58 @@ function getPartnersMap(callback) {
         }
 
         //bind model
-        result = bindModel(result);
+        result = bindModelAndSetDefaults(result);
 
         callback(null, result);
     });
 
-    function bindModel(result) {
+    function bindModelAndSetDefaults(result) {
         if (result && result.length > 0){
             for(var i=0; i< result.length; i++){
                 var item = result[i];
-                var type = self.WLType.full;
+                var type = self.WLType.full;//по-умолчанию full-wl
                 switch (item.type){
-                    case 'WLSearch': type = self.WLType.lite; break;
-                    case 'WLReservation': type = self.WLType.full; break;
+                    case 'WLSearch': {
+                        type = self.WLType.lite;
+                        break;
+                    }
+                    case 'WLReservation':
+                    {
+                        type = self.WLType.full;
+
+                        //дефолтное значение стенки и типа формы
+                        if (item.showOffers === undefined){
+                            item.showOffers = true;
+                        }
+                        if (item.horizontalForm === undefined){
+                            item.horizontalForm = true;
+                        }
+                        break;
+                    }
                 }
 
                 item.type = type;
 
-                //пока что удаляю логотип
+                //приведение name
+                //item.cmsName = item.name;
+                item.name = item.shortName ? item.shortName.toLowerCase() : '';
+                delete item.shortName;
+
+                //пока что удаляю логотип за ненадобностью
                 delete item.logoBase64;
+
+                //хак для спутника
+                //у него тип - b2b wl
+                if (item.name == 'sputnik') {
+                    item.type = self.WLType.b2b;
+                }
             }
         }
         return result;
     }
 }
 
-function getJSON(options, onResult)
-{
+function getJSON(options, onResult) {
     //console.log("rest::getJSON");
 
     var prot = options.port == 443 ? https : http;
