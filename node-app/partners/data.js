@@ -1,6 +1,7 @@
 var _       = require('lodash'),
     http    = require("http"),
-    https   = require("https");
+    https   = require("https"),
+    fs      = require('fs');
 
 module.exports = {
     get: function (req, callback) {
@@ -68,8 +69,10 @@ function getPartnersMap(callback) {
     };
 
     getJSON(options, function (statusCode, result) {
+        return callback('err', null);
+
         if (statusCode != 200){
-            return callback('err', result);
+            return callback('err', null);
         }
 
         //bind model
@@ -154,13 +157,17 @@ function getJSON(options, onResult) {
 function CacheLogic() {
     var self = this;
 
+    self.CACHE_FILE_NAME = "cache__api_v1_partner_getall.json";
+
     //время жизни в ms
     self.MAX_LIFE_TIME = 600000;//10 min
     //self.MAX_LIFE_TIME = 20000;//20 sec
-    //кэшированные данные
-    self.data = null;
+
     //последний запрос в API
     self.lastApiAccess = 0;
+
+    //кэшированные данные
+    self.data = null;
 
     self.getData = function (callback) {
         var isExpire = false;
@@ -200,12 +207,60 @@ function CacheLogic() {
 
                 //сохраняем данные в кэш
                 self.data = data;
+                self.saveToFile(data);
                 //отдаем
                 //console.log('CacheLogic:getData - miss cache', 'timeDiff', timeDiff, 'return data');
                 callback(null, data);
             });
         }
     };
+
+    self.saveToFile = function (data) {
+        var stringData = JSON.stringify(data);
+        fs.writeFile(self.CACHE_FILE_NAME, stringData, function(err) {
+            if(err) {
+                console.log('CacheLogic:saveToFile err:', err.message);
+                return;
+            }
+
+            //console.log('CacheLogic:saveToFile success');
+        });
+    };
+
+    self.readFromFile = function (callback) {
+        fs.readFile(self.CACHE_FILE_NAME, function (err, data) {
+            if (err) {
+                console.log('CacheLogic:readFromFile err:', err.message);
+                return callback(err, null);
+            }
+
+            //получаем объект
+            var objData = JSON.parse(data);
+
+            //проверяем что получился массив, и есть хотя бы 1 элемент
+            if(Object.prototype.toString.call(objData) === '[object Array]') {
+                if (objData.length > 0){
+                    console.log('CacheLogic:readFromFile read success, data ok');
+                    return callback(null, objData);
+                }
+            }
+
+            //не массив - просто возвращает значение null
+            console.log('CacheLogic:readFromFile read success, data err');
+            callback(null, null);
+        });
+    };
+
+    //пробуем заполнить кэш данными с диска
+    (function tryFillDataFromDisk() {
+        self.readFromFile(function (err, data) {
+            if (err) {
+                return;
+            }
+
+            self.data = data;
+        })
+    })();
 }
 
 var cacheLogic = new CacheLogic();
