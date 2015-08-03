@@ -12,7 +12,12 @@
         <div class="popup-form-row popup-form-row-submit">
             <button type="submit" class="button" ng-click="sendToken()">Отправить</button>
         </div>
-        <ng:include src="'auth/social.inc.html'"></ng:include>
+        <div class="back-to-auth" ng-if="partnerSputnik">
+            <span ng-click="goToSignIn()">Вернуться к форме входа</span>
+        </div>
+        <!-- закоментировал в рамках задачи https://innatec.atlassian.net/browse/IN-4811
+        <ng:include src="'auth/social.inc.html'" ng-show="!partnerSputnik"></ng:include>
+        -->
     </div>
     <div ng-show="showLanding">
         <span class="icon-letter"></span>

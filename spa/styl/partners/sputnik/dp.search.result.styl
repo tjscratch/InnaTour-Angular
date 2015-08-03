@@ -1,0 +1,53 @@
+.partner-wl {
+    /*рекомендованный вариант*/
+    .recommend-bundle-container {
+        top: 178px;
+    }
+
+    /*результаты*/
+    .results-container {
+        padding 504px 0 0;
+
+        &.results-container__short {
+            padding-top: 294px;
+        }
+    }
+
+    /*фильтры*/
+
+    /*инпуты*/
+    .filter__range input {
+
+        &:focus {
+            border-color: #5f7cb3;
+        }
+    }
+
+    /*чекбоксы*/
+    .filters__body .filters__link_selected {
+        color: $color;
+    }
+
+    .ra-fly-type-list input:checked + .ra-checkbox {
+        btx-checkbox-bg();
+    }
+
+    .ra-checkbox {
+        btx-checkbox-border();
+    }
+
+    /*цена*/
+    .ui-slider-range {
+        background: #3b69a7 !important;
+    }
+
+    /*сортировка*/
+    .search__list .fa {
+        color: $color1;
+    }
+
+    /*кнопки купить*/
+    .hotel-details-rooms__room-actions .btn-hotel-room-actions {
+        btx-button-color1();
+    }
+}

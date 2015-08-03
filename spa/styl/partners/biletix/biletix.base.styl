@@ -23,7 +23,11 @@
 
 .partner-biletix {
     $landPadding = 50px;
-
+    
+    .b-dp-services__list-item-icon{
+        color #ec008c
+    }
+        
     .light-theme, .lighten-theme {
         background none;
     }
@@ -39,6 +43,13 @@
 
     .overlay {
         background: rgba(0, 0, 0, 0.4);
+    }
+
+    /*отключаем фон на главной*/
+    .b-main-page {
+        &.wrpr {
+            background transparent;
+        }
     }
 
     .layout.partner {
@@ -57,7 +68,7 @@
 
     .landing-title {
         text-align: center;
-        /*color: #ffffff;*/
+        color: #fff;
         font-size: 36px;
         line-height: 42px;
     }

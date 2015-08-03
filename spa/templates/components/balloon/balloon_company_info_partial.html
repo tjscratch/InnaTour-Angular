@@ -1,0 +1,9 @@
+
+<any ng-if="partnerData">
+    <span class="balloon-contacts-phone">{{partnerData.phone}}</span>
+    <a ng-if="partnerData.skype" href="skype:{{partnerData.skype}}?call" class="balloon-contacts-skype">{{partnerData.title}}</a>
+</any>
+<any ng-if="partnerData == null">
+    <span class="balloon-contacts-phone">+7 495 742-1212</span>
+    <a href="skype:inna.tour?call" class="balloon-contacts-skype">Inna tour</a>
+</any>

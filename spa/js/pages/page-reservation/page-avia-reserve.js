@@ -23,20 +23,28 @@ innaAppControllers.
             // TODO : наследование контроллера
             $controller('ReserveTicketsCtrl', { $scope: $scope });
 
+            $scope.isAviaPage = true;
+
             var self = this;
 
             function log(msg) {
                 $log.log(msg);
             }
 
-
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
-
-            $scope.isAviaPage = true;
 
             //критерии из урла
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);
+
+            //дата до - для проверки доков
+            $scope.expireDateTo = null;
+            if ($scope.criteria.EndDate){
+                $scope.expireDateTo = dateHelper.dateToJsDate($scope.criteria.EndDate);
+            }
+            else {
+                $scope.expireDateTo = dateHelper.dateToJsDate($scope.criteria.BeginDate);
+            }
 
             //====================================================
             //нужны в родителе
@@ -58,7 +66,7 @@ innaAppControllers.
                 eventsHelper.preventBubbling($event);
                 //просто закрываем
                 $scope.popupItemInfo.isShow = false;
-            }
+            };
 
             $scope.searchId = $scope.criteria.QueryId;
 

@@ -8,6 +8,7 @@
 <div class="results-body" id="top">
 
 
+	
 	<div class="results-container results-container_list"
 	     ng-class="{'results-container__short':!padding}"
 	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)"></div>
@@ -22,12 +23,9 @@
 	     ng-if="hotels.list.length && asMap"></div>
 
 
-
-	
-	<btn-top ng-show="goToTopShow && !asMap"></btn-top>
-
-
 </div>
+
+<btn-top ng-show="goToTopShow && !asMap"></btn-top>
 
 <!-- Попап - подробнее о авиа-билете -->
 <div ticket-details></div>

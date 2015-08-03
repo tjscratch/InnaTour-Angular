@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Распечатать</title>
+
+    <link rel="shortcut icon" href="/spa/print/favicon.ico"/>
+
+    <style type="text/css">
+        .b-order-num {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+<p class="b-order-num">Номер заказа <b><span id="orderNum"></span></b></p>
+
+<p>Вы можете оплатить этот заказ наличными в любом офисе Связного.
+    (<a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>)
+    <br/>Обратитесь к менеджеру и назовите номер заказа.</p>
+
+<p>Рекомендуем оплачивать заказ в салоне в ближайшее время после бронирования, поскольку авиакомпании
+    <br/>оставляют за собой право изменять время на оплату.</p>
+
+
+<script type="text/javascript">
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    var orderNum = getParameterByName('order');
+    document.getElementById('orderNum').innerHTML = orderNum;
+    window.print();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+{{#if partner }}
+    {{#if partner.isSputnik }}
+        <link href='//fonts.googleapis.com/css?family=Roboto:500,100,300,700,400&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    {{/if}}
+
+    <script type="text/javascript">
+        window.partners = window.partners || {};
+        window.partners.partner = {{{partner.jsonData}}};
+    </script>
+{{/if}}
+
+

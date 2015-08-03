@@ -3,6 +3,104 @@
 /* Directives */
 
 innaAppDirectives.
+    directive('linkInNewWindowIfCan', ['$timeout', '$interval', function ($timeout, $interval) {
+        return {
+            restrict: 'A',
+            link: function ($scope, element, attrs, ngModelCtrl) {
+                //console.log('linkInNewWindowIfCan', element);
+
+                var intervId = null;
+
+                function getHashFromUrl(url) {
+                    //console.log('url:', url);
+                    var indexOfHash = url.indexOf("/#");
+                    var newUrl;
+                    if (indexOfHash > -1) {
+                        newUrl = url.substring(indexOfHash, url.length);
+                    }
+                    else {
+                        newUrl = url;
+                    }
+                    //console.log('newUrl:', newUrl);
+                    return newUrl;
+                }
+
+                var PREFIX = 'LINK_IN_NEW_WINDOW_IF_CAN_';
+
+                if (element.get(0).tagName == 'A'){
+                    //выполняем в след. цикле, чтобы были все значения в аттрибутах
+                    $timeout(function () {
+                        var isBlank = false;
+                        if (element.attr('target') == '_blank'){
+                            element.removeAttr('target');
+                            isBlank = true;
+                        }
+
+                        var link = element.attr('href');
+                        //console.log('link', link);
+                        element.attr('href', 'javascript:void(0);');
+                        
+                        element.on('click', function () {
+                            var linkData = {'timeStamp': +(new Date())};
+                            linkData = JSON.stringify(linkData);
+
+                            //на WL фо фрейме ссылки типа
+                            //http://biletix.ru/packages/#/packages/details/6733-1735-08.06.2015-11.06.2015-0-2--358469-10000088563-10000088632-4?action=buy
+                            //нужно отрезать все, что до #
+                            var key = getHashFromUrl(link);
+
+                            localStorage.setItem(PREFIX + key, linkData);
+
+                            //открываем в новом окне
+                            window.open(link, (isBlank ? '_blank' : ''));
+
+                            //ждем 2 секунды
+                            $timeout(function () {
+                                var completeLinkData = localStorage.getItem(PREFIX + key) || null;
+                                //если не null - значит в новом окне нихуя не открылось - открываем в этом
+                                if (completeLinkData) {
+                                    //console.log('completeLinkData found', completeLinkData);
+                                    localStorage.removeItem(PREFIX + key);
+                                    //location.href = link;
+
+                                    if (window.partners && window.partners.isFullWL()) {
+                                        //т.к на партнере ссылка типа http://biletix.ru/packages/#/packages/details/...
+                                        location.href = key;
+                                    }
+                                    else {
+                                        location.href = link;
+                                    }
+                                }
+                                else{
+                                    //console.log('completeLinkData empty, yyy!!!');
+                                }
+                            }, 2000);
+                        });
+
+                        intervId = $interval(function () {
+                            var href = element.attr('href');
+                            if (href.indexOf('javascript:void(0)') > -1){
+                            }
+                            else {
+                                //ссылка изменилась - нужно обновить
+                                link = element.attr('href');
+                                element.attr('href', 'javascript:void(0);');
+                                //console.log('link updated', link);
+                            }
+                        }, 300);
+                    }, 0);
+                }
+
+                $scope.$on('$destroy', function () {
+                    if (intervId){
+                        $interval.cancel(intervId);
+                    }
+                });
+            }
+        };
+    }]);
+
+innaAppDirectives.
     directive('appVersion', ['version', function (version) {
         return function (scope, elm, attrs) {
             elm.text(version);
@@ -374,21 +472,61 @@ innaAppDirectives.directive('maskedInput', [function () {
             //обрабатываем значение, перед присваиванием модели
             ctrl.$parsers.unshift(function (viewValue) {
                 var normValue = viewValue;
-                if (viewValue == '__.__.____') {
+                if (viewValue == '__.__.____') {// || '(___) ___-__-__') {
                     normValue = '';
                 }
                 return normValue;
             });
 
+            var listenCodeChangeEventSource = $scope.$eval(attrs.changeEvent);
             var m = attrs.mask;
-            element.mask(m, {
-                completed: function () {
-                    var val = element.val();
-                    $scope.$apply(function ($scope) {
-                        ctrl.$modelValue = val;
-                    })
-                }
-            });
+
+            function addMask() {
+                element.mask(m, {
+                    completed: function () {
+                        var val = element.val();
+                        $scope.$apply(function ($scope) {
+                            ctrl.$modelValue = val;
+                        })
+                    }
+                });
+            }
+
+            var placeHolder = element.attr('placeholder');
+
+            if (listenCodeChangeEventSource){
+                $scope.$on("PHONE_CODE_CHANGED", function (event, result) {
+                    var code = result.code;
+                    var source = result.source;
+                    if (source == listenCodeChangeEventSource){
+                        if (code == '+7'){//маска только для России
+                            var elPlaceholder = element.attr('placeholder');
+                            if (elPlaceholder) {
+                            }
+                            else {
+                                element.attr('placeholder', placeHolder);
+                            }
+
+                            var isMaskAdded = $(element).data('isMaskAdded');
+                            if (isMaskAdded){
+                            }
+                            else {
+                                $(element).data('isMaskAdded', true);
+                                addMask();
+                            }
+                        }
+                        else {
+                            //снимаем плейсхолдер
+                            element.removeAttr('placeholder');
+                            $(element).removeData('isMaskAdded');
+                            element.unmask();
+                        }
+                    }
+                });
+            }
+            else {
+                addMask();
+            }
         }
     };
 }]);
@@ -453,29 +591,29 @@ innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
                 //48-57 - цифры
                 //43 +
 
-                var plusEntered = (val == '+') || (val.substring(0, 1) == '+');
-                if (plusEntered) {
-                    if (selStart == selEnd) {
-                    }
-                    else {
-                        //если выделено все - то дописываем +
-                        if (selStart == 0 && selEnd == val.length) {
-                            if (supressSelectOnValue != null && val == supressSelectOnValue)//если значение +7
-                            {
-                                $elem.val(val);
-                                setEndSelection();
-                            }
-                            else {
-                                $elem.val("+");
-                                setEndSelection();
-                            }
-                        }
-                    }
-                }
-                else {
-                    $elem.val("+" + val);
-                    setEndSelection();
-                }
+                //var plusEntered = (val == '+') || (val.substring(0, 1) == '+');
+                //if (plusEntered) {
+                //    if (selStart == selEnd) {
+                //    }
+                //    else {
+                //        //если выделено все - то дописываем +
+                //        if (selStart == 0 && selEnd == val.length) {
+                //            if (supressSelectOnValue != null && val == supressSelectOnValue)//если значение +7
+                //            {
+                //                $elem.val(val);
+                //                setEndSelection();
+                //            }
+                //            else {
+                //                $elem.val("+");
+                //                setEndSelection();
+                //            }
+                //        }
+                //    }
+                //}
+                //else {
+                //    $elem.val("+" + val);
+                //    setEndSelection();
+                //}
 
                 //console.log('isShiftPressed(key): ', isShiftPressed(key));
                 //даем вводить только цифры
@@ -545,7 +683,7 @@ innaAppDirectives.directive('upperLatin', ['$filter', function ($filter) {
                     ngModel.$render();
                 }
                 return capitalized;
-            }
+            };
 
             ngModel.$parsers.push(capitalize);
             capitalize($scope[attrs.ngModel]);// capitalize initial value
@@ -669,9 +807,13 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
                 //console.log('validate; ngValidationModel.value: %s', $scope.ngValidationModel.value);
 
                 $scope.validate({ item: $scope.ngValidationModel, type: type });
-            };
+            }
 
             $elem.on('blur', function () {
+                //убираем пробелы в начале и конце
+                var trimVal = $elem.val().trim();
+                $elem.val(trimVal);
+
                 $scope.$apply(function () {
                     //console.log('validateEventsDir blur');
                     validate(true);

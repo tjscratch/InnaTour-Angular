@@ -28,6 +28,25 @@ $dp-title-color = #65a7c0
 @import "../full_wl/gallery.styl"
 
 .partner-wl{
+    
+    .error{
+        border none !important
+        box-shadow 0px 0px 0px 1px $orange !important
+        background $light-orange
+    }
+    
+    .b-field-text{
+        &:focus{
+            border-color $orange
+            background-color #fff
+            box-shadow none
+        }
+    }
+    
+    .ui-tooltip-content::before{
+        content url('/spa/img/partners/svyaznoy/validation-error.png')
+    }
+        
     .pic-cont{
         height: 0px;
         width: 0px;
@@ -165,5 +184,9 @@ $dp-title-color = #65a7c0
     }
     .filters__body.filters__body_dp{
         bottom -39px
+    }
+        
+    .b-dp-services__list-item-icon{
+        color $orange
     }
 }

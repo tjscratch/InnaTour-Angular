@@ -28,7 +28,7 @@
                     return res.getTime();
                 else
                     return null;
-            };
+            }
 
             function getTimeFormat(dateText) {
                 return $filter("date")(dateText, timeFormat);
@@ -124,8 +124,8 @@
 
             function pluralForm(i, str1, str2, str3) {
                 function plural(a) {
-                    if (a % 10 == 1 && a % 100 != 11) return 0
-                    else if (a % 10 >= 2 && a % 10 <= 4 && (a % 100 < 10 || a % 100 >= 20)) return 1
+                    if (a % 10 == 1 && a % 100 != 11) return 0;
+                    else if (a % 10 >= 2 && a % 10 <= 4 && (a % 100 < 10 || a % 100 >= 20)) return 1;
                     else return 2;
                 }
 
@@ -150,7 +150,8 @@
                 expireCheck: 'expireCheck',
                 payExpires: 'payExpires',
                 notFound: 'notFound',
-                priceChanged: 'priceChanged'
+                priceChanged: 'priceChanged',
+	            agencyRegSuccess: 'agencyRegSuccess'
             };
 
             var helper = {
@@ -456,6 +457,9 @@
                     },
                     showPriceChanged: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.priceChanged, closeFn);
+                    }, 
+	                showAgencyRegSuccess: function (caption, text, closeFn) {
+                        helper.baloon.show(caption, text, baloonType.agencyRegSuccess, closeFn);
                     },
                     show: function (caption, text, type, closeFn, data) {
                         //console.log('show', caption, text, type);
@@ -632,12 +636,12 @@
                             var url = $location.host() + '/#' + urlHelper.UrlToAviaTicketsReservation(buyCriteria);
                             self.link = url;
                         }
-                    }
+                    };
 
                     self.hide = function () {
-                        utils.scrollFix(true)
+                        utils.scrollFix(true);
                         self.isShow = false;
-                    }
+                    };
 
                     self.addAggFields = function (item) {
                         if (item != null) {
@@ -700,23 +704,23 @@
                         }
 
                         return item;
-                    }
+                    };
 
                     self.print = function ($event, item) {
                         eventsHelper.preventBubbling($event);
                         alert('Не реализовано');
-                    }
+                    };
 
                     self.isGetLinkOpen = false;
                     self.link = '';
                     self.getLink = function ($event, item) {
                         eventsHelper.preventBubbling($event);
                         self.isGetLinkOpen = !self.isGetLinkOpen;
-                    }
+                    };
                     self.getLinkClose = function ($event) {
                         eventsHelper.preventBubbling($event);
                         self.isGetLinkOpen = false;
-                    }
+                    };
 
                     self.share = function ($event, item) {
                         eventsHelper.preventBubbling($event);
@@ -750,7 +754,7 @@
                                 });
                             });
                         }
-                    }
+                    };
 
                     self.selectedIndex = 0;
                     self.setected = null;
@@ -764,7 +768,7 @@
                             return name.substring(0, 1);
                         }
                         return '';
-                    }
+                    };
 
                     self.tarifClick = function ($event, item) {
                         if ($event) eventsHelper.preventBubbling($event);
@@ -773,7 +777,7 @@
                         if (self.tarifsData != null && self.tarifsData.length > 0) {
                             self.tarifItem = self.tarifsData[index];
                         }
-                    }
+                    };
                     self.setStyle = function () {
                         if (window.partners && window.partners.parentScrollTop > 0) {
                             self.popupStyles = { 'top': window.partners.parentScrollTop + 20 + 'px' };//100px сверху
@@ -781,7 +785,7 @@
                         else {
                             self.popupStyles = null;
                         }
-                    }
+                    };
 
                     self.show = function ($event) {
                         if ($event) eventsHelper.preventBubbling($event);
@@ -799,7 +803,7 @@
                         }
                         self.isOpened = true;
                         self.setStyle();
-                    }
+                    };
                     self.close = function ($event) {
                         if ($event) eventsHelper.preventBubbling($event);
                         utils.scrollFix(true);
@@ -827,15 +831,13 @@
                         if (hotel.Amenities != null) {
                             self.extra = hotel.Amenities.Amenity_3;
                         }
-                    }
-
-
+                    };
 
                     self.show = function ($event) {
                         eventsHelper.preventBubbling($event);
                         utils.scrollFix();
                         self.isOpened = true;
-                    }
+                    };
                     self.close = function ($event) {
                         eventsHelper.preventBubbling($event);
                         utils.scrollFix(true);

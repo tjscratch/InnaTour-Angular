@@ -25,7 +25,8 @@ angular.module('innaApp.directives')
         'FilterStars',
         'FilterTaFactor',
         'FilterType',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, $timeout, FilterPanel, FilterExtra, FilterPrice, FilterName, FilterStars, FilterTaFactor, FilterType) {
+        'FilterMeal',
+        function (EventManager, $filter, $templateCache, $routeParams, Events, $timeout, FilterPanel, FilterExtra, FilterPrice, FilterName, FilterStars, FilterTaFactor, FilterType, FilterMeal) {
 
             return {
                 scope: {
@@ -52,7 +53,8 @@ angular.module('innaApp.directives')
                             'FilterName': FilterName,
                             'FilterStars': FilterStars,
                             'FilterTaFactor': FilterTaFactor,
-                            'FilterType': FilterType
+                            'FilterType': FilterType,
+                            'FilterMeal': FilterMeal
                         },
                         asMap: function (param) {
                             if (param) {

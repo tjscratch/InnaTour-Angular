@@ -5,42 +5,44 @@
     <meta name='yandex-verification' content='40fd92efcc007a47'/>
     <!--<meta name="viewport" content="initial-scale=1, user-scalable=yes">-->
     <meta name="viewport" content="width=980">
-    <title ng-bind="title">Инна-Тур - Главная</title>
 
-    <base href="/" />
+    <!-- Данные партнеров -->
+    {{> partners/title_fav}}
+
+    <base href="/"/>
 
     <!--[if lte IE 9]>
-	<script>
-		var loc = document.location;
-		//если нет #
-		if ((loc.href.indexOf(loc.hostname + '/#') === -1) && loc.pathname.length > 1) {
-			var host = loc.protocol + '//' + loc.hostname;
-			var indexStart = loc.href.indexOf(host) + host.length;
-			var path = loc.href.substring(indexStart);
-			loc.href = loc.protocol + '//' + loc.hostname + '/#' + path;
-		}
-	</script>
+    <script>
+        var loc = document.location;
+        //если нет #
+        if ((loc.href.indexOf(loc.hostname + '/#') === -1) && loc.pathname.length > 1) {
+            var host = loc.protocol + '//' + loc.hostname;
+            var indexStart = loc.href.indexOf(host) + host.length;
+            var path = loc.href.substring(indexStart);
+            loc.href = loc.protocol + '//' + loc.hostname + '/#' + path;
+        }
+    </script>
     <![endif]-->
 
     <!--[if lt IE 9]>
-	<script>
-		document.createElement('ng-include');
-		document.createElement('ng-pluralize');
-		document.createElement('ng-view');
-		document.createElement('ng-value');
-		document.createElement('ng-model');
+    <script>
+        document.createElement('ng-include');
+        document.createElement('ng-pluralize');
+        document.createElement('ng-view');
+        document.createElement('ng-value');
+        document.createElement('ng-model');
 
-		// Optionally these for CSS
-		document.createElement('ng:include');
-		document.createElement('ng:pluralize');
-		document.createElement('ng:view');
-		document.createElement('ng:any');
-	</script>
+        // Optionally these for CSS
+        document.createElement('ng:include');
+        document.createElement('ng:pluralize');
+        document.createElement('ng:view');
+        document.createElement('ng:any');
+    </script>
     <![endif]-->
 
-
-    <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/spa/lib/jquery-ui/jquery-ui.1.11.2.min.css"/>
+
+    <!--<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>-->
 
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css"/>
 
@@ -49,15 +51,15 @@
     <!-- endbuild -->
 
     <!--[if lt IE 9]>
-	<link rel="stylesheet" href="/build/css/ie.min.css"/>
+    <link rel="stylesheet" href="/build/css/ie.min.css"/>
     <![endif]-->
 
     <!--[if lt IE 10]>
-	<style type="text/css">
-		.spinner * {
-			display: none;
-		}
-	</style>
+    <style type="text/css">
+        .spinner *{
+            display: none;
+        }
+    </style>
     <![endif]-->
 
 
@@ -82,24 +84,38 @@
         }
     </script>
 
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    <!-- Подключение партнеров -->
+    {{> partners/data}}
+    <script id="partners-css-inject" src="spa/js/partners/partners.js"></script>
 
-        ga('create', 'UA-32173758-1', 'inna.ru');
-        ga('require', 'displayfeatures');
-        ga('send', 'pageview');
+    <!--a/b тесты-->
+    <script src="//cdn.optimizely.com/js/2018230704.js"></script>
+    <script type="text/javascript">
+        function hashHandler(){
+            this.oldHash = window.location.hash;
+            this.Check;
 
+            /* Activate experiments when the page first loads: */
+            window["optimizely"] = window["optimizely"] || [];
+            window["optimizely"].push["activate"]
+
+            var that = this;
+            var detect = function(){
+                if(that.oldHash!=window.location.hash){
+                    that.oldHash = window.location.hash;
+                    window.optimizely = window.optimizely || [];
+                    window.optimizely.push(["activate"]);
+                }
+            };
+            this.Check = setInterval(function(){ detect() }, 50);
+        }
+
+        var hashDetection = new hashHandler();
     </script>
+    <!--a/b тесты-->
+
+    <!-- Подключение аналитики -->
+    {{> partners/ga}}
 
 
     <!-- start Mixpanel -->
@@ -145,40 +161,9 @@
     mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>
     <!-- end Mixpanel -->
 
-    <!-- Подключение стилей партнеров -->
-    <script id="partners-css-inject" src="spa/js/partners/partners.js"></script>
-
-
-    <!--Start of Zopim Live Chat Script-->
-    <script type="text/javascript">
-        if (window.partners && !window.partners.isWL()) {
-            window.$zopim || (function (d, s) {
-                var z = $zopim = function (c) {
-                    z._.push(c)
-                }, $ = z.s =
-                        d.createElement(s), e = d.getElementsByTagName(s)[0];
-                z.set = function (o) {
-                    z.set.
-                            _.push(o)
-                };
-                z._ = [];
-                z.set._ = [];
-                $.async = !0;
-                $.setAttribute('charset', 'utf-8');
-                $.src = '//v2.zopim.com/?2aZ00ADGa92tSwVaDs8vM1JiY6wPNdZN';
-                z.t = +new Date;
-                $.
-                        type = 'text/javascript';
-                e.parentNode.insertBefore($, e)
-            })(document, 'script');
-        }
-    </script>
-    <!--End of Zopim Live Chat Script-->
-
-
 </head>
 <body class="light-theme"
-      ng-class="{'body-bg':isBodyBg(), 'search-form-expanded': FormExpand}"
+      ng-class="{'body-bg':isBodyBg(), 'search-form-expanded': FormExpand, 'transfer-bg':isTransferBg()}"
       ng-click="bodyClick()"
       popup-form
       ng-style="BodyStyleGlobal">
@@ -197,83 +182,15 @@
     <!-- HEADER -->
 
     <div class="header Header" ng-controller="RegionHeader" ng-class="{'header_shadow' : shadow}">
-        <!--ng-if="isHeadVisible"-->
-        <div class="header-info">
-            <div class="scroll-fix">
-                <div class="header-info-container row">
-
-                    <div class="col-xs-6 col-no-padding">
-                        <a href="/#/" class="header-info-logo">
-                            <i class="icon icon-logo js-company-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
-                            <i class="icon icon-logo-inna name partners-hide" alt="ИННА ТУР" title="ИННА ТУР"></i>
-                        </a>
-                        <span class="header-text"></span>
-                    </div>
-                    <div class="col-xs-6 header-info-container-right col-no-padding">
-                        <ul class="header-info-menu">
-                            <li class="header-info-menu-item js-company-phone-head" ng-if="!user.isAgency()">+7&nbsp;495 742-1212</li>
-                            <!-- user comes from $rootScope -->
-                            <li class="header-info-menu-item" ng-if="user.isAgency()" ng-cloak>{{user.raw.SupportPhone}}</li>
-
-                            <li class="header-info-menu-item partners-first">
-                                <a class="color-white js-company-about" href="/#/about/">О компании</a>
-                            </li>
-                            <li class="header-info-menu-item partners-hide">
-                                <a class="color-white"
-                                   href="http://book.inna.ru/?ch=newsite&utm_source=agency&utm_medium=link&utm_campaign=bookinna">Агентствам</a>
-                            </li>
-                            <li class="header-info-menu-item partners-hide">
-                                <a class="color-white" href="http://www.inna.ru/catalog/guide/">Старый сайт</a>
-                            </li>
-                            <li class="header-info-menu-item header-info-menu-item__help">
-                                <a href="/#/help" class="header-info-menu-item__help_block" title="Помощь">
-                                    <i class="header-info-menu-item__help_block_icon" title="Помощь" alt="Помощь"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="header-menu hg-hide" ng-show="isHeaderVisible" ng-style="SearchFormExpandPadding">
-            <div class="scroll-fix">
-                <div class="main__center">
-                    <div class="header__container">
-                        <ul class="header__nav">
-                            <li>
-                                <a href="/#/"
-                                   ng-class="{active:isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">Перелет&nbsp;+&nbsp;Отель</a>
-                            </li>
-                            <li class="partners-hide"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
-                            <!--<li class="partners-hide"><a href="/#{{urls.URL_TOURS}}" ng-class="{active:isActive(urls.URL_TOURS)}">Туры</a>
-                            </li>-->
-                            <li class="partners-hide">
-                            								<a href="//inna.ru/catalog/visa/">Визы</a>
-                            							</li>
-                            <li class="partners-hide"><a href="/#/individualtours/"
-                                                         ng-class="{active:isActive('/individualtours/')}">Программы</a>
-                            </li>
-                            <!--<li><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru"
-                                   target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li>-->
-                            <!--
-<li class="partners-hide catalog-guide"><a href="/catalog/guide/" ng-class="{active:isActive('/guide/')}">Каталог стран</a></li>
--->
-                        </ul>
-
-                        <ng:include src="'auth/header.html'"></ng:include>
-                    </div>
-
-                    <ng:include src="getHeadForm()"></ng:include>
-                </div>
-            </div>
-        </div>
+        <ng:include src="headerTemplateSrc"></ng:include>
     </div>
     <!-- \\ HEADER -->
 
+
     <!-- PAGE CONTENT -->
     <div class="wrpr"
-         ng-class="{'reserve':isActive('/avia/reservation/') || isActive('/packages/reservation/')}"
+         ng-class="{'reserve':isActive('/avia/reservation/') || isActive('/packages/reservation/'),
+         'b-main-page':isActive('/')}"
          ng-style="isFooterHiddenWrprStyle">
         <ng:view></ng:view>
     </div>
@@ -282,83 +199,15 @@
 
 <!-- FOOTER -->
 <div class="footer" ng-controller="RegionFooter" ng-show="isFooterVisible">
-    <div class="scroll-fix">
-        <div class="footer-content main__center">
-            <div class="footer-menu">
-                <ul class="footer-menu-links-list">
-                    <li class="footer-menu-links-list-item"><a class="js-company-about" href="/#/about/">О компании</a></li>
-                    <li class="footer-menu-links-list-item partners-hide"><a href="http://www.inna.ru/corporate/">Корпоративным
-                        клиентам</a></li>
-                    <li class="footer-menu-links-list-item"><a class="js-company-contacts" href="/#/contacts/">Контакты</a></li>
-                    <li class="footer-menu-links-list-item partners-hide"><a href="http://www.inna.ru/agency/">Агентствам</a></li>
-                    <li class="footer-menu-links-list-item partners-hide"><a href="http://www.inna.ru/catalog/guide/">Каталог
-                        стран</a>
-                    </li>
-                    <li class="footer-menu-links-list-item partners-hide"><a href="http://www.inna.ru/client/abc/">Полезная
-                        информация</a>
-                    </li>
-                </ul>
-                <div class="footer-menu-info">
-                    <ul class="social-list partners-hide">
-                        <li class="social-list-item">
-                            <a href="https://vk.com/innatour_official" target="_blank"><i
-                                    class="icon icon-vkontakte"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="http://odnoklassniki.ru/innatour" target="_blank"><i
-                                    class="icon icon-odnoklassniki"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="https://www.facebook.com/INNATOURCOMPANY" target="_blank"><i
-                                    class="icon icon-facebook"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="https://twitter.com/inna_tour" target="_blank"><i
-                                    class="icon icon-twitter"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="http://www.pinterest.com/innatour/" target="_blank"><i
-                                    class="icon icon-pinterest"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="http://www.youtube.com/user/InnaTourMos/featured" target="_blank"><i
-                                    class="icon icon-youtube"></i></a>
-                        </li>
-                    </ul>
-                    <p class="phone-info partners-hide">многоканальный телефон</p>
-
-                    <p class="phone partners-hide js-company-phone">+7&nbsp;495 742-1212</p>
-                </div>
-            </div>
-            <div class="footer-copyright">
-                <p class="info info-left partners-hide">ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный
-                    комплекс
-                    туристических услуг.
-                    Туры в Великобританию, Францию, Италию, Швейцарию, Барбадос, Вьетнам, Доминикану, Индонезию,
-                    Камбоджу,
-                    Кубу, Мексику, Тайланд, Филиппины, Ямайку, ОАЭ и др. - всего более 40 направлений по всему миру.
-                </p>
-
-                <p class="info pull-right partners-hide">
-                    &copy;&nbsp;1992&ndash;2014 &laquo;ИННА ТУР&raquo;, все права защищены.<br>
-                <span class="licence">Реестр туроператоров <a
-                        href="http://reestr.russiatourism.ru/?ac=view&id_reestr=8893" target="_blank">МТ3
-                    008557</a></span>
-                </p>
-            </div>
-            <div class="footer-tripadvisor">
-                Теперь с отзывами об отелях от <span class="icon-sprite-tripadvisor-white"></span>
-            </div>
-        </div>
-    </div>
+    <ng:include src="footerTemplateSrc"></ng:include>
 </div>
 <!-- \\ FOOTER -->
-    
+
 <ng:include src="'popup/mainform.html'"></ng:include>
 
 <!-- Baloon -->
 <div baloon is-show="baloon.isVisible" caption="baloon.caption" text="baloon.text" type="baloon.type"
-     close-fn="baloon.closeFn" data="baloon.data"></div>y
+     close-fn="baloon.closeFn" data="baloon.data"></div>
 <!-- /Baloon -->
 
 <script type="text/javascript">
@@ -394,7 +243,6 @@
 <![endif]-->
 
 
-
 <!-- build:app-config-js -->
 <script src="/build/js/config.js"></script>
 <!-- endbuild -->
@@ -413,17 +261,23 @@
 
 <!-- endbuild -->
 
+
+<!--excel-->
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.full.min.js"></script>-->
+
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function (d, w, c) {
         (w[c] = w[c] || []).push(function () {
             try {
-                w.yaCounter12702715 = new Ya.Metrika({id: 12702715,
+                w.yaCounter12702715 = new Ya.Metrika({
+                    id: 12702715,
                     webvisor: true,
                     clickmap: true,
                     trackLinks: true,
                     accurateTrackBounce: true,
-                    trackHash: true});
+                    trackHash: true
+                });
             } catch (e) {
             }
         });
@@ -469,6 +323,48 @@
     </div>
 </noscript>
 
+
+<!--<link rel="stylesheet" href="//cdn.callbackhunter.com/widget/tracker.css">-->
+<!--<script type="text/javascript" src="//cdn.callbackhunter.com/widget/tracker.js" charset="UTF-8"></script>-->
+<!--<script type="text/javascript">var hunter_code = "7b1047f88bd5bb333c82e7c0592abd87";</script>-->
+
+
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+    if (window.partners && !window.partners.isWL()) {
+        var ua = navigator.userAgent.toLowerCase();
+        var platform = navigator.platform.toLowerCase();
+        var platformName = ua.match(/ip(?:ad|od|hone)/) ? 'ios' : (ua.match(/(?:webos|android)/) || platform.match(/mac|win|linux/) || ['other'])[0];
+        var isMobile = /ios|android|webos/.test(platformName);
+        if (!isMobile) {
+            window.$zopim || (function (d, s) {
+                var z = $zopim = function (c) {
+                    z._.push(c)
+                }, $ = z.s =
+                        d.createElement(s), e = d.getElementsByTagName(s)[0];
+                z.set = function (o) {
+                    z.set.
+                            _.push(o)
+                };
+                z._ = [];
+                z.set._ = [];
+                $.async = !0;
+                $.setAttribute('charset', 'utf-8');
+                $.src = '//v2.zopim.com/?2aZ00ADGa92tSwVaDs8vM1JiY6wPNdZN';
+                z.t = +new Date;
+                $.
+                        type = 'text/javascript';
+                e.parentNode.insertBefore($, e)
+                $.onload = function () {
+                    document.querySelector(".zopim").style.width = "145px"
+                }
+            })(document, 'script');
+        }
+    }
+</script>
+<!--End of Zopim Live Chat Script-->
+
+
 <!--
 <script type="text/javascript">
     if (!partners.isFullWL()) {
@@ -488,37 +384,10 @@
         href="http://innatour.reformal.ru">Oтзывы и предложения для ИННА ТУР</a></noscript>
 -->
 
-<!-- Start Visual Website Optimizer Synchronous Code -->
-<script type='text/javascript'>
-    var _vis_opt_account_id = 88938;
-    var _vis_opt_protocol = (('https:' == document.location.protocol) ? 'https://' : 'http://');
-    document.write('<s' + 'cript src="' + _vis_opt_protocol +
-    'dev.visualwebsiteoptimizer.com/deploy/js_visitor_settings.php?v=1&a=' + _vis_opt_account_id + '&url='
-    + encodeURIComponent(document.URL) + '&random=' + Math.random() + '" type="text/javascript">' + '<\/s' + 'cript>');
-</script>
-
-<script type='text/javascript'>
-    if (typeof(_vis_opt_settings_loaded) == "boolean") {
-        document.write('<s' + 'cript src="' + _vis_opt_protocol +
-        'd5phz18u4wuww.cloudfront.net/vis_opt.js" type="text/javascript">' + '<\/s' + 'cript>');
-    }
-    // if your site already has jQuery 1.4.2, replace vis_opt.js with vis_opt_no_jquery.js above
-</script>
-
-<script type='text/javascript'>
-    if (typeof(_vis_opt_settings_loaded) == "boolean" && typeof(_vis_opt_top_initialize) == "function") {
-        _vis_opt_top_initialize();
-        vwo_$(document).ready(function () {
-            _vis_opt_bottom_initialize();
-        });
-    }
-</script>
-<!-- End Visual Website Optimizer Synchronous Code -->
-
-<script type="text/javascript" src="//assets.zendesk.com/external/zenbox/v2.6/zenbox.js"></script>
-<style type="text/css" media="screen, projection">
-    @import url(//assets.zendesk.com/external/zenbox/v2.6/zenbox.css);
-</style>
+<!--<script type="text/javascript" src="//assets.zendesk.com/external/zenbox/v2.6/zenbox.js"></script>-->
+<!--<style type="text/css" media="screen, projection">-->
+<!--@import url(//assets.zendesk.com/external/zenbox/v2.6/zenbox.css);-->
+<!--</style>-->
 <!--<script type="text/javascript">
   if (typeof(Zenbox) !== "undefined") {
     Zenbox.init({
@@ -531,5 +400,20 @@
     });
   }
 </script>-->
+
+
+
+
+{{#unless partner }}
+<!-- BEGIN CLICKTEX CODE
+{literal}
+-->
+	<script type="text/javascript" charset="utf-8" async="async" src="//www.clicktex.ru/code/6491"></script>
+<!--
+{/literal}
+END CLICKTEX CODE -->
+{{/unless}}
+
+
 </body>
 </html>

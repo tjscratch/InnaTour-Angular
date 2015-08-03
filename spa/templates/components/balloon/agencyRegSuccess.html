@@ -1,0 +1,8 @@
+<div class="balloon popup" ng-if="(type == baloonType.agencyRegSuccess)" ng-style="popupStyles">
+	<div class="icon-sprite-agency-reg-form-success"></div>
+	<div class="balloon-title" ng-bind-html="caption | breakFilter" ng-if="caption != null && caption.length > 0"></div>
+	<p class="balloon-info" ng-bind-html="text | breakFilter" ng-if="text != null && text.length > 0"></p>
+	<div class="balloon-actions">
+		<a href="#" style="width: 100px;" class="button balloon-button" ng-click="agencyRegSuccessRedirectHome($event)">OK</a>
+	</div>
+</div>

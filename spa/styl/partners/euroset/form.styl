@@ -306,13 +306,20 @@
             position: absolute;
             z-index 1000;
             left: 0 !important;
-            top: - $form-input-height - 3 !important;
+            top: auto !important;
+            bottom: - $form-input-height - 11 !important;
             margin-left: 0 !important;
             height $form-input-height
             line-height $form-input-height
             background: linear-gradient(bottom, $error-tooltip-bg-3, 60% $error-tooltip-bg-2, $error-tooltip-bg-1) !important
             border-radius $border-radius-2
             box-shadow none
+            
+            
+            &.ui-tooltip-date-back{
+                left 164px !important
+            }
+            
             
             &:before{
                 left 20px

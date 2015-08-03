@@ -35,6 +35,7 @@ angular.module('innaApp.components').
                             if (!this.get('sortValue')) {
                                 this.set({
                                     'value.val': [],
+                                    'value.label': [],
                                     'hasSelected': false
                                 });
 

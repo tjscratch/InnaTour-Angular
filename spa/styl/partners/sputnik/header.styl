@@ -1,0 +1,176 @@
+.partner-wl {
+    /*header*/
+    .header-info {
+        padding 10px 0;
+        background-color #fff;
+    }
+
+    .header-info-logo {
+        float left;
+    }
+
+    .header-info-container {
+        line-height inherit;
+
+        color: $color;
+
+        font-family: Roboto;
+        font-size: 16px;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: 300;
+    }
+
+    .b-head-text-container {
+        /*position absolute;*/
+        /*top: 18px;*/
+        /*left: 100px;*/
+        margin-top 18px;
+
+        div {
+            display inline-block;
+        }
+
+        .b-select-city {
+            display: inline-block;
+            position relative;
+            cursor: pointer;
+
+            .arrow {
+                display: inline-block;
+                width: 14px;
+                height: 14px;
+                margin-left: 6px;
+                margin-bottom: -2px;
+                background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjY2OTlGRjVERTI4QjExRTRCOUM3RjZGRjkwM0MyRDJGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjY2OTlGRjVFRTI4QjExRTRCOUM3RjZGRjkwM0MyRDJGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NjY5OUZGNUJFMjhCMTFFNEI5QzdGNkZGOTAzQzJEMkYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NjY5OUZGNUNFMjhCMTFFNEI5QzdGNkZGOTAzQzJEMkYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4BmmqqAAABX0lEQVR42oSSzytEURTH73vjD7CkBvnNYEPjX7BSPAvKRg01r8TKAtnYyFLRU1JWSvEyCwtLYic2ijSxoaYmFhI2fnzO6zzzRtPMrc959577/d57373HMtHm+rZEGIMEWHAD++AZz/kMpXbENE48hU6Yh1ZohjmogzM0qVBuqWmKuAqDrHpuSjXX7yMewQqatdB4SUyRuDLlmuu3EzPQH2OQpvONactUahd7zyY5GqfXHV7Ghq7YA8sldlqEpI625XRibIM7TX7ALKJMxLRLnIZ3zTxCvEov6CdIeU4WodzgE185+isMQBdzueghZMcstPxlPEfEtfqWE8GzFJtqICfGTUgX/ZPnvBHroYP+y78/lsV2LI4Uo3MNw4huKzxHA/FedrURfwXlZMwJE71lTImgeoxZwJO3IhOT+jTHcKAry6U1whAswQym9ULJFczVah6BJp1/gEMt8nwo/RVgAHqLZNFENjxBAAAAAElFTkSuQmCC');
+            }
+        }
+
+        .b-office {
+            position relative;
+            margin-left 40px;
+            border-bottom: 1px dotted $color;
+            cursor pointer;
+
+            &.open {
+                color: $hoverColor;
+                border-bottom: 1px dotted $hoverColor;
+
+                .b-office__dropdown {
+                    display block;
+                }
+            }
+
+            &:hover {
+                color: $hoverColor
+                border-bottom: 1px dotted $hoverColor;
+            }
+
+            &__dropdown {
+                display none;
+                position: absolute;
+                z-index: 9999;
+                width: 294px;
+                padding: 20px 13px 0;
+                left: -15px;
+                top: 125%;
+                height: 190px;
+                border-left: 1px solid rgba(242, 242, 242, 0.8);
+                border-right: 1px solid rgba(242, 242, 242, 0.8);
+                background: #fff;
+                overflow-x: hidden;
+                overflow-y: auto;
+                box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
+            }
+
+            &__dropdown-item {
+                font-size: 16px;
+                font-weight: 300;
+                color: #333;
+                line-height: 24px;
+                border-top: 1px solid #ebebeb;
+                padding: 15px 0;
+                width: 94%;
+
+                &:first-child {
+                    border-top: 0;
+                    padding-top: 0;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: $color;
+                    font-weight: 400;
+                    display: block;
+
+                    &:hover {
+                        color: $hoverColor;
+                    }
+                }
+            }
+        }
+
+        .b-phone {
+            position relative;
+            /*margin-left 40px;*/
+            margin-left 140px;
+            color: #323232;
+
+            .txt {
+                position absolute;
+                top: 0;
+                width: 80px;
+                line-height: 0;
+                color: #8f8f8f;
+
+                span {
+                    display: inline-block;
+                    font: 100 11px / 12px 'Roboto';
+                }
+
+                .i {
+                    color: #323232;
+                    font: 700 10px / 12px 'Roboto';
+                    text-transform: uppercase;
+                }
+            }
+
+            .num {
+                margin-left 80px;
+                font: 500 24px / 24px 'Roboto';
+                color: #333;
+            }
+        }
+
+        .b-nav-menu {
+            margin-top 4px;
+            float right;
+
+            li {
+                float: left;
+                margin: 0 0 0 20px;
+
+                a {
+                    font: 700 12px / 18px 'Roboto';
+                    color: $color;
+                    text-decoration: none;
+                    text-transform: uppercase;
+
+                    &:hover {
+                        color: $hoverColor;
+                    }
+                }
+            }
+        }
+    }
+
+    .header__user-nav-name-text {
+        max-width: 220px;
+    }
+    .icon-logo {
+        width: 77px;
+        height: 65px;
+        background: url(/spa/img/partners/sputnik/sputnik_main_logo.png) no-repeat 0 0;
+        background-size: 77px;
+    }
+}

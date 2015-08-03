@@ -12,6 +12,16 @@ innaAppControllers
         'innaAppApiEvents',
         'aviaHelper',
         function (EventManager, $scope, $element, $location, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
+
+            var partner = window.partners ? window.partners.getPartner() : null;
+            if (partner != null && partner.name == 'sputnik') {
+                $scope.headerTemplateSrc = 'regions/header/templ/header_sputnik.html';
+            }
+            else{
+                $scope.headerTemplateSrc = 'regions/header/templ/header.html';
+            }
+
+
             $scope.$on('$routeChangeStart', function (next, current) {
                 $scope.safeApply(function () {
                     $scope.isHeaderVisible = true;
@@ -88,38 +98,6 @@ innaAppControllers
                 }
             };
 
-            $scope.getTitle = function () {
-
-                var loc = $location.path();
-                var abs = $location.absUrl();
-
-                if (loc == '/') {
-                    return "Главная";
-                } else if (loc.indexOf(appUrls.URL_DYNAMIC_PACKAGES) > -1) {
-                    return "Динамические пакеты";
-                }
-                else if (loc.indexOf(appUrls.URL_AVIA) > -1) {
-                    return "Авиабилеты";
-                }
-                else if (loc.indexOf(appUrls.URL_PROGRAMMS) > -1) {
-                    return "Программы";
-                }
-                else if (loc.indexOf(appUrls.URL_ABOUT) > -1) {
-                    return "О компании";
-                }
-                else if (loc.indexOf(appUrls.URL_CONTACTS) > -1) {
-                    return "Контакты";
-                }
-                else {
-                    return "Главная";
-                }
-            };
-
-            setTitle();
-
-            function setTitle() {
-                $scope.title = "Инна-Тур - " + $scope.getTitle();
-            };
 
             function setShadow (){
                 if ($location.path().indexOf(appUrls.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
@@ -130,7 +108,6 @@ innaAppControllers
             }
 
             $scope.$on('$routeChangeSuccess', function () {
-                setTitle();
                 setShadow();
             });
 
@@ -140,4 +117,4 @@ innaAppControllers
                 $scope.$root.isLoginPopupOpened = true;
             };
 
-        }])
+        }]);

@@ -16,14 +16,14 @@ innaAppDirectives.
                     eventsHelper.preventBubbling($event);
 
                     _.each($scope.list, function (item) { item.checked = false });
-                }
+                };
 
                 $scope.headClicked = false;
                 $scope.toggle = function ($event) {
                     eventsHelper.preventDefault($event);
                     $scope.headClicked = true;
                     $scope.isOpen = !$scope.isOpen;
-                }
+                };
 
                 $scope.anyChecked = function () {
                     if ($scope.list != null) {

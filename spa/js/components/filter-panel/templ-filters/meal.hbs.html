@@ -1,0 +1,36 @@
+{{#if FilterData.List.length > 1}}
+    <li class="filter" on-hover="onHover">
+        <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+             on-click="toggle">
+            Питание
+        </div>
+
+
+        <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
+            <header class="ra-header">
+                <h4 class="ra-title">Тип</h4>
+                <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
+            </header>
+
+            <div class="ra-content">
+                <ul class="ra-fly-type-list">
+					{{#each FilterData.List}}
+                        <li>
+                            <label on-change="onChecked">
+                                <!--<input type="checkbox" name="type" value="{{Value}}" checked="{{this.isChecked}}">-->
+                                <input type="checkbox" name="meal" value="{{Value}}" checked="{{this.isChecked}}">
+                                <span class="ra-checkbox"></span>
+                                <span class="ra-fly-type">{{Name}}</span>
+
+	                        <span class="ra-fly-price">
+		                        <span>{{$filter('price')(Price)}}</span>
+		                        {{>ruble}}
+	                        </span>
+                            </label>
+                        </li>
+					{{/each}}
+                </ul>
+            </div>
+        </div>
+    </li>
+{{/if}}

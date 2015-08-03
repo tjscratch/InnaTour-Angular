@@ -122,6 +122,7 @@ gulp.task('build-directives', function () {
         conf.src + '/directives/**/*.js',
         conf.widgets + '/search/js/directives.js',
         conf.widgets + '/search/js/form.js',
+        conf.widgets + '/search/js/services.js',
         conf.widgets + '/search/js/validation.js'
     ])
         .pipe(concat('angular-directives.js', {insertSourceName: {open: '/*', close: '*/'}}))

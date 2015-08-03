@@ -70,6 +70,7 @@ gulp.task('widget-search-js', ['widget-search-template', 'widget-search-config']
         conf.bower + '/moment/min/moment.min.js',
         conf.bower + '/moment/locale/ru.js',
         conf.widgets + '/search/js/app.js',
+        conf.widgets + '/search/js/services.js',
         conf.widgets + '/search/js/directives.js',
         conf.src + '/directives/directive.datepicker.date_format.js',
         conf.widgets + '/search/js/form.js',

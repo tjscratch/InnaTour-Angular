@@ -1,0 +1,92 @@
+.partner-wl {
+    /*форма на главной авиа*/
+    #about {
+        width: 960px;
+        margin: 0 auto;
+        text-align: center;
+        border-bottom: 1px solid #ebebeb;
+        padding: 30px 0;
+    }
+
+    #about li {
+        display: inline-block;
+        width: 250px;
+        margin: 0 25px 0 0;
+        padding: 10px 0 0 86px;
+        font: 300 16px / 24px 'Roboto';
+        color: #333;
+        background: url(/spa/img/partners/sputnik/ic.png) no-repeat 0 0;
+        height: 60px;
+        text-align: left;
+        vertical-align: top;
+
+        &:first-child {
+            width: 170px;
+        }
+    }
+
+    #about li + li {
+        background-position: 0 -120px;
+    }
+
+    #about li + li + li {
+        width 200px;
+        background-position: 0 bottom;
+    }
+
+    /*результаты контент*/
+    .results__body_mod_avia {
+        padding-top: 162px;
+    }
+
+    .results-container.results-container_top {
+        padding: 10px 0 0;
+    }
+
+    .filters__body_position_fixed {
+        top: 178px;
+
+        .results-container.results-container_top {
+            padding: 140px 0 0;
+        }
+    }
+
+    /*кнопка купить*/
+    .b-result .button {
+        btx-button1();
+    }
+
+    /*фильтры*/
+    .filters__body .filters__baloon-radio input:checked + .ra-radio {
+        background: $color2;
+    }
+
+    /*мы рекомундуем*/
+    .rl-rec:before {
+        background: url("/spa/img/partners/sputnik/mini-logo.png") no-repeat;
+        /*width: 49px;*/
+        /*height: 20px;*/
+        width: 44px;
+        height: 37px;
+    }
+
+    /*бордер на карточке*/
+    .b-result__cell {
+        &:before {
+            content: '';
+            height: 100%;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            z-index: -1;
+            box-shadow: none;
+            outline: 1px #d7d7d5 solid;
+        }
+
+        &:after {
+            box-shadow: none;
+            outline: 1px #d7d7d5 solid;
+        }
+    }
+}

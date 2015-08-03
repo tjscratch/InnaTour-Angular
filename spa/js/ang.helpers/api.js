@@ -69,12 +69,16 @@ angular.module('innaApp.API', [])
             AVIA_CHECK_AVAILABILITY: url('/avia/IsActual'),
             PACKAGE_CHECK_AVAILABILITY: url('/Packages/IsPackageAvailable'),
             PACKAGE_RESERVATION: url('/PackagesOrder/Reservation'),
+            RESERVATION_DP_REQUEST: url('/PackagesOrder/CreateDpRequest'),
+            BUY_COMMENT: url('/PackagesOrder/CreateOrderMessage'),
 
             "*_PAGE_CONTENT": url('/Section/Get/'),
 
             HELP_TOPICS: url('/faq/get'),
 
             PARTNERSHIP_GET_COOKIE: url('/Prt/GetPrtId'),
+            
+            PARTNER_CREATE: url('/Agency/Add'),
 
             eof: null
         }
@@ -131,6 +135,7 @@ angular.module('innaApp.API', [])
             AUTH_SIGN_IN: 'inna.Auth.SignIn',
             AUTH_SIGN_OUT: 'inna.Auth.SignOut',
 
+            AUTH_USER_SET: 'inna.Auth.UserSet',
 
             NotificationScrollBar : "NotificationScrollBar",
             NotificationGalleryClose : "NotificationGalleryClose",

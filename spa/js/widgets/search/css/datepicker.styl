@@ -57,7 +57,7 @@ $base-shadow-color = rgba(50, 50, 50, 0.25);
 .datepicker .table-condensed,
 .datepicker table{
     border-collapse inherit
-    
+
     > tbody > tr > td,
     > tbody > tr > td{
         width 30px
@@ -242,4 +242,36 @@ $arrow-left = 12px;
 }
 .datepicker table tfoot{
     display none
+}
+.datepicker-checkboxes{
+    margin 0 -4px 5px
+    padding 0 10px 5px
+    border-bottom 1px solid $border-color-gray
+}
+.datepicker-checkbox{
+    display inline-block
+    font-size 13px
+    cursor pointer
+
+    &:first-child{
+        margin-right 15px
+    }
+
+    &:before{
+        content ''
+        display inline-block
+        width 13px
+        height 13px
+        margin 0 3px 0 0
+        vertical-align middle
+        border 2px solid $color-green
+        border-radius 2px
+        background $fff
+    }
+
+    &.checked{
+        &:before{
+            background $color-green url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAALCAYAAABLcGxfAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8 + IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MUQ1MUZCNzlGQzlCMTFFNDk2OUY5MjU4NEY1NTI1NzUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MUQ1MUZCN0FGQzlCMTFFNDk2OUY5MjU4NEY1NTI1NzUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxRDUxRkI3N0ZDOUIxMUU0OTY5RjkyNTg0RjU1MjU3NSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxRDUxRkI3OEZDOUIxMUU0OTY5RjkyNTg0RjU1MjU3NSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PtU1/KkAAAB2SURBVHjaYvz//z8DkUAciF8ygDQQgSuB + DUQGxCrGAZ2k6L4HBALwyTkgJiZkGKwf4GEOhA/BeIVSJqwKoZpmIokCdJUg0sxTAMrEK/ + jwkwFMM0wDStQ1MshC0gkDlsQLwBn2IQZkSLaTYg5gbi97iiGyDAACpEbLj + 6eGkAAAAAElFTkSuQmCC") no-repeat center center
+        }
+    }
 }

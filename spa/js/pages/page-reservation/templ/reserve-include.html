@@ -12,8 +12,8 @@
     {{item.CityTo}} – {{item.CityFrom}} и ОТЕЛЬ {{hotel.HotelName}}
     с {{helper.moment(hotel.CheckInDate).format("D MMMM")}}
     по {{helper.moment(hotel.CheckOutDate).format("D MMMM")}}, {{hotel.NightCount}}
-    {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}. Цена окончательная со
-    всеми налогами и сборами
+    {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}<span ng-if="isInsuranceIncluded">, медицинская страховка</span>, топливный сбор. Цена окончательная со
+    всеми налогами и сборами.
 </p>
 
 <div class="main__center">
@@ -109,7 +109,7 @@
 
             <div class="hotel-info">
                 <div class="hotel-info__wrapper">
-                    <img ng-src="{{hotel.HotelPhoto70}}" alt=""><!--
+                    <img class="hotel-info__photo" ng-src="{{hotel.HotelPhoto70}}" alt=""><!--
                         -->
                     <div class="hotel-info-content">
                         <div class="star-container">
@@ -133,7 +133,7 @@
 
             <div class="bottom-actions">
                 <!--<a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>-->
-                <a ng-if="!isBuyPage" ng-href="{{getHotelInfoLink(item.VariantId1, item.VariantId2, hotel.HotelId, hotel.ProviderId)}}" target="_blank" class="pull-right">Подробнее</a>
+                <a link-in-new-window-if-can ng-if="!isBuyPage" ng-href="{{getHotelInfoLink(item.VariantId1, item.VariantId2, hotel.HotelId, hotel.ProviderId)}}" target="_blank" class="pull-right">Подробнее</a>
             </div>
         </div>
     </div>

@@ -10,7 +10,7 @@ innaAppDirectives.
         function ($templateCache, aviaHelper, eventsHelper) {
             return {
                 replace: true,
-                template: $templateCache.get('components/baloon.html'),
+                template: $templateCache.get('components/balloon/balloon.html'),
                 scope: {
                     isShow: '=',
                     caption: '=',
@@ -19,16 +19,33 @@ innaAppDirectives.
                     closeFn: '=',
                     data: '='
                 },
-                controller: function ($scope) {
+                controller: function ($scope, $rootScope) {
                     //$scope.isShow = false;
                     //updateDisplay();
+
+                    setPartnerData($scope);
+
+                    function setPartnerData(data) {
+                        var partner = window.partners ? window.partners.getPartner() : null;
+                        if (partner != null && partner.realType == window.partners.WLType.b2b) {
+                            if (partner.name == 'sputnik') {
+                                data.partnerData = {
+                                    title: partner.title,
+                                    phone: partner.phone,
+                                    skype: partner.skype,
+                                    email: partner.email
+                                }
+
+                            }
+                        }
+                    }
 
                     function updateDisplay() {
                         //console.log('updateDisplay, $scope.isShow: ' + $scope.isShow);
 
                         //позиционирование во фрейме
                         if (window.partners && window.partners.parentScrollTop > 0) {
-                            $scope.popupStyles = { 'top': window.partners.parentScrollTop + 100 + 'px' };//100px сверху
+                            $scope.popupStyles = {'top': window.partners.parentScrollTop + 100 + 'px'};//100px сверху
                         }
                         else {
                             $scope.popupStyles = null;
@@ -101,6 +118,16 @@ innaAppDirectives.
                             $scope.closeFn();
                         }
 
+                        $scope.isShow = false;
+                        updateDisplay();
+                    };
+
+                    $scope.agencyRegSuccessRedirectHome = function ($event) {
+                        $rootScope.$broadcast('open-auth-form');
+                        eventsHelper.preventBubbling($event);
+                        if ($scope.closeFn != null) {
+                            $scope.closeFn();
+                        }
                         $scope.isShow = false;
                         updateDisplay();
                     };

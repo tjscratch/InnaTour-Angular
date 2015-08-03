@@ -32,89 +32,107 @@
  */
 
 
-angular.module('innaApp.components')
-    .directive('dynamicBlock', [
-        'EventManager',
-        'innaAppApiEvents',
-        '$templateCache',
-        '$filter',
-        '$location',
-        function (EventManager, Events, $templateCache, $filter, $location) {
-            return {
-                template: $templateCache.get('components/dynamic-block/templ/base.html'),
-                replace: true,
-                scope: {
-                    recommendedPair: "=",
-                    recommendedPairStatus: "=",
-                    settings: "=",
-                    partials: "=",
-                    moreInfo: "=",
-                    tripadvisor: "="
-                },
-                link: function ($scope, $element, $attr) {
+angular.module('innaApp.components').directive('dynamicBlock', [
+	'EventManager',
+	'innaAppApiEvents',
+	'$templateCache',
+	'$filter',
+	'$location',
+	'$routeParams',
+	'innaApp.Urls',
+	function (EventManager, innaAppApiEvents, $templateCache, $filter, $location, $routeParams, appURLs) {
+		return {
+			template: $templateCache.get('components/dynamic-block/templ/base.html'),
+			replace : true,
+			scope   : {
+				recommendedPair      : "=",
+				recommendedPairStatus: "=",
+				settings             : "=",
+				partials             : "=",
+				moreInfo             : "=",
+				tripadvisor          : "="
+			},
+			link    : function ($scope, $element, $attr) {
 
-                    $scope.hidden = false;
-                    $scope.type = 'hotel';
-                    $scope.isFullWL = (window.partners && window.partners.isFullWL());
+				$scope.hidden = false;
+				$scope.type = 'hotel';
+				$scope.isFullWL = (window.partners && window.partners.isFullWL());
 
-                    $scope.model = {};
-                    $scope.styleProfit = {
-                        "margin-top": ($scope.recommendedPair.getProfit() <= 1000) ? 50 : 0
-                    }
+				$scope.model = {};
+				$scope.styleProfit = {
+					"margin-top": ($scope.recommendedPair.getProfit() <= 1000) ? 50 : 0
+				}
 
-                    var settingsBlock = {
-                        height: 220,
-                        countColumn: 3,
-                        classBlock: false,
-                        classColl3: ''
-                    }
-                    $scope.settingsBlock = angular.extend(settingsBlock, $scope.settings);
-
-
-                    var partialsTemplPath = {
-                        collOneContent : "",
-                        collTwoContent : "",
-                        collThreeContent : "",
-                        ruble : 'components/ruble.html'
-                    }
-                    var partTemplExtend = angular.extend(partialsTemplPath, $scope.partials);
+				var settingsBlock = {
+					height     : 220,
+					countColumn: 3,
+					classBlock : false,
+					classColl3 : ''
+				}
+				$scope.settingsBlock = angular.extend(settingsBlock, $scope.settings);
 
 
-                    $scope.partTempl = {};
-                    $scope.partTempl['ruble'] = 'components/ruble.html';
-                    $scope.partTempl['collOneContent'] = getPartials(partTemplExtend.collOneContent);
-                    $scope.partTempl['collTwoContent'] = getPartials(partTemplExtend.collTwoContent);
-                    $scope.partTempl['collThreeContent'] = getPartials(partTemplExtend.collThreeContent);
-
-                    function getPartials(partName) {
-                        var temp = '';
-                        if (partName) {
-                            temp = 'components/dynamic-block/templ/' + partName + '.html';
-                        }
-                        return temp;
-                    }
+				var partialsTemplPath = {
+					collOneContent  : "",
+					collTwoContent  : "",
+					collThreeContent: "",
+					ruble           : 'components/ruble.html'
+				}
+				var partTemplExtend = angular.extend(partialsTemplPath, $scope.partials);
 
 
-                    $scope.bundleTicketDetails = function (evt) {
-                        evt.stopPropagation();
-                        var ticket = $scope.recommendedPair.ticket;
-                        $scope.$emit(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED,
-                            {ticket: ticket, noChoose: $location.search().displayHotel}
-                        );
-                    };
+				$scope.partTempl = {};
+				$scope.partTempl['ruble'] = 'components/ruble.html';
+				$scope.partTempl['collOneContent'] = getPartials(partTemplExtend.collOneContent);
+				$scope.partTempl['collTwoContent'] = getPartials(partTemplExtend.collTwoContent);
+				$scope.partTempl['collThreeContent'] = getPartials(partTemplExtend.collThreeContent);
 
-                    $scope.$watch('recommendedPair', function (value) {
-                        if (value) {
-                            $scope.AviaInfo = value.ticket ? value.ticket.data : null;
-                            $scope.hotel = value.hotel ? value.hotel.data : null;
-                        }
-                    }, true);
+				function getPartials(partName) {
+					var temp = '';
+					if (partName) {
+						temp = 'components/dynamic-block/templ/' + partName + '.html';
+					}
+					return temp;
+				}
 
-                    $scope.$on('$destroy', function () {
-                        console.log('$destroy dynamicBlock');
-                        $scope.model = null;
-                        $scope.partials = null;
-                    });
-                }
-            }
-        }]);
+
+				$scope.bundleTicketDetails = function (evt) {
+					evt.stopPropagation();
+					var ticket = $scope.recommendedPair.ticket;
+					$scope.$emit(innaAppApiEvents.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED,
+						{ticket: ticket, noChoose: $location.search().displayHotel}
+					);
+				};
+
+				$scope.$watch('recommendedPair', function (value) {
+					if (value) {
+						$scope.AviaInfo = value.ticket ? value.ticket.data : null;
+						$scope.hotel = value.hotel ? value.hotel.data : null;
+					}
+				}, true);
+
+				$scope.$on('$destroy', function () {
+					console.log('$destroy dynamicBlock');
+					$scope.model = null;
+					$scope.partials = null;
+				});
+			},
+			controller: function($scope){
+				$scope.replaceTicket = function () {
+					var replaceTicketUrl = appURLs.URL_DYNAMIC_PACKAGES_SEARCH +
+						[
+							$routeParams.DepartureId,
+							$routeParams.ArrivalId,
+							$routeParams.StartVoyageDate,
+							$routeParams.EndVoyageDate,
+							$routeParams.TicketClass,
+							$routeParams.Adult,
+							$routeParams.Children
+						].join('-');
+					$location.hash('');
+					$location.path(replaceTicketUrl).search({display: 'tickets', ticket: $routeParams.TicketId, hotel: $routeParams.HotelId});
+				};
+			}
+		}
+	}
+]);

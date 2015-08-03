@@ -30,9 +30,8 @@ angular.module('innaApp.components').
                         classColl2: 'result-choice'
                     },
                     showWarning: function () {
-                        return this.showWarning;
+                        return this.showWarning();
                     },
-
                     TimeFormatted : aviaHelper.getFlightTimeFormatted
                 },
                 partials: {
@@ -49,7 +48,8 @@ angular.module('innaApp.components').
 
                     this.set({
                         modelTicket: modelTicket,
-                        modelPrice : modelPrice
+                        modelPrice : modelPrice,
+                        passengerCount: parseInt($routeParams.Adult) + ($routeParams.Children ? $routeParams.Children.split('_').length : 0)
                     });
 
 
@@ -105,19 +105,23 @@ angular.module('innaApp.components').
                 showWarning: function () {
                     var n = parseInt(this.get('NumSeats'));
                     var routParam = angular.copy($routeParams);
-                    var passengerCount = parseInt(routParam.Adult) + (routParam.ChildrenAges ? routParam.ChildrenAges.length : 0);
-
+                    var passengerCount = parseInt(routParam.Adult) + (routParam.Children ? routParam.Children.split('_').length : 0);
+                    
                     if (!n) return false;
-
+                                    
                     switch (passengerCount) {
                         case 1:
-                            return (n < 4);
+                            return (n <= 3);
                         case 2:
-                            return (n < 7);
+                            return (n <= 6);
+                        case 3:
+                            return (n <= 9);
+                        case 4:
+                            return (n <= 9);
                         default:
-                            return (n < 10);
+                            return (n <= 9);
                     }
-
+                
                     return false;
                 },
 

@@ -5,8 +5,7 @@
     <ul class="header__user-nav" ng-if="user">
         <li>
 	        <a href="javascript:void(0);" ng-click="showProfile($event)" class="header__user-nav-name">
-		        <i class="icon-sprite-header-user header__user-nav-name__icon"></i>
-		        {{user.displayName()}}
+		        <i class="icon-sprite-header-user header__user-nav-name__icon"></i><span title="{{user.displayName()}}" class="header__user-nav-name-text">{{user.displayName()}}</span>
 	        </a>
         </li>
         <li ng-if="user.raw.MessagesCount > 0">
@@ -23,7 +22,7 @@
     <ul class="header__user-nav" ng-if="!user">
         <li>
 	        <i class="icon-sprite-key-icon"></i>
-	        <a href="javascript:void(0)" ng-click="regOpenClick()" class="header__user-nav-reg">Регистрация и вход</a>
+	        <a href="javascript:void(0)" ng-click="regOpenClick()" class="header__user-nav-reg">{{ authLinkTitile }}</a>
         </li>
     </ul>
 </div>

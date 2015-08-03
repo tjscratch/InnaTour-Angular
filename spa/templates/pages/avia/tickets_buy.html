@@ -36,16 +36,16 @@
     <header class="buy__header" ng-if="!(hotel != null)">
         <h2 class="buy__title">Информация о покупателе</h2>
     </header>
-    <div>
+    <div class="buy-passanger__block">
         <div class="b-field-group">
             <!--<div class="b-field-block b-field-block-auth" style="width: 388px;">-->
-            <div class="b-field-block" style="width: 388px;">
+            <div class="b-field-block b-field-email">
                 <label class="b-field-label">E-mail</label>
                 <input disabled="disabled" ng-model="reservationModel.Email"
                        data-title="Неправильно введен email" type="text"
                        placeholder="ivan.ivanov@gmail.com" class="b-field-text">
             </div>
-            <div class="b-field-block" style="width: 180px;">
+            <div class="b-field-block b-field-phone">
                 <label class="b-field-label">Мобильный телефон</label>
                 <input disabled="disabled" ng-model="reservationModel.Phone"
                        data-title="Неправильно введен мобильный телефон" name="phone" type="text"
@@ -78,32 +78,32 @@
                     </label></li>
                 </ul>
             </div>
-            <div class="b-field-block" style="width: 160px;">
+            <div class="b-field-block b-field-second-name">
                 <label class="b-field-label">Фамилия</label>
                 <input disabled type="text" ng-model="passenger.secondName" placeholder="IVANOV"
                        class="b-field-text">
             </div>
-            <div class="b-field-block b-field-block-surname" style="width: 150px;">
+            <div class="b-field-block b-field-name b-field-block-surname">
                 <label class="b-field-label">Имя</label>
                 <input disabled type="text" ng-model="passenger.name" placeholder="IVAN" class="b-field-text">
             </div>
-            <div class="b-field-block" style="width: 110px;">
+            <div class="b-field-block b-field-birth">
                 <label class="b-field-label">Дата рождения</label>
                 <input disabled type="text" ng-model="passenger.birthday" placeholder="дд.мм.гггг"
                        class="b-field-text">
             </div>
-            <div class="b-field-block" style="width: 180px;">
+            <div class="b-field-block b-field-sitizenship">
                 <label class="b-field-label">Гражданство</label>
                 <input disabled ng-click="passenger.showCitListClick($event)" type="text"
                        value="{{passenger.citizenship.name}}" placeholder="Выберите"
                        class="b-field-text b-field-select">
 
             </div>
-            <div class="b-field-block" style="width: 110px;">
+            <div class="b-field-block b-field-document">
                 <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
                 <input disabled type="text" ng-model="passenger.doc_series_and_number" class="b-field-text">
             </div>
-            <div class="b-field-block" style="width: 110px;">
+            <div class="b-field-block b-field-expires">
                 <label class="b-field-label b-field-label-docs">Действителен до</label>
                 <input disabled type="text" ng-model="passenger.doc_expirationDate" placeholder="дд.мм.гггг"
                        class="b-field-text">
@@ -111,20 +111,20 @@
         </div>
         <div class="b-field-group b-field-group-passport">
             <div class="b-field-group b-field-group-passport">
-                <div class="b-field-block" style="width: 220px;">
+                <div class="b-field-block b-field-bonus-card">
                     <label class="b-agreement"><input disabled type="checkbox"
                                                       ng-model="passenger.bonuscard.haveBonusCard">
                         <ins class="b-checkbox"></ins>
                         Есть бонусная карта авиакомпании</label>
                 </div>
-                <div class="b-field-block" style="width: 150px;"
+                <div class="b-field-block b-field-bonus-aircompany"
                      ng-show="passenger.bonuscard.haveBonusCard == true">
                     <label class="b-field-label">Авиакомпания</label>
                     <input disabled ng-click="passenger.showCardListClick($event)" type="text"
                            value="{{passenger.bonuscard.airCompany.name}}" class="b-field-text b-field-select"
                            placeholder="Выберите">
                 </div>
-                <div class="b-field-block" style="width: 150px;"
+                <div class="b-field-block b-field-bonus-card-num"
                      ng-show="passenger.bonuscard.haveBonusCard == true">
                     <label class="b-field-label">Номер карты</label>
                     <input disabled type="text" ng-model="passenger.bonuscard.number" class="b-field-text"
@@ -135,14 +135,14 @@
     </fieldset>
 </div>
 
-<div class="b-tickets-info-container">
+<div class="b-tickets-info-container" ng-if="!svyaznoyPayControl.isSvyaznoyPay">
     <div class="b-tickets-ok"
-         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">Билеты
-        забронированы
+         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">
+        <i class="fa fa-check"></i>Билеты забронированы
     </div>
     <div class="b-tickets-ok"
-         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && (hotel != null)">Билеты
-        забронированы, отель будет забронирован после оплаты
+         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && (hotel != null)">
+        <i class="fa fa-check"></i>Билеты забронированы, отель будет забронирован после оплаты
     </div>
     <div class="b-tickets-info-block" ng-if="reservationModel.experationMinute > 0">
         <div class="b-tickets-sum">Сумма к оплате: <b>{{price| price}}
@@ -159,10 +159,45 @@
     </div>
 </div>
 
-<div class="main__center">
-    <div class="b-security">Мы не храним ваши данные у себя, а сразу перенаправляем их в зашифрованном виде,
-        используя платежный шлюз Промсвязьбанка
+<div class="b-tickets-info-container" ng-if="svyaznoyPayControl.isSvyaznoyPay">
+    <div class="b-tickets-info-container__inner-wrap">
+        <div class="b-tickets-ok b-svyaznoy"
+             ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">
+            <i class="fa fa-check"></i>Билеты забронированы
+        </div>
+        <div class="b-tickets-ok b-svyaznoy"
+             ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && (hotel != null)">
+            <i class="fa fa-check"></i>Билеты забронированы, отель будет забронирован после оплаты
+        </div>
+        <div class="b-tickets-info-block b-svyaznoy" ng-if="reservationModel.experationMinute > 0">
+            <ul class="pay-type-select">
+                <li>
+                    <span class="icon-img icon-sprite-pay_type_1"></span>
+                    <input ng-model="svyaznoyPayControl.payType" value="0" id="pay_type_card" type="radio" name="card-pay">
+                    <label for="pay_type_card">
+                        <b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
+                        <span>банковской картой</span></label>
+                </li>
+                <li>
+                    <span class="icon-img icon-sprite-pay_type_2"></span>
+                    <input ng-model="svyaznoyPayControl.payType" value="1" id="pay_type_cache" type="radio" name="card-pay">
+                    <label for="pay_type_cache"><b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
+                        <span>наличными в Связном</span></label>
+                </li>
+            </ul>
+
+
+            <div class="b-tickets-info-svyaznoy">
+                Срок оплаты: <b>{{reservationModel.expirationDateFormatted}}, {{reservationModel.expirationDate | date:'HH:mm'}} (MSK)</b>
+
+                <div class="br"></div>
+                Осталось: <b>{{reservationModel.experationSecondsFormatted}}</b>
+            </div>
+        </div>
     </div>
+</div>
+
+<div class="main__center" ng-if="svyaznoyPayControl.payType == 0">
     <div class="b-cc-container">
         <div class="b-cc-front">
             <img ng-if="visaOrMastercard == null" src="spa/img/cc.png" class="b-cc-type" alt="">
@@ -239,21 +274,52 @@
             </div>
         </div>
     </div>
+
+    <div>
+        <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree">
+            <ins class="b-checkbox" id="agree" data-title="Нужно согласиться с условиями"></ins>
+            Я принимаю условия <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a><span ng-if="!reservationModel.IsService">,
+            <a href="http://www.iatatravelcentre.com/e-ticket-notice/Russian_Federation/Russian/"
+               target="_blank">договора IATA</a>,
+            <a ng-href="{{TKP.url()}}" target="_blank">ТКП</a>,
+            <a ng-href="#" ng-click="tarifs.show($event)">тарифов</a></span>, и не возражаю против обработки моих
+            персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
+    </div>
+
     <div class="b-agreement-container">
         <!--<a ng-href="#" ng-click="fillTestData($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>-->
                 <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить"
                                                                   ng-click="processToBuy($event)"></span>
-        <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree">
-            <ins class="b-checkbox" id="agree" data-title="Нужно согласиться с условиями"></ins>
-            Я принимаю условия <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a>,
-            <a href="http://www.iatatravelcentre.com/e-ticket-notice/Russian_Federation/Russian/"
-               target="_blank">договора IATA</a>,
-            <a ng-href="{{TKP.url()}}" target="_blank">ТКП</a>,
-            <a ng-href="#" ng-click="tarifs.show($event)">тарифов</a>, и не возражаю против обработки моих
-            персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
+
+        <div class="b-security">Мы не храним ваши данные у себя, а сразу перенаправляем их в зашифрованном виде,</br>
+            используя платежный шлюз Промсвязьбанка
+        </div>
+
         <img src="/spa/img/logos.png" class="b-logos" alt="">
     </div>
+    <div class="buy-message-block" ng-if="buyCommentsForm.isEnabled">
+        Если Вы не успеваете оплатить до тайм-лимита или Вы хотите оплатить другим способом,
+        <a href="#" ng-click="buyCommentsForm.openPopup($event)">просто отправьте нам сообщение.</a>
+        </br>Менеджер свяжется с Вами и поможет оформить путешествие.
+    </div>
 </div>
+
+<div id="svyaznoy_print_block" class="main__center b-svyaznoy" ng-if="svyaznoyPayControl.payType == 1">
+    <div class="icon-sprite-svyaznoy_logo"></div>
+
+    <p class="b-order-num"><b>Номер заказа {{svyaznoyPayControl.orderNum}}</b></p>
+
+    <p>Вы можете оплатить этот заказ наличными в любом офисе Связного.
+        (<a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>)
+    <br/>Обратитесь к менеджеру и назовите номер заказа.</p>
+
+    <p>Рекомендуем оплачивать заказ в салоне в ближайшее время после бронирования, поскольку авиакомпании
+    <br/>оставляют за собой право изменять время на оплату.</p>
+
+    <a href="/spa/print/?order={{svyaznoyPayControl.orderNum}}" target="_blank"><div class="b-print-btn icon-sprite-btn-print">
+    </div></a>
+</div>
+
 </form>
 </div>
 <!-- Search Results -->
@@ -359,3 +425,28 @@
     </div>
 </div>
 <!-- /Baloon -->
+
+
+<!--popup form-->
+<div class="overlay js-overlay" ng-if="buyCommentsForm.isOpened">
+    <div class="scroll-fix">
+        <div class="balloon balloon_ticket" ng-style="buyCommentsForm.style">
+            <div title="Закрыть" class="balloon-close" ng-click="buyCommentsForm.close($event)">
+                <i class="icon-sprite-remove-big"></i>
+            </div>
+                <div class="buy-comment-title">Комментарий к заказу</div>
+
+                <div class="but-comment-text-block">
+                    <form name="buyCommentsForm.form" ng-submit="buyCommentsForm.send($event)">
+                        <div class="buy-comment-text-lbl">Текст сообщения</div>
+                        <textarea data-required name="reqComments" ng-class="{'error':buyCommentsForm.form.$dirty && buyCommentsForm.form.reqComments.$invalid}" class="buy-comment-text" ng-model="buyCommentsForm.comments">
+                        {{buyCommentsForm.comments | breakFilter}}
+                        </textarea>
+                        <div ng-show="buyCommentsForm.form.$dirty && buyCommentsForm.form.reqComments.$invalid" class="buy-comment-text__error">Нужно ввести текст сообщения</div>
+
+                        <button type="submit" class="button buy-comment-submit">Отправить</button>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>

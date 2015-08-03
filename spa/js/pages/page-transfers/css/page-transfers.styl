@@ -1,0 +1,107 @@
+.transfer-bg {
+    background-color #fff;
+}
+
+.layout-transfers {
+    background-color #fff;
+    padding-bottom: 20px;
+}
+
+.results-body-transfer {
+    padding-top: 120px;
+}
+
+.b-tabs {
+    border-bottom: 1px solid #ddd;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+
+    &:before {
+        display: table;
+        content: " ";
+    }
+
+    &:after {
+        clear: both
+        display: table;
+        content: " ";
+    }
+
+    &>li {
+        position: relative;
+        display: block;
+        float: left;
+        margin-bottom: -1px;
+
+        &.active > a {
+            color: #020303;
+            cursor: default;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-bottom-color: transparent;
+        }
+
+        &>a {
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+            margin-right: 2px;
+            line-height: 1.42857143;
+            border: 1px solid transparent;
+            border-radius: 4px 4px 0 0;
+            color: #5d88c6;
+            text-decoration: none;
+        }
+    }
+}
+
+.b-table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    padding: 0 15px;
+    background-color: transparent;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+
+    &>thead>tr>th {
+        vertical-align: bottom;
+        border-right: 1px solid #ddd;
+        padding: 8px;
+        line-height: 1.42857143;
+        text-align: left;
+
+        &:last-of-type {
+            border-right: none;
+        }
+    }
+
+    &>tbody>tr {
+        &:nth-of-type(odd) {
+            background-color: #f9f9fa;
+        }
+    }
+
+    &>tbody>tr>td {
+        position: relative;
+        padding: 8px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+
+        &:last-of-type {
+            border-right: none;
+        }
+    }
+}
+
+.b-tabs-block {
+    margin 10px 0 20px 0;
+}
+
+.b-transfer-text {
+    margin-bottom: 20px;
+}

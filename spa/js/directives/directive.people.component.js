@@ -17,7 +17,7 @@
 
                 $scope.getPeopleCount = function () {
                     return parseInt($scope.adultCount, 10) + parseInt($scope.childCount, 10) + parseInt($scope.infantsCount, 10);
-                }
+                };
 
                 $scope.preventBubbling = eventsHelper.preventBubbling;
 

@@ -18,9 +18,10 @@
             </span>
 		</p>
 
-		<h3 ng-if="room.RoomAmenities">Услуги</h3>
+		
+		<h3 ng-if="room.RoomAmenities.length > 0">Услуги</h3>
 
-		<p ng-if="room.RoomAmenities">
+		<p ng-if="room.RoomAmenities.length > 0">
             <span ng-repeat="am in room.RoomAmenities">
                 {{am.Name | trim}}<span ng-if="!$last">,&nbsp;</span><span ng-if="$last">.</span>
             </span>

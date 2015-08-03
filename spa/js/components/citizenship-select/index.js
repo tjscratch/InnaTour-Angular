@@ -1,7 +1,14 @@
 innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
     return {
         replace: true,
-        template: $templateCache.get('components/citizenship-select/templ/index.hbs.html'),
+        template: function (element, attrs) {
+            if (attrs.type == 'phonePrefix') {
+                return $templateCache.get('components/citizenship-select/templ/phonePrefix.hbs.html')
+            }
+            else {
+                return $templateCache.get('components/citizenship-select/templ/index.hbs.html')
+            }
+        },
         scope: {
             value: '=',
             list: '=',
@@ -9,12 +16,22 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
             resultSet: '&',
             ngValidationModel: '=',
             validateType: '=',
-            validate: '&'
+            validate: '&',
+            changeEvent: '='
         },
         controller: function ($scope) {
             /*Props*/
             $scope.isOpen = false;
             $scope.listContainer = null;
+
+            //$scope.shortName = function (name) {
+            //    if (name) {
+            //        return name.substring(name.length - 15, name.length);
+            //    }
+            //    else {
+            //        return name;
+            //    }
+            //};
 
             /*Events*/
             $scope.$watch('value', function (newVal, oldVal) {
@@ -28,8 +45,109 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                 self.selectedItem = null;
                 self.list = $scope.list;
 
+                self.sortedListById;
+                self.sortedListByNameWithLength;
+                fillSortedArrays();
+
+                function fillSortedArrays() {
+                    self.sortedListById = [];
+                    for (var i = 0; i < self.list.length; i++) {
+                        var item = self.list[i];
+                        self.sortedListById.push({Id: '' + item.Id, Name: item.Name});
+                    }
+                    self.sortedListById.sort(function (a, b) {
+                        if (a.Id.length < b.Id.length){
+                            return -1;
+                        }
+                        else if (a.Id.length > b.Id.length){
+                            return 1;
+                        }
+                        else {
+                            if (a.Id < b.Id) {
+                                return -1;
+                            }
+                            else if (a.Id > b.Id) {
+                                return 1;
+                            }
+                            else {
+                                return 0;
+                            }
+                        }
+                    });
+
+                    self.sortedListByNameWithLength = [];
+                    for (var i = 0; i < self.list.length; i++) {
+                        var item = self.list[i];
+                        self.sortedListByNameWithLength.push({Id: '' + item.Id, Name: item.Name});
+                    }
+                    self.sortedListByNameWithLength.sort(function (a, b) {
+                        if (a.Name.length < b.Name.length){
+                            return -1;
+                        }
+                        else if (a.Name.length > b.Name.length){
+                            return 1;
+                        }
+                        else {
+                            if (a.Name < b.Name) {
+                                return -1;
+                            }
+                            else if (a.Name > b.Name) {
+                                return 1;
+                            }
+                            else {
+                                return 0;
+                            }
+                        }
+                    });
+                }
+
                 self.selectItem = function () {
                     $scope.itemClick(self.selectedItem);
+                };
+
+                self.setSelectedByContains = function (text) {
+                    var itemId = null;
+
+                    //starts with in Name
+                    for (var i = 0; i < self.list.length; i++) {
+                        var item = self.list[i];
+                        if (item.Name.toLowerCase().startsWith(text.toLowerCase())){
+                            //console.log('setSelectedByContains', 'starts with in Name', text);
+                            itemId = item.Id;
+                            break;
+                        }
+                    }
+
+                    //contains in Id
+                    if (!itemId){
+                        for (var i = 0; i < self.sortedListById.length; i++) {
+                            var item = self.sortedListById[i];
+                            if (item.Id.toLowerCase().indexOf(text.toLowerCase()) > -1){
+                                //console.log('setSelectedByContains', 'contains in Id', text);
+                                itemId = item.Id;
+                                break;
+                            }
+                        }
+
+
+                        //contains in Name
+                        if (!itemId){
+                            for (var i = 0; i < self.sortedListByNameWithLength.length; i++) {
+                                var item = self.sortedListByNameWithLength[i];
+                                if (item.Name.toLowerCase().indexOf(text.toLowerCase()) > -1){
+                                    //console.log('setSelectedByContains', 'contains in Name', text);
+                                    itemId = item.Id;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (itemId){
+                        //console.log('setSelected', 'text', text, 'itemId', itemId);
+                        self.setSelected(itemId);
+                        self.scrollToItem();
+                    }
                 };
 
                 self.setSelected = function (id) {
@@ -39,12 +157,20 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                             item.isSelected = true;
                             self.selectedIndex = i;
                             self.selectedItem = item;
+
+                            if ($scope.changeEvent) {
+                                $scope.$emit("PHONE_CODE_CHANGED",
+                                    {
+                                        source: $scope.changeEvent,
+                                        code: item.Id
+                                    });
+                            }
                         }
                         else {
                             item.isSelected = false;
                         }
                     }
-                }
+                };
 
                 self.selectNext = function () {
                     if (self.list.length > 0) {
@@ -56,7 +182,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                             self.scrollToItem();
                         }
                     }
-                }
+                };
                 self.selectPrev = function () {
                     if (self.list.length > 0) {
                         if ((self.selectedIndex - 1) >= 0) {
@@ -67,7 +193,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                             self.scrollToItem();
                         }
                     }
-                }
+                };
                 self.scrollToItem = function () {
                     var ind = self.selectedIndex;
                     //скролим где-то в середину (во всю высоту влезает где-то 10 итемов)
@@ -82,7 +208,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                                 scrollTop: scrollToVal
                             }, 50);
                         }
-                        //log('scrollToItem: ' + ind);
+                        //console.log('scrollToItem: ' + ind, self.selectedItem);
                     }
                 };
             }
@@ -92,14 +218,21 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
             $scope.showCitList = function ($event) {
                 eventsHelper.preventBubbling($event);
                 $scope.isOpen = !$scope.isOpen;
+
+                if ($scope.isOpen) {
+                    setTimeout(function () {
+                        //console.log('showCitList');
+                        $scope.selectionControl.scrollToItem();
+                    },0);
+                }
             };
 
             $scope.itemClick = function (option) {
-                var item = { id: option.Id, name: option.Name };
+                var item = {id: option.Id, name: option.Name};
 
                 if ($scope.result == null && $scope.resultSet) {
                     //console.log('resultSet: ', item);
-                    $scope.resultSet({ item: item });
+                    $scope.resultSet({item: item});
                 }
                 else {
                     //console.log('$scope.result: ', item);
@@ -107,7 +240,15 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                 }
 
                 validate(true);
-            }
+
+                if ($scope.changeEvent) {
+                    $scope.$emit("PHONE_CODE_CHANGED",
+                        {
+                            source: $scope.changeEvent,
+                            code: item.id
+                        });
+                }
+            };
 
             function validate(isUserAction) {
                 $scope.ngValidationModel.validationType = $scope.validateType;
@@ -117,10 +258,14 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
 
                 //console.log('validate; ngValidationModel.value: %s', $scope.ngValidationModel.value);
 
-                $scope.validate({ item: $scope.ngValidationModel, type: type });
-            };
+                $scope.validate({item: $scope.ngValidationModel, type: type});
+            }
         },
         link: function ($scope, $element, attrs) {
+            if (attrs.type == 'phonePrefix') {
+                $scope.isPhoneControl = true;
+            }
+
             $(document).click(function (event) {
                 var isInsideComponent = !!$(event.target).closest($element).length;
 
@@ -139,7 +284,9 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
 
             $scope.listContainer = $('.cit-cont__inner', $element);
 
-            $('input', $element).on('keydown', function (event) {
+            $('input', $element).on('keydown', keyDown);
+
+            function keyDown(event) {
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
 
@@ -147,44 +294,104 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
 
                 switch (key) {
                     case 13:
-                        {//up
-                            $scope.$apply(function ($scope) {
-                                if ($scope.isOpen) {
-                                    $scope.isOpen = false;
-                                    $scope.selectionControl.selectItem();
-                                }
-                                else {
-                                    $scope.isOpen = true;
-                                }
-                            });
-                            //break;
-                            return false;
-                        }
+                    {//up
+                        $scope.$apply(function ($scope) {
+                            if ($scope.isOpen) {
+                                $scope.isOpen = false;
+                                $scope.selectionControl.selectItem();
+                            }
+                            else {
+                                $scope.isOpen = true;
+                            }
+                        });
+                        //break;
+                        return false;
+                    }
                     case 38:
-                        {//up
-                            $scope.$apply(function ($scope) {
-                                if ($scope.isOpen) {
-                                    $scope.selectionControl.selectPrev();
-                                }
-                                else {
-                                    $scope.isOpen = true;
-                                }
-                            });
-                            break;
-                        }
+                    {//up
+                        $scope.$apply(function ($scope) {
+                            if ($scope.isOpen) {
+                                $scope.selectionControl.selectPrev();
+                            }
+                            else {
+                                $scope.isOpen = true;
+                            }
+                        });
+                        return false;
+                    }
                     case 40:
-                        {//down
-                            $scope.$apply(function ($scope) {
-                                if ($scope.isOpen) {
-                                    $scope.selectionControl.selectNext();
-                                }
-                                else {
-                                    $scope.isOpen = true;
-                                }
-                            });
-                            break;
-                        }
+                    {//down
+                        $scope.$apply(function ($scope) {
+                            if ($scope.isOpen) {
+                                $scope.selectionControl.selectNext();
+                            }
+                            else {
+                                $scope.isOpen = true;
+                            }
+                        });
+                        return false;
+                    }
                 }
+            }
+
+            //
+            function findItemByString(text) {
+
+            }
+
+            //логика обработки поиска по строке
+            function searchByStringLogic(element) {
+                var self = this;
+                self.searchString = '';
+
+                self.keyPress = function (event) {
+                    var theEvent = event || window.event;
+                    var key = theEvent.keyCode || theEvent.which;
+
+                    var char = self.getChar(event);
+                    //console.log('keypress, key:', key, 'char', char);
+
+                    self.addCharToSearch(char);
+                    self.debounceSearch();
+                };
+                element.on('keypress', self.keyPress);
+
+                self.search = function () {
+                    //console.log('search', self.searchString);
+                    $scope.selectionControl.setSelectedByContains(self.searchString);
+                    self.searchString = '';
+                };
+
+                self.debounceSearch = _.debounce(self.search, 300);
+
+                self.addCharToSearch = function (char) {
+                    self.searchString += char;
+                };
+
+                self.getChar = function(event) {
+                    if (event.which == null) { // IE
+                        if (event.keyCode < 32) return null; // спец. символ
+                        return String.fromCharCode(event.keyCode)
+                    }
+
+                    if (event.which != 0 && event.charCode != 0) { // все кроме IE
+                        if (event.which < 32) return null; // спец. символ
+                        return String.fromCharCode(event.which); // остальные
+                    }
+
+                    return null; // спец. символ
+                };
+
+                self.destroy = function () {
+                    element.off('keypress', self.keypress);
+                }
+            }
+
+            var searchByString = new searchByStringLogic($('input', $element));
+
+            $scope.$on('$destroy', function () {
+                $('input', $element).off('keydown', keyDown);
+                searchByString.destroy();
             });
         }
     }
