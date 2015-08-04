@@ -201,20 +201,24 @@ angular.module('innaApp.components').
                 filter: function () {
                     var result = this.get('FilterData').filter(function (item) {
                         var dayStateResult = item.dayState.filter(function (st) {
+                            //console.log(st);
                             return st.isChecked ? true : false;
+                            //return true;
                         });
 
                         if (dayStateResult.length) return true;
                     });
-
                     this.SaveData = result;
                     return result;
                 },
 
 
                 mergeData: function () {
-                    if (this.SaveData.length)
-                        this.set('FilterData', this.SaveData);
+                    // закомментировал ввиду непонятного назначение этого куска кода
+                    // задача https://innatec.atlassian.net/browse/IN-4725
+                    //if (this.SaveData.length){
+                    //    this.set('FilterData', this.SaveData);
+                    //}
                 },
 
                 /**
