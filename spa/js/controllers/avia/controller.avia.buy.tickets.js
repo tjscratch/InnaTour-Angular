@@ -48,16 +48,25 @@ innaAppControllers.
                 var self = this;
 
                 self.isSvyaznoyPay = true;
-                //self.isSvyaznoyPay = false;
-                
+
                 var partner = window.partners ? window.partners.getPartner() : null;
                 if (partner!= null && partner.name == 'euroset'){
                     self.isSvyaznoyPay = false;
                 }
 
+                self.blockViewTypeEnum = {
+                    all: 'all',
+                    svyaznoy: 'svyaznoy',
+                    euroset: 'euroset'
+                };
+
                 self.payType = 0;
                 self.orderNum;
                 self.orderNumPrefix = '467';
+                //заголовок в чекбоксе выбора
+                self.checkListTitle = 'наличными в Связном или Евросети';
+                //тип блока в описании
+                self.blockViewType = self.blockViewTypeEnum.all;
 
                 self.init = function () {
                     if (window.partners) {
@@ -78,6 +87,19 @@ innaAppControllers.
                                 break;
                             }
                         }
+
+                        var partner = window.partners.getPartner();
+                        if (partner){
+                            if (partner.name == 'svyaznoy'){
+                                self.checkListTitle = 'наличными в Связном';
+                                self.blockViewType = self.blockViewTypeEnum.svyaznoy;
+                            }
+                            else if (partner.name == 'euroset') {
+                                self.checkListTitle = 'наличными в Евросети';
+                                self.blockViewType = self.blockViewTypeEnum.euroset;
+                            }
+                        }
+
                     }
 
                     $scope.$watch('orderNum', function (num) {
@@ -528,7 +550,7 @@ innaAppControllers.
             function scrollControl() {
                 var self = this;
                 self.scrollToCards = function () {
-                    console.log('scroll to cards');
+                    //console.log('scroll to cards');
                     $('html, body').animate({
                         scrollTop: $(".b-tickets-info-container").offset().top + 300
                     }, 200);
