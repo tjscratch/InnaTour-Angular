@@ -159,9 +159,6 @@ gulp.task('replace-node-config', function () {
                 }
             ]
         }))
-        .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
-            mangle: false
-        })))
         .pipe(gulp.dest(conf.publish + '/node-app/config'));
 });
 
