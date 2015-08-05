@@ -57,11 +57,27 @@ innaAppControllers.
 
                 self.payType = 0;
                 self.orderNum;
-                self.orderNumPrefix = '468';
+                self.orderNumPrefix = '467';
 
                 self.init = function () {
-                    if (window.partners && window.partners.isSvyaznoyOperator()){
-                        self.orderNumPrefix = '466';
+                    if (window.partners) {
+                        //согласно задаче
+                        //https://innatec.atlassian.net/browse/IN-4927
+                        var pageType = window.partners.getSvyaznoyPageType();
+                        switch (pageType) {
+                            case window.partners.SvyaznoyPageType.OperatorPage: {
+                                self.orderNumPrefix = '466';
+                                break;
+                            }
+                            case window.partners.SvyaznoyPageType.ToursPage: {
+                                self.orderNumPrefix = '468';
+                                break;
+                            }
+                            case window.partners.SvyaznoyPageType.NotSvyaznoyPage: {
+                                self.orderNumPrefix = '467';
+                                break;
+                            }
+                        }
                     }
 
                     $scope.$watch('orderNum', function (num) {

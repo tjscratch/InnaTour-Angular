@@ -28,12 +28,25 @@
         return self.parentLocation = null;
     };
 
-    //если фрейм с особой операторской страницы связного
-    self.isSvyaznoyOperator = function () {
-        if (self.partner!= null && self.partner.name == 'svyaznoy' && self.getParentLocationWithHash().indexOf('svyaznoy.travel/tours/operator') > -1){
-            return true;
+    self.SvyaznoyPageType = {
+        NotSvyaznoyPage: 'NotSvyaznoyPage',
+        OperatorPage: 'OperatorPage',
+        ToursPage: 'ToursPage'
+    };
+    self.getSvyaznoyPageType = function () {
+        var result = self.SvyaznoyPageType.NotSvyaznoyPage;
+        if (self.partner!= null && self.partner.name == 'svyaznoy'){
+            var parentLocation = self.getParentLocationWithHash();
+            //если фрейм с особой операторской страницы связного
+            if (parentLocation.indexOf('svyaznoy.travel/tours/operator') > -1){
+                result = self.SvyaznoyPageType.OperatorPage;
+            }
+            //если фрейм с обычной страницы связного
+            else {
+                result = self.SvyaznoyPageType.ToursPage;
+            }
         }
-        return false;
+        return result;
     };
 
     self.isTestDomain = function () {
