@@ -149,17 +149,20 @@ gulp.task('release-tours', function () {
 });
 
 //Конфиг для api запросов ноды
-gulp.task('replace-node-config', function () {
-    return gulp.src('./node-app/config/config.json')
-        .pipe(replace({
-            patterns: [
-                {
-                    match: 'api_host',
-                    replacement: apiHost
-                }
-            ]
-        }))
-        .pipe(gulp.dest(conf.publish + '/node-app/config'));
+gulp.task('replace-node-config', function (cb) {
+    setTimeout(function () {
+        gulp.src('./node-app/config/config.json')
+            .pipe(replace({
+                patterns: [
+                    {
+                        match: 'api_host',
+                        replacement: apiHost
+                    }
+                ]
+            }))
+            .pipe(gulp.dest(conf.publish + '/node-app/config'));
+        cb();
+    }, 1000);
 });
 
 
