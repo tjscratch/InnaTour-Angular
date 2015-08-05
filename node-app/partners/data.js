@@ -45,7 +45,8 @@ if (conf.apiHost == '@@api_host'){
 }
 else if (conf.apiHost) {
     if (conf.apiHost.indexOf('https://') > -1) {
-        apiPort = 443;
+        //apiPort = 443;
+        apiPort = 80;//на бою тоже стучимся по http, https почему-то не работает с app-01
         apiHost = conf.apiHost.replace('https://', '');
     }
     else if (conf.apiHost.indexOf('http://') > -1) {
