@@ -1,13 +1,13 @@
 <form class="popup-form auth-form" ng-submit="signIn()" ng-controller="AuthSignInCtrl">
     <h3 class="popup-form-title">Личный кабинет агента</h3>
     <div class="popup-form-row">
-        <input type="text" class="popup-form-field" ng-class="{'error': errors.username}" ng-model="username" tabindex="1"
+        <input type="text" class="popup-form-field" ng-class="{'error': errors.username}" ng-model="username" tabindex="21"
                placeholder="Адрес электронной почты"
                 />
         <span class="message" ng-show="errors.username">Поле должно быть заполнено</span>
     </div>
     <div class="popup-form-row">
-        <input type="password" class="popup-form-field"  ng-class="{'error': errors.password}" ng-model="password" tabindex="2"
+        <input type="password" class="popup-form-field"  ng-class="{'error': errors.password}" ng-model="password" tabindex="22"
                 placeholder="Пароль"
                 />
         <span class="message" ng-show="errors.password">Поле должно быть заполнено</span>
@@ -22,7 +22,7 @@
         <span class="message">Неверное имя пользователя или пароль</span>
     </div>
     <div class="popup-form-row popup-form-row-submit">
-        <button type="submit" class="button" tabindex="3">Войти</button>
+        <button type="submit" class="button" tabindex="23">Войти</button>
     </div>
     <div class="popup-form-help">
         Помощь: 

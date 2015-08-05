@@ -325,7 +325,15 @@ innaAppControllers.
             //log('AviaFormCtrl defaultCriteria: ' + angular.toJson($scope.criteria));
 
             //тут меняем урл для поиска
-            $scope.searchStart = function () {
+            $scope.searchStart = function ($event) {
+                if ($event && $event.target) {
+                    var el = $($event.target);
+                    //если клик - пришел из фокуса
+                    if (el.data('simulate')) {
+                        return;
+                    }
+                }
+
                 try {
 
                     //если не ввели дату обратно - то начинаем поиск в одну сторону, но если не стоит галка в одну сторону
