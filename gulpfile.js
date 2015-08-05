@@ -38,6 +38,7 @@ gulp.task('build-project', function (callback) {
         'html-replace',
         ['copy-project', 'copy-node-app'],
         'replace-partners',
+        'replace-node-config',
         'replace-node-app',
         callback);
 });

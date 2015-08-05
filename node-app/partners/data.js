@@ -1,7 +1,8 @@
 var _       = require('lodash'),
     http    = require("http"),
     https   = require("https"),
-    fs      = require('fs');
+    fs      = require('fs'),
+    conf    = require('../config/config.json');
 
 module.exports = {
     get: function (req, callback) {
@@ -36,6 +37,24 @@ module.exports = {
     }
 };
 
+//берем из конфига
+var apiHost = 'api.test.inna.ru';
+var apiPort = 80;
+if (conf.apiHost == '@@api_host'){
+    //ничего не делаем
+}
+else if (conf.apiHost) {
+    if (conf.apiHost.indexOf('https://') > -1) {
+        apiPort = 443;
+        apiHost = conf.apiHost.replace('https://', '');
+    }
+    else if (conf.apiHost.indexOf('http://') > -1) {
+        apiPort = 80;
+        apiHost = conf.apiHost.replace('http://', '');
+    }
+}
+console.log('apiHost:', apiHost, 'port:', apiPort);
+
 var domainsList = ['lh.bookinna.ru', 'test.bookinna.ru', 'beta.bookinna.ru', 'bookinna.ru',
     'lh.inna.ru', 'test.inna.ru', 'beta.inna.ru', 'inna.ru'];
 
@@ -59,8 +78,8 @@ var self = {
 
 function getPartnersMap(callback) {
     var options = {
-        host: 'test.inna.ru',
-        port: 80,
+        host: apiHost,
+        port: apiPort,
         path: '/api/v1/partner/getall?key=123',
         method: 'GET',
         headers: {

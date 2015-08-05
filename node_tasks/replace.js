@@ -148,6 +148,23 @@ gulp.task('release-tours', function () {
         .pipe(gulp.dest(conf.publish + '/tours'));
 });
 
+//Конфиг для api запросов ноды
+gulp.task('replace-node-config', function () {
+    return gulp.src('./node-app/config/config.json')
+        .pipe(replace({
+            patterns: [
+                {
+                    match: 'api_host',
+                    replacement: apiHost
+                }
+            ]
+        }))
+        .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
+            mangle: false
+        })))
+        .pipe(gulp.dest(conf.publish + '/node-app/config'));
+});
+
 
 gulp.task('html-replace', [
     'replace-index',
