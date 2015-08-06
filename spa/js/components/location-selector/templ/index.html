@@ -1,6 +1,6 @@
 <div class="b-wrapp_type_inline b-location_selector {{theme}}" ng-class="{'error': fieldError}">
 
-	<input type="text" class="search-field"
+	<input click-on-focus type="text" class="search-field" tabindex="{{tabIndex}}"
 	       placeholder="{{placeholder}}"
 	       ng-model="currentCity"
 	       ng-change="currentCityChange($event)"

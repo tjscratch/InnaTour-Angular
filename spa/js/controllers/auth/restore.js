@@ -26,7 +26,7 @@ angular.module('innaApp.controllers')
             }
 
             /*Properties*/
-            $scope.email = 'user@example.com';
+            $scope.email = '';
 
             $scope.$watch('email', function(){
                 $scope.errors.email = false;

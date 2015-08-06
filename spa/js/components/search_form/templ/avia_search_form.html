@@ -1,5 +1,5 @@
 <form class="b-search-form search-ticket-form" ng-controller="AviaFormCtrl">
-    <div dropdown-input
+    <div dropdown-input tab-index="1"
         theme="search-field-block search__city"
         provide-suggest-callback="provideSuggestToFromList"
         suggest="fromList"
@@ -12,7 +12,7 @@
         with-country="true"
         event="avia_form_from_update"></div>
 
-    <div dropdown-input
+    <div dropdown-input tab-index="2"
         theme="search-field-block search__city"
         provide-suggest-callback="provideSuggestToToField"
         suggest="toList"
@@ -25,7 +25,7 @@
         with-country="true"
         event="avia_form_to_update"></div>
 
-    <span date-picker-widget 
+    <span date-picker-widget tab-index-from="3" tab-index-to="4"
         interval="false"
         date1="criteria.BeginDate"
         date2="criteria.EndDate"
@@ -34,12 +34,14 @@
         max-date="maxDate"
         class="b-wrapp_type_inline date-picker-widget"></span>
 
-    <div people-component adult-count="criteria.AdultCount" child-count="criteria.ChildCount" infants-count="criteria.InfantsCount"></div>
+    <div people-component click-on-focus tabindex="5"
+         adult-count="criteria.AdultCount" child-count="criteria.ChildCount" infants-count="criteria.InfantsCount"></div>
 
-	<div trip-preferences
+	<div trip-preferences click-on-focus tabindex="6"
         show-back-trip-options="false"
         klass-model="klass"></div>
-    <div class="search-form__submit search-button-block_small" ng-click="searchStart()">
+    <div click-on-focus tabindex="7"
+        class="search-form__submit search-button-block_small no-outline-on-focus" ng-click="searchStart($event)">
 	    <i class="icon-sprite-search search-button__icon"></i>
     </div>
 </form>

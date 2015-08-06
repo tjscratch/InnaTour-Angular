@@ -1021,3 +1021,41 @@ innaAppDirectives.directive('tooltip', [function () {
         }
     };
 }]);
+
+innaAppDirectives.directive('clickOnFocus', [function () {
+    return {
+        link: function ($scope, element, attrs) {
+            element.on('mousedown', onMouseDown);
+
+            function onMouseDown() {
+                $scope.mdown = true;
+            }
+
+            element.on('focus', onFocus);
+
+            function onFocus() {
+                var isDown = $scope.mdown;
+                $scope.mdown = false;
+                if (isDown) {
+                }
+                else { //tab
+                    //generate click
+                    element.data('simulate', true);
+                    element.click();
+                }
+            }
+
+            element.on('click', onClick);
+
+            function onClick() {
+                element.removeData('simulate');
+            }
+
+            $scope.$on('$destroy', function () {
+                element.off('mousedown', onMouseDown);
+                element.off('focus', onFocus);
+                element.off('click', onClick);
+            });
+        }
+    };
+}]);

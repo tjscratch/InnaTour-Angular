@@ -13,10 +13,18 @@ router.get('/', function (req, res, next) {
         next();
     }
     else {
-        var partner = partners.get(req);
-        res.render('layouts/index', {
-            partner: partner,
-            isSputnik: partner != null ? partner.isSputnik : null
+        partners.get(req, function (err, partner) {
+            if (err) {
+                res.render('layouts/500', {layout: false}, function (err, html) {
+                    res.status(500).send(html);
+                });
+            }
+            else {
+                res.render('layouts/index', {
+                    partner: partner,
+                    isSputnik: partner != null ? partner.isSputnik : null
+                });
+            }
         });
     }
 });

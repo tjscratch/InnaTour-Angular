@@ -1,3 +1,4 @@
 {
-  "port": 8666
+  "port": 8666,
+  "apiHost": "@@api_host"
 }
