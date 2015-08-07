@@ -316,10 +316,20 @@ innaAppControllers.
                 var url = app_main.staticHost + '/files/doc/offer.pdf';
 
                 if (window.partners && window.partners.isFullWLOrB2bWl()) {
-                    url = window.partners.getPartner().offertaContractLink;
+                    url = normalizeUrl(window.partners.getPartner().offertaContractLink);
                 }
                 else {
                     url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
+                }
+
+                function normalizeUrl(url){
+                    //если путь относительный
+                    //"/Files/Doc/150715155346/150723141900/offer_premiertur76.pdf"
+                    if (url && url.indexOf('/') == 0) {
+                        //то дописываем до полного на статик
+                        url = app_main.staticHost + url;
+                    }
+                    return url;
                 }
 
                 $scope.oferta = {
@@ -334,7 +344,7 @@ innaAppControllers.
                 if (window.partners && window.partners.isFullWLOrB2bWl()
                     && window.partners.getPartner().TCHLink != null
                     && window.partners.getPartner().TCHLink.length > 0) {
-                    TCH_url = window.partners.getPartner().TCHLink;
+                    TCH_url = normalizeUrl(window.partners.getPartner().TCHLink);
                 }
                 else {
                     TCH_url = app_main.staticHost + '/files/doc/TCH.pdf';
