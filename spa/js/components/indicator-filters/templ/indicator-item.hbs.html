@@ -46,6 +46,17 @@
 		{{/if}}
 
 
+		{{#if filterItem.name == 'MealCode'}}
+			{{#each filterItem.label}}
+                <li class="b-switch-filters__item">
+                    <span>{{this}}</span>
+                    <span class="b-switch-filters__item_close icon-sprite-remove"
+                          on-click="removeFilter"></span>
+                </li>
+			{{/each}}
+		{{/if}}
+
+
 		{{#if filterItem.name == 'Extra'}}
 			{{#each filterItem.val}}
                 <li class="b-switch-filters__item">

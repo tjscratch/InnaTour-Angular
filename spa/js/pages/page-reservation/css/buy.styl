@@ -53,6 +53,25 @@
     font-family ProximaNova, Arial, sans-serif
     border-radius 2px
 
+.b-phone-dropdown-cont
+    width: 277px;
+
+.b-phone-prefix-select
+    display inline-block;
+
+.b-label-phone
+    display: block;
+    margin: 4px 11px 2px 11px;
+
+.b-phone-prefix
+    display inline-block;
+    width 80px;
+
+.b-phone-num
+    display inline-block;
+    width 200px;
+    margin-left -5px;
+
 .b-field-select
     padding-right 25px
     background url(/spa/img/i.png) no-repeat #fff
@@ -227,7 +246,7 @@
     width 388px
 
 .b-field-phone
-    width 180px
+    width 370px
 
 .b-field-second-name
     width 160px
@@ -735,7 +754,7 @@
 
 .buy__title
     float left
-    font-size 20px
+    font-size 21px
     font-weight bold
     margin 2px 23px 0 0
     line-height 1
@@ -920,6 +939,7 @@
 
 .cit
     position: relative;
+    font-size: 14px;
 
 .cit-cont
     top 31px !important
@@ -930,11 +950,13 @@
     padding: 0
     text-align: left;
 
-.cit-cont__inner
+.cit-cont__inner {
     margin: 3px 0;
     overflow-x: hidden;
     overflow-y: scroll;
     max-height: 294px;
+}
+
 
 .cit-item
     padding: 5px 3px 5px 10px;
@@ -942,6 +964,11 @@
     &:hover
         cursor: default;
         background-color: #edeff0;
+
+    &.active {
+        cursor: default;
+        background-color: #edeff0;
+    }
 
 .b-tickets-info-block
     clearfix()

@@ -3,6 +3,7 @@
            ng-click="showCitList($event)"
            ng-class="{error:!ngValidationModel.isValid}"
            type="text"
+           readonly
            value="{{selectionControl.selectedItem.Name}}" placeholder="Выберите"
            class="b-field-text b-field-select">
     <div class="b-auth cit-cont" ng-show="isOpen">

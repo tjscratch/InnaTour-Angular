@@ -4,6 +4,7 @@ innaAppControllers
         'RavenWrapper',
         'EventManager',
         '$scope',
+        '$timeout',
         '$rootScope',
         'DynamicFormSubmitListener',
         'DynamicPackagesDataProvider',
@@ -28,7 +29,7 @@ innaAppControllers
         'ModelTicketsCollection',
         'ModelTicket',
         'ModelHotel',
-        function (RavenWrapper, EventManager, $scope, $rootScope, DynamicFormSubmitListener, DynamicPackagesDataProvider, PackagesService, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, $filter,
+        function (RavenWrapper, EventManager, $scope, $timeout, $rootScope, DynamicFormSubmitListener, DynamicPackagesDataProvider, PackagesService, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, $filter,
                   ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
             Raven.setExtraContext({key: "__SEARCH_DP_CONTEXT__"});
@@ -46,10 +47,41 @@ innaAppControllers
                 HotelId: $location.search().hotel,
                 TicketId: $location.search().ticket
             });
-
+            
             if (routParam.Children) {
                 searchParams.ChildrenAges = routParam.Children.split('_');
             }
+
+
+            //$rootScope.$on('$routeUpdate', function (currentRoute, previousRoute) {
+
+            //    PackagesService.getCombinationHotels(searchParams);
+            //    PackagesService.getCombinationTickets(searchParams);
+            //});
+
+            $scope.$on('update-recomented-pair', function () {
+                var routeParams = angular.copy(searchParams);
+                var HotelId = ($scope.recommendedPair.hotel) ? $scope.recommendedPair.hotel.data.HotelId : null;
+                var TicketId = ($scope.recommendedPair.ticket) ? $scope.recommendedPair.ticket.data.VariantId1 : null;
+                var params = {};
+
+                if (!HotelId) HotelId = routeParams.hotel;
+                if (!TicketId) TicketId = routeParams.ticket;
+
+
+                if (HotelId) HotelId = HotelId.toString();
+                if (TicketId) TicketId = TicketId.toString();
+
+
+                params = {
+                    HotelId: HotelId || null,
+                    TicketId: TicketId || null,
+                    AddFilter: true
+                };
+                params = angular.extend(routeParams, params);
+                PackagesService.getCombinationHotels(params);
+                PackagesService.getCombinationTickets(params);
+            })
 
 
             $scope.hotelsRaw = null;
@@ -227,6 +259,9 @@ innaAppControllers
                         loadHotelsData: function (value) {
                             if (value) {
 
+                                $timeout(function(){
+                                    EventManager.fire('loadDpData', value);
+                                }, 0);
 
                                 // рекомендованный вариант
                                 this.getCombination(value);
@@ -275,6 +310,12 @@ innaAppControllers
 
                         loadTicketsData: function (value) {
                             if (value) {
+
+                                $timeout(function () {
+                                    EventManager.fire('loadDpData', value);
+                                }, 0);
+
+
                                 // рекомендованный вариант
                                 this.getCombination(value);
 
@@ -342,8 +383,6 @@ innaAppControllers
                 },
 
                 getIdCombination: function () {
-
-
                     var routeParams = angular.copy(searchParams);
                     var HotelId = ($scope.recommendedPair.hotel) ? $scope.recommendedPair.hotel.data.HotelId : null;
                     var TicketId = ($scope.recommendedPair.ticket) ? $scope.recommendedPair.ticket.data.VariantId1 : null;
@@ -353,6 +392,11 @@ innaAppControllers
                     if (!TicketId) TicketId = routeParams.ticket;
 
 
+                    if (HotelId) HotelId = HotelId.toString();
+                    if (TicketId) TicketId = TicketId.toString();
+
+                    
+                    
                     params = {
                         HotelId: HotelId || null,
                         TicketId: TicketId || null,
@@ -379,13 +423,11 @@ innaAppControllers
 
                     if (ListPanelComponent) ListPanelComponent.wait();
 
-                    var searchParams = this.getIdCombination().params;
-                    
-                    PackagesService.getCombinationHotels(searchParams)
+                    PackagesService.getCombinationHotels(this.getIdCombination().params)
                         .success(function (data) {
                             that.set('loadHotelsData', data);
 
-                            PackagesService.getCombinationTickets(searchParams);
+                            PackagesService.getCombinationTickets(that.getIdCombination().params);
 
                             if (data && !angular.isUndefined(data.Hotels)) {
 
@@ -442,12 +484,12 @@ innaAppControllers
                     // позже будет прелоадер
                     if (ListPanelComponent) ListPanelComponent.wait();
 
-                    var searchParams = this.getIdCombination().params;
-
-                    PackagesService.getCombinationTickets(searchParams)
+                    
+                    //console.log(searchParams);
+                    PackagesService.getCombinationTickets(this.getIdCombination().params)
                         .success(function (data) {
 
-                            PackagesService.getCombinationHotels(searchParams);
+                            PackagesService.getCombinationHotels(that.getIdCombination().params);
                             
                             if (!data || angular.isUndefined(data.AviaInfos) || !data.AviaInfos.length) {
                                 RavenWrapper.raven({
@@ -486,6 +528,7 @@ innaAppControllers
                  * @returns {*}
                  */
                 getCombination: function (data) {
+
                     var RecommendedPair = data.RecommendedPair;
 
                     if (!data || !RecommendedPair)

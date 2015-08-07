@@ -7,7 +7,8 @@ innaAppConponents.
 
         // components
         'IndicatorFiltersItem',
-        function (EventManager, Events, $templateCache, FilterSettings, IndicatorFiltersItem) {
+        'DpServices',
+        function (EventManager, Events, $templateCache, FilterSettings, IndicatorFiltersItem, DpServices) {
 
             /**
              * Выводим выбранные значения фильтров
@@ -22,12 +23,14 @@ innaAppConponents.
                     atLeastOne: false
                 },
                 components: {
-                    IndicatorFiltersItem: IndicatorFiltersItem
+                    IndicatorFiltersItem: IndicatorFiltersItem,
+                    DpServices: DpServices
                 },
                 onrender: function (options) {
                     var that = this;
-                    utils.bindAll(this);
 
+                    utils.bindAll(this);
+                    
                     this.on({
                         action: this.action,
                         removeFilter : function(dataEvents, filterItem){
@@ -45,9 +48,6 @@ innaAppConponents.
 
                     EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, this.mapLoad);
                     EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, this.mapLoad);
-
-
-
 
                     this.observe('filtersCollection', function(value){
                         this.set('filters', value);

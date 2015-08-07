@@ -1,4 +1,4 @@
-﻿/* Controllers */
+/* Controllers */
 
 innaAppControllers.
     controller('AviaBuyTicketsCtrl', [
@@ -48,7 +48,6 @@ innaAppControllers.
                 var self = this;
 
                 self.isSvyaznoyPay = true;
-
                 var partner = window.partners ? window.partners.getPartner() : null;
                 if (partner!= null && partner.name == 'euroset'){
                     self.isSvyaznoyPay = false;
@@ -75,7 +74,7 @@ innaAppControllers.
                         var pageType = window.partners.getSvyaznoyPageType();
                         switch (pageType) {
                             case window.partners.SvyaznoyPageType.OperatorPage: {
-                                self.orderNumPrefix = '466';
+                        self.orderNumPrefix = '466';
                                 break;
                             }
                             case window.partners.SvyaznoyPageType.ToursPage: {
@@ -353,10 +352,20 @@ innaAppControllers.
                 var url = app_main.staticHost + '/files/doc/offer.pdf';
 
                 if (window.partners && window.partners.isFullWLOrB2bWl()) {
-                    url = window.partners.getPartner().offertaContractLink;
+                    url = normalizeUrl(window.partners.getPartner().offertaContractLink);
                 }
                 else {
                     url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
+                }
+
+                function normalizeUrl(url){
+                    //если путь относительный
+                    //"/Files/Doc/150715155346/150723141900/offer_premiertur76.pdf"
+                    if (url && url.indexOf('/') == 0) {
+                        //то дописываем до полного на статик
+                        url = app_main.staticHost + url;
+                    }
+                    return url;
                 }
 
                 $scope.oferta = {
@@ -371,7 +380,7 @@ innaAppControllers.
                 if (window.partners && window.partners.isFullWLOrB2bWl()
                     && window.partners.getPartner().TCHLink != null
                     && window.partners.getPartner().TCHLink.length > 0) {
-                    TCH_url = window.partners.getPartner().TCHLink;
+                    TCH_url = normalizeUrl(window.partners.getPartner().TCHLink);
                 }
                 else {
                     TCH_url = app_main.staticHost + '/files/doc/TCH.pdf';
@@ -818,6 +827,21 @@ innaAppControllers.
                                         $scope.hotel = data.Hotel;
                                         $scope.room = data.Hotel.Room;
                                         $scope.isBuyPage = true;
+
+                                        //ищем страховку
+                                        $scope.isInsuranceIncluded = false;
+                                        (function getInsurance(included){
+                                            if (included){
+                                                var re = /Страховка/ig;
+                                                for(var i=0; i<included.length; i++){
+                                                    var item = included[i];
+                                                    if (re.test(item.Name)){
+                                                        $scope.isInsuranceIncluded = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        })(data.Included);
 
                                         //правила отмены отеля
                                         $scope.hotelRules.fillData(data.Hotel);

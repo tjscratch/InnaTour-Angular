@@ -47,7 +47,7 @@ var authController = angular.module('innaApp.controllers')
 
             /*Methods*/
             $scope.close = function () {
-                utils.scrollFix(true)
+                utils.scrollFix(true);
                 $scope.isLoginPopupOpened = false;
                 $scope.display = $scope.DISPLAY_SIGNIN;
             };
@@ -72,10 +72,10 @@ var authController = angular.module('innaApp.controllers')
                 track.registrationOpen();
                 //================analytics========================
                 $scope.open();
-            }
+            };
 
             $scope.open = function () {
-                utils.scrollFix()
+                utils.scrollFix();
                 $scope.isLoginPopupOpened = true;
             };
 
@@ -87,7 +87,7 @@ var authController = angular.module('innaApp.controllers')
             $scope.$on('open-auth-form', function () {
                 $location.url('/');
                 $scope.open();
-            })
+            });
 
 
             /**
@@ -118,12 +118,8 @@ var authController = angular.module('innaApp.controllers')
                 $scope.partnerSputnik = false;
             }
 
-            if (partner != null && partner.name == 'sputnik') {
-                $scope.authLinkTitile = 'Вход для агентств';
-            }
-            else {
-                $scope.authLinkTitile = 'Регистрация и вход';
-            }
+            
+            $scope.authLinkTitile = 'Вход для агентств';
 
 
             $scope.signInWith = function (method) {
@@ -220,6 +216,10 @@ var authController = angular.module('innaApp.controllers')
                 $scope.display = $scope.DISPLAY_FORGOTTEN;
             };
 
+            $scope.signUp = function () {
+                $scope.close();
+            };
+
             $scope.goToSignIn = function () {
                 $scope.display = $scope.DISPLAY_SIGNIN;
             };
@@ -300,12 +300,16 @@ var authController = angular.module('innaApp.controllers')
                             switch ($scope.$root.user.getType()) {
                                 case 2:
                                 {//B2B = 2, b2b.inna.ru
-                                    window.location = $scope.B2B_HOST;
+                                    $route.reload();
+                                    // закоментировал редирект в b2b задача https://innatec.atlassian.net/browse/IN-4892
+                                    //window.location = $scope.B2B_HOST;
                                     break;
                                 }
                                 case 4:
                                 {//Partner = 4, partner.inna.ru
-                                    window.location = $scope.b2bPartnerHost;
+                                    $route.reload();
+                                    // закоментировал редирект в b2b задача https://innatec.atlassian.net/browse/IN-4892
+                                    //window.location = $scope.b2bPartnerHost;
                                     break;
                                 }
                             }
@@ -358,7 +362,7 @@ var authController = angular.module('innaApp.controllers')
 
                 self.destroy = function () {
                     $(window).off('focus');
-                }
+                };
 
                 self.checkReloadPage = function () {
                     var curUser = self.getCurrentUser();

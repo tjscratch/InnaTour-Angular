@@ -472,21 +472,61 @@ innaAppDirectives.directive('maskedInput', [function () {
             //обрабатываем значение, перед присваиванием модели
             ctrl.$parsers.unshift(function (viewValue) {
                 var normValue = viewValue;
-                if (viewValue == '__.__.____') {
+                if (viewValue == '__.__.____') {// || '(___) ___-__-__') {
                     normValue = '';
                 }
                 return normValue;
             });
 
+            var listenCodeChangeEventSource = $scope.$eval(attrs.changeEvent);
             var m = attrs.mask;
-            element.mask(m, {
-                completed: function () {
-                    var val = element.val();
-                    $scope.$apply(function ($scope) {
-                        ctrl.$modelValue = val;
-                    })
-                }
-            });
+
+            function addMask() {
+                element.mask(m, {
+                    completed: function () {
+                        var val = element.val();
+                        $scope.$apply(function ($scope) {
+                            ctrl.$modelValue = val;
+                        })
+                    }
+                });
+            }
+
+            var placeHolder = element.attr('placeholder');
+
+            if (listenCodeChangeEventSource){
+                $scope.$on("PHONE_CODE_CHANGED", function (event, result) {
+                    var code = result.code;
+                    var source = result.source;
+                    if (source == listenCodeChangeEventSource){
+                        if (code == '+7'){//маска только для России
+                            var elPlaceholder = element.attr('placeholder');
+                            if (elPlaceholder) {
+                            }
+                            else {
+                                element.attr('placeholder', placeHolder);
+                            }
+
+                            var isMaskAdded = $(element).data('isMaskAdded');
+                            if (isMaskAdded){
+                            }
+                            else {
+                                $(element).data('isMaskAdded', true);
+                                addMask();
+                            }
+                        }
+                        else {
+                            //снимаем плейсхолдер
+                            element.removeAttr('placeholder');
+                            $(element).removeData('isMaskAdded');
+                            element.unmask();
+                        }
+                    }
+                });
+            }
+            else {
+                addMask();
+            }
         }
     };
 }]);
@@ -551,29 +591,29 @@ innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
                 //48-57 - цифры
                 //43 +
 
-                var plusEntered = (val == '+') || (val.substring(0, 1) == '+');
-                if (plusEntered) {
-                    if (selStart == selEnd) {
-                    }
-                    else {
-                        //если выделено все - то дописываем +
-                        if (selStart == 0 && selEnd == val.length) {
-                            if (supressSelectOnValue != null && val == supressSelectOnValue)//если значение +7
-                            {
-                                $elem.val(val);
-                                setEndSelection();
-                            }
-                            else {
-                                $elem.val("+");
-                                setEndSelection();
-                            }
-                        }
-                    }
-                }
-                else {
-                    $elem.val("+" + val);
-                    setEndSelection();
-                }
+                //var plusEntered = (val == '+') || (val.substring(0, 1) == '+');
+                //if (plusEntered) {
+                //    if (selStart == selEnd) {
+                //    }
+                //    else {
+                //        //если выделено все - то дописываем +
+                //        if (selStart == 0 && selEnd == val.length) {
+                //            if (supressSelectOnValue != null && val == supressSelectOnValue)//если значение +7
+                //            {
+                //                $elem.val(val);
+                //                setEndSelection();
+                //            }
+                //            else {
+                //                $elem.val("+");
+                //                setEndSelection();
+                //            }
+                //        }
+                //    }
+                //}
+                //else {
+                //    $elem.val("+" + val);
+                //    setEndSelection();
+                //}
 
                 //console.log('isShiftPressed(key): ', isShiftPressed(key));
                 //даем вводить только цифры
@@ -977,6 +1017,44 @@ innaAppDirectives.directive('tooltip', [function () {
 
             $scope.$on('$destroy', function () {
                 $to.off();
+            });
+        }
+    };
+}]);
+
+innaAppDirectives.directive('clickOnFocus', [function () {
+    return {
+        link: function ($scope, element, attrs) {
+            element.on('mousedown', onMouseDown);
+
+            function onMouseDown() {
+                $scope.mdown = true;
+            }
+
+            element.on('focus', onFocus);
+
+            function onFocus() {
+                var isDown = $scope.mdown;
+                $scope.mdown = false;
+                if (isDown) {
+                }
+                else { //tab
+                    //generate click
+                    element.data('simulate', true);
+                    element.click();
+                }
+            }
+
+            element.on('click', onClick);
+
+            function onClick() {
+                element.removeData('simulate');
+            }
+
+            $scope.$on('$destroy', function () {
+                element.off('mousedown', onMouseDown);
+                element.off('focus', onFocus);
+                element.off('click', onClick);
             });
         }
     };

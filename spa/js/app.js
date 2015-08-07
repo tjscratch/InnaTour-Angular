@@ -47,9 +47,11 @@ app.constant('innaApp.Urls', {
 
     URL_PACKAGES_LANDING: '/packages/ppc/',
 
-    URL_AGENCY_REG_FORM: '/agency-create/',
+    URL_AGENCY_REG_FORM: '/registration/',
     
     URL_HELP: '/help/',
+
+    URL_TRANSFERS: '/transfers/',
 
     eof: null
 });
@@ -334,6 +336,11 @@ app.config([
             when(url.URL_AGENCY_REG_FORM, {
                 templateUrl: 'components/agency-reg-form/templ/index.html',
                 controller: 'AgencyRegFormCtrl'
+            }).
+            when(url.URL_TRANSFERS, {
+                templateUrl: 'pages/page-transfers/templ/page-transfers.html',
+                controller: 'TrasnfersPageCtrl',
+                resolve: authController.resolve
             }).
             otherwise({
                 redirectTo: url.URL_ROOT

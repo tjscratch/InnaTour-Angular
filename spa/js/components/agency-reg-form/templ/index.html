@@ -2,38 +2,42 @@
 	<div class="agency-reg-form-promo">
 		<div class="agency-reg-form-promo__title">Три простых шага для начала сотрудничества</div>
 		<div class="agency-reg-form-promo__row">
-			<div class="agency-reg-form-promo__col">
+			<div class="agency-reg-form-promo__col" style="width: 290px">
 				<span class="icon-sprite-agency-reg-form-promo-1"></span>
 
 				<div class="agency-reg-form-promo__col-txt">
 					Заполняете<br>
-					заявку на подключение
+					регистрационную форму
 				</div>
 			</div>
-			<div class="agency-reg-form-promo__col">
+			<div class="agency-reg-form-promo__col" style="width: 380px">
 				<span class="icon-sprite-agency-reg-form-promo-2"></span>
 
 				<div class="agency-reg-form-promo__col-txt">
-					Мы пришлем доступ<br>
-					к вашему личному кабинету<br>
-					на электронную почту
+					Моментально получаете доступ<br>
+					в кабинет агента на электронную почту
 				</div>
 			</div>
-			<div class="agency-reg-form-promo__col">
+			<div class="agency-reg-form-promo__col" style="width: 290px">
 				<span class="icon-sprite-agency-reg-form-promo-3"></span>
 
 				<div class="agency-reg-form-promo__col-txt">
-					Подписываете<br>
-					агентский договор
+					Можно начинать работать.<br>
+					Успешных Вам продаж!
 				</div>
 			</div>
 		</div>
+		
+		<div class="agency-reg-form-promo_link_desc">
+			<a href="http://book.inna.ru/" target="_blank">Описание платформы BOOKINNA</a>
+		</div>
+		
 	</div>
 	<div class="agency-reg-form-cont">
 		<div class="agency-reg-form-cont-bg"></div>
 
 		<div class="agency-reg-form-head">
-			<h2>Заявка на подключение</h2>
+			<h2>Форма регистрации агентства</h2>
 			<div class="brand-bookinna"></div>
 		</div>
 		<div class="agency-reg-form">
@@ -57,12 +61,17 @@
 						       name="INN"
 						       ng-model="agencyReg.INN"
 						       required=""
+						       placeholder="7717694926"
 						       ng-class="{'error': agency.$submitted && agency.INN.$invalid || agency.INN.$touched && agency.INN.$invalid}"
 								>
 					</div>
 					<div class="b-field-block" style="width: 200px">
 						<label class="b-field-label" for="kpp">КПП</label>
-						<input id="kpp" class="b-field-text" type="text" ng-model="agencyReg.KPP">
+						<input id="kpp" 
+						       class="b-field-text" 
+						       type="text" 
+						       ng-model="agencyReg.KPP"
+						       placeholder="771701001">
 					</div>
 				</div>
 				<div class="b-field-group">
@@ -187,7 +196,7 @@
 					</div>
 				</div>
 				<div class="b-field-group action">
-					<button type="submit" class="button b-sum-button">Отправить</button>
+					<button type="submit" class="button b-sum-button">Зарегистрироваться</button>
 				</div>
 			</form>
 		</div>

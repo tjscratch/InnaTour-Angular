@@ -1,13 +1,13 @@
 <form class="b-search-form search-ticket-form" ng-controller="DynamicFormCtrl" ng-if="!_dynamicSearchFormInvisible">
 
-	<div location-selector
+	<div location-selector tab-index="1"
 	     theme="search-field-block search__city"
 	     placeholder="Откуда"
 	     selected-value="fromCity"
 	     type-search="DP_from"
 			></div>
 
-	<div location-selector
+	<div location-selector tab-index="2"
 	     theme="search-field-block search__city"
 	     placeholder="Куда"
 	     selected-value="toCity"
@@ -41,24 +41,25 @@
 	 event="dp_form_to_update"></div>
 -->
 
-    <div date-picker-widget
+    <div date-picker-widget tab-index-from="3" tab-index-to="4"
             interval="false"
             date1="dateBegin"
             date2="dateEnd"
             max-date="maxDateEnd"
             class="b-wrapp_type_inline date-picker-widget"></div>    
     
-	<div counter-people
+	<div counter-people click-on-focus tabindex="5"
 	     adult-count="adultCount"
 	     children-count="childrenCount"
 	     childrens-age="childrensAge"
-	     class="b-wrapp_type_inline"></div>
+	     class="b-wrapp_type_inline no-outline-on-focus"></div>
 
-	<div trip-preferences
+	<div trip-preferences click-on-focus tabindex="6" class="no-outline-on-focus"
 	     show-back-trip-options="false"
 	     klass-model="klass"></div>
 
-	<div class="search-form__submit search-button-block_small" ng-click="searchStart()">
+	<div tabindex="7" click-on-focus class="search-form__submit search-button-block_small no-outline-on-focus"
+		 ng-click="searchStart($event)">
 		<i class="icon-sprite-search search-button__icon"></i>
 	</div>
 

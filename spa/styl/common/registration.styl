@@ -1,199 +1,207 @@
 .icon-letter
-  width 38px
-  height 37px
-  display inline-block
-  background url(/spa/img/letter.png)
-
-
-.icon-check-green
-  width 55px
-  height 55px
-  display inline-block
-  background url(/spa/img/check-green.png)
-
-
-.popup-form
-  font-family $ProximaNova
-  vertical-align top
-
-  .message
-    display block
-    font-family $ProximaNova
-    font-size 14px
-    text-align center
-    margin 16px 0 0
-    color #e20000
-
-    &:before
-      content ''
-      display: inline-block
-      width 15px
-      height 15px
-      background url(/spa/img/attension-symbol.png)
-      margin-right 5px
-
-  .button
-    font-family $ProximaNova
-    font-size 16px
-    font-weight bold
+    width 38px
     height 37px
-    padding 0 17px
-
-  &-row
-    margin 12px 0 0
-
-    &-submit
-      text-align center
-
-      .popup-form-label
-        margin 17px 0 0
-
-  &-title
-    font-size 25px
-    font-weight bold
-    text-align center
-    padding 0 0 5px
-    color #000;
-
-  &-label
-    color #666
-    display block
-    font-size 14px
-    text-align left
-
-  &-field
-    border 1px solid #d1d8d9
-    width 100%
-    height: 37px
+    display inline-block
+    background url(/spa/img/letter.png)
+.icon-check-green
+    width 55px
+    height 55px
+    display inline-block
+    background url(/spa/img/check-green.png)
+.popup-form
     font-family $ProximaNova
-    font-weight bold
-    font-size 16px
-    padding 0 10px
-    margin 3px 0 0
-    box-sizing border-box
-
-    &.error
-      border 2px solid #e20000
-      padding 0 9px
-
-.popup-form-row-social-buttons
-  text-align center
-  margin 26px 0 0
-
-.social-button
-  display inline-block
-  margin-right 5px
-  width 37px
-  height 37px
-  cursor pointer
-
-  &-fb
-    background url(/spa/img/auth-social/fb.png)
-  &-google
-    background url(/spa/img/auth-social/google.png)
-  &-vk
-    background url(/spa/img/auth-social/vk.png)
-  &-twitter
-    background url(/spa/img/auth-social/twitter.png)
-  &-odnoklassniki
-    background url(/spa/img/auth-social/odnoklassniki.png)
-    margin-right 0px
-
-
-
-.auth-form
-  display inline-block
-  width 240px
-  margin 44px 70px 60px
-
-  .remember-me
-    position absolute
-    left 0
-    top 5px
-
-  .forgot-password
-    float right
-    color #a9a9a9
-    border-bottom 1px dashed #a9a9a9
-
-  .popup-form-row-submit
-    margin 20px 0 0
-    text-align right
-    position relative
-
-
-
-.reg-form
-  display: inline-block
-  width 240px
-  margin 44px 70px 60px
-
-  &-result
-    width: 250px;
-    margin 44px 130px 60px
-    text-align center
-
-    .icon-letter
-      margin 67px 0 0
-
-    &-text
-      margin 4px 0 0
-      color #666
-
-      &-warning
-        color #000
-
-
-
-
-.recover-password-form
-  width 254px
-  margin 44px 140px 60px
-
-  .message
-    margin-left -10px
-    margin-right -10px
-    font-size 16px
-    color #e20000
-
-
-  &.step-2
-    margin 44px 90px 60px
-
-  &.step-3
-    width auto
-    margin 44px 0 60px
-
-
-.profile-form
-  width  320px
-  margin 44px 165px 60px
-
-  .popup-form-row
-    position: relative
-    margin-left 65px
-
-  .forgot-password
-    position: absolute
-    color #a9a9a9
-    border-bottom 1px dashed #a9a9a9
-    font-size 14px
-    right 0;
-    top -18px
-
-  .popup-form-label
-    display: inline-block
-    width: 80px
-    position: absolute
-    left -90px
-    top 11px
-    text-align right
-
-  .popup-form-row-submit
-    margin-left 0
-
+    vertical-align top
     
-  .description
-    font-size 11px
-    margin 10px 0 20px
-    color #a9a9a9
+    .message
+        position relative
+        display block
+        font-family $ProximaNova
+        font-size 14px
+        text-align left
+        margin 8px 0 0
+        padding-left 20px
+        color #e20000
+        
+        &:before
+            position absolute
+            top 0
+            left 0
+            content ''
+            display: inline-block
+            width 15px
+            height 15px
+            background url(/spa/img/attension-symbol.png)
+    
+    .button
+        font-family $ProximaNova
+        font-size 16px
+        font-weight bold
+        height 37px
+        padding 0 17px
+    
+    &-row
+        margin 12px 0 0
+        
+        &-submit
+            text-align center
+            
+            .popup-form-label
+                margin 17px 0 
+                
+            
+    &-title
+        font-size 25px
+        font-weight bold
+        text-align center
+        padding 0 0 5px
+        color #000;
+    
+    &-label
+        color #666
+        display block
+        font-size 14px
+        text-align left
+    
+    &-field
+        border 1px solid #d1d8d9
+        border-radius 2px
+        width 100%
+        height: 42px
+        font-family $ProximaNova
+        font-weight normal
+        font-size 16px
+        padding 0 10px
+        margin 3px 0 0
+        box-sizing border-box
+        background-color rgba(0, 0, 0, .05)
+        
+        &:focus
+        &:active
+            background-color #fff
+        
+        &.error
+            border 2px solid #e20000
+            padding 0 9px
+            
+.popup-form-help{
+    margin 10px -30px
+    color #242424
+    text-align center
+    
+    a{
+        color #1e88c1 !important
+        text-decoration underline !important
+        
+        &:hover{
+            text-decoration none !important
+        }
+    }
+}
+.popup-form-row-social-buttons
+    text-align center
+    margin 26px 0 0
+.social-button
+    display inline-block
+    margin-right 5px
+    width 37px
+    height 37px
+    cursor pointer
+    
+    &-fb
+        background url(/spa/img/auth-social/fb.png)
+    &-google
+        background url(/spa/img/auth-social/google.png)
+    &-vk
+        background url(/spa/img/auth-social/vk.png)
+    &-twitter
+        background url(/spa/img/auth-social/twitter.png)
+    &-odnoklassniki
+        background url(/spa/img/auth-social/odnoklassniki.png)
+        margin-right 0px
+.auth-form
+    display inline-block
+    width 300px
+    margin 25px 70px
+    
+    .remember-me
+        margin-left 0
+        text-align left
+    
+    .forgot-password
+        float right
+        color #a9a9a9
+        border-bottom 1px dashed #a9a9a9
+    
+    .popup-form-row-submit
+        margin 20px 0
+        text-align center
+        position relative
+        
+        .button
+            padding 5px 30px
+.reg-form
+    display: inline-block
+    width 240px
+    margin 44px 70px 60px
+    
+    &-result
+        width: 250px;
+        margin 44px 130px 60px
+        text-align center
+        
+        .icon-letter
+            margin 67px 0 0
+        
+        &-text
+            margin 4px 0 0
+            color #666
+            
+            &-warning
+                color #000
+.recover-password-form
+    width 254px
+    margin 44px 140px 60px
+    
+    .message
+        margin-left -10px
+        margin-right -10px
+        font-size 16px
+        color #e20000
+    
+    &.step-2
+        margin 44px 90px 60px
+    
+    &.step-3
+        width auto
+        margin 44px 0 60px
+.profile-form
+    width 320px
+    margin 20px 105px
+    
+    .popup-form-row
+        position: relative
+        margin-left 65px
+        
+    .forgot-password
+        position: absolute
+        color #a9a9a9
+        border-bottom 1px dashed #a9a9a9
+        font-size 14px
+        right 0;
+        top -18px
+    
+    .popup-form-label
+        display: inline-block
+        width: 80px
+        position: absolute
+        left -90px
+        top 11px
+        text-align right
+    
+    .popup-form-row-submit
+        margin-left 0
+    
+    .description
+        font-size 11px
+        margin 10px 0 20px
+        color #a9a9a9

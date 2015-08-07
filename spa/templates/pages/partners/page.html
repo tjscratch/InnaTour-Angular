@@ -1,7 +1,7 @@
-<div class="pic-cont">
-</div>
-
 <div ng-controller="DynamicFormCtrl">
+    <div class="pic-cont" ng-class="{'horizontal-form':useHorizontalForm}">
+    </div>
+
     <div class="partner-form-wrap" ng-class="{'horizontal-form':useHorizontalForm}">
         <form class="b-tour-form">
             <span class="main-label">Авиа + Отель</span>
@@ -42,7 +42,7 @@
                          klass-model="klass"
                          templ="components/partners/biletix/trip_preferences_biletix.html"></div>
 
-                    <div class="b-search-button" ng-click="searchStart()"></div>
+                    <div class="b-search-button" ng-click="searchStart($event)"></div>
                 </div>
             </div>
         </form>
@@ -67,14 +67,14 @@
 							    <img ng-src="spa/img/index-landing/1.png" alt="img"/>
 						    </i>
 						    <b>Cвобода выбора</b>. 200 стран, 500+ авиакомпаний,
-						                         200 тыс. отелей с моментальным подтверждением.
+                                                 389 тыс. отелей с моментальным подтверждением.
 
 					    </div>
 					    <div class="offers-list_new-landing__item col-xs-6">
 						    <i class="offers-list_new-landing__img">
 							    <img ng-src="spa/img/index-landing/4.png" alt="img"/>
 						    </i>
-						    <b>Экономия до 20%</b>. Путешествуйте по специальным пакетным тарифам от лучших мировых
+						    <b>Экономия до 20%</b>. Путешествуйте по специальным "пакетным" тарифам от лучших мировых
 						                          поставщиков.
 					    </div>
 				    </div>
@@ -91,8 +91,8 @@
 							    <img ng-src="spa/img/index-landing/5.png" alt="img"/>
 						    </i>
 
-						    <div style="margin-top: -10px">
-							    <b>Это надежно</b>. Пакет динамически формируется в момент запроса. Моментальная оплата поставщикам при бронировании.
+						    <div style="margin-top: 1px">
+							    <b>Это надежно</b>. Моментальная оплата поставщикам при бронировании.
 						    </div>
 					    </div>
 				    </div>

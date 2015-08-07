@@ -77,9 +77,19 @@
 .search-field
   padding 0 10px
 
+.no-outline-on-focus {
+  &:focus {
+    outline: none;
+  }
+}
+
 .search-date-block
   width 118px !important
   position : relative;
+
+  &:focus {
+    outline: none;
+  }
 
   &__date {
     background : #fff;

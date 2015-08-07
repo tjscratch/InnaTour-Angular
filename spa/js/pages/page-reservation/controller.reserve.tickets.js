@@ -1,4 +1,4 @@
-﻿innaAppControllers.controller('ReserveTicketsCtrl',
+innaAppControllers.controller('ReserveTicketsCtrl',
     function ($log,
               $timeout,
               $scope,
@@ -36,6 +36,278 @@
         $scope.bonusCardTransportersList = null;
         $scope.model = null;
 
+        $scope.phoneCodesList = null;
+
+        (function fillPhoneCodes(){
+            var codesArray = [
+                '93|Афганистан +93',
+                '355|Албания +355',
+                '21|Алжир +21',
+                '684|Американское Самоа +684',
+                '376|Андорра +376',
+                '244|Ангола +244',
+                '1-264|Ангуилла +1-264',
+                '1-268|Антигуа и Барбуда +1-268',
+                '54|Аргентина +54',
+                '374|Армения +374',
+                '297|Аруба +297',
+                '247|Асеньон +247',
+                '61|Австралия +61',
+                '672|Австралийские внеш. террит-и +672',
+                '43|Австрия +43',
+                '994|Азербайджан +994',
+                '351|Азорские о-ва +351',
+                '1-242|Багамы +1-242',
+                '973|Бахрейн +973',
+                '880|Бангладеш +880',
+                '1-246|Барбадос +1-246',
+                '375|Белоруссия +375',
+                '32|Бельгия +32',
+                '501|Белиз +501',
+                '229|Бенин +229',
+                '1-441|Бермудские о-ва +1-441',
+                '975|Бутан +975',
+                '591|Боливия +591',
+                '387|Босния и Герцеговина +387',
+                '267|Ботсвана +267',
+                '55|Бразилия +55',
+                '1-284|Британские Вирджинские о-ва +1-284',
+                '673|Бруней +673',
+                '359|Болгария +359',
+                '226|Буркина Фасо +226',
+                '257|Бурунди +257',
+                '7|Россия +7',
+                '855|Камбоджа +855',
+                '237|Камерун +237',
+                '238|Капе Верде +238',
+                '1-345|Каймановы о-ва +1-345',
+                '236|ЦАР +236',
+                '235|Чад +235',
+                '56|Чили +56',
+                '86|Китай +86',
+                '672|Рождественсткие о-ва +672',
+                '672|Кокосовые о-ва +672',
+                '57|Колумбия +57',
+                '1-670|Содружество северных Марианских о-вов +1-670',
+                '269|Коморские о-ва +269',
+                '242|Конго +242',
+                '243|Дем. респ. Конго (бывш. Заир) +243',
+                '682|О-ва Кука +682',
+                '506|Коста Рика +506',
+                '385|Хорватия +385',
+                '53|Куба +53',
+                '357|Кипр +357',
+                '420|Чехия +420',
+                '45|Дания +45',
+                '246|Диего Гарсиа +246',
+                '253|Джибути +253',
+                '1-767|Доминика +1-767',
+                '1-809|Доминиканская республика +1-809',
+                '62|Восточный Тимор +62',
+                '593|Эквадор +593',
+                '20|Египет +20',
+                '503|Сальвадор +503',
+                '240|Экваториальная Гвинея +240',
+                '291|Эритрия +291',
+                '372|Эстония +372',
+                '251|Эфиопия +251',
+                '298|Фарерские о-ва +298',
+                '500|Фолклендские о-ва +500',
+                '679|Фиджи +679',
+                '358|Финляндия +358',
+                '33|Франция +33',
+                '590|Французские Антиллы +590',
+                '594|Французская Гвиана +594',
+                '689|Французская полинезия +689',
+                '241|Габон +241',
+                '220|Гамбия +220',
+                '995|Грузия +995',
+                '49|Германия +49',
+                '233|Гана +233',
+                '350|Гибралтар +350',
+                '30|Греция +30',
+                '299|Гренландия +299',
+                '1-473|Гренада +1-473',
+                '671|Гуам +671',
+                '502|Гватемала +502',
+                '224|Гвинея +224',
+                '245|Гвинея Биссау +245',
+                '592|Гайана +592',
+                '509|Гаити +509',
+                '504|Гондурас +504',
+                '852|Гонконг +852',
+                '36|Венгрия +36',
+                '354|Исландия +354',
+                '91|Индия +91',
+                '62|Индонезия +62',
+                '98|Иран +98',
+                '964|Ирак +964',
+                '353|Ирландия +353',
+                '972|Израиль +972',
+                '39|Италия +39',
+                '225|Берег слоновой кости +225',
+                '1-876|Ямайка +1-876',
+                '81|Япония +81',
+                '962|Иордания +962',
+                '7|Казахстан +7',
+                '254|Кения +254',
+                '686|Кирибати +686',
+                '850|Северная Корея +850',
+                '82|Южная Корея +82',
+                '965|Кувейт +965',
+                '996|Киргизстан +996',
+                '856|Лаос +856',
+                '371|Латвия +371',
+                '961|Ливан +961',
+                '266|Лессото +266',
+                '231|Либерия +231',
+                '21|Ливия +21',
+                '41|Лихтенштейн +41',
+                '370|Литва +370',
+                '352|Люксембург +352',
+                '853|Макао +853',
+                '389|Македония +389',
+                '261|Мадагаскар +261',
+                '265|Малави +265',
+                '60|Малайзия +60',
+                '960|Мальдивские о-ва +960',
+                '223|Мали +223',
+                '356|Мальта +356',
+                '692|Маршалловы о-ва +692',
+                '596|Мартиника +596',
+                '222|Мавритания +222',
+                '230|Маврикий +230',
+                '52|Мексика +52',
+                '691|Микронезия +691',
+                '377|Монако +377',
+                '976|Монголия +976',
+                '1-664|Монсеррат +1-664',
+                '373|Молдавия +373',
+                '212|Марокко +212',
+                '258|Мозамбик +258',
+                '95|Мьянма +95',
+                '264|Намибия +264',
+                '674|Науру +674',
+                '977|Непал +977',
+                '31|Нидерланды +31',
+                '599|Нидерландские Антиллы +599',
+                '687|Новая Каледония +687',
+                '64|Новая Зеландия +64',
+                '505|Никарагуа +505',
+                '227|Нигер +227',
+                '234|Нигерия +234',
+                '683|Ниуэ +683',
+                '672|Норфолкские о-ва +672',
+                '670|Северо-Марианские о-ва +670',
+                '47|Норвегия +47',
+                '968|Оман +968',
+                '92|Пакистан +92',
+                '680|Палау +680',
+                '507|Панама +507',
+                '675|Папуа Новая Гвинея +675',
+                '595|Парагвай +595',
+                '51|Перу +51',
+                '63|Филипины +63',
+                '48|Польша +48',
+                '351|Португалия +351',
+                '1-787|Пуэрто Рико +1-787',
+                '974|Катар +974',
+                '378|Сан Марино +378',
+                '262|Реюнион +262',
+                '40|Румыния +40',
+                '250|Руанда +250',
+                '247|О-ва Святой Елены +247',
+                '508|Сент Пьер +508',
+                '39|Сан Марино +39',
+                '239|Сент Том и Принцип +239',
+                '966|Саудовская Аравия +966',
+                '221|Сенегал +221',
+                '248|Сейшельские о-ва +248',
+                '232|Сьерра Леоне +232',
+                '65|Сингапур +65',
+                '421|Словакия +421',
+                '386|Словения +386',
+                '677|Соломоновы о-ва +677',
+                '252|Сомали +252',
+                '27|ЮАР +27',
+                '34|Испания +34',
+                '94|Шри Ланка +94',
+                '1-869|Сент-Китс и Невис +1-869',
+                '1-758|Санта Лючия +1-758',
+                '1-784|Сент Винцент и Гренадины +1-784',
+                '249|Судан +249',
+                '597|Суринам +597',
+                '47|Свалбард +47',
+                '268|Свазиленд +268',
+                '46|Швеция +46',
+                '41|Швейцария +41',
+                '963|Сирия +963',
+                '886|Тайвань +886',
+                '992|Таджикистан +992',
+                '255|Танзания +255',
+                '66|Тайланд +66',
+                '228|Тоголезе +228',
+                '690|Токелау +690',
+                '676|Тонго +676',
+                '1-868|Тринидад и Тобаго +1-868',
+                '21|Тунис +21',
+                '90|Турция +90',
+                '993|Туркменистан +993',
+                '1-649|Теркс и Кайкос +1-649',
+                '688|Тувалу +688',
+                '256|Уганда +256',
+                '380|Украина +380',
+                '971|ОАЭ +971',
+                '44|Великобритания +44',
+                '598|Уругвай +598',
+                '1-340|Вирджинские о-ва +1-340',
+                '1|США +1',
+                '998|Узбекистан +998',
+                '678|Вануату +678',
+                '39|Ватикан +39',
+                '58|Венесуэла +58',
+                '84|Вьетнам +84',
+                '681|Уоллис и Футуна +681',
+                '21|Западная Сахара +21',
+                '685|Западное Самоа +685',
+                '967|Северный Йемен +967',
+                '969|Южный Йемен +969',
+                '381|Югославия +381',
+                '243|Заир +243',
+                '260|Замбия +260',
+                '259|Занзибар +259',
+                '263|Зимбабве +263'
+            ];
+
+            var phoneCodesList = [];
+
+            for(var i=0; i<codesArray.length; i++){
+                var split = codesArray[i].split('|');
+                var id = '+' + split[0];
+                var name = split[1];
+                phoneCodesList.push({Id: id, Name: name});
+            }
+
+            phoneCodesList.sort(function (a, b) {
+                if (a.Name < b.Name) {
+                    return -1;
+                }
+                else if (a.Name > b.Name) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            });
+
+            //for (var i = 0; i < phoneCodesList.length; i++) {
+            //    var item = phoneCodesList[i];
+            //    console.log(item.Name);
+            //}
+
+            $scope.phoneCodesList = phoneCodesList;
+        })();
+
         $scope.sexType = aviaHelper.sexType;
         $scope.helper = aviaHelper;
 
@@ -70,6 +342,8 @@
             required: 'required',
             cit_required: 'cit_required',
             email: 'email',
+            phonePrefix: 'phonePrefix',
+            phoneNum: 'phoneNum',
             phone: 'phone',
             date: 'date',
             birthdate: 'birthdate',
@@ -128,7 +402,7 @@
             else if (age >= adult) {
                 return peopleType.adult;
             }
-        };
+        }
 
         $scope.validatePeopleCount = function () {
             closeAllTooltips();
@@ -338,7 +612,7 @@
                 else {
                     model.alwaysValid = false;
                 }
-            }
+            };
 
             $scope.isInside = function (item, arrayCountryIds, useAnyIn) {
                 var etapCountries = [];
@@ -400,7 +674,8 @@
                 //var arrayCountryIds = [189, 69829, 35, 124, 0, 0, 215, 226, 0];
                 //Южная Осетия
                 // хохолов 226 удаляем из этого списка
-                var arrayCountryIds = [189, 69829, 35, 124, 215];
+                //115 - Киргизия
+                var arrayCountryIds = [189, 69829, 35, 124, 215, 115];
                 return $scope.isInside(item, arrayCountryIds);
             };
 
@@ -409,7 +684,8 @@
                 if (item != null) {
                     //dirty hack
                     //из-за валидаторов дат, не проверяем, если пришло типа '__.__.____'
-                    if ((item.validationType == validateType.birthdate || item.validationType == validateType.expire)
+                    if ((item.validationType == validateType.birthdate || item.validationType == validateType.expire
+                        || item.validationType == validateType.phoneNum)
                         && item.value.indexOf('_') > -1) {
                         $scope.setValid(item, true);
                         return;
@@ -437,6 +713,28 @@
                         {
                             tryValidate(item, function () {
                                 Validators.email(item.value, 'err');
+                            });
+                            break;
+                        }
+                        case validateType.phonePrefix:
+                        {
+                            tryValidate(item, function () {
+                                Validators.defined(item.value.name, 'err');
+                            });
+                            break;
+                        }
+                        case validateType.phoneNum:
+                        {
+                            var phoneCode = item.dependsOnField ? item.dependsOnField.value.id : null;
+                            //console.log('validateType.phoneNum', item.value, 'phoneCode', phoneCode);
+
+                            tryValidate(item, function () {
+                                if (phoneCode == '+7'){ //для России
+                                    Validators.phoneNum(item.value, 'err');
+                                }
+                                else {
+                                    Validators.phoneNumWoFormat(item.value, 'err');
+                                }
                             });
                             break;
                         }
@@ -666,6 +964,14 @@
                         newItem = getValidationItem(key, angular.copy($scope.model[key]));
                     }
 
+                    //console.log('updateFields', newItem);
+                    if (newItem.key == 'phonePrefix'){
+                        newItem.setValue = function (item) {
+                            var self = this;
+                            self.value = item;
+                        }
+                    }
+
                     //сохраняем id и тип валидации
                     if (oldItem != null) {
                         newItem.id = oldItem.id;
@@ -806,6 +1112,23 @@
 
             updateValidationModel();
         }, true);
+
+        //$scope.$watch('validationModel', function (newVal, oldVal) {
+        //    if ($scope.validationModel && $scope.validationModel.phone) {
+        //        console.log('validationModel phone', $scope.validationModel.phone.value);
+        //    }
+        //}, true);
+
+        //обновляем номер телефона
+        $scope.$watchGroup(['validationModel.phonePrefix.value','validationModel.phoneNum.value'], function (newVal, oldVal) {
+            if ($scope.validationModel && $scope.validationModel.phonePrefix){
+                $scope.validationModel.phone.value =
+                    $scope.validationModel.phonePrefix.value.id +
+                    //' ' +
+                    normalizePhoneNum($scope.validationModel.phoneNum.value);
+                //console.log('$scope.validationModel.phone.value', $scope.validationModel.phone.value);
+            }
+        });
 
         //удаляем из списка гражданств страну назначения
         function filterCitizenshipList(data) {
@@ -971,9 +1294,11 @@
                 name: '',
                 secondName: '',
                 email: '',
-                phone: '+7'
+                phone: '',
+                phonePrefix: { id: '+7', name: 'Россия +7' },
+                phoneNum: ''
             };
-            
+
             //console.log($rootScope.user);
             //console.log($rootScope.user.raw);
             //console.log(!$rootScope.user.isAgency());
@@ -983,18 +1308,19 @@
                 //fillFromUserProfile(userInfo, $rootScope.user.raw);
             //}
 
-            //console.log(fillFromUserProfile(userInfo, $rootScope.user.raw));
             $scope.model = {
                 price: $scope.item.Price,
                 name: userInfo.name,
                 secondName: userInfo.secondName,
                 email: userInfo.email,
+                phonePrefix: userInfo.phonePrefix,
+                phoneNum: userInfo.phoneNum,
                 phone: userInfo.phone,
                 wannaNewsletter: false,//Я хочу получать рассылку спецпредложений
                 passengers: passengers
 
             };
-            
+
            
             //$scope.fillDefaultModel();
             $scope.fillStoredModel();
@@ -1047,7 +1373,7 @@
                 }
             }
         };
-        
+
         
         $scope.$watch('agree', function(data){
             if (data && $scope.agreeError == true){
@@ -1095,7 +1421,7 @@
         //оплата
         $scope.processToPayment = function ($event) {
             eventsHelper.preventBubbling($event);
-            
+
             //для отладки, если есть параметр debug
             $scope.saveFilledModel();
 
@@ -1113,6 +1439,8 @@
                     {
                         return (!_.isString(item.value) || item.value.length > 0 || (item.value == null && item.key == 'sex'));
                     }
+                    case 'phonePrefix':
+                    case 'phoneNum':
                     case 'phone':
                     {
                         return true;// item.value != null && (!_.isString(item.value) || item.value.length > 0) && item.value != '+7';
@@ -1123,10 +1451,10 @@
                     }
                 }
             });
-            
+
             
             if (invalidItem != null) {
-            
+
                 // скроллим страницу вверх
                 // показываем тултип
                 $("body, html").animate({"scrollTop": 400}, function () {
@@ -1134,10 +1462,10 @@
                     $scope.tooltipControl.init($to);
                     $scope.tooltipControl.open($to);
                 });
-            
+
                 return;
             }
-            
+
 
             if (!$scope.agree){
                 $scope.agreeError = true;
@@ -1405,6 +1733,30 @@
             object.secondName = setEmptyIfUndefined(user.LastName);
             object.email = setEmptyIfUndefined(user.Email);
             object.phone = setEmptyIfUndefined(correctPhone(user.Phone));
+
+            var codeItem = findPhoneCodeItemByPhone(object.phone);
+            if (codeItem && object.phone && object.phone.length > 0){
+                object.phonePrefix = { id: codeItem.Id, name: codeItem.Name };
+                //отрезаем префикс
+                object.phoneNum = object.phone.replace(codeItem.Id, '');
+            }
+            else {
+                object.phonePrefix = { id: '+7', name: 'Россия +7' };
+                object.phoneNum = '';
+            }
+        }
+
+        function findPhoneCodeItemByPhone(phone) {
+            if (phone){
+                for(var i=0; i<$scope.phoneCodesList.length; i++){
+                    var id = $scope.phoneCodesList[i].Id;
+                    if (phone.indexOf(id) > -1){
+                        return $scope.phoneCodesList[i]
+                    }
+                }
+            }
+
+            return null;
         }
 
         function setEmptyIfUndefined(value) {
@@ -1434,6 +1786,18 @@
                     $scope.tooltipControl.close($to);
                 });
             }
+        }
+
+        function normalizePhoneNum(phone) {
+            if (phone) {
+                //phone = phone.replace(/\(/, '');
+                //phone = phone.replace(/\)/, '');
+                //phone = phone.replace(/-/g, '');
+                //phone = phone.replace(/\s/g, '');
+                //phone = phone.replace(/_/g, '');
+                phone = phone.replace(/[\(\)\s\-\_]/g, '');//убираем '(', ')', 'пробелы', '-', '_'
+            }
+            return phone;
         }
 
         //заявка на ДП

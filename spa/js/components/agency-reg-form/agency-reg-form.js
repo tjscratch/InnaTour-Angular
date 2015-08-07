@@ -38,6 +38,7 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
                 .success(function (data) {
                     switch (data.Status) {
                         case 1:
+                            track.newAgency();
                             $scope.baloon.showAgencyRegSuccess('Вы успешно зарегистрировались', 'Мы отправили письмо с доступом к личному кабинету на электронную почту');
                         case 3:
                             $scope.emailDouble = data.Message;

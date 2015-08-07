@@ -1,7 +1,8 @@
 var express  = require('express'),
     router   = express.Router(),
     //counters    = require('./../counters'),
-    partners = require('./../partners/data');
+    partners = require('./../partners/data'),
+    fs = require('fs');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -12,10 +13,18 @@ router.get('/', function (req, res, next) {
         next();
     }
     else {
-        var partner = partners.get(req);
-        res.render('layouts/index', {
-            partner: partner,
-            isSputnik: partner != null ? partner.isSputnik : null
+        partners.get(req, function (err, partner) {
+            if (err) {
+                res.render('layouts/500', {layout: false}, function (err, html) {
+                    res.status(500).send(html);
+                });
+            }
+            else {
+                res.render('layouts/index', {
+                    partner: partner,
+                    isSputnik: partner != null ? partner.isSputnik : null
+                });
+            }
         });
     }
 });
@@ -40,6 +49,23 @@ router.get('/dev/lk/search-widget', function (req, res, next) {
     });
 });
 
+router.get('/wl-test/:partner/', function(req, res, next){
+    var partner = req.params.partner;
+    var urlRootGeneric = '../spa/wl-test/_generic/';
+
+    var urlRoot;
+    if (partner){
+        urlRoot = '../spa/wl-test/' + partner + '/';
+        if (!fs.existsSync(urlRoot)) {
+            urlRoot = urlRootGeneric;
+        }
+    }
+    else {
+        urlRoot = urlRootGeneric;
+    }
+
+    res.sendFile('index.html', {root: urlRoot });
+});
 
 //все остальные запросы, если попадут в обход nginx - ведут на 404
 router.get('*', function (req, res, next) {
