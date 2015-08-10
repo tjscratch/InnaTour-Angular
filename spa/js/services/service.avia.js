@@ -6,7 +6,7 @@
             }
 
             var PREFIX = "avia_cache_";
-            var KEY = "form"
+            var KEY = "form";
 
             return {
                 getDirectoryByUrl: function (term, callbackSuccess, callbackError) {

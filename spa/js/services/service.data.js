@@ -28,10 +28,11 @@
                         url: apiUrls.AVIA_FROM_SUGGEST,
                         data: {term: term},
                         success: function (data) {
+                            //console.log('getDirectoryByUrl', data);
                             if (data != null && data.length > 0) {
                                 //ищем запись с кодом IATA
                                 var resItem = _.find(data, function (item) {
-                                    return item.CodeIata == term;
+                                    return item.CodeIata == term && item.Basic == 1;
                                 });
                                 //если не нашли - берем первый
                                 if (resItem == null)

@@ -38,7 +38,7 @@ innaAppControllers.
                 $scope.criteria = {
                     CabinClass: defClass
                 }
-            })()
+            })();
 
             //$routeParams
             $scope.$on('avia.page.loaded', function (event, $routeParams, validateDate) {
@@ -163,7 +163,7 @@ innaAppControllers.
                         //console.log('avia.form: getDirectoryByUrl error: ' + $scope.criteria.ToUrl + ' status:' + status);
                     });
                 }
-            };
+            }
 
             function validateDates(crit) {
                 //даты по-умолчанию: сегодня и +5 дней
@@ -253,7 +253,7 @@ innaAppControllers.
                 //}
 
                 return defaultCriteria;
-            };
+            }
 
             function getParamsFromStorage() {
                 var cookVal = aviaService.getForm();
@@ -281,7 +281,7 @@ innaAppControllers.
                     resCriteria.PathType = formVal.PathType;
                 }
                 return resCriteria;
-            };
+            }
 
             function saveParamsToStorage() {
                 var saveObj = {};
@@ -305,7 +305,7 @@ innaAppControllers.
                 //console.log('saved value: %s', cookVal);
 
                 aviaService.saveForm(cookVal);
-            };
+            }
 
             function clearStorage() {
                 //console.log('clearStorage');
@@ -384,7 +384,7 @@ innaAppControllers.
 
             $scope.preventBubbling = function ($event) {
                 preventBubbling($event);
-            }
+            };
 
             //отключаем бабблинг событий
             function preventBubbling($event) {
@@ -396,7 +396,7 @@ innaAppControllers.
 
             $scope.pathTypeClick = function (val) {
                 $scope.criteria.PathType = val;
-            }
+            };
 
             function validate() {
                 Validators.defined($scope.criteria.FromId, Error('FromId'));
@@ -431,12 +431,12 @@ innaAppControllers.
                         $scope.fromList = data;
                     });
                 })
-            }
+            };
 
             $scope.loadObjectById = function (id, callback) {
                 //console.log('loadObjectById: %d', id);
                 aviaService.getObjectById(id, callback, null);
-            }
+            };
 
             /* To field */
             $scope.toList = [];
@@ -447,7 +447,7 @@ innaAppControllers.
                         $scope.toList = data;
                     });
                 })
-            }
+            };
 
             $scope.setResultCallbackFrom = function (item) {
                 if (item != null) {
@@ -462,7 +462,7 @@ innaAppControllers.
                 else {
                     $scope.lastCityFromCode = null;
                 }
-            }
+            };
 
             $scope.setResultCallbackTo = function (item) {
                 if (item != null) {
@@ -477,7 +477,7 @@ innaAppControllers.
                 else {
                     $scope.lastCityToCode = null;
                 }
-            }
+            };
 
 
             /*Klass*/
