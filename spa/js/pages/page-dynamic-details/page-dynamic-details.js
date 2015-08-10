@@ -370,11 +370,11 @@ innaAppControllers
 
                             parseRooms(data.Rooms);
 
-                            if ($scope.hotel.CheckInTime == '00:00' && data.Hotel.CheckInTime) {
+                            if ($scope.hotel.CheckInTime == undefined || $scope.hotel.CheckInTime == '00:00' && data.Hotel.CheckInTime) {
                                 $scope.hotel.CheckInTime = data.Hotel.CheckInTime
                             }
 
-                            if ($scope.hotel.CheckOutTime == '00:00' && data.Hotel.CheckOutTime) {
+                            if ($scope.hotel.CheckOutTime == undefined || $scope.hotel.CheckOutTime == '00:00' && data.Hotel.CheckOutTime) {
                                 $scope.hotel.CheckOutTime = data.Hotel.CheckOutTime
                             }
 
@@ -642,9 +642,6 @@ innaAppControllers
 
                     if (window.partners) {
                         if (window.partners.isFullWL() === true) {
-                            console.log(headerHeight);
-                            console.log(coords.top);
-                            console.log(window.partners.clientSize.top);
                             window.partners.setScrollTo(coords.top + window.partners.clientSize.top - 5);
                         }
                     }
