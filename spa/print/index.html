@@ -16,8 +16,18 @@
 
 <p class="b-order-num">Номер заказа <b><span id="orderNum"></span></b></p>
 
-<p>Вы можете оплатить этот заказ наличными в любом офисе Связного.
-    (<a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>)
+<p id="default-block">
+    Вы можете оплатить этот заказ наличными в любом офисе Связного
+    <a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>
+    или Евросети <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
+    <br/>Обратитесь к менеджеру и назовите номер заказа.</p>
+
+<p id="svyaznoy-block" style="display: none;">Вы можете оплатить этот заказ наличными в любом офисе Связного
+    <a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>.
+    <br/>Обратитесь к менеджеру и назовите номер заказа.</p>
+
+<p id="euroset-block" style="display: none;">Вы можете оплатить этот заказ наличными в любом офисе Евросети
+    <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
     <br/>Обратитесь к менеджеру и назовите номер заказа.</p>
 
 <p>Рекомендуем оплачивать заказ в салоне в ближайшее время после бронирования, поскольку авиакомпании оставляют за собой право изменять время на оплату.</p>
@@ -33,6 +43,20 @@
 
     var orderNum = getParameterByName('order');
     document.getElementById('orderNum').innerHTML = orderNum;
+
+    var viewType = getParameterByName('viewType');
+    console.log('viewType', viewType);
+
+    if (viewType == 'euroset'){
+        document.getElementById('default-block').style.display = 'none';
+        document.getElementById('euroset-block').style.display = '';
+    }
+
+    if (viewType == 'svyaznoy') {
+        document.getElementById('default-block').style.display = 'none';
+        document.getElementById('svyaznoy-block').style.display = '';
+    }
+
     window.print();
 </script>
 
