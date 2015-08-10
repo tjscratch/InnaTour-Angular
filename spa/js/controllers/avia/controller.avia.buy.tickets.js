@@ -63,7 +63,8 @@ innaAppControllers.
                 self.orderNum;
                 self.orderNumPrefix = '467';
                 //заголовок в чекбоксе выбора
-                self.checkListTitle = 'наличными в Связном или Евросети';
+                //self.checkListTitle = 'наличными в Связном или Евросети';
+                self.checkListTitle = 'наличными в Связном';
                 //тип блока в описании
                 self.blockViewType = self.blockViewTypeEnum.all;
 
