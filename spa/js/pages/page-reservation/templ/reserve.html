@@ -20,12 +20,14 @@
 		Внимание! К компонентам пакета применяются разные условия отмены
 		бронирования.<br/>Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event)">правилами применения тарифа
 		авиабилета</a> и <a href="" ng-click="hotelRules.show($event)">условиями бронирования отеля</a>.
-	</p><br/>
+		</p>
+		<br/>
 
 	<p class="buy__price-descr" ng-if="!(hotel != null)">
 		Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event)">правилами
 		применения тарифа авиабилета</a>.
-	</p><br/>
+		</p>
+		<br/>
 	<header class="buy__header">
 		<h2 class="buy__title">Информация о покупателе</h2>
 	</header>
@@ -66,7 +68,7 @@
                    ng-validation-model="validationModel.phoneNum" validate="validate(item, type)"
                    validate-type="validateType.phoneNum"
                    ng-class="{error:isFieldInvalid(validationModel.phoneNum)}"
-                   data-title="Неправильно введен мобильный телефон" name="phone" type="text"
+			       data-title="Неправильно введен мобильный телефон" name="phone" type="text"
 				   masked-input
 				   phone-input
 				   mask="(999) 999-99-99"
@@ -83,7 +85,8 @@
 
     <div class="buy__request-block" ng-if="isRequestEnabled">
         <div class="buy__request-block__text">Если по какой то причине Вы сейчас не готовы сделать бронирование или оплатить путешествие банковской картой,
-            или Вам нужна консультация нашего специалиста, просто сделайте заявку и наш менеджер свяжется с Вами.</div>
+			                                      или Вам нужна консультация нашего специалиста, просто сделайте заявку и наш менеджер свяжется с Вами.
+			</div>
         <div class="buy__request-block__button">
             <button ng-click="sendRequest($event)" class="button b-sum-button">Отправить заявку</button>
         </div>
@@ -235,7 +238,8 @@
 				| breakFilter}}</textarea>
 
 			<p class="buy__comments-help">Ваши пожелания мы передадим в отель, но не можем гарантировать их
-				исполнение. Пожалуйста, пишите ваши пожелания на английском языке.</p>
+				                              исполнение. Пожалуйста, пишите ваши пожелания на английском языке.
+				</p>
 		</div>
 		<header class="buy__header">
 			<h2 class="buy__title">Дополнительные услуги</h2>
@@ -259,8 +263,30 @@
 	</ng:any>
 </div>
 
+
 <div class="b-sum-container">
+
+
+		<div class="b-agreement-cc">
+		<label class="b-agreement">
+			<input type="checkbox" ng-model="agree"/>
+			<ins class="b-checkbox" id="agree">
+				<div class="ui-tooltip" ng-show="agreeError">
+					<div class="ui-tooltip-content ng-binding"> Нужно согласиться с условиями</div>
+				</div>
+			</ins>
+			Я принимаю условия <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a><span ng-if="!reservationModel.IsService">,
+            <a href="http://www.iatatravelcentre.com/e-ticket-notice/Russian_Federation/Russian/"
+               target="_blank">договора IATA</a>,
+            <a ng-href="{{TKP.url()}}" target="_blank">ТКП</a>,
+            <a ng-href="#" ng-click="tarifs.show($event)">тарифов</a></span>, и не возражаю против обработки моих
+			персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).
+		</label>
+		</div>
+
+
 	<!--<a ng-href="#" ng-click="fillDefaultModel($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>-->
+		
 	<span class="b-sum" style="">Сумма к оплате:&nbsp;</span>
 	        <span class="b-tickets-sum">
 	            <b>
@@ -272,12 +298,14 @@
 	<button type="submit"
 	        class="button b-sum-button"
 	        ng-if="!user.isAgency()"
-	        tabindex="3">Перейти к оплате</button>
+		        tabindex="3">Перейти к оплате
+		</button>
 
 	<button type="submit"
 	        class="button b-sum-button"
 	        ng-if="user.isAgency()"
-	        tabindex="3">Забронировать</button>
+		        tabindex="3">Забронировать
+		</button>
 </div>
 </form>
 
@@ -296,16 +324,19 @@
 					<h3>Обратите внимание!</h3>
 
 					<p>При не использовании одного из сегментов маршрута, последующие сегменты могут быть автоматически
-						аннулированы авиакомпанией. </p>
+					   аннулированы авиакомпанией.
+					</p>
 
 					<p>Если по перелёту используется несколько разных правил/тарифов, то при обмене/возврате применяются
 						более строгие правила. При обмене/возврате к возможным штрафным санкциям авиакомпании по
 						правилам
-						тарифа, дополнительно взымается сервисный сбор за услугу оформления обмена/возврата билета.</p>
+					   тарифа, дополнительно взымается сервисный сбор за услугу оформления обмена/возврата билета.
+					</p>
 					<ul class="b__rules-flies">
 						<li ng-class="{current:item === tarifs.setected}" ng-repeat="item in tarifs.list"><a ng-href="#"
 						                                                                                     ng-click="tarifs.tarifClick($event, item)"><span><b>{{item.from}}
-							→ {{item.to}},</b> {{item.num}}, {{tarifs.class}} ({{item.nameFirstLetter}})</span></a></li>
+						                                                                                                                                         → {{item.to}},</b> {{item.num}}, {{tarifs.class}} ({{item.nameFirstLetter}})</span></a>
+						</li>
 					</ul>
 				</div>
 				<div class="b__rules-grey">

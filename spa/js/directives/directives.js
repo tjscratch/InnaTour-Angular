@@ -640,7 +640,7 @@ innaAppDirectives.directive('digitsInput', ['$parse', function ($parse) {
                 var key = theEvent.keyCode || theEvent.which;
 
                 //введен плюс, даем вводить только цифры
-                if (!(key >= 48 && key <= 57)) {
+                if (!(key >= 48 && key <= 57) && key != 46 && key != 8) {
                     event.preventDefault();
                     return false;
                 }

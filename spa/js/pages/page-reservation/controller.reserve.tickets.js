@@ -1,4 +1,4 @@
-﻿innaAppControllers.controller('ReserveTicketsCtrl',
+innaAppControllers.controller('ReserveTicketsCtrl',
     function ($log,
               $timeout,
               $scope,
@@ -1299,13 +1299,14 @@
                 phoneNum: ''
             };
 
-            if ($rootScope.user != null && $rootScope.user.raw != null && !$rootScope.user.isAgency()) {
-                //console.log('fillFromUserProfile', $rootScope.user.raw);
-                fillFromUserProfile(userInfo, $rootScope.user.raw);
-            }
+            //console.log($rootScope.user);
+            //console.log($rootScope.user.raw);
+            //console.log(!$rootScope.user.isAgency());
 
-            //ToDo: debug
-            //fillFromUserProfile(userInfo, { Phone: '+7(926)589-80-12' });
+            //if ($rootScope.user != null && $rootScope.user.raw != null && !$rootScope.user.isAgency()) {
+                //console.log('fillFromUserProfile', $rootScope.user.raw);
+                //fillFromUserProfile(userInfo, $rootScope.user.raw);
+            //}
 
             $scope.model = {
                 price: $scope.item.Price,
@@ -1320,6 +1321,7 @@
 
             };
 
+           
             //$scope.fillDefaultModel();
             $scope.fillStoredModel();
 
@@ -1372,6 +1374,50 @@
             }
         };
 
+        
+        $scope.$watch('agree', function(data){
+            if (data && $scope.agreeError == true){
+                $scope.agreeError = false;
+            }
+        });
+
+        $scope.setOferta = function (isDp) {
+            var url = app_main.staticHost + '/files/doc/offer.pdf';
+
+            if (window.partners && window.partners.isFullWLOrB2bWl()) {
+                url = window.partners.getPartner().offertaContractLink;
+            }
+            else {
+                url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
+            }
+
+            $scope.oferta = {
+                url: function () {
+                    return url;
+                }
+            };
+
+
+            //TCH
+            var TCH_url = app_main.staticHost + '/files/doc/TCH.pdf';
+            if (window.partners && window.partners.isFullWLOrB2bWl()
+                && window.partners.getPartner().TCHLink != null
+                && window.partners.getPartner().TCHLink.length > 0) {
+                TCH_url = window.partners.getPartner().TCHLink;
+            }
+            else {
+                TCH_url = app_main.staticHost + '/files/doc/TCH.pdf';
+            }
+
+            $scope.TKP = {
+                url: function () {
+                    return TCH_url;
+                }
+            };
+        };
+        $scope.setOferta();
+
+
         //оплата
         $scope.processToPayment = function ($event) {
             eventsHelper.preventBubbling($event);
@@ -1406,6 +1452,7 @@
                 }
             });
 
+            
             if (invalidItem != null) {
 
                 // скроллим страницу вверх
@@ -1419,8 +1466,15 @@
                 return;
             }
 
+
+            if (!$scope.agree){
+                $scope.agreeError = true;
+            }
+            
+            
+
             //если модель валидна - бронируем
-            if ($scope.validationModel.isModelValid()) {
+            if ($scope.validationModel.isModelValid() && $scope.agree) {
 
                 $scope.baloon.show("Бронирование авиабилетов", "Это займет не более 30 секунд");
 
@@ -1670,7 +1724,7 @@
         //заполнение из профиля при логине
         $rootScope.$on(innaAppApiEvents.AUTH_SIGN_IN, function (event, data) {
             $scope.safeApply(function () {
-                fillFromUserProfile($scope.model, data);
+                //fillFromUserProfile($scope.model, data);
             });
         });
 

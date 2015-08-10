@@ -1,4 +1,4 @@
-﻿/* Controllers */
+/* Controllers */
 
 innaAppControllers.
     controller('AviaBuyTicketsCtrl', [
@@ -47,22 +47,59 @@ innaAppControllers.
             function svyaznoyPayControl(){
                 var self = this;
 
-                //ToDo: пока отключено, включить по команде
-                self.isSvyaznoyPay = false;
-                //self.isSvyaznoyPay = true;
+                self.isSvyaznoyPay = true;
                 var partner = window.partners ? window.partners.getPartner() : null;
                 if (partner!= null && partner.name == 'euroset'){
                     self.isSvyaznoyPay = false;
                 }
 
+                self.blockViewTypeEnum = {
+                    all: 'all',
+                    svyaznoy: 'svyaznoy',
+                    euroset: 'euroset'
+                };
+
                 self.payType = 0;
                 self.orderNum;
-                self.orderNumPrefix = '468';
+                self.orderNumPrefix = '467';
+                //заголовок в чекбоксе выбора
+                //self.checkListTitle = 'наличными в Связном или Евросети';
+                self.checkListTitle = 'наличными в Связном';
+                //тип блока в описании
+                self.blockViewType = self.blockViewTypeEnum.all;
 
                 self.init = function () {
-                    var parentLocation = window.partners ? window.partners.getParentLocation() : null;
-                    if (window.partners && window.partners.isSvyaznoyOperator()){
+                    if (window.partners) {
+                        //согласно задаче
+                        //https://innatec.atlassian.net/browse/IN-4927
+                        var pageType = window.partners.getSvyaznoyPageType();
+                        switch (pageType) {
+                            case window.partners.SvyaznoyPageType.OperatorPage: {
                         self.orderNumPrefix = '466';
+                                break;
+                            }
+                            case window.partners.SvyaznoyPageType.ToursPage: {
+                                self.orderNumPrefix = '468';
+                                break;
+                            }
+                            case window.partners.SvyaznoyPageType.NotSvyaznoyPage: {
+                                self.orderNumPrefix = '467';
+                                break;
+                            }
+                        }
+
+                        var partner = window.partners.getPartner();
+                        if (partner){
+                            if (partner.name == 'svyaznoy'){
+                                self.checkListTitle = 'наличными в Связном';
+                                self.blockViewType = self.blockViewTypeEnum.svyaznoy;
+                            }
+                            else if (partner.name == 'euroset') {
+                                self.checkListTitle = 'наличными в Евросети';
+                                self.blockViewType = self.blockViewTypeEnum.euroset;
+                            }
+                        }
+
                     }
 
                     $scope.$watch('orderNum', function (num) {
@@ -113,8 +150,8 @@ innaAppControllers.
                 cardMonth: '',
                 cardYear: '',
                 cardHolder: '',
-                cvc2: '',
-                agree: false
+                cvc2: ''
+                //agree: false
             };
 
             $scope.visaOrMastercard = null;
@@ -135,8 +172,8 @@ innaAppControllers.
                     cvc2: '',
                     cardHolder: '',
                     cardMonth: '',
-                    cardYear: '',
-                    agree: true
+                    cardYear: ''
+                    //agree: true
                 };
             };
 
@@ -151,8 +188,8 @@ innaAppControllers.
                 cardMonth: false,
                 cardYear: false,
                 cardHolder: false,
-                cvc2: false,
-                agree: false
+                cvc2: false
+                //agree: false
             };
 
             //признаки, что поле валидно
@@ -164,8 +201,8 @@ innaAppControllers.
                 cardMonth: true,
                 cardYear: true,
                 cardHolder: true,
-                cvc2: true,
-                agree: true
+                cvc2: true
+                //agree: true
             };
 
             $scope.indicatorValidate = function () {
@@ -298,11 +335,11 @@ innaAppControllers.
                         }
                         $scope.isValid.cvc2 = false;
                         return false;
-                    },
-                    agree: function () {
-                        $scope.isValid.agree = $scope.payModel.agree;
-                        return $scope.isValid.agree;
                     }
+                    //agree: function () {
+                    //    $scope.isValid.agree = $scope.payModel.agree;
+                    //    return $scope.isValid.agree;
+                    //}
                 };
             }
 
@@ -501,7 +538,6 @@ innaAppControllers.
                     }, 300)
                 };
                 self.next = function (key) {
-                    //console.log('goNext, key: %s', key);
                     self.navCurrent = _.find(self.navList, function (item) {
                         return item.key == key;
                     });
@@ -511,12 +547,11 @@ innaAppControllers.
                         self.navCurrent = self.navList[index];
                         if (self.navCurrent != null) {
                             setTimeout(function () {
-                                self.navCurrent.item.select();
-                                self.navCurrent.item.focus();
+                                $(self.navCurrent.item.selector).select();
+                                $(self.navCurrent.item.selector).focus();
                             }, 0);
                         }
                     }
-                    //console.log('goNext, end');
                 }
             }
 
