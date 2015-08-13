@@ -249,7 +249,12 @@
         if (self.clientSize) {
             stopAutoHeightUpdateTimer();
 
-            var height = self.clientSize.height - self.clientSize.top - 4;//высота экрана минус 4px
+            //var height = self.clientSize.height - self.clientSize.top - 4;//высота экрана минус 4px
+            var height = self.clientSize.height;
+            if (height < 500){
+                height = 500;
+                //console.log('setFixedContentHeight change', height);
+            }
             //console.log('setFixedContentHeight', height);
             updateHeight(height);
         }
