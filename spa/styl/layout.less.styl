@@ -57,31 +57,28 @@
   line-height: 43px;
   margin: 0 auto;
   width: $site-width;
-
-  &-container {
-    background: #fff;
+}
+.sub-menu-container{
+  background: #fff;
+}
+.sub-menu-item{
+  color: #333;
+  display: inline-block;
+  margin-left: 20px;
+  
+  &:first-child{
+    margin-left: 0;
   }
-
-  &-item {
-    color: #333;
-    display: inline-block;
-    margin-left: 20px;
-
-    &:first-child {
-      margin-left: 0;
-    }
-
-    a {
-      color: #549000;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
+  
+  a{
+    color: $blue;
+    text-decoration: none;
+    
+    &:hover{
+      text-decoration: underline;
     }
   }
 }
-
 .section-header {
   font-family: ProximaNova, Arial, sans-serif;
   font-weight: normal;
