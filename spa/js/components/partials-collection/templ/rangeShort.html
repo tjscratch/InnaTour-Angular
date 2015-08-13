@@ -1,7 +1,6 @@
 <!-- с 6 янв по 16 янв,   10 ночей -->
-
 <span>
 	&nbsp;с {{hotel.CheckIn | date: 'd MMM'}}
     по {{hotel.CheckOut | date: 'd MMM'}},&nbsp;
-    {{hotel.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+    {{hotel.NightCount | asQuantity:"ночь":"ночи":"ночей"}}<span ng-if="hotel.MealCode == 'RO'">, без питания (RO)</span><span ng-if="hotel.MealCode == 'BB'">, завтрак (BB)</span><span ng-if="hotel.MealCode == 'HB'">, полупансион (HB)</span><span ng-if="hotel.MealCode == 'FB'">, полный пансион (FB)</span><span ng-if="hotel.MealCode == 'AI'">, все включено (AI)</span>
 </span>

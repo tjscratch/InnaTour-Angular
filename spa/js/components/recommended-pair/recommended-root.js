@@ -66,8 +66,9 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                 //setTimeout(orientation, 0);
                 //window.addEventListener("orientationchange", orientation, false);
 
-                $scope.toggleTab = function (data) {
-
+                $scope.toggleTab = function (data, event) {
+                    event.stopPropagation();
+                    //preventBubbling(event);
                     if ($scope.asMap) {
                         EventManager.fire(Events.MAP_CLOSE);
                     }
