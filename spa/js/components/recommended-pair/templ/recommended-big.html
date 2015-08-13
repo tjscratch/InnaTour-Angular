@@ -89,11 +89,11 @@
         </div>
 
         <div class="bottom-actions">
-            <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_replace"
-               ng-if="!displayHotel"
-               ng-class="{active: stateTicket}">
+            <a href="javascript:void(0);" class="button button-middle button-orange button-replace"
+               ng-if="!displayHotel">
                 Заменить перелет
             </a>
+            {{hotelCount}}
             <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_details"
                ng-click="bundleTicketDetails($event, recommendedPair.ticket)">Подробнее</a>
         </div>
