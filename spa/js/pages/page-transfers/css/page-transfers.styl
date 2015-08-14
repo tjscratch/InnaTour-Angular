@@ -60,11 +60,14 @@
     width: 100%;
     max-width: 100%;
     margin-bottom: 20px;
-    padding: 0 15px;
+    //padding: 0 15px;
     background-color: transparent;
     border-spacing: 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    //border: 1px solid #ddd;
+    //border-radius: 4px;
 
     &>thead>tr>th {
         vertical-align: bottom;
@@ -77,16 +80,16 @@
             width: 40%;
         }
 
-        &:last-of-type {
-            border-right: none;
-        }
+        //&:last-of-type {
+        //    border-right: none;
+        //}
     }
 
-    &>tbody>tr {
-        &:nth-of-type(odd) {
-            background-color: #f9f9fa;
-        }
-    }
+    //&>tbody>tr {
+    //    &:nth-of-type(odd) {
+    //        background-color: #f9f9fa;
+    //    }
+    //}
 
     &>tbody>tr>td {
         position: relative;
@@ -96,9 +99,9 @@
         border-top: 1px solid #ddd;
         border-right: 1px solid #ddd;
 
-        &:last-of-type {
-            border-right: none;
-        }
+        //&:last-of-type {
+        //    border-right: none;
+        //}
     }
 }
 
