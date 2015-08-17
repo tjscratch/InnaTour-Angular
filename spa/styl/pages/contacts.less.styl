@@ -27,7 +27,7 @@
     }
 
     a {
-      color: #549000;
+      color: $blue;
       text-decoration: none;
 
       &:hover {
@@ -48,26 +48,24 @@
 
   .contacts-list {
     margin-top: 20px;
+  }
+  .contacts-list-item{
+    display: none;
+    padding-top: 10px;
 
-    &-item {
-      display: none;
-      padding-top: 10px;
-
-      .address {
-        font-size: 24px;
-      }
-
-      .phone {
-        font-size: 16px;
-        line-height: 25px;
-      }
-
-      a {
-        color: #549000;
-        text-decoration: underline;
-      }
+    .address{
+      font-size: 24px;
     }
 
+    .phone{
+      font-size: 16px;
+      line-height: 25px;
+    }
+
+    a{
+      color: $blue;
+      text-decoration: underline;
+    }
   }
 
 }
