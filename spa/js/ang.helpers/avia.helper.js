@@ -845,6 +845,22 @@
                     }
                 },
 
+                insuranceRules: function () {
+                    var self = this;
+                    self.isOpened = false;
+
+                    self.show = function ($event) {
+                        eventsHelper.preventBubbling($event);
+                        utils.scrollFix();
+                        self.isOpened = true;
+                    };
+                    self.close = function ($event) {
+                        eventsHelper.preventBubbling($event);
+                        utils.scrollFix(true);
+                        self.isOpened = false;
+                    }
+                },
+
                 visaControl: function () {
                     var self = this;
 

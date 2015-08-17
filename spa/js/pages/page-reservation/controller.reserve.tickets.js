@@ -315,6 +315,8 @@ innaAppControllers.controller('ReserveTicketsCtrl',
 
         $scope.hotelRules = new $scope.helper.hotelRules();
 
+        $scope.insuranceRules = new $scope.helper.insuranceRules();
+
         $scope.loadTarifs = function (variantTo, varianBack, aviaInfo) {
             $scope.tarifs.fillInfo(aviaInfo);
 
