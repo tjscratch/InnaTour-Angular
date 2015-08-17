@@ -1,17 +1,16 @@
-{{#if modelPrice.getProfit() > 1000}}
-<div class="hotel-info__special-mark">
-	<span class="icon-crown icon-sprite-crown"></span>
-	Спецпредложение
-</div>
-{{/if}}
-
-
-<div class="b-hotel-data {{(modelPrice.getProfit() > 1000) ? 'hotel-info_with_crown' : '' }}">
+<div class="b-hotel-data">
 
 	<a link-in-new-window-if-can href="{{computedUrlDetails()}}" target="_blank" class="b-hotel-data__details"></a>
 
+	{{#if modelPrice.getProfit() > 1000}}
+	<div class="hotel-info__special-mark">
+		<span class="icon-crown icon-sprite-crown"></span>
+		Спецпредложение
+	</div>
+	{{/if}}
+
+
 	<Stars stars="{{hotel.Stars}}"/>
-	<br/>
 
 	<h3 class="b-hotel-data__title b-hotel-data__z-index">
 		<a class="b-hotel-data__title-link"
@@ -21,7 +20,6 @@
 			{{hotel.HotelName}}
 		</a>
 	</h3>
-	<br/>
 
 	<div class="b-hotel-data__text b-hotel-data__z-index">
 		{{hotel.HotelCityName}} {{hotel.Address}}
