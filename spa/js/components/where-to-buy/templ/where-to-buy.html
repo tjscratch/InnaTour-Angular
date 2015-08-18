@@ -16,12 +16,22 @@
 		</div>
 	</div>
 
-	<div class="l-where-to-buy__container">
-		<div class="current-location">
-			{{ currentCity }}
+
+	<div class="b-where-to-buy__location">
+		<div class="l-where-to-buy__container">
+			<div class="b-where-to-buy__location-current">
+				<div class="b-where-to-buy__location-current-txt">
+					Мой город:
+					<b>{{ currentCity }}</b>
+				</div>
+				<span class="b-where-to-buy__location-edit">Изменить</span>
+			</div>
 			<input type="text" ng-model="currentCity" ng-blur="setLocation()"/>
 		</div>
 	</div>
+
+	<div class="b-where-to-buy-map__container js-b-where-to-buy-map__container" ng-style="offsetTop">
+		<div class="b-where-to-buy-map"></div>
+	</div>
 	
-	<div class="b-where-to-buy-map"></div>
 </div>
