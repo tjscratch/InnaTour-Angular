@@ -861,7 +861,7 @@
 
                         self.height = y - 92;
 
-                        if (window.partners) {
+                        if (window.partners && window.partners.clientSize) {
                             var height = window.partners.clientSize.height - 92;
                             if (height < 500){
                                 height = 500;
