@@ -33,7 +33,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, inn
     var GM = google.maps;
     var map = new GM.Map(mapContainer, {
         center: new GM.LatLng(-34, 151),
-        zoom: 12
+        zoom: 11
     });
     var geocoder = new google.maps.Geocoder();
 
