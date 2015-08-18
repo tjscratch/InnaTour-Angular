@@ -1,6 +1,6 @@
-//:link
-//:visited
-//  text-decoration none
+:link
+:visited
+  text-decoration none
 
 ul
 ol
@@ -60,33 +60,15 @@ input::-moz-focus-inner {
   padding: 0;
 }
 
-button{
-	&:focus {
-		outline: none;
-	}
-	&:active,
-	&:hover {
-		outline: none;
-    text-decoration: underline;
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-    tap-highlight-color: rgba(255, 255, 255, 0);
-
-    &.active {
-      text-decoration: none;
-    }
-	}
-}
-    
+button,
 a{
-    text-decoration: underline;
-    
     &:focus{
         outline: none;
     }
     &:active,
     &:hover{
         outline: none;
-        text-decoration: none;
+        text-decoration: underline;
         -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
         tap-highlight-color: rgba(255, 255, 255, 0);
 
