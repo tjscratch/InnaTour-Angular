@@ -58,25 +58,27 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, inn
         /**
          * загрузка списка агенств
          */
-        whereToBuyService.getAgencyList().then(function (data) {
+        whereToBuyService.getAgencyList().success(function (data) {
             console.log(data);
-        });
+            data.forEach(function (data) {
+                var coordinate = data.Coordinate.split(",")
+                console.log(data.Coordinate);
+                var myPlacemark = new ymaps.Placemark(coordinate, {}, iconDefault);
+
+                myPlacemark.events
+                    .add('mouseenter', function (e) {
+                        // Ссылку на объект, вызвавший событие,
+                        // можно получить из поля 'target'.
+                        e.get('target').options.set(iconHover);
+                    })
+                    .add('mouseleave', function (e) {
+                        e.get('target').options.set(iconDefault);
+                    });
 
 
-        var myPlacemark = new ymaps.Placemark([55.779266, 37.69313], {}, iconDefault);
-
-        myPlacemark.events
-            .add('mouseenter', function (e) {
-                // Ссылку на объект, вызвавший событие,
-                // можно получить из поля 'target'.
-                e.get('target').options.set(iconHover);
-            })
-            .add('mouseleave', function (e) {
-                e.get('target').options.set(iconDefault);
+                myMap.geoObjects.add(myPlacemark);
             });
-
-
-        myMap.geoObjects.add(myPlacemark);
+        });
     }
 
 
