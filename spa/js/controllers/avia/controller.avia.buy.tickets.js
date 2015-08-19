@@ -348,6 +348,8 @@ innaAppControllers.
 
             $scope.hotelRules = new $scope.helper.hotelRules();
 
+            $scope.insuranceRules = new $scope.helper.insuranceRules();
+
             $scope.setOferta = function (isDp) {
                 var url = app_main.staticHost + '/files/doc/offer.pdf';
 
