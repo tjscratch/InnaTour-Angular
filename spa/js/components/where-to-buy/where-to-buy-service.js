@@ -2,6 +2,7 @@ innaAppConponents.service('whereToBuyService', function ($q, $http, appApi) {
     var CurrentLocationCacheKey = 'whereToBuyUserCurrentLocation';
 
     return {
+        
         /**
          * Получение текущей локации по IP адресу из сереверного API
          */
@@ -12,12 +13,14 @@ innaAppConponents.service('whereToBuyService', function ($q, $http, appApi) {
                 cache: true
             });
         },
+        
         /**
          * Сохранение текущей локации в кэш
          */
         saveCacheCurrentLocation: function (obj) {
             localStorage.setItem(CurrentLocationCacheKey, obj);
         },
+        
         /**
          * Получение текущей локации из кэша
          */
@@ -25,6 +28,7 @@ innaAppConponents.service('whereToBuyService', function ($q, $http, appApi) {
             var data = localStorage.getItem(CurrentLocationCacheKey) || null;
             return data;
         },
+        
         /**
          * Получение текущей локации, вначале ищется в кэше, если не находится то дергается из API
          * возвращет промис объект
@@ -45,6 +49,17 @@ innaAppConponents.service('whereToBuyService', function ($q, $http, appApi) {
                     });
             }
             return deferred.promise;
+        },
+
+        /**
+         * Получение списка агенств
+         */
+        getAgencyList: function(){
+            return $http({
+                url: appApi.GET_AGENCY_LIST,
+                method: 'GET',
+                cache: true
+            })
         }
     }
 });
