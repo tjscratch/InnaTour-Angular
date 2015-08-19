@@ -1,4 +1,4 @@
-.b-result {
+.b-result{
     display: block;
     //margin-bottom: 10px;
     padding-bottom: 10px;
@@ -9,150 +9,64 @@
     background: none !important;
     box-shadow: none !important;
 
-    &_flight-info {
-        .flight-info b {
-            display: inline-block;
-        }
-    }
-
-    &__cell {
-        box-sizing: border-box;
-        float: left;
-        height: 200px;
-        background: #fff;
-        line-height: normal;
-        margin-right: 10px;
-        padding: 10px !important;
-        position: relative;
-        vertical-align: top;
-
-        &_gallery {
-            margin-right: 0px;
-            width: 200px !important;
-        }
-
-        &:first-child {
-        }
-        &:last-child {
-            margin-right: 0;
-        }
-
-        &:after {
-            box-shadow: 0 2px 3px 2px rgba(0, 0, 0, .2);
-            content: '';
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            z-index: -1;
-        }
-    }
-
-    &:hover {
-        .b-result__cell {
-            &:after {
+    &:hover{
+        .b-result__cell{
+            &:after{
                 /*box-shadow: 0 2px 3px rgba(0, 0, 0, .7);*/
             }
         }
-        .b-result-cell__gap {
-            &:before {
+        .b-result-cell__gap{
+            &:before{
                 /*@extend .icon-sprite-corner-top-hover;*/
             }
 
-            &:after {
+            &:after{
                 /*@extend .icon-sprite-corner-bot-hover;*/
             }
         }
 
     }
 
-    &-cell__gap {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 20px;
-        right: -15px;
-
-        &:before, &:after {
-            content: '';
-            position: absolute;
-            overflow: hidden;
-            left: 5px;
-            width: 11px !important;
-        }
-
-        &:before {
-            @extend .icon-sprite-corner-top;
-            top: -0px;
-        }
-
-        &:after {
-            @extend .icon-sprite-corner-bot;
-            bottom: -5px;
-            top: auto;
-        }
-
-        &_wrap {
-            background: #fff;
-            bottom: 5px;
-            position: absolute;
-            top: 5px;
-            width: 20px;
-
-            &:after {
-                content: '';
-                background: #cfcfcf;
-                position: absolute;
-                width: 1px;
-                top: 0;
-                bottom: 0;
-                left: 50%;
-                margin-left: -1px;
-            }
-        }
-    }
-
-    &.b-result_small {
-        .b-result__cell {
+    &.b-result_small{
+        .b-result__cell{
 
         }
     }
 
-    &.b-result_middle {
-        .b-result__cell {
+    &.b-result_middle{
+        .b-result__cell{
             height: 190px;
         }
     }
 
-    &.b-result_middle-180 {
-        .b-result__cell {
+    &.b-result_middle-180{
+        .b-result__cell{
             height: 180px;
         }
     }
 
-    &.b-result_middle-130 {
-        .b-result__cell {
+    &.b-result_middle-130{
+        .b-result__cell{
             height: 130px;
         }
     }
 
-    &.b-result_big {
-        .b-result__cell {
+    &.b-result_big{
+        .b-result__cell{
             height: 250px;
         }
     }
 
-    &.b-result_220 {
-        .b-result__cell {
+    &.b-result_220{
+        .b-result__cell{
             height: 220px;
         }
     }
 
     /* Две колонки равной ширины с учетом сепаратора*/
     &.b-result_col_two,
-        &.b-result_col_2 {
-            .b-result__cell {
+        &.b-result_col_2{
+            .b-result__cell{
                 width: 49.4%;
                 calc('width', s("50% - 5px"), "100%");
             }
@@ -162,12 +76,12 @@
         Ширина для блока из двух клонок
         Правая колонка шире
          */
-        &.b-result_col_two_short {
-            .b-result__cell {
-                &:nth-child(1) {
+        &.b-result_col_two_short{
+            .b-result__cell{
+                &:nth-child(1){
                     width: 72%;
                 }
-                &:nth-child(2) {
+                &:nth-child(2){
                     width: 26%;
                 }
             }
@@ -175,8 +89,8 @@
 
     /*три колонки - последняя колонка самая узкая*/
     &.b-result_col_three,
-        &.b-result_col_3 {
-            .b-result__cell {
+        &.b-result_col_3{
+            .b-result__cell{
 
                 width: 39.5%;
                 calc('width', s("40% - %s", $separatorBlock/ 2), "100%");
@@ -186,36 +100,36 @@
                 /*calc('width', s("40% - %s", $separatorBlock), "100%");*/
                 /*}*/
 
-                &:last-child {
+                &:last-child{
                     width: 20%;
                     calc('width', s("20% - %s", $separatorBlock/ 2), "100%");
                 }
             }
 
-            .b-result__cell_even {
+            .b-result__cell_even{
                 width: 38%;
                 calc('width', s("40% - %s", $separatorBlock), "100%");
             }
         }
 
     /*три колонки - с фотогалереей 200px*/
-    &.b-result_col_three_galary {
-        .b-result__cell {
+    &.b-result_col_three_galary{
+        .b-result__cell{
 
-            &:first-child {
+            &:first-child{
                 width: 200px;
                 margin-right: 0;
                 padding: 0;
             }
 
-            &:nth-child(even) {
+            &:nth-child(even){
                 width: 45%;
                 calc('width', s("47% - %s", $separatorBlock), "100%");
             }
         }
     }
 
-    .button {
+    .button{
         font-size: 18px;
         text-align: center;
         position: absolute;
@@ -224,7 +138,104 @@
         right: 10px;
     }
 }
+.b-result_flight-info{
+    .flight-info b{
+        display: inline-block;
+    }
+}
+.b-result__cell{
+    box-sizing: border-box;
+    float: left;
+    height: 200px;
+    background: #fff;
+    line-height: normal;
+    margin-right: 10px;
+    padding: 10px !important;
+    position: relative;
+    vertical-align: top;
 
-.icon-sprite-crown {
+    &:first-child{
+    }
+    &:last-child{
+        margin-right: 0;
+    }
+
+    &:after{
+        box-shadow: 0 2px 3px 2px rgba(0, 0, 0, .2);
+        content: '';
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: -1;
+    }
+}
+.b-result__cell_gallery{
+    margin-right: 0px;
+    width: 200px !important;
+}
+.b-result-cell__gap{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    right: -15px;
+
+    &:before, &:after{
+        content: '';
+        position: absolute;
+        overflow: hidden;
+        left: 5px;
+        width: 11px !important;
+    }
+
+    &:before{
+        @extend .icon-sprite-corner-top;
+        top: -0px;
+    }
+
+    &:after{
+        @extend .icon-sprite-corner-bot;
+        bottom: -5px;
+        top: auto;
+    }
+}
+.b-result-cell__gap_wrap{
+    background: #fff;
+    bottom: 5px;
+    position: absolute;
+    top: 5px;
+    width: 20px;
+
+    &:after{
+        content: '';
+        background: #cfcfcf;
+        position: absolute;
+        width: 1px;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -1px;
+    }
+}
+.icon-sprite-crown{
     margin-left: 4px;
+}
+    
+.b-list-panel{
+    .b-result__cell{
+        &:after{
+            box-shadow: none;
+        }
+    }
+    .b-result{
+        &:hover{
+            .b-result__cell{
+                &:after{
+                    box-shadow: 0 2px 3px 2px rgba(0, 0, 0, .2);
+                }
+            }
+        }
+    }
 }

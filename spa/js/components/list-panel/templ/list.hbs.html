@@ -5,35 +5,26 @@
 
 			{{#if EnumerableCount}}
                 <div class="b-switch-filters_buttons_right font-medium">
-                    <div class="row">
-                        <div class="col-xs-6 col-no-padding">
-                            <!--Другие <b>{{(EnumerableCount)}}</b>-->
-							{{#if iterable_hotels}}
-								{{{pluralize((EnumerableCount),[
-									"Другой <b>"+ EnumerableCount +"</b> вариант отеля",
-									"Другие <b>"+ EnumerableCount +"</b> варианта отелей",
-									"Другие <b>"+ EnumerableCount +"</b> вариантов отелей"
-								])}}}
-							{{else}}
-								{{{pluralize((EnumerableCount), [
-									"Другой <b>"+ EnumerableCount +"</b> вариант перелета",
-									"Другие <b>"+ EnumerableCount +"</b> варианта перелетов",
-									"Другие <b>"+ EnumerableCount +"</b> вариантов перелетов"
-								])}}}
-							{{/if}}
-                        </div>
-
-						{{#if iterable_hotels && EnumerableCount}}
-                            <div class="col-xs-6 col-no-padding">
-                                <div class="b-switch-dynamic-serp-display__title cursor-pointer pull-right"
-                                     on-click="goToMap">
-                                    <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>
-                                    Посмотреть на карте
-                                </div>
-                            </div>
-						{{/if}}
-                    </div>
-
+                    {{#if iterable_hotels}}
+                        {{{pluralize((EnumerableCount),[
+                            "Еще <b>"+ EnumerableCount +"</b> вариант отеля",
+                            "Еще <b>"+ EnumerableCount +"</b> варианта отелей",
+                            "Еще <b>"+ EnumerableCount +"</b> вариантов отелей"
+                        ])}}}
+                    {{else}}
+                        {{{pluralize((EnumerableCount), [
+                            "Еще <b>"+ EnumerableCount +"</b> вариант перелета",
+                            "Еще <b>"+ EnumerableCount +"</b> варианта перелета",
+                            "Еще <b>"+ EnumerableCount +"</b> вариантов перелета"
+                        ])}}}
+                    {{/if}}
+                    {{#if iterable_hotels && EnumerableCount}}
+                            <span class="b-switch-dynamic-serp-display__title cursor-pointer"
+                                 on-click="goToMap">
+                                <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>
+                                <span class="b-switch-dynamic-serp-display__title-link">Отели на карте</span>
+                            </span>
+                    {{/if}}
                 </div>
 			{{/if}}
 
