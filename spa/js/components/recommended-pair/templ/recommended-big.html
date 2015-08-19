@@ -166,8 +166,16 @@
 		<div class="hotel-info">
 			<div class="hotel-info__wrapper">
 				<!--{{bundle | console}}-->
-				<img class="hotel-info__photo" ng-src="{{recommendedPair.hotel.data.HotelPhoto180}}" ng-if="recommendedPair.hotel.data.HotelPhoto70" alt="">
-				<img class="hotel-info__photo" src="/spa/img/hotels/no_photo70x70.png" ng-if="!recommendedPair.hotel.data.HotelPhoto70" alt="">
+				
+				<div class="hotel-info__photo" style="background-image: url({{recommendedPair.hotel.data.HotelPhoto180}})"
+				     ng-if="recommendedPair.hotel.data.HotelPhoto180"
+						></div>
+				<div class="hotel-info__photo" style="background-image: url('/spa/img/hotels/no_photo70x70.png')"
+				     ng-if="!recommendedPair.hotel.data.HotelPhoto180"
+						></div>
+				
+				<!--<img class="hotel-info__photo" ng-src="{{recommendedPair.hotel.data.HotelPhoto180}}" ng-if="recommendedPair.hotel.data.HotelPhoto180" alt="">-->
+				<!--<img class="hotel-info__photo" src="/spa/img/hotels/no_photo70x70.png" ng-if="!recommendedPair.hotel.data.HotelPhoto180" alt="">-->
 
 				<div class="hotel-info-content">
 
