@@ -169,14 +169,15 @@
                             item   : item,
                             option : option,
                             airport: airport
-                        }
+                        };
                         return res;
-                    }
+                    };
                     self.init = function () {
                         //console.log('selectionControl.init');
                         self.list = [];
                         self.selectedIndex = 0;
 
+                        //console.log('init, suggest', $scope.suggest);
                         if ($scope.suggest != null) {
                             //items
                             for (var i = 0; i < $scope.suggest.length; i++) {
@@ -201,10 +202,10 @@
                             self.updateInputText();
                             //console.log(self.list);
                         }
-                    }
+                    };
                     self.isItemSelected = function (item) {
                         return (item.isSelected == true);
-                    }
+                    };
                     self.selectNext = function () {
                         if (self.list.length > 0) {
                             if ((self.selectedIndex + 1) < self.list.length) {
@@ -215,7 +216,7 @@
                                 self.updateInputText();
                             }
                         }
-                    }
+                    };
                     self.selectPrev = function () {
                         if (self.list.length > 0) {
                             if ((self.selectedIndex - 1) >= 0) {
@@ -226,7 +227,7 @@
                                 self.updateInputText();
                             }
                         }
-                    }
+                    };
                     self.scrollToItem = function () {
                         var ind = self.selectedIndex;
                         //скролим где-то в середину (во всю высоту влезает где-то 10 итемов)
@@ -253,7 +254,7 @@
                     self.updateInputText = function () {
                         //$scope.input.val(self.list[self.selectedIndex].item.Name);
                         self.setSelected(true);
-                    }
+                    };
                     self.setSelected = function (doNotUpdateInputText) {
                         var i = self.list[self.selectedIndex];
 
