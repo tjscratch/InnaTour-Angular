@@ -5,7 +5,8 @@
             ymaps.ready(function () {
                 var map = new ymaps.Map($('.Map-container')[0], {
                     center: [55.76, 37.64],
-                    zoom: 7
+                    zoom: 7,
+                    controls: []
                 });
                 var placemarkCollection = new ymaps.GeoObjectCollection();
                 var $cityMenu = $('.City-menu');
