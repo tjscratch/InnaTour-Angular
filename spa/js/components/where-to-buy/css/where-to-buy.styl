@@ -1,4 +1,7 @@
 $gray = rgba(246, 246, 246, 0.91);
+$border-gray = #e0e0e0;
+$orange = #fbb03b;
+$green = #89c13a;
 .l-where-to-buy{
     position: relative;
     z-index: 1;
@@ -47,6 +50,66 @@ $gray = rgba(246, 246, 246, 0.91);
 
     &:hover{
         text-decoration: none;
+    }
+}
+.b-where-to-buy__agencies{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 280px;
+
+    *{
+        box-sizing: border-box;
+    }
+}
+.b-where-to-buy__agencies-title{
+    background-color #fff;
+    height: 54px;
+    padding: 15px 25px;
+    border-style: solid;
+    border-color: $border-gray;
+    border-width: 1px 1px 0;
+}
+.b-where-to-buy__agencies-list{
+    overflow: auto;
+
+    a{
+        color: $blue
+        text-decoration: underline;
+
+        &:hover{
+            text-decoration: none;
+        }
+    }
+}
+.b-where-to-buy__agencies-list_item{
+    background-color #fff;
+    padding: 15px 25px;
+    font-size: 14px;
+    line-height: 120%;
+    border-style: solid;
+    border-color: $border-gray;
+    border-width: 1px 1px 0;
+
+    h3{
+        font-size: 16px;
+    }
+
+    &.active{
+        box-shadow: inset 0 0 0 3px $green;
+        border-color: transparent;
+    }
+}
+.b-where-to-buy__agencies-list_item__promo{
+    @extend .b-where-to-buy__agencies-list_item;
+    background-color: $orange;
+    border-width: 0;
+
+    h3{
+        margin: 0 0 15px;
+    }
+    a{
+        color: #000000;
     }
 }
 .b-where-to-buy-map__container{

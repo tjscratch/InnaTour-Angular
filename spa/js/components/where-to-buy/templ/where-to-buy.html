@@ -19,14 +19,66 @@
 
 	<div class="b-where-to-buy__location">
 		<div class="l-where-to-buy__container">
-			<div class="b-where-to-buy__location-current">
+
+
+			<div class="b-where-to-buy__location-current" ng-show="currentCity">
 				<div class="b-where-to-buy__location-current-txt">
 					Мой город:
 					<b>{{ currentCity }}</b>
 				</div>
-				<span class="b-where-to-buy__location-edit">Изменить</span>
+				<!--<input type="text" ng-model="currentCity" ng-blur="setLocation()"/>-->
+				<span class="b-where-to-buy__location-edit" ng-click="setObj">Изменить</span>
 			</div>
-			<!--<input type="text" ng-model="currentCity" ng-blur="setLocation()"/>-->
+
+
+			<div class="b-where-to-buy__agencies" ng-show="agencies">
+
+
+				<div class="b-where-to-buy__agencies-title">
+					Всего
+					{{ agencies.length }}
+					{{agencies.length | pluralize: ["офис","офиса","офисов"]}}
+				</div>
+
+
+				<ul class="b-where-to-buy__agencies-list"
+				    ng-style="listHeight">
+
+
+					<li class="b-where-to-buy__agencies-list_item"
+					    ng-repeat="item in ::agencies track by $index"
+					    ng-mouseover="setAgency($index)"
+					    data-ng-model-options="{debounce: 1500}"
+					    ng-class="{'active': currentAgencyId == $index}"
+							>
+						<h3 class="b-where-to-buy__agencies-list_item-title" ng-bind="::item.Name"></h3>
+						<div ng-bind="::item.Address"></div>
+						<div>
+							тел.: <span ng-bind="::item.Phone"></span>
+						</div>
+						<div>
+							<a ng-href="{{:: item.Site }}" ng-bind="::item.Site"></a>
+						</div>
+					</li>
+
+
+					<li class="b-where-to-buy__agencies-list_item__promo">
+						<h3>Место свободно</h3>
+						<div>
+							Если вы турагентство или
+							туроператор и хотите
+							разместить информацию о себе
+						</div>
+						<a href="/#/registration">зарегистрируйтесь</a>
+					</li>
+
+
+				</ul>
+
+
+			</div>
+
+
 		</div>
 	</div>
 
