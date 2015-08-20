@@ -61,13 +61,13 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, inn
         var mapContainer = document.querySelector('.b-where-to-buy-map');
         var iconDefault = {
             iconLayout: 'default#image',
-            iconImageHref: 'spa/img/map/pin-grey.png',
+            iconImageHref: 'spa/img/map/pin-grey.png?' + Math.random().toString(16),
             iconImageSize: [21, 32],
             iconImageOffset: [0, 0]
         };
         var iconHover = {
             iconLayout: 'default#image',
-            iconImageHref: 'spa/img/map/pin-green.png',
+            iconImageHref: 'spa/img/map/pin-green.png?' + Math.random().toString(16),
             iconImageSize: [21, 32],
             iconImageOffset: [0, 0]
         };
