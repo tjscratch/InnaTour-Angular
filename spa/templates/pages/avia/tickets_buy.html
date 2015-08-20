@@ -138,30 +138,6 @@
 </div>
 
 <div class="b-tickets-info-container">
-    <div class="b-tickets-ok"
-         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">
-        <i class="fa fa-check"></i>Билеты забронированы
-    </div>
-    <div class="b-tickets-ok"
-         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && (hotel != null)">
-        <i class="fa fa-check"></i>Билеты забронированы, отель будет забронирован после оплаты
-    </div>
-    <div class="b-tickets-info-block" ng-if="reservationModel.experationMinute > 0">
-        <div class="b-tickets-sum">Сумма к оплате: <b>{{price| price}}
-            <ng-include src="'components/ruble.html'"/>
-        </b></div>
-        <div class="b-tickets-info">
-            оплатить до: <b>{{reservationModel.expirationDate | date:'HH:mm'}},
-            {{reservationModel.expirationDateFormatted}}</b>
-
-            <div class="br"></div>
-            осталось: <b
-                style="width: 170px; display: inline-block;">{{reservationModel.experationSecondsFormatted}}</b>
-        </div>
-    </div>
-</div>
-
-<div class="b-tickets-info-container">
     <div class="b-tickets-info-container__inner-wrap">
         <div class="b-tickets-ok b-svyaznoy"
              ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">
