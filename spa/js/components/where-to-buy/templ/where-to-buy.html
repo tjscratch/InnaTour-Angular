@@ -24,6 +24,7 @@
 				<div class="b-where-to-buy__location-current-txt">
 					Мой город:
 					<b ng-show="!editLocation">{{ currentCity }}</b>
+					{{ bounds }}
 				</div>
 				<div class="b-typeahead"
 				     ng-show="editLocation">
@@ -60,7 +61,7 @@
 
 				<ul class="b-where-to-buy__agencies-list"
 				    ng-style="listHeight"
-				    ng-if="agencies">
+				    ng-show="agencies">
 
 					<li class="b-where-to-buy__agencies-list_item js-list-item-{{ $index }}"
 					    ng-repeat="item in ::agencies track by $index"

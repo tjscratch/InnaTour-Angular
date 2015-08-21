@@ -11,7 +11,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
     $scope.offsetTop = {top: topMap.offsetTop, bottom: 0};
     var body = document.querySelector('body');
     $scope.listHeight = {height: body.clientHeight - topMap.offsetTop - 310};
-    $scope.promoPositions = {top: (body.clientHeight - topMap.offsetTop)/2}
+    $scope.promoPositions = {top: (body.clientHeight - topMap.offsetTop) / 2}
 
     /**
      * json заглушка
@@ -68,20 +68,23 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                 function (res) {
                     var coord = res.geoObjects.get(0).geometry.getCoordinates();
                     myMap.setCenter(coord, 10);
+                    var mapBounds = myMap.getBounds();
+                    console.log(mapBounds);
+                    setAgencies({bounds: mapBounds});
                 }
             );
         };
-        
-        
+
+
         /**
          * автоматически оперделяем текущую локацию и показываем карту с метками для нее
          */
-        $scope.setCurrentLocation = function(location){
+        $scope.setCurrentLocation = function (location) {
             $scope.editLocation = false;
-            if(location){
-                    $scope.currentCity = location.name;
-                    setMapCentered(location.name);
-            }else{
+            if (location) {
+                $scope.currentCity = location.name;
+                setMapCentered(location.name);
+            } else {
                 whereToBuyService.getCurrentLocation().then(function (data) {
                     $scope.currentCity = data;
                     setMapCentered(data);
@@ -105,27 +108,29 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
         /**
          * загрузка списка агенств
          */
-        whereToBuyService.getAgencyList().success(function (data) {
-            $scope.agencies = data.concat(locations);
-            if ($scope.agencies){
-                setMarkers($scope.agencies, $scope.currentAgencyId);
-            }else{
-                $scope.showPromo = true; 
-            }
-        });
+        function setAgencies(Bounds) {
+            whereToBuyService.getAgencyList(Bounds).success(function (data) {
+                $scope.agencies = data.concat(locations);
+                if ($scope.agencies) {
+                    setMarkers($scope.agencies, $scope.currentAgencyId);
+                } else {
+                    $scope.showPromo = true;
+                }
+            });
+        };
 
 
         $scope.currentAgencyId = 1;
         $scope.arrayMarkers = [];
 
         $scope.setAgency = function (index) {
-            if(index){
+            if (index != undefined) {
                 $scope.currentAgencyId = index;
                 $scope.arrayMarkers.forEach(function (marker, i) {
                     marker.options.set(iconDefault);
                 });
                 $scope.arrayMarkers[index].options.set(iconActive);
-            }else{
+            } else {
                 $scope.arrayMarkers[$scope.currentAgencyId].options.set(iconActive);
             }
         };

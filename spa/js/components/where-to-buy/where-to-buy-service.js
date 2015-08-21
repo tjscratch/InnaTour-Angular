@@ -54,10 +54,11 @@ innaAppConponents.service('whereToBuyService', function ($q, $http, appApi) {
         /**
          * Получение списка агенств
          */
-        getAgencyList: function(){
+        getAgencyList: function(bounds){
             return $http({
                 url: appApi.GET_AGENCY_LIST,
                 method: 'GET',
+                params: bounds,
                 cache: true
             })
         },
