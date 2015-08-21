@@ -31,10 +31,11 @@
 			</div>
 
 
-			<div class="b-where-to-buy__agencies" ng-show="agencies">
+			<div class="b-where-to-buy__agencies">
 
 
-				<div class="b-where-to-buy__agencies-title">
+				<div class="b-where-to-buy__agencies-title"
+				     ng-if="agencies">
 					Всего
 					{{ agencies.length }}
 					{{agencies.length | pluralize: ["офис","офиса","офисов"]}}
@@ -42,7 +43,8 @@
 
 
 				<ul class="b-where-to-buy__agencies-list"
-				    ng-style="listHeight">
+				    ng-style="listHeight"
+				    ng-if="agencies">
 
 					<li class="b-where-to-buy__agencies-list_item js-list-item-{{ $index }}"
 					    ng-repeat="item in ::agencies track by $index"
@@ -62,7 +64,8 @@
 				</ul>
 
 				
-				<div class="b-where-to-buy__agencies-promo">
+				<div class="b-where-to-buy__agencies-promo"
+				     ng-if="agencies">
 					<h3>Место свободно</h3>
 					<div>
 						Если вы турагентство или
@@ -70,6 +73,19 @@
 						разместить информацию о себе
 					</div>
 					<a href="/#/registration">зарегистрируйтесь</a>
+				</div>
+
+				<div class="b-where-to-buy__agencies-promo one"
+				     ng-if="showPromo"
+				     ng-style="promoPositions"
+						>
+					<h3>У нас пока нет представителя в этом городе.</h3>
+					<div>
+						Есть шанс стать первым!
+						Если вы турагентство
+						или туроператор и хотите продавать
+						дин. турпакеты <a href="/#/registration">зарегистрируйтесь</a>
+					</div>
 				</div>
 
 

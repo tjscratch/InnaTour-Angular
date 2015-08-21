@@ -1,4 +1,4 @@
-innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, innaAppApiEvents, EventManager, whereToBuyService) {
+innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $timeout, innaAppApiEvents, EventManager, whereToBuyService) {
 
     EventManager.fire(innaAppApiEvents.FOOTER_HIDDEN);
     $rootScope.BodyStyleGlobal = {'background-color': '#fff'};
@@ -11,6 +11,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, inn
     $scope.offsetTop = {top: topMap.offsetTop, bottom: 0};
     var body = document.querySelector('body');
     $scope.listHeight = {height: body.clientHeight - topMap.offsetTop - 310};
+    $scope.promoPositions = {top: (body.clientHeight - topMap.offsetTop)/2}
 
     /**
      * json заглушка
@@ -29,29 +30,6 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, inn
             }
         )
     }
-
-    //var locations = [
-    //    {Name: 'Левел Тревел', Address: '105082, г. Москва, ул. Фридриха Энгельса, д.75, стр.21, этаж 2, офис 203', Coordinate: '55.779266, 37.69313', Phone: '74951344411 ', Site: 'level.travel'},
-    //    {Name: 'Травелата', Address: '125009, г. Москва, ул. Тверская, д.22/2 корп.1', Coordinate: '55.767939, 37.602229', Phone: '7(495)7865500', Site: 'travelata.ru'},
-    //    {Coordinate: '55.855532, 37.495797', Name: 'АЛЬФА', Address: '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1', Phone: '7(495)7247210', Site: 'mail.com'},
-    //    {Coordinate: '55.65, 37.495797', Name: 'АЛЬФА', Address: '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1', Phone: '7(495)7247210', Site: 'mail.com'},
-    //    {Coordinate: '55.55, 37.495797', Name: 'АЛЬФА', Address: '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1', Phone: '7(495)7247210', Site: 'mail.com'},
-    //    {Coordinate: '55.90, 37.495797', Name: 'АЛЬФА', Address: '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1', Phone: '7(495)7247210', Site: 'mail.com'},
-    //    {Coordinate: '55.90, 37.35', Name: 'АЛЬФА', Address: '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1', Phone: '7(495)7247210', Site: 'mail.com'},
-    //    {Coordinate: '55.90, 37.45', Name: 'АЛЬФА', Address: '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1', Phone: '7(495)7247210', Site: 'mail.com'},
-    //    {Coordinate: '55.90, 37.54', Name: 'АЛЬФА', Address: '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1', Phone: '7(495)7247210', Site: 'mail.com'},
-    //    {Coordinate: '55.90, 37.68', Name: 'АЛЬФА', Address: '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1', Phone: '7(495)7247210', Site: 'mail.com'},
-    //    {Coordinate: '55.90, 37.10', Name: 'АЛЬФА', Address: '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1', Phone: '7(495)7247210', Site: 'mail.com'},
-    //    {Coordinate: '55.90, 37.5', Name: 'АЛЬФА', Address: '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1', Phone: '7(495)7247210', Site: 'mail.com'},
-    //    {Coordinate: '55.769099, 37.633958', Name: 'РусьИнтурБюро', Address: '107045, г. Москва,  Малый Головин пер., д. 8, стр.1, офис 43', Phone: '7(495)6071287', Site: 'rambler.ru'},
-    //    {Coordinate: '55.76, 37.6', Name: 'РусьИнтурБюро', Address: '107045, г. Москва,  Малый Головин пер., д. 8, стр.1, офис 43', Phone: '7(495)6071287', Site: 'rambler.ru'},
-    //    {Coordinate: '55.76, 37.4', Name: 'РусьИнтурБюро', Address: '107045, г. Москва,  Малый Головин пер., д. 8, стр.1, офис 43', Phone: '7(495)6071287', Site: 'rambler.ru'},
-    //    {Coordinate: '55.76, 37.3', Name: 'РусьИнтурБюро', Address: '107045, г. Москва,  Малый Головин пер., д. 8, стр.1, офис 43', Phone: '7(495)6071287', Site: 'rambler.ru'},
-    //    {Coordinate: '55.7, 37.3', Name: 'РусьИнтурБюро', Address: '107045, г. Москва,  Малый Головин пер., д. 8, стр.1, офис 43', Phone: '7(495)6071287', Site: 'rambler.ru'},
-    //    {Coordinate: '55.6, 37.4', Name: 'РусьИнтурБюро', Address: '107045, г. Москва,  Малый Головин пер., д. 8, стр.1, офис 43', Phone: '7(495)6071287', Site: 'rambler.ru'},
-    //    {Coordinate: '55.6, 37.5', Name: 'РусьИнтурБюро', Address: '107045, г. Москва,  Малый Головин пер., д. 8, стр.1, офис 43', Phone: '7(495)6071287', Site: 'rambler.ru'},
-    //    {Coordinate: '55.4, 37.6', Name: 'РусьИнтурБюро', Address: '107045, г. Москва,  Малый Головин пер., д. 8, стр.1, офис 43', Phone: '7(495)6071287', Site: 'rambler.ru'},
-    //]
 
 
     ymaps.ready(initMap);
@@ -109,7 +87,11 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, inn
          */
         whereToBuyService.getAgencyList().success(function (data) {
             $scope.agencies = data.concat(locations);
-            setMarkers($scope.agencies, $scope.currentAgencyId);
+            if ($scope.agencies){
+                setMarkers($scope.agencies, $scope.currentAgencyId);
+            }else{
+                $scope.showPromo = true; 
+            }
         });
 
 
@@ -117,12 +99,15 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, inn
         $scope.arrayMarkers = [];
 
         $scope.setAgency = function (index) {
-            $scope.currentAgencyId = index;
-            //setMarkers($scope.agencies, index);
-            $scope.arrayMarkers.forEach(function (marker, i) {
-                marker.options.set(iconDefault);
-            });
-            $scope.arrayMarkers[index].options.set(iconActive);
+            if(index){
+                $scope.currentAgencyId = index;
+                $scope.arrayMarkers.forEach(function (marker, i) {
+                    marker.options.set(iconDefault);
+                });
+                $scope.arrayMarkers[index].options.set(iconActive);
+            }else{
+                $scope.arrayMarkers[$scope.currentAgencyId].options.set(iconActive);
+            }
         };
 
         function setMarkers(markers, currentMarker) {
@@ -142,8 +127,13 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, inn
                     })
                     .add('mouseleave', function (e) {
                         e.get('target').options.set(iconDefault);
+                        var id = e.get('target').properties.get('id');
+                        $scope.$apply(function ($scope) {
+                            $scope.setAgency();
+                        });
                     })
                     .add('mousedown', function (e) {
+                        e.get('target').options.set(iconHover);
                         var id = e.get('target').properties.get('id');
                         $scope.$apply(function ($scope) {
                             $scope.setAgency(id);
@@ -159,6 +149,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, inn
         };
 
         var list = $(".b-where-to-buy__agencies-list");
+
         function scrollList(id) {
             var currentItem = document.querySelector(".js-list-item-" + id);
             list.scrollTop(currentItem.offsetTop - 54);
