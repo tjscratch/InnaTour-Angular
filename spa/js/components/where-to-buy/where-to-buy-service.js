@@ -60,6 +60,36 @@ innaAppConponents.service('whereToBuyService', function ($q, $http, appApi) {
                 method: 'GET',
                 cache: true
             })
+        },
+
+
+        /**
+         * поиск локации
+         */
+        getLocation: function (text) {
+            var deferred = $q.defer();
+
+            function prepareData(response) {
+                var data = [];
+                angular.forEach(response, function (item) {
+                    var fullName = item.CountryName + ", " + item.Name;
+                    data.push({id: item.Id, name: fullName});
+                });
+                return data;
+            }
+
+            $http({
+                url: appApi.DYNAMIC_TO_SUGGEST,
+                method: "GET",
+                params: {
+                    term: text.split(', ')[0].trim()
+                }
+            }).success(function (data) {
+                deferred.resolve(prepareData(data));
+            });
+
+            return deferred.promise;
         }
+        
     }
 });

@@ -110,7 +110,7 @@ $green = #89c13a;
         margin: 0 0 15px;
     }
     a{
-        color: #000000;
+        color: #000;
         text-decoration: underline;
 
         &:hover{
@@ -133,3 +133,46 @@ $green = #89c13a;
     width: 100%;
     height: 100%;
 }
+//b-typeahead
+.b-typeahead{
+    position: relative;
+    display: inline-block;
+    margin: 11px 0 0 5px;
+    vertical-align: top;
+
+    .dropdown-menu{
+        background: #fff;
+
+        li{
+            box-sizing: border-box;
+            line-height: 27px;
+            padding: 4px 15px;
+            font-size: 18px;
+
+            &.active{
+                background-color: $border-gray;
+            }
+
+            a{
+                color: #000;
+                
+                &:hover{
+                    text-decoration: none
+                }
+            }
+        }
+    }
+}
+.b-typeahead__input{
+    vertical-align: top;
+    height: 35px;
+    width: 250px;
+    line-height: 27px;
+    padding: 4px 15px;
+    background-color: #fff;
+    border: 1px solid $border-gray;
+    box-sizing: border-box;
+    font-size: 18px;
+    color: #000;
+}
+    

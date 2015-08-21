@@ -16,7 +16,6 @@
 		</div>
 	</div>
 
-
 	<div class="b-where-to-buy__location">
 		<div class="l-where-to-buy__container">
 
@@ -24,10 +23,27 @@
 			<div class="b-where-to-buy__location-current" ng-show="currentCity">
 				<div class="b-where-to-buy__location-current-txt">
 					Мой город:
-					<b>{{ currentCity }}</b>
+					<b ng-show="!editLocation">{{ currentCity }}</b>
+				</div>
+				<div class="b-typeahead"
+				     ng-show="editLocation">
+					<input
+							class="b-typeahead__input"
+							type="text"
+							ng-model="locationFrom"
+							typeahead="state as state.name for state in getLocationFrom($viewValue) | filter:$viewValue"
+							typeahead-wait-ms="300"
+							>
 				</div>
 				<!--<input type="text" ng-model="currentCity" ng-blur="setLocation()"/>-->
-				<span class="b-where-to-buy__location-edit" ng-click="setObj">Изменить</span>
+				<span class="btn btn-green"
+				      ng-click="setCurrentLocation(locationFrom)"
+				      ng-show="editLocation"
+						>Выбрать</span>
+				<span class="b-where-to-buy__location-edit" 
+				      ng-click="editLocation = true"
+				      ng-show="!editLocation"
+						>Изменить</span>
 			</div>
 
 

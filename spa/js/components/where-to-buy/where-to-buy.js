@@ -70,16 +70,36 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                     myMap.setCenter(coord, 10);
                 }
             );
-        }
-
-
+        };
+        
+        
         /**
          * автоматически оперделяем текущую локацию и показываем карту с метками для нее
          */
-        whereToBuyService.getCurrentLocation().then(function (data) {
-            $scope.currentCity = data;
-            setMapCentered(data);
-        });
+        $scope.setCurrentLocation = function(location){
+            $scope.editLocation = false;
+            if(location){
+                    $scope.currentCity = location.name;
+                    setMapCentered(location.name);
+            }else{
+                whereToBuyService.getCurrentLocation().then(function (data) {
+                    $scope.currentCity = data;
+                    setMapCentered(data);
+                });
+            }
+        };
+        $scope.setCurrentLocation();
+
+
+        /**
+         * поиск локали откуда для авиа и ДП одно и то же
+         */
+        $scope.getLocationFrom = function (text) {
+            return whereToBuyService.getLocation(text)
+                .then(function (data) {
+                    return data;
+                });
+        };
 
 
         /**
