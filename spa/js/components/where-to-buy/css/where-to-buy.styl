@@ -72,6 +72,7 @@ $green = #89c13a;
 }
 .b-where-to-buy__agencies-list{
     overflow: auto;
+    border-bottom: 1px solid $border-gray;
 
     a{
         color: $blue
@@ -100,7 +101,7 @@ $green = #89c13a;
         border-color: transparent;
     }
 }
-.b-where-to-buy__agencies-list_item__promo{
+.b-where-to-buy__agencies-promo{
     @extend .b-where-to-buy__agencies-list_item;
     background-color: $orange;
     border-width: 0;
@@ -110,6 +111,11 @@ $green = #89c13a;
     }
     a{
         color: #000000;
+        text-decoration: underline;
+        
+        &:hover{
+            text-decoration: none;
+        }
     }
 }
 .b-where-to-buy-map__container{

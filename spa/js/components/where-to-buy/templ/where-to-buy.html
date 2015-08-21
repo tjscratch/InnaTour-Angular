@@ -44,12 +44,10 @@
 				<ul class="b-where-to-buy__agencies-list"
 				    ng-style="listHeight">
 
-
-					<li class="b-where-to-buy__agencies-list_item"
+					<li class="b-where-to-buy__agencies-list_item js-list-item-{{ $index }}"
 					    ng-repeat="item in ::agencies track by $index"
-					    ng-mouseover="setAgency($index)"
-					    data-ng-model-options="{debounce: 1500}"
 					    ng-class="{'active': currentAgencyId == $index}"
+					    ng-mouseover="setAgency($index)"
 							>
 						<h3 class="b-where-to-buy__agencies-list_item-title" ng-bind="::item.Name"></h3>
 						<div ng-bind="::item.Address"></div>
@@ -61,19 +59,18 @@
 						</div>
 					</li>
 
-
-					<li class="b-where-to-buy__agencies-list_item__promo">
-						<h3>Место свободно</h3>
-						<div>
-							Если вы турагентство или
-							туроператор и хотите
-							разместить информацию о себе
-						</div>
-						<a href="/#/registration">зарегистрируйтесь</a>
-					</li>
-
-
 				</ul>
+
+				
+				<div class="b-where-to-buy__agencies-promo">
+					<h3>Место свободно</h3>
+					<div>
+						Если вы турагентство или
+						туроператор и хотите
+						разместить информацию о себе
+					</div>
+					<a href="/#/registration">зарегистрируйтесь</a>
+				</div>
 
 
 			</div>

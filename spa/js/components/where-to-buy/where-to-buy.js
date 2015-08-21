@@ -10,26 +10,26 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, inn
     var topMap = document.querySelector('.js-b-where-to-buy-map__container');
     $scope.offsetTop = {top: topMap.offsetTop, bottom: 0};
     var body = document.querySelector('body');
-    $scope.listHeight = {height: body.clientHeight - topMap.offsetTop - 150};
+    $scope.listHeight = {height: body.clientHeight - topMap.offsetTop - 310};
 
     /**
      * json заглушка
      */
     var locations = [];
-    for (var i = 0; i < 2000; i++) {
+    for (var i = 0; i < 100; i++) {
         var long = Math.random() * (56 - 55.5) + 55.5;
         var lang = Math.random() * (37.9 - 37.3) + 37.3;
         locations.push(
             {
                 Coordinate: long + ',' + lang,
-                Name: 'АЛЬФА',
+                Name: 'АЛЬФА' + i,
                 Address: '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1',
                 Phone: '7(495)7247210',
                 Site: 'mail.com'
             }
         )
     }
-    
+
     //var locations = [
     //    {Name: 'Левел Тревел', Address: '105082, г. Москва, ул. Фридриха Энгельса, д.75, стр.21, этаж 2, офис 203', Coordinate: '55.779266, 37.69313', Phone: '74951344411 ', Site: 'level.travel'},
     //    {Name: 'Травелата', Address: '125009, г. Москва, ул. Тверская, д.22/2 корп.1', Coordinate: '55.767939, 37.602229', Phone: '7(495)7865500', Site: 'travelata.ru'},
@@ -61,13 +61,19 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, inn
         var mapContainer = document.querySelector('.b-where-to-buy-map');
         var iconDefault = {
             iconLayout: 'default#image',
-            iconImageHref: 'spa/img/map/pin-grey.png?' + Math.random().toString(16),
+            iconImageHref: 'spa/img/map/pin-grey.png?',
             iconImageSize: [21, 32],
             iconImageOffset: [0, 0]
         };
         var iconHover = {
             iconLayout: 'default#image',
-            iconImageHref: 'spa/img/map/pin-green.png?' + Math.random().toString(16),
+            iconImageHref: 'spa/img/map/pin-black.png?',
+            iconImageSize: [21, 32],
+            iconImageOffset: [0, 0]
+        };
+        var iconActive = {
+            iconLayout: 'default#image',
+            iconImageHref: 'spa/img/map/pin-green.png?',
             iconImageSize: [21, 32],
             iconImageOffset: [0, 0]
         };
@@ -109,43 +115,54 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, inn
 
         $scope.currentAgencyId = 1;
         $scope.arrayMarkers = [];
-        
+
         $scope.setAgency = function (index) {
             $scope.currentAgencyId = index;
             //setMarkers($scope.agencies, index);
             $scope.arrayMarkers.forEach(function (marker, i) {
                 marker.options.set(iconDefault);
             });
-            $scope.arrayMarkers[index].options.set(iconHover);
+            $scope.arrayMarkers[index].options.set(iconActive);
         };
 
         function setMarkers(markers, currentMarker) {
             markers.forEach(function (marker, i) {
-            
+
                 var coordinate = marker.Coordinate.split(",");
-            
+
                 if (currentMarker != i) {
                     var myPlacemark = new ymaps.Placemark(coordinate, {id: i}, iconDefault);
                 } else {
                     var myPlacemark = new ymaps.Placemark(coordinate, {id: i}, iconHover);
                 }
-            
+
                 myPlacemark.events
                     .add('mouseenter', function (e) {
+                        e.get('target').options.set(iconHover);
+                    })
+                    .add('mouseleave', function (e) {
+                        e.get('target').options.set(iconDefault);
+                    })
+                    .add('mousedown', function (e) {
+                        var id = e.get('target').properties.get('id');
                         $scope.$apply(function ($scope) {
-                            $scope.setAgency(e.get('target').properties.get('id'));
+                            $scope.setAgency(id);
                         });
+                        scrollList(id);
                     });
-                    //.add('mouseleave', function (e) {
-                    //    e.get('target').options.set(iconDefault);
-                    //});
 
                 $scope.arrayMarkers.push(myPlacemark);
-                
+
                 myMap.geoObjects.add(myPlacemark);
-                
+
             });
         };
+
+        var list = $(".b-where-to-buy__agencies-list");
+        function scrollList(id) {
+            var currentItem = document.querySelector(".js-list-item-" + id);
+            list.scrollTop(currentItem.offsetTop - 54);
+        }
 
     };
 });
