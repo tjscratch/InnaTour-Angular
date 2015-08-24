@@ -10,14 +10,14 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
     var topMap = document.querySelector('.js-b-where-to-buy-map__container');
     $scope.offsetTop = {top: topMap.offsetTop, bottom: 0};
     var body = document.querySelector('body');
-    $scope.listHeight = {height: body.clientHeight - topMap.offsetTop - 310};
+    $scope.listHeight = {height: body.clientHeight - topMap.offsetTop - 250};
     $scope.promoPositions = {top: (body.clientHeight - topMap.offsetTop) / 2}
 
     /**
      * json заглушка
      */
     var locations = [];
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 0; i++) {
         var long = Math.random() * (56 - 55.5) + 55.5;
         var lang = Math.random() * (37.9 - 37.3) + 37.3;
         locations.push(
@@ -84,6 +84,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
             if (location) {
                 $scope.currentCity = location.name;
                 setMapCentered(location.name);
+                whereToBuyService.saveCacheCurrentLocation(location.name);
             } else {
                 whereToBuyService.getCurrentLocation().then(function (data) {
                     $scope.currentCity = data;
@@ -124,7 +125,8 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
         $scope.arrayMarkers = [];
 
         $scope.setAgency = function (index) {
-            if (index != undefined) {
+            if (index) {
+                index = index - 1;
                 $scope.currentAgencyId = index;
                 $scope.arrayMarkers.forEach(function (marker, i) {
                     marker.options.set(iconDefault);
@@ -143,7 +145,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                 if (currentMarker != i) {
                     var myPlacemark = new ymaps.Placemark(coordinate, {id: i}, iconDefault);
                 } else {
-                    var myPlacemark = new ymaps.Placemark(coordinate, {id: i}, iconHover);
+                    var myPlacemark = new ymaps.Placemark(coordinate, {id: i}, iconActive);
                 }
 
                 myPlacemark.events
@@ -152,14 +154,13 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                     })
                     .add('mouseleave', function (e) {
                         e.get('target').options.set(iconDefault);
-                        var id = e.get('target').properties.get('id');
                         $scope.$apply(function ($scope) {
                             $scope.setAgency();
                         });
                     })
                     .add('mousedown', function (e) {
                         e.get('target').options.set(iconHover);
-                        var id = e.get('target').properties.get('id');
+                        var id = e.get('target').properties.get('id') + 1;
                         $scope.$apply(function ($scope) {
                             $scope.setAgency(id);
                         });
