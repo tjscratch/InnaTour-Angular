@@ -7,12 +7,17 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
     /**
      * позиционируем контейнер для карты
      */
-    var topMap = document.querySelector('.js-b-where-to-buy-map__container');
-    $scope.offsetTop = {top: topMap.offsetTop, bottom: 0};
-    var body = document.querySelector('body');
-    $scope.listHeight = {height: body.clientHeight - topMap.offsetTop - 250};
-    $scope.promoPositions = {top: (body.clientHeight - topMap.offsetTop) / 2}
-
+	function setWindow(){
+		var topMap = document.querySelector('.js-b-where-to-buy-map__container');
+		$scope.offsetTop = {top: topMap.offsetTop, bottom: 0};
+		var body = document.querySelector('body');
+		$scope.listHeight = {height: body.clientHeight - topMap.offsetTop - 250};
+		$scope.promoPositions = {top: (body.clientHeight - topMap.offsetTop) / 2};
+	};
+	setWindow();
+    //$(window).on('resize', function () {
+    //    _.debounce(setWindow(), 10);
+    //});
     /**
      * json заглушка
      */
@@ -69,7 +74,6 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                     var coord = res.geoObjects.get(0).geometry.getCoordinates();
                     myMap.setCenter(coord, 10);
                     var mapBounds = myMap.getBounds();
-                    console.log(mapBounds);
                     setAgencies({bounds: mapBounds});
                 }
             );
@@ -111,17 +115,17 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
          */
         function setAgencies(Bounds) {
             whereToBuyService.getAgencyList(Bounds).success(function (data) {
-                $scope.agencies = data.concat(locations);
-                if ($scope.agencies) {
+                // заглушка для теста
+                //$scope.agencies = data.concat(locations);
+                $scope.agencies = data;
+                if ($scope.agencies.length > 0) {
                     setMarkers($scope.agencies, $scope.currentAgencyId);
-                } else {
-                    $scope.showPromo = true;
                 }
             });
         };
 
 
-        $scope.currentAgencyId = 1;
+        $scope.currentAgencyId = 0;
         $scope.arrayMarkers = [];
 
         $scope.setAgency = function (index) {
@@ -182,4 +186,9 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
         }
 
     };
+
+
+    $scope.$on('$destroy', function () {
+        EventManager.fire(innaAppApiEvents.FOOTER_VISIBLE);
+    });
 });

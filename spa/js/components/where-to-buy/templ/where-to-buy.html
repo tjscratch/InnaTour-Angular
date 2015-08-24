@@ -52,7 +52,7 @@
 
 
 				<div class="b-where-to-buy__agencies-title"
-				     ng-if="agencies">
+				     ng-if="agencies.length > 0">
 					Всего
 					{{ agencies.length }}
 					{{agencies.length | pluralize: ["офис","офиса","офисов"]}}
@@ -61,10 +61,10 @@
 
 				<ul class="b-where-to-buy__agencies-list"
 				    ng-style="listHeight"
-				    ng-show="agencies">
+				    ng-show="agencies.length > 0">
 
 					<li class="b-where-to-buy__agencies-list_item js-list-item-{{ $index }}"
-					    ng-repeat="item in ::agencies track by $index"
+					    ng-repeat="item in agencies track by $index"
 					    ng-class="{'active': currentAgencyId == $index}"
 					    ng-click="setAgency($index + 1)"
 							>
@@ -74,7 +74,7 @@
 							тел.: <span ng-bind="::item.Phone"></span>
 						</div>
 						<div>
-							<a ng-href="{{:: item.Site }}" ng-bind="::item.Site"></a>
+							<a target="_blank" ng-href="{{:: item.Site }}" ng-bind="::item.Site"></a>
 						</div>
 					</li>
 
@@ -82,7 +82,7 @@
 
 				
 				<div class="b-where-to-buy__agencies-promo"
-				     ng-if="agencies">
+				     ng-if="agencies.length > 0">
 					<h3>Место свободно</h3>
 					<div>
 						Если вы турагентство или
@@ -93,7 +93,7 @@
 				</div>
 
 				<div class="b-where-to-buy__agencies-promo one"
-				     ng-if="showPromo"
+				     ng-if="agencies.length == 0"
 				     ng-style="promoPositions"
 						>
 					<h3>У нас пока нет представителя в этом городе.</h3>
