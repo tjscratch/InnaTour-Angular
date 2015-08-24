@@ -72,13 +72,13 @@
 						    ng-class="{'active': currentAgencyId == $index}"
 						    ng-click="setAgency($index + 1)"
 								>
-							<h3 class="b-where-to-buy__agencies-list_item-title" ng-bind="::item.Name"></h3>
-							<div ng-bind="::item.Address"></div>
+							<h3 class="b-where-to-buy__agencies-list_item-title" ng-bind="item.Name"></h3>
+							<div ng-bind="item.Address"></div>
 							<div>
-								тел.: <span ng-bind="::item.Phone"></span>
+								тел.: <span ng-bind="item.Phone"></span>
 							</div>
 							<div>
-								<a target="_blank" ng-href="{{:: item.Site }}" ng-bind="::item.Site"></a>
+								<a target="_blank" ng-href="{{ item.Site }}" ng-bind="item.Site"></a>
 							</div>
 						</li>
 
