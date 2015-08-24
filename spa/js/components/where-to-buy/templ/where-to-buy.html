@@ -16,103 +16,107 @@
 		</div>
 	</div>
 
-	<div class="b-where-to-buy__location">
-		<div class="l-where-to-buy__container">
+	<div class="b-where-to-buy-map__container js-b-where-to-buy-map__container" ng-style="offsetTop">
 
 
-			<div class="b-where-to-buy__location-current" ng-show="currentCity">
-				<div class="b-where-to-buy__location-current-txt">
-					Мой город:
-					<b ng-show="!editLocation">{{ currentCity }}</b>
-					{{ bounds }}
-				</div>
-				<div class="b-typeahead"
-				     ng-show="editLocation">
-					<input
-							class="b-typeahead__input"
-							type="text"
-							ng-model="locationFrom"
-							typeahead="state as state.name for state in getLocationFrom($viewValue) | filter:$viewValue"
-							typeahead-wait-ms="300"
-							>
-				</div>
-				<!--<input type="text" ng-model="currentCity" ng-blur="setLocation()"/>-->
+		<div class="b-where-to-buy__location">
+			<div class="l-where-to-buy__container">
+
+
+				<div class="b-where-to-buy__location-current" ng-show="currentCity">
+					<div class="b-where-to-buy__location-current-txt">
+						Мой город:
+						<b ng-show="!editLocation">{{ currentCity }}</b>
+						{{ bounds }}
+					</div>
+					<div class="b-typeahead"
+					     ng-show="editLocation">
+						<input
+								class="b-typeahead__input"
+								type="text"
+								ng-model="locationFrom"
+								typeahead="state as state.name for state in getLocationFrom($viewValue) | filter:$viewValue"
+								typeahead-wait-ms="300"
+								typeahead-on-select='locationFromOnSelect($item, $model, $label)'
+								>
+					</div>
+					<!--<input type="text" ng-model="currentCity" ng-blur="setLocation()"/>-->
 				<span class="btn btn-green"
-				      ng-click="setCurrentLocation(locationFrom)"
+				      ng-click="setCurrentLocationTypeahead()"
 				      ng-show="editLocation"
 						>Выбрать</span>
-				<span class="b-where-to-buy__location-edit" 
+				<span class="b-where-to-buy__location-edit"
 				      ng-click="editLocation = true"
 				      ng-show="!editLocation"
 						>Изменить</span>
-			</div>
-
-
-			<div class="b-where-to-buy__agencies">
-
-
-				<div class="b-where-to-buy__agencies-title"
-				     ng-if="agencies.length > 0">
-					Всего
-					{{ agencies.length }}
-					{{agencies.length | pluralize: ["офис","офиса","офисов"]}}
 				</div>
 
 
-				<ul class="b-where-to-buy__agencies-list"
-				    ng-style="listHeight"
-				    ng-show="agencies.length > 0">
+				<div class="b-where-to-buy__agencies">
 
-					<li class="b-where-to-buy__agencies-list_item js-list-item-{{ $index }}"
-					    ng-repeat="item in agencies track by $index"
-					    ng-class="{'active': currentAgencyId == $index}"
-					    ng-click="setAgency($index + 1)"
+
+					<div class="b-where-to-buy__agencies-title"
+					     ng-if="agencies.length > 0">
+						Всего
+						{{ agencies.length }}
+						{{agencies.length | pluralize: ["офис","офиса","офисов"]}}
+					</div>
+
+
+					<ul class="b-where-to-buy__agencies-list"
+					    ng-style="listHeight"
+					    ng-show="agencies.length > 0">
+
+						<li class="b-where-to-buy__agencies-list_item js-list-item-{{ $index }}"
+						    ng-repeat="item in agencies track by $index"
+						    ng-class="{'active': currentAgencyId == $index}"
+						    ng-click="setAgency($index + 1)"
+								>
+							<h3 class="b-where-to-buy__agencies-list_item-title" ng-bind="::item.Name"></h3>
+							<div ng-bind="::item.Address"></div>
+							<div>
+								тел.: <span ng-bind="::item.Phone"></span>
+							</div>
+							<div>
+								<a target="_blank" ng-href="{{:: item.Site }}" ng-bind="::item.Site"></a>
+							</div>
+						</li>
+
+					</ul>
+
+
+					<div class="b-where-to-buy__agencies-promo"
+					     ng-if="agencies.length > 0">
+						<h3>Место свободно</h3>
+						<div>
+							Если вы турагентство или
+							туроператор и хотите
+							разместить информацию о себе
+						</div>
+						<a href="/#/registration">зарегистрируйтесь</a>
+					</div>
+
+					<div class="b-where-to-buy__agencies-promo one"
+					     ng-if="agencies.length == 0"
+					     ng-style="promoPositions"
 							>
-						<h3 class="b-where-to-buy__agencies-list_item-title" ng-bind="::item.Name"></h3>
-						<div ng-bind="::item.Address"></div>
+						<h3>У нас пока нет представителя в этом городе.</h3>
 						<div>
-							тел.: <span ng-bind="::item.Phone"></span>
+							Есть шанс стать первым!
+							Если вы турагентство
+							или туроператор и хотите продавать
+							дин. турпакеты <a href="/#/registration">зарегистрируйтесь</a>
 						</div>
-						<div>
-							<a target="_blank" ng-href="{{:: item.Site }}" ng-bind="::item.Site"></a>
-						</div>
-					</li>
-
-				</ul>
-
-				
-				<div class="b-where-to-buy__agencies-promo"
-				     ng-if="agencies.length > 0">
-					<h3>Место свободно</h3>
-					<div>
-						Если вы турагентство или
-						туроператор и хотите
-						разместить информацию о себе
 					</div>
-					<a href="/#/registration">зарегистрируйтесь</a>
-				</div>
 
-				<div class="b-where-to-buy__agencies-promo one"
-				     ng-if="agencies.length == 0"
-				     ng-style="promoPositions"
-						>
-					<h3>У нас пока нет представителя в этом городе.</h3>
-					<div>
-						Есть шанс стать первым!
-						Если вы турагентство
-						или туроператор и хотите продавать
-						дин. турпакеты <a href="/#/registration">зарегистрируйтесь</a>
-					</div>
+
 				</div>
 
 
 			</div>
-
-
 		</div>
-	</div>
 
-	<div class="b-where-to-buy-map__container js-b-where-to-buy-map__container" ng-style="offsetTop">
+
 		<div class="b-where-to-buy-map"></div>
 	</div>
 

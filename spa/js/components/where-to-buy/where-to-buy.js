@@ -86,9 +86,9 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
         $scope.setCurrentLocation = function (location) {
             $scope.editLocation = false;
             if (location) {
-                $scope.currentCity = location.name;
-                setMapCentered(location.name);
-                whereToBuyService.saveCacheCurrentLocation(location.name);
+                $scope.currentCity = location;
+                setMapCentered(location);
+                whereToBuyService.saveCacheCurrentLocation(location);
             } else {
                 whereToBuyService.getCurrentLocation().then(function (data) {
                     $scope.currentCity = data;
@@ -98,6 +98,15 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
         };
         $scope.setCurrentLocation();
 
+
+        $scope.locationFromOnSelect = function ($item, $model, $label) {
+            $scope.locationFromSelect = $label;
+        };
+        
+        $scope.setCurrentLocationTypeahead = function(){
+            $scope.setCurrentLocation($scope.locationFromSelect);
+        }
+        
 
         /**
          * поиск локали откуда для авиа и ДП одно и то же
