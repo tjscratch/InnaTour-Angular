@@ -177,8 +177,10 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                 $scope.currentAgencyId = index;
                 $scope.arrayMarkers.forEach(function (marker, i) {
                     marker.options.set(iconDefault);
+                    marker.options.zIndex = 1;
                 });
                 $scope.arrayMarkers[index].options.set(iconActive);
+                $scope.arrayMarkers[index].options.zIndex = 10;
             } else {
                 $scope.arrayMarkers[$scope.currentAgencyId].options.set(iconActive);
             }
@@ -191,8 +193,10 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
 
                 if (currentMarker != i) {
                     var myPlacemark = new ymaps.Placemark(coordinate, {id: i}, iconDefault);
+                    myPlacemark.options.zIndex = 1;
                 } else {
                     var myPlacemark = new ymaps.Placemark(coordinate, {id: i}, iconActive);
+                    myPlacemark.options.zIndex = 10;
                 }
 
                 myPlacemark.events
