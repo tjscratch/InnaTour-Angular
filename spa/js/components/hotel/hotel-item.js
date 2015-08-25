@@ -53,6 +53,7 @@ angular.module('innaApp.components').
                         var ticketId = this.get('combinationModel').ticket.data.VariantId1;
                         var ticketBackId = this.get('combinationModel').ticket.data.VariantId2;
                         var providerId = this.get('hotel.ProviderId');
+                        var InnaHotelId = this.get('hotel.InnaHotelId');
 
                         var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
                             DepartureId,
@@ -65,7 +66,8 @@ angular.module('innaApp.components').
                             hotelID,
                             ticketId,
                             ticketBackId,
-                            providerId
+                            providerId,
+                            InnaHotelId
                         ].join('-');
 
                         if (window.partners && window.partners.isFullWL()) {

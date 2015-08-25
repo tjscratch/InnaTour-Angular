@@ -61,6 +61,7 @@ angular.module('innaApp.directives')
                             var ticketId = $scope.recommendedPair.ticket.data.VariantId1;
                             var ticketBackId = $scope.recommendedPair.ticket.data.VariantId2;
                             var providerId = $scope.recommendedPair.hotel.data.ProviderId;
+                            var InnaHotelId = $scope.recommendedPair.hotel.data.InnaHotelId;
 
                             var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
                                     DepartureId,
@@ -73,7 +74,8 @@ angular.module('innaApp.directives')
                                     hotelID,
                                     ticketId,
                                     ticketBackId,
-                                    providerId
+                                    providerId,
+                                    InnaHotelId
                                 ].join('-');
 
                             if (window.partners && window.partners.isFullWL()) {

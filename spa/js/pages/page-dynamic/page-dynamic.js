@@ -63,6 +63,7 @@ innaAppControllers
                 var routeParams = angular.copy(searchParams);
                 var HotelId = ($scope.recommendedPair.hotel) ? $scope.recommendedPair.hotel.data.HotelId : null;
                 var TicketId = ($scope.recommendedPair.ticket) ? $scope.recommendedPair.ticket.data.VariantId1 : null;
+                var InnaHotelId = ($scope.recommendedPair.hotel) ? $scope.recommendedPair.hotel.data.InnaHotelId : null;
                 var params = {};
 
                 if (!HotelId) HotelId = routeParams.hotel;
@@ -76,6 +77,7 @@ innaAppControllers
                 params = {
                     HotelId: HotelId || null,
                     TicketId: TicketId || null,
+                    InnaHotelId: InnaHotelId || null,
                     AddFilter: true
                 };
                 params = angular.extend(routeParams, params);
@@ -386,8 +388,11 @@ innaAppControllers
                     var routeParams = angular.copy(searchParams);
                     var HotelId = ($scope.recommendedPair.hotel) ? $scope.recommendedPair.hotel.data.HotelId : null;
                     var TicketId = ($scope.recommendedPair.ticket) ? $scope.recommendedPair.ticket.data.VariantId1 : null;
+                    var InnaHotelId = ($scope.recommendedPair.hotel) ? $scope.recommendedPair.hotel.data.InnaHotelId : null;
                     var params = {};
 
+                    console.log(InnaHotelId);
+                    
                     if (!HotelId) HotelId = routeParams.hotel;
                     if (!TicketId) TicketId = routeParams.ticket;
 
@@ -395,11 +400,12 @@ innaAppControllers
                     if (HotelId) HotelId = HotelId.toString();
                     if (TicketId) TicketId = TicketId.toString();
 
-                    
+
                     
                     params = {
                         HotelId: HotelId || null,
                         TicketId: TicketId || null,
+                        InnaHotelId: InnaHotelId || null,
                         AddFilter: true
                     };
                     params = angular.extend(routeParams, params);
@@ -407,6 +413,7 @@ innaAppControllers
                     return {
                         HotelId: HotelId || null,
                         TicketId: TicketId || null,
+                        InnaHotelId: InnaHotelId || null,
                         params: params
                     }
                 },
