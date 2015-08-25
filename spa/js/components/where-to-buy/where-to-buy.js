@@ -160,6 +160,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                     $scope.arrayMarkers.forEach(function (marker, i) {
                         $scope.myMap.geoObjects.remove(marker);
                     });
+                    $scope.currentAgencyId = 0;
                     $scope.arrayMarkers = [];
                     setMarkers($scope.agencies, $scope.currentAgencyId);
                 }
