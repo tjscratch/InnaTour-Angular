@@ -5,6 +5,9 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
             if (attrs.type == 'phonePrefix') {
                 return $templateCache.get('components/citizenship-select/templ/phonePrefix.hbs.html')
             }
+            else if (attrs.type == 'docType') {
+                return $templateCache.get('components/citizenship-select/templ/docType.hbs.html')
+            }
             else {
                 return $templateCache.get('components/citizenship-select/templ/index.hbs.html')
             }
@@ -56,10 +59,10 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                         self.sortedListById.push({Id: '' + item.Id, Name: item.Name});
                     }
                     self.sortedListById.sort(function (a, b) {
-                        if (a.Id.length < b.Id.length){
+                        if (a.Id.length < b.Id.length) {
                             return -1;
                         }
-                        else if (a.Id.length > b.Id.length){
+                        else if (a.Id.length > b.Id.length) {
                             return 1;
                         }
                         else {
@@ -81,10 +84,10 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                         self.sortedListByNameWithLength.push({Id: '' + item.Id, Name: item.Name});
                     }
                     self.sortedListByNameWithLength.sort(function (a, b) {
-                        if (a.Name.length < b.Name.length){
+                        if (a.Name.length < b.Name.length) {
                             return -1;
                         }
-                        else if (a.Name.length > b.Name.length){
+                        else if (a.Name.length > b.Name.length) {
                             return 1;
                         }
                         else {
@@ -101,6 +104,21 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                     });
                 }
 
+                self.setNewList = function () {
+                    self.list = $scope.list;
+                    if (self.list && self.list.length > 0) {
+                        self.selectedIndex = 0;
+                        self.selectedItem = self.list[0];
+                        self.selectItem();
+                    }
+                    else {
+                        self.selectedIndex = -1;
+                        self.selectedItem = null;
+                    }
+                    //console.log('setNewList', JSON.stringify(self.list));
+                    fillSortedArrays();
+                };
+
                 self.selectItem = function () {
                     $scope.itemClick(self.selectedItem);
                 };
@@ -111,7 +129,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                     //starts with in Name
                     for (var i = 0; i < self.list.length; i++) {
                         var item = self.list[i];
-                        if (item.Name.toLowerCase().startsWith(text.toLowerCase())){
+                        if (item.Name.toLowerCase().startsWith(text.toLowerCase())) {
                             //console.log('setSelectedByContains', 'starts with in Name', text);
                             itemId = item.Id;
                             break;
@@ -119,10 +137,10 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                     }
 
                     //contains in Id
-                    if (!itemId){
+                    if (!itemId) {
                         for (var i = 0; i < self.sortedListById.length; i++) {
                             var item = self.sortedListById[i];
-                            if (item.Id.toLowerCase().indexOf(text.toLowerCase()) > -1){
+                            if (item.Id.toLowerCase().indexOf(text.toLowerCase()) > -1) {
                                 //console.log('setSelectedByContains', 'contains in Id', text);
                                 itemId = item.Id;
                                 break;
@@ -131,10 +149,10 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
 
 
                         //contains in Name
-                        if (!itemId){
+                        if (!itemId) {
                             for (var i = 0; i < self.sortedListByNameWithLength.length; i++) {
                                 var item = self.sortedListByNameWithLength[i];
-                                if (item.Name.toLowerCase().indexOf(text.toLowerCase()) > -1){
+                                if (item.Name.toLowerCase().indexOf(text.toLowerCase()) > -1) {
                                     //console.log('setSelectedByContains', 'contains in Name', text);
                                     itemId = item.Id;
                                     break;
@@ -143,7 +161,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                         }
                     }
 
-                    if (itemId){
+                    if (itemId) {
                         //console.log('setSelected', 'text', text, 'itemId', itemId);
                         self.setSelected(itemId);
                         self.scrollToItem();
@@ -158,18 +176,14 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                             self.selectedIndex = i;
                             self.selectedItem = item;
 
-                            if ($scope.changeEvent) {
-                                $scope.$emit("PHONE_CODE_CHANGED",
-                                    {
-                                        source: $scope.changeEvent,
-                                        code: item.Id
-                                    });
-                            }
+                            emitEvents(item);
                         }
                         else {
                             item.isSelected = false;
                         }
                     }
+
+                    //console.log('setSelected, id:', id, 'ind', self.selectedIndex, 'selItem', self.selectedItem);
                 };
 
                 self.selectNext = function () {
@@ -213,6 +227,17 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                 };
             }
 
+            function emitEvents(item) {
+                if ($scope.changeEvent) {
+                    //console.log('$scope emit event', $scope.changeEvent);
+                    $scope.$emit($scope.changeEvent,
+                        {
+                            source: $scope.changeEvent,
+                            value: item.Id
+                        });
+                }
+            }
+
             $scope.selectionControl = new selectionControl();
 
             $scope.showCitList = function ($event) {
@@ -223,7 +248,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                     setTimeout(function () {
                         //console.log('showCitList');
                         $scope.selectionControl.scrollToItem();
-                    },0);
+                    }, 0);
                 }
             };
 
@@ -241,13 +266,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
 
                 validate(true);
 
-                if ($scope.changeEvent) {
-                    $scope.$emit("PHONE_CODE_CHANGED",
-                        {
-                            source: $scope.changeEvent,
-                            code: item.id
-                        });
-                }
+                //emitEvents(item);
             };
 
             function validate(isUserAction) {
@@ -264,6 +283,15 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
         link: function ($scope, $element, attrs) {
             if (attrs.type == 'phonePrefix') {
                 $scope.isPhoneControl = true;
+            }
+
+            if (attrs.type == 'docType') {
+                $scope.$watch('list', function (newVal, oldVal) {
+                    if (newVal) {
+                        //console.log('$watch list', newVal);
+                        $scope.selectionControl.setNewList();
+                    }
+                });
             }
 
             $(document).click(function (event) {
@@ -368,7 +396,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                     self.searchString += char;
                 };
 
-                self.getChar = function(event) {
+                self.getChar = function (event) {
                     if (event.which == null) { // IE
                         if (event.keyCode < 32) return null; // спец. символ
                         return String.fromCharCode(event.keyCode)
