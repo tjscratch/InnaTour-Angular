@@ -402,7 +402,6 @@ innaAppControllers.controller('PageDynamicPackage', [
                 var InnaHotelId = ($scope.recommendedPair.hotel) ? $scope.recommendedPair.hotel.data.InnaHotelId : null;
                 var params = {};
 
-                console.log(InnaHotelId);
 
                 if (!HotelId) {
                     HotelId = routeParams.hotel;
