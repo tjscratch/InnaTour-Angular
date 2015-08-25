@@ -7,14 +7,14 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
     /**
      * позиционируем контейнер для карты
      */
-	function setWindow(){
-		var topMap = document.querySelector('.js-b-where-to-buy-map__container');
-		$scope.offsetTop = {top: topMap.offsetTop, bottom: 0};
-		var body = document.querySelector('body');
-		$scope.listHeight = {height: body.clientHeight - topMap.offsetTop - 250};
-		$scope.promoPositions = {top: (body.clientHeight - topMap.offsetTop) / 2};
-	};
-	setWindow();
+    function setWindow() {
+        var topMap = document.querySelector('.js-b-where-to-buy-map__container');
+        $scope.offsetTop = {top: topMap.offsetTop, bottom: 0};
+        var body = document.querySelector('body');
+        $scope.listHeight = {height: body.clientHeight - topMap.offsetTop - 250};
+        $scope.promoPositions = {top: (body.clientHeight - topMap.offsetTop) / 2};
+    };
+    setWindow();
     //$(window).on('resize', function () {
     //    _.debounce(setWindow(), 10);
     //});
@@ -26,13 +26,13 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
         var long = Math.random() * (56 - 55.5) + 55.5;
         var lang = Math.random() * (37.9 - 37.3) + 37.3;
         locations.push(
-            {
-                Coordinate: long + ',' + lang,
-                Name: 'АЛЬФА' + i,
-                Address: '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1',
-                Phone: '7(495)7247210',
-                Site: 'mail.com'
-            }
+                {
+                    Coordinate: long + ',' + lang,
+                    Name      : 'АЛЬФА' + i,
+                    Address   : '125581, г. Москва, ул. Лавочкина, д.32, ДС «Динамо», офис 213-1',
+                    Phone     : '7(495)7247210',
+                    Site      : 'mail.com'
+                }
         )
     }
 
@@ -43,39 +43,68 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
 
         var mapContainer = document.querySelector('.b-where-to-buy-map');
         var iconDefault = {
-            iconLayout: 'default#image',
-            iconImageHref: 'spa/img/map/pin-grey.png?',
-            iconImageSize: [21, 32],
-            iconImageOffset: [0, 0]
+            iconLayout     : 'default#image',
+            iconImageHref  : 'spa/img/map/pin-grey.png?',
+            iconImageSize  : [
+                21,
+                32
+            ],
+            iconImageOffset: [
+                0,
+                0
+            ]
         };
         var iconHover = {
-            iconLayout: 'default#image',
-            iconImageHref: 'spa/img/map/pin-black.png?',
-            iconImageSize: [21, 32],
-            iconImageOffset: [0, 0]
+            iconLayout     : 'default#image',
+            iconImageHref  : 'spa/img/map/pin-black.png?',
+            iconImageSize  : [
+                21,
+                32
+            ],
+            iconImageOffset: [
+                0,
+                0
+            ]
         };
         var iconActive = {
-            iconLayout: 'default#image',
-            iconImageHref: 'spa/img/map/pin-green.png?',
-            iconImageSize: [21, 32],
-            iconImageOffset: [0, 0]
+            iconLayout     : 'default#image',
+            iconImageHref  : 'spa/img/map/pin-green.png?',
+            iconImageSize  : [
+                21,
+                32
+            ],
+            iconImageOffset: [
+                0,
+                0
+            ]
         };
 
-        var myMap = new ymaps.Map(mapContainer, {
-            center: [55.75396, 37.620393],
-            zoom: 10,
-            controls: []
-        });
+        $scope.myMap = null;
+
+        function myMapCreate() {
+            $scope.myMap = new ymaps.Map(mapContainer, {
+                center  : [
+                    55.75396,
+                    37.620393
+                ],
+                zoom    : 10,
+                controls: []
+            });
+        }
 
 
         var setMapCentered = function (city) {
+            if ($scope.myMap) {
+                $scope.myMap.destroy();
+            }
             ymaps.geocode(city).then(
-                function (res) {
-                    var coord = res.geoObjects.get(0).geometry.getCoordinates();
-                    myMap.setCenter(coord, 10);
-                    var mapBounds = myMap.getBounds();
-                    setAgencies({bounds: mapBounds});
-                }
+                    function (res) {
+                        myMapCreate();
+                        var coord = res.geoObjects.get(0).geometry.getCoordinates();
+                        $scope.myMap.setCenter(coord, 10);
+                        var mapBounds = $scope.myMap.getBounds();
+                        setAgencies({bounds: mapBounds});
+                    }
             );
         };
 
@@ -102,20 +131,20 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
         $scope.locationFromOnSelect = function ($item, $model, $label) {
             $scope.locationFromSelect = $label;
         };
-        
-        $scope.setCurrentLocationTypeahead = function(){
+
+        $scope.setCurrentLocationTypeahead = function () {
             $scope.setCurrentLocation($scope.locationFromSelect);
         }
-        
+
 
         /**
          * поиск локали откуда для авиа и ДП одно и то же
          */
         $scope.getLocationFrom = function (text) {
             return whereToBuyService.getLocation(text)
-                .then(function (data) {
-                    return data;
-                });
+                    .then(function (data) {
+                        return data;
+                    });
         };
 
 
@@ -128,6 +157,10 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                 //$scope.agencies = data.concat(locations);
                 $scope.agencies = data;
                 if ($scope.agencies.length > 0) {
+                    $scope.arrayMarkers.forEach(function (marker, i) {
+                        $scope.myMap.geoObjects.remove(marker);
+                    });
+                    $scope.arrayMarkers = [];
                     setMarkers($scope.agencies, $scope.currentAgencyId);
                 }
             });
@@ -162,27 +195,27 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                 }
 
                 myPlacemark.events
-                    .add('mouseenter', function (e) {
-                        e.get('target').options.set(iconHover);
-                    })
-                    .add('mouseleave', function (e) {
-                        e.get('target').options.set(iconDefault);
-                        $scope.$apply(function ($scope) {
-                            $scope.setAgency();
+                        .add('mouseenter', function (e) {
+                            e.get('target').options.set(iconHover);
+                        })
+                        .add('mouseleave', function (e) {
+                            e.get('target').options.set(iconDefault);
+                            $scope.$apply(function ($scope) {
+                                $scope.setAgency();
+                            });
+                        })
+                        .add('mousedown', function (e) {
+                            e.get('target').options.set(iconHover);
+                            var id = e.get('target').properties.get('id') + 1;
+                            $scope.$apply(function ($scope) {
+                                $scope.setAgency(id);
+                            });
+                            scrollList(id);
                         });
-                    })
-                    .add('mousedown', function (e) {
-                        e.get('target').options.set(iconHover);
-                        var id = e.get('target').properties.get('id') + 1;
-                        $scope.$apply(function ($scope) {
-                            $scope.setAgency(id);
-                        });
-                        scrollList(id);
-                    });
 
                 $scope.arrayMarkers.push(myPlacemark);
 
-                myMap.geoObjects.add(myPlacemark);
+                $scope.myMap.geoObjects.add(myPlacemark);
 
             });
         };
