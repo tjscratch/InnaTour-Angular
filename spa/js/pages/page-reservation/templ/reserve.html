@@ -19,7 +19,8 @@
 	<p class="buy__price-descr buy__alert" ng-if="(hotel != null)">
 		Внимание! К компонентам пакета применяются разные условия отмены
 		бронирования.<br/>Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event)">правилами применения тарифа
-		авиабилета</a> и <a href="" ng-click="hotelRules.show($event)">условиями бронирования отеля</a>.
+		авиабилета</a> и <a href="" ng-click="hotelRules.show($event)">условиями бронирования отеля</a>
+		и <a href="" ng-click="insuranceRules.show($event)">правилами медицинского страхования</a>.
 		</p>
 		<br/>
 
@@ -383,6 +384,23 @@
 				<ul class="balloon__list">
 					<li ng-repeat="item in hotelRules.extra.List">{{item}}</li>
 				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /Baloon -->
+
+<!-- Baloon insurance -->
+<div class="overlay js-overlay" ng-if="insuranceRules.isOpened">
+	<div class="scroll-fix" ng-style="hotelRules.style">
+		<div class="balloon balloon_long">
+			<div title="Закрыть" class="balloon-close" ng-click="insuranceRules.close($event)">
+				<i class="icon-sprite-remove-big"></i>
+			</div>
+			<h3 class="balloon__title">Правила медицинского страхования</h3>
+
+			<div class="balloon__frame-block">
+				<iframe class="balloon__frame" ng-style="insuranceRules.style" src="/spa/insurance.html"></iframe>
 			</div>
 		</div>
 	</div>

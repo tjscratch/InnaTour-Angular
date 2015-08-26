@@ -1,100 +1,153 @@
-
-.hotel-info {
-    margin: 0 0 35px;
-
-    &__room {
-        margin-top: 10px;
-    }
-    &__room_name {
-        margin-top: 10px;
-        font-size: 15px;
-    }
-
-    &_with_crown {
-        margin-top: 10px;
-    }
-
-    &__special-mark {
-        font-size: 14px;
-        color: $green;
-        margin: 0 0 5px -4px;
-    }
-
-    &__wrapper {
-        position: relative;
-        box-sizing: border-box;
-        padding: 0 0 10px 80px;
-        height: 75px;
-        margin-bottom: 10px;
-    }
-
-    &__tripadvisor {
-        height: 20px;
-    }
-
-    img {
+.hotel-info{
+    img{
         margin-right: 10px;
         position: absolute;
         left: 0;
         top: 0;
     }
-
-    &-content {
-        display: block;
-        vertical-align: top;
-
-        .warning {
-            font-size: 14px;
-            line-height: 1.7em;
-        }
-
-        .star-container {
-            line-height: 0;
-            margin: 2px 0 4px;
+}
+.hotel-info__room{
+    margin-top: 10px;
+}
+.hotel-info__room_name{
+    margin-top: 10px;
+    font-size: 15px;
+}
+.hotel-info__special-mark{
+    font-size: 14px;
+    color: $green;
+    margin: -3px 0 4px -4px;
+}
+.hotel-info__wrapper{
+    position: relative;
+    box-sizing: border-box;
+    padding: 0 0 10px 110px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+.hotel-info__tripadvisor{
+    height: 20px;
+}
+.hotel-info-content{
+    display: block;
+    vertical-align: top;
+}
+.hotel-info-name{
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1em;
+}
+.hotel-info-name-link{
+    color: #1e88c1
+    text-decoration: none
+    
+    &:hover{
+        text-decoration: underline
+    }
+}
+.hotel-info-date{
+    margin: 5px 0;
+    color: #575757;
+    font-size: 14px;
+    line-height: 16px;
+}
+.hotel-info-place{
+    position: relative;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-block;
+    padding-top: 2px;
+    
+    .like-link{
+        text-decoration underline
+        
+        &:hover{
+            text-decoration none
         }
     }
-
-    &-name {
-        font-size: 18px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        line-height: 1em;
-    }
-
-    &-date {
-        color: #575757;
-        font-size: 14px;
-        line-height: 16px;
-    }
-
-    &-place {
-        position: relative;
-        text-decoration: none;
-        font-size: 14px;
-        padding-left: 17px;
-        display: inline-block;
-        padding-top: 2px;
-
-        &:hover {
-            text-decoration: underline;
-        }
-
-        &:before {
-            content: '';
-            height: 18px;
-            width: 13px;
-            background: url(/spa/img/hotel-pin-small.png);
-            position: absolute;
-            top: 0px;
-            left: 0px;
-        }
-    }
+    //&:before{
+    //    content: '';
+    //    height: 18px;
+    //    width: 13px;
+    //    background: url(/spa/img/hotel-pin-small.png);
+    //    position: absolute;
+    //    top: 0px;
+    //    left: 0px;
+    //}
 }
 .hotel-info__photo{
-    max-width 70px
+    margin-right: 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
-
-
-
-
+.hotel-info-meal{
+    margin 2px 0 1px
+    font-size 14px
+}
+// new hotel cart
+.b-hotel-data{
+    display: block;
+    position: relative;
+    height: 170px;
+}
+.b-hotel-data__details{
+    display: block;
+    position: absolute;
+    z-index 1
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+.b-hotel-data__z-index{
+    display inline-block
+    position relative
+    z-index 2
+    margin 0
+}
+.b-hotel-data__title{
+    display block
+    margin 0 0 5px 0
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1em;
+}
+.b-hotel-data__title-link{
+    color: #1e88c1
+    text-decoration: none
+    
+    &:hover{
+        text-decoration: underline
+    }
+}
+.b-hotel-data__text-link{
+    text-decoration none
+    color $blue
+    cursor pointer
+    
+    &:hover{
+        text-decoration underline
+    }
+}
+.b-hotel-data__text{
+    margin 3px 0
+    font-size 14px
+}
+.b-hotel-data__text-warning{
+    color: #dd3e14
+}
+.b-hotel-data__tripadvisor{
+    position absolute
+    left 0
+    bottom 0
+}

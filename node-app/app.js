@@ -45,6 +45,9 @@ app.use(cookieParser());
 app.use(methodOverride());
 //app.use(express.static(path.join(__dirname, 'public')));
 
+//отдаем app-main.js из папки с билдами с ноды
+app.use('/', require('./routes/serve_static'));
+
 
 //app.use(cookieParser(nconf.get('cookie:secret')));
 

@@ -1,44 +1,50 @@
+<div class="b-hotel-data">
 
-{{#if modelPrice.getProfit() > 1000}}
+	<a link-in-new-window-if-can href="{{computedUrlDetails()}}" target="_blank" class="b-hotel-data__details"></a>
+
+	{{#if modelPrice.getProfit() > 1000}}
 	<div class="hotel-info__special-mark">
-	    <span class="icon-crown icon-sprite-crown"></span>
-	    Спецпредложение
+		<span class="icon-crown icon-sprite-crown"></span>
+		Спецпредложение
 	</div>
-{{/if}}
+	{{/if}}
 
 
-<div class="hotel-info {{(modelPrice.getProfit() > 1000) ? 'hotel-info_with_crown' : '' }}">
-    <div class="hotel-info-content">
-        <!-- component Star -->
-        <Stars stars="{{hotel.Stars}}"/>
+	<Stars stars="{{hotel.Stars}}"/>
 
-        <h3 class="hotel-info-name">{{hotel.HotelName}}</h3>
+	<h3 class="b-hotel-data__title b-hotel-data__z-index">
+		<a class="b-hotel-data__title-link"
+		   href="{{computedUrlDetails()}}"
+		   target="_blank"
+		   link-in-new-window-if-can>
+			{{hotel.HotelName}}
+		</a>
+	</h3>
 
-        <span class="hotel-info-place like-link" on-click="goToMap">
-	        {{hotel.HotelCityName}} {{hotel.Address}}
-        </span>
+	<div class="b-hotel-data__text b-hotel-data__z-index">
+		{{hotel.HotelCityName}} {{hotel.Address}}
+		<span class="b-hotel-data__text-link" on-click="goToMap">(на карте)</span>
+	</div>
 
-	    {{#if hotel.RoomCount <= 3}}
-            <div class="warning">
-	            {{pluralize(hotel.RoomCount, ['Остался последний номер!', 'Осталось два номера!', 'Осталось три номера!'])}}
-            </div>
-	    {{/if}}
-    </div>
-</div>
+	<div class="b-hotel-data__text">
+		{{#if hotel.MealCode == 'RO'}}Без питания (RO){{/if}}
+		{{#if hotel.MealCode == 'BB'}}Завтрак (BB){{/if}}
+		{{#if hotel.MealCode == 'HB'}}Полупансион (HB){{/if}}
+		{{#if hotel.MealCode == 'FB'}}Полный пансион (FB){{/if}}
+		{{#if hotel.MealCode == 'AI'}}Все включено (AI){{/if}}
+	</div>
 
-<div class="bottom-actions">
-    <div class="row">
-        <div class="col-xs-9 col-no-padding bottom-actions_left">
-            <!-- component Tripadvisor -->
-            <Tripadvisor
-                    TaCommentCount="{{hotel.TaCommentCount}}"
-                    TaFactor="{{hotel.TaFactor}}"
-                    TaFactorCeiled="{{hotel.TaFactorCeiled}}" />
+	{{#if hotel.RoomCount <= 3}}
+	<div class="b-hotel-data__text b-hotel-data__text-warning">
+		{{pluralize(hotel.RoomCount, ['Остался последний номер!', 'Осталось два номера!', 'Осталось три номера!'])}}
+	</div>
+	{{/if}}
 
-        </div>
-        <div class="col-xs-3 col-no-padding bottom-actions_right">
-	        <!-- 6733-1735-01.10.2014-16.10.2014-0-2- -->
-            <a link-in-new-window-if-can href="{{computedUrlDetails()}}" target="_blank" class="b-hotel_item__details">Подробнее</a>
-        </div>
-    </div>
+	<div class="b-hotel-data__tripadvisor">
+		<Tripadvisor
+				TaCommentCount="{{hotel.TaCommentCount}}"
+				TaFactor="{{hotel.TaFactor}}"
+				TaFactorCeiled="{{hotel.TaFactorCeiled}}"/>
+	</div>
+
 </div>
