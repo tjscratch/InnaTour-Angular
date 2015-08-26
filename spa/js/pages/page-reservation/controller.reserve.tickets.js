@@ -1388,12 +1388,12 @@ innaAppControllers.controller('ReserveTicketsCtrl',
 
         $scope.tooltipControl = {
             init: function ($to, customText) {
-                //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
+                console.log('reserve tooltipControl init');
                 $to.tooltipX({
                     autoShow: false,
                     autoHide: false,
                     position: {
-                        my: 'center top+22',
+                        my: 'center top+12',
                         at: 'center bottom',
                         collision: "none"
                     },
