@@ -1,35 +1,43 @@
-{{#if modelPrice.getProfit() > 1000}}
-	<div class="price">
-	    <span class="cross">
-		    {{priceFilter(Price)}}
-		    {{>ruble}}
-	    </span>
-	    <div class="price-description">по отдельности</div>
-	</div>
-{{/if}}
+<div class="b-price">
+    <div class="b-price-container">
 
-<div class="price-description" style="{{(modelPrice.getProfit() <= 1000) ? 'margin-top:50px;' : '' }}">
-	Стоимость пакета
-</div>
 
-<div class="corner-price">
-    <div>
-	    {{priceFilter(PackagePrice)}}
-	    {{>ruble}}
+        {{#if modelPrice.getProfit() > 1000}}
+        <div class="price">
+		    <span class="cross">
+			    {{priceFilter(Price)}}
+			    {{>ruble}}
+		    </span>
+
+            <div class="price-description">по отдельности</div>
+        </div>
+        {{/if}}
+
+        <div class="price-description" style="{{(modelPrice.getProfit() <= 1000) ? 'margin-top:50px;' : '' }}">
+            Стоимость пакета
+        </div>
+
+        <div class="corner-price">
+            <div>
+                {{priceFilter(PackagePrice)}}
+                {{>ruble}}
+            </div>
+
+            <!-- Показываем только для авторизованного пользователя b2b -->
+            {{#if PriceObject}}
+            <PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}"/>
+            {{/if}}
+
+            {{#if modelPrice.getProfit() > 1000}}
+            <div class="price-description">
+                экономия: {{priceFilter(modelPrice.getProfit())}}
+                {{>ruble}}
+            </div>
+            {{/if}}
+        </div>
+
+
     </div>
-
-	<!-- Показываем только для авторизованного пользователя b2b -->
-	{{#if PriceObject}}
-		<PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}" />
-	{{/if}}
-
-	{{#if modelPrice.getProfit() > 1000}}
-	    <div class="price-description">
-	        Скидка: {{priceFilter(modelPrice.getProfit())}}
-		    {{>ruble}}
-	    </div>
-	{{/if}}
 </div>
-
 
 <span class="button" on-click="setCurrent">Выбрать</span>
