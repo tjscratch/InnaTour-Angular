@@ -1,5 +1,5 @@
 <div class="b-search-field b-search-field__half b-search-field__list b_people" ng-click="peopleFormClick($event)">
-    <div class="search-form-item-current" style="display:block;" data-title="Колчиство пассажиров с местом может быть не больше 6">
+    <div class="search-form-item-current" style="display:block;" data-title="Количество пассажиров с местом может быть не больше 6">
         {{sum(adultCount, childrenCount) | asQuantity:"человек":"человека":"человек"}}
     </div>
     <div class="search-form-human-dialog" style="display:block;" ng-show="isOpen">
