@@ -261,14 +261,14 @@ innaAppControllers
             function getHotelDetails() {
                 var deferred = $q.defer();
                 track.dpBuyPackage();
-
                 DynamicPackagesDataProvider.hotelDetails({
                     data: {
                         HotelId: searchParams.HotelId,
                         HotelProviderId: searchParams.ProviderId,
                         TicketToId: searchParams.TicketId,
                         TicketBackId: searchParams.TicketBackId,
-                        Filter: searchParams
+                        Filter: searchParams,
+                        ihid: searchParams.ihid
                     },
                     success: function (data) {
                         _balloonLoad.fire('hide');
@@ -361,6 +361,7 @@ innaAppControllers
                         TicketToId: searchParams.TicketId,
                         TicketBackId: searchParams.TicketBackId,
                         Filter: searchParams,
+                        ihid: searchParams.ihid,
                         Rooms: true
                     },
                     success: function (data) {
