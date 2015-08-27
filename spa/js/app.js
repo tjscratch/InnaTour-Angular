@@ -49,6 +49,8 @@ app.constant('innaApp.Urls', {
 
     URL_AGENCY_REG_FORM: '/registration/',
     
+    URL_WHERE_TO_BUY: '/where-to-buy/',
+    
     URL_HELP: '/help/',
 
     URL_TRANSFERS: '/transfers/',
@@ -336,6 +338,10 @@ app.config([
             when(url.URL_AGENCY_REG_FORM, {
                 templateUrl: 'components/agency-reg-form/templ/index.html',
                 controller: 'AgencyRegFormCtrl'
+            }).
+            when(url.URL_WHERE_TO_BUY, {
+                templateUrl: 'components/where-to-buy/templ/where-to-buy.html',
+                controller: 'WhereToBuyCtrl'
             }).
             when(url.URL_TRANSFERS, {
                 templateUrl: 'pages/page-transfers/templ/page-transfers.html',
