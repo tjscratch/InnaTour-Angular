@@ -193,17 +193,4 @@ innaAppControllers.
                     dataService.getPartnershipCookie(advParams);
                 }
             })();
-
-
-            ['/spa/img/hotels/back-0.jpg', '/spa/img/hotels/back-1.jpg', '/spa/img/hotels/back-2.jpg'].forEach(function (img) {
-                try {
-                    //preload dp backgrounds
-                    var preload = new Image();
-
-                    preload.src = img;
-                } catch (e) {
-                    //do nothing
-                }
-
-            });
         }]);
