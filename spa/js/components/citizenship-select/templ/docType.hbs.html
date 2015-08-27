@@ -1,0 +1,17 @@
+<div class="cit">
+    <input autocomplete="off"
+           title="{{selectionControl.selectedItem.Name}}"
+           ng-click="showCitList($event)"
+           type="text"
+           readonly
+           value="{{selectionControl.selectedItem.Name}}"
+           placeholder="{{selectionControl.selectedItem.Name}}"
+           class="b-field-text b-field-select">
+    <div class="b-auth cit-cont" ng-show="isOpen">
+        <div class="cit-cont__inner">
+            <ul>
+                <li class="cit-item" ng-class="{active:item.isSelected}" ng-repeat="item in list" ng-click="itemClick(item)">{{item.Name}}</li>
+            </ul>
+        </div>
+    </div>
+</div>

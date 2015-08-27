@@ -27,11 +27,11 @@ innaAppDirectives.
 
                 var PREFIX = 'LINK_IN_NEW_WINDOW_IF_CAN_';
 
-                if (element.get(0).tagName == 'A'){
+                if (element.get(0).tagName == 'A') {
                     //выполняем в след. цикле, чтобы были все значения в аттрибутах
                     $timeout(function () {
                         var isBlank = false;
-                        if (element.attr('target') == '_blank'){
+                        if (element.attr('target') == '_blank') {
                             element.removeAttr('target');
                             isBlank = true;
                         }
@@ -39,7 +39,7 @@ innaAppDirectives.
                         var link = element.attr('href');
                         //console.log('link', link);
                         element.attr('href', 'javascript:void(0);');
-                        
+
                         element.on('click', function () {
                             var linkData = {'timeStamp': +(new Date())};
                             linkData = JSON.stringify(linkData);
@@ -71,7 +71,7 @@ innaAppDirectives.
                                         location.href = link;
                                     }
                                 }
-                                else{
+                                else {
                                     //console.log('completeLinkData empty, yyy!!!');
                                 }
                             }, 2000);
@@ -79,7 +79,7 @@ innaAppDirectives.
 
                         intervId = $interval(function () {
                             var href = element.attr('href');
-                            if (href.indexOf('javascript:void(0)') > -1){
+                            if (href.indexOf('javascript:void(0)') > -1) {
                             }
                             else {
                                 //ссылка изменилась - нужно обновить
@@ -92,7 +92,7 @@ innaAppDirectives.
                 }
 
                 $scope.$on('$destroy', function () {
-                    if (intervId){
+                    if (intervId) {
                         $interval.cancel(intervId);
                     }
                 });
@@ -112,7 +112,7 @@ innaAppDirectives.directive('closePopup', ["aviaHelper", function (aviaHelper) {
         scope: {
             fnHide: '&'
         },
-        controller: function(){
+        controller: function () {
 
         },
         link: function ($scope, element, attrs) {
@@ -211,9 +211,9 @@ innaAppDirectives.
                         return false;
                     }
                 })
-                .focus(function () {
-                    $(this).autocomplete("search", "");
-                }).data("ui-autocomplete")._renderItem = function (ul, item) {
+                    .focus(function () {
+                        $(this).autocomplete("search", "");
+                    }).data("ui-autocomplete")._renderItem = function (ul, item) {
                     return $("<li>")
                         .append("<a>(" + item.id + ")  " + item.name + "</a>")
                         .appendTo(ul);
@@ -251,9 +251,9 @@ innaAppDirectives.
                         return false;
                     }
                 })
-                .focus(function () {
-                    $(this).autocomplete("search", "");
-                }).data("ui-autocomplete")._renderItem = function (ul, item) {
+                    .focus(function () {
+                        $(this).autocomplete("search", "");
+                    }).data("ui-autocomplete")._renderItem = function (ul, item) {
                     var code = "";
                     if (item.CodeIata != null && item.CodeIata.length > 0)
                         code = ' ' + item.CodeIata + ' ';
@@ -402,7 +402,7 @@ innaAppDirectives.directive('appSlider', ['$timeout', function ($timeout) {
                                 var scaleV = h / naturalHeight;
                                 var scale = scaleH > scaleV ? scaleH : scaleV;
 
-                                
+
                             }
 
                             if ($img) {
@@ -437,7 +437,7 @@ innaAppDirectives.directive('tooltip', [function () {
         link: function ($scope, element, attrs) {
             //console.log('jqUITooltip');
             var $to = $(element);
-            $to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
+            $to.tooltip({position: {my: 'center top+22', at: 'center bottom'}});
             //$to.tooltip("open");
             $to.tooltip("disable");
 
@@ -472,60 +472,96 @@ innaAppDirectives.directive('maskedInput', [function () {
             //обрабатываем значение, перед присваиванием модели
             ctrl.$parsers.unshift(function (viewValue) {
                 var normValue = viewValue;
-                if (viewValue == '__.__.____') {// || '(___) ___-__-__') {
+                if (viewValue == '__.__.____'
+                    || viewValue == '____ ______'
+                    || viewValue == '_________'
+                ) {
                     normValue = '';
                 }
+                //console.log('viewValue', viewValue, 'normValue', normValue);
                 return normValue;
             });
 
             var listenCodeChangeEventSource = $scope.$eval(attrs.changeEvent);
             var m = attrs.mask;
+            var hideField = attrs.keyPressHideField;
+            var passenger = $scope[attrs.keyPressOnDocument];
+            var hideFieldName = attrs.keyPressHideFieldName;
 
-            function addMask() {
-                element.mask(m, {
-                    completed: function () {
-                        var val = element.val();
-                        $scope.$apply(function ($scope) {
-                            ctrl.$modelValue = val;
-                        })
-                    }
-                });
+            function addMask(mask) {
+                element.unmask();
+                if (mask){
+                    element.mask(mask, {
+                        completed: function () {
+                            var val = element.val();
+                            $scope.$apply(function ($scope) {
+                                ctrl.$modelValue = val;
+                            })
+                        }
+                    });
+                }
             }
 
             var placeHolder = element.attr('placeholder');
 
-            if (listenCodeChangeEventSource){
-                $scope.$on("PHONE_CODE_CHANGED", function (event, result) {
-                    var code = result.code;
+            if (listenCodeChangeEventSource) {
+                $scope.$on(listenCodeChangeEventSource, function (event, result) {
+                    //console.log('on', listenCodeChangeEventSource, result);
+                    var value = result.value;
                     var source = result.source;
-                    if (source == listenCodeChangeEventSource){
-                        if (code == '+7'){//маска только для России
-                            var elPlaceholder = element.attr('placeholder');
-                            if (elPlaceholder) {
-                            }
-                            else {
-                                element.attr('placeholder', placeHolder);
-                            }
 
-                            var isMaskAdded = $(element).data('isMaskAdded');
-                            if (isMaskAdded){
-                            }
-                            else {
-                                $(element).data('isMaskAdded', true);
-                                addMask();
-                            }
+                    var needToAddMask = false;
+                    if (listenCodeChangeEventSource.indexOf('DOC_CHANGED_') > -1) {
+                        //маска только для паспорта РФ
+                        if (value == 1) {
+                            needToAddMask = true;
+                            m = '9999 999999';
+                            element.attr('placeholder', '1234 567890');
+                            passenger[hideField][hideFieldName] = true;
+                        }
+                        else if (value == 2) {//загран
+                            needToAddMask = true;
+                            m = '999999999';
+                            element.attr('placeholder', '123456789');
+                            passenger[hideField][hideFieldName] = false;
+                        }
+                        else if (value == 3) {//св о рождении
+                            needToAddMask = true;
+                            m = null;
+                            element.attr('placeholder', 'XI-МЮ №123456');
+                            passenger[hideField][hideFieldName] = true;
                         }
                         else {
-                            //снимаем плейсхолдер
-                            element.removeAttr('placeholder');
-                            $(element).removeData('isMaskAdded');
-                            element.unmask();
+                            passenger[hideField][hideFieldName] = false;
                         }
+                    }
+                    else {
+                        //маска только для России
+                        if (value == '+7') {
+                            needToAddMask = true;
+                        }
+                    }
+
+                    if (needToAddMask) {
+                        var elPlaceholder = element.attr('placeholder');
+                        if (elPlaceholder) {
+                        }
+                        else {
+                            element.attr('placeholder', placeHolder);
+                        }
+
+                        addMask(m);
+                    }
+                    else {
+                        //снимаем плейсхолдер
+                        element.removeAttr('placeholder');
+                        $(element).removeData('isMaskAdded');
+                        element.unmask();
                     }
                 });
             }
             else {
-                addMask();
+                addMask(m);
             }
         }
     };
@@ -669,8 +705,7 @@ innaAppDirectives.directive('upperLatin', ['$filter', function ($filter) {
                 var letters = [];
                 _.each(capitalized, function (l) {
                     var index = ruLetters.indexOf(l);
-                    if (index > -1)
-                    {
+                    if (index > -1) {
                         l = latLetters[index];
                     }
                     letters.push(l);
@@ -730,7 +765,7 @@ innaAppDirectives.directive('validateSimple', [function () {
                 if (isUserAction)
                     type = 'userAction';
 
-                $scope.validate({ key: $scope.key, value: ngModel.$modelValue });
+                $scope.validate({key: $scope.key, value: ngModel.$modelValue});
                 //console.log('validate end');
             };
 
@@ -769,10 +804,12 @@ innaAppDirectives.directive('validateSimple', [function () {
             //});
 
             if ($scope.len != null) {
-                $scope.$watch(function () { return ngModel.$modelValue; }, function (newVal, oldVal) {
+                $scope.$watch(function () {
+                    return ngModel.$modelValue;
+                }, function (newVal, oldVal) {
                     if (newVal != null && newVal.length == $scope.len) {
                         //console.log('goNext');
-                        $scope.goNext({ key: $scope.key });
+                        $scope.goNext({key: $scope.key});
                     }
                 })
             }
@@ -791,6 +828,7 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
             ngValidationModel: '=',
             validateType: '=',
             dependsOn: '=',
+            dependsOn2: '=',
             validate: '&',
             supressSelectOnValue: '='
         },
@@ -806,7 +844,7 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
 
                 //console.log('validate; ngValidationModel.value: %s', $scope.ngValidationModel.value);
 
-                $scope.validate({ item: $scope.ngValidationModel, type: type });
+                $scope.validate({item: $scope.ngValidationModel, type: type});
             }
 
             $elem.on('blur', function () {
@@ -863,8 +901,7 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
 
             //когда придет модель - проставим аттрибут id элементу
             function updateAttrId(model) {
-                if (!isInitDone && (model != null || $scope.validateType == 'sex'))
-                {
+                if (!isInitDone && (model != null || $scope.validateType == 'sex')) {
                     //проставляем уникальный id элементу
                     $elem.attr("id", eid);
                     isInitDone = true;
@@ -879,6 +916,7 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
                         $scope.ngValidationModel.id = eid;
                         //валидация зависит от поля
                         $scope.ngValidationModel.dependsOnField = $scope.dependsOn;
+                        $scope.ngValidationModel.dependsOnField2 = $scope.dependsOn2;
                     }
                 }
             }
@@ -893,15 +931,15 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
 
             //fix autocomplete
             var tId = $interval(function () {
-                //var valModelVal = $scope.ngValidationModel != null ? $scope.ngValidationModel.value : '';
-                //console.log('$elem.val(): %s, $modelValue: %s, ngValidationModel.value: %s', $elem.val(), ctrl.$modelValue, valModelVal);
-                if ($elem.val() != null && $elem.val().length > 2 && $elem.val() != ctrl.$modelValue) {
-                    //console.log('set value and validate');
+                if ($elem.val() != null && $elem.val().length > 2 && $elem.val() != ctrl.$modelValue
+                    && $elem.val().indexOf('_') == -1
+                ) {
+                    //console.log('set value and validate', '['+ctrl.$modelValue+']', '['+$elem.val()+']');
                     ctrl.$setViewValue($elem.val());
                     validate();
                 }
             }, 500);
-            
+
 
             $scope.$on('$destroy', function () {
                 $interval.cancel(tId);
@@ -917,12 +955,12 @@ innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validato
         link: function ($scope, element, attrs, ctrl) {
             var $elem = $(element);
 
-            var hideField = attrs.keyPressHideField;
+            //var hideField = attrs.keyPressHideField;
             var passenger = $scope[attrs.keyPressOnDocument];
-            var hideFieldName = attrs.keyPressHideFieldName;
+            //var hideFieldName = attrs.keyPressHideFieldName;
             //console.log('keyPressOnDocument value', attrs.keyPressOnDocument, passenger, hideField);
 
-            function doValidate(){
+            function doValidate() {
                 if (passenger.citizenship.value.id == 189)//Россия
                 {
                     //поездка по России
@@ -943,11 +981,11 @@ innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validato
                         Validators.birthPassport(doc_num, 'err');
                     });
 
-                    console.log('tripInsideRF', tripInsideRF, 'tripInsideUkraine', tripInsideUkraine, 'isRuPassp', isRuPassp, 'isBirthDoc', isBirthDoc);
+                    //console.log('tripInsideRF', tripInsideRF, 'tripInsideUkraine', tripInsideUkraine, 'isRuPassp', isRuPassp, 'isBirthDoc', isBirthDoc);
 
                     if (tripInsideRF) {
                         if (isRuPassp || isBirthDoc) {
-                            passenger[hideField][hideFieldName] = true;
+                            //passenger[hideField][hideFieldName] = true;
 
                             //console.log(passenger.doc_expirationDate.id);
                             var $to = $("#" + passenger.doc_expirationDate.id);
@@ -956,7 +994,7 @@ innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validato
                             return;
                         }
                     }
-                    else if (tripInsideUkraine){ //если в Украине
+                    else if (tripInsideUkraine) { //если в Украине
                         if (isRuPassp || isBirthDoc) {
                             setTimeout(function () {
                                 var $to = $("#" + passenger.doc_series_and_number.id);
@@ -964,7 +1002,7 @@ innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validato
                                 $scope.tooltipControl.init($to, 'С 1 марта 2015 года граждане РФ могут въезжать<br/>на территорию Украины только по заграничному паспорту.');
                                 $scope.tooltipControl.open($to);
                             }, 100);
-                            
+
                             return;
                         }
                         else {
@@ -974,7 +1012,7 @@ innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validato
                     }
                 }
 
-                passenger[hideField][hideFieldName] = false;
+                //passenger[hideField][hideFieldName] = false;
                 return;
             }
 
@@ -1011,7 +1049,7 @@ innaAppDirectives.directive('tooltip', [function () {
         link: function ($scope, element, attrs) {
             //console.log('jqUITooltip');
             var $to = $(element);
-            $to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
+            $to.tooltip({position: {my: 'center top+22', at: 'center bottom'}});
             //$to.tooltip("open");
             $to.tooltip("disable");
 

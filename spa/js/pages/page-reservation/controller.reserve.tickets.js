@@ -36,6 +36,50 @@ innaAppControllers.controller('ReserveTicketsCtrl',
         $scope.bonusCardTransportersList = null;
         $scope.model = null;
 
+        $scope.documentTypeList = [
+            {Id: 1, Name: 'Паспорт РФ'},
+            {Id: 2, Name: 'Загранпаспорт'},
+            {Id: 3, Name: 'Св-во о рождении'},
+            {Id: 4, Name: 'Иностранный документ'}
+        ];
+
+        //$scope.documentTypeListFiltered = null;
+
+        function filterDocType(){
+            //console.log('$scope.validationModel', $scope.validationModel);
+            if ($scope.validationModel && $scope.validationModel.passengers){
+                _.each($scope.validationModel.passengers, function (pas) {
+                    //Россия
+                    if (pas.citizenship.value.id == 189){
+                        if ($scope.tripInsideRFFlag) {
+                            pas.documentTypeList = [
+                                {Id: 1, Name: 'Паспорт РФ'},
+                                {Id: 2, Name: 'Загранпаспорт'},
+                                {Id: 3, Name: 'Св-во о рождении'}
+                            ];
+                        }
+                        else {
+                            pas.documentTypeList = [
+                                {Id: 2, Name: 'Загранпаспорт'}
+                            ];
+                        }
+                    }
+                    else {
+                        pas.documentTypeList = [
+                            {Id: 4, Name: 'Иностранный документ'}
+                        ];
+                    }
+
+                    //проставляем первое значение
+                    var firstVal = pas.documentTypeList[0];
+                    pas.doc_type.value = {id: firstVal.Id, name: firstVal.Name};
+                });
+
+                //console.log('$scope.validationModel.passengers', $scope.validationModel.passengers);
+            }
+        }
+        filterDocType();
+
         $scope.phoneCodesList = null;
 
         (function fillPhoneCodes(){
@@ -350,6 +394,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
             date: 'date',
             birthdate: 'birthdate',
             expire: 'expire',
+            doc_type: 'doc_type',
             document: 'document',
             sex: 'sex'
         };
@@ -569,6 +614,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                     key: key,
                     value: value,
                     dependsOnField: null,//валидация зависит от поля
+                    dependsOnField2: null,//валидация зависит от поля
                     isValid: true,
                     isInvalid: false,
                     validationType: null,
@@ -845,13 +891,18 @@ innaAppControllers.controller('ReserveTicketsCtrl',
 
                             //гражданство
                             var citizenship = item.dependsOnField;
+                            //тип документа
+                            var docType = item.dependsOnField2;
+
+                            //console.log('validate document', citizenship.value, docType.value);
 
                             //логика описана тут https://innatec.atlassian.net/browse/IN-746
                             tryValidate(item, function () {
                                 Validators.defined(doc_num, 'err');
 
                                 //
-                                if (citizenship == null || citizenship.value == null || !(citizenship.value.id > 0))
+                                if (citizenship == null || citizenship.value == null || !(citizenship.value.id > 0)
+                                    || !docType)
                                     throw 'err';
 
                                 if (citizenship.value.id == 189)//Россия
@@ -860,6 +911,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                                     if (tripInsideRF) {
                                         //проставляем флаг, что это российский паспорт
                                         //флаг понадобится при валидации Действителен до
+                                        //это не сама проверка - она ниже!
                                         if ($scope.isCaseValid(function () {
                                                 Validators.ruPassport(doc_num, 'err');
                                             }) ||
@@ -871,33 +923,16 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                                         else {
                                             item.isRuPassportOrBirthAndInsideRF = false;
                                         }
-
-                                        //проверяем паспорт, загран, св. о рождении
-                                        if ($scope.isCaseValid(function () {
-                                                Validators.ruPassport(doc_num, 'err');
-                                            }) ||
-                                            $scope.isCaseValid(function () {
-                                                Validators.enPassport(doc_num, 'err');
-                                            }) ||
-                                            $scope.isCaseValid(function () {
-                                                Validators.birthPassport(doc_num, 'err');
-                                            })) {
-                                            //все норм - не выкидываем исключение
-                                        }
-                                        else {
-                                            //одна или больше проверок сфейлиломсь - выкидываем исключение
-                                            throw 'err';
-                                        }
-                                    }
-                                    else {
-                                        //загран
-                                        Validators.enPassport(doc_num, 'err');
                                     }
                                 }
-                                else {
-                                    //для граждан других стран
-                                    //непустая строка
-                                    //уже проверили в самом начале
+
+                                //валидация
+                                switch (docType.value.id) {
+                                    case 1: Validators.ruPassport(doc_num, 'err'); break;
+                                    case 2: Validators.enPassport(doc_num, 'err'); break;
+                                    case 3: Validators.birthPassport(doc_num, 'err'); break;
+                                    case 4: Validators.defined(doc_num, 'err'); break;
+                                    default: throw 'err';
                                 }
                             });
                             break;
@@ -951,9 +986,17 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                                         newIntItem[inKey].setValue = function (item) {
                                             var self = this;
                                             self.value = item;
-                                            //console.log('setValue');
+                                            //console.log('citizenship setValue', item);
                                             //console.log(item);
                                             visaNeededCheck();
+                                            filterDocType();
+                                        }
+                                    }
+                                    else if (inKey == 'doc_type') {
+                                        newIntItem[inKey].setValue = function (item) {
+                                            var self = this;
+                                            //console.log('doc_type res set', item);
+                                            self.value = item;
                                         }
                                     }
                                 }
@@ -1086,6 +1129,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
             updateFields($scope.validationModel);
 
             visaNeededCheck();
+            filterDocType();
 
             //console.log('$scope.validationModel');
             //console.log($scope.validationModel);
@@ -1116,8 +1160,9 @@ innaAppControllers.controller('ReserveTicketsCtrl',
         }, true);
 
         //$scope.$watch('validationModel', function (newVal, oldVal) {
-        //    if ($scope.validationModel && $scope.validationModel.phone) {
-        //        console.log('validationModel phone', $scope.validationModel.phone.value);
+        //    if ($scope.validationModel && newVal.passengers && newVal.passengers.length > 0) {
+        //        console.log('validationModel', newVal.passengers[0].doc_type.value);
+        //        console.log('validationModel', newVal.passengers[0].doc_series_and_number.value);
         //    }
         //}, true);
 
@@ -1226,6 +1271,10 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                         id: 189,
                         name: 'Россия'
                     },
+                    doc_type: {
+                        id: 1,
+                        name: 'Паспорт РФ'
+                    },
                     doc_series_and_number: '',//серия номер
                     doc_expirationDate: '',//дествителен до
                     document: {//документ
@@ -1323,6 +1372,8 @@ innaAppControllers.controller('ReserveTicketsCtrl',
 
             };
 
+            $scope.tripInsideRFFlag = $scope.isTripInsideRF($scope.item);
+            console.log('$scope.tripInsideRFFlag', $scope.tripInsideRFFlag);
            
             //$scope.fillDefaultModel();
             $scope.fillStoredModel();
@@ -1337,12 +1388,12 @@ innaAppControllers.controller('ReserveTicketsCtrl',
 
         $scope.tooltipControl = {
             init: function ($to, customText) {
-                //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
+                console.log('reserve tooltipControl init');
                 $to.tooltipX({
                     autoShow: false,
                     autoHide: false,
                     position: {
-                        my: 'center top+22',
+                        my: 'center top+12',
                         at: 'center bottom',
                         collision: "none"
                     },
