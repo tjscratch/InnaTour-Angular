@@ -1,73 +1,76 @@
-.b-tooltip-price {
-  display : inline-block;
-  text-align : left !important;
+.b-tooltip-price{
+    position relative
+    display: inline-block;
+    width: 17px;
+    height: 18px;
+    margin-left: 4px;
+    text-align: left !important;
 
-  &.b-tooltip-price_bundle {
-    .icon-price-info {
-      top: 13px;
+    &.b-tooltip-price_bundle{
+        .icon-price-info{
+            top: 2px;
+        }
     }
-  }
 }
+.tooltip-price{
+    color #4d4d4d
+    font-size 14px
+    text-align left
+    padding: 7px 13px
 
-.tooltip-price {
-  color #4d4d4d
-  font-size 14px
-  text-align left
-  padding: 7px 13px
-
-  &.tooltip-price_big {
-    width : 170px;
-  }
-
-  &.tooltip-price_xbig {
-    width : 210px;
-  }
-
-  .list-price-item {
-    position: relative;
-    margin-bottom: 4px;
-    font-weight: normal;
-
-    &__right {
-      text-align: right;
-      font-weight : bold;
-    }
-  }
-
-  .list-price {
-    font-weight bold
-
-    &.green {
-      color #89c13a
-    }
-  }
-
-  .list-price-total {
-    border-top 1px solid #c0c0c2
-    text-align right
-
-    &:after {
-      content: '';
-      display: block;
-      clear: both;
+    &.tooltip-price_big{
+        width: 170px;
     }
 
-    &__wrapper {
-      float right
+    &.tooltip-price_xbig{
+        width: 210px;
     }
 
-    &__strike_through {
-      transform rotate(-8deg) translate3d(0, -9px, 0)
-      width 100%
-      border-top 1px solid #4d4d4d
+    .list-price-item{
+        position: relative;
+        margin-bottom: 4px;
+        font-weight: normal;
+
+        &__right{
+            text-align: right;
+            font-weight: bold;
+        }
     }
-  }
 
-  &__title {
+    .list-price{
+        font-weight bold
 
-  }
+        &.green{
+            color #89c13a
+        }
+    }
 
-  &__list_top {
-    margin-top: 12px;
-  }
+    .list-price-total{
+        border-top 1px solid #c0c0c2
+        text-align right
+
+        &:after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        &__wrapper{
+            float right
+        }
+
+        &__strike_through{
+            transform rotate(-8deg) translate3d(0, -9px, 0)
+            width 100%
+            border-top 1px solid #4d4d4d
+        }
+    }
+
+    &__title{
+
+    }
+
+    &__list_top{
+        margin-top: 12px;
+    }
 }

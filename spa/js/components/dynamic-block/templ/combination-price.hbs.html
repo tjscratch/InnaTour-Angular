@@ -13,16 +13,16 @@
         </div>
         {{/if}}
 
-        <div class="price-description" style="{{(modelPrice.getProfit() <= 1000) ? 'margin-top:50px;' : '' }}">
+        <div class="price-description" style="{{(modelPrice.getProfit() <= 1000) ? 'margin-top:55px;' : '' }}">
             Стоимость пакета
         </div>
 
         <div class="corner-price">
-            <div>
+            <div style="display: inline-block">
                 {{priceFilter(PackagePrice)}}
                 {{>ruble}}
             </div>
-
+            
             <!-- Показываем только для авторизованного пользователя b2b -->
             {{#if PriceObject}}
             <PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}"/>

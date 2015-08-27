@@ -282,14 +282,14 @@
                     <span class="cross">{{recommendedPair.getFullPrice() | price}} <span class="b-rub">q</span></span>
                     <span class="price-description">по отдельности</span>
                 </p>
-
-                <div class="price">
+    
+                <div class="price"
+                     ng-class="{'price-margin-top-55': (recommendedPair.getProfit() <= 1000)}">
                     <div class="price-description" style="font-weight:normal;">Стоимость пакета</div>
                     {{recommendedPair.getFullPackagePrice() | price}}
                     <ng-include src="'components/ruble.html'"></ng-include>
 
                     <!-- tooltip price -->
-
                     <ng:any ng-if="recommendedPair.hotel.data.PriceObject"
                             price-generic-directive
                             price-object="recommendedPair.hotel.data.PriceObject"
