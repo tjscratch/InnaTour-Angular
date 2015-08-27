@@ -39,6 +39,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
             /*Events*/
             $scope.$watch('value', function (newVal, oldVal) {
                 //$scope.setSelectedItem(newVal);
+                //console.log('cit control $watch', newVal);
                 $scope.selectionControl.setSelected(newVal);
             });
 
@@ -106,10 +107,12 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
 
                 self.setNewList = function () {
                     self.list = $scope.list;
+                    //console.log('setNewList', JSON.stringify(self.list));
                     if (self.list && self.list.length > 0) {
                         self.selectedIndex = 0;
                         self.selectedItem = self.list[0];
-                        self.selectItem();
+                        //self.selectItem();
+                        self.setSelected(self.selectedItem.Id);
                     }
                     else {
                         self.selectedIndex = -1;
@@ -169,6 +172,10 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                 };
 
                 self.setSelected = function (id) {
+                    //if ($scope.attrsType == 'docType'){
+                    //    console.log('cit ctrl setSelected', id, JSON.stringify(self.list));
+                    //}
+
                     for (var i = 0; i < self.list.length; i++) {
                         var item = self.list[i];
                         if (item.Id == id) {
@@ -285,6 +292,7 @@ innaAppDirectives.directive('citizenshipSelect', ['$templateCache', 'eventsHelpe
                 $scope.isPhoneControl = true;
             }
 
+            $scope.attrsType = attrs.type;
             if (attrs.type == 'docType') {
                 $scope.$watch('list', function (newVal, oldVal) {
                     if (newVal) {
