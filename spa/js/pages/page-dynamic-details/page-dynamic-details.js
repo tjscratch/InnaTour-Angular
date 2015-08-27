@@ -532,10 +532,9 @@ innaAppControllers
                         $routeParams.HotelId,
                         $routeParams.TicketId,
                         $routeParams.TicketBackId,
-                        $routeParams.ProviderId
+                        $scope.hotel.ProviderId
                     ].join('-');
-
-
+                
                 $location.search({
                     room: room.RoomId,
                     hotel: $scope.hotel.HotelId,
