@@ -11,7 +11,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
         var topMap = document.querySelector('.js-b-where-to-buy-map__container');
         $scope.offsetTop = {top: topMap.offsetTop, bottom: 0};
         var body = document.querySelector('body');
-        $scope.listHeight = {height: body.clientHeight - topMap.offsetTop - 250};
+        $scope.listHeight = {maxHeight: body.clientHeight - topMap.offsetTop - 250};
         $scope.promoPositions = {top: (body.clientHeight - topMap.offsetTop) / 2};
     };
     setWindow();
