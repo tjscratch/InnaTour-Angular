@@ -70,6 +70,7 @@ gulp.task('concat-lib', function () {
         conf.dest + '/lib/polyfill/**/*.js',
         conf.dest + '/lib/jquery.maskedinput.js',
         conf.dest + '/lib/jquery.ui.datepicker-ru.js',
+        conf.dest + '/lib/jquery.scrollTo.min.js',
         conf.dest + '/lib/datepicker/datepicker.js',
         conf.dest + '/lib/jquery-ui/jquery-ui.1.11.2.min.js',
         conf.dest + '/lib/ui-bootstrap-typeahead-custom/typeahead.js',

@@ -1,5 +1,6 @@
 <div class="l-where-to-buy">
 
+    <!--
     <div class="sub-menu-container">
         <ul class="sub-menu">
             <li class="sub-menu-item"><a href="/#/about/">О компании</a></li>
@@ -15,7 +16,7 @@
             Мы работаем с туристическими агентствами по всей России. Вы можете приобрести интересующий тур в агентствах своего города.
         </div>
     </div>
-
+-->
     <div class="b-where-to-buy-map__container js-b-where-to-buy-map__container" ng-style="offsetTop">
 
 
@@ -40,7 +41,6 @@
                                 typeahead-on-select='locationFromOnSelect($item, $model, $label)'
                                 >
                     </div>
-                    <!--<input type="text" ng-model="currentCity" ng-blur="setLocation()"/>-->
 				<span class="btn btn-green"
                       ng-click="setCurrentLocationTypeahead()"
                       ng-show="editLocation"
@@ -67,7 +67,7 @@
                         ng-style="listHeight"
                         ng-show="agencies.length > 0">
 
-                        <li class="b-where-to-buy__agencies-list_item js-list-item-{{ $index }}"
+                        <li id="js-list-item-{{ $index }}" class="b-where-to-buy__agencies-list_item"
                             ng-repeat="item in agencies track by $index"
                             ng-class="{'active': currentAgencyId == $index}"
                             ng-click="setAgency($index + 1)"
@@ -87,7 +87,6 @@
 
                     <div class="b-where-to-buy__agencies-promo"
                          ng-if="agencies.length > 0">
-                        <h3>Место свободно</h3>
                         <div>
                             Если вы турагентство или
                             туроператор и хотите

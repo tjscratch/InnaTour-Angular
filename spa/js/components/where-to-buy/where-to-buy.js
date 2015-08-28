@@ -228,8 +228,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
         var list = $(".b-where-to-buy__agencies-list");
 
         function scrollList(id) {
-            var currentItem = document.querySelector(".js-list-item-" + id);
-            list.scrollTop(currentItem.offsetTop - 54);
+            list.scrollTo($("#js-list-item-" + (id - 1)), 500);
         }
 
     };
