@@ -11,7 +11,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
         var topMap = document.querySelector('.js-b-where-to-buy-map__container');
         $scope.offsetTop = {top: topMap.offsetTop, bottom: 0};
         var body = document.querySelector('body');
-        $scope.listHeight = {height: body.clientHeight - topMap.offsetTop - 250};
+        $scope.listHeight = {maxHeight: body.clientHeight - topMap.offsetTop - 250};
         $scope.promoPositions = {top: (body.clientHeight - topMap.offsetTop) / 2};
     };
     setWindow();
@@ -52,7 +52,8 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
             iconImageOffset: [
                 0,
                 0
-            ]
+            ],
+            zIndex: 1
         };
         var iconHover = {
             iconLayout     : 'default#image',
@@ -76,7 +77,8 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
             iconImageOffset: [
                 0,
                 0
-            ]
+            ],
+            zIndex         : 2000
         };
 
         $scope.myMap = null;
@@ -180,7 +182,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                     marker.options.zIndex = 1;
                 });
                 $scope.arrayMarkers[index].options.set(iconActive);
-                $scope.arrayMarkers[index].options.zIndex = 10;
+                $scope.myMap.setCenter($scope.arrayMarkers[index].geometry.getCoordinates(), 13);
             } else {
                 $scope.arrayMarkers[$scope.currentAgencyId].options.set(iconActive);
             }
@@ -193,10 +195,8 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
 
                 if (currentMarker != i) {
                     var myPlacemark = new ymaps.Placemark(coordinate, {id: i}, iconDefault);
-                    myPlacemark.options.zIndex = 1;
                 } else {
                     var myPlacemark = new ymaps.Placemark(coordinate, {id: i}, iconActive);
-                    myPlacemark.options.zIndex = 10;
                 }
 
                 myPlacemark.events
@@ -228,8 +228,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
         var list = $(".b-where-to-buy__agencies-list");
 
         function scrollList(id) {
-            var currentItem = document.querySelector(".js-list-item-" + id);
-            list.scrollTop(currentItem.offsetTop - 54);
+            list.scrollTo($("#js-list-item-" + (id - 1)), 500);
         }
 
     };
