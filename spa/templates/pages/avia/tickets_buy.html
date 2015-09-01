@@ -156,7 +156,7 @@
                         <b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
                         <span>банковской картой</span></label>
                 </li>
-                <li>
+                <li ng-if="!isAgency">
                     <span class="icon-img icon-sprite-pay_type_2"></span>
                     <input ng-model="svyaznoyPayControl.payType" value="1" id="pay_type_cache" type="radio" name="card-pay">
                     <label for="pay_type_cache"><b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
