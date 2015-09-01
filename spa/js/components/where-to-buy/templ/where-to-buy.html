@@ -1,6 +1,6 @@
 <div class="l-where-to-buy">
 
-    
+
     <div class="sub-menu-container">
         <ul class="sub-menu">
             <li class="sub-menu-item"><a href="/#/about/">О компании</a></li>
@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="b-where-to-buy-map__container js-b-where-to-buy-map__container" ng-style="offsetTop">
+    <div class="b-where-to-buy-map__container js-b-where-to-buy-map__container">
 
 
         <div class="b-where-to-buy__location">
@@ -64,7 +64,6 @@
 
 
                     <ul class="b-where-to-buy__agencies-list"
-                        ng-style="listHeight"
                         ng-show="agencies.length > 0">
 
                         <li id="js-list-item-{{ $index }}" class="b-where-to-buy__agencies-list_item"
@@ -86,14 +85,12 @@
 
 
                     <div class="b-where-to-buy__agencies-promo_top-txt"
-                         ng-if="agencies.length == 0"
-                         ng-style="promoPositions">
+                         ng-if="agencies.length == 0">
                         У нас пока нет представителя в этом городе. Станьте первым!
                     </div>
-                    <div class="b-where-to-buy__agencies-promo"
-                         ng-if="agencies.length == 0 || agencies.length > 0 ">
-                        <a href="/#/registration">Добавить агентство</a>
-                    </div>
+                    <a class="b-where-to-buy__agencies-promo"
+                       ng-if="agencies.length == 0 || agencies.length > 0 "
+                       href="/#/registration">Добавить агентство</a>
 
 
                 </div>
