@@ -361,7 +361,7 @@
 
 .b-tickets-info-container {
     border-top 4px solid #82b739
-    border-bottom 1px solid #cdcdcd
+    //border-bottom 1px solid #cdcdcd
     /*background #e4e4e4*/
     background #fff
     margin 0 0 22px
@@ -451,6 +451,53 @@
         a {
             color #53a1cc;
             text-decoration: underline;
+        }
+    }
+}
+
+.qiwi-block__pay-info__wrap {
+    width: 100%;
+    background-color: #e6e7e9;
+}
+
+.qiwi-block__pay-info__container {
+    padding: 20px 20px 100px;
+}
+
+.qiwi-block__pay-info__pay-logo {
+    margin-top: 15px;
+}
+
+.qiwi-block__pay-info__pay-button {
+    margin-left: 40px;
+    margin-bottom: 8px;
+}
+
+.qiwi-block__pay-info__text {
+    display: inline-block;
+    margin-left: 40px;
+    vertical-align: top;
+    margin-top: 18px;
+
+    a {
+        position: relative;
+        color: #1e88c1;
+
+        &:visited {
+            color: #1e88c1;
+            text-decoration: none;
+        }
+
+        &:after {
+            top: 100%;
+            height: 0px;
+            left: 0;
+            right: 0;
+            margin-top: -3px;
+            content: '';
+            position: absolute;
+            display: block;
+            border-bottom: 1px solid #abc6da;
         }
     }
 }
@@ -624,6 +671,10 @@
     position relative
     overflow hidden
     float right
+
+.b-pay-button.qiwi {
+    float none
+}
 
 .b-pay-button input
     position absolute

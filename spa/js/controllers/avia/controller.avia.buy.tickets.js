@@ -124,6 +124,45 @@ innaAppControllers.
 
             $scope.svyaznoyPayControl = new svyaznoyPayControl();
 
+            //qiwi ===========================================================================
+            function qiwiPayControl() {
+                var self = this;
+
+                self.isEnabled = true;
+
+                self.init = function (payData) {
+                    //console.log('payData', payData);
+
+                    //на партнерах - выключаем
+                    var partner = window.partners ? window.partners.getPartner() : null;
+                    if (partner) {
+                        self.isEnabled = false;
+                    }
+
+                    if (payData){
+                        //на b2b - выключаем
+                        //на > 60к - выключаем
+                        if (payData.IsAgency || payData.Price > 60000) {
+                            self.isEnabled = false;
+                        }
+
+                        //на невозвратных отелях - выключаем
+                        if (payData.Hotel && payData.Hotel.Room) {
+                            //если false - то можно оплачивать в киви
+                            //если true - от нельзя
+                            //IsReturnsWithFine - если возврат со штрафом
+                            if (payData.Hotel.Room.IsReturnsWithFine ||
+                                payData.Hotel.Room.IsReturnsWithPenalty) {
+                                self.isEnabled = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            $scope.qiwiPayControl = new qiwiPayControl();
+            //qiwi ===========================================================================
+
             $scope.isCkeckProcessing = false;
             $scope.orderNum = $routeParams.OrderNum;
             $scope.helper = aviaHelper;
@@ -714,6 +753,7 @@ innaAppControllers.
                     function (data) {
                         if (data != null) {
                             $scope.svyaznoyPayControl.init();
+                            $scope.qiwiPayControl.init(data);
 
                             //log('\ngetPaymentData data: ' + angular.toJson(data));
                             //console.log('getPaymentData:');
@@ -1701,6 +1741,13 @@ innaAppControllers.
                     }
                 }
             }
+
+            //qiwi ===========================================================================
+
+            $scope.qiwiBuy = function ($event) {
+                eventsHelper.preventBubbling($event);
+            };
+            //qiwi ===========================================================================
 
             $scope.$on('$destroy', function () {
                 $scope.baloon.hide();

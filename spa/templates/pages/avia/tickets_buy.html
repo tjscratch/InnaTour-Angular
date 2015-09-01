@@ -162,6 +162,12 @@
                     <label for="pay_type_cache"><b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
                         <span>{{svyaznoyPayControl.checkListTitle}}</span></label>
                 </li>
+                <li ng-if="qiwiPayControl.isEnabled && !paymentDeadline.ifExpires()">
+                    <span class="icon-img icon-sprite-pay_type_3"></span>
+                    <input ng-model="svyaznoyPayControl.payType" value="2" id="pay_type_qiwi" type="radio" name="card-pay">
+                    <label for="pay_type_qiwi"><b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
+                        <span>через QIWI Visa Wallet</span></label>
+                </li>
             </ul>
 
 
@@ -302,7 +308,19 @@
     </div></a>
 </div>
 
+<div class="qiwi-block__pay-info__wrap" ng-if="svyaznoyPayControl.payType == 2">
+    <div class="main__center qiwi-block__pay-info__container">
+        <span class="icon-img icon-sprite-qiwi_walet qiwi-block__pay-info__pay-logo"></span>
+        <span class="button b-pay-button qiwi qiwi-block__pay-info__pay-button">Оплатить <input type="submit" value="Оплатить" ng-click="qiwiBuy($event)"></span>
+        <span class="qiwi-block__pay-info__text">
+            Доступ к  QIWI Visa Wallet откроется в отдельном окне.<br/>
+            <a href="https://w.qiwi.com" target="_blank">Инструкция</a> по работе с QIWI Visa Wallet.
+        </span>
+    </div>
+</div>
+
 </form>
+
 </div>
 <!-- Search Results -->
 
