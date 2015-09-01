@@ -56,7 +56,7 @@ $green = #89c13a;
     position: absolute;
     top: 0;
     right: 0;
-    width: 300px;
+    width: 280px;
 
     *{
         box-sizing: border-box;
@@ -110,28 +110,31 @@ $green = #89c13a;
 .b-where-to-buy__agencies-promo{
     @extend .b-where-to-buy__agencies-list_item;
     background-color: $orange;
+    padding-top: 20px;
+    padding-bottom: 20px;
     border-width: 0;
     cursor inherit
+    text-align center
 
     &:hover{
         background-color: $orange;
     }
 
-    h3{
-        margin: 0 0 15px;
-    }
     a{
         color: #000;
-        text-decoration: underline;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
 
         &:hover{
-            text-decoration: none;
+            text-decoration: underline;
         }
     }
-
-    &.one{
-        position: absolute;
-        margin-top: -80px;
+}
+.b-where-to-buy__agencies-promo_top-txt{
+    @extend .b-where-to-buy__agencies-list_item;
+    &:hover{
+        background-color #fff;
     }
 }
 .b-where-to-buy-map__container{
@@ -189,4 +192,10 @@ $green = #89c13a;
     box-sizing: border-box;
     font-size: 18px;
     color: #000;
+}
+//@media (min-width: 768px){
+@media (max-height: 768px){
+    .l-where-to-buy__promo-text{
+        display none
+    }
 }

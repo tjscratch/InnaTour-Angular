@@ -10,7 +10,7 @@
         </ul>
     </div>
 
-    <div class="l-where-to-buy__container">
+    <div class="l-where-to-buy__container l-where-to-buy__promo-text">
         <h3 class="l-where-to-buy__title">Где купить</h3>
         <div class="l-where-to-buy__txt">
             Мы работаем с туристическими агентствами по всей России. Вы можете приобрести интересующий тур в агентствах своего города.
@@ -85,27 +85,14 @@
                     </ul>
 
 
-                    <div class="b-where-to-buy__agencies-promo"
-                         ng-if="agencies.length > 0">
-                        <div>
-                            Если вы турагентство или
-                            туроператор и хотите
-                            разместить информацию о себе
-                        </div>
-                        <a href="/#/registration">зарегистрируйтесь</a>
-                    </div>
-
-                    <div class="b-where-to-buy__agencies-promo one"
+                    <div class="b-where-to-buy__agencies-promo_top-txt"
                          ng-if="agencies.length == 0"
-                         ng-style="promoPositions"
-                            >
-                        <h3>У нас пока нет представителя в этом городе.</h3>
-                        <div>
-                            Есть шанс стать первым!
-                            Если вы турагентство
-                            или туроператор и хотите продавать
-                            дин. турпакеты <a href="/#/registration">зарегистрируйтесь</a>
-                        </div>
+                         ng-style="promoPositions">
+                        У нас пока нет представителя в этом городе. Станьте первым!
+                    </div>
+                    <div class="b-where-to-buy__agencies-promo"
+                         ng-if="agencies.length == 0 || agencies.length > 0 ">
+                        <a href="/#/registration">Добавить агентство</a>
                     </div>
 
 
