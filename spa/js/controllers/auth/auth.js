@@ -27,6 +27,10 @@ var authController = angular.module('innaApp.controllers')
                     redirectUrl = decodeURIComponent(redirectUrl);
                     $scope.needRedirectAfterLoginUrl = redirectUrl;
                     console.log('need redirect after login:', $scope.needRedirectAfterLoginUrl);
+
+                    $timeout(function () {
+                        $scope.open();
+                    },0);
                 }
             })();
 
@@ -97,7 +101,6 @@ var authController = angular.module('innaApp.controllers')
                 utils.scrollFix();
                 $scope.isLoginPopupOpened = true;
             };
-
 
             /**
              * регистрация агенства редирект на главную и открытие формы авторизации при успешной регистрации
