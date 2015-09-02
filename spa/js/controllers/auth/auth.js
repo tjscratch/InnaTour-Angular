@@ -11,6 +11,25 @@ var authController = angular.module('innaApp.controllers')
         '$route',
         function ($scope, $timeout, $location, aviaHelper, Events, AuthDataProvider, app, modelAuth, $route) {
 
+            /*
+             * Поддержка редиректа авторизации http://lh.inna.ru/?login=http%3a%2f%2fpartner.test.inna.ru%2f#/
+             * https://innatec.atlassian.net/browse/IN-4960
+             * */
+            $scope.needRedirectAfterLoginUrl = null;
+            (function checkAndProcessAuthRedirect(){
+                var loc = location.href.toLowerCase();
+                var keyPhrase = '?login=';
+                var startIndex = loc.indexOf(keyPhrase);
+                if (startIndex > -1){
+                    startIndex = startIndex + keyPhrase.length;
+                    var toIndex = loc.lastIndexOf('#/');
+                    var redirectUrl = loc.substring(startIndex, toIndex);
+                    redirectUrl = decodeURIComponent(redirectUrl);
+                    $scope.needRedirectAfterLoginUrl = redirectUrl;
+                    console.log('need redirect after login:', $scope.needRedirectAfterLoginUrl);
+                }
+            })();
+
             /**
              * партнерка WL
              */
@@ -296,21 +315,31 @@ var authController = angular.module('innaApp.controllers')
                             window.location = window.partners.getB2b_LK(partner);
                         }
                         else {
-                            //console.log('user.Type:', $scope.$root.user.getType());
-                            switch ($scope.$root.user.getType()) {
-                                case 2:
-                                {//B2B = 2, b2b.inna.ru
-                                    $route.reload();
-                                    // закоментировал редирект в b2b задача https://innatec.atlassian.net/browse/IN-4892
-                                    //window.location = $scope.B2B_HOST;
-                                    break;
-                                }
-                                case 4:
-                                {//Partner = 4, partner.inna.ru
-                                    $route.reload();
-                                    // закоментировал редирект в b2b задача https://innatec.atlassian.net/browse/IN-4892
-                                    //window.location = $scope.b2bPartnerHost;
-                                    break;
+                            /*
+                             * Поддержка редиректа авторизации http://lh.inna.ru/?login=http%3a%2f%2fpartner.test.inna.ru%2f#/
+                             * https://innatec.atlassian.net/browse/IN-4960
+                             * */
+                            if ($scope.needRedirectAfterLoginUrl){
+                                console.log('redirect after login:', $scope.needRedirectAfterLoginUrl);
+                                location.href = $scope.needRedirectAfterLoginUrl;
+                            }
+                            else {
+                                //console.log('user.Type:', $scope.$root.user.getType());
+                                switch ($scope.$root.user.getType()) {
+                                    case 2:
+                                    {//B2B = 2, b2b.inna.ru
+                                        $route.reload();
+                                        // закоментировал редирект в b2b задача https://innatec.atlassian.net/browse/IN-4892
+                                        //window.location = $scope.B2B_HOST;
+                                        break;
+                                    }
+                                    case 4:
+                                    {//Partner = 4, partner.inna.ru
+                                        $route.reload();
+                                        // закоментировал редирект в b2b задача https://innatec.atlassian.net/browse/IN-4892
+                                        //window.location = $scope.b2bPartnerHost;
+                                        break;
+                                    }
                                 }
                             }
                         }
