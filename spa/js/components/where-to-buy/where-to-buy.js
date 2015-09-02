@@ -103,11 +103,11 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                     function (res) {
                         myMapCreate();
                         var coord = res.geoObjects.get(0).geometry.getCoordinates();
-                        //$scope.myMap.setCenter(coord, 10);
-                        $scope.myMap.panTo([
-                            parseFloat(coord[0]),
-                            parseFloat(coord[1])
-                        ], {flying: 1});
+                        $scope.myMap.setCenter(coord, 10);
+                        //$scope.myMap.panTo([
+                        //    parseFloat(coord[0]),
+                        //    parseFloat(coord[1])
+                        //], {flying: 1});
                         var mapBounds = $scope.myMap.getBounds();
                         setAgencies({bounds: mapBounds});
                     }
