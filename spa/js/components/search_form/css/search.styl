@@ -142,12 +142,17 @@
   right: 7px;
   overflow hidden
   height 36px
-  width 42px !important
+  width 90px !important
   margin 0
+  padding 7px 10px
   border-radius 2px
   transition background-color 0.3s linear
   background-color: #89c13a;
   cursor pointer;
+  font-size 18px;
+  color: #fff;
+  box-sizing: border-box;
+  text-align: center;
 
   .search-button__icon {
     position: absolute;
@@ -178,18 +183,22 @@
   margin 0
   padding 0
 
-.search-people-block
-  width 138px
+.search-people-block{
+  width 91px !important
   height 36px
   z-index 2
-
+  
+  &.search-people-choose{
+    width 119px !important
+  }
+}
 .search-people
   background #fff
   height 36px
   padding 0 10px
   font 14px / 36px $ProximaNova
   cursor pointer
-  background: #fff url("/spa/img/i.png") no-repeat 54px -1879px;
+  background: #fff url("/spa/img/i.png") no-repeat 27px -1879px;
   /*background url(/spa/img/i.png) no-repeat #fff*/
   /*background-position right 7px top -1879px*/
 
@@ -408,7 +417,7 @@
 
 
 .search__city
-  width 205px
+  width 196px
 
 .search__120
   width 120px
