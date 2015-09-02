@@ -1,6 +1,6 @@
 <div class="l-where-to-buy">
 
-    
+
     <div class="sub-menu-container">
         <ul class="sub-menu">
             <li class="sub-menu-item"><a href="/#/about/">О компании</a></li>
@@ -10,14 +10,14 @@
         </ul>
     </div>
 
-    <div class="l-where-to-buy__container">
+    <div class="l-where-to-buy__container l-where-to-buy__promo-text">
         <h3 class="l-where-to-buy__title">Где купить</h3>
         <div class="l-where-to-buy__txt">
             Мы работаем с туристическими агентствами по всей России. Вы можете приобрести интересующий тур в агентствах своего города.
         </div>
     </div>
 
-    <div class="b-where-to-buy-map__container js-b-where-to-buy-map__container" ng-style="offsetTop">
+    <div class="b-where-to-buy-map__container js-b-where-to-buy-map__container">
 
 
         <div class="b-where-to-buy__location">
@@ -64,7 +64,6 @@
 
 
                     <ul class="b-where-to-buy__agencies-list"
-                        ng-style="listHeight"
                         ng-show="agencies.length > 0">
 
                         <li id="js-list-item-{{ $index }}" class="b-where-to-buy__agencies-list_item"
@@ -85,28 +84,13 @@
                     </ul>
 
 
-                    <div class="b-where-to-buy__agencies-promo"
-                         ng-if="agencies.length > 0">
-                        <div>
-                            Если вы турагентство или
-                            туроператор и хотите
-                            разместить информацию о себе
-                        </div>
-                        <a href="/#/registration">зарегистрируйтесь</a>
+                    <div class="b-where-to-buy__agencies-promo_top-txt"
+                         ng-if="agencies.length == 0">
+                        У нас пока нет представителя в этом городе. Станьте первым!
                     </div>
-
-                    <div class="b-where-to-buy__agencies-promo one"
-                         ng-if="agencies.length == 0"
-                         ng-style="promoPositions"
-                            >
-                        <h3>У нас пока нет представителя в этом городе.</h3>
-                        <div>
-                            Есть шанс стать первым!
-                            Если вы турагентство
-                            или туроператор и хотите продавать
-                            дин. турпакеты <a href="/#/registration">зарегистрируйтесь</a>
-                        </div>
-                    </div>
+                    <a class="b-where-to-buy__agencies-promo"
+                       ng-if="agencies.length == 0 || agencies.length > 0 "
+                       href="/#/registration">Добавить агентство</a>
 
 
                 </div>
