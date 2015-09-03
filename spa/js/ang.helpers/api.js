@@ -80,6 +80,8 @@ angular.module('innaApp.API', [])
             
             PARTNER_CREATE: url('/Agency/Add'),
 
+            QIWI_MAKE_BILL: url('/qiwi/MakeBill'),
+
             eof: null
         }
     })
