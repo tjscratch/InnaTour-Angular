@@ -130,10 +130,12 @@ innaAppControllers.
             //qiwi ===========================================================================
             function qiwiPayControl() {
                 var self = this;
+                self.payData = null;
 
                 self.isEnabled = true;
 
                 self.init = function (payData) {
+                    self.payData = payData;
                     //console.log('payData', payData);
 
                     //на партнерах - выключаем
@@ -146,7 +148,7 @@ innaAppControllers.
                         //на b2b - выключаем
                         //на > 60к - выключаем
                         if (payData.IsAgency || payData.Price > 60000) {
-                            self.isEnabled = false;
+                            //self.isEnabled = false;
                         }
 
                         //на невозвратных отелях - выключаем
@@ -180,6 +182,41 @@ innaAppControllers.
                             $scope.baloon.showGlobalErr();
                         });
                 };
+
+                self.isQiwiResultPage = function () {
+                    return self.isQiwiSuccessPage() || self.isQiwiFailPage();
+                };
+
+                self.isQiwiSuccessPage = function () {
+                    if (location.href.indexOf('packages/buy-success') > -1) {
+                        return true;
+                    }
+                    return false;
+                };
+
+                self.isQiwiFailPage = function () {
+                    if (location.href.indexOf('packages/buy-error') > -1) {
+                        return true;
+                    }
+                    return false;
+                };
+
+                self.processFail = function () {
+                    $scope.baloon.showGlobalErr();
+                };
+
+                self.processSuccess = function () {
+                    //0 - b2c, 1 - b2b, 2 - серв. сбор
+                    var type = 0;
+                    if (self.payData.isAgency) {
+                        type = 1;
+                    }
+                    if (self.payData.IsService) {
+                        type = 2;
+                    }
+                    //$scope.baloon.hide();
+                    setSuccessBuyResult(type);
+                }
             }
 
             $scope.qiwiPayControl = new qiwiPayControl();
@@ -642,7 +679,12 @@ innaAppControllers.
                     init();
                 }
                 else {
-                    $scope.baloon.show('Подготовка к оплате', 'Это может занять несколько секунд');
+                    if ($scope.qiwiPayControl.isQiwiResultPage()){
+                        $scope.baloon.show('Завершение оплаты', 'Это может занять несколько секунд');
+                    }
+                    else {
+                        $scope.baloon.show('Подготовка к оплате', 'Это может занять несколько секунд');
+                    }
 
                     $scope.newSearchUrl = null;
 
@@ -710,7 +752,7 @@ innaAppControllers.
                                 case 1:
                                 {
                                     //все норм - получаем данные и продолжаем заполнять
-                                    getPaymenyData();
+                                    getPaymentData();
                                     break;
                                 }
                                 case 2:
@@ -729,7 +771,7 @@ innaAppControllers.
                                         }, 0);
 
                                         //все норм - получаем данные и продолжаем заполнять
-                                        getPaymenyData();
+                                        getPaymentData();
                                     });
                                     break;
                                 }
@@ -767,7 +809,7 @@ innaAppControllers.
                 }
             }
 
-            function getPaymenyData() {
+            function getPaymentData() {
                 //запрос в api
                 paymentService.getPaymentData({
                         orderNum: $scope.orderNum
@@ -995,9 +1037,19 @@ innaAppControllers.
                     $scope.tarifs.fillInfo($scope.aviaInfo);
                     loadTarifs();
                 }
-                $scope.focusControl.init();
-                $scope.paymentDeadline.setUpdate();
-                $scope.scrollControl.scrollToCards();
+
+
+                if ($scope.qiwiPayControl.isQiwiSuccessPage()) {
+                    $scope.qiwiPayControl.processSuccess();
+                }
+                else if ($scope.qiwiPayControl.isQiwiFailPage()) {
+                    $scope.qiwiPayControl.processFail();
+                }
+                else {
+                    $scope.focusControl.init();
+                    $scope.paymentDeadline.setUpdate();
+                    $scope.scrollControl.scrollToCards();
+                }
             }
 
             //data loading ===========================================================================
