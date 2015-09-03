@@ -83,7 +83,8 @@ innaAppConponents.service('whereToBuyService', function ($q, $http, appApi) {
                 url   : appApi.DYNAMIC_TO_SUGGEST,
                 method: "GET",
                 params: {
-                    term: text.split(', ')[0].trim()
+                    term           : text.split(', ')[0].trim(),
+                    onlySngCounties: true
                 }
             }).success(function (data) {
                 deferred.resolve(prepareData(data));
