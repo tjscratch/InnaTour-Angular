@@ -415,6 +415,13 @@
 END CLICKTEX CODE -->
 {{/unless}}
 
+<div id="debug_api_host" style="position: absolute; top: 10px; left: 10px; font-size: 12px; color: #fff; z-index: 1000;"></div>
+<script type="text/javascript">
+    var debugApiHost = localStorage.getItem('debug_api_host');
+    if (debugApiHost && debugApiHost.length > 0 && debugApiHost.indexOf('http') > -1) {
+        document.getElementById('debug_api_host').innerText = 'api host: ' + debugApiHost;
+    }
+</script>
 
 </body>
 </html>
