@@ -170,10 +170,15 @@ innaAppControllers.
                     paymentService.qiwiMakeBill($scope.orderNum,
                         function (data) {
                             //success
-                            var url = data;
-                            if (url && url.length > 0) {
+
+                            if (data && data.link && data.link.length > 0) {
+                                var url = data.link;
                                 console.log('redirecting to url:', url);
                                 location.href = url;
+                            }
+                            else {
+                                console.error(data.error);
+                                $scope.baloon.showGlobalErr();
                             }
                         },
                         function (err) {
@@ -906,7 +911,8 @@ innaAppControllers.
                             }
 
                             //проверяем не оплачен ли уже заказ
-                            if (data.IsPayed == true) {
+                            //если переход после киви - то игнорируем оплаченный заказ
+                            if (data.IsPayed == true && !$scope.qiwiPayControl.isQiwiSuccessPage()) {
                                 //уже оплачен
                                 $scope.baloon.showAlert('Заказ уже оплачен', '', function () {
                                     $scope.baloon.hide();
