@@ -149,7 +149,10 @@
                 <i class="fa fa-check"></i>Билеты забронированы, отель будет забронирован после оплаты
             </div>
             <div class="b-tickets-info-block b-svyaznoy" ng-if="reservationModel.experationMinute > 0">
-                <ul class="pay-type-select">
+                <div class="" ng-if="!(qiwiPayControl.isEnabled && !paymentDeadline.ifExpires() || !isAgency)">Сумма к оплате: <b>{{price| price}}
+                    <ng-include src="'components/ruble.html'"/>
+                </b></div>
+                <ul class="pay-type-select" ng-if="qiwiPayControl.isEnabled && !paymentDeadline.ifExpires() || !isAgency">
                     <li>
                         <span class="icon-img icon-sprite-pay_type_1"></span>
                         <input ng-model="svyaznoyPayControl.payType" value="0" id="pay_type_card" type="radio" name="card-pay">
