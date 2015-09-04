@@ -24,6 +24,8 @@ moment.locale('ru');
 app.constant('innaApp.Urls', {
     URL_ROOT: '/',
     URL_BUY: '/buy/',
+    URL_BUY_SUCCESS: '/buy-success/',
+    URL_BUY_ERROR: '/buy-error/',
     URL_AVIA: '/avia/',
     URL_AVIA_SEARCH: '/avia/search/',
     URL_AVIA_RESERVATION: '/avia/reservation/',
@@ -274,6 +276,16 @@ app.config([
             //        resolve: authController.resolve
             //    }).
             when(url.URL_BUY + ':OrderNum', {
+                templateUrl: 'pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl',
+                resolve: authController.resolve
+            }).
+            when(url.URL_BUY_SUCCESS + ':OrderNum', {
+                templateUrl: 'pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl',
+                resolve: authController.resolve
+            }).
+            when(url.URL_BUY_ERROR + ':OrderNum', {
                 templateUrl: 'pages/avia/tickets_buy.html',
                 controller: 'AviaBuyTicketsCtrl',
                 resolve: authController.resolve
