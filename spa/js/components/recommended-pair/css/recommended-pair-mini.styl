@@ -1,56 +1,71 @@
-.result-small {
+.result-small{
 
-  &__cell {
-    font-size: 14px;
-    border-right: 1px solid #4d4d4d;
-    vertical-align: top;
-    height : 47px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    &__cell{
+        font-size: 14px;
+        border-right: 1px solid #4d4d4d;
+        vertical-align: top;
+        height: 47px;
+        padding-top: 4px;
+        padding-bottom: 4px;
 
-    &:nth-child(2) {
-      padding-left: 15px;
-      padding-right: 15px;
+        &:nth-child(2){
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        &:last-child{
+            border-right: 0 none;
+        }
     }
 
-    &:last-child {
-      border-right: 0 none;
+    .flight, .hotel-info-date{
+        color: #c0c0c2;
+        height: 26px;
     }
-  }
 
-  .flight, .hotel-info-date {
-    color: #c0c0c2;
-    height: 26px;
-  }
-
-  .flight {
-    .white {
-      color: #fff;
-      margin-left: 8px;
+    .flight{
+        .white{
+            color: #fff;
+            margin-left: 8px;
+        }
     }
-  }
 
-  .flight__image {
+    .flight__image{
+        position: relative;
+        top: -1px;
+        vertical-align middle
+    }
+
+    .hotel-info-name{
+        color: #fff;
+        font-weight: normal;
+        min-height: 26px;
+    }
+
+    .corner-price{
+        color: #fff;
+        font-family: ProximaNova;
+        font-size: 24px;
+        text-align: right;
+        /*font-weight: bold;*/
+
+        .icon-price-info{
+            margin-left: 10px;
+        }
+    }
+}
+.recommended-pair{
+    .hotel-info-date{
+        margin-top: 2px;
+    }
+}
+.hotel-go-to-map{
     position: relative;
-    top: -1px;
-    vertical-align middle
-  }
+    z-index: 10;
+    margin: 2px 0 0 0;
+    font-size: 14px;
 
-  .hotel-info-name {
-    color: #fff;
-    font-weight: normal;
-    min-height: 26px;
-  }
-
-  .corner-price {
-    color: #fff;
-    font-family: ProximaNova;
-    font-size: 24px;
-    text-align : right;
-    /*font-weight: bold;*/
-
-    .icon-price-info {
-      margin-left : 10px;
+    .hotel-info-name-link{
+        cursor: pointer;
     }
-  }
 }

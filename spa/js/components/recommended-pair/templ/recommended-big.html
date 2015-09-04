@@ -191,6 +191,13 @@
                             {{recommendedPair.hotel.data.HotelName}}
                         </a>
                     </h3>
+                    
+                    <div class="hotel-go-to-map">
+                        <span class="hotel-info-name-link" 
+                           ng-click="recommendedHotelToMap()"
+                                >(на карте)</span>
+                        <!--EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));-->
+                    </div>
 
                     <div class="hotel-info-date">
                         <ng:any partials-collection
