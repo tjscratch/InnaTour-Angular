@@ -59,6 +59,7 @@ innaAppControllers.
                     euroset: 'euroset'
                 };
 
+                self.time = '';
                 self.payType = 0;
                 self.orderNum;
                 self.orderNumPrefix = '467';
@@ -109,6 +110,10 @@ innaAppControllers.
                     });
 
                     self.setOrderNum($scope.orderNum);
+
+                    if ($scope.reservationModel.experationSeconds != null && $scope.reservationModel.experationSeconds > 0) {
+                        self.time = '&time=' + +(new Date()) + $scope.reservationModel.experationSeconds * 1000;
+                    }
                 };
 
                 self.setOrderNum = function (num) {
