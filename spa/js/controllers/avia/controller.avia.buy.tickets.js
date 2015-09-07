@@ -106,6 +106,10 @@ innaAppControllers.
                     });
 
                     self.setOrderNum($scope.orderNum);
+
+                    if ($scope.reservationModel.experationSeconds != null && $scope.reservationModel.experationSeconds > 0) {
+                        self.time = '&time=' + +(new Date()) + $scope.reservationModel.experationSeconds * 1000;
+                    }
                 };
 
                 self.setOrderNum = function (num) {
