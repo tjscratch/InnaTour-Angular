@@ -106,9 +106,13 @@ innaAppControllers.
                     });
 
                     self.setOrderNum($scope.orderNum);
+                };
 
+                self.setTime = function () {
                     if ($scope.reservationModel && $scope.reservationModel.experationSeconds != null && $scope.reservationModel.experationSeconds > 0) {
-                        self.time = '&time=' + +(new Date()) + $scope.reservationModel.experationSeconds * 1000;
+                        var t = new Date();
+                        t.setSeconds(t.getSeconds() + $scope.reservationModel.experationSeconds);
+                        self.time = '&time=' + +t;
                     }
                 };
 
@@ -822,6 +826,7 @@ innaAppControllers.
                             }
                             else {
                                 $scope.reservationModel = bindApiModelToModel(data);
+                                $scope.svyaznoyPayControl.setTime();
                                 if ($scope.reservationModel.IsService) {//сервисный сбор
                                     var isDp = (data.Hotel != null);
                                     $scope.setOferta(isDp);
