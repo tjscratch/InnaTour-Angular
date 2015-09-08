@@ -138,179 +138,179 @@
 </div>
 
 <div ng-if="!qiwiPayControl.isQiwiResultPage()">
-    <div class="b-tickets-info-container">
-        <div class="b-tickets-info-container__inner-wrap">
-            <div class="b-tickets-ok b-svyaznoy"
-                 ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">
-                <i class="fa fa-check"></i>Билеты забронированы
-            </div>
-            <div class="b-tickets-ok b-svyaznoy"
-                 ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && (hotel != null)">
-                <i class="fa fa-check"></i>Билеты забронированы, отель будет забронирован после оплаты
-            </div>
-            <div class="b-tickets-info-block b-svyaznoy" ng-if="reservationModel.experationMinute > 0">
+<div class="b-tickets-info-container">
+    <div class="b-tickets-info-container__inner-wrap">
+        <div class="b-tickets-ok b-svyaznoy"
+             ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">
+            <i class="fa fa-check"></i>Билеты забронированы
+        </div>
+        <div class="b-tickets-ok b-svyaznoy"
+             ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && (hotel != null)">
+            <i class="fa fa-check"></i>Билеты забронированы, отель будет забронирован после оплаты
+        </div>
+        <div class="b-tickets-info-block b-svyaznoy" ng-if="reservationModel.experationMinute > 0">
                 <div class="" ng-if="!(qiwiPayControl.isEnabled && !paymentDeadline.ifExpires() || !isAgency)">Сумма к оплате: <b>{{price| price}}
                     <ng-include src="'components/ruble.html'"/>
                 </b></div>
                 <ul class="pay-type-select" ng-if="qiwiPayControl.isEnabled && !paymentDeadline.ifExpires() || !isAgency">
-                    <li>
-                        <span class="icon-img icon-sprite-pay_type_1"></span>
-                        <input ng-model="svyaznoyPayControl.payType" value="0" id="pay_type_card" type="radio" name="card-pay">
-                        <label for="pay_type_card">
-                            <b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
-                            <span>банковской картой</span></label>
-                    </li>
+                <li>
+                    <span class="icon-img icon-sprite-pay_type_1"></span>
+                    <input ng-model="svyaznoyPayControl.payType" value="0" id="pay_type_card" type="radio" name="card-pay">
+                    <label for="pay_type_card">
+                        <b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
+                        <span>банковской картой</span></label>
+                </li>
                     <li ng-if="!isAgency">
-                        <span class="icon-img icon-sprite-pay_type_2"></span>
-                        <input ng-model="svyaznoyPayControl.payType" value="1" id="pay_type_cache" type="radio" name="card-pay">
-                        <label for="pay_type_cache"><b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
-                            <span>{{svyaznoyPayControl.checkListTitle}}</span></label>
-                    </li>
+                    <span class="icon-img icon-sprite-pay_type_2"></span>
+                    <input ng-model="svyaznoyPayControl.payType" value="1" id="pay_type_cache" type="radio" name="card-pay">
+                    <label for="pay_type_cache"><b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
+                        <span>{{svyaznoyPayControl.checkListTitle}}</span></label>
+                </li>
                     <li ng-if="qiwiPayControl.isEnabled && !paymentDeadline.ifExpires()">
                         <span class="icon-img icon-sprite-pay_type_3"></span>
                         <input ng-model="svyaznoyPayControl.payType" value="2" id="pay_type_qiwi" type="radio" name="card-pay">
                         <label for="pay_type_qiwi"><b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
                             <span>через QIWI Visa Wallet</span></label>
                     </li>
-                </ul>
+            </ul>
 
 
-                <div class="b-tickets-info-svyaznoy">
-                    Срок оплаты: <b>{{reservationModel.expirationDateFormatted}}, {{reservationModel.expirationDate | date:'HH:mm'}} (MSK)</b>
+            <div class="b-tickets-info-svyaznoy">
+                Срок оплаты: <b>{{reservationModel.expirationDateFormatted}}, {{reservationModel.expirationDate | date:'HH:mm'}} (MSK)</b>
 
-                    <div class="br"></div>
-                    Осталось: <b>{{reservationModel.experationSecondsFormatted}}</b>
+                <div class="br"></div>
+                Осталось: <b>{{reservationModel.experationSecondsFormatted}}</b>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main__center" ng-if="svyaznoyPayControl.payType == 0">
+    
+    <div class="b-cc-container">
+        <div class="b-cc-front">
+            <img ng-if="visaOrMastercard == null" src="spa/img/cc.png" class="b-cc-type" alt="">
+            <img ng-if="visaOrMastercard == true" src="spa/img/cc-visa.png" class="b-cc-type" alt="">
+            <img ng-if="visaOrMastercard == false" src="spa/img/cc-mc.png" class="b-cc-type" alt="">
+
+            <div class="b-cc-block">
+                <label class="b-cc-block-label b-cc-block-label-number">Номер карты <br>(16 цифр)</label>
+
+                <div id="num1" class="b-cc js-cardnum-block" data-title="Неправильно введен номер карты">
+                    <input autocomplete="off" ng-class="{error:indicator.num1}" digits-input type="text"
+                           ng-model="payModel.num1"
+                           validate-simple validate="validateField(key, value)" key="num1" len="4"
+                           go-next="focusControl.next(key)"
+                           class="b-field-text b-field-text-small" maxlength="4">
+                    <input autocomplete="off" ng-class="{error:indicator.num2}" digits-input type="text"
+                           ng-model="payModel.num2"
+                           validate-simple validate="validateField(key, value)" key="num2" len="4"
+                           go-next="focusControl.next(key)"
+                           class="b-field-text b-field-text-small" maxlength="4">
+                    <input autocomplete="off" ng-class="{error:indicator.num3}" digits-input type="text"
+                           ng-model="payModel.num3"
+                           validate-simple validate="validateField(key, value)" key="num3" len="4"
+                           go-next="focusControl.next(key)"
+                           class="b-field-text b-field-text-small" maxlength="4">
+                    <input autocomplete="off" ng-class="{error:indicator.num4}" digits-input type="text"
+                           ng-model="payModel.num4"
+                           validate-simple validate="validateField(key, value)" key="num4" len="4"
+                           go-next="focusControl.next(key)"
+                           class="b-field-text b-field-text-small" maxlength="4">
                 </div>
+            </div>
+            <div class="b-cc-block b-cc-block-date">
+                <label class="b-cc-block-label b-cc-block-label-date">Действительна до</label>
+
+                <div class="b-cc js-card-valid">
+                    <div class="b-cc-date">
+                        Месяц
+                        <input autocomplete="off" type="text" class="b-field-text b-field-text-small"
+                               ng-class="{error:indicator.cardMonth}"
+                               validate-simple validate="validateField(key, value)" key="cardMonth" len="2"
+                               go-next="focusControl.next(key)"
+                               id="cardMonth" data-title="Неправильно введен месяц" digits-input
+                               ng-model="payModel.cardMonth" maxlength="2">
+                    </div>
+                    <div class="b-cc-date">
+                        Год
+                        <input autocomplete="off" type="text" class="b-field-text b-field-text-small"
+                               ng-class="{error:indicator.cardYear}"
+                               validate-simple validate="validateField(key, value)" key="cardYear" len="2"
+                               go-next="focusControl.next(key)"
+                               id="cardYear" data-title="Неправильно введен год" digits-input
+                               ng-model="payModel.cardYear" maxlength="2">
+                    </div>
+                </div>
+            </div>
+            <div class="b-cc-block">
+                <label class="b-cc-block-label b-cc-block-label-number">Держатель<br> карты</label>
+                <input autocomplete="off" type="text" class="b-field-text b-field-text-name js-card-holder"
+                       ng-class="{error:indicator.cardHolder}"
+                       validate-simple validate="validateField(key, value)" key="cardHolder"
+                       id="cardHolder" data-title="Нужно ввести держателя карты" ng-model="payModel.cardHolder"
+                       to-upper>
+            </div>
+        </div>
+        <div class="b-cc-end">
+            <div class="b-cvc">
+                <input autocomplete="off" type="text" autocomplete="off" class="b-field-text" maxlength="3"
+                       id="cvc2"
+                       ng-class="{error:indicator.cvc2}"
+                       validate-simple validate="validateField(key, value)" key="cvc2"
+                       id="cvc2" data-title="Нужно ввести код" digits-input ng-model="payModel.cvc2">
+                <label for="CVC">CVV/CVC</label>
             </div>
         </div>
     </div>
 
-    <div class="main__center" ng-if="svyaznoyPayControl.payType == 0">
+    <div class="b-agreement-container">
+        <!--<a ng-href="#" ng-click="fillTestData($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>-->
+                <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить"
+                                                                  ng-click="processToBuy($event)"></span>
 
-        <div class="b-cc-container">
-            <div class="b-cc-front">
-                <img ng-if="visaOrMastercard == null" src="spa/img/cc.png" class="b-cc-type" alt="">
-                <img ng-if="visaOrMastercard == true" src="spa/img/cc-visa.png" class="b-cc-type" alt="">
-                <img ng-if="visaOrMastercard == false" src="spa/img/cc-mc.png" class="b-cc-type" alt="">
-
-                <div class="b-cc-block">
-                    <label class="b-cc-block-label b-cc-block-label-number">Номер карты <br>(16 цифр)</label>
-
-                    <div id="num1" class="b-cc js-cardnum-block" data-title="Неправильно введен номер карты">
-                        <input autocomplete="off" ng-class="{error:indicator.num1}" digits-input type="text"
-                               ng-model="payModel.num1"
-                               validate-simple validate="validateField(key, value)" key="num1" len="4"
-                               go-next="focusControl.next(key)"
-                               class="b-field-text b-field-text-small" maxlength="4">
-                        <input autocomplete="off" ng-class="{error:indicator.num2}" digits-input type="text"
-                               ng-model="payModel.num2"
-                               validate-simple validate="validateField(key, value)" key="num2" len="4"
-                               go-next="focusControl.next(key)"
-                               class="b-field-text b-field-text-small" maxlength="4">
-                        <input autocomplete="off" ng-class="{error:indicator.num3}" digits-input type="text"
-                               ng-model="payModel.num3"
-                               validate-simple validate="validateField(key, value)" key="num3" len="4"
-                               go-next="focusControl.next(key)"
-                               class="b-field-text b-field-text-small" maxlength="4">
-                        <input autocomplete="off" ng-class="{error:indicator.num4}" digits-input type="text"
-                               ng-model="payModel.num4"
-                               validate-simple validate="validateField(key, value)" key="num4" len="4"
-                               go-next="focusControl.next(key)"
-                               class="b-field-text b-field-text-small" maxlength="4">
-                    </div>
-                </div>
-                <div class="b-cc-block b-cc-block-date">
-                    <label class="b-cc-block-label b-cc-block-label-date">Действительна до</label>
-
-                    <div class="b-cc js-card-valid">
-                        <div class="b-cc-date">
-                            Месяц
-                            <input autocomplete="off" type="text" class="b-field-text b-field-text-small"
-                                   ng-class="{error:indicator.cardMonth}"
-                                   validate-simple validate="validateField(key, value)" key="cardMonth" len="2"
-                                   go-next="focusControl.next(key)"
-                                   id="cardMonth" data-title="Неправильно введен месяц" digits-input
-                                   ng-model="payModel.cardMonth" maxlength="2">
-                        </div>
-                        <div class="b-cc-date">
-                            Год
-                            <input autocomplete="off" type="text" class="b-field-text b-field-text-small"
-                                   ng-class="{error:indicator.cardYear}"
-                                   validate-simple validate="validateField(key, value)" key="cardYear" len="2"
-                                   go-next="focusControl.next(key)"
-                                   id="cardYear" data-title="Неправильно введен год" digits-input
-                                   ng-model="payModel.cardYear" maxlength="2">
-                        </div>
-                    </div>
-                </div>
-                <div class="b-cc-block">
-                    <label class="b-cc-block-label b-cc-block-label-number">Держатель<br> карты</label>
-                    <input autocomplete="off" type="text" class="b-field-text b-field-text-name js-card-holder"
-                           ng-class="{error:indicator.cardHolder}"
-                           validate-simple validate="validateField(key, value)" key="cardHolder"
-                           id="cardHolder" data-title="Нужно ввести держателя карты" ng-model="payModel.cardHolder"
-                           to-upper>
-                </div>
-            </div>
-            <div class="b-cc-end">
-                <div class="b-cvc">
-                    <input autocomplete="off" type="text" autocomplete="off" class="b-field-text" maxlength="3"
-                           id="cvc2"
-                           ng-class="{error:indicator.cvc2}"
-                           validate-simple validate="validateField(key, value)" key="cvc2"
-                           id="cvc2" data-title="Нужно ввести код" digits-input ng-model="payModel.cvc2">
-                    <label for="CVC">CVV/CVC</label>
-                </div>
-            </div>
+        <div class="b-security">Мы не храним ваши данные у себя, а сразу перенаправляем их в зашифрованном виде,</br>
+            используя платежный шлюз Промсвязьбанка
         </div>
 
-        <div class="b-agreement-container">
-            <!--<a ng-href="#" ng-click="fillTestData($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>-->
-                    <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить"
-                                                                      ng-click="processToBuy($event)"></span>
-
-            <div class="b-security">Мы не храним ваши данные у себя, а сразу перенаправляем их в зашифрованном виде,</br>
-                используя платежный шлюз Промсвязьбанка
-            </div>
-
-            <img src="/spa/img/logos.png" class="b-logos" alt="">
-        </div>
-        <div class="buy-message-block" ng-if="buyCommentsForm.isEnabled">
-            Если Вы не успеваете оплатить до тайм-лимита или Вы хотите оплатить другим способом,
-            <a href="#" ng-click="buyCommentsForm.openPopup($event)">просто отправьте нам сообщение.</a>
-            </br>Менеджер свяжется с Вами и поможет оформить путешествие.
-        </div>
+        <img src="/spa/img/logos.png" class="b-logos" alt="">
     </div>
+    <div class="buy-message-block" ng-if="buyCommentsForm.isEnabled">
+        Если Вы не успеваете оплатить до тайм-лимита или Вы хотите оплатить другим способом,
+        <a href="#" ng-click="buyCommentsForm.openPopup($event)">просто отправьте нам сообщение.</a>
+        </br>Менеджер свяжется с Вами и поможет оформить путешествие.
+    </div>
+</div>
 
-    <div id="svyaznoy_print_block" class="main__center b-svyaznoy" ng-if="svyaznoyPayControl.payType == 1">
-        <div ng-hide="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.euroset"
-             class="icon-sprite-svyaznoy_logo"></div>
-        <div ng-hide="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.svyaznoy"
-             ng-class="{'b-euroset-logo':(svyaznoyPayControl.blockViewType != svyaznoyPayControl.blockViewTypeEnum.euroset)}"
-             class="icon-sprite-euroset_logo"></div>
+<div id="svyaznoy_print_block" class="main__center b-svyaznoy" ng-if="svyaznoyPayControl.payType == 1">
+    <div ng-hide="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.euroset"
+         class="icon-sprite-svyaznoy_logo"></div>
+    <div ng-hide="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.svyaznoy"
+         ng-class="{'b-euroset-logo':(svyaznoyPayControl.blockViewType != svyaznoyPayControl.blockViewTypeEnum.euroset)}"
+         class="icon-sprite-euroset_logo"></div>
 
-        <p class="b-order-num"><b>Номер заказа {{svyaznoyPayControl.orderNum}}</b></p>
+    <p class="b-order-num"><b>Номер заказа {{svyaznoyPayControl.orderNum}}</b></p>
 
-        <p ng-if="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.all">
-            Вы можете оплатить этот заказ наличными в любом офисе Связного
-            <a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>
-            или Евросети <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
+    <p ng-if="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.all">
+        Вы можете оплатить этот заказ наличными в любом офисе Связного
+        <a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>
+        или Евросети <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
+    <br/>Обратитесь к менеджеру и назовите номер заказа.</p>
+    <p ng-if="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.svyaznoy">
+        Вы можете оплатить этот заказ наличными в любом офисе Связного
+        <a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>.
         <br/>Обратитесь к менеджеру и назовите номер заказа.</p>
-        <p ng-if="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.svyaznoy">
-            Вы можете оплатить этот заказ наличными в любом офисе Связного
-            <a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>.
-            <br/>Обратитесь к менеджеру и назовите номер заказа.</p>
-        <p ng-if="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.euroset">
-            Вы можете оплатить этот заказ наличными в любом офисе Евросети
-            <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
-            <br/>Обратитесь к менеджеру и назовите номер заказа.</p>
+    <p ng-if="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.euroset">
+        Вы можете оплатить этот заказ наличными в любом офисе Евросети
+        <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
+        <br/>Обратитесь к менеджеру и назовите номер заказа.</p>
 
-        <p>Рекомендуем оплачивать заказ в салоне в ближайшее время после бронирования, поскольку авиакомпании
-        <br/>оставляют за собой право изменять время на оплату.</p>
+    <p>Рекомендуем оплачивать заказ в салоне в ближайшее время после бронирования, поскольку авиакомпании
+    <br/>оставляют за собой право изменять время на оплату.</p>
 
         <a href="/spa/print/?order={{svyaznoyPayControl.orderNum}}&viewType={{svyaznoyPayControl.blockViewType}}{{svyaznoyPayControl.time}}" target="_blank"><div class="b-print-btn icon-sprite-btn-print">
-        </div></a>
-    </div>
+    </div></a>
+</div>
 
     <div class="qiwi-block__pay-info__wrap" ng-if="svyaznoyPayControl.payType == 2">
         <div class="main__center qiwi-block__pay-info__container">

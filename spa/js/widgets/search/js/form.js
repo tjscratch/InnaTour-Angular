@@ -186,7 +186,11 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                             $element.find('.from_date').datepicker('setEndDate', new Date($scope.setStartDate.valueOf() + 86400000 * 28))
                         }
 
-                        $element.find('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf()));
+                        if ($scope.formType == 1) {
+                            $element.find('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf() + 86400000));
+                        }else{
+                            $element.find('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf()));
+                        }
                         $element.find('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28))
 
                         //fix открытия при програмном обновлении дат

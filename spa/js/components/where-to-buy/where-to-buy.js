@@ -1,6 +1,6 @@
 innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $timeout, innaAppApiEvents, EventManager, whereToBuyService) {
 
-    EventManager.fire(innaAppApiEvents.FOOTER_HIDDEN);
+    //EventManager.fire(innaAppApiEvents.FOOTER_HIDDEN);
     $rootScope.BodyStyleGlobal = {'background-color': '#fff'};
 
 
@@ -9,10 +9,10 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
      */
     function setWindow() {
         var topMap = document.querySelector('.js-b-where-to-buy-map__container');
-        $scope.offsetTop = {top: topMap.offsetTop, bottom: 0};
+        //$scope.offsetTop = {top: topMap.offsetTop, bottom: 0};
         var body = document.querySelector('body');
-        $scope.listHeight = {maxHeight: body.clientHeight - topMap.offsetTop - 250};
-        $scope.promoPositions = {top: (body.clientHeight - topMap.offsetTop) / 2};
+        $scope.listHeight = {maxHeight: body.clientHeight - topMap.offsetTop - 180};
+        $scope.promoPositions = {marginTop: (body.clientHeight - topMap.offsetTop) / 2 - 70};
     };
     setWindow();
     //$(window).on('resize', function () {
@@ -53,7 +53,7 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                 0,
                 0
             ],
-            zIndex: 1
+            zIndex         : 1
         };
         var iconHover = {
             iconLayout     : 'default#image',
@@ -85,12 +85,12 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
 
         function myMapCreate() {
             $scope.myMap = new ymaps.Map(mapContainer, {
-                center  : [
+                center                    : [
                     55.75396,
                     37.620393
                 ],
-                zoom    : 10,
-                controls: []
+                zoom                      : 10,
+                controls                  : []
             });
         }
 
@@ -104,6 +104,10 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                         myMapCreate();
                         var coord = res.geoObjects.get(0).geometry.getCoordinates();
                         $scope.myMap.setCenter(coord, 10);
+                        //$scope.myMap.panTo([
+                        //    parseFloat(coord[0]),
+                        //    parseFloat(coord[1])
+                        //], {flying: 1});
                         var mapBounds = $scope.myMap.getBounds();
                         setAgencies({bounds: mapBounds});
                     }
@@ -182,7 +186,12 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                     marker.options.zIndex = 1;
                 });
                 $scope.arrayMarkers[index].options.set(iconActive);
-                $scope.myMap.setCenter($scope.arrayMarkers[index].geometry.getCoordinates(), 13);
+                var coord = $scope.arrayMarkers[index].geometry.getCoordinates();
+                //$scope.myMap.setCenter(coord, 11);
+                $scope.myMap.panTo([
+                    parseFloat(coord[0]),
+                    parseFloat(coord[1])
+                ], {flying: 1});
             } else {
                 $scope.arrayMarkers[$scope.currentAgencyId].options.set(iconActive);
             }
@@ -235,6 +244,6 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
 
 
     $scope.$on('$destroy', function () {
-        EventManager.fire(innaAppApiEvents.FOOTER_VISIBLE);
+        //EventManager.fire(innaAppApiEvents.FOOTER_VISIBLE);
     });
 });
