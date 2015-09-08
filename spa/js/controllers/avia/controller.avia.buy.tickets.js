@@ -109,10 +109,8 @@ innaAppControllers.
                 };
 
                 self.setTime = function () {
-                    if ($scope.reservationModel && $scope.reservationModel.experationSeconds != null && $scope.reservationModel.experationSeconds > 0) {
-                        var t = new Date();
-                        t.setSeconds(t.getSeconds() + $scope.reservationModel.experationSeconds);
-                        self.time = '&time=' + +t;
+                    if ($scope.reservationModel && $scope.reservationModel.expirationDate != null) {
+                        self.time = '&time=' + +($scope.reservationModel.expirationDate);
                     }
                 };
 
