@@ -111,8 +111,8 @@ innaAppControllers.
 
                     self.setOrderNum($scope.orderNum);
 
-                    if ($scope.reservationModel && $scope.reservationModel.experationSeconds != null && $scope.reservationModel.experationSeconds > 0) {
-                        self.time = '&time=' + +(new Date()) + $scope.reservationModel.experationSeconds * 1000;
+                    if ($scope.reservationModel && $scope.reservationModel.expirationDate != null) {
+                        self.time = '&time=' + +($scope.reservationModel.expirationDate);
                     }
                 };
 
