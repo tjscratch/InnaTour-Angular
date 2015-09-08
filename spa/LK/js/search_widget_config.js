@@ -21,7 +21,7 @@
             $scope.style = {};
             $scope.style.width = 960;
             $scope.style.widthMax = 960;
-            $scope.style.widthMin = 235;
+            $scope.style.widthMin = 300;
 
             $scope.style.formTypeActive = 1;
             $scope.style.enabledDpForm = true;
