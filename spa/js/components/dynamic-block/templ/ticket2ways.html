@@ -1,127 +1,127 @@
 <div class="row" style="height: {{settings.height}}px;">
 
 
-	<div ng-if="recommendedPairStatus == 5"
-	     tooltip-directive-base
-	     tooltip-klass="nocorner:absolute"
-	     close="true"
-	     el="true"
-	     coords="{}"
-	     position="top_right"
-	     is-visible="true"
-	     width="300"
-	     templ="popover.hbs.html">
+    <div ng-if="recommendedPairStatus == 5"
+         tooltip-directive-base
+         tooltip-klass="nocorner:absolute"
+         close="true"
+         el="true"
+         coords="{}"
+         position="top_right"
+         is-visible="true"
+         width="300"
+         templ="popover.hbs.html">
 
-		<div class="b-tooltip__header">
-			<h3>Перелет был изменен</h3>
-		</div>
+        <div class="b-tooltip__header">
+            <h3>Перелет был изменен</h3>
+        </div>
 
-		<div class="b-tooltip__body">
+        <div class="b-tooltip__body">
             <span class="b-tooltip__body__text">
                 К сожалению, выбранный вариант перелета уже
             недоступен, в пакет будет включен рекомендованный перелет.
             </span>
-		</div>
-	</div>
+        </div>
+    </div>
 
 
-	<span class="icon-sprite-airplane"></span>
+    <span class="icon-sprite-airplane"></span>
 
-	<!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
-	<ng:any partials-collection
-	        partial-name="logoAvia"
-	        ticket-model="recommendedPair.ticket"/>
-
-
-	<div class="b-ticket_2ways buy__tickets">
+    <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
+    <ng:any partials-collection
+            partial-name="logoAvia"
+            ticket-model="recommendedPair.ticket"/>
 
 
-		<!-- to -->
-		<div class="rlf-fly">
-			<div class="row-fluid">
-				<div class="col-xs-5 col-no-padding row-fluid__cell">
-					<div class="rlf__flight-block">
-
-						<ng:any partials-collection
-						        partial-name="weekDateTime"
-						        date="AviaInfo.DepartureDate"/>
-						<br>
-						<b>{{AviaInfo.AirportFrom}}</b> {{AviaInfo.OutCode}}
-					</div>
-				</div>
-				<div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
-					<span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-				</div>
-				<div class="col-xs-5 col-no-padding row-fluid__cell">
-					<div class="rlf__flight-block">
-						<ng:any partials-collection
-						        partial-name="weekDateTime"
-						        date="AviaInfo.ArrivalDate"/>
-						<br>
-						<b>{{AviaInfo.AirportTo}}</b> {{AviaInfo.InCode}}
-					</div>
-				</div>
-			</div>
-
-			<div class="rlf-full-travel-time-info">
-				<ng:any partials-collection
-				        partial-name="flightTime"
-				        direction="To"
-				        avia-info="AviaInfo"/>
-			</div>
-		</div>
-
-		<!-- back -->
-		<div class="rlf-fly rlf-fly_back">
-
-			<div class="row-fluid">
-				<div class="col-xs-5 col-no-padding row-fluid__cell">
-					<div class="rlf__flight-block">
-						<ng:any partials-collection
-						        partial-name="weekDateTime"
-						        date="AviaInfo.BackDepartureDate"/>
-						<br>
-						<b>{{AviaInfo.AirportTo}}</b> {{AviaInfo.InCode}}
-					</div>
-				</div>
-				<div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
-					<span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-				</div>
-				<div class="col-xs-5 col-no-padding row-fluid__cell">
-					<div class="rlf__flight-block">
-						<ng:any partials-collection
-						        partial-name="weekDateTime"
-						        date="AviaInfo.BackArrivalDate"/>
-						<br>
-						<b>{{AviaInfo.AirportToBack}}</b> {{AviaInfo.InCodeBack}}
-					</div>
-				</div>
-			</div>
+    <div class="b-ticket_2ways buy__tickets">
 
 
-			<div class="rlf-full-travel-time-info">
-				<ng:any partials-collection
-				        partial-name="flightTime"
-				        direction="Back"
-				        avia-info="AviaInfo"/>
-			</div>
-		</div>
-	</div>
+        <!-- to -->
+        <div class="rlf-fly">
+            <div class="row-fluid">
+                <div class="col-xs-5 col-no-padding row-fluid__cell">
+                    <div class="rlf__flight-block">
+
+                        <ng:any partials-collection
+                                partial-name="weekDateTime"
+                                date="AviaInfo.DepartureDate"/>
+                        <br>
+                        <b>{{AviaInfo.AirportFrom}}</b> {{AviaInfo.OutCode}}
+                    </div>
+                </div>
+                <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
+                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                </div>
+                <div class="col-xs-5 col-no-padding row-fluid__cell">
+                    <div class="rlf__flight-block">
+                        <ng:any partials-collection
+                                partial-name="weekDateTime"
+                                date="AviaInfo.ArrivalDate"/>
+                        <br>
+                        <b>{{AviaInfo.AirportTo}}</b> {{AviaInfo.InCode}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="rlf-full-travel-time-info">
+                <ng:any partials-collection
+                        partial-name="flightTime"
+                        direction="To"
+                        avia-info="AviaInfo"/>
+            </div>
+        </div>
+
+        <!-- back -->
+        <div class="rlf-fly rlf-fly_back">
+
+            <div class="row-fluid">
+                <div class="col-xs-5 col-no-padding row-fluid__cell">
+                    <div class="rlf__flight-block">
+                        <ng:any partials-collection
+                                partial-name="weekDateTime"
+                                date="AviaInfo.BackDepartureDate"/>
+                        <br>
+                        <b>{{AviaInfo.AirportTo}}</b> {{AviaInfo.InCode}}
+                    </div>
+                </div>
+                <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
+                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                </div>
+                <div class="col-xs-5 col-no-padding row-fluid__cell">
+                    <div class="rlf__flight-block">
+                        <ng:any partials-collection
+                                partial-name="weekDateTime"
+                                date="AviaInfo.BackArrivalDate"/>
+                        <br>
+                        <b>{{AviaInfo.AirportToBack}}</b> {{AviaInfo.InCodeBack}}
+                    </div>
+                </div>
+            </div>
 
 
-	<div class="bottom-actions" ng-if="moreInfo">
+            <div class="rlf-full-travel-time-info">
+                <ng:any partials-collection
+                        partial-name="flightTime"
+                        direction="Back"
+                        avia-info="AviaInfo"/>
+            </div>
+        </div>
+    </div>
 
-		<a href="javascript:void(0);" class="button button-middle button-orange button-replace"
-		   style="display: none"
-		   ng-click="replaceTicket()"
-		   >
-			Заменить перелет
-		</a>
+
+    <div class="bottom-actions" ng-if="moreInfo">
+
+        <a href="javascript:void(0);" class="button button-middle button-orange button-replace"
+           ng-click="replaceTicket()"
+                >
+            Заменить перелет
+        </a>
             <span class="like-link bottom-actions__button bottom-actions__button_action_details"
+                  style="right: 0"
                   ng-click="bundleTicketDetails($event)">
                 Подробнее о перелете
             </span>
-	</div>
+    </div>
 
 
 </div>
