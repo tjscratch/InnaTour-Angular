@@ -144,9 +144,13 @@ innaAppControllers.
                     case '/avia/':
                     case '/tours/':
                     case '/packages/':
-                        $scope.FormExpand = true;
-                        $scope.SearchFormExpandPadding = {'padding-top': 150};
-                        document.addEventListener('scroll', onScroll, false);
+                        if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+                            $scope.SearchFormExpandPadding = {'padding-top': 0}
+                        }else{
+                            $scope.FormExpand = true;
+                            $scope.SearchFormExpandPadding = {'padding-top': 150};
+                            document.addEventListener('scroll', onScroll, false);
+                        }
                         break;
                     default:
                         $scope.FormExpand = false;
@@ -161,12 +165,12 @@ innaAppControllers.
                 if (scroll > 150) {
                     $scope.$apply(function ($scope) {
                         $scope.FormExpand = false;
-                        $scope.SearchFormExpandPadding = {'padding-top': 0}
+                        $scope.SearchFormExpandPadding = {'padding-top': 0};
                     });
                 } else {
                     $scope.$apply(function ($scope) {
                         $scope.FormExpand = true;
-                        $scope.SearchFormExpandPadding = {'padding-top': 150 - scroll}
+                        $scope.SearchFormExpandPadding = {'padding-top': 150 - scroll};
                     });
                 }
             };
