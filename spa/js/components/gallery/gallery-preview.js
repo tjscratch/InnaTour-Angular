@@ -18,7 +18,13 @@ angular.module('innaApp.directives')
         '$timeout',
         function ($templateCache, $timeout) {
             return {
-                template: $templateCache.get('components/gallery/templ/gallery-preview.html'),
+                template: function(){
+                    if (navigator.userAgent.match(/iPhone|iPad|iPod/i)){
+                        return $templateCache.get('components/gallery/templ/gallery-preview-ios.html')
+                    }else{
+                        return $templateCache.get('components/gallery/templ/gallery-preview.html')
+                    }
+                },
                 scope: {
                     photo: '=',
                     width: '@',

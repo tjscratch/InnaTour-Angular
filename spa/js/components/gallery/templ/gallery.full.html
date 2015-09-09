@@ -1,62 +1,63 @@
 <div class="overlay overlay_dark js-overlay overlay_show">
-	<div class="scroll-fix">
+    <div class="scroll-fix">
 
-		<div class="gallery gallery_full">
+        <div class="gallery gallery_full">
 
-			<!-- jQuery Slider scrollBar -->
-			<div scroll-bar
-			     ng-click="slideBar($event)"
-			     ng-if="pics.list.length > 1"
-			     class="scroll-pane gallery__list__wrapper">
+            <!-- jQuery Slider scrollBar -->
+            <div scroll-bar
+                 ng-click="slideBar($event)"
+                 ng-if="pics.list.length > 1"
+                 class="scroll-pane gallery__list__wrapper">
 
-				<div class="gallery__list__container" ng-style="pics.setHeight(true)">
-					<ul class="scroll-content gallery__list"
-						ng-class="{'gallery__list_center' : !hideBar.visible}"
-						ng-style="pics.setHeight(true)">
+                <div class="gallery__list__container" ng-style="pics.setHeight(true)">
+                    <ul class="scroll-content gallery__list"
+                        ng-class="{'gallery__list_center' : !hideBar.visible}"
+                        ng-style="pics.setHeight(true)">
 
-						<li ng-repeat="pic in pics.list"
-						    ng-class="{'gallery__list-item_state_current_full': pics.isCurrent($index)}"
-						    class="gallery__list-item"
-						    style="background-image:url({{pic.src}});"
-						    ng-click="pics.setCurrent($index,$event)"></li>
-					</ul>
-				</div>
+                        <li ng-repeat="pic in pics.list"
+                            ng-class="{'gallery__list-item_state_current_full': pics.isCurrent($index)}"
+                            class="gallery__list-item"
+                            style="background-image:url({{pic.src}});"
+                            ng-click="pics.setCurrent($index,$event)"></li>
+                    </ul>
+                </div>
 
-				<div ng-show="hideBar.visible" class="scroll-bar-wrap gallery__list__scroll b-slider">
-					<div class="scroll-bar"></div>
-				</div>
-			</div>
+                <div ng-show="hideBar.visible" class="scroll-bar-wrap gallery__list__scroll b-slider">
+                    <div class="scroll-bar"></div>
+                </div>
+            </div>
 
 
-			<div class="gallery__viewport-wrap">
+            <div class="gallery__viewport-wrap"
+                 ng-style="galleryViewportWrapStyle">
 
-				<div class="balloon-close"
-				     ng-click="closeGallery()"
-				     title="Закрыть">
-					<div class="balloon-close__wrap">
-						<i class="icon-sprite-close_big_white gallery_full__close"></i>
-					</div>
-				</div>
+                <div class="balloon-close"
+                     ng-click="closeGallery()"
+                     title="Закрыть">
+                    <div class="balloon-close__wrap">
+                        <i class="icon-sprite-close_big_white gallery_full__close"></i>
+                    </div>
+                </div>
 
-				<div class="gallery__viewport" ng-style="getViewportStyle()">
-					<div class="gallery__active_full gallery__active_full_type_prev"
-					     ng-if="pics.list.length > 1"
-					     ng-click="pics.prev($event)">
-						<div class="b-carousel__control b-carousel__prev">
-							<i class="icon-sprite-arrow-bottom b-carousel__prev__arrow"></i>
-						</div>
-					</div>
+                <div class="gallery__viewport" ng-style="getViewportStyle()">
+                    <div class="gallery__active_full gallery__active_full_type_prev"
+                         ng-if="pics.list.length > 1"
+                         ng-click="pics.prev($event)">
+                        <div class="b-carousel__control b-carousel__prev">
+                            <i class="icon-sprite-arrow-bottom b-carousel__prev__arrow"></i>
+                        </div>
+                    </div>
 
-					<div class="gallery__active_full gallery__active_full_type_next"
-					     ng-if="pics.list.length > 1"
-					     ng-click="pics.next($event)">
-						<div class="b-carousel__control b-carousel__next">
-							<i class="icon-sprite-arrow-bottom b-carousel__next__arrow"></i>
-						</div>
-					</div>
-				</div>
-			</div>
+                    <div class="gallery__active_full gallery__active_full_type_next"
+                         ng-if="pics.list.length > 1"
+                         ng-click="pics.next($event)">
+                        <div class="b-carousel__control b-carousel__next">
+                            <i class="icon-sprite-arrow-bottom b-carousel__next__arrow"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 </div>

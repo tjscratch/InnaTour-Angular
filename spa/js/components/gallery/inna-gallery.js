@@ -24,6 +24,7 @@ angular.module('innaApp.directives')
                             MIN_WIDTH = 800,
                             MIN_LENGTH = 2,
                             previewHeight = 180;
+                        
 
                         $scope.picsListLoaded = false;
                         $scope.emptyPhoto = false;
@@ -131,8 +132,20 @@ angular.module('innaApp.directives')
                             };
 
                             if ($scope.pics.plan == PicList.PLAN_Z) {
-                                style.width = MAX_WIDTH;
-                                style.height = MAX_HEIGHT;
+                                var galleryViewportWrap = window.innerWidth - 200;
+                                if (galleryViewportWrap > MAX_WIDTH) {
+                                    $scope.galleryViewportWrapStyle = {
+                                        width: MAX_WIDTH
+                                    }
+                                    style.width = MAX_WIDTH;
+                                    style.height = MAX_HEIGHT;
+                                } else {
+                                    $scope.galleryViewportWrapStyle = {
+                                        width: galleryViewportWrap - 30
+                                    }
+                                    style.width = galleryViewportWrap - 30;
+                                    style.height = MAX_HEIGHT;
+                                }
                             } else if ($scope.pics.plan == PicList.PLAN_Y) {
                                 style.width = $scope.pics.current.width;
                                 style.height = $scope.pics.current.height;
