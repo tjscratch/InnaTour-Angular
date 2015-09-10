@@ -1,144 +1,130 @@
 .header-padding-149
     padding-top 149px
-
-.header {
+.header{
     position: fixed;
     left: 0;
     top: 0;
     width: 100%;
     z-index: 300;
 }
-
-.header__user-nav-name-text {
+.header__user-nav-name{
+    &:hover{
+        text-decoration none !important
+    }
+}
+.header__user-nav-name-text{
     display: inline-block;
-    max-width: 130px;
+    max-width: 100px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     vertical-align: bottom;
 }
-
-.header__container {
+.header__container{
     clearfix()
     padding: 15px 0 0;
     color: #fff;
 
-    a:hover {
+    a:hover{
         text-decoration underline
     }
 }
-
-.header__nav-sec {
+.header__nav-sec{
     float left
     font 14px Arial, sans-serif
 
-    li {
+    li{
         display inline-block
         margin 0 20px 0 0
     }
 
-    a {
+    a{
         color #c0c0c2
     }
 
-    .current {
+    .current{
         color #89c13a
     }
 }
-
-.header__price {
+.header__price{
     float right
     font 14px Arial, sans-serif
     color #c0c0c2
     margin-top -2px
 
-    .b-rub {
+    .b-rub{
         color #fff
     }
 }
-
-.header__sum {
+.header__sum{
     font bold 16px ProximaNova, Arial, sans-serif
     color #fff
     margin 0 5px
 }
-
-.header__nav {
+.header__nav{
     float left
-    font-size 17px
+    font-size 16px
 
-    li {
+    li{
         display inline-block
         margin 0
 
-        a {
+        a{
             display: inline-block;
-            padding: 8px 12px;
+            padding: 8px 10px;
             background-color: #212121;
             border-radius: 2px 2px 0 0;
 
-            &:hover {
+            &:hover{
                 color #fff
                 text-decoration none
             }
 
-            &.active {
+            &.active{
                 background-color: rgba(117, 117, 117, .8);
                 color #fff
             }
         }
     }
 }
-
-.header__user {
+.header__user{
     float right
 }
-
-.header__user-company {
+.header__user-company{
     color #4d4d4d
     font 14px Arial, sans-serif
     text-align right
 }
+.header__user-nav{
+    padding 9px 0 0 0
+    font-size 14px
 
-.header__user-nav {
-    padding 8px 0 0 0
-    font-size 17px
-
-    li {
+    li{
         display: inline-block;
         padding: 2px 0 0 6px;
-        margin: 0 0 0 5px;
-        border-left: 1px solid #4d4d4d;
+        margin: 0 0 0 6px;
+        border-left: 1px solid #9a9a9a;
 
-        &:first-child {
+        &:first-child{
             border: 0;
+            padding-left: 0;
+            margin-left: 0;
         }
     }
 
-    a {
+    a{
         color: #878787;
     }
-}
 
-.header__user-nav-name {
-    color: #89c13a;
-    padding-left: 23px;
-    position: relative;
+    .fa{
+        margin-right: 3px;
+    }
 }
-
-.header__user-nav-name__icon {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%)
-}
-
-.header__user-nav-reg {
+.header__user-nav-reg{
     padding-left 5px
     position relative
 }
-
-.header__user-nav-counter {
+.header__user-nav-counter{
     display: inline-block;
     max-width: 115px;
     white-space: nowrap;
@@ -147,39 +133,34 @@
     vertical-align: bottom;
     color: #fff;
 }
-
-.header_shadow {
+.header_shadow{
     box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
 }
-
-.header-info {
+.header-info{
     background: #212121;
     padding: 5px 0;
 }
-
-.header-info-item {
+.header-info-item{
     display: inline-block;
     vertical-align: middle;
 }
-
-.header-info-logo {
+.header-info-logo{
     display: inline-block;
     font-family: ProximaNovaLight;
     font-size: 24px;
 
-    &:hover {
+    &:hover{
         text-decoration: none;
     }
 
-    .name {
+    .name{
         color: #89c13a;
         position: relative;
         margin-left: 15px;
         top: -11px;
     }
 }
-
-.header-info-container {
+.header-info-container{
     line-height: 0; // хак
     color: #989898;
     font-family: ProximaNova;
@@ -187,23 +168,20 @@
     position: relative;
     width: $site-width;
 
-    a {
+    a{
         //color: inherit;
     }
 }
-
-.header-info-container-right {
+.header-info-container-right{
     text-align: right;
 }
-
-.header-info-menu {
+.header-info-menu{
     display: inline-block;
     margin: 0 0 0 0;
     position: relative;
     top: 10px;
 }
-
-.header-info-menu-item {
+.header-info-menu-item{
     //border-left: 1px solid #434343;
     display: inline-block;
     font-size: 15px;
@@ -212,21 +190,19 @@
     padding: 0 4px;
     vertical-align: middle;
 
-    &:first-child {
+    &:first-child{
         border: 0;
     }
 
-    &:last-child {
+    &:last-child{
         padding-right: 0;
     }
 }
-
-.header-info-menu-item__help {
+.header-info-menu-item__help{
     width: 24px;
     height: 24px;
 }
-
-.header-info-menu-item__help_block {
+.header-info-menu-item__help_block{
     border-radius: 50%;
     position relative;
     display: block;
@@ -236,7 +212,7 @@
     -webkit-transition all .15s
     transition all .15s
 
-    &:hover {
+    &:hover{
         //.header-info-menu-item__help_block_icon {
         //    @extend .icon-sprite-header-help-hover;
         //}
@@ -244,24 +220,21 @@
         cursor: pointer;
     }
 }
-
-.header-info-menu-item__help_block_icon {
+.header-info-menu-item__help_block_icon{
     @extend .icon-sprite-header-help;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%)
 }
-
-.header-text {
+.header-text{
     display: inline-block;
     font-size: 12px;
     margin-left: 17px;
     position: absolute;
     top: 19px;
 }
-
-.header-login {
+.header-login{
     display: inline-block;
     font-size: 14px;
     position: relative;
@@ -269,80 +242,74 @@
     float: right;
     margin-top: 14px;
 
-    .icon-user {
+    .icon-user{
         margin-right: 7px;
     }
 
-    .header-login-link {
+    .header-login-link{
         color: #989898;
     }
 
-    .header-logout-link {
+    .header-logout-link{
         color: #989898;
         margin-left: 6px;
         padding-left: 8px;
         border-left: 1px solid #434343;
     }
 }
-
-.header-login-user-link {
+.header-login-user-link{
     position: relative;
 
-    .user-pic {
+    .user-pic{
         position: relative;
         top: 4px;
         right: 2px;
     }
 }
-
-.header-phone {
+.header-phone{
     font-size: 16px;
 
-    .icon-phone {
+    .icon-phone{
         margin-right: 8px;
     }
 }
-
-.header-menu {
+.header-menu{
     padding-top: 0px;
     padding-bottom: 1px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0);
     background: #212121;
     font-size: 17px;
 
-    a {
+    a{
         color: #fff;
         text-decoration: none;
 
-        &.active {
+        &.active{
             color: #89c13a;
         }
     }
 }
-
-.header-menu-container-items {
+.header-menu-container-items{
     font-family: Arial, sans-serif;
     height: 50px;
     margin: auto;
 
-    &:before {
+    &:before{
         content: '';
         display: inline-block;
         height: 100%;
         vertical-align: middle;
     }
 }
-
-.header-menu-item {
+.header-menu-item{
     display: inline;
     margin-left: 14px;
 
-    &:first-child {
+    &:first-child{
         margin: 0;
     }
 }
-
-.header-login-form-popup {
+.header-login-form-popup{
     background: #fff;
     box-shadow: 0, 5px, 10px, 0, rgba(0, 0, 0, 0.25);
     padding: 1px 14px 14px;
@@ -351,7 +318,7 @@
     top: 35px;
     z-index: 1;
 
-    &:before {
+    &:before{
         content: '';
         display: block;
         position: absolute;
@@ -365,7 +332,7 @@
         width: 0;
     }
 
-    .field {
+    .field{
         font-size: 15px;
         height: 30px;
         padding: 0 10px;
@@ -373,41 +340,40 @@
         width: 161px - 2 * 10;
     }
 
-    .button {
+    .button{
         font-size: 15px;
         height: 30px;
         padding: 0 17px;
         margin-top: 10px;
     }
 }
-
-.search-form-expanded {
+.search-form-expanded{
 
     .b-search-form,
-    .search-form {
+    .search-form{
         background: #212121
         border-radius 0 0 2px 2px
     }
 
-    .header-menu {
+    .header-menu{
         padding-top: 150px;
         background: transparent;
     }
 
-    .header__nav {
+    .header__nav{
         height 36px
 
-        li {
-            margin 0 2px;
+        li{
+            margin 0 1.5px;
 
-            &:first-child {
+            &:first-child{
                 margin-left 0;
             }
 
-            a {
+            a{
                 background-color: rgba(117, 117, 117, .8);
 
-                &.active {
+                &.active{
                     background-color: #212121;
                     color: #fff;
                 }
@@ -415,9 +381,9 @@
         }
     }
 
-    .header__user {
+    .header__user{
         height 36px
-        padding-right 16px
+        padding 0 10px 0 10px
         background-color: rgba(117, 117, 117, .8);
         border-radius 2px 2px 0 0
     }
