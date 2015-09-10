@@ -2,6 +2,7 @@
 
 var app = angular.module('innaApp', [
     'ngRoute',
+    'ngTouch',
     'innaApp.Cookie',
     'innaApp.templates',
     'innaApp.filters',
