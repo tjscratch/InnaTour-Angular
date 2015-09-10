@@ -61,14 +61,15 @@ body {
   padding: $padding-layout-light 0 0;
 }
 
-.scroll-fix {
-  position : relative;
-  /*margin : 0 auto;*/
+.not-ios {
+  .scroll-fix {
+    position : relative;
+  }
 }
 
 .ios {
   .scroll-fix {
-    position : inherit;
+
   }
 }
 
