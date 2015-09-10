@@ -21,6 +21,9 @@ innaAppControllers.
                 $('.hide-while-loading').removeClass('hide-while-loading');
             }, 0);
 
+            //определяем что iOS
+            $scope.iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
             /*
                 Title
              */
