@@ -220,7 +220,8 @@
             }
 
 
-            //http://lh.inna.ru/#/packages/search/6733-6623-17.08.2015-23.08.2015-0-2-?hotel=397940&ticket=10000145429&display=tickets
+            //http://lh.inna.ru/#/packages/reservation/6733-6623-01.11.2015-15.11.2015-0-2-2-97014-800125836-800125978-2?room=d13a0aef-28a4-7bef-9ff8-e0f5f5ef2ade&hotel=97014&ticket=800125836#SectionRoom
+            //http://lh.inna.ru/#/packages/reservation/6733-6623-01.11.2015-15.11.2015-0-2--97014-800126499-800126604-2?room=f7a3259d-cc28-4d7e-3c44-7fcb3a6e70c8&hotel=97014&ticket=800126499#SectionRoom
             function goToAvia() {
                 var url = Urls.URL_DYNAMIC_PACKAGES_SEARCH +
                     [
@@ -230,12 +231,10 @@
                         $routeParams.EndVoyageDate,
                         $routeParams.TicketClass,
                         $routeParams.Adult,
-                        $routeParams.Children > 0 ? $routeParams.Children : '',
-                        "?display=tickets&hotel=" + $scope.hotel.HotelId + "&ticket=" + $scope.item.VariantId1
-                    ].join('-');
-                var url = url.replace('--', '-');
+                        $routeParams.Children > 0 ? $routeParams.Children : ''
+                    ].join('-') + "?display=tickets&hotel=" + $scope.hotel.HotelId + "&ticket=" + $scope.item.VariantId1;
                 $location.url(url);
-            };
+            }
 
 
             function goToHotelDetails() {
@@ -246,8 +245,6 @@
 
 
             function noAvailability(data) {
-
-
                 function showBaloon(text1, text2) {
                     $scope.safeApply(function () {
                         $scope.baloon.showNotFound(text1, text2,
@@ -286,7 +283,7 @@
              * проверяем, что остались билеты для покупки
              */
             function packageCheckAvailability() {
-                var getCheckParamsRaven = getCheckParams()
+                var getCheckParamsRaven = getCheckParams();
                 paymentService.packageCheckAvailability({
                     data: getCheckParamsRaven,
                     success: function (data) {
