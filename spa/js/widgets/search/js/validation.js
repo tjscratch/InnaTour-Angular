@@ -1,4 +1,4 @@
-﻿innaWidgetValidation.factory('widgetValidators', [function () {
+﻿innaWidgetValidation.factory('widgetValidators', function ($q) {
 
     return {
         /**
@@ -8,11 +8,19 @@
          * @param error
          * @param errorText
          */
-        required: function (val, error, errorText) {
-            if (!val) {
-                error.text = errorText
-                throw error
+        required: function (obj, objName, errorText) {
+            var deferred = $q.defer();
+            var returnObj = {};
+            if (obj) {
+                returnObj['success'] = true;
+                deferred.resolve(returnObj);
+            } else {
+                returnObj['success'] = false;
+                returnObj['name'] = objName;
+                returnObj['error'] = errorText;
+                deferred.reject(returnObj);
             }
+            return deferred.promise;
         },
         /**
          * Сравнение равенства v1 и v2
@@ -21,14 +29,22 @@
          * @param error
          * @param errorText
          */
-        noEqual: function (v1, v2, error, errorText) {
-            if (v1 == v2) {
-                error.text = errorText
-                throw error
+        noEqual: function (obj1, obj2, objName, errorText) {
+            var deferred = $q.defer();
+            var returnObj = {};
+            if (obj1 != obj2) {
+                returnObj['success'] = true;
+                deferred.resolve(returnObj);
+            } else {
+                returnObj['success'] = false;
+                returnObj['name'] = objName;
+                returnObj['error'] = errorText;
+                deferred.reject(returnObj);
             }
+            return deferred.promise;
         }
     }
-}]);
+});
 
 
 innaWidgetValidation

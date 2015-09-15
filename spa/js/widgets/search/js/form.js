@@ -16,14 +16,13 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                 enabledAviaForm: "=",
                 formTypeActive: "=" // активная по умолчанию форма, 1 - ДП, 2 - авиа
             },
-            controller: function ($element, $scope, $http, widgetValidators, WidgetPackages, WidgetAvia) {
+            controller: function ($element, $scope, $http, $q, widgetValidators, WidgetPackages, WidgetAvia) {
 
 
                 /**
                  * templates url
                  */
                 $scope.typeaheadTemplateCustom = $templateCache.get('typeaheadTemplateCustom.html') ? 'typeaheadTemplateCustom.html' : 'widgets/search/templ/typeaheadTemplateCustom.html';
-
 
                 /**
                  * инициализация формы, если включены и ДП и авиа то по умолчанию активна форма ДП
@@ -188,7 +187,7 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
 
                         if ($scope.formType == 1) {
                             $element.find('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf() + 86400000));
-                        }else{
+                        } else {
                             $element.find('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf()));
                         }
                         $element.find('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28))
@@ -483,80 +482,56 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                  * @param innaSearchForm
                  */
                 $scope.innaStartSearch = function (innaSearchForm) {
-                    try {
-                        
+                    var validateFromId = widgetValidators.required($scope.fromId, 'fromId', 'Введите город отправления');
+                    var validateToId = widgetValidators.required($scope.toId, 'toId', 'Введите город или страну, куда планируете поехать');
+                    var validateFromIdNoEqualToId = widgetValidators.noEqual($scope.fromId, $scope.toId, 'toId', 'Города отправления и назначения должны отличаться');
+                    var validateStartDate = widgetValidators.required($scope.startDate, 'startDate', 'Выберите дату отправления туда');
+                    var validateEndDate = widgetValidators.required($scope.endDate, 'endDate', 'Выберите дату отправления обратно');
 
-                        if (!$scope.fromToEqual && innaSearchForm.$valid == true) {
-                            if ($scope.formType == 1) {
-                                validateDP();
+
+                    if ($scope.formType == 1) {
+
+                        $q.all([validateFromId, validateToId, validateFromIdNoEqualToId, validateStartDate, validateEndDate])
+                            .then(function (data) {
                                 searchDP();
-                            } else {
-                                validateAvia();
-                                searchAvia();
-                            }
-                        }
+                            }, function (error) {
+                                showError(error);
+                            });
 
-                    }
-                    catch (e) {
-                        if ($scope.hasOwnProperty(e.message)) {
-                            $scope[e.message] = e;
+                    } else {
+                        if (!$scope.aviaCalendarOneWay) {
+                            $q.all([validateFromId, validateToId, validateFromIdNoEqualToId, validateStartDate, validateEndDate])
+                                .then(function (data) {
+                                    searchAvia();
+                                }, function (error) {
+                                    showError(error);
+                                });
+                        } else {
+                            $q.all([validateFromId, validateToId, validateFromIdNoEqualToId, validateStartDate])
+                                .then(function (data) {
+                                    searchAvia();
+                                }, function (error) {
+                                    showError(error);
+                                });
                         }
                     }
                 };
 
 
-                /**
-                 * BEGIN validates
-                 */
-                function validateDP() {
-                    widgetValidators.required($scope.fromId, Error('fromId'), "Введите город отправления");
-                    widgetValidators.required($scope.toId, Error('toId'), "Введите город или страну, куда планируете поехать");
-                    widgetValidators.noEqual($scope.fromId, $scope.toId, Error('toId'), "Города отправления и назначения должны отличаться");
-
-                    widgetValidators.required($scope.startDate, Error('startDateError'), "Выберите дату отправления туда");
-                    widgetValidators.required($scope.endDate, Error('endDateError'), "Выберите дату отправления обратно");
-
-                    $scope.$watch('aviaCalendarOneWay', function (data) {
-                        if (!data) {
-                            widgetValidators.required($scope.endDate, Error('endDateError'), "Выберите дату отправления обратно");
-                        }
-                    });
-                }
-
-                function validateAvia() {
-                    widgetValidators.required($scope.fromId, Error('fromId'), "Введите город отправления");
-                    widgetValidators.required($scope.toId, Error('toId'), "Введите город или страну, куда планируете поехать");
-                    widgetValidators.noEqual($scope.fromId, $scope.toId, Error('toId'), "Города отправления и назначения должны отличаться");
-
-                    widgetValidators.required($scope.startDate, Error('startDateError'), "Выберите дату отправления туда");
-
-                    $scope.$watch('aviaCalendarOneWay', function (data) {
-                        if (!data) {
-                            widgetValidators.required($scope.endDate, Error('endDateError'), "Выберите дату отправления обратно");
-                        }
-                    });
-                }
-
-                $scope.$watch('fromId', function (value) {
-                    if (value instanceof Error) {
-                        $scope.fromIdError = value.text;
+                function showError(error) {
+                    if (error.name == 'fromId') {
+                        $scope.fromIdError = error.error;
                     }
-                });
-                $scope.$watch('toId', function (value) {
-                    if (value instanceof Error) {
-                        $scope.toIdError = value.text;
+                    if (error.name == 'toId') {
+                        $scope.toIdError = error.error;
                     }
-                });
-                $scope.$watch('startDateError', function (value) {
-                    if (value instanceof Error) {
-                        $scope.startDateError = value.text;
+                    if (error.name == 'startDate') {
+                        $scope.startDateError = error.error;
                     }
-                });
-                $scope.$watch('endDateError', function (value) {
-                    if (value instanceof Error) {
-                        $scope.endDateError = value.text;
+                    if (error.name == 'endDate') {
+                        $scope.endDateError = error.error;
                     }
-                });
+                };
 
 
                 /**
