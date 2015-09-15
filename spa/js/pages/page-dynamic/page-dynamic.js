@@ -29,8 +29,7 @@ innaAppControllers.controller('PageDynamicPackage', [
     'ModelTicket',
     'ModelHotel',
     function (RavenWrapper, EventManager, $scope, $timeout, $rootScope, DynamicFormSubmitListener, DynamicPackagesDataProvider, PackagesService, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, $filter,
-              ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel)
-    {
+              ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
         Raven.setExtraContext({key: "__SEARCH_DP_CONTEXT__"});
 
@@ -43,9 +42,9 @@ innaAppControllers.controller('PageDynamicPackage', [
         var routParam = angular.copy($routeParams);
         var searchParams = angular.extend(routParam, {
             StartVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.StartVoyageDate),
-            EndVoyageDate  : dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
-            HotelId        : $location.search().hotel,
-            TicketId       : $location.search().ticket
+            EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
+            HotelId: $location.search().hotel,
+            TicketId: $location.search().ticket
         });
 
         if (routParam.Children) {
@@ -82,13 +81,23 @@ innaAppControllers.controller('PageDynamicPackage', [
 
 
             params = {
-                HotelId  : HotelId || null,
-                TicketId : TicketId || null,
+                HotelId: HotelId || null,
+                TicketId: TicketId || null,
                 AddFilter: true
             };
             params = angular.extend(routeParams, params);
-            PackagesService.getCombinationHotels(params);
-            PackagesService.getCombinationTickets(params);
+            PackagesService.getCombinationHotels(params)
+                .success(function (dataHotels) {
+                    $timeout(function () {
+                        $scope.$broadcast('loadDPHotels', dataHotels);
+                    }, 0);
+                });
+            PackagesService.getCombinationTickets(params)
+                .success(function (dataTickets) {
+                    $timeout(function () {
+                        $scope.$broadcast('loadDPTickets', dataTickets);
+                    }, 0);
+                });
         })
 
 
@@ -116,40 +125,40 @@ innaAppControllers.controller('PageDynamicPackage', [
         //кнопка нового поиска для WL
         function setWlModel(data) {
             $scope.WlNewSearchModel = new inna.Models.WlNewSearch({
-                dateFilter    : $filter("date"),
-                from          : data.RecommendedPair.AviaInfo.CityFrom,
-                to            : data.RecommendedPair.AviaInfo.CityTo,
-                start         : searchParams.StartVoyageDate,
-                end           : searchParams.EndVoyageDate,
+                dateFilter: $filter("date"),
+                from: data.RecommendedPair.AviaInfo.CityFrom,
+                to: data.RecommendedPair.AviaInfo.CityTo,
+                start: searchParams.StartVoyageDate,
+                end: searchParams.EndVoyageDate,
                 passengerCount: parseInt(searchParams.Adult) + (searchParams.ChildrenAges ? searchParams.ChildrenAges.length : 0),
-                ticketClass   : searchParams.TicketClass
+                ticketClass: searchParams.TicketClass
             });
         }
 
         $scope.recommendedPairStatus = 1;
 
         var Page = Ractive.extend({
-            append  : true,
-            el      : document.querySelector('.results-container_list'), //results-body
+            append: true,
+            el: document.querySelector('.results-container_list'), //results-body
             template: $templateCache.get('pages/page-dynamic/templ/page-dynamic.hbs.html'),
 
-            partials  : {},
+            partials: {},
             components: {
                 ListPanel: ListPanel
             },
-            data      : {
-                loadData       : false,
-                TICKETS_TAB    : null,
-                HOTEL          : 'hotel',
-                TICKET         : 'ticket',
-                HOTELS_TAB     : true,
-                defaultTab     : 'hotel',
-                loadHotelsData : null,
+            data: {
+                loadData: false,
+                TICKETS_TAB: null,
+                HOTEL: 'hotel',
+                TICKET: 'ticket',
+                HOTELS_TAB: true,
+                defaultTab: 'hotel',
+                loadHotelsData: null,
                 loadTicketsData: null,
-                updateHotel    : false,
-                updateTicket   : false
+                updateHotel: false,
+                updateTicket: false
             },
-            onrender  : function () {
+            onrender: function () {
                 var that = this;
                 this._balloonLoad = new Balloon();
 
@@ -285,9 +294,9 @@ innaAppControllers.controller('PageDynamicPackage', [
 
 
                             that.set({
-                                iterable_hotels : true,
+                                iterable_hotels: true,
                                 iterable_tickets: false,
-                                Enumerable      : value.Hotels,
+                                Enumerable: value.Hotels,
                                 combinationModel: $scope.recommendedPair
                             });
 
@@ -295,10 +304,10 @@ innaAppControllers.controller('PageDynamicPackage', [
                             /* данный для настроек панели фильтров */
                             $scope.filtersSettingsHotels = {
                                 combinationModel: $scope.recommendedPair,
-                                filtersData     : value.Filters,
-                                Collection      : value.Hotels,
-                                filter_hotel    : true,
-                                filter_avia     : false
+                                filtersData: value.Filters,
+                                Collection: value.Hotels,
+                                filter_hotel: true,
+                                filter_avia: false
                             };
 
                             // прямая ссылка на карту
@@ -306,11 +315,11 @@ innaAppControllers.controller('PageDynamicPackage', [
                             that.setAsMap(($location.$$search.map) ? 1 : 0);
 
                             ListPanelComponent = new ListPanel({
-                                el  : that.find('.b-page-dynamic'),
+                                el: that.find('.b-page-dynamic'),
                                 data: {
-                                    updateHotel     : this.get('updateHotel'),
-                                    iterable_hotels : true,
-                                    Enumerable      : value.Hotels,
+                                    updateHotel: this.get('updateHotel'),
+                                    iterable_hotels: true,
+                                    Enumerable: value.Hotels,
                                     combinationModel: $scope.recommendedPair
                                 }
                             });
@@ -343,17 +352,17 @@ innaAppControllers.controller('PageDynamicPackage', [
 
                             that.set({
                                 iterable_tickets: true,
-                                Enumerable      : value.AviaInfos,
+                                Enumerable: value.AviaInfos,
                                 combinationModel: $scope.recommendedPair
                             })
 
 
                             ListPanelComponent = new ListPanel({
-                                el  : that.find('.b-page-dynamic'),
+                                el: that.find('.b-page-dynamic'),
                                 data: {
-                                    updateTicket    : this.get('updateTicket'),
+                                    updateTicket: this.get('updateTicket'),
                                     iterable_tickets: true,
-                                    Enumerable      : value.AviaInfos,
+                                    Enumerable: value.AviaInfos,
                                     combinationModel: $scope.recommendedPair
                                 }
                             });
@@ -362,10 +371,10 @@ innaAppControllers.controller('PageDynamicPackage', [
                             /* данный для настроек панели фильтров */
                             $scope.filtersSettingsTicket = {
                                 combinationModel: $scope.recommendedPair,
-                                Collection      : value.AviaInfos,
-                                filtersData     : value.Filters,
-                                filter_hotel    : false,
-                                filter_avia     : true
+                                Collection: value.AviaInfos,
+                                filtersData: value.Filters,
+                                filter_hotel: false,
+                                filter_avia: true
                             };
 
                             this.set('updateTicket', true);
@@ -416,16 +425,16 @@ innaAppControllers.controller('PageDynamicPackage', [
 
 
                 params = {
-                    HotelId  : HotelId || null,
-                    TicketId : TicketId || null,
+                    HotelId: HotelId || null,
+                    TicketId: TicketId || null,
                     AddFilter: true
                 };
                 params = angular.extend(routeParams, params);
 
                 return {
-                    HotelId : HotelId || null,
+                    HotelId: HotelId || null,
                     TicketId: TicketId || null,
-                    params  : params
+                    params: params
                 }
             },
 
@@ -443,59 +452,59 @@ innaAppControllers.controller('PageDynamicPackage', [
                     ListPanelComponent.wait();
                 }
                 PackagesService.getCombinationHotels(this.getIdCombination().params)
-                        .success(function (data) {
-                            that.set('loadHotelsData', data);
+                    .success(function (data) {
+                        that.set('loadHotelsData', data);
 
-                            $timeout(function () {
-                                $scope.$broadcast('loadDPHotels', data);
-                            }, 0);
+                        $timeout(function () {
+                            $scope.$broadcast('loadDPHotels', data);
+                        }, 0);
 
-                            PackagesService.getCombinationTickets(that.getIdCombination().params)
-                                    .success(function (dataTickets) {
-                                        $timeout(function () {
-                                            $scope.$broadcast('loadDPTickets', dataTickets);
-                                        }, 0);
-                                    });
+                        PackagesService.getCombinationTickets(that.getIdCombination().params)
+                            .success(function (dataTickets) {
+                                $timeout(function () {
+                                    $scope.$broadcast('loadDPTickets', dataTickets);
+                                }, 0);
+                            });
 
-                            if (data && !angular.isUndefined(data.Hotels)) {
+                        if (data && !angular.isUndefined(data.Hotels)) {
 
-                                $scope.safeApply(function () {
-                                    $scope.hotelsForMap = data.Hotels;
-                                });
+                            $scope.safeApply(function () {
+                                $scope.hotelsForMap = data.Hotels;
+                            });
 
-                                $scope.safeApply(function () {
-                                    $scope.hotels.flush();
-                                    $scope.hotelsRaw = data;
+                            $scope.safeApply(function () {
+                                $scope.hotels.flush();
+                                $scope.hotelsRaw = data;
 
-                                    for (var i = 0, raw = null; raw = data.Hotels[i++];) {
-                                        if (!raw.HotelName) {
-                                            continue;
-                                        }
-                                        var hotel = new ModelHotel(raw);
-                                        hotel.hidden = false;
-                                        hotel.data.hidden = false;
-                                        hotel.currentlyInvisible = false;
-                                        $scope.hotels.push(hotel);
+                                for (var i = 0, raw = null; raw = data.Hotels[i++];) {
+                                    if (!raw.HotelName) {
+                                        continue;
                                     }
+                                    var hotel = new ModelHotel(raw);
+                                    hotel.hidden = false;
+                                    hotel.data.hidden = false;
+                                    hotel.currentlyInvisible = false;
+                                    $scope.hotels.push(hotel);
+                                }
 
-                                    $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
-                                    deferred.resolve();
-                                })
-                                that._balloonLoad.dispose();
-                            } else {
-                                that.combination404()
-                                deferred.reject();
-                                RavenWrapper.raven({
-                                    captureMessage: 'SEARCH PACKAGES: ERROR - [Hotels empty]',
-                                    dataResponse  : data,
-                                    dataRequest   : that.getIdCombination().params
-                                });
-                            }
-                        })
-                        .error(function (data) {
-                            that.serverError500(data);
+                                $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
+                                deferred.resolve();
+                            })
+                            that._balloonLoad.dispose();
+                        } else {
+                            that.combination404()
                             deferred.reject();
-                        });
+                            RavenWrapper.raven({
+                                captureMessage: 'SEARCH PACKAGES: ERROR - [Hotels empty]',
+                                dataResponse: data,
+                                dataRequest: that.getIdCombination().params
+                            });
+                        }
+                    })
+                    .error(function (data) {
+                        that.serverError500(data);
+                        deferred.reject();
+                    });
 
                 return deferred;
             },
@@ -519,45 +528,45 @@ innaAppControllers.controller('PageDynamicPackage', [
 
                 //console.log(searchParams);
                 PackagesService.getCombinationTickets(this.getIdCombination().params)
-                        .success(function (data) {
+                    .success(function (data) {
 
-                            $timeout(function () {
-                                $scope.$broadcast('loadDPTickets', data);
-                            }, 0);
+                        $timeout(function () {
+                            $scope.$broadcast('loadDPTickets', data);
+                        }, 0);
 
-                            PackagesService.getCombinationHotels(that.getIdCombination().params)
-                                    .success(function (dataHotels) {
-                                        $timeout(function () {
-                                            $scope.$broadcast('loadDPHotels', dataHotels);
-                                        }, 0);
-                                    });
+                        PackagesService.getCombinationHotels(that.getIdCombination().params)
+                            .success(function (dataHotels) {
+                                $timeout(function () {
+                                    $scope.$broadcast('loadDPHotels', dataHotels);
+                                }, 0);
+                            });
 
-                            if (!data || angular.isUndefined(data.AviaInfos) || !data.AviaInfos.length) {
-                                RavenWrapper.raven({
-                                    captureMessage: 'SEARCH PACKAGES AVIA: ERROR - AviaInfos',
-                                    dataResponse  : data,
-                                    dataRequest   : that.getIdCombination().params
-                                });
-                                that.combination404()
-                                deferred.reject();
-                            } else {
-                                that._balloonLoad.dispose();
-                                $scope.safeApply(function () {
-                                    $scope.tickets.flush();
-                                    for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
-                                        var ticket = new ModelTicket();
-                                        ticket.setData(raw);
-                                        $scope.tickets.push(ticket);
-                                    }
-                                    that.set('loadTicketsData', data);
-                                    deferred.resolve();
-                                });
-                            }
-                        })
-                        .error(function (data) {
-                            that.serverError500(data);
+                        if (!data || angular.isUndefined(data.AviaInfos) || !data.AviaInfos.length) {
+                            RavenWrapper.raven({
+                                captureMessage: 'SEARCH PACKAGES AVIA: ERROR - AviaInfos',
+                                dataResponse: data,
+                                dataRequest: that.getIdCombination().params
+                            });
+                            that.combination404()
                             deferred.reject();
-                        });
+                        } else {
+                            that._balloonLoad.dispose();
+                            $scope.safeApply(function () {
+                                $scope.tickets.flush();
+                                for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
+                                    var ticket = new ModelTicket();
+                                    ticket.setData(raw);
+                                    $scope.tickets.push(ticket);
+                                }
+                                that.set('loadTicketsData', data);
+                                deferred.resolve();
+                            });
+                        }
+                    })
+                    .error(function (data) {
+                        that.serverError500(data);
+                        deferred.reject();
+                    });
 
                 return deferred;
             },
@@ -603,13 +612,13 @@ innaAppControllers.controller('PageDynamicPackage', [
                 track.noResultsDp();
 
                 this._balloonLoad.updateView({
-                    template     : 'not-found.html',
-                    title        : 'Мы ничего не нашли',
-                    content      : 'Попробуйте изменить условия поиска',
+                    template: 'not-found.html',
+                    title: 'Мы ничего не нашли',
+                    content: 'Попробуйте изменить условия поиска',
                     callbackClose: function () {
                         that.balloonCloser();
                     },
-                    callback     : function () {
+                    callback: function () {
                         that.balloonCloser();
                     }
                 });
@@ -618,19 +627,19 @@ innaAppControllers.controller('PageDynamicPackage', [
             serverError500: function (data) {
                 RavenWrapper.raven({
                     captureMessage: 'SEARCH PACKAGES: SERVER ERROR',
-                    dataResponse  : data.responseJSON,
-                    dataRequest   : this.getIdCombination().params
+                    dataResponse: data.responseJSON,
+                    dataRequest: this.getIdCombination().params
                 });
 
                 var that = this;
                 this._balloonLoad.updateView({
-                    template     : 'err.html',
-                    title        : 'Что-то пошло не так',
-                    content      : 'Попробуйте начать поиск заново',
+                    template: 'err.html',
+                    title: 'Что-то пошло не так',
+                    content: 'Попробуйте начать поиск заново',
                     callbackClose: function () {
                         that.balloonCloser();
                     },
-                    callback     : function () {
+                    callback: function () {
                         that.balloonCloser();
                     }
                 })
@@ -703,14 +712,14 @@ innaAppControllers.controller('PageDynamicPackage', [
                 }
 
                 this._balloonLoad.updateView({
-                    template     : 'search.html',
+                    template: 'search.html',
                     callbackClose: function () {
                         //аналитика
                         track.dpSearchInterrupted();
 
                         that.balloonCloser();
                     },
-                    callback     : function () {
+                    callback: function () {
                         //аналитика
                         track.dpSearchInterrupted();
 
@@ -755,12 +764,12 @@ innaAppControllers.controller('PageDynamicPackage', [
                 var that = this;
 
                 $scope.baloon.showErr(
-                        "Запрашиваемая билетная пара <br/> не найдена",
-                        "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
-                        function () {
-                            delete $location.$$search.displayTicket
-                            $location.$$compose();
-                        }
+                    "Запрашиваемая билетная пара <br/> не найдена",
+                    "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
+                    function () {
+                        delete $location.$$search.displayTicket
+                        $location.$$compose();
+                    }
                 );
             },
 
@@ -775,9 +784,9 @@ innaAppControllers.controller('PageDynamicPackage', [
 
                 //flags
                 var RecommendedFindStatus = {
-                    Found        : 1,
+                    Found: 1,
                     HotelNotFound: 2,
-                    AviaNotFound : 4
+                    AviaNotFound: 4
                 }
 
                 if (recommendedPairStatus & RecommendedFindStatus.HotelNotFound) {//Нет отеля. Замена отеля на рекомендованный.
