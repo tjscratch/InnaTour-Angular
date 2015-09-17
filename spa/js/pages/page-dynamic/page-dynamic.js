@@ -272,6 +272,8 @@ innaAppControllers.controller('PageDynamicPackage', [
 
                             $timeout(function () {
                                 EventManager.fire('loadDpData', value);
+                                var showInsurance = ($location.search().map) ? false : true;
+                                EventManager.fire('show-insurance', showInsurance, value);
                             }, 0);
 
                             // рекомендованный вариант
@@ -304,7 +306,6 @@ innaAppControllers.controller('PageDynamicPackage', [
                             // прямая ссылка на карту
                             // показываем только после загрузки данных для отелей и фильтров
                             that.setAsMap(($location.$$search.map) ? 1 : 0);
-
                             ListPanelComponent = new ListPanel({
                                 el  : that.find('.b-page-dynamic'),
                                 data: {
@@ -813,6 +814,7 @@ innaAppControllers.controller('PageDynamicPackage', [
             EventManager.off(Events.DYNAMIC_SERP_LOAD_TAB);
             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, PageDynamic.changePadding);
             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, PageDynamic.changePadding);
+            EventManager.off('show-insurance');
 
             PageDynamic.teardown();
             PageDynamic = null;
