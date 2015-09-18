@@ -46,8 +46,8 @@ innaAppConponents.
                         }
                     });
 
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, this.mapLoad);
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, this.mapLoad);
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, this.mapShow);
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, this.mapHide);
 
                     this.observe('filtersCollection', function(value){
                         this.set('filters', value);
@@ -55,8 +55,11 @@ innaAppConponents.
                     
                 },
 
-                mapLoad : function(){
-                    this.toggle('asMap');
+                mapShow : function(){
+                    this.set('asMap', true);
+                },
+                mapHide : function(){
+                    this.set('asMap', false);
                 }
             });
 
