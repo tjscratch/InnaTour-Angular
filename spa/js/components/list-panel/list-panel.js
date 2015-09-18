@@ -98,6 +98,7 @@ angular.module('innaApp.components').
                             track.dpHotelsOnMap();
                             //================analytics========================
                             EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.get('AllFilteredData'), data);
+                            EventManager.fire('show-insurance', false);
                         },
                         goToMore: function (){
                             this.debounceDose();
@@ -116,6 +117,7 @@ angular.module('innaApp.components').
                             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
                             EventManager.off(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE);
                             EventManager.off(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap);
+                            EventManager.off('show-insurance');
                         }
                     })
 

@@ -72,6 +72,7 @@ angular.module('innaApp.components').
                     this.on({
                         goToHotelList: function () {
                             EventManager.fire(Events.DYNAMIC_SERP_BACK_TO_MAP);
+                            EventManager.fire('show-insurance', true);
                         },
                         '*.onCheckedFilter': function (data) {
                             if (data != undefined) {
