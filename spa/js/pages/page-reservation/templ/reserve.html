@@ -9,10 +9,12 @@
 		<div ng-if="visaControl.visaRulesNeeded">
 			Обратите внимание на визовые правила
 	        <span ng-if="visaControl.cautionCountries.length > 0"> в странах:
-	            <span ng-repeat="c in visaControl.cautionCountries">{{c}}
-	                <span ng-if="!($last)">,&nbsp;</span>
-	            </span>
-	        </span>.
+	            <span ng-repeat="c in visaControl.cautionCountries">
+					<a class="b-visa-country-link" ng-if="c.link" ng-href="{{c.link}}" target="_blank">{{c.name}}</a><!--
+					--><span ng-if="!c.link" >{{c.name}}</span><!--
+	                --><span ng-if="!($last)">,&nbsp;</span><!--
+	            --></span><!--
+	        --></span>.
 		</div>
 	</div>
 
