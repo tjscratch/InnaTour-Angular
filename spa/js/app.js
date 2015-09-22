@@ -25,13 +25,19 @@ moment.locale('ru');
 app.constant('innaApp.Urls', {
     URL_ROOT: '/',
     URL_BUY: '/buy/',
+    URL_BUY_SUCCESS: '/buy-success/',
+    URL_BUY_ERROR: '/buy-error/',
     URL_AVIA: '/avia/',
     URL_AVIA_SEARCH: '/avia/search/',
     URL_AVIA_RESERVATION: '/avia/reservation/',
     URL_AVIA_BUY: '/avia/buy/',
+    URL_AVIA_BUY_SUCCESS: '/avia/buy-success/',
+    URL_AVIA_BUY_ERROR: '/avia/buy-error/',
     URL_TOURS: '/tours/',
-    URL_DYNAMIC_PACKAGES_BUY_SUCCESS: '/packages/buy/success/',
+    //URL_DYNAMIC_PACKAGES_BUY_SUCCESS: '/packages/buy/success/',
     URL_DYNAMIC_PACKAGES_BUY: '/packages/buy/',
+    URL_DYNAMIC_PACKAGES_BUY_SUCCESS: '/packages/buy-success/',
+    URL_DYNAMIC_PACKAGES_BUY_ERROR: '/packages/buy-error/',
     URL_DYNAMIC_PACKAGES: '/packages/',
     URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
     URL_DYNAMIC_HOTEL_DETAILS: '/packages/details/',
@@ -275,14 +281,44 @@ app.config([
                 controller: 'AviaBuyTicketsCtrl',
                 resolve: authController.resolve
             }).
+            when(url.URL_BUY_SUCCESS + ':OrderNum', {
+                templateUrl: 'pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl',
+                resolve: authController.resolve
+            }).
+            when(url.URL_BUY_ERROR + ':OrderNum', {
+                templateUrl: 'pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl',
+                resolve: authController.resolve
+            }).
+            when(url.URL_AVIA_BUY_SUCCESS + ':OrderNum', {
+                templateUrl: 'pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl',
+                resolve: authController.resolve
+            }).
+            when(url.URL_AVIA_BUY_ERROR + ':OrderNum', {
+                templateUrl: 'pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl',
+                resolve: authController.resolve
+            }).
             when(url.URL_AVIA_BUY + ':OrderNum', {
                 templateUrl: 'pages/avia/tickets_buy.html',
                 controller: 'AviaBuyTicketsCtrl',
                 resolve: authController.resolve
             }).
-            when(url.URL_DYNAMIC_PACKAGES_BUY_SUCCESS + ':OrderNum?', {
-                templateUrl: 'pages/page-buy-success/templ/page.html',
-                controller: 'PageBuySuccess',
+            //when(url.URL_DYNAMIC_PACKAGES_BUY_SUCCESS + ':OrderNum?', {
+            //    templateUrl: 'pages/page-buy-success/templ/page.html',
+            //    controller: 'PageBuySuccess',
+            //    resolve: authController.resolve
+            //}).
+            when(url.URL_DYNAMIC_PACKAGES_BUY_SUCCESS + ':OrderNum', {
+                templateUrl: 'pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl',
+                resolve: authController.resolve
+            }).
+            when(url.URL_DYNAMIC_PACKAGES_BUY_ERROR + ':OrderNum', {
+                templateUrl: 'pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl',
                 resolve: authController.resolve
             }).
             when(url.URL_DYNAMIC_PACKAGES_BUY + ':OrderNum', {
