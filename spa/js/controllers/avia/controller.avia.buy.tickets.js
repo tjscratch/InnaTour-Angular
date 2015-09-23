@@ -154,8 +154,8 @@ innaAppControllers.
                     if (payData) {
                         //на b2b - выключаем
                         //на > 60к - выключаем
-                        if (payData.IsAgency || payData.Price > 60000) {
-                            //self.isEnabled = false;
+                        if (payData.IsAgency || payData.Price > 15000) {
+                            self.isEnabled = false;
                         }
 
                         //на невозвратных отелях - выключаем
