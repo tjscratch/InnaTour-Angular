@@ -154,7 +154,9 @@ innaAppControllers.
                     if (payData) {
                         //на b2b - выключаем
                         //на > 60к - выключаем
-                        if (payData.IsAgency || payData.Price > 15000) {
+                        //payData.IsAgency
+                        var isB2b = $scope.$root.user ? $scope.$root.user.getType() == 2 : null;
+                        if (isB2b || payData.Price > 15000) {
                             self.isEnabled = false;
                         }
 
@@ -992,7 +994,8 @@ innaAppControllers.
 
                                 $scope.price = $scope.reservationModel.price;
                                 //признак, что b2b заказ
-                                $scope.isAgency = data.IsAgency;
+                                //$scope.isAgency = data.IsAgency;
+                                $scope.isB2bAgency = $scope.$root.user ? $scope.$root.user.getType() == 2 : null;
                                 $scope.orderId = data.OrderId;
 
                                 //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
