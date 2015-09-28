@@ -1,20 +1,22 @@
-.layout.partner.horizontal-form{
+.layout.partner.horizontal-form {
     //top: 155px;
     //margin-bottom: 150px;
     padding: 0;
 }
-.partner-form-wrap.horizontal-form{
+
+.partner-form-wrap.horizontal-form {
     z-index: 1000;
     margin: 0 auto;
     max-width: 974px;
 }
-.horizontal-form{
-    .b-tour-form{
+
+.horizontal-form {
+    .b-tour-form {
         position absolute
         top 50px
         padding-left 0
     }
-    .main-label{
+    .main-label {
         display inline-block
         font-size $form-label-font-size
         color $form-input-bg
@@ -22,12 +24,12 @@
         background-color $form-bg
         border-radius $form-border-radius $form-border-radius 0 0
     }
-    .b-tour-form-wrapper{
+    .b-tour-form-wrapper {
         width 960px
         padding 7px
         background-color $form-bg
     }
-    .search-field{
+    .search-field {
         box-sizing border-box
         border 0
         height 100%
@@ -36,7 +38,7 @@
         font-size $form-font-size
         border-radius $form-border-radius
     }
-    .b-search-field{
+    .b-search-field {
         border none
         display inline-block
         height $form-input-height
@@ -44,30 +46,30 @@
         vertical-align top
         border-radius $form-border-radius
     }
-    .b-search-field__from{
+    .b-search-field__from {
         width $form-input-from-width
         margin-left 0
     }
-    .b-search-field__to{
+    .b-search-field__to {
         width $form-input-to-width
     }
-    .b-search-field__long{
-        .ui-tooltip{
+    .b-search-field__long {
+        .ui-tooltip {
             position: absolute;
             margin-top -15px
 
-            .ui-tooltip-content{
+            .ui-tooltip-content {
                 white-space nowrap;
             }
         }
     }
-    .b-search-field-hor{
+    .b-search-field-hor {
         display: inline-block;
         text-align justify
         vertical-align top
         font-size 0
 
-        &:after{
+        &:after {
             width 100%
             content: ''
             display inline-block
@@ -75,10 +77,10 @@
         }
     }
     .b-search-field__calendar,
-    .b-search-field__list{
+    .b-search-field__list {
         position relative
 
-        &:after{
+        &:after {
             background url("/spa/img/i.png") no-repeat
             content ''
             display block
@@ -87,51 +89,51 @@
             right 9px
         }
     }
-    .b-search-field__calendar{
+    .b-search-field__calendar {
         width $form-calendar-input-widht
 
-        &:after{
+        &:after {
             background-position -39px -1830px
             width 17px
             height 16px
             margin-top -8px
         }
     }
-    .b-search-field__list{
+    .b-search-field__list {
         width $form-list-input-widht
 
-        &:after{
+        &:after {
             background-position -45px -194px
             width 11px
             height 6px
             margin-top -3px
         }
     }
-    .b_people{
+    .b_people {
         background-color: $form-input-bg;
     }
-    .search-people{
+    .search-people {
         border-radius $form-border-radius
         background-image none
         background-color $form-input-bg
     }
-    .search-autocomplete{
+    .search-autocomplete {
         padding: 0;
         margin-left: 0;
     }
-    .search-date-block__date{
+    .search-date-block__date {
         font-size 15px
         border-radius $form-border-radius
         background-color $form-input-bg
     }
-    .ui-tooltip{
+    .ui-tooltip {
         background-color $form-input-error-color
 
-        &:before{
+        &:before {
             border-color: transparent transparent $form-input-error-color;
         }
     }
-    .b-search-button{
+    .b-search-button {
         position: relative;
         display inline-block
         height $form-input-height
@@ -147,68 +149,86 @@
         text-align center
         cursor: pointer;
 
-        &:after{
+        &:after {
             content: 'Найти';
             display: block;
         }
 
-        &:hover{
+        &:hover {
             background-color lighten($form-btn-bg, 15%)
         }
-        &:active{
+        &:active {
             background-color darken($form-btn-bg, 15%)
         }
     }
+    .search-form-dialog-row {
+        .button-group {
+            .button {
+                &.active {
+                    background-color: $btn-red-bg
+                }
+            }
+        }
+    }
 }
-.dtpk-checkbox{
-    border-color #3fa9f5
+
+.dtpk-checkbox {
+    border-color $btn-green-bg
     border-radius 0
 }
-.dtpk-checkbox-label input:checked + .dtpk-checkbox{
-    background-color #3fa9f5
+
+.dtpk-checkbox-label input:checked + .dtpk-checkbox {
+    background-color $btn-green-bg
 }
+
 .ui-datepicker td a.ui-state-active,
-.ui-datepicker td a.ui-state-hover{
-    background-color #3fa9f5
+.ui-datepicker td a.ui-state-hover {
+    background-color $btn-green-bg
 }
+
 .datepickerSelected-start a
-.datepickerSelected-end a{
+.datepickerSelected-end a {
     background: $form-datapicker-bg !important
 }
-.datepickerSelected a{
+
+.datepickerSelected a {
     background: $form-datapicker-bg-lighten
 }
-.datePicker-today a{
+
+.datePicker-today a {
     border-color: $form-datapicker-border-color;
 }
-.datepickerDays a{
-    &:hover{
+
+.datepickerDays a {
+    &:hover {
         background: $form-datapicker-bg
     }
 }
+
 .datepickerGoPrev a
-.datepickerGoNext a{
-    &:hover{
+.datepickerGoNext a {
+    &:hover {
         background: $form-datapicker-bg
     }
 }
-.horizontal-form{
-    .datepicker-field{
+
+.horizontal-form {
+    .datepicker-field {
         position: relative;
 
-        .ui-tooltip{
+        .ui-tooltip {
             position absolute;
             bottom -40px
-            
-            &.ui-tooltip-date-to{
+
+            &.ui-tooltip-date-to {
                 left: -45px
             }
-            
-            &.ui-tooltip-date-back{
+
+            &.ui-tooltip-date-back {
                 left: 75px
             }
- 
-            .ui-tooltip-content{
+
+            .ui-tooltip-content {
                 white-space nowrap;
             }
         }
