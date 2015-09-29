@@ -155,20 +155,20 @@
                 <ul class="pay-type-select" ng-if="qiwiPayControl.isEnabled && !paymentDeadline.ifExpires() || !isB2bAgency">
                 <li>
                     <span class="icon-img icon-sprite-pay_type_1"></span>
-                    <input ng-model="svyaznoyPayControl.payType" value="0" id="pay_type_card" type="radio" name="card-pay">
+                    <input ng-model="svyaznoyPayControl.payType" value="1" id="pay_type_card" type="radio" name="card-pay">
                     <label for="pay_type_card">
                         <b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
                         <span>банковской картой</span></label>
                 </li>
                     <li ng-if="!isB2bAgency">
                     <span class="icon-img icon-sprite-pay_type_2"></span>
-                    <input ng-model="svyaznoyPayControl.payType" value="1" id="pay_type_cache" type="radio" name="card-pay">
+                    <input ng-model="svyaznoyPayControl.payType" value="2" id="pay_type_cache" type="radio" name="card-pay">
                     <label for="pay_type_cache"><b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
                         <span>{{svyaznoyPayControl.checkListTitle}}</span></label>
                 </li>
                     <li ng-if="qiwiPayControl.isEnabled && !paymentDeadline.ifExpires()">
                         <span class="icon-img icon-sprite-pay_type_3"></span>
-                        <input ng-model="svyaznoyPayControl.payType" value="2" id="pay_type_qiwi" type="radio" name="card-pay">
+                        <input ng-model="svyaznoyPayControl.payType" value="3" id="pay_type_qiwi" type="radio" name="card-pay">
                         <label for="pay_type_qiwi"><b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
                             <span>через QIWI Visa Wallet</span></label>
                     </li>
@@ -185,7 +185,7 @@
     </div>
 </div>
 
-<div class="main__center" ng-if="svyaznoyPayControl.payType == 0">
+<div class="main__center" ng-if="svyaznoyPayControl.payType == 1">
     
     <div class="b-cc-container">
         <div class="b-cc-front">
@@ -282,7 +282,7 @@
     </div>
 </div>
 
-<div id="svyaznoy_print_block" class="main__center b-svyaznoy" ng-if="svyaznoyPayControl.payType == 1">
+<div id="svyaznoy_print_block" class="main__center b-svyaznoy" ng-if="svyaznoyPayControl.payType == 2">
     <div ng-hide="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.euroset"
          class="icon-sprite-svyaznoy_logo"></div>
     <div ng-hide="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.svyaznoy"
@@ -312,7 +312,7 @@
     </div></a>
 </div>
 
-    <div class="qiwi-block__pay-info__wrap" ng-if="svyaznoyPayControl.payType == 2">
+    <div class="qiwi-block__pay-info__wrap" ng-if="svyaznoyPayControl.payType == 3">
         <div class="main__center qiwi-block__pay-info__container">
             <span class="icon-img icon-sprite-qiwi_walet qiwi-block__pay-info__pay-logo"></span>
             <span class="button b-pay-button qiwi qiwi-block__pay-info__pay-button">Оплатить <input type="submit" value="Оплатить" ng-click="qiwiPayControl.buy($event)"></span>

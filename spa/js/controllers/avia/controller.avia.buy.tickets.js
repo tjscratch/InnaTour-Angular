@@ -60,7 +60,14 @@ innaAppControllers.
                 };
 
                 self.time = '';
-                self.payType = 0;
+                //может браться из url
+                //?payType=1 - карта, ?payType=2 - связной, ?payType=3 - киви
+                if ($location.search().payType) {
+                    self.payType = $location.search().payType;
+                }
+                else {
+                    self.payType = 1;
+                }
                 self.orderNum;
                 self.orderNumPrefix = '467';
                 //заголовок в чекбоксе выбора
