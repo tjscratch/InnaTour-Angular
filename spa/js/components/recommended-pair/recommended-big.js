@@ -111,6 +111,7 @@ angular.module('innaApp.directives')
 
 
                             $scope.recommendedHotelToMap = function () {
+                                EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, 'hotel');
                                 EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, $scope.recommendedPair.hotel);
                             };
 
