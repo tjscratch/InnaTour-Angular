@@ -158,6 +158,12 @@
                         });
                 },
 
+                qiwiMakeBill: function (orderNum, successCallback, errCallback) {
+                    $http.post(apiUrls.QIWI_MAKE_BILL, {orderNum: orderNum})
+                        .success(successCallback)
+                        .error(errCallback);
+                },
+
                 eof: null
             };
         }]);

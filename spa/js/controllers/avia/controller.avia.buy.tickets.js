@@ -44,12 +44,12 @@ innaAppControllers.
 
 
             //логика для оплаты у связного
-            function svyaznoyPayControl(){
+            function svyaznoyPayControl() {
                 var self = this;
 
                 self.isSvyaznoyPay = true;
                 var partner = window.partners ? window.partners.getPartner() : null;
-                if (partner!= null && partner.name == 'euroset'){
+                if (partner != null && partner.name == 'euroset') {
                     self.isSvyaznoyPay = false;
                 }
 
@@ -59,6 +59,7 @@ innaAppControllers.
                     euroset: 'euroset'
                 };
 
+                self.time = '';
                 self.payType = 0;
                 self.orderNum;
                 self.orderNumPrefix = '467';
@@ -73,23 +74,26 @@ innaAppControllers.
                         //https://innatec.atlassian.net/browse/IN-4927
                         var pageType = window.partners.getSvyaznoyPageType();
                         switch (pageType) {
-                            case window.partners.SvyaznoyPageType.OperatorPage: {
-                        self.orderNumPrefix = '466';
+                            case window.partners.SvyaznoyPageType.OperatorPage:
+                            {
+                                self.orderNumPrefix = '466';
                                 break;
                             }
-                            case window.partners.SvyaznoyPageType.ToursPage: {
+                            case window.partners.SvyaznoyPageType.ToursPage:
+                            {
                                 self.orderNumPrefix = '468';
                                 break;
                             }
-                            case window.partners.SvyaznoyPageType.NotSvyaznoyPage: {
+                            case window.partners.SvyaznoyPageType.NotSvyaznoyPage:
+                            {
                                 self.orderNumPrefix = '467';
                                 break;
                             }
                         }
 
                         var partner = window.partners.getPartner();
-                        if (partner){
-                            if (partner.name == 'svyaznoy'){
+                        if (partner) {
+                            if (partner.name == 'svyaznoy') {
                                 self.checkListTitle = 'наличными в Связном';
                                 self.blockViewType = self.blockViewTypeEnum.svyaznoy;
                             }
@@ -129,6 +133,108 @@ innaAppControllers.
             }
 
             $scope.svyaznoyPayControl = new svyaznoyPayControl();
+
+            //qiwi ===========================================================================
+            function qiwiPayControl() {
+                var self = this;
+                self.payData = null;
+
+                self.isEnabled = true;
+
+                self.init = function (payData) {
+                    self.payData = payData;
+                    //console.log('payData', payData);
+
+                    //на партнерах - выключаем
+                    var partner = window.partners ? window.partners.getPartner() : null;
+                    if (partner) {
+                        self.isEnabled = false;
+                    }
+
+                    if (payData) {
+                        //на b2b - выключаем
+                        //на > 60к - выключаем
+                        //payData.IsAgency
+                        var isB2b = $scope.$root.user ? $scope.$root.user.getType() == 2 : null;
+                        if (isB2b || payData.Price > 15000) {
+                            self.isEnabled = false;
+                        }
+
+                        //на невозвратных отелях - выключаем
+                        if (payData.Hotel && payData.Hotel.Room) {
+                            //если false - то можно оплачивать в киви
+                            //если true - от нельзя
+                            //IsReturnsWithFine - если возврат со штрафом
+                            if (payData.Hotel.Room.IsReturnsWithFine ||
+                                payData.Hotel.Room.IsReturnsWithPenalty) {
+                                self.isEnabled = false;
+                            }
+                        }
+                    }
+                };
+
+                self.buy = function ($event) {
+                    eventsHelper.preventBubbling($event);
+
+                    paymentService.qiwiMakeBill($scope.orderNum,
+                        function (data) {
+                            //success
+
+                            if (data && data.link && data.link.length > 0) {
+                                var url = data.link;
+                                console.log('redirecting to url:', url);
+                                location.href = url;
+                            }
+                            else {
+                                console.error(data.error);
+                                $scope.baloon.showGlobalErr();
+                            }
+                        },
+                        function (err) {
+                            //
+                            console.error('qiwiMakeBill error', err);
+                            $scope.baloon.showGlobalErr();
+                        });
+                };
+
+                self.isQiwiResultPage = function () {
+                    return self.isQiwiSuccessPage() || self.isQiwiFailPage();
+                };
+
+                self.isQiwiSuccessPage = function () {
+                    if (location.href.indexOf('packages/buy-success') > -1) {
+                        return true;
+                    }
+                    return false;
+                };
+
+                self.isQiwiFailPage = function () {
+                    if (location.href.indexOf('packages/buy-error') > -1) {
+                        return true;
+                    }
+                    return false;
+                };
+
+                self.processFail = function () {
+                    $scope.baloon.showGlobalErr();
+                };
+
+                self.processSuccess = function () {
+                    //0 - b2c, 1 - b2b, 2 - серв. сбор
+                    var type = 0;
+                    if (self.payData.isAgency) {
+                        type = 1;
+                    }
+                    if (self.payData.IsService) {
+                        type = 2;
+                    }
+                    //$scope.baloon.hide();
+                    setSuccessBuyResult(type);
+                }
+            }
+
+            $scope.qiwiPayControl = new qiwiPayControl();
+            //qiwi ===========================================================================
 
             $scope.isCkeckProcessing = false;
             $scope.orderNum = $routeParams.OrderNum;
@@ -366,7 +472,7 @@ innaAppControllers.
                     url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
                 }
 
-                function normalizeUrl(url){
+                function normalizeUrl(url) {
                     //если путь относительный
                     //"/Files/Doc/150715155346/150723141900/offer_premiertur76.pdf"
                     if (url && url.indexOf('/') == 0) {
@@ -587,7 +693,12 @@ innaAppControllers.
                     init();
                 }
                 else {
-                    $scope.baloon.show('Подготовка к оплате', 'Это может занять несколько секунд');
+                    if ($scope.qiwiPayControl.isQiwiResultPage()){
+                        $scope.baloon.show('Завершение оплаты', 'Это может занять несколько секунд');
+                    }
+                    else {
+                        $scope.baloon.show('Подготовка к оплате', 'Это может занять несколько секунд');
+                    }
 
                     $scope.newSearchUrl = null;
 
@@ -614,29 +725,29 @@ innaAppControllers.
 
                                         if (data.Hotel) {
                                             $scope.newSearchUrl = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
-                                                filter.DepartureId,
-                                                filter.ArrivalId,
-                                                filter.StartVoyageDateString,
-                                                filter.EndVoyageDateString,
-                                                filter.TicketClass,
-                                                filter.Adult,
-                                                filter.Children
-                                            ].join('-');
+                                                    filter.DepartureId,
+                                                    filter.ArrivalId,
+                                                    filter.StartVoyageDateString,
+                                                    filter.EndVoyageDateString,
+                                                    filter.TicketClass,
+                                                    filter.Adult,
+                                                    filter.Children
+                                                ].join('-');
                                         }
                                         else {
                                             $scope.newSearchUrl = Urls.URL_AVIA_SEARCH + [
-                                                filter.FromUrl,
-                                                filter.ToUrl,
-                                                filter.BeginDate,
-                                                filter.EndDate,
-                                                filter.AdultCount,
-                                                filter.ChildCount,
-                                                filter.InfantsCount,
-                                                filter.CabinClass,
-                                                filter.IsToFlexible,
-                                                filter.IsBackFlexible,
-                                                filter.PathType
-                                            ].join('-');
+                                                    filter.FromUrl,
+                                                    filter.ToUrl,
+                                                    filter.BeginDate,
+                                                    filter.EndDate,
+                                                    filter.AdultCount,
+                                                    filter.ChildCount,
+                                                    filter.InfantsCount,
+                                                    filter.CabinClass,
+                                                    filter.IsToFlexible,
+                                                    filter.IsBackFlexible,
+                                                    filter.PathType
+                                                ].join('-');
                                         }
                                     }
                                     catch (e) {
@@ -655,7 +766,7 @@ innaAppControllers.
                                 case 1:
                                 {
                                     //все норм - получаем данные и продолжаем заполнять
-                                    getPaymenyData();
+                                    getPaymentData();
                                     break;
                                 }
                                 case 2:
@@ -674,7 +785,7 @@ innaAppControllers.
                                         }, 0);
 
                                         //все норм - получаем данные и продолжаем заполнять
-                                        getPaymenyData();
+                                        getPaymentData();
                                     });
                                     break;
                                 }
@@ -712,7 +823,7 @@ innaAppControllers.
                 }
             }
 
-            function getPaymenyData() {
+            function getPaymentData() {
                 //запрос в api
                 paymentService.getPaymentData({
                         orderNum: $scope.orderNum
@@ -720,6 +831,7 @@ innaAppControllers.
                     function (data) {
                         if (data != null) {
                             $scope.svyaznoyPayControl.init();
+                            $scope.qiwiPayControl.init(data);
 
                             //log('\ngetPaymentData data: ' + angular.toJson(data));
                             //console.log('getPaymentData:');
@@ -808,7 +920,8 @@ innaAppControllers.
                             }
 
                             //проверяем не оплачен ли уже заказ
-                            if (data.IsPayed == true) {
+                            //если переход после киви - то игнорируем оплаченный заказ
+                            if (data.IsPayed == true && !$scope.qiwiPayControl.isQiwiSuccessPage()) {
                                 //уже оплачен
                                 $scope.baloon.showAlert('Заказ уже оплачен', '', function () {
                                     $scope.baloon.hide();
@@ -839,12 +952,12 @@ innaAppControllers.
 
                                         //ищем страховку
                                         $scope.isInsuranceIncluded = false;
-                                        (function getInsurance(included){
-                                            if (included){
+                                        (function getInsurance(included) {
+                                            if (included) {
                                                 var re = /Страховка/ig;
-                                                for(var i=0; i<included.length; i++){
+                                                for (var i = 0; i < included.length; i++) {
                                                     var item = included[i];
-                                                    if (re.test(item.Name)){
+                                                    if (re.test(item.Name)) {
                                                         $scope.isInsuranceIncluded = true;
                                                         break;
                                                     }
@@ -881,7 +994,8 @@ innaAppControllers.
 
                                 $scope.price = $scope.reservationModel.price;
                                 //признак, что b2b заказ
-                                $scope.isAgency = data.IsAgency;
+                                //$scope.isAgency = data.IsAgency;
+                                $scope.isB2bAgency = $scope.$root.user ? $scope.$root.user.getType() == 2 : null;
                                 $scope.orderId = data.OrderId;
 
                                 //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
@@ -940,9 +1054,19 @@ innaAppControllers.
                     $scope.tarifs.fillInfo($scope.aviaInfo);
                     loadTarifs();
                 }
-                $scope.focusControl.init();
-                $scope.paymentDeadline.setUpdate();
-                $scope.scrollControl.scrollToCards();
+
+
+                if ($scope.qiwiPayControl.isQiwiSuccessPage()) {
+                    $scope.qiwiPayControl.processSuccess();
+                }
+                else if ($scope.qiwiPayControl.isQiwiFailPage()) {
+                    $scope.qiwiPayControl.processFail();
+                }
+                else {
+                    $scope.focusControl.init();
+                    $scope.paymentDeadline.setUpdate();
+                    $scope.scrollControl.scrollToCards();
+                }
             }
 
             //data loading ===========================================================================
@@ -1679,7 +1803,7 @@ innaAppControllers.
                             });
                     }
 
-                    if (!self.comments || self.comments.length == 0){
+                    if (!self.comments || self.comments.length == 0) {
                         self.form.reqComments.$setValidity('required', false);
                     }
                     else {
@@ -1687,11 +1811,11 @@ innaAppControllers.
                         self.isOpened = false;
                     }
 
-                    if (self.form.$valid){
+                    if (self.form.$valid) {
                         console.log('form valid');
-                        paymentService.createBuyComment({orderNum:$scope.orderNum, orderMessage: self.comments},
+                        paymentService.createBuyComment({orderNum: $scope.orderNum, orderMessage: self.comments},
                             function (data, status) {
-                                if (data && data.Status == 1){
+                                if (data && data.Status == 1) {
                                     console.log('send buy comment success', data, status);
                                     //показываем попап
                                     $scope.baloon.show("Сообщение отправлено", "В ближайшее время наш менеджер свяжется с Вами", aviaHelper.baloonType.success);

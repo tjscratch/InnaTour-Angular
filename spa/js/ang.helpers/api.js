@@ -1,10 +1,17 @@
 angular.module('innaApp.API', [])
     .factory('innaApp.API.const', function () {
-        function url(s) {
+        function url(s, apiHost) {
             var host = '';
             host = host || '';
 
-            return host + '/api/v1' + s;
+            var result = host + '/api/v1' + s;
+
+            var debugApiHost = localStorage.getItem('debug_api_host');
+            if (debugApiHost && debugApiHost.length > 0 && debugApiHost.indexOf('http') > -1) {
+                result = debugApiHost + result;
+            }
+
+            return result;
         }
 
         return {
@@ -79,6 +86,8 @@ angular.module('innaApp.API', [])
             PARTNERSHIP_GET_COOKIE: url('/Prt/GetPrtId'),
             
             PARTNER_CREATE: url('/Agency/Add'),
+
+            QIWI_MAKE_BILL: url('/qiwi/MakeBill'),
 
             eof: null
         }
