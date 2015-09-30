@@ -101,14 +101,14 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                     var isChooseHotel = true;
                     //если выбран отличный от рекомендованного варианта - проставляем флаг
                     if ($location.search().ticket || $location.search().hotel) {
-                        if ($scope.defaultRecommendedPair && $scope.defaultRecommendedPair.Hotel && $scope.defaultRecommendedPair.AviaInfo && (
-                            $scope.defaultRecommendedPair.Hotel.HotelId == $location.search().hotel ||
-                            $scope.defaultRecommendedPair.AviaInfo.VariantId1 == $location.search().ticket)
+                        if ($scope.defaultRecommendedPair && (
+                            $scope.defaultRecommendedPair.HotelId == $location.search().hotel ||
+                            $scope.defaultRecommendedPair.TicketId == $location.search().ticket)
                         )
                             isChooseHotel = false;
 
                         if ($scope.defaultRecommendedPair){
-                            console.log('recommended', $scope.defaultRecommendedPair.Hotel.HotelId, 'from url', $location.search().hotel);
+                            console.log('recommended hotel', $scope.defaultRecommendedPair.HotelId, 'from url', $location.search().hotel);
                         }
                     }
                     $scope.isChooseHotel = isChooseHotel;
