@@ -111,6 +111,7 @@ innaAppControllers.controller('PageDynamicPackage', [
         $scope.hotels = new ModelHotelsCollection();
         $scope.tickets = new ModelTicketsCollection();
         $scope.recommendedPair = new ModelRecommendedPair();
+        $scope.defaultRecommendedPair = null;
         $scope.airports = null;
         $scope.showLanding = true;
         $scope.passengerCount = 0;
@@ -454,6 +455,11 @@ innaAppControllers.controller('PageDynamicPackage', [
                 }
                 PackagesService.getCombinationHotels(this.getIdCombination().params)
                     .success(function (data) {
+
+                        if (data) {
+                            $scope.defaultRecommendedPair = data.DefaultRecommendedPair;
+                        }
+                        
                         that.set('loadHotelsData', data);
 
                         $timeout(function () {
@@ -530,6 +536,10 @@ innaAppControllers.controller('PageDynamicPackage', [
                 //console.log(searchParams);
                 PackagesService.getCombinationTickets(this.getIdCombination().params)
                     .success(function (data) {
+
+                        if (data) {
+                            $scope.defaultRecommendedPair = data.DefaultRecommendedPair;
+                        }
 
                         $timeout(function () {
                             $scope.$broadcast('loadDPTickets', data);
