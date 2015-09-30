@@ -351,6 +351,27 @@
                             etap.NextOutCode = etapNext.OutCode;
                             etap.NextOutCountryName = etapNext.OutCountryName;
                         }
+
+                        addBaggageFields(etap);
+                    }
+
+                    function addBaggageFields(etap) {
+                        var luggageLimit = etap.LuggageLimit;
+                        //console.log('luggageLimit', luggageLimit);
+
+                        //ToDo: debug
+                        //luggageLimit = '1PC';
+
+                        var baggage = '';
+                        var alert = false;
+                        switch (luggageLimit) {
+                            case '': baggage = ''; break;
+                            case '0': baggage = 'Платный багаж!'; alert = true; break;
+                            case '1PC': baggage = 'Багаж: 23кг'; break;
+                            default: baggage = 'Багаж: ' + luggageLimit; break;
+                        }
+                        etap.baggage = baggage;
+                        etap.baggageAlert = alert;
                     }
 
                     for (var e = 0; e < item.EtapsTo.length; e++) {

@@ -5,6 +5,11 @@
             {{etap.TransporterName}} <br>
             рейс {{etap.Number}} <br>
             {{etap.VehicleName}}
+            <div ng-if="etap.baggage">
+                <a ng-class="{'baggage-alert':etap.baggageAlert}"
+                   href="https://bags.amadeus.com/Display.aspx?a={{etap.TransporterCode}}"
+                   target="_blank">{{etap.baggage}}</a>
+            </div>
         </div>
     </div>
     <div class="b-tickets__container">

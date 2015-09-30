@@ -7,6 +7,11 @@
                     {{etapAgg.etapTo.TransporterName}} <br>
                     рейс {{etapAgg.etapTo.Number}} <br>
                     {{etapAgg.etapTo.VehicleName}}
+                    <div ng-if="etapAgg.etapTo.baggage">
+                        <a ng-class="{'baggage-alert':etapAgg.etapTo.baggageAlert}"
+                           href="https://bags.amadeus.com/Display.aspx?a={{etapAgg.etapTo.TransporterCode}}"
+                           target="_blank">{{etapAgg.etapTo.baggage}}</a>
+                    </div>
                 </div>
             </div>
             <div class="b-tickets__container">
@@ -55,6 +60,11 @@
                     {{etapAgg.etapBack.TransporterName}} <br>
                     рейс {{etapAgg.etapBack.Number}} <br>
                     {{etapAgg.etapBack.VehicleName}}
+                    <div ng-if="etapAgg.etapBack.baggage">
+                        <a ng-class="{'baggage-alert':etapAgg.etapBack.baggageAlert}"
+                           href="https://bags.amadeus.com/Display.aspx?a={{etapAgg.etapBack.TransporterCode}}"
+                           target="_blank">{{etapAgg.etapBack.baggage}}</a>
+                    </div>
                 </div>
             </div>
             <div class="b-tickets__container">
