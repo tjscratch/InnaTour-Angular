@@ -1,14 +1,23 @@
 <div class="buy__warning" ng-show="visaControl.visaNeeded || visaControl.visaRulesNeeded">
 
-	<div ng-show="visaControl.visaNeeded">Требуется виза.</div>
-	<div ng-show="visaControl.visaRulesNeeded">
-		Обратите внимание на визовые правила
-        <span ng-if="visaControl.cautionCountries.length > 0"> в странах:
-            <span ng-repeat="c in visaControl.cautionCountries">
-                <a class="b-visa-country-link" ng-if="c.link" ng-href="{{c.link}}" target="_blank">{{c.name}}</a><!--
-                --><span ng-if="!c.link" >{{c.name}}</span><!--
-                --><span ng-if="!($last)">,&nbsp;</span><!--
-            --></span><!--
-        --></span>.
-	</div>
+    <span class="icon-sprite-visa-alert buy-warning-alert-img"></span>
+    <div class="buy-warning-alert-content">
+        <div class="buy-warning-alert"
+             ng-show="visaControl.visaNeeded || visaControl.visaRulesNeeded">Обратите внимание
+        </div>
+        <span ng-show="visaControl.visaNeeded">Требуется виза.</span>
+        <span ng-show="visaControl.visaRulesNeeded">
+            <span ng-if="visaControl.cautionCountries.length > 0"> Рекомендуем ознакомиться с визовыми правилами для посещения стран:
+                <span ng-repeat="c in visaControl.cautionCountries">
+                    <a class="b-visa-country-link" ng-if="c.link" ng-href="{{c.link}}" target="_blank">{{c.name}}</a><!--
+                    --><span ng-if="!c.link">{{c.name}}</span><!--
+                    --><span ng-if="!($last)">,&nbsp;</span><!--
+                --></span><!--
+            --></span>.
+        </span>
+        <div>
+            <span ng-if="item.alertDifferentPorts">Разные аэропорты вылета и прилета. </span>
+            <span ng-if="item.baggageAlert">Платный багаж. </span>
+        </div>
+    </div>
 </div>

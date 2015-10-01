@@ -423,12 +423,14 @@
                     addAirPortFromToFields(item);
 
                     //добавляем алерт багажа
-                    if (itemBaggageStatus.alert) {
-                        item.baggageAlert = true;
-                    }
+                    item.baggageAlert = itemBaggageStatus.alert;
 
                     //проверка на разные аэропорты отлета и прилета, в одну сторону не учитываем
                     item.alertDifferentPorts = (item.OutCode != item.InCodeBack) && item.EtapsBack.length > 0;
+
+                    //ToDo: debug
+                    //item.baggageAlert = true;
+                    //item.alertDifferentPorts = true;
                 },
 
                 addAggInfoFields: function (item) {
@@ -933,6 +935,7 @@
                     self.visaRulesNeeded = false;
 
                     self.check = function (passengersCitizenshipIds, currentItem) {
+                        console.log('$scope.item', currentItem);
                         function addUniq(array, name, link) {
                             var exists = _.find(array, function (it) {
                                 return it.name == name;

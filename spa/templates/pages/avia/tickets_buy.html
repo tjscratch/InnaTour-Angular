@@ -13,19 +13,7 @@
 <div class="main__center" ng-if="!reservationModel.IsService">
     <ng:include src="objectToReserveTemplate" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
 
-    <div class="buy__warning" ng-if="visaControl.visaNeeded || visaControl.visaRulesNeeded">
-        <div ng-if="visaControl.visaNeeded">Требуется виза.</div>
-        <div ng-if="visaControl.visaRulesNeeded">
-            Обратите внимание на визовые правила
-            <span ng-if="visaControl.cautionCountries.length > 0"> в странах:
-	            <span ng-repeat="c in visaControl.cautionCountries">
-					<a class="b-visa-country-link" ng-if="c.link" ng-href="{{c.link}}" target="_blank">{{c.name}}</a><!--
-					--><span ng-if="!c.link" >{{c.name}}</span><!--
-	                --><span ng-if="!($last)">,&nbsp;</span><!--
-	            --></span><!--
-	        --></span>.
-        </div>
-    </div>
+    <ng:include src="'components/need-visa/templ/index.html'" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
 
     <p class="buy__price-descr buy__alert" ng-if="(hotel != null)">Внимание! К компонентам пакета применяются разные
         условия отмены бронирования.<br/>Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event)">правилами
