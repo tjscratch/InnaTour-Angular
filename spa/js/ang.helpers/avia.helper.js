@@ -933,12 +933,28 @@
                     self.visaRulesNeeded = false;
 
                     self.check = function (passengersCitizenshipIds, currentItem) {
+                        function addUniq(array, name, link) {
+                            var exists = _.find(array, function (it) {
+                                return it.name == name;
+                            });
+
+                            if (!exists) {
+                                //proxy
+                                //href="https://inna.ru/proxy/www.inna.ru
+                                if (link && link.indexOf('http://') == 0){
+                                    link = 'https://inna.ru/proxy/' + link.replace('http://', '');
+                                }
+                                array.push({name: name, link: link});
+                            }
+                        }
+                        
                         var isCitRussia = false;
                         var visaEtapNeeded = false;
                         var visaEtapRulesNeeded = false;
 
                         //console.log('passengersCitizenshipIds:');
                         //console.log(passengersCitizenshipIds);
+                        console.log('currentItem', currentItem);
 
                         if (passengersCitizenshipIds != null && currentItem != null) {
 
@@ -957,7 +973,7 @@
                             var cautionCountries = [];
 
                             if (outVisaGroup != inVisaGroup) {
-                                cautionCountries.push(lastItem.InCountryName);
+                                addUniq(cautionCountries, lastItem.InCountryName, lastItem.InCountryLink);
                             }
 
                             if (currentItem.EtapsTo != null) {
@@ -965,11 +981,11 @@
                                     var etap = currentItem.EtapsTo[i];
                                     if (etap.InVisaGroup != outVisaGroup) {
                                         visaEtapRulesNeeded = true;
-                                        cautionCountries.push(etap.InCountryName);
+                                        addUniq(cautionCountries, etap.InCountryName, etap.InCountryLink);
                                     }
                                     if (etap.OutVisaGroup != outVisaGroup) {
                                         visaEtapRulesNeeded = true;
-                                        cautionCountries.push(etap.OutCountryName);
+                                        addUniq(cautionCountries, etap.OutCountryName, etap.OutCountryLink);
                                     }
                                 }
                             }
@@ -979,18 +995,16 @@
                                     var etap = currentItem.EtapsBack[i];
                                     if (etap.InVisaGroup != outVisaGroup) {
                                         visaEtapRulesNeeded = true;
-                                        cautionCountries.push(etap.InCountryName);
+                                        addUniq(cautionCountries, etap.InCountryName, etap.InCountryLink);
                                     }
                                     if (etap.OutVisaGroup != outVisaGroup) {
                                         visaEtapRulesNeeded = true;
-                                        cautionCountries.push(etap.OutCountryName);
+                                        addUniq(cautionCountries, etap.OutCountryName, etap.OutCountryLink);
                                     }
                                 }
                             }
-                            cautionCountries = _.uniq(cautionCountries);
                             self.cautionCountries = cautionCountries;
-                            //console.log('cautionCountries:');
-                            //console.log(cautionCountries);
+                            console.log('cautionCountries:', cautionCountries);
                         }
 
                         if (isAllPassRussia && visaEtapNeeded) {
