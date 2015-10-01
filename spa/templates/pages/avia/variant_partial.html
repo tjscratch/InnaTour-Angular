@@ -82,7 +82,7 @@
     </div>
 
     <footer class="rl-footer">
-        <span class="rl-tickets-number">{{helper.getCharterAndNumSeatsText(item.NumSeats, ticketsCount, item.IsCharter, item.alertDifferentPorts)}}</span>
+        <span class="rl-tickets-number">{{helper.getCharterAndNumSeatsText(item.NumSeats, ticketsCount, item.IsCharter, item.alertDifferentPorts, item)}}</span>
         <a ng-href="#" ng-if="goBackUrl().length > 0" class="rl-more-info" ng-click="popupItemInfo.show($event, item, criteria, searchId, true)">Подробнее</a>
     </footer>
 </div>

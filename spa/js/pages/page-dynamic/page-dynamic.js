@@ -531,6 +531,13 @@ innaAppControllers.controller('PageDynamicPackage', [
                 PackagesService.getCombinationTickets(this.getIdCombination().params)
                     .success(function (data) {
 
+                        //доп поля для юагажа и прочего
+                        if (data && data.AviaInfos) {
+                            data.AviaInfos.forEach(function (item) {
+                                aviaHelper.addCustomFields(item);
+                            });
+                        }
+
                         $timeout(function () {
                             $scope.$broadcast('loadDPTickets', data);
                         }, 0);

@@ -335,7 +335,7 @@
                         }
                     }
 
-                    function addFieldsToEtap(etap, etapNext) {
+                    function addFieldsToEtap(etap, etapNext, itemBaggageStatus) {
                         etap.TransporterCodeUrl = helper.setEtapsTransporterCodeUrl(etap.TransporterLogo);
                         etap.OutTimeFormatted = getTimeFormat(etap.OutTime);
                         etap.OutDateFormatted = getDateFormat(etap.OutTime);
@@ -352,10 +352,10 @@
                             etap.NextOutCountryName = etapNext.OutCountryName;
                         }
 
-                        addBaggageFields(etap);
+                        addBaggageFields(etap, itemBaggageStatus);
                     }
 
-                    function addBaggageFields(etap) {
+                    function addBaggageFields(etap, itemBaggageStatus) {
                         var luggageLimit = etap.LuggageLimit;
                         //console.log('luggageLimit', luggageLimit);
 
@@ -372,7 +372,14 @@
                         }
                         etap.baggage = baggage;
                         etap.baggageAlert = alert;
+
+                        if (alert) {
+                            itemBaggageStatus.alert = true;
+                        }
                     }
+
+                    //алерт платный багаж в item'e
+                    var itemBaggageStatus = { alert: false };
 
                     for (var e = 0; e < item.EtapsTo.length; e++) {
                         var etap = item.EtapsTo[e];
@@ -380,7 +387,7 @@
                         if ((e + 1) < item.EtapsTo.length) {
                             etapNext = item.EtapsTo[e + 1];
                         }
-                        addFieldsToEtap(etap, etapNext);
+                        addFieldsToEtap(etap, etapNext, itemBaggageStatus);
                     }
                     for (var e = 0; e < item.EtapsBack.length; e++) {
                         var etap = item.EtapsBack[e];
@@ -388,7 +395,7 @@
                         if ((e + 1) < item.EtapsBack.length) {
                             etapNext = item.EtapsBack[e + 1];
                         }
-                        addFieldsToEtap(etap, etapNext);
+                        addFieldsToEtap(etap, etapNext, itemBaggageStatus);
                     }
 
 
@@ -414,6 +421,11 @@
                     }
 
                     addAirPortFromToFields(item);
+
+                    //добавляем алерт багажа
+                    if (itemBaggageStatus.alert) {
+                        item.baggageAlert = true;
+                    }
 
                     //проверка на разные аэропорты отлета и прилета, в одну сторону не учитываем
                     item.alertDifferentPorts = (item.OutCode != item.InCodeBack) && item.EtapsBack.length > 0;
@@ -516,7 +528,7 @@
                     return pluralForm(i, str1, str2, str3);
                 },
 
-                getCharterAndNumSeatsText: function (countLeft, ticketsCount, isCharter, isDifferentPorts) {
+                getCharterAndNumSeatsText: function (countLeft, ticketsCount, isCharter, isDifferentPorts, ticket) {
                     //console.log('getCharterAndNumSeatsText: countLeft: %d, ticketsCount: %d, isCharter: %s', countLeft, ticketsCount, isCharter);
                     var sList = [];
                     var seatsText = helper.getNumSeatsText(countLeft, ticketsCount);
@@ -542,6 +554,11 @@
                             sList.push('разные аэропорты отлета и прилета');
                         }
                     }
+
+                    if (ticket && ticket.baggageAlert) {
+                        sList.push('Платный багаж');
+                    }
+
                     return sList.join(', ');
                 },
 

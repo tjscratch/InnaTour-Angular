@@ -67,92 +67,65 @@
 </div>
 
 <div class="bottom-actions">
-	{{#if showWarning() }}
-        <span class="pull-left warning">
-	        
-	        {{#if passengerCount == 1}}
-	            {{#if ticket.NumSeats == 1}}
-	                Остался последний билет
-	            {{else}}
-		            {{pluralize(ticket.NumSeats, ["Последний","Последние","Последние"])}}
-						{{ticket.NumSeats}}
-					{{pluralize(ticket.NumSeats, ["билет","билета","билетов"])}}
-	            {{/if}}
-	        {{/if}}<!--
-	        
-	        -->{{#if passengerCount == 2}}
-	            {{#if ticket.NumSeats <= 3}}
-	                Остались последние билеты
-	            {{else}}
-		            {{pluralize(ticket.NumSeats, ["Последний","Последние","Последние"])}}
-						{{ticket.NumSeats}}
-					{{pluralize(ticket.NumSeats, ["билет","билета","билетов"])}}
-	            {{/if}}
-	        {{/if}}<!--
-	        
-	        -->{{#if passengerCount == 3}}
-	            {{#if ticket.NumSeats <= 5}}
-	                Остались последние билеты
-	            {{else}}
-		            {{pluralize(ticket.NumSeats, ["Последний","Последние","Последние"])}}
-						{{ticket.NumSeats}}
-					{{pluralize(ticket.NumSeats, ["билет","билета","билетов"])}}
-	            {{/if}}
-	        {{/if}}<!--
-	        
-	        -->{{#if passengerCount == 4}}
-	            {{#if ticket.NumSeats <= 7}}
-	                Остались последние билеты
-	            {{else}}
-		            {{pluralize(ticket.NumSeats, ["Последний","Последние","Последние"])}}
-						{{ticket.NumSeats}}
-					{{pluralize(ticket.NumSeats, ["билет","билета","билетов"])}}
-	            {{/if}}
-	        {{/if}}<!--
-	        
-	        -->{{#if passengerCount == 5 || passengerCount == 6}}
-	            {{#if ticket.NumSeats <= 9}}
-	                Остались последние билеты
-	            {{/if}}
-	        {{/if}}<!--
-	        
-	        
-	        
-	        
-            -->{{#if ticket.IsCharter}}<span>, чартер</span><!--
-                -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные а/п отлета и прилета</span>{{/if}}
-            {{/if}}<!--
-            -->{{#if !ticket.IsCharter}}<!--
-	            -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные аэропорты отлета и прилета</span>{{/if}}
-            {{/if}}
-	    </span>
-	{{/if}}
+	<span class="pull-left warning">
+		{{#if passengerCount == 1}}
+			{{#if ticket.NumSeats == 1}}
+				Остался последний билет
+			{{else}}
+				{{pluralize(ticket.NumSeats, ["Последний","Последние","Последние"])}}
+					{{ticket.NumSeats}}
+				{{pluralize(ticket.NumSeats, ["билет","билета","билетов"])}}
+			{{/if}}
+		{{/if}}<!--
+
+		-->{{#if passengerCount == 2}}
+			{{#if ticket.NumSeats <= 3}}
+				Остались последние билеты
+			{{else}}
+				{{pluralize(ticket.NumSeats, ["Последний","Последние","Последние"])}}
+					{{ticket.NumSeats}}
+				{{pluralize(ticket.NumSeats, ["билет","билета","билетов"])}}
+			{{/if}}
+		{{/if}}<!--
+
+		-->{{#if passengerCount == 3}}
+			{{#if ticket.NumSeats <= 5}}
+				Остались последние билеты
+			{{else}}
+				{{pluralize(ticket.NumSeats, ["Последний","Последние","Последние"])}}
+					{{ticket.NumSeats}}
+				{{pluralize(ticket.NumSeats, ["билет","билета","билетов"])}}
+			{{/if}}
+		{{/if}}<!--
+
+		-->{{#if passengerCount == 4}}
+			{{#if ticket.NumSeats <= 7}}
+				Остались последние билеты
+			{{else}}
+				{{pluralize(ticket.NumSeats, ["Последний","Последние","Последние"])}}
+					{{ticket.NumSeats}}
+				{{pluralize(ticket.NumSeats, ["билет","билета","билетов"])}}
+			{{/if}}
+		{{/if}}<!--
+
+		-->{{#if passengerCount == 5 || passengerCount == 6}}
+			{{#if ticket.NumSeats <= 9}}
+				Остались последние билеты
+			{{/if}}
+		{{/if}}<!--
 
 
-	<!--{{#if showWarning() }}-->
-	<!--<span class="pull-left warning">-->
-	<!--{{pluralize(ticket.NumSeats, ["Последнее","Последние","Последние"])}}-->
-	<!--{{ticket.NumSeats}}-->
-	<!--{{pluralize(ticket.NumSeats, ["место","места","мест"])}}&lt;!&ndash;-->
-	<!--&ndash;&gt;{{#if ticket.IsCharter}}<span>, чартер</span>&lt;!&ndash;-->
-	<!--&ndash;&gt;{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные а/п отлета и прилета</span>{{/if}}-->
-	<!--{{/if}}&lt;!&ndash;-->
-	<!--&ndash;&gt;{{#if !ticket.IsCharter}}&lt;!&ndash;-->
-	<!--&ndash;&gt;{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные аэропорты отлета и прилета</span>{{/if}}-->
-	<!--{{/if}}-->
-	<!--</span>-->
-	<!--{{/if}}-->
+		-->{{#if ticket.IsCharter}}<span>, чартер</span><!--
+			-->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные а/п отлета и прилета</span>{{/if}}
+		{{/if}}<!--
+		-->{{#if !ticket.IsCharter}}<!--
+			-->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные аэропорты отлета и прилета</span>{{/if}}
+		{{/if}}<!--
 
-	{{#if !showWarning() }}
-        <span class="pull-left warning">
-			{{#if ticket.IsCharter}}<span>Чартер</span><!--
-                -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные аэропорты отлета и прилета</span>{{/if}}
-            {{/if}}<!--
-            -->{{#if !ticket.IsCharter}}<!--
-                -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>Разные аэропорты отлета и прилета</span>{{/if}}
-            {{/if}}
-        </span>
-	{{/if}}
+
+		-->{{#if ticket.baggageAlert}}<span>, Платный багаж</span>{{/if}}
+	</span>
+
 	<span class="bottom-actions__button bottom-actions__button_action_details like-link"
 	      on-click="getTicketDetails"
 	      style="right: 0"
