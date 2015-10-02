@@ -255,6 +255,19 @@
                     }
                 },
 
+                getLuggageLimitFromValue: function (luggageLimit) {
+                    var baggage = '';
+                    var alert = false;
+                    switch (luggageLimit) {
+                        case '': baggage = ''; break;
+                        case '0': baggage = 'Платный багаж!'; alert = true; break;
+                        case '1PC': baggage = 'Багаж: 23кг'; break;
+                        default: baggage = 'Багаж: ' + luggageLimit; break;
+                    }
+
+                    return {baggage: baggage, alert: alert}
+                },
+
                 addCustomFields: function (item) {
                     var departureDate = dateHelper.apiDateToJsDate(item.DepartureDate);
                     var arrivalDate = dateHelper.apiDateToJsDate(item.ArrivalDate);
@@ -359,21 +372,12 @@
                         var luggageLimit = etap.LuggageLimit;
                         //console.log('luggageLimit', luggageLimit);
 
-                        //ToDo: debug
-                        //luggageLimit = '1PC';
+                        var luggageLimitObj = helper.getLuggageLimitFromValue(luggageLimit);
 
-                        var baggage = '';
-                        var alert = false;
-                        switch (luggageLimit) {
-                            case '': baggage = ''; break;
-                            case '0': baggage = 'Платный багаж!'; alert = true; break;
-                            case '1PC': baggage = 'Багаж: 23кг'; break;
-                            default: baggage = 'Багаж: ' + luggageLimit; break;
-                        }
-                        etap.baggage = baggage;
-                        etap.baggageAlert = alert;
+                        etap.baggage = luggageLimitObj.baggage;
+                        etap.baggageAlert = luggageLimitObj.alert;
 
-                        if (alert) {
+                        if (etap.baggageAlert) {
                             itemBaggageStatus.alert = true;
                         }
                     }
