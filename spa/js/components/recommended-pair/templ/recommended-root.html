@@ -36,7 +36,8 @@
 				</h3>
 
 				<h3 class="recommend-bundle-title" ng-if="isVisible && !isChooseHotel">
-					Рекомендованный вариант
+					<span ng-if="!defaultRecommendedPair.Cheapest">Рекомендуем</span>
+					<span ng-if="defaultRecommendedPair.Cheapest">Минимальная цена</span>
 				</h3>
 
 				<div class="expand-collapse-link w-expand-collapse-link_up w-expand-collapse-link" ng-if="isVisible">
