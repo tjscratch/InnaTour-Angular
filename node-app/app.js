@@ -52,7 +52,9 @@ app.use('/', require('./routes/serve_static'));
 //app.use(cookieParser(nconf.get('cookie:secret')));
 
 var routes = require('./routes/index');
+var proxy = require('./routes/proxy');
 
+app.use('/', proxy);
 app.use('/', routes);
 
 
