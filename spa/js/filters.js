@@ -43,8 +43,10 @@ innaAppFilters.filter('limitFilter', ['$filter', function ($filter) {
 innaAppFilters.filter('price', function () {
     function addZero(val) {
         val = +val;
-        if (val < 10)
-            return '0' + val;
+        if (val <= 10) {
+            return val + '0';
+        }
+
         return '' + val;
     }
 
@@ -72,13 +74,20 @@ innaAppFilters.filter('price', function () {
                 result.push(digits[i]);
             }
 
-            if (kopeckPart) {
+            if (kopeckPart !== null) {
                 return result.reverse().join('') + '.' + addZero(kopeckPart);
             }
             else {
                 return result.reverse().join('');
             }
-        } else return val;
+        } else {
+            if (kopeckPart !== null) {
+                return rubPart + '.' + addZero(kopeckPart);
+            }
+            else {
+                return val;
+            }
+        }
     };
 });
 
