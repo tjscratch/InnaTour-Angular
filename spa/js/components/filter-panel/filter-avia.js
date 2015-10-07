@@ -24,7 +24,8 @@ angular.module('innaApp.directives')
         'FilterAirPort',
         'FilterAviaLegs',
         'FilterPrice',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, $timeout, FilterPanel, FilterTime, FilterAirline, FilterAirPort, FilterAviaLegs, FilterPrice) {
+        'FilterLuggageLimits',
+        function (EventManager, $filter, $templateCache, $routeParams, Events, $timeout, FilterPanel, FilterTime, FilterAirline, FilterAirPort, FilterAviaLegs, FilterPrice, FilterLuggageLimits) {
 
             return {
                 scope: {
@@ -50,7 +51,8 @@ angular.module('innaApp.directives')
                             'FilterTime': FilterTime,
                             'FilterAirline': FilterAirline,
                             'FilterAirPort': FilterAirPort,
-                            'FilterAviaLegs': FilterAviaLegs
+                            'FilterAviaLegs': FilterAviaLegs,
+                            'FilterLuggageLimits': FilterLuggageLimits
                         }
                     });
 

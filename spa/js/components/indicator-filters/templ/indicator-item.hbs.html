@@ -125,6 +125,16 @@
 			{{/each}}
 		{{/if}}
 
+		{{#if filterItem.name == 'LuggageLimits'}}
+			{{#each filterItem.val}}
+                <li class="b-switch-filters__item">
+					{{this.Name}}
+                    <span class="b-switch-filters__item_close icon-sprite-remove"
+                          on-click="removeFilter:{{directionOriginal}}"></span>
+                </li>
+			{{/each}}
+		{{/if}}
+
 
     </ul>
 {{/if}}
