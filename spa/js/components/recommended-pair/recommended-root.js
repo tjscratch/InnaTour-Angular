@@ -97,10 +97,33 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                 }
 
 
-                if ($location.search().ticket || $location.search().hotel) {
-                    $scope.isChooseHotel = true;
-                }
+                $scope.monitorRecommendedChange = function () {
+                    var isChooseHotel = true;
+                    //если выбран отличный от рекомендованного варианта - проставляем флаг
+                    if ($location.search().ticket || $location.search().hotel) {
+                        if ($scope.defaultRecommendedPair &&
+                            $scope.defaultRecommendedPair.HotelId == $location.search().hotel &&
+                            $scope.defaultRecommendedPair.TicketId == $location.search().ticket
+                        )
+                            isChooseHotel = false;
 
+                        //if ($scope.defaultRecommendedPair){
+                        //    console.log('recommended hotel', $scope.defaultRecommendedPair.HotelId, 'from url', $location.search().hotel);
+                        //}
+                    }
+                    $scope.isChooseHotel = isChooseHotel;
+                };
+
+
+                $scope.$root.$on('$locationChangeSuccess', function () {
+                    //console.log('$locationChangeSuccess');
+                    $scope.monitorRecommendedChange();
+                });
+
+                $scope.$watch('defaultRecommendedPair', function (val) {
+                    //console.log('defaultRecommendedPair val', val);
+                    $scope.monitorRecommendedChange();
+                });
 
                 function setActiveTab(data) {
                     $scope.tabActive = data;
@@ -162,7 +185,6 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                         $timeout(function () {
                             $animate.removeClass('.recommended-pair', 'hotel-loading')
                         }, 500);
-                        $scope.isChooseHotel = true;
                         $scope.display.fullDisplay();
                     });
                 });
@@ -189,7 +211,6 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                         //console.info(Math.ceil(end.diff(start,  'days', true)));
 
 
-                        $scope.isChooseHotel = true;
                         $scope.display.fullDisplay();
                     });
                 });

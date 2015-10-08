@@ -39,11 +39,32 @@ innaAppFilters.filter('limitFilter', ['$filter', function ($filter) {
 }]);
 
 //приводит цену (123567) к виду (123 567)
+//приводит цену (123567.1) к виду (123 567.01)
 innaAppFilters.filter('price', function () {
+    function addZero(val) {
+        val = +val;
+        if (val <= 10) {
+            return val + '0';
+        }
+
+        return '' + val;
+    }
+
     return function (val) {
         if (!val) return val;
 
-        var digits = ("" + val).split('');
+        var rubPart = val;
+        var kopeckPart = null;
+        var strVal = '' + val;
+        if (strVal.indexOf('.') > -1) {
+            var parts = strVal.split('.');
+            if (parts && parts.length > 1){
+                rubPart = parts[0];
+                kopeckPart = parts[1];
+            }
+        }
+
+        var digits = ("" + rubPart).split('');
         var result = [];
 
         if (digits.length > 3) {
@@ -53,8 +74,20 @@ innaAppFilters.filter('price', function () {
                 result.push(digits[i]);
             }
 
-            return result.reverse().join('');
-        } else return val;
+            if (kopeckPart !== null) {
+                return result.reverse().join('') + '.' + addZero(kopeckPart);
+            }
+            else {
+                return result.reverse().join('');
+            }
+        } else {
+            if (kopeckPart !== null) {
+                return rubPart + '.' + addZero(kopeckPart);
+            }
+            else {
+                return val;
+            }
+        }
     };
 });
 
