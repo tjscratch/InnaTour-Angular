@@ -355,14 +355,8 @@ angular.module('innaApp.components').
                             _.each(item.EtapsBack, function (etap) {
                                 addBaggage(itemBaggageList, etap.LuggageLimit);
                             });
-
-
-                            itemBaggageList = _.uniq(itemBaggageList, true)
-
-                            //добавляем в общий список
+                            itemBaggageList = _.uniq(itemBaggageList, true);
                             item.LuggageLimits = item.LuggageLimits.concat(itemBaggageList);
-                            //console.log(item.LuggageLimits);
-                            //console.log(item.LuggageLimits)
 
                         })
                     }
