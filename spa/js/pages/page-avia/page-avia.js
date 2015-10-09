@@ -1129,7 +1129,8 @@ innaAppControllers.
                         });
 
                         //багаж: baggageList item'а входят в список выбранных фильтров
-                        var itemInBaggage = noBaggagesSelected ? null : _.any(baggagesFilters, function (bag) {
+                        //_.all - проверяем, что на всех этапах выбранный фильтр
+                        var itemInBaggage = noBaggagesSelected ? null : _.all(baggagesFilters, function (bag) {
                             var bObj = _.find(item.baggageList, function (bi) {
                                 return bi.value == bag.value;
                             });
