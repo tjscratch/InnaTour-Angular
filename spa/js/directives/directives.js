@@ -54,7 +54,7 @@ innaAppDirectives.
                             //открываем в новом окне
                             window.open(link, (isBlank ? '_blank' : ''));
 
-                            //ждем 2 секунды
+                            //ждем 4 секунды
                             $timeout(function () {
                                 var completeLinkData = localStorage.getItem(PREFIX + key) || null;
                                 //если не null - значит в новом окне нихуя не открылось - открываем в этом
@@ -74,7 +74,7 @@ innaAppDirectives.
                                 else {
                                     //console.log('completeLinkData empty, yyy!!!');
                                 }
-                            }, 2000);
+                            }, 4000);
                         });
 
                         intervId = $interval(function () {
