@@ -1130,11 +1130,22 @@ innaAppControllers.
 
                         //багаж: baggageList item'а входят в список выбранных фильтров
                         //_.all - проверяем, что на всех этапах выбранный фильтр
-                        var itemInBaggage = noBaggagesSelected ? null : _.all(baggagesFilters, function (bag) {
-                            var bObj = _.find(item.baggageList, function (bi) {
-                                return bi.value == bag.value;
+                        var itemInBaggage = noBaggagesSelected ? null : _.any(baggagesFilters, function (bag) {
+                            //var bObj = _.find(item.baggageList, function (bi) {
+                            //    return bi.value == bag.value;
+                            //});
+
+                            //проверяем что во всех этапах туда есть заданный фильтр
+                            var foundInEtapsTo = _.all(item.EtapsTo, function (etap) {
+                                return etap.LuggageLimit == bag.value;
                             });
-                            return bObj != null;
+                            var foundInEtapsBack = _.all(item.EtapsBack, function (etap) {
+                                return etap.LuggageLimit == bag.value;
+                            });
+
+                            //соответственно, итем попадает в набор если во всех
+                            //этапах есть заданный фильтр
+                            return foundInEtapsTo && foundInEtapsBack;
                         });
 
                         //проверяем цену
