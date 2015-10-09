@@ -21,8 +21,8 @@ angular.module('innaApp.components').
              */
             var TicketItem = DynamicBlock.extend({
                 data: {
-                    type : 'ticket',
-                    hidden : false,
+                    type: 'ticket',
+                    hidden: false,
                     settings: {
                         height: 200,
                         countColumn: 2,
@@ -32,7 +32,7 @@ angular.module('innaApp.components').
                     showWarning: function () {
                         return this.showWarning();
                     },
-                    TimeFormatted : aviaHelper.getFlightTimeFormatted
+                    TimeFormatted: aviaHelper.getFlightTimeFormatted
                 },
                 partials: {
                     collOneContent: $templateCache.get('components/ticket/templ/avia-dp.hbs.html'),
@@ -44,12 +44,14 @@ angular.module('innaApp.components').
                     var that = this;
 
                     var modelTicket = new ModelTicket(this.get('ticket'));
-                    var modelPrice = new ModelPrice({data : this.get('ticket')});
+                    var modelPrice = new ModelPrice({data: this.get('ticket')});
+
 
                     this.set({
                         modelTicket: modelTicket,
-                        modelPrice : modelPrice,
-                        passengerCount: parseInt($routeParams.Adult) + ($routeParams.Children ? $routeParams.Children.split('_').length : 0)
+                        modelPrice: modelPrice,
+                        passengerCount: parseInt($routeParams.Adult) + ($routeParams.Children ? $routeParams.Children.split('_').length : 0),
+                        baggageAlert: _.include(modelTicket.data.LuggageLimits, "Платный багаж")
                     });
 
 
@@ -68,8 +70,7 @@ angular.module('innaApp.components').
                     });
 
 
-
-                    if(this.get('combinationModel').ticket.data.VariantId1 == this.get('ticket.VariantId1')){
+                    if (this.get('combinationModel').ticket.data.VariantId1 == this.get('ticket.VariantId1')) {
                         that.set('hidden', true);
                     }
 
@@ -78,8 +79,8 @@ angular.module('innaApp.components').
                      * Когда выбераем отель, то прячем его( убираем из списка и показываем в выбранном варианте)
                      * Тот отель что был выбран ранее, показываем
                      */
-                    EventManager.on(Events.DYNAMIC_SERP_CHOOSE_TICKET, function(modelTicket, ticketId){
-                        if((ticketId != that.get('ticket.VariantId1')) && that.get('hidden')){
+                    EventManager.on(Events.DYNAMIC_SERP_CHOOSE_TICKET, function (modelTicket, ticketId) {
+                        if ((ticketId != that.get('ticket.VariantId1')) && that.get('hidden')) {
                             that.set('hidden', false);
                         }
                     });
@@ -96,8 +97,8 @@ angular.module('innaApp.components').
                     EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_TICKET, this.get('modelTicket'), this.get('ticket.VariantId1'));
                 },
 
-                CHOOSE_TICKET : function(modelTicket, ticketId){
-                    if((ticketId != this.get('ticket.VariantId1')) && this.get('hidden')){
+                CHOOSE_TICKET: function (modelTicket, ticketId) {
+                    if ((ticketId != this.get('ticket.VariantId1')) && this.get('hidden')) {
                         this.set('hidden', false);
                     }
                 },
@@ -106,9 +107,9 @@ angular.module('innaApp.components').
                     var n = parseInt(this.get('NumSeats'));
                     var routParam = angular.copy($routeParams);
                     var passengerCount = parseInt(routParam.Adult) + (routParam.Children ? routParam.Children.split('_').length : 0);
-                    
+
                     if (!n) return false;
-                                    
+
                     switch (passengerCount) {
                         case 1:
                             return (n <= 3);
@@ -121,7 +122,7 @@ angular.module('innaApp.components').
                         default:
                             return (n <= 9);
                     }
-                
+
                     return false;
                 },
 
