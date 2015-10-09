@@ -261,8 +261,7 @@
                     switch (luggageLimit) {
                         case '': baggage = ''; break;
                         case '0': baggage = 'Платный багаж!'; alert = true; break;
-                        case '1PC': baggage = 'Багаж: 23кг'; break;
-                        default: baggage = 'Багаж: ' + luggageLimit; break;
+                        default: baggage = luggageLimit; break;
                     }
 
                     return {baggage: baggage, alert: alert}
