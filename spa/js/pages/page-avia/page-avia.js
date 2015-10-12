@@ -271,6 +271,7 @@ innaAppControllers.
                     $scope.resetTime($event);
                     $scope.resetCompanies($event);
                     $scope.resetPorts($event);
+                    $scope.resetBagages($event);
                 };
 
                 $scope.resetPrice = function ($event) {
@@ -319,6 +320,13 @@ innaAppControllers.
                         item.checked = false
                     });
                     _.each($scope.filter.AirportFilter.toPorts, function (item) {
+                        item.checked = false
+                    });
+                };
+
+                $scope.resetBagages = function ($event) {
+                    eventsHelper.preventBubbling($event);
+                    _.each($scope.filter.BaggageFilter.list, function (item) {
                         item.checked = false
                     });
                 };
