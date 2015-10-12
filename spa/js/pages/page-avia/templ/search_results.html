@@ -93,10 +93,13 @@
 	                        ng-repeat="item in filter.AirportFilter.fromPorts">{{item.name}} {{item.code}} <a class="b-switch-filters__item_close icon-sprite-remove" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
 	                    <li class="b-switch-filters__item" ng-if="item.checked"
 	                        ng-repeat="item in filter.AirportFilter.toPorts">{{item.name}} {{item.code}} <a class="b-switch-filters__item_close icon-sprite-remove" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+						<li class="b-switch-filters__item" ng-if="item.checked"
+							ng-repeat="item in filter.BaggageFilter.list">{{item.name}}<a class="b-switch-filters__item_close icon-sprite-remove" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
 	                </ul>
 	            </div>
 	            <a href="#" ng-show="filter.maxPrice < filter.maxPriceInitial || anyChecked(filter.TransferCountListAgg) || anyChecked(filter.time.list) || anyChecked(filter.TransporterList)
-	               || anyChecked(filter.AirportFilter.fromPorts) || anyChecked(filter.AirportFilter.toPorts)"
+	               || anyChecked(filter.AirportFilter.fromPorts) || anyChecked(filter.AirportFilter.toPorts)
+	               || anyChecked(filter.BaggageFilter.list)"
 	               class="ra-tags-reset avia" ng-click="resetAll($event)">Сбросить все фильтры</a>
 	        </div>
 	    </aside>
