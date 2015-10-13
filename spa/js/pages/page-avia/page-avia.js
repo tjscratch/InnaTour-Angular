@@ -960,6 +960,10 @@ innaAppControllers.
                     list = _.uniq(list, false, function (item) {
                         return item.name;
                     });
+                    //удаляем пустое значение из фильтра
+                    list = _.filter(list, function (item) {
+                        return item.value != null && item.value.length > 0;
+                    });
 
                     //цены
                     for (var i = 0; i < list.length; i++) {
