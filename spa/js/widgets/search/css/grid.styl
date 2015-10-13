@@ -68,6 +68,7 @@ $offset-row = -3px;
     .b-inna-search-form{
         padding-top 4px
         padding-bottom 4px
+        border-radius 0 0 $border-radius $border-radius
     }
     .b-inna-col__typeahead{
         width 100%
@@ -85,4 +86,30 @@ $offset-row = -3px;
         width 50%
         padding $offset
     }
+    .inna-arrow-bottom{
+        display none
+    }
+    .b-inna-search__nav{
+
+        &:before,
+        &:after{
+            content ''
+            display block
+            clear both
+        }
+
+        li{
+            padding-left: 19px;
+            padding-right: 19px;
+            
+            &:first-child{
+                float left
+            }
+            &:last-child{
+                float right
+                margin-right 0
+            }
+        }
+    }
+
 }
