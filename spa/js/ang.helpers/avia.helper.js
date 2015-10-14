@@ -255,6 +255,18 @@
                     }
                 },
 
+                getLuggageLimitFromValue: function (luggageLimit) {
+                    var baggage = '';
+                    var alert = false;
+                    switch (luggageLimit) {
+                        case '': baggage = ''; break;
+                        case '0': baggage = 'Платный багаж!'; alert = true; break;
+                        default: baggage = luggageLimit; break;
+                    }
+
+                    return {baggage: baggage, alert: alert}
+                },
+
                 addCustomFields: function (item) {
                     var departureDate = dateHelper.apiDateToJsDate(item.DepartureDate);
                     var arrivalDate = dateHelper.apiDateToJsDate(item.ArrivalDate);
@@ -335,7 +347,7 @@
                         }
                     }
 
-                    function addFieldsToEtap(etap, etapNext) {
+                    function addFieldsToEtap(etap, etapNext, itemBaggageStatus) {
                         etap.TransporterCodeUrl = helper.setEtapsTransporterCodeUrl(etap.TransporterLogo);
                         etap.OutTimeFormatted = getTimeFormat(etap.OutTime);
                         etap.OutDateFormatted = getDateFormat(etap.OutTime);
@@ -351,7 +363,26 @@
                             etap.NextOutCode = etapNext.OutCode;
                             etap.NextOutCountryName = etapNext.OutCountryName;
                         }
+
+                        addBaggageFields(etap, itemBaggageStatus);
                     }
+
+                    function addBaggageFields(etap, itemBaggageStatus) {
+                        var luggageLimit = etap.LuggageLimit;
+                        //console.log('luggageLimit', luggageLimit);
+
+                        var luggageLimitObj = helper.getLuggageLimitFromValue(luggageLimit);
+
+                        etap.baggage = luggageLimitObj.baggage;
+                        etap.baggageAlert = luggageLimitObj.alert;
+
+                        if (etap.baggageAlert) {
+                            itemBaggageStatus.alert = true;
+                        }
+                    }
+
+                    //алерт платный багаж в item'e
+                    var itemBaggageStatus = { alert: false };
 
                     for (var e = 0; e < item.EtapsTo.length; e++) {
                         var etap = item.EtapsTo[e];
@@ -359,7 +390,7 @@
                         if ((e + 1) < item.EtapsTo.length) {
                             etapNext = item.EtapsTo[e + 1];
                         }
-                        addFieldsToEtap(etap, etapNext);
+                        addFieldsToEtap(etap, etapNext, itemBaggageStatus);
                     }
                     for (var e = 0; e < item.EtapsBack.length; e++) {
                         var etap = item.EtapsBack[e];
@@ -367,7 +398,7 @@
                         if ((e + 1) < item.EtapsBack.length) {
                             etapNext = item.EtapsBack[e + 1];
                         }
-                        addFieldsToEtap(etap, etapNext);
+                        addFieldsToEtap(etap, etapNext, itemBaggageStatus);
                     }
 
 
@@ -394,8 +425,15 @@
 
                     addAirPortFromToFields(item);
 
+                    //добавляем алерт багажа
+                    item.baggageAlert = itemBaggageStatus.alert;
+
                     //проверка на разные аэропорты отлета и прилета, в одну сторону не учитываем
                     item.alertDifferentPorts = (item.OutCode != item.InCodeBack) && item.EtapsBack.length > 0;
+
+                    //ToDo: debug
+                    //item.baggageAlert = true;
+                    //item.alertDifferentPorts = true;
                 },
 
                 addAggInfoFields: function (item) {
@@ -495,7 +533,7 @@
                     return pluralForm(i, str1, str2, str3);
                 },
 
-                getCharterAndNumSeatsText: function (countLeft, ticketsCount, isCharter, isDifferentPorts) {
+                getCharterAndNumSeatsText: function (countLeft, ticketsCount, isCharter, isDifferentPorts, ticket) {
                     //console.log('getCharterAndNumSeatsText: countLeft: %d, ticketsCount: %d, isCharter: %s', countLeft, ticketsCount, isCharter);
                     var sList = [];
                     var seatsText = helper.getNumSeatsText(countLeft, ticketsCount);
@@ -521,6 +559,11 @@
                             sList.push('разные аэропорты отлета и прилета');
                         }
                     }
+
+                    if (ticket && ticket.baggageAlert) {
+                        sList.push('Платный багаж');
+                    }
+
                     return sList.join(', ');
                 },
 
@@ -895,12 +938,29 @@
                     self.visaRulesNeeded = false;
 
                     self.check = function (passengersCitizenshipIds, currentItem) {
+                        console.log('$scope.item', currentItem);
+                        function addUniq(array, name, link) {
+                            var exists = _.find(array, function (it) {
+                                return it.name == name;
+                            });
+
+                            if (!exists) {
+                                //proxy
+                                //href="https://inna.ru/proxy/www.inna.ru
+                                if (link && link.indexOf('http://') == 0){
+                                    link = 'https://inna.ru/proxy/' + link.replace('http://', '');
+                                }
+                                array.push({name: name, link: link});
+                            }
+                        }
+                        
                         var isCitRussia = false;
                         var visaEtapNeeded = false;
                         var visaEtapRulesNeeded = false;
 
                         //console.log('passengersCitizenshipIds:');
                         //console.log(passengersCitizenshipIds);
+                        console.log('currentItem', currentItem);
 
                         if (passengersCitizenshipIds != null && currentItem != null) {
 
@@ -919,7 +979,7 @@
                             var cautionCountries = [];
 
                             if (outVisaGroup != inVisaGroup) {
-                                cautionCountries.push(lastItem.InCountryName);
+                                addUniq(cautionCountries, lastItem.InCountryName, lastItem.InCountryLink);
                             }
 
                             if (currentItem.EtapsTo != null) {
@@ -927,11 +987,11 @@
                                     var etap = currentItem.EtapsTo[i];
                                     if (etap.InVisaGroup != outVisaGroup) {
                                         visaEtapRulesNeeded = true;
-                                        cautionCountries.push(etap.InCountryName);
+                                        addUniq(cautionCountries, etap.InCountryName, etap.InCountryLink);
                                     }
                                     if (etap.OutVisaGroup != outVisaGroup) {
                                         visaEtapRulesNeeded = true;
-                                        cautionCountries.push(etap.OutCountryName);
+                                        addUniq(cautionCountries, etap.OutCountryName, etap.OutCountryLink);
                                     }
                                 }
                             }
@@ -941,18 +1001,16 @@
                                     var etap = currentItem.EtapsBack[i];
                                     if (etap.InVisaGroup != outVisaGroup) {
                                         visaEtapRulesNeeded = true;
-                                        cautionCountries.push(etap.InCountryName);
+                                        addUniq(cautionCountries, etap.InCountryName, etap.InCountryLink);
                                     }
                                     if (etap.OutVisaGroup != outVisaGroup) {
                                         visaEtapRulesNeeded = true;
-                                        cautionCountries.push(etap.OutCountryName);
+                                        addUniq(cautionCountries, etap.OutCountryName, etap.OutCountryLink);
                                     }
                                 }
                             }
-                            cautionCountries = _.uniq(cautionCountries);
                             self.cautionCountries = cautionCountries;
-                            //console.log('cautionCountries:');
-                            //console.log(cautionCountries);
+                            console.log('cautionCountries:', cautionCountries);
                         }
 
                         if (isAllPassRussia && visaEtapNeeded) {

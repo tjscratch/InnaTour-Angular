@@ -25,11 +25,12 @@ angular.module('innaApp.components').
         'IndicatorFilters',
         'HotelItem',
         'TicketItem',
+        'aviaHelper',
 
         'ModelPrice',
         'ModelTicket',
         'ModelHotel',
-        function ($rootScope, EventManager, $filter, $timeout, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem, ModelPrice, ModelTicket, ModelHotel) {
+        function ($rootScope, EventManager, $filter, $timeout, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem, aviaHelper, ModelPrice, ModelTicket, ModelHotel) {
 
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
@@ -41,7 +42,7 @@ angular.module('innaApp.components').
                     AllFilteredData: {},
                     EnumerableList: [],
                     countItemsVisible: 10,
-                    showButtonMore : false
+                    showButtonMore: false
                 },
                 partials: {
                     EnumerableItemHotels: $templateCache.get('components/list-panel/templ/enumerableItemHotel.hbs.html'),
@@ -65,9 +66,9 @@ angular.module('innaApp.components').
                     this.observeEnumerable = null;
 
                     if (this.get('iterable_hotels'))
-                        this.parse(this.get('Enumerable'), { hotel: true });
+                        this.parse(this.get('Enumerable'), {hotel: true});
                     else
-                        this.parse(this.get('Enumerable'), { ticket: true });
+                        this.parse(this.get('Enumerable'), {ticket: true});
 
                     /**
                      * показываем кнопку "показать ещё" только в режиме FullWl
@@ -100,11 +101,11 @@ angular.module('innaApp.components').
                             EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.get('AllFilteredData'), data);
                             EventManager.fire('show-insurance', false);
                         },
-                        goToMore: function (){
+                        goToMore: function () {
                             this.debounceDose();
                         },
 
-                        '*.setCurrent' : this.setCurrent,
+                        '*.setCurrent': this.setCurrent,
 
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
@@ -157,12 +158,12 @@ angular.module('innaApp.components').
                     EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords);
                     EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
                     EventManager.on(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap);
-                    
+
                     /** Событие изменения фильтров или сортировки */
                     EventManager.on(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE);
                 },
 
-                FILTER_PANEL_CHANGE : function(data){
+                FILTER_PANEL_CHANGE: function (data) {
                     this.merge('AllFilteredData', data);
 
                     /* ставим в конец очереди чтоб не блокировать переключение фильтров */
@@ -172,8 +173,8 @@ angular.module('innaApp.components').
                     // если список меньше колличества разовой порции, то скролл нам не нужен
                     if (data.length <= this.get('countItemsVisible')) {
                         this.removeScroll();
-                    }  else {
-                        if(!this.get('scroll'))
+                    } else {
+                        if (!this.get('scroll'))
                             this.addScroll();
                     }
                 },
@@ -186,7 +187,7 @@ angular.module('innaApp.components').
                  * @param modelHotel
                  * @param hotelId
                  */
-                setCurrent : function(modelHotel, hotelId){
+                setCurrent: function (modelHotel, hotelId) {
                     // исключаем вариант
                     var newResult = this.excludeRecommended(this.get('AllFilteredData'));
                     this.set('EnumerableCount', newResult.length);
@@ -208,9 +209,9 @@ angular.module('innaApp.components').
                  * @param event
                  */
                 onScroll: function (event) {
-                    var scrollTop = utils.getScrollTop(),
+                    var scrollTop      = utils.getScrollTop(),
                         viewportHeight = window.innerHeight,
-                        elHeight = this.get('elHeight');
+                        elHeight       = this.get('elHeight');
 
 
 //                    console.log((elHeight), (scrollTop + (viewportHeight + 100)));
@@ -271,16 +272,16 @@ angular.module('innaApp.components').
                  * @returns {Array}
                  */
                 nextArrayDoseItems: function () {
-                    var that = this,
-                        start = 0,
-                        end = that.get('countItemsVisible'),
+                    var that    = this,
+                        start   = 0,
+                        end     = that.get('countItemsVisible'),
                         newDose = that.enumerableClone.splice(start, end);
 
                     //console.time("Execution time render");
                     if (newDose.length) {
                         this.set({EnumerableList: this.get('EnumerableList').concat(newDose)});
                     }
-                    if(newDose.length < 10){
+                    if (newDose.length < 10) {
                         if (window.partners && window.partners.isFullWL() === true) {
                             this.set('showButtonMore', false);
                         }
@@ -309,7 +310,7 @@ angular.module('innaApp.components').
                         }
 
                         data.forEach(function (item) {
-                            var modelPrice = new ModelPrice({data : item});
+                            var modelPrice = new ModelPrice({data: item});
 
                             // нужно свойство
                             item.getProfit = modelPrice.getProfit();
@@ -319,10 +320,11 @@ angular.module('innaApp.components').
 
                     // подготавливаем данные для авиа билетов
                     if (opt_param.ticket) {
-                        data.forEach(function (item) {
+
+                        data.forEach(function (item, index) {
 
                             var modelTicket = new ModelTicket(item);
-                            var modelPrice = new ModelPrice({data : item});
+                            var modelPrice = new ModelPrice({data: item});
 
                             item.getProfit = modelPrice.getProfit();
 
@@ -335,6 +337,27 @@ angular.module('innaApp.components').
                             item.legsTo = legsTo;
                             item.AirLegs = true;
                             item.legsBack = legsBack;
+                            item.LuggageLimits = [];
+
+
+                            //console.log(index);
+                            function addBaggage(list, luggageLimit) {
+                                switch (luggageLimit) {
+                                    case '': list.push('Нет информации'); break;
+                                    case '0': list.push("Платный багаж"); break;
+                                    default: list.push(luggageLimit); break;
+                                }
+                            }
+                            var itemBaggageList = [];
+                            _.each(item.EtapsTo, function (etap) {
+                                addBaggage(itemBaggageList, etap.LuggageLimit);
+                            });
+                            _.each(item.EtapsBack, function (etap) {
+                                addBaggage(itemBaggageList, etap.LuggageLimit);
+                            });
+                            itemBaggageList = _.uniq(itemBaggageList, true);
+                            item.LuggageLimits = item.LuggageLimits.concat(itemBaggageList);
+
                         })
                     }
                     return data;
@@ -374,7 +397,7 @@ angular.module('innaApp.components').
                  * @param opt_data
                  */
                 cloneData: function (opt_data, opt_exclude) {
-                    if(opt_data) this.set('EnumerableList', []);
+                    if (opt_data) this.set('EnumerableList', []);
                     var list = opt_data || this.set('Enumerable');
 
                     this.enumerableCount(list, opt_exclude);

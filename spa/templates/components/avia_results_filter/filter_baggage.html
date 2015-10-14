@@ -1,0 +1,21 @@
+<li ng-show="list.length > 1">
+    <a href="javascript:void(0)" class="filters__link" ng-class="{'filters__link_selected':anyChecked()}" ng-click="toggle($event)">Багаж</a>
+    <div class="filters__baloon" ng-show="isOpen" style="z-index:101;">
+        <header class="ra-header">
+            <h4 class="ra-title">Багаж</h4>
+            <a class="ra-header-link" ng-href="#" ng-click="resetFilter($event)">Сбросить</a>
+        </header>
+        <div class="ra-content">
+            <ul class="ra-fly-type-list">
+                <li ng-repeat="item in list" title="{{item.value}}">
+                    <label>
+                        <input type="checkbox" name="fly" ng-model="item.checked" />
+                        <span class="ra-checkbox"></span>
+                        <span class="ra-fly-type">{{item.name}}</span>
+                        <!--<span class="ra-fly-price">{{item.price | price}} <ng-include src="'components/ruble.html'" /></span>-->
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+</li>

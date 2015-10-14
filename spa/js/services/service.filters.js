@@ -24,19 +24,23 @@
                 var filterCollection = param_filter.collection;
                 var filters = param_filter.filterCollection;
 
+
                 // проход по коллекции данных
                 for (var j = 0; j < filterCollection.length; j++) {
                     var item = filterCollection[j];
 
                     // проход по фильтрам
                     var filterResult = filters.filter(function (filter) {
-                        if (item[filter.name] == undefined) return false;
+                        
+                        if (item[filter.name] == undefined) {
+                            return false;
+                        }
 
                         // для некоторых компонентов нужно передать не просто поле
                         // по которому фильтруем, а весь item, так как более сложному фильтру нужно несколько полей
                         if (filter.fn != undefined) {
-                            var paramForFn = item[filter.name];
 
+                            var paramForFn = item[filter.name];
                             switch (filter.name) {
                                 case 'DepartureDate':
                                     paramForFn = item;
@@ -46,19 +50,23 @@
                                     paramForFn = item;
                             }
 
-                            //console.log(filters.fn(paramForFn), 'filters.fn(paramForFn)');
                             return filter.fn(paramForFn, filter);
                         }
                     });
 
-                    if (filterResult.length == filters.length)
+
+                    //console.log('filterResult')
+                    //console.log(filterResult)
+                    if (filterResult.length == filters.length) {
                         filterEnumerable.push(item);
+                    }
+
                 }
 
                 return filterEnumerable;
             },
 
-            sortListPanel : function(sortCollection, sortData){
+            sortListPanel: function (sortCollection, sortData) {
                 if (!sortCollection || !sortCollection.length) return false;
 
                 var sortType = {

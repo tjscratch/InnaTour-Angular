@@ -78,7 +78,7 @@
 
         <div class="bottom-actions row">
             <div class="col-xs-10 col-no-padding">
-                <span class="warning">{{helper.getCharterAndNumSeatsText(item.NumSeats, ticketsCount, item.IsCharter, item.alertDifferentPorts)}}</span>
+                <span class="warning">{{helper.getCharterAndNumSeatsText(item.NumSeats, ticketsCount, item.IsCharter, item.alertDifferentPorts, item)}}</span>
             </div>
             <div class="col-xs-2 col-no-padding align-right">
                 <a href="#" ng-click="popupItemInfo_show($event, item, criteria, searchId)">Подробнее</a>
