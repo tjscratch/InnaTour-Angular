@@ -2,6 +2,7 @@ angular.module('innaApp.components').
     factory('FilterLuggageLimits',
     function (EventManager, $filter, $templateCache, $routeParams, ClassFilter) {
 
+
         var FilterLuggageLimits = ClassFilter.extend({
 
             template: $templateCache.get('components/filter-panel/templ-filters/avia.bagage.hbs.html'),
@@ -18,36 +19,98 @@ angular.module('innaApp.components').
                      */
                     fn: function (data, filter) {
 
-                        var result = [];
+                        var filters = filter.val;
+                        var filterable = data;
 
-                        _(filter.val).forEach(function (fl) {
-                            var eq;
 
-                            // ищем бесплатный багаж
-                            // если в фильтруемом объекте у всех сегментов перелета один тип багажа
-                            // и он не равен "Платный багаж"
-                            // и равен текущему фильтру fl то этот билет нам подходит кладем его в массив
-                            if (data.length == 1 && data[0] != "Платный багаж" && fl != "Платный багаж") {
-                                eq = data[0];
-                                if (fl == eq) {
-                                    result.push(fl);
-                                }
+                        /**
+                         * Если в фильтре выбран только платный багаж, показываем все
+                         * билеты в которых есть хотя бы один сегмент с платным багажом
+                         */
+                        if (filters.length == 1 && filters[0] == "Платный багаж" && _.include(filterable, "Платный багаж")) {
+                            return true;
+                        } else {
+                            var values = _.intersection(filters, filterable);
+                            if (values.length == filterable.length) {
+                                //var log = {
+                                //    filters: filters,
+                                //    filterable: filterable,
+                                //    values: values
+                                //}
+                                //console.table(log);
+                                return true;
+                            } else {
+                                return false;
                             }
+                        }
 
-                            // платный багаж во всех сегментах перелета
-                            if (data.length == 1 && data[0] == "Платный багаж" && fl == "Платный багаж") {
-                                result.push(fl);
-                            }
 
-                            // сегментов больше 1
-                            // платный багаж хотя бы в одном сегменте
-                            if (data.length > 1 && _.include(data, "Платный багаж") && fl == "Платный багаж") {
-                                result.push(fl);
-                            }
+                        /**
+                         * 2 и более фильтра в filters
+                         * фильтруемый объект data
+                         * должно выполняться условие
+                         * filters.length >= data.length
+                         *
+                         */
+                        //if (filters.length > 1 && filters.length >= data.length) {
+                        //    var values = _.intersection(filters, data)
+                        //
+                        //    if (values.length > 0 && data.length > 1) {
+                        //        var log = {
+                        //            filters: filters,
+                        //            data: data,
+                        //            values: values
+                        //        }
+                        //        console.table(log);
+                        //    }
+                        //var vl = [];
+                        //_(filter.val).forEach(function (fl) {
+                        //    if (_.include(values, fl)){
+                        //        vl.push(fl);
+                        //    }
+                        //});
+                        //
+                        //console.log(filter.val);
+                        //console.log(vl);
+                        //
+                        //if (vl.length > 0){
+                        //    result.push(1);
+                        //}
 
-                        });
+                        //} else {
 
-                        return (result.length) ? true : false;
+                        //_(filter.val).forEach(function (fl) {
+                        //    var eq;
+
+                        // ищем бесплатный багаж
+                        // если в фильтруемом объекте у всех сегментов перелета один тип багажа
+                        // и он не равен "Платный багаж"
+                        // и равен текущему фильтру fl то этот билет нам подходит кладем его в массив
+                        //if (data.length == 1 && data[0] != "Платный багаж" && fl != "Платный багаж") {
+                        //    eq = data[0];
+                        //    if (fl == eq) {
+                        //        result.push(fl);
+                        //    }
+                        //}
+
+                        // платный багаж во всех сегментах перелета
+                        //if (data.length == 1 && data[0] == "Платный багаж" && fl == "Платный багаж") {
+                        //    result.push(fl);
+                        //}
+
+                        // сегментов больше 1
+                        // платный багаж хотя бы в одном сегменте
+                        //if (data.length > 1 && _.include(data, "Платный багаж") && fl == "Платный багаж") {
+                        //    result.push(fl);
+                        //}
+
+                        //});
+
+                        //}
+
+
+                        //console.log(result)
+                        //return (result.length) ? true : false;
                     }
                 }
             },
