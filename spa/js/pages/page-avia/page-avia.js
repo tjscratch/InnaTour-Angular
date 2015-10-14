@@ -970,7 +970,9 @@ innaAppControllers.
                         var it = list[i];
                         var fList = _.filter(items, function (item) {
                             //смотрим есть ли данный фильтр в итеме
-                            var itemBag = _.find(item.baggageList, function (item) { return item.name == it.name; });
+                            var itemBag = _.find(item.baggageList, function (item) {
+                                return item.name == it.name;
+                            });
                             return itemBag != null;
                         });
 
@@ -1089,9 +1091,17 @@ innaAppControllers.
                 var noBaggagesSelected = _.all($scope.filter.BaggageFilter.list, function (item) {
                     return item.checked == false
                 });
+
                 //выбранные фильтры багажа
-                var baggagesFilters = _.filter($scope.filter.BaggageFilter.list, function (item) {
+                //var baggagesFilters = _.filter($scope.filter.BaggageFilter.list, function (item) {
+                //    return item.checked;
+                //});
+                var baggagesFilters = [];
+                var baggagesFiltersPre = _.filter($scope.filter.BaggageFilter.list, function (item) {
                     return item.checked;
+                });
+                _(baggagesFiltersPre).forEach(function (filter) {
+                    baggagesFilters.push(filter.value);
                 });
 
                 //заодно в цикле вычисляем признак самого дешевого билета
@@ -1142,23 +1152,51 @@ innaAppControllers.
 
                         //багаж: baggageList item'а входят в список выбранных фильтров
                         //_.all - проверяем, что на всех этапах выбранный фильтр
-                        var itemInBaggage = noBaggagesSelected ? null : _.any(baggagesFilters, function (bag) {
-                            //var bObj = _.find(item.baggageList, function (bi) {
-                            //    return bi.value == bag.value;
-                            //});
-
-                            //проверяем что во всех этапах туда есть заданный фильтр
-                            var foundInEtapsTo = _.all(item.EtapsTo, function (etap) {
-                                return etap.LuggageLimit == bag.value;
-                            });
-                            var foundInEtapsBack = _.all(item.EtapsBack, function (etap) {
-                                return etap.LuggageLimit == bag.value;
-                            });
-
-                            //соответственно, итем попадает в набор если во всех
-                            //этапах есть заданный фильтр
-                            return foundInEtapsTo && foundInEtapsBack;
+                        var ItemLuggageLimits = [];
+                        var itemInBaggage = false;
+                        _.each(item.EtapsTo, function (etap) {
+                            ItemLuggageLimits.push(etap.LuggageLimit);
                         });
+                        _.each(item.EtapsBack, function (etap) {
+                            ItemLuggageLimits.push(etap.LuggageLimit);
+                        });
+                        ItemLuggageLimits = _.uniq(ItemLuggageLimits);
+
+
+                        if (noBaggagesSelected) {
+                            itemInBaggage = true;
+                        } else {
+                            /**
+                             * Если в фильтре выбран только платный багаж, показываем все
+                             * билеты в которых есть хотя бы один сегмент с платным багажом
+                             */
+                            if (baggagesFilters.length == 1 && baggagesFilters[0] == '0' && _.include(ItemLuggageLimits, '0')) {
+                                itemInBaggage = true;
+                            } else {
+                                var values = _.intersection(baggagesFilters, ItemLuggageLimits);
+                                if (values.length == ItemLuggageLimits.length){
+                                    itemInBaggage = true;
+                                }
+                            }
+                        }
+
+                        //var itemInBaggage = noBaggagesSelected ? null : _.any(baggagesFilters, function (bag) {
+                        //    var bObj = _.find(item.baggageList, function (bi) {
+                        //        return bi.value == bag.value;
+                        //    });
+                        //
+                        //    //проверяем что во всех этапах туда есть заданный фильтр
+                        //    var foundInEtapsTo = _.all(item.EtapsTo, function (etap) {
+                        //        return etap.LuggageLimit == bag.value;
+                        //    });
+                        //    var foundInEtapsBack = _.all(item.EtapsBack, function (etap) {
+                        //        return etap.LuggageLimit == bag.value;
+                        //    });
+                        //
+                        //    //соответственно, итем попадает в набор если во всех
+                        //    //этапах есть заданный фильтр
+                        //    return foundInEtapsTo && foundInEtapsBack;
+                        //});
 
                         //проверяем цену
                         if (item.Price >= $scope.filter.minPrice && item.Price <= $scope.filter.maxPrice
@@ -1378,4 +1416,7 @@ innaAppControllers.
                 $scope.ractiveControl = null;
 
             });
-        }]);
+        }
+
+    ])
+;
