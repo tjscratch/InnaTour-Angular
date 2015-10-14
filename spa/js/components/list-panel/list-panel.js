@@ -342,10 +342,10 @@ angular.module('innaApp.components').
 
                             //console.log(index);
                             function addBaggage(list, luggageLimit) {
-                                if (luggageLimit == 0){
-                                    list.push("Платный багаж");
-                                }else{
-                                    list.push(luggageLimit);
+                                switch (luggageLimit) {
+                                    case '': list.push('Нет информации'); break;
+                                    case '0': list.push("Платный багаж"); break;
+                                    default: list.push(luggageLimit); break;
                                 }
                             }
                             var itemBaggageList = [];

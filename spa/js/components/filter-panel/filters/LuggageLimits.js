@@ -27,23 +27,24 @@ angular.module('innaApp.components').
                          * Если в фильтре выбран только платный багаж, показываем все
                          * билеты в которых есть хотя бы один сегмент с платным багажом
                          */
-                        if (filters.length == 1 && filters[0] == "Платный багаж" && _.include(filterable, "Платный багаж")) {
+                        var values = _.intersection(filters, filterable);
+                        if (values.length == filterable.length) {
                             return true;
                         } else {
-                            var values = _.intersection(filters, filterable);
-                            if (values.length == filterable.length) {
-                                //var log = {
-                                //    filters: filters,
-                                //    filterable: filterable,
-                                //    values: values
-                                //}
-                                //console.table(log);
-                                return true;
-                            } else {
-                                return false;
-                            }
+                            return false;
                         }
 
+                        //if (filters.length == 1 && filters[0] == "Платный багаж" && _.include(filterable, "Платный багаж")) {
+                        //    return true;
+                        //} else {
+                        //    var values = _.intersection(filters, filterable);
+                        //    if (values.length == filterable.length) {
+                        //        return true;
+                        //    } else {
+                        //        return false;
+                        //    }
+                        //}
+                        //
 
                         /**
                          * 2 и более фильтра в filters
