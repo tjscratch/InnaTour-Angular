@@ -932,7 +932,11 @@ innaAppControllers.
                     function addBaggage(list, luggageLimit) {
                         var luggageLimitObj = aviaHelper.getLuggageLimitFromValue(luggageLimit)
 
-                        var item = {name: luggageLimitObj.baggage, value: luggageLimit, checked: false};
+                        if(luggageLimit){
+                            var item = {name: luggageLimitObj.baggage, value: luggageLimit, checked: false};
+                        }else{
+                            var item = {name: 'Нет информации', value: '', checked: false};
+                        }
                         list.push(item);
                     }
 
@@ -961,9 +965,9 @@ innaAppControllers.
                         return item.name;
                     });
                     //удаляем пустое значение из фильтра
-                    list = _.filter(list, function (item) {
-                        return item.value != null && item.value.length > 0;
-                    });
+                    //list = _.filter(list, function (item) {
+                    //    return item.value != null && item.value.length > 0;
+                    //});
 
                     //цены
                     for (var i = 0; i < list.length; i++) {
@@ -1160,6 +1164,7 @@ innaAppControllers.
                         _.each(item.EtapsBack, function (etap) {
                             ItemLuggageLimits.push(etap.LuggageLimit);
                         });
+                        //console.log(ItemLuggageLimits)
                         ItemLuggageLimits = _.uniq(ItemLuggageLimits);
 
 
@@ -1170,13 +1175,19 @@ innaAppControllers.
                              * Если в фильтре выбран только платный багаж, показываем все
                              * билеты в которых есть хотя бы один сегмент с платным багажом
                              */
-                            if (baggagesFilters.length == 1 && baggagesFilters[0] == '0' && _.include(ItemLuggageLimits, '0')) {
+                            //if (baggagesFilters.length == 1 && baggagesFilters[0] == '0' && _.include(ItemLuggageLimits, '0')) {
+                            //    itemInBaggage = true;
+                            //} else {
+                            //    var values = _.intersection(baggagesFilters, ItemLuggageLimits);
+                            //    if (values.length == ItemLuggageLimits.length){
+                            //        itemInBaggage = true;
+                            //    }
+                            //}
+
+                            //console.log(ItemLuggageLimits)
+                            var values = _.intersection(baggagesFilters, ItemLuggageLimits);
+                            if (values.length == ItemLuggageLimits.length) {
                                 itemInBaggage = true;
-                            } else {
-                                var values = _.intersection(baggagesFilters, ItemLuggageLimits);
-                                if (values.length == ItemLuggageLimits.length){
-                                    itemInBaggage = true;
-                                }
                             }
                         }
 
