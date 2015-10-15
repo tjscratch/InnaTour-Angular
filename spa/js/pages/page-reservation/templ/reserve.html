@@ -9,11 +9,13 @@
 	<p class="buy__price-descr buy__alert" ng-if="(hotel != null)">
 		Внимание! К компонентам пакета применяются разные условия отмены
 		бронирования.<br/>Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event)">правилами применения тарифа
-		авиабилета</a> и <a href="" ng-click="hotelRules.show($event)">условиями бронирования отеля</a>
-		и <a href="" ng-click="insuranceRules.show($event)">правилами медицинского страхования</a>.
+		авиабилета</a> и <a href="" ng-click="hotelRules.show($event)">условиями бронирования отеля</a><span ng-if="item.IsTripToRussia">.</span>
+		<span ng-if="!item.IsTripToRussia">
+		и <a href="" ng-click="insuranceRules.show($event)">правилами медицинского страхования.</a>
+		</span>
 		</p>
 		<br/>
-
+		{{ item.IsTripToRussia }}
 	<p class="buy__price-descr" ng-if="!(hotel != null)">
 		Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event)">правилами
 		применения тарифа авиабилета</a>.
