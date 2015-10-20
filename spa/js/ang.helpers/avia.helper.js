@@ -560,6 +560,14 @@
                         }
                     }
 
+                    if (ticket && ticket.IsLongTransfer) {
+                        sList.push('Долгая пересадка');
+                    }
+
+                    if (ticket && ticket.IsNightStop) {
+                        sList.push('Ночная стыковка');
+                    }
+
                     if (ticket && ticket.baggageAlert) {
                         sList.push('Платный багаж');
                     }
