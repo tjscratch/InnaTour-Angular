@@ -17,6 +17,8 @@
         </span>
         <div>
             <span ng-if="item.alertDifferentPorts">Разные аэропорты вылета и прилета. </span>
+            <span ng-if="item.IsLongTransfer">Долгая пересадка. </span>
+            <span ng-if="item.IsNightStop">Ночная стыковка. </span>
             <span ng-if="item.baggageAlert">Платный багаж. </span>
         </div>
     </div>
