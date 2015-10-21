@@ -56,7 +56,7 @@ innaAppControllers.
                 {from:'Самуи', to:'Отель на Самуи', price:'55$', notes:''},
                 {from:'Хошимин', to:'Отель Нячанг', price:'333$', notes:''},
                 {from:'Хошимин', to:'Отель Фантхьет', price:'148$', notes:''},
-                {from:'Нячанг', to:'Отель Нячанг', price:'26$', notes:''},
+                {from:'Нячанг', to:'Отель Нячанг', price:'50$', notes:''},
                 {from:'Бали', to:'Отели Nusa Dua , T.Benoa , Jimbaran, Sanur, Kuta, Legian', price:'72$', notes:''},
                 {from:'Бали', to:'Отели Sanur', price:'75$', notes:''},
                 {from:'Бали', to:'Отели Ungasan,Pecatu', price:'95$', notes:''},
