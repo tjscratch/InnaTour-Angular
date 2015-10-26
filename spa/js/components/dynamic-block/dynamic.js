@@ -91,7 +91,9 @@ innaAppConponents.
                 onrender: function (options) {
                     this._super(options);
 
-                    this.set('AgencyType', $rootScope.$root.user.getAgencyType());
+                    if ($rootScope.$root.user){
+                        this.set('AgencyType', $rootScope.$root.user.getAgencyType());
+                    }
 
                     this.on({
                         bundleTicketDetails : function(evt){

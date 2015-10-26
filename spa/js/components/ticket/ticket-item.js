@@ -48,7 +48,9 @@ angular.module('innaApp.components').
                     var modelTicket = new ModelTicket(this.get('ticket'));
                     var modelPrice = new ModelPrice({data: this.get('ticket')});
 
-                    this.set('AgencyType', $rootScope.$root.user.getAgencyType());
+                    if($rootScope.$root.user){
+                        this.set('AgencyType', $rootScope.$root.user.getAgencyType());
+                    }
 
                     this.set({
                         modelTicket: modelTicket,

@@ -37,7 +37,9 @@ innaAppControllers.
                 return ($scope.$root.user != null && $scope.$root.user.isAgency());
             };
 
-            $scope.AgencyType = $rootScope.$root.user.getAgencyType();
+            if($rootScope.$root.user){
+                $scope.AgencyType = $rootScope.$root.user.getAgencyType();
+            }
 
             $scope.isShowShare = true;
 
@@ -181,10 +183,14 @@ innaAppControllers.
                         {name: "По времени прибытия ОБРАТНО", sort: avia.sortType.byBackArrivalTime}
                     ];
 
-                    if ($scope.isAgency()) {
-                        self.list.push({name: "По доходности", sort: avia.sortType.byAgencyProfit});
-                        //self.sortType = avia.sortType.byAgencyProfit;
-                        self.sortType = avia.sortType.byPrice;
+                    if ($scope.isAgency() ) {
+                        if($rootScope.$root.user){
+                            if($rootScope.$root.user.getAgencyType() != 1){
+                                self.list.push({name: "По доходности sdf", sort: avia.sortType.byAgencyProfit});
+                                //self.sortType = avia.sortType.byAgencyProfit;
+                                self.sortType = avia.sortType.byPrice;
+                            }
+                        }
                     }
                     else {
                         self.sortType = avia.sortType.byPrice;
