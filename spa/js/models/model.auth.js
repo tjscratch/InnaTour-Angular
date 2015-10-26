@@ -15,7 +15,8 @@ innaAppServices.factory('modelAuth', [
                 Type: data.Type,
                 AgencyActive: data.AgencyActive,
                 SupportPhone: data.SupportPhone,
-                IsSocial: data.IsSocial
+                IsSocial: data.IsSocial,
+                AgencyType: data.AgencyType
             };
         };
 
@@ -55,6 +56,10 @@ innaAppServices.factory('modelAuth', [
 
         Auth.User.prototype.getAgencyId = function () {
             return this.raw.AgencyId;
+        };
+
+        Auth.User.prototype.getAgencyType = function () {
+            return this.raw.AgencyType;
         };
 
 

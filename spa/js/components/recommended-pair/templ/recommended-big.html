@@ -297,8 +297,9 @@
                     {{recommendedPair.getFullPackagePrice() | price}}
                     <ng-include src="'components/ruble.html'"></ng-include>
 
+                    <!--<div class="b-tooltip-price b-tooltip-price_bundle"><span class="icon-price-info cursor-pointer icon-sprite-price-info"></span></div>-->
                     <!-- tooltip price -->
-                    <ng:any ng-if="recommendedPair.hotel.data.PriceObject"
+                    <ng:any ng-if="recommendedPair.hotel.data.PriceObject && $root.user.getAgencyType() != 1"
                             price-generic-directive
                             price-object="recommendedPair.hotel.data.PriceObject"
                             tooltip-klass="bundle"></ng:any>

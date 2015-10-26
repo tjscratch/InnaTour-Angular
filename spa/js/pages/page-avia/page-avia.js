@@ -37,6 +37,8 @@ innaAppControllers.
                 return ($scope.$root.user != null && $scope.$root.user.isAgency());
             };
 
+            $scope.AgencyType = $rootScope.$root.user.getAgencyType();
+
             $scope.isShowShare = true;
 
             $scope.$on('avia.form.loaded', function (event) {
@@ -1319,7 +1321,9 @@ innaAppControllers.
 
                         ticketsCount: $scope.ticketsCount,
 
-                        items: $scope.visibleFilteredTicketsList
+                        items: $scope.visibleFilteredTicketsList,
+
+                        AgencyType: $scope.AgencyType
                     }
                 });
 

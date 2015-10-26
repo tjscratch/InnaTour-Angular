@@ -22,10 +22,12 @@
                 {{priceFilter(PackagePrice)}}
                 {{>ruble}}
             </div>
-            
+
             <!-- Показываем только для авторизованного пользователя b2b -->
             {{#if PriceObject}}
-            <PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}"/>
+                {{#if AgencyType != 1}}
+                    <PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}"/>
+                {{/if}}
             {{/if}}
 
             {{#if modelPrice.getProfit() > 1000}}

@@ -34,6 +34,7 @@
 
 innaAppConponents.
     factory('DynamicBlock', [
+        '$rootScope',
         'EventManager',
         'innaAppApiEvents',
         '$templateCache',
@@ -45,7 +46,7 @@ innaAppConponents.
         'Tripadvisor',
         'PriceGeneric',
         'DatePartialsCollection',
-        function (EventManager, Events, $templateCache, $filter, $location, Stars, Tripadvisor, PriceGeneric, DatePartialsCollection) {
+        function ($rootScope, EventManager, Events, $templateCache, $filter, $location, Stars, Tripadvisor, PriceGeneric, DatePartialsCollection) {
 
             /**
              * Компонент DynamicBlock
@@ -70,7 +71,8 @@ innaAppConponents.
                     },
                     priceFilter: function (text) {
                         return $filter('price')(text);
-                    }
+                    },
+                    AgencyType: null
                 },
                 partials: {
                     collOneContent: '<div></div>',
@@ -88,6 +90,8 @@ innaAppConponents.
 
                 onrender: function (options) {
                     this._super(options);
+
+                    this.set('AgencyType', $rootScope.$root.user.getAgencyType());
 
                     this.on({
                         bundleTicketDetails : function(evt){
