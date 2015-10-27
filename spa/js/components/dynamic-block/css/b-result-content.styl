@@ -64,7 +64,7 @@
             font-size 24px
             font-weight bold
             margin 40px 0 0
-            
+
             &.price-margin-top-55{
                 margin-top 55px
             }
@@ -150,7 +150,7 @@
         padding-left 5px
         padding-right 10px
         font-weight normal
-        
+
         &:hover{
             text-decoration underline
         }
@@ -172,6 +172,9 @@
 .recommendedPairTicketLogo{
     margin: -6px 0 0 0;
 }
+//    
+//    
+//    
 .b-price{
     padding-right: 15px;
     text-align: center;
@@ -179,4 +182,57 @@
 .b-price-container{
     display: inline-block;
     text-align: left;
+}
+//    
+//    
+//    
+.b-cost{
+    height 115px;
+    margin-left: -5px;
+    padding-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .fa-rub{
+        padding-left: 3px;
+    }
+}
+.b-cost__old{
+    height: 110px;
+    padding-top: 0;
+}
+.b-cost-corner{
+    min-height: 22px;
+    margin: 0 0 4px;
+    text-decoration: line-through;
+    color: #acafb1;
+    font-size: 18px;
+    text-align: center;
+}
+.b-cost__price{
+    white-space: nowrap;
+}
+.b-cost__price-value{
+    margin: 0 0 3px;
+    line-height: 1;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    position: relative;
+
+    .fa-rub{
+        font-size: 22px;
+    }
+}
+.b-cost__price-desc{
+    font-size: 12px;
+    font-weight: normal;
+    text-align center;
+}
+.b-cost__price-sum{
+    font-weight bold;
+    font-size: 15px;
 }
