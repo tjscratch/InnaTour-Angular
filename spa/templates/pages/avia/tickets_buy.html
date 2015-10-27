@@ -5,7 +5,7 @@
     <header class="buy__header">
         <h2 class="buy__title">Оплата сервисного сбора</h2>
 
-        <div class="buy__header-price">Стоимость заказа: <b>{{price| price}}
+        <div class="buy__header-price">Стоимость заказа за {{passengerCount | perPerson}}: <b>{{price| price}}
             <ng-include src="'components/ruble.html'"/>
         </b></div>
     </header>
