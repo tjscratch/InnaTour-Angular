@@ -283,10 +283,8 @@
 		     position="left"></div>
 
 
-		<div class="b-cost b-cost__old"
-		     ng-if="false"
-				>
-
+		<!--
+		<div class="b-cost b-cost__old">
 			<div class="corner-price">
 				<div class="cross"
 				     ng-if="recommendedPair.getProfit() > 1000">
@@ -297,32 +295,25 @@
 				     ng-if="recommendedPair.getProfit() > 1000">по отдельности
 				</div>
 			</div>
-
 			<div class="b-cost__price">
-
 				<div class="b-cost__price-desc">Стоимость пакета</div>
-
 				<div class="b-cost__price-value">
 					{{recommendedPair.getFullPackagePrice() | price}}
 					<i class="fa fa-rub"></i>
-
-					<!-- tooltip price -->
 					<ng:any ng-if="recommendedPair.hotel.data.PriceObject"
 					        price-generic-directive
 					        price-object="recommendedPair.hotel.data.PriceObject"
 					        tooltip-klass="bundle"></ng:any>
 				</div>
-
 				<div class="b-cost__price-desc"
 				     ng-if="recommendedPair.getProfit() > 1000">
 					экономия:
 					{{recommendedPair.getProfit() | price}}
 					<i class="fa fa-rub"></i>
 				</div>
-
 			</div>
-
 		</div>
+		-->
 
 		<div class="b-cost" ng-if="true">
 
@@ -334,7 +325,7 @@
 					</div>
 				</div>
 				<div class="b-cost__price-value">
-					{{recommendedPair.getFullPackagePrice() | price}}
+					{{recommendedPair.getCostPerPersonPrice() | price}}
 					<i class="fa fa-rub"></i>
 
 					<!-- tooltip price -->
