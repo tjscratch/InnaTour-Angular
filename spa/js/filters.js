@@ -141,6 +141,26 @@ innaAppFilters.filter('choosePlural', function () {
     }
 });
 
+innaAppFilters.filter('perPerson', function () {
+    return function (n) {
+        n = +n;
+        switch (n) {
+            case 1: return 'одного';
+            case 2: return 'двоих';
+            case 3: return 'троих';
+            case 4: return 'четверых';
+            case 5: return 'пятерых';
+            case 6: return 'шестерых';
+            case 7: return 'семерых';
+            case 8: return 'восьмерых';
+            case 9: return 'девятерых';
+            case 10: return 'десятерых';
+        }
+
+        return '';
+    }
+});
+
 /* ============================================== */
 /* ============================================== */
 /* ============================================== */
