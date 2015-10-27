@@ -186,11 +186,11 @@ innaAppControllers.
                     if ($scope.isAgency() ) {
                         if($rootScope.$root.user){
                             if($rootScope.$root.user.getAgencyType() != 1){
-                                self.list.push({name: "По доходности sdf", sort: avia.sortType.byAgencyProfit});
+                                self.list.push({name: "По доходности", sort: avia.sortType.byAgencyProfit});
                                 //self.sortType = avia.sortType.byAgencyProfit;
-                                self.sortType = avia.sortType.byPrice;
                             }
                         }
+                        self.sortType = avia.sortType.byPrice;
                     }
                     else {
                         self.sortType = avia.sortType.byPrice;
