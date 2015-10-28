@@ -111,10 +111,30 @@
         {{#isItemRecomended}}
             <span class="rl-rec">мы рекомендуем</span>
         {{/}}
-        <span class="rl-price {{this.EtapsBack.length == 0 ? 'rl-price_1way' : ''}}">
-            <span class="rl-price-item">{{priceFilter(this.Price)}}</span><!--
-            -->{{>ruble}}
-        </span>
+
+        {{#usePricePerPerson}}
+            <div class="b-cost b-cost_avia">
+                <div class="b-cost__price">
+                    <div class="b-cost__price-value">
+                        {{priceFilter(this.StandartCostPerPerson)}}
+                        <i class="fa fa-rub"></i>
+                    </div>
+                    <div class="b-cost__price-desc">цена за человека</div>
+                </div>
+                <div class="b-cost__price-sum">
+                    К оплате:
+                    {{priceFilter(this.Price)}}
+                    <i class="fa fa-rub"></i>
+                </div>
+            </div>
+        {{/}}
+
+        {{#!usePricePerPerson}}
+            <span class="rl-price {{this.EtapsBack.length == 0 ? 'rl-price_1way' : ''}}">
+                <span class="rl-price-item">{{priceFilter(this.Price)}}</span><!--
+                -->{{>ruble}}
+            </span>
+        {{/}}
 
         <!-- tooltip price -->
         {{#isAgency()}}

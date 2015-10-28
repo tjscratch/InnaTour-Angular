@@ -28,6 +28,7 @@ innaAppControllers.
             var filters__body = document.querySelector('.js-filter-scroll');
             $scope.location = document.location.href;
 
+            $scope.usePricePerPerson = true;
 
             function log(msg) {
                 $log.log(msg);
@@ -1314,6 +1315,8 @@ innaAppControllers.
                         console: function () {
                             //console.log.apply(console, arguments);
                         },
+
+                        usePricePerPerson: $scope.usePricePerPerson,
 
                         isAgency: $scope.isAgency,
 
