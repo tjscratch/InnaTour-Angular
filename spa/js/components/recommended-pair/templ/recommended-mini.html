@@ -1,70 +1,96 @@
 <div class="row result-small" ng-click="display.fullDisplay()" style="cursor:pointer;">
 
-	<div class="result-small__cell col-xs-6 col-no-padding">
-		<p class="flight">
-			<img class="flight__image"
-			     ng-src="{{airLogo( recommendedPair.ticket.getEtaps('To')[0].data.TransporterCode )}}"
-			     height=28
-			     alt="">
+    <div class="result-small__cell col-xs-5 col-no-padding">
+        <p class="flight">
+            <img class="flight__image"
+                 ng-src="{{airLogo( recommendedPair.ticket.getEtaps('To')[0].data.TransporterCode )}}"
+                 height=28
+                 alt="">
             <span class="white">
                 {{recommendedPair.ticket.data.OutCode}} – {{recommendedPair.ticket.data.InCode}},
                 {{recommendedPair.ticket.data.DepartureDate | date: 'd MMM'}},
             </span>
 
-			в пути: {{recommendedPair.ticket.getDuration('To')}},&nbsp;
-			{{(recommendedPair.ticket.getEtaps('To').length - 1) | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
-		</p>
+            в пути: {{recommendedPair.ticket.getDuration('To')}},&nbsp;
+            {{(recommendedPair.ticket.getEtaps('To').length - 1) | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+        </p>
 
-		<p class="flight">
-			<img class="flight__image"
-			     ng-src="{{airLogo( recommendedPair.ticket.getEtaps('Back')[0].data.TransporterCode )}}" height=28
-			     alt="">
+        <p class="flight">
+            <img class="flight__image"
+                 ng-src="{{airLogo( recommendedPair.ticket.getEtaps('Back')[0].data.TransporterCode )}}" height=28
+                 alt="">
 
             <span class="white">
                 {{recommendedPair.ticket.data.OutCodeBack}} – {{recommendedPair.ticket.data.InCodeBack}},
                 {{recommendedPair.ticket.data.BackDepartureDate | date: 'd MMM'}},
             </span>
-			в пути: {{recommendedPair.ticket.getDuration('Back')}},&nbsp;
-			{{(recommendedPair.ticket.getEtaps('Back').length - 1) | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
-		</p>
-	</div>
-	<div class="result-small__cell col-xs-4">
-		<h3 class="hotel-info-name">
+            в пути: {{recommendedPair.ticket.getDuration('Back')}},&nbsp;
+            {{(recommendedPair.ticket.getEtaps('Back').length - 1) | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+        </p>
+    </div>
+    <div class="result-small__cell col-xs-4">
+        <h3 class="hotel-info-name">
 
             <span stars-directive
                   class="b-display-inline"
                   hotel-data="recommendedPair.hotel.data.Stars"></span>
 
-			{{recommendedPair.hotel.data.HotelName}}
-		</h3>
+            {{recommendedPair.hotel.data.HotelName}}
+        </h3>
 
-		<div class="hotel-info-date">
-			с {{recommendedPair.hotel.data.CheckIn | date: 'd MMM'}}
-			по {{recommendedPair.hotel.data.CheckOut | date: 'd MMM'}},
-			{{recommendedPair.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
-		</div>
-	</div>
-	<div class="result-small__cell col-xs-2 col-no-padding">
+        <div class="hotel-info-date">
+            с {{recommendedPair.hotel.data.CheckIn | date: 'd MMM'}}
+            по {{recommendedPair.hotel.data.CheckOut | date: 'd MMM'}},
+            {{recommendedPair.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+        </div>
+    </div>
+    <!--
+    <div class="result-small__cell col-xs-2 col-no-padding">
 
-		<div class="corner-price">
-			{{recommendedPair.getFullPackagePrice() | price}}<!--
-            -->
-			<ng-include src="'components/ruble.html'"></ng-include>
-		</div>
+        <div class="corner-price">
+            {{recommendedPair.getFullPackagePrice() | price}}
+            <ng-include src="'components/ruble.html'"></ng-include>
+        </div>
 
-		<div class="expand-collapse-link w-expand-collapse-link_down w-expand-collapse-link pull-right">
+        <div class="expand-collapse-link w-expand-collapse-link_down w-expand-collapse-link pull-right">
             <i class="fa fa-caret-down"></i>
             <a href="javascript:void(0);" ng-if="!isVisible">
                 Развернуть
-			</a>
+            </a>
 
-			<!-- tooltip price -->
-			<div ng-if="recommendedPair.hotel.data.PriceObject"
-			     class="price-generic-container"
-			     price-generic-directive
-			     icon-white="true"
-			     price-object="recommendedPair.hotel.data.PriceObject"
-			     tooltip-klass="bundle"></div>
-		</div>
-	</div>
+            <div ng-if="recommendedPair.hotel.data.PriceObject"
+                 class="price-generic-container"
+                 price-generic-directive
+                 icon-white="true"
+                 price-object="recommendedPair.hotel.data.PriceObject"
+                 tooltip-klass="bundle"></div>
+        </div>
+    </div>
+    -->
+    <div class="result-small__cell col-xs-3 col-no-padding">
+
+        <div class="b-cost-expand">
+
+            <div class="b-cost-expand__price">
+                <div class="b-cost-expand__price-value">
+                    {{recommendedPair.getCostPerPersonPrice() | price}}
+                </div>
+                <span><ng-include src="'components/ruble.html'"></ng-include>/чел</span>
+
+                <div ng-if="recommendedPair.hotel.data.PriceObject"
+                     class="b-cost-expand__price-generic"
+                     price-generic-directive
+                     icon-white="true"
+                     price-object="recommendedPair.hotel.data.PriceObject"
+                     tooltip-klass="bundle"></div>
+            </div>
+
+            <div class="b-cost-expand__price-sum">
+                К оплате:
+                {{recommendedPair.getFullPackagePrice() | price}}
+                <i class="fa fa-rub"></i>
+            </div>
+
+        </div>
+    </div>
 </div>
