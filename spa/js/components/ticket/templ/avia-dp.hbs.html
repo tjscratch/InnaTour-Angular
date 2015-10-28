@@ -122,6 +122,8 @@
 			-->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные аэропорты отлета и прилета</span>{{/if}}
 		{{/if}}<!--
 
+		-->{{#if ticket.IsLongTransfer}}<span>, Долгая пересадка</span>{{/if}}<!--
+		-->{{#if ticket.IsNightStop}}<span>, Ночная стыковка</span>{{/if}}<!--
 
 		-->{{#if baggageAlert}}<span>, Платный багаж</span>{{/if}}
 	</span>
