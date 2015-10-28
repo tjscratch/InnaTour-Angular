@@ -29,6 +29,8 @@ innaAppControllers.
             $scope.location = document.location.href;
 
             $scope.usePricePerPerson = true;
+            $scope.personsCount = parseInt($routeParams.AdultCount) + parseInt($routeParams.ChildCount) + parseInt($routeParams.InfantsCount);
+            //$scope.ticketsCount - кол-во билетов
 
             function log(msg) {
                 $log.log(msg);
@@ -634,6 +636,12 @@ innaAppControllers.
                     return item.Price;
                 }).Price;
 
+                //цена за человека
+                if ($scope.usePricePerPerson) {
+                    filter.minPrice = Math.round(filter.minPrice / $scope.personsCount);
+                    filter.maxPrice = Math.round(filter.maxPrice / $scope.personsCount);
+                }
+
                 //пересадки =============================================================================================
 
                 //заполняем список фильтров по пересадкам
@@ -699,6 +707,11 @@ innaAppControllers.
                     tcAgg.price = _.min(list, function (item) {
                         return item.Price;
                     }).Price;
+
+                    //цена за человека
+                    if ($scope.usePricePerPerson) {
+                        tcAgg.price = Math.round(tcAgg.price / $scope.personsCount);
+                    }
                 }
 
                 //вычисляем мин цену (рядом со значением фильтра)
@@ -771,6 +784,11 @@ innaAppControllers.
                     tr.price = _.min(fList, function (item) {
                         return item.Price;
                     }).Price;
+
+                    //цена за человека
+                    if ($scope.usePricePerPerson) {
+                        tr.price = Math.round(tr.price / $scope.personsCount);
+                    }
                 }
 
                 //мин / макс время отправления туда обратно
@@ -905,6 +923,11 @@ innaAppControllers.
                             return item.Price;
                         }).Price;
                         port.price = price;
+
+                        //цена за человека
+                        if ($scope.usePricePerPerson) {
+                            port.price = Math.round(port.price / $scope.personsCount);
+                        }
                     });
                     _.each(toPorts, function (port) {
                         var fList = _.filter(items, function (item) {
@@ -914,6 +937,11 @@ innaAppControllers.
                             return item.Price;
                         }).Price;
                         port.price = price;
+
+                        //цена за человека
+                        if ($scope.usePricePerPerson) {
+                            port.price = Math.round(port.price / $scope.personsCount);
+                        }
                     });
 
                     //заполняем фильтр
@@ -985,6 +1013,11 @@ innaAppControllers.
                         it.price = _.min(fList, function (item) {
                             return item.Price;
                         }).Price;
+
+                        //цена за человека
+                        if ($scope.usePricePerPerson) {
+                            it.price = Math.round(it.price / $scope.personsCount);
+                        }
                     }
 
                     //заполняем фильтр
@@ -998,6 +1031,8 @@ innaAppControllers.
                 $scope.filter = new aviaFilter(filter);
                 //log('updateFilter ' + angular.toJson($scope.filter));
                 //log('updateFilter');
+
+                //console.log('$scope.filter', $scope.filter);
 
                 applyFilter($scope);
             }
@@ -1210,8 +1245,11 @@ innaAppControllers.
                         //    return foundInEtapsTo && foundInEtapsBack;
                         //});
 
+                        //по какому полю ведем сравнение
+                        item.comparePrice = $scope.usePricePerPerson ? item.StandartCostPerPerson : item.Price;
+
                         //проверяем цену
-                        if (item.Price >= $scope.filter.minPrice && item.Price <= $scope.filter.maxPrice
+                        if (item.comparePrice >= $scope.filter.minPrice && item.comparePrice <= $scope.filter.maxPrice
                                 //пересадки
                                 //&& (noTransfersCountChecked || (anyTransferCountChecked && itemInTransferCount))
                             && (noTransfersCountChecked || itemInTransferCount)
@@ -1234,9 +1272,9 @@ innaAppControllers.
 
                         ) {
                             //вычисляем самый дешевый
-                            if (item.Price < minPriceItem.price) {
+                            if (item.comparePrice < minPriceItem.price) {
                                 minPriceItem.item = item;
-                                minPriceItem.price = item.Price;
+                                minPriceItem.price = item.comparePrice;
                             }
 
                             filteredList.push(item);
