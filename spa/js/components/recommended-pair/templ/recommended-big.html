@@ -283,8 +283,8 @@
 		     position="left"></div>
 
 
-		<!--
-		<div class="b-cost b-cost__old">
+
+		<div class="b-cost b-cost__old" ng-if="!CostPerPersonShow">
 			<div class="corner-price">
 				<div class="cross"
 				     ng-if="recommendedPair.getProfit() > 1000">
@@ -313,9 +313,9 @@
 				</div>
 			</div>
 		</div>
-		-->
 
-		<div class="b-cost" ng-if="true">
+
+		<div class="b-cost" ng-if="CostPerPersonShow">
 
 			<div class="b-cost__price">
 				<div class="b-cost-corner">

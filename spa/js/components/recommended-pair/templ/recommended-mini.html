@@ -44,8 +44,9 @@
             {{recommendedPair.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
         </div>
     </div>
-    <!--
-    <div class="result-small__cell col-xs-2 col-no-padding">
+
+    <div class="result-small__cell col-xs-2 col-no-padding"
+            ng-if="!CostPerPersonShow">
 
         <div class="corner-price">
             {{recommendedPair.getFullPackagePrice() | price}}
@@ -66,11 +67,10 @@
                  tooltip-klass="bundle"></div>
         </div>
     </div>
-    -->
-    <div class="result-small__cell col-xs-3 col-no-padding">
 
+    <div class="result-small__cell col-xs-3 col-no-padding"
+         ng-if="CostPerPersonShow">
         <div class="b-cost-expand">
-
             <div class="b-cost-expand__price">
                 <div class="b-cost-expand__price-value">
                     {{recommendedPair.getCostPerPersonPrice() | price}}
@@ -84,13 +84,13 @@
                      price-object="recommendedPair.hotel.data.PriceObject"
                      tooltip-klass="bundle"></div>
             </div>
-
             <div class="b-cost-expand__price-sum">
                 К оплате:
                 {{recommendedPair.getFullPackagePrice() | price}}
                 <i class="fa fa-rub"></i>
             </div>
-
         </div>
     </div>
+
+
 </div>
