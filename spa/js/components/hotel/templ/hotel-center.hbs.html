@@ -27,11 +27,12 @@
 	</div>
 
 	<div class="b-hotel-data__text">
-		{{#if hotel.MealCode == 'RO'}}Без питания (RO){{/if}}
-		{{#if hotel.MealCode == 'BB'}}Завтрак (BB){{/if}}
-		{{#if hotel.MealCode == 'HB'}}Полупансион (HB){{/if}}
-		{{#if hotel.MealCode == 'FB'}}Полный пансион (FB){{/if}}
-		{{#if hotel.MealCode == 'AI'}}Все включено (AI){{/if}}
+		{{#if hotel.MealCode == 'RO'}}Без питания (RO),{{/if}}
+		{{#if hotel.MealCode == 'BB'}}Завтрак (BB),{{/if}}
+		{{#if hotel.MealCode == 'HB'}}Полупансион (HB),{{/if}}
+		{{#if hotel.MealCode == 'FB'}}Полный пансион (FB),{{/if}}
+		{{#if hotel.MealCode == 'AI'}}Все включено (AI),{{/if}}
+		перелет включен
 	</div>
 
 	{{#if hotel.RoomCount <= 3}}
