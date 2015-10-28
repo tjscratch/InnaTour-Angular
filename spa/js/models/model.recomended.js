@@ -13,6 +13,7 @@ innaAppServices.factory('ModelRecommendedPair', [
             this.FullPackagePrice = 0;
             this.FullPrice = 0;
             this.CostPerPersonPrice = 0;
+            this.StandartCostPerPersonPrice = 0;
 
             if(opt_param && (opt_param.ticket && opt_param.hotel)) {
                 this.setTicket(opt_param.ticket);

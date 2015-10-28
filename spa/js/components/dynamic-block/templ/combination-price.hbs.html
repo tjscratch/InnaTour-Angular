@@ -1,3 +1,4 @@
+{{#if !CostPerPersonShow}}
 <div class="b-price">
     <div class="b-price-container">
 
@@ -39,5 +40,35 @@
 
     </div>
 </div>
+{{/if}}
+{{#if CostPerPersonShow}}
+<div class="b-cost">
+
+    <div class="b-cost__price">
+        <div class="b-cost-corner">
+            {{#if modelPrice.getProfit() > 1000}}
+			    {{priceFilter(StandartCostPerPerson)}}
+			    <i class="fa fa-rub"></i>
+            {{/if}}
+        </div>
+        <div class="b-cost__price-value">
+            {{priceFilter(CostPerPerson)}}
+            <i class="fa fa-rub"></i>
+
+            {{#if PriceObject}}
+            <PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}"/>
+            {{/if}}
+        </div>
+        <div class="b-cost__price-desc">цена за человека</div>
+    </div>
+
+    <div class="b-cost__price-sum">
+        К оплате:
+        {{priceFilter(PackagePrice)}}
+        <i class="fa fa-rub"></i>
+    </div>
+
+</div>
+{{/if}}
 
 <span class="button" on-click="setCurrent">Выбрать</span>

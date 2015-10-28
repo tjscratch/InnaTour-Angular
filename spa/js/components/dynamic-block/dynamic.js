@@ -70,7 +70,12 @@ innaAppConponents.
                     },
                     priceFilter: function (text) {
                         return $filter('price')(text);
-                    }
+                    },
+                    /**
+                     * IN-5387
+                     * показ блока с ценой за человека
+                     */
+                    CostPerPersonShow: true
                 },
                 partials: {
                     collOneContent: '<div></div>',
