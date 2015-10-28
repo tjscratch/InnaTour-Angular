@@ -32,6 +32,7 @@ innaAppServices.factory('ModelRecommendedPair', [
             this.setFullPackagePrice(this.hotel.data);
             this.setFullPrice(this.hotel.data);
             this.setCostPerPersonPrice(this.hotel.data);
+            this.setStandartCostPerPersonPrice(this.hotel.data);
         }
 
         Combination.prototype.parse = function(data){
@@ -46,6 +47,10 @@ innaAppServices.factory('ModelRecommendedPair', [
             this.CostPerPersonPrice = data.CostPerPerson;
         }
 
+        Combination.prototype.setStandartCostPerPersonPrice = function(data){
+            this.StandartCostPerPersonPrice = data.StandartCostPerPerson;
+        }
+
         Combination.prototype.setRoom = function(data){
             this.hotel.data.Room = data;
         }
@@ -56,6 +61,10 @@ innaAppServices.factory('ModelRecommendedPair', [
 
         Combination.prototype.getCostPerPersonPrice = function(){
             return this.CostPerPersonPrice;
+        }
+
+        Combination.prototype.getStandartCostPerPersonPrice = function(){
+            return this.StandartCostPerPersonPrice;
         }
 
         Combination.prototype.getFullTotalPrice = function(){
