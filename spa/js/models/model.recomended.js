@@ -12,6 +12,8 @@ innaAppServices.factory('ModelRecommendedPair', [
             this.hotel = null;
             this.FullPackagePrice = 0;
             this.FullPrice = 0;
+            this.CostPerPersonPrice = 0;
+            this.StandartCostPerPersonPrice = 0;
 
             if(opt_param && (opt_param.ticket && opt_param.hotel)) {
                 this.setTicket(opt_param.ticket);
@@ -23,12 +25,15 @@ innaAppServices.factory('ModelRecommendedPair', [
             this.ticket = ticket;
             this.setFullPackagePrice(this.ticket.data);
             this.setFullPrice(this.ticket.data);
+            this.setCostPerPersonPrice(this.ticket.data);
         }
 
         Combination.prototype.setHotel = function(hotel) {
             this.hotel = hotel;
             this.setFullPackagePrice(this.hotel.data);
             this.setFullPrice(this.hotel.data);
+            this.setCostPerPersonPrice(this.hotel.data);
+            this.setStandartCostPerPersonPrice(this.hotel.data);
         }
 
         Combination.prototype.parse = function(data){
@@ -39,12 +44,28 @@ innaAppServices.factory('ModelRecommendedPair', [
             this.FullPackagePrice = data.PackagePrice;
         }
 
+        Combination.prototype.setCostPerPersonPrice = function(data){
+            this.CostPerPersonPrice = data.CostPerPerson;
+        }
+
+        Combination.prototype.setStandartCostPerPersonPrice = function(data){
+            this.StandartCostPerPersonPrice = data.StandartCostPerPerson;
+        }
+
         Combination.prototype.setRoom = function(data){
             this.hotel.data.Room = data;
         }
 
         Combination.prototype.getFullPackagePrice = function(){
             return this.FullPackagePrice;
+        }
+
+        Combination.prototype.getCostPerPersonPrice = function(){
+            return this.CostPerPersonPrice;
+        }
+
+        Combination.prototype.getStandartCostPerPersonPrice = function(){
+            return this.StandartCostPerPersonPrice;
         }
 
         Combination.prototype.getFullTotalPrice = function(){

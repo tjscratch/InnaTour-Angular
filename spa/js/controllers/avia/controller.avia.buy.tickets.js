@@ -944,6 +944,7 @@ innaAppControllers.
                             }
                             else {
                                 $scope.reservationModel = bindApiModelToModel(data);
+                                $scope.passengerCount = $scope.reservationModel.passengers.length;
                                 $scope.svyaznoyPayControl.setTime();
                                 if ($scope.reservationModel.IsService) {//сервисный сбор
                                     var isDp = (data.Hotel != null);

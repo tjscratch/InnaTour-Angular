@@ -142,6 +142,13 @@ angular.module('innaApp.directives')
                             });
 
 
+                            /**
+                             * IN-5387
+                             * показ блока с ценой за человека
+                             */
+                            $scope.CostPerPersonShow = true;
+
+
                             //destroy
                             $scope.$on('$destroy', function () {
 
