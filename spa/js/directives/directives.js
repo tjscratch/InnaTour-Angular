@@ -49,34 +49,28 @@ innaAppDirectives.
                             //нужно отрезать все, что до #
                             var key = getHashFromUrl(link);
 
-                            localStorage.setItem(PREFIX + key, linkData);
+                            //window.open(link, (isBlank ? '_blank' : ''));//похуй _blank или нет - новое окно
 
-                            //открываем в новом окне
-                            window.open(link, (isBlank ? '_blank' : ''));
-
-                            //ждем 4 секунды
-                            $timeout(function () {
-                                var completeLinkData = localStorage.getItem(PREFIX + key) || null;
-                                //если не null - значит в новом окне нихуя не открылось - открываем в этом
-                                if (completeLinkData) {
-                                    //console.log('completeLinkData found', completeLinkData);
-                                    localStorage.removeItem(PREFIX + key);
-                                    //location.href = link;
-
-                                    if (window.partners && window.partners.isFullWL()) {
-                                        //т.к на партнере ссылка типа http://biletix.ru/packages/#/packages/details/...
-                                        location.href = key;
-                                    }
-                                    else {
-                                        location.href = link;
-                                    }
+                            //пробуем открыть новое окно
+                            var winOpenRes = window.open(link);
+                            if (winOpenRes) {
+                                console.log('window opened:', link);
+                            }
+                            else {
+                                console.log('window blocked:', link);
+                                if (window.partners && window.partners.isFullWL()) {
+                                    console.log('loading url: ', key);
+                                    //т.к на партнере ссылка типа http://biletix.ru/packages/#/packages/details/...
+                                    location.href = key;
                                 }
                                 else {
-                                    //console.log('completeLinkData empty, yyy!!!');
+                                    console.log('loading url: ', link);
+                                    location.href = link;
                                 }
-                            }, 4000);
+                            }
                         });
 
+                        //мониторим изменение ссылки
                         intervId = $interval(function () {
                             var href = element.attr('href');
                             if (href.indexOf('javascript:void(0)') > -1) {

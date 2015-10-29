@@ -65,29 +65,7 @@ app.constant('innaApp.Urls', {
     eof: null
 });
 
-//обрабатываем popup ссылки, нужно ли их открывать в том же окне
-function processPopupLinks($location){
-    //console.log('processPopupLinks');
-    var PREFIX = 'LINK_IN_NEW_WINDOW_IF_CAN_';
-    var locationUrl = '/#' + $location.url();
-    for (var key in localStorage) {
-        if (key.startsWith(PREFIX)) {
-            var link = key.replace(PREFIX, '');
-            //console.log('startup link found:', link);
-            //console.log('location', locationUrl);
-
-            //если нашли нашу popup ссылку - то удаляем
-            if (link == locationUrl){
-                //console.log('removing key', key);
-                localStorage.removeItem(key);
-            }
-        }
-    }
-}
-
 app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, $location, $window, $filter) {
-
-    processPopupLinks($location);
 
     // Ractive.defaults
     Ractive.defaults.data.pluralize = utils.pluralize || null;
