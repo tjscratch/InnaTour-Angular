@@ -1,6 +1,10 @@
 <div class="b-hotel-data">
 
-	<a link-in-new-window-if-can href="{{computedUrlDetails()}}" target="_blank" class="b-hotel-data__details"></a>
+	<a data="1" link-in-new-window-if-can
+	   href="{{computedUrlDetails()}}"
+	   target="_blank"
+	   class="b-hotel-data__details">
+	</a>
 
 	{{#if modelPrice.getProfit() > 1000}}
 	<div class="hotel-info__special-mark">
@@ -13,10 +17,10 @@
 	<Stars stars="{{hotel.Stars}}"/>
 
 	<h3 class="b-hotel-data__title b-hotel-data__z-index">
-		<a class="b-hotel-data__title-link"
+		<a data="2" link-in-new-window-if-can
 		   href="{{computedUrlDetails()}}"
 		   target="_blank"
-		   link-in-new-window-if-can>
+		   class="b-hotel-data__title-link">
 			{{hotel.HotelName}}
 		</a>
 	</h3>
@@ -48,7 +52,7 @@
 				TaFactorCeiled="{{hotel.TaFactorCeiled}}"/>
 	</div>
 
-	<a link-in-new-window-if-can 
+	<a data="3" link-in-new-window-if-can
 	   href="{{computedUrlDetails()}}" 
 	   target="_blank" 
 	   class="b-hotel-data__details-footer-link">

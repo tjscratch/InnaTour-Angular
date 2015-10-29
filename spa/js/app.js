@@ -503,3 +503,82 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
     });
 
 }(jQuery));
+
+
+//замена директиве link-in-new-window-if-can
+//jQuery версия - работает и с angular и с ractive
+(function ($) {
+    function getHashFromUrl(url) {
+        var indexOfHash = url.indexOf("/#");
+        var newUrl;
+        if (indexOfHash > -1) {
+            newUrl = url.substring(indexOfHash, url.length);
+        }
+        else {
+            newUrl = url;
+        }
+        return newUrl;
+    }
+
+    function processLinks() {
+        //находим все ссылки
+        var links = $('a[link-in-new-window-if-can=""]');
+        console.log('links', links.length);
+
+        links.each(function (ix, el) {
+            processLink($(el));
+        });
+    }
+
+    function processLink(element) {
+        //var isBlank = false;
+        //if (element.attr('target') == '_blank') {
+        //    element.removeAttr('target');
+        //    isBlank = true;
+        //}
+
+        var dataLink = element.attr('data-link');
+        var link = element.attr('href');
+        //console.log('link', link);
+
+        //если изменилась ссылка
+        if (link != 'javascript:void(0);') {
+            //то сохраняем в data-link, а сам href - обнуляем, чтобы не кликалось
+            element.attr('href', 'javascript:void(0);');
+            element.attr('data-link', link);
+        }
+
+        //если уже навешивали обработчики
+        if (!dataLink) {
+            element.on('click', function () {
+                var link = element.attr('data-link');
+                //на WL фо фрейме ссылки типа
+                //http://biletix.ru/packages/#/packages/details/6733-1735-08.06.2015-11.06.2015-0-2--358469-10000088563-10000088632-4?action=buy
+                //нужно отрезать все, что до #
+                var key = getHashFromUrl(link);
+
+                //window.open(link, (isBlank ? '_blank' : ''));//похуй _blank или нет - новое окно
+
+                //пробуем открыть новое окно
+                var winOpenRes = window.open(link);
+                if (winOpenRes) {
+                    console.log('window opened:', link);
+                }
+                else {
+                    console.log('window blocked:', link);
+                    if (window.partners && window.partners.isFullWL()) {
+                        console.log('loading url: ', key);
+                        //т.к на партнере ссылка типа http://biletix.ru/packages/#/packages/details/...
+                        location.href = key;
+                    }
+                    else {
+                        console.log('loading url: ', link);
+                        location.href = link;
+                    }
+                }
+            });
+        }
+    }
+
+    setInterval(processLinks, 300);
+}(jQuery));

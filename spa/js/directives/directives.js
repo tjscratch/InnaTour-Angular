@@ -2,97 +2,98 @@
 
 /* Directives */
 
-innaAppDirectives.
-    directive('linkInNewWindowIfCan', ['$timeout', '$interval', function ($timeout, $interval) {
-        return {
-            restrict: 'A',
-            link: function ($scope, element, attrs, ngModelCtrl) {
-                //console.log('linkInNewWindowIfCan', element);
-
-                var intervId = null;
-
-                function getHashFromUrl(url) {
-                    //console.log('url:', url);
-                    var indexOfHash = url.indexOf("/#");
-                    var newUrl;
-                    if (indexOfHash > -1) {
-                        newUrl = url.substring(indexOfHash, url.length);
-                    }
-                    else {
-                        newUrl = url;
-                    }
-                    //console.log('newUrl:', newUrl);
-                    return newUrl;
-                }
-
-                var PREFIX = 'LINK_IN_NEW_WINDOW_IF_CAN_';
-
-                if (element.get(0).tagName == 'A') {
-                    //выполняем в след. цикле, чтобы были все значения в аттрибутах
-                    $timeout(function () {
-                        var isBlank = false;
-                        if (element.attr('target') == '_blank') {
-                            element.removeAttr('target');
-                            isBlank = true;
-                        }
-
-                        var link = element.attr('href');
-                        //console.log('link', link);
-                        element.attr('href', 'javascript:void(0);');
-
-                        element.on('click', function () {
-                            var linkData = {'timeStamp': +(new Date())};
-                            linkData = JSON.stringify(linkData);
-
-                            //на WL фо фрейме ссылки типа
-                            //http://biletix.ru/packages/#/packages/details/6733-1735-08.06.2015-11.06.2015-0-2--358469-10000088563-10000088632-4?action=buy
-                            //нужно отрезать все, что до #
-                            var key = getHashFromUrl(link);
-
-                            //window.open(link, (isBlank ? '_blank' : ''));//похуй _blank или нет - новое окно
-
-                            //пробуем открыть новое окно
-                            var winOpenRes = window.open(link);
-                            if (winOpenRes) {
-                                console.log('window opened:', link);
-                            }
-                            else {
-                                console.log('window blocked:', link);
-                                if (window.partners && window.partners.isFullWL()) {
-                                    console.log('loading url: ', key);
-                                    //т.к на партнере ссылка типа http://biletix.ru/packages/#/packages/details/...
-                                    location.href = key;
-                                }
-                                else {
-                                    console.log('loading url: ', link);
-                                    location.href = link;
-                                }
-                            }
-                        });
-
-                        //мониторим изменение ссылки
-                        intervId = $interval(function () {
-                            var href = element.attr('href');
-                            if (href.indexOf('javascript:void(0)') > -1) {
-                            }
-                            else {
-                                //ссылка изменилась - нужно обновить
-                                link = element.attr('href');
-                                element.attr('href', 'javascript:void(0);');
-                                //console.log('link updated', link);
-                            }
-                        }, 300);
-                    }, 0);
-                }
-
-                $scope.$on('$destroy', function () {
-                    if (intervId) {
-                        $interval.cancel(intervId);
-                    }
-                });
-            }
-        };
-    }]);
+//в app.js написана jQuery версия этой директивы, которая работает с angular и ractive
+//innaAppDirectives.
+//    directive('linkInNewWindowIfCan', ['$timeout', '$interval', function ($timeout, $interval) {
+//        return {
+//            restrict: 'A',
+//            link: function ($scope, element, attrs, ngModelCtrl) {
+//                //console.log('linkInNewWindowIfCan', element);
+//
+//                var intervId = null;
+//
+//                function getHashFromUrl(url) {
+//                    //console.log('url:', url);
+//                    var indexOfHash = url.indexOf("/#");
+//                    var newUrl;
+//                    if (indexOfHash > -1) {
+//                        newUrl = url.substring(indexOfHash, url.length);
+//                    }
+//                    else {
+//                        newUrl = url;
+//                    }
+//                    //console.log('newUrl:', newUrl);
+//                    return newUrl;
+//                }
+//
+//                var PREFIX = 'LINK_IN_NEW_WINDOW_IF_CAN_';
+//
+//                if (element.get(0).tagName == 'A') {
+//                    //выполняем в след. цикле, чтобы были все значения в аттрибутах
+//                    $timeout(function () {
+//                        var isBlank = false;
+//                        if (element.attr('target') == '_blank') {
+//                            element.removeAttr('target');
+//                            isBlank = true;
+//                        }
+//
+//                        var link = element.attr('href');
+//                        //console.log('link', link);
+//                        element.attr('href', 'javascript:void(0);');
+//
+//                        element.on('click', function () {
+//                            var linkData = {'timeStamp': +(new Date())};
+//                            linkData = JSON.stringify(linkData);
+//
+//                            //на WL фо фрейме ссылки типа
+//                            //http://biletix.ru/packages/#/packages/details/6733-1735-08.06.2015-11.06.2015-0-2--358469-10000088563-10000088632-4?action=buy
+//                            //нужно отрезать все, что до #
+//                            var key = getHashFromUrl(link);
+//
+//                            //window.open(link, (isBlank ? '_blank' : ''));//похуй _blank или нет - новое окно
+//
+//                            //пробуем открыть новое окно
+//                            var winOpenRes = window.open(link);
+//                            if (winOpenRes) {
+//                                console.log('window opened:', link);
+//                            }
+//                            else {
+//                                console.log('window blocked:', link);
+//                                if (window.partners && window.partners.isFullWL()) {
+//                                    console.log('loading url: ', key);
+//                                    //т.к на партнере ссылка типа http://biletix.ru/packages/#/packages/details/...
+//                                    location.href = key;
+//                                }
+//                                else {
+//                                    console.log('loading url: ', link);
+//                                    location.href = link;
+//                                }
+//                            }
+//                        });
+//
+//                        //мониторим изменение ссылки
+//                        intervId = $interval(function () {
+//                            var href = element.attr('href');
+//                            if (href.indexOf('javascript:void(0)') > -1) {
+//                            }
+//                            else {
+//                                //ссылка изменилась - нужно обновить
+//                                link = element.attr('href');
+//                                element.attr('href', 'javascript:void(0);');
+//                                //console.log('link updated', link);
+//                            }
+//                        }, 300);
+//                    }, 0);
+//                }
+//
+//                $scope.$on('$destroy', function () {
+//                    if (intervId) {
+//                        $interval.cancel(intervId);
+//                    }
+//                });
+//            }
+//        };
+//    }]);
 
 innaAppDirectives.
     directive('appVersion', ['version', function (version) {
