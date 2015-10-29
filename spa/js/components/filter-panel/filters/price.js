@@ -18,9 +18,6 @@ angular.module('innaApp.components').
 						name: 'CostPerPerson',
 						val : [],
 						fn  : function (data, component_val) {
-							console.log("====")
-							console.log(data)
-							console.log(component_val)
 							return (data <= component_val.val[0]);
 						}
 					}
