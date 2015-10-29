@@ -523,7 +523,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
     function processLinks() {
         //находим все ссылки
         var links = $('a[link-in-new-window-if-can=""]');
-        console.log('links', links.length);
+        //console.log('links', links.length);
 
         links.each(function (ix, el) {
             processLink($(el));
