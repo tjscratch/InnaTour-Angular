@@ -532,10 +532,11 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
 
     function processLink(element) {
         //var isBlank = false;
-        //if (element.attr('target') == '_blank') {
-        //    element.removeAttr('target');
-        //    isBlank = true;
-        //}
+        //удаляем этот аттрибут, чтобы не открывалось новое пустое окно
+        if (element.attr('target') == '_blank') {
+            element.removeAttr('target');
+            //isBlank = true;
+        }
 
         var dataLink = element.attr('data-link');
         var link = element.attr('href');
