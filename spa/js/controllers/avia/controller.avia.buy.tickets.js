@@ -112,6 +112,17 @@ innaAppControllers.
 
                     }
 
+                    //начальное значение self.payType = 1;
+                    //можно ли платить банк картой
+                    if (self.payType == 1 && !$scope.isPayWithBankCardAllowed) {
+                        self.payType = 2;
+                    }
+
+                    //если связным платить нельзя - ставим - киви
+                    if (self.payType == 2 && !$scope.isPayWithSvyaznoyAllowed) {
+                        self.payType = 3;
+                    }
+
                     $scope.$watch('orderNum', function (num) {
                         self.setOrderNum(num);
                     });
@@ -837,6 +848,26 @@ innaAppControllers.
                     },
                     function (data) {
                         if (data != null) {
+                            //признак, что b2b заказ
+                            //$scope.isAgency = data.IsAgency;
+                            $scope.isB2bAgency = $scope.$root.user ? $scope.$root.user.getType() == 2 : null;
+                            $scope.isPayWithBankCardEnabled = $scope.$root.user ? $scope.$root.user.isPayWithBankCardEnabled() : false;
+                            $scope.isPayWithSvyaznoyEnabled = $scope.$root.user ? $scope.$root.user.isPayWithSvyaznoyEnabled() : false;
+                            $scope.isPayWithTourPayEnabled = $scope.$root.user ? $scope.$root.user.isPayWithTourPayEnabled() : false;
+
+                            //оплата банковской картой
+                            $scope.isPayWithBankCardAllowed = true;
+                            //для b2b включается флагом
+                            if ($scope.isB2bAgency) {
+                                $scope.isPayWithBankCardAllowed = $scope.isPayWithBankCardEnabled;
+                            }
+
+                            //оплата через связной
+                            $scope.isPayWithSvyaznoyAllowed = true;
+                            if ($scope.isB2bAgency) {
+                                $scope.isPayWithSvyaznoyAllowed = $scope.isPayWithSvyaznoyEnabled;
+                            }
+
                             $scope.svyaznoyPayControl.init();
                             $scope.qiwiPayControl.init(data);
 
@@ -1001,9 +1032,6 @@ innaAppControllers.
                                 }
 
                                 $scope.price = $scope.reservationModel.price;
-                                //признак, что b2b заказ
-                                //$scope.isAgency = data.IsAgency;
-                                $scope.isB2bAgency = $scope.$root.user ? $scope.$root.user.getType() == 2 : null;
                                 $scope.orderId = data.OrderId;
 
                                 //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
