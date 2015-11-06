@@ -22,6 +22,9 @@
     //если задан - то при клике на поиск - должен переходить на этот урл + результаты поиска
     self.jumptoUrl = null;
 
+    //PartnerMarker
+    self.partnerMarker = null;
+
     var maxClientHeight = 730;
 
     self.getParentLocation = function () {
@@ -438,6 +441,11 @@
             if (data.options.jumpto != null && data.options.jumpto.length > 0) {
                 self.jumptoUrl = data.options.jumpto;
                 console.log('jumptoUrl set:', self.jumptoUrl);
+            }
+
+            if (data.options.partnerMarker != null && data.options.partnerMarker.length > 0) {
+                self.partnerMarker = data.options.partnerMarker;
+                console.log('partnerMarker set:', self.partnerMarker);
             }
         }
     }
