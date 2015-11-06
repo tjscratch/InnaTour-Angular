@@ -253,6 +253,13 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                 doc.on('scroll', onScroll);
 
 
+                /**
+                 * IN-5387
+                 * показ блока с ценой за человека
+                 */
+                $scope.CostPerPersonShow = true;
+                
+
                 /*Events*/
                 $scope.$on('$destroy', function () {
                     EventManager.off(Events.DYNAMIC_SERP_MAP_DESTROY, $scope.display.fullDisplay);

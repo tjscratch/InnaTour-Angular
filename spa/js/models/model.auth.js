@@ -16,6 +16,9 @@ innaAppServices.factory('modelAuth', [
                 AgencyActive: data.AgencyActive,
                 SupportPhone: data.SupportPhone,
                 IsSocial: data.IsSocial,
+                AgencyPaymentWithBankCard: data.AgencyPaymentWithBankCard,
+                AgencyPaymentWithSvyaznoy: data.AgencyPaymentWithSvyaznoy,
+                AgencyPaymentWithTourPay: data.AgencyPaymentWithTourPay,
                 AgencyType: data.AgencyType
             };
         };
@@ -62,6 +65,17 @@ innaAppServices.factory('modelAuth', [
             return this.raw.AgencyType;
         };
 
+        Auth.User.prototype.isPayWithBankCardEnabled = function () {
+            return this.raw.AgencyPaymentWithBankCard;
+        };
+
+        Auth.User.prototype.isPayWithSvyaznoyEnabled = function () {
+            return this.raw.AgencyPaymentWithSvyaznoy;
+        };
+
+        Auth.User.prototype.isPayWithTourPayEnabled = function () {
+            return this.raw.AgencyPaymentWithTourPay;
+        };
 
         return Auth.User;
     }]);

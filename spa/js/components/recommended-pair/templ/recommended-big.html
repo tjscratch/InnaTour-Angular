@@ -1,48 +1,48 @@
 <div class="b-result b-result_col_three row b-result-content b-recommended_big">
-    <div class="b-result__cell b-result__cell_ticket"
-         ng-click="bundleTicketDetails($event, recommendedPair.ticket)"
-         ng-style="{cursor: (stateTicket|defined) && !stateTicket ? 'pointer' : 'default'}">
+	<div class="b-result__cell b-result__cell_ticket"
+	     ng-click="bundleTicketDetails($event, recommendedPair.ticket)"
+	     ng-style="{cursor: (stateTicket|defined) && !stateTicket ? 'pointer' : 'default'}">
 
-        <div ng-if="!isClosed && recommendedPairStatus == 5"
-             tooltip-directive-base
-             tooltip-klass="nocorner:fixed"
-             close="true"
-             position="top_right"
-             is-visible="isVisible"
-             width="300"
-             templ="popover.hbs.html">
+		<div ng-if="!isClosed && recommendedPairStatus == 5"
+		     tooltip-directive-base
+		     tooltip-klass="nocorner:fixed"
+		     close="true"
+		     position="top_right"
+		     is-visible="isVisible"
+		     width="300"
+		     templ="popover.hbs.html">
 
-            <div class="b-tooltip__header">
-                <h3>Перелет был изменен</h3>
-            </div>
+			<div class="b-tooltip__header">
+				<h3>Перелет был изменен</h3>
+			</div>
 
-            <div class="b-tooltip__body">
+			<div class="b-tooltip__body">
                 <span class="b-tooltip__body__text">
                     К сожалению, выбранный вариант перелета уже
                 недоступен, в пакет будет включен рекомендованный перелет.
                 </span>
-            </div>
-        </div>
+			</div>
+		</div>
 
 
-        <div class="spinner spinner-ticket">
-            <div class="rect rect1"></div>
-            <div class="rect rect2"></div>
-            <div class="rect rect3"></div>
-            <div class="rect rect4"></div>
-            <div class="rect rect5"></div>
-        </div>
+		<div class="spinner spinner-ticket">
+			<div class="rect rect1"></div>
+			<div class="rect rect2"></div>
+			<div class="rect rect3"></div>
+			<div class="rect rect4"></div>
+			<div class="rect rect5"></div>
+		</div>
 
 
-        <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
-        <ng:any partials-collection
-                partial-name="logoAvia"
-                class="recommendedPairTicket recommendedPairTicketLogo"
-                ticket-model="recommendedPair.ticket"/>
+		<!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
+		<ng:any partials-collection
+		        partial-name="logoAvia"
+		        class="recommendedPairTicket recommendedPairTicketLogo"
+		        ticket-model="recommendedPair.ticket"/>
 
-        <span class="icon-sprite-airplane"></span>
+		<span class="icon-sprite-airplane"></span>
 
-        <div class="flight-info">
+		<div class="flight-info">
             <span class="date">
                 <ng:any partials-collection
                         partial-name="weekDateTimeCode"
@@ -51,10 +51,10 @@
                         avia-info="recommendedPair.ticket.data"/>
             </span>
 
-            <ng:any partials-collection
-                    partial-name="flightTimeArrow"
-                    direction="To"
-                    avia-info="recommendedPair.ticket.data"/>
+			<ng:any partials-collection
+			        partial-name="flightTimeArrow"
+			        direction="To"
+			        avia-info="recommendedPair.ticket.data"/>
 
             <span class="date">
                 <ng:any partials-collection
@@ -63,9 +63,9 @@
                         date="recommendedPair.ticket.data.ArrivalDate"
                         avia-info="recommendedPair.ticket.data"/>
             </span>
-        </div>
+		</div>
 
-        <div class="flight-info">
+		<div class="flight-info">
 
             <span class="date">
                 <ng:any partials-collection
@@ -75,10 +75,10 @@
                         avia-info="recommendedPair.ticket.data"/>
             </span>
 
-            <ng:any partials-collection
-                    partial-name="flightTimeArrow"
-                    direction="Back"
-                    avia-info="recommendedPair.ticket.data"/>
+			<ng:any partials-collection
+			        partial-name="flightTimeArrow"
+			        direction="Back"
+			        avia-info="recommendedPair.ticket.data"/>
 
             <span class="date">
                 <ng:any partials-collection
@@ -88,165 +88,165 @@
                         avia-info="recommendedPair.ticket.data"/>
             </span>
 
-        </div>
+		</div>
 
-        <div class="bottom-actions">
-            <a href="javascript:void(0);"
-               class="button button-middle button-orange button-replace"
-               ng-if="!stateTicket && !ticketCount"
-               ng-click="toggleTab('ticket', $event)">
-                Еще варианты перелета
-            </a>
-            <a href="javascript:void(0);"
-               class="button button-middle button-orange button-replace"
-               ng-if="!stateTicket && ticketCount"
-               ng-click="toggleTab('ticket', $event)">
-                Еще
-                {{ticketCount}}
-                {{ticketCount | pluralize: [
-                "вариант перелета",
-                "варианта перелета",
-                "вариантов перелета"
-                ]}}
-            </a>
-            <a href="javascript:void(0);"
-               style="right: 0;bottom: -10px"
-               class="bottom-actions__button bottom-actions__button_action_details"
-               <!--ng-if="stateTicket"-->
-                    >Подробнее</a>
-        </div>
+		<div class="bottom-actions">
+			<a href="javascript:void(0);"
+			   class="button button-middle button-orange button-replace"
+			   ng-if="!stateTicket && !ticketCount"
+			   ng-click="toggleTab('ticket', $event)">
+				Еще варианты перелета
+			</a>
+			<a href="javascript:void(0);"
+			   class="button button-middle button-orange button-replace"
+			   ng-if="!stateTicket && ticketCount"
+			   ng-click="toggleTab('ticket', $event)">
+				Еще
+				{{ticketCount}}
+				{{ticketCount | pluralize: [
+				"вариант перелета",
+				"варианта перелета",
+				"вариантов перелета"
+				]}}
+			</a>
+			<a href="javascript:void(0);"
+			   style="right: 0;bottom: -10px"
+			   class="bottom-actions__button bottom-actions__button_action_details"
+			<!--ng-if="stateTicket"-->
+			>Подробнее</a>
+		</div>
 
-        <!-- separator -->
-        <div class="b-result-cell__gap">
-            <div class="b-result-cell__gap_wrap"></div>
-        </div>
-    </div>
+		<!-- separator -->
+		<div class="b-result-cell__gap">
+			<div class="b-result-cell__gap_wrap"></div>
+		</div>
+	</div>
 
-    <div class="b-result__cell b-result__cell_even"
-         ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}"
-            >
+	<div class="b-result__cell b-result__cell_even"
+	     ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}"
+			>
 
-        <div class="spinner spinner-hotel">
-            <div class="rect rect1"></div>
-            <div class="rect rect2"></div>
-            <div class="rect rect3"></div>
-            <div class="rect rect4"></div>
-            <div class="rect rect5"></div>
-        </div>
+		<div class="spinner spinner-hotel">
+			<div class="rect rect1"></div>
+			<div class="rect rect2"></div>
+			<div class="rect rect3"></div>
+			<div class="rect rect4"></div>
+			<div class="rect rect5"></div>
+		</div>
 
 
-        <div class="hotel-info__special-mark" ng-if="recommendedPair.getProfit() > 1000">
+		<div class="hotel-info__special-mark" ng-if="recommendedPair.getProfit() > 1000">
 
-            <div ng-if="!isClosed && recommendedPairStatus == 3"
-                 tooltip-directive-base
-                 tooltip-klass="nocorner:fixed"
-                 close="true"
-                 position="top_right"
-                 is-visible="isVisible"
-                 width="300"
-                 templ="popover.hbs.html">
+			<div ng-if="!isClosed && recommendedPairStatus == 3"
+			     tooltip-directive-base
+			     tooltip-klass="nocorner:fixed"
+			     close="true"
+			     position="top_right"
+			     is-visible="isVisible"
+			     width="300"
+			     templ="popover.hbs.html">
 
-                <div class="b-tooltip__header">
-                    <h3>Отель был изменен</h3>
-                </div>
+				<div class="b-tooltip__header">
+					<h3>Отель был изменен</h3>
+				</div>
 
-                <div class="b-tooltip__body">
+				<div class="b-tooltip__body">
                 <span class="b-tooltip__body__text">
                    К сожалению, выбранный вариант проживания уже
                     недоступен, в пакет будет включен рекомендован-
                     ный отель.
                 </span>
-                </div>
+				</div>
 
-            </div>
+			</div>
 
-            <span class="icon-crown icon-sprite-crown"></span>
-            Спецпредложение
-        </div>
+			<span class="icon-crown icon-sprite-crown"></span>
+			Спецпредложение
+		</div>
 
-        <div class="hotel-info">
-            <div class="hotel-info__wrapper">
-                <!--{{bundle | console}}-->
+		<div class="hotel-info">
+			<div class="hotel-info__wrapper">
+				<!--{{bundle | console}}-->
 
-                <div class="hotel-info__photo" style="background-image: url({{recommendedPair.hotel.data.HotelPhoto180}})"
-                     ng-if="recommendedPair.hotel.data.HotelPhoto180"
-                        ></div>
-                <div class="hotel-info__photo" style="background-image: url('/spa/img/hotels/no_photo70x70.png')"
-                     ng-if="!recommendedPair.hotel.data.HotelPhoto180"
-                        ></div>
+				<div class="hotel-info__photo" style="background-image: url({{recommendedPair.hotel.data.HotelPhoto180}})"
+				     ng-if="recommendedPair.hotel.data.HotelPhoto180"
+						></div>
+				<div class="hotel-info__photo" style="background-image: url('/spa/img/hotels/no_photo70x70.png')"
+				     ng-if="!recommendedPair.hotel.data.HotelPhoto180"
+						></div>
 
-                <!--<img class="hotel-info__photo" ng-src="{{recommendedPair.hotel.data.HotelPhoto180}}" ng-if="recommendedPair.hotel.data.HotelPhoto180" alt="">-->
-                <!--<img class="hotel-info__photo" src="/spa/img/hotels/no_photo70x70.png" ng-if="!recommendedPair.hotel.data.HotelPhoto180" alt="">-->
+				<!--<img class="hotel-info__photo" ng-src="{{recommendedPair.hotel.data.HotelPhoto180}}" ng-if="recommendedPair.hotel.data.HotelPhoto180" alt="">-->
+				<!--<img class="hotel-info__photo" src="/spa/img/hotels/no_photo70x70.png" ng-if="!recommendedPair.hotel.data.HotelPhoto180" alt="">-->
 
-                <div class="hotel-info-content">
+				<div class="hotel-info-content">
 
-                    <!-- Stars -->
+					<!-- Stars -->
                     <span stars-directive
                           hotel-data="recommendedPair.hotel.data.Stars"></span>
 
-                    <h3 class="hotel-info-name">
-                        <a class="hotel-info-name-link"
-                           href="{{computedUrlDetails()}}"
-                           link-in-new-window-if-can
-                           target="_blank">
-                            {{recommendedPair.hotel.data.HotelName}}
-                        </a>
-                    </h3>
-                    
-                    <div class="hotel-go-to-map">
-                        <span class="hotel-info-name-link" 
-                           ng-click="recommendedHotelToMap()"
-                                >(на карте)</span>
-                        <!--EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));-->
-                    </div>
+					<h3 class="hotel-info-name">
+						<a class="hotel-info-name-link"
+						   href="{{computedUrlDetails()}}"
+						   link-in-new-window-if-can
+						   target="_blank">
+							{{recommendedPair.hotel.data.HotelName}}
+						</a>
+					</h3>
 
-                    <div class="hotel-info-date">
-                        <ng:any partials-collection
-                                partial-name="rangeShort"
-                                hotel="recommendedPair.hotel.data"/>
-                    </div>
+					<div class="hotel-go-to-map">
+                        <span class="hotel-info-name-link"
+                              ng-click="recommendedHotelToMap()"
+		                        >(на карте)</span>
+						<!--EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));-->
+					</div>
 
-                    <!-- tripadvisor -->
-                    <div class="hotel-info__tripadvisor"
-                         ng-if="!stateHotel">
-                        <div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>
-                    </div>
+					<div class="hotel-info-date">
+						<ng:any partials-collection
+						        partial-name="rangeShort"
+						        hotel="recommendedPair.hotel.data"/>
+					</div>
 
-                </div>
-            </div>
+					<!-- tripadvisor -->
+					<div class="hotel-info__tripadvisor"
+					     ng-if="!stateHotel">
+						<div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>
+					</div>
 
-        </div>
-        <span class="icon-sprite-hotel"></span>
+				</div>
+			</div>
 
-        <a class="hotel-details-link"
-           href="{{computedUrlDetails()}}"
-           link-in-new-window-if-can
-           ng-if="stateHotel"
-           target="_blank"
-                >
-        </a>
+		</div>
+		<span class="icon-sprite-hotel"></span>
 
-        <div class="bottom-actions">
-            <a href="javascript:void(0);"
-               class="button button-middle button-orange button-replace"
-               ng-if="!(stateHotel && !asMap) && !hotelCount"
-               ng-click="toggleTab('hotel', $event)"
-                    >
-                Еще варианты отелей {{asMap}}
-            </a>
-	        <a href="javascript:void(0);"
-	           class="button button-middle button-orange button-replace"
-	           ng-if="!stateHotel && !asMap && hotelCount"
-	           ng-click="toggleTab('hotel', $event)"
-			        >
-		        Еще
-		        {{hotelCount}}
-		        {{hotelCount | pluralize: [
-		        "вариант отеля",
-		        "варианта отелей",
-		        "вариантов отелей"
-		        ]}}
-	        </a>
+		<a class="hotel-details-link"
+		   href="{{computedUrlDetails()}}"
+		   link-in-new-window-if-can
+		   ng-if="stateHotel"
+		   target="_blank"
+				>
+		</a>
+
+		<div class="bottom-actions">
+			<a href="javascript:void(0);"
+			   class="button button-middle button-orange button-replace"
+			   ng-if="!(stateHotel && !asMap) && !hotelCount"
+			   ng-click="toggleTab('hotel', $event)"
+					>
+				Еще варианты отелей {{asMap}}
+			</a>
+			<a href="javascript:void(0);"
+			   class="button button-middle button-orange button-replace"
+			   ng-if="!stateHotel && !asMap && hotelCount"
+			   ng-click="toggleTab('hotel', $event)"
+					>
+				Еще
+				{{hotelCount}}
+				{{hotelCount | pluralize: [
+				"вариант отеля",
+				"варианта отелей",
+				"вариантов отелей"
+				]}}
+			</a>
 			<a class="bottom-actions__button bottom-actions__button_action_details"
 			   href="{{computedUrlDetails()}}"
 			   link-in-new-window-if-can
@@ -282,42 +282,75 @@
 		     location="{{location}}"
 		     position="left"></div>
 
-		<div class="b-price">
-			<div class="b-price-container">
-	
 
-                <p class="corner-price" ng-if="recommendedPair.getProfit() > 1000">
-                    <span class="cross">{{recommendedPair.getFullPrice() | price}} <span class="b-rub">q</span></span>
-                    <span class="price-description">по отдельности</span>
-                </p>
-    
-                <div class="price"
-                     ng-class="{'price-margin-top-55': (recommendedPair.getProfit() <= 1000)}">
-                    <div class="price-description" style="font-weight:normal;">Стоимость пакета</div>
-                    {{recommendedPair.getFullPackagePrice() | price}}
-                    <ng-include src="'components/ruble.html'"></ng-include>
 
-                    <!--<div class="b-tooltip-price b-tooltip-price_bundle"><span class="icon-price-info cursor-pointer icon-sprite-price-info"></span></div>-->
-                    <!-- tooltip price -->
-                    <ng:any ng-if="recommendedPair.hotel.data.PriceObject && $root.user.getAgencyType() != 1"
-                            price-generic-directive
-                            price-object="recommendedPair.hotel.data.PriceObject"
-                            tooltip-klass="bundle"></ng:any>
-                </div>
+		<div class="b-cost b-cost__old" ng-if="!CostPerPersonShow">
+			<div class="corner-price">
+				<div class="cross"
+				     ng-if="recommendedPair.getProfit() > 1000">
+					{{recommendedPair.getFullPrice() | price}}
+					<i class="fa fa-rub"></i>
+				</div>
+				<div class="price-description"
+				     ng-if="recommendedPair.getProfit() > 1000">по отдельности
+				</div>
+			</div>
+			<div class="b-cost__price">
+				<div class="b-cost__price-desc">Стоимость пакета</div>
+				<div class="b-cost__price-value">
+					{{recommendedPair.getFullPackagePrice() | price}}
+					<i class="fa fa-rub"></i>
+					<ng:any ng-if="recommendedPair.hotel.data.PriceObject && $root.user.getAgencyType() != 1"
+					        price-generic-directive
+					        price-object="recommendedPair.hotel.data.PriceObject"
+					        tooltip-klass="bundle"></ng:any>
+				</div>
+				<div class="b-cost__price-desc"
+				     ng-if="recommendedPair.getProfit() > 1000">
+					экономия:
+					{{recommendedPair.getProfit() | price}}
+					<i class="fa fa-rub"></i>
+				</div>
+			</div>
+		</div>
 
-        <span class="price-description" ng-if="recommendedPair.getProfit() > 1000">
-            экономия: {{recommendedPair.getProfit() | price}}
-            <ng-include src="'components/ruble.html'"></ng-include>
-        </span>
 
-            </div>
-        </div>
+		<div class="b-cost" ng-if="CostPerPersonShow">
 
-        <a link-in-new-window-if-can class="button"
-           href="{{computedUrlDetails('buy')}}"
-           target="_blank"
-           ng-if="withReservationButton">
-            Купить
-        </a>
-    </div>
+			<div class="b-cost__price">
+				<div class="b-cost-corner">
+					<div ng-if="recommendedPair.getProfit() > 1000">
+						{{recommendedPair.getStandartCostPerPersonPrice() | price}}
+						<i class="fa fa-rub"></i>
+					</div>
+				</div>
+				<div class="b-cost__price-value">
+					{{recommendedPair.getCostPerPersonPrice() | price}}
+					<i class="fa fa-rub"></i>
+
+					<!-- tooltip price -->
+					<ng:any ng-if="recommendedPair.hotel.data.PriceObject"
+					        price-generic-directive
+					        price-object="recommendedPair.hotel.data.PriceObject"
+					        tooltip-klass="bundle"></ng:any>
+				</div>
+				<div class="b-cost__price-desc">цена за человека</div>
+			</div>
+
+			<div class="b-cost__price-sum">
+				К оплате:
+				{{recommendedPair.getFullPackagePrice() | price}}
+				<i class="fa fa-rub"></i>
+			</div>
+
+		</div>
+
+		<a link-in-new-window-if-can class="button"
+		   href="{{computedUrlDetails('buy')}}"
+		   target="_blank"
+		   ng-if="withReservationButton">
+			Купить
+		</a>
+
+	</div>
 </div>

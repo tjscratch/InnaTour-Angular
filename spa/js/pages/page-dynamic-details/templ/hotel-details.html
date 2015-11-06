@@ -112,7 +112,7 @@
 
 			<div class="hotel-details__section__header">
 				<span class="hotel-details__price">
-					Стоимость пакета, включая налоги и сборы:
+					Стоимость пакета за {{passengerCount | perPerson}} включая налоги и сборы:
 					<b>
 						{{recommendedPair.getFullPackagePrice() | price}}
 						<ng-include src="'components/ruble.html'"></ng-include>
@@ -137,6 +137,7 @@
 						<span ng-if="include.Name == 'Страховка'">медицинская страховка,</span>
 						<span ng-if="include.Name == 'Топливный сбор'">топливный сбор.</span>
 					</span>
+					Указана стоимость на {{passengerCount | perPerson | asQuantity:"человека":"человек":"человек"}}.
 					Стоимость окончательная со всеми налогами и сборами.
 				</div>
 			</div>

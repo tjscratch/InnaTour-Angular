@@ -413,6 +413,8 @@
                         },
                         CustomerWishlist: $scope.addition.customerWishlist
                     };
+
+                m.PartnerMarker = (window.partners && window.partners.partnerMarker) ? window.partners.partnerMarker : null;
                 return m;
             }
 

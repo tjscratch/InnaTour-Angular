@@ -35,12 +35,15 @@
 						
 
 						<div>
-							<a link-in-new-window-if-can href="{{computedUrlDetails()}}" target="_blank" ng-click="hotelDetails(currentHotel)"
+							<a link-in-new-window-if-can
+							   href="{{computedUrlDetails()}}"
+							   target="_blank"
+							   ng-click="hotelDetails(currentHotel)"
 							   class="details-link">Подробнее</a>
 						</div>
 					</div>
 
-					<div class="pull-right col-no-padding hotel-info-price-container">
+					<div class="pull-right col-no-padding hotel-info-price-container" ng-if="!CostPerPersonShow">
 						<span>Перелет + Отель</span>
 
 						<h3 class="hotel-info-price">
@@ -50,6 +53,25 @@
 
 						<button class="button"
 						        ng-click="setHotel(currentHotel)">
+							Выбрать
+						</button>
+					</div>
+
+
+					<div class="pull-right col-no-padding hotel-info-price-container" ng-if="CostPerPersonShow">
+						<h3 class="hotel-info-price">
+							{{currentHotelPreview.CostPerPerson | price}}
+							<span>
+								<i class="fa fa-rub"></i>/чел
+							</span>
+						</h3>
+						<div class="hotel-info-price-full">
+							К оплате:
+							{{currentHotelPreview.PackagePrice | price}}
+							<i class="fa fa-rub"></i>
+						</div>
+						<button class="button"
+								ng-click="setHotel(currentHotel)">
 							Выбрать
 						</button>
 					</div>
@@ -80,13 +102,26 @@
 
 					</div>
 
-					<div class="pull-right col-no-padding hotel-info-price-container">
+					<div class="pull-right col-no-padding hotel-info-price-container" ng-if="!CostPerPersonShow">
 						<span>Перелет + Отель</span>
 
 						<h3 class="hotel-info-price">
 							{{currentHotelPreview.PackagePrice | price}}
 							<ng-include src="'components/ruble.html'"/>
 						</h3>
+					</div>
+					<div class="pull-right col-no-padding hotel-info-price-container" ng-if="CostPerPersonShow">
+						<h3 class="hotel-info-price">
+							{{currentHotelPreview.CostPerPerson | price}}
+							<span>
+								<i class="fa fa-rub"></i>/чел
+							</span>
+						</h3>
+						<div class="hotel-info-price-full">
+							К оплате:
+							{{currentHotelPreview.PackagePrice | price}}
+							<i class="fa fa-rub"></i>
+						</div>
 					</div>
 				</div>
 			</div>

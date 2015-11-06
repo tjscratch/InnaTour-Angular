@@ -95,10 +95,25 @@
     <!---->
     <div class="b-result__cell result-choice">
         <span class="rl-rec" ng-if="isItemRecomended">мы рекомендуем</span>
-        <span class="rl-price" ng-class="{'rl-price_1way':item.EtapsBack.length == 0}">
+        <span ng-if="!usePricePerPerson" class="rl-price" ng-class="{'rl-price_1way':item.EtapsBack.length == 0}">
             <span class="rl-price-item">{{item.Price | price}}</span><!--
             --><ng-include src="'components/ruble.html'"/>
         </span>
+
+        <div class="b-cost b-cost_avia" ng-if="usePricePerPerson">
+            <div class="b-cost__price">
+                <div class="b-cost__price-value">
+                    {{item.StandartCostPerPerson | price}}
+                    <i class="fa fa-rub"></i>
+                </div>
+                <div class="b-cost__price-desc">цена за человека</div>
+            </div>
+            <div class="b-cost__price-sum">
+                К оплате:
+                {{item.Price | price}}
+                <i class="fa fa-rub"></i>
+            </div>
+        </div>
         
         <!-- tooltip price -->
         <div class="js-price-generic-container" ng-if="isAgency() && AgencyType != 1"></div>

@@ -1,7 +1,7 @@
 <header class="buy__header">
     <h2 class="buy__title">Оплата авиабилетов</h2>
     <a ng-if="goBackUrl().length > 0" ng-href="{{goBackUrl()}}" class="buy__title-link">Выбрать другой билет</a>
-    <div class="buy__header-price">Стоимость заказа: <b>{{price| price}} <ng-include src="'components/ruble.html'" /></b></div>
+    <div class="buy__header-price">Стоимость заказа за {{passengerCount | perPerson}}: <b>{{price| price}} <ng-include src="'components/ruble.html'" /></b></div>
 </header>
 
 <div class="buy__fly">

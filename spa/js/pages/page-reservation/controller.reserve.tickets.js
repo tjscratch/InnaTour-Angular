@@ -43,6 +43,8 @@ innaAppControllers.controller('ReserveTicketsCtrl',
             {Id: 4, Name: 'Иностранный документ'}
         ];
 
+        $scope.passengerCount = parseInt($routeParams.Adult) + ($routeParams.Children ? $routeParams.Children.split('_').length : 0);
+
         //$scope.documentTypeListFiltered = null;
 
         function filterDocType(){
