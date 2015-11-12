@@ -126,5 +126,5 @@ function onListening() {
         ? 'pipe ' + addr
         : 'port ' + addr.port;
     //debug('Listening on ' + bind);
-    console.log('node app started');
+    console.log('node app started', bind);
 }
