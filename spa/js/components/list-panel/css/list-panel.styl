@@ -1,6 +1,6 @@
 .b-list-panel{
     position: relative;
-    
+
     &__wait{
         &:after{
             content: '';
@@ -21,16 +21,16 @@
     padding-right: 25%;
 }
 .results-list{
-    
+
     &.results-list-clear{
         width auto
     }
-    
+
     &__empty{
         padding 100px 0 300px
         background-repeat no-repeat
         background-position center 50px
-        
+
         &_type{
             &_hotels{
                 background-image: url(/spa/img/empty-list__hotels.png)
@@ -39,7 +39,7 @@
                 background-image: url(/spa/img/empty-list__tickets.png)
             }
         }
-        
+
         p{
             font-size 18px
             line-height 24px
@@ -56,7 +56,7 @@
     border-radius: 1px 1px 0 0;
     box-shadow: 0 0 3px #212121;
     color: #fff;
-    
+
     .icon-arrow-bottom{
         margin-right: 5px;
     }
@@ -84,6 +84,7 @@
 }
 //услуги включенные в пакет
 .b-dp-services{
+    margin-bottom: 15px;
     padding: 10px 20px 5px;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25)
@@ -110,13 +111,13 @@
     color: #77b237;
     font-size: 16px;
     text-align: left;
-    
+
     &.icon-fuel{
         &:before{
             margin-left: 0.11em
         }
     }
-    
+
     &.fa-plane{
         left 2px
     }
@@ -126,4 +127,15 @@
     &.fa-bus{
         left 2px
     }
+}
+//b-banner
+.b-banner{
+    margin: 0;
+}
+.b-banner__link{
+    display: block;
+    text-align: center;
+}
+.b-banner__img{
+    vertical-align: top;
 }

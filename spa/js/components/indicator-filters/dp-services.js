@@ -5,7 +5,9 @@ innaAppConponents.factory('DpServices', function (EventManager, innaAppApiEvents
 		data    : {
 			additional: null,
 			included: null,
-            show: false
+            show: false,
+			banner_img: null,
+			banner_link: null,
 		},
 		onrender: function (options) {
 			var that = this;
@@ -16,6 +18,12 @@ innaAppConponents.factory('DpServices', function (EventManager, innaAppApiEvents
                     that.set('included', data.Included);
                 }
             });
+			EventManager.on('loadAdBanners', function(data){
+				if(data && data[0]){
+					that.set('banner_img', data[0].ImagePath);
+					that.set('banner_link', data[0].Link);
+				}
+			});
 		}
 	});
 	

@@ -461,9 +461,10 @@ innaAppControllers.controller('PageDynamicPackage', [
                         }
                         
                         that.set('loadHotelsData', data);
-
+                        
                         $timeout(function () {
                             $scope.$broadcast('loadDPHotels', data);
+                            EventManager.fire('loadAdBanners', data.AdBanners);
                         }, 0);
 
                         PackagesService.getCombinationTickets(that.getIdCombination().params)
@@ -543,6 +544,7 @@ innaAppControllers.controller('PageDynamicPackage', [
 
                         $timeout(function () {
                             $scope.$broadcast('loadDPTickets', data);
+                            EventManager.fire('loadAdBanners', data.AdBanners);
                         }, 0);
 
                         PackagesService.getCombinationHotels(that.getIdCombination().params)
