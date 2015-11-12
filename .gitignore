@@ -1,6 +1,7 @@
 syntax: glob
 
 node_modules
+shipit_build
 
 Compiled
 _ReSharper.*

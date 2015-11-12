@@ -3,7 +3,7 @@ module.exports = function (shipit) {
 
     shipit.initConfig({
         default: {
-            workspace: 'build',
+            workspace: 'shipit_build',
             deployTo: '/home/deploy/www/inna-frontend',
             repositoryUrl: 'git@bitbucket.org:innatec/inna-frontend-git.git',
             branch: 'release',
@@ -26,15 +26,19 @@ module.exports = function (shipit) {
         return shipit.remote('ls -la');
     });
 
+    shipit.on('fetched', function () {
+        return shipit.start(
+            'pre.deploy::build'
+        );
+    });
+
     shipit.on('cleaned', function () {
         console.log('event cleaned');
 
         return shipit.start(
             'after.deploy::copy.package.json',
             'after.deploy::run.npm.install',
-            //'after.deploy::npm.install.fix',
-            'after.deploy::run.build',
-            //'after.deploy::restart.forever',
+            //'after.deploy::run.build',
             'after.deploy::restart.service',
             'print.rollback'
         );
@@ -46,6 +50,12 @@ module.exports = function (shipit) {
         console.log('shipit staging rollback');
         console.log('=================================================');
     });
+
+    //собирает проект локально, перед копированием на сервер
+    shipit.blTask('pre.deploy::build', function () {
+        return shipit.local('cd ' + shipit.config.workspace + ' && NODE_ENV=production gulp build-project');
+    });
+
 
     //копируем package.json в корневую папку,
     //чтобы каждый раз не устанавливать все пакеты заново
@@ -61,7 +71,7 @@ module.exports = function (shipit) {
 
     //запускаем build --release в текущем билде
     shipit.blTask('after.deploy::run.build', function () {
-        return shipit.remote('cd ' + shipit.currentPath + ' && npm run build --release');
+        return shipit.remote('cd ' + shipit.currentPath + ' && NODE_ENV=production gulp build-project');
     });
 
     //перезапускаем приложение

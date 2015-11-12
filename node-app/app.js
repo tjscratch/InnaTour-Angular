@@ -45,6 +45,11 @@ app.use(cookieParser());
 app.use(methodOverride());
 //app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next) {
+    res.setHeader("X-node-location", "new-linux-node");
+    return next();
+});
+
 //отдаем app-main.js из папки с билдами с ноды
 app.use('/', require('./routes/serve_static'));
 
