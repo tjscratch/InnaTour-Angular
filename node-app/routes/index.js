@@ -31,7 +31,7 @@ router.get('/', function (req, res, next) {
 
 
 /**
- * дичный кабинет разработка
+ * личный кабинет разработка
  */
 router.get('/dev/lk', function (req, res, next) {
     res.render('lk/index', {
