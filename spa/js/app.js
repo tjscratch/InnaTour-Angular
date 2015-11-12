@@ -538,6 +538,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
             //isBlank = true;
         }
 
+        var dataEvent = element.attr('data-event');
         var dataLink = element.attr('data-link');
         var link = element.attr('href');
         //console.log('link', link);
@@ -550,8 +551,13 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
         }
 
         //если уже навешивали обработчики
-        if (!dataLink) {
-            element.on('click', function () {
+        if (!dataEvent) {
+            element.attr('data-event', 1);
+
+            element.on('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
                 var link = element.attr('data-link');
                 //на WL фо фрейме ссылки типа
                 //http://biletix.ru/packages/#/packages/details/6733-1735-08.06.2015-11.06.2015-0-2--358469-10000088563-10000088632-4?action=buy
