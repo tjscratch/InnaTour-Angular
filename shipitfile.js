@@ -5,7 +5,7 @@ module.exports = function (shipit) {
         default: {
             workspace: 'build',
             deployTo: '/home/deploy/www/inna-frontend',
-            repositoryUrl: 'git@bitbucket.org/innatec/inna-frontend-git.git',
+            repositoryUrl: 'git@bitbucket.org:innatec/inna-frontend-git.git',
             branch: 'master',
             ignores: ['.git', 'node_modules'],
             keepReleases: 2,
