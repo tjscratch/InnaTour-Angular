@@ -18,7 +18,8 @@ innaAppServices.factory('modelAuth', [
                 IsSocial: data.IsSocial,
                 AgencyPaymentWithBankCard: data.AgencyPaymentWithBankCard,
                 AgencyPaymentWithSvyaznoy: data.AgencyPaymentWithSvyaznoy,
-                AgencyPaymentWithTourPay: data.AgencyPaymentWithTourPay
+                AgencyPaymentWithTourPay: data.AgencyPaymentWithTourPay,
+                AgencyType: data.AgencyType
             };
         };
 
@@ -58,6 +59,10 @@ innaAppServices.factory('modelAuth', [
 
         Auth.User.prototype.getAgencyId = function () {
             return this.raw.AgencyId;
+        };
+
+        Auth.User.prototype.getAgencyType = function () {
+            return this.raw.AgencyType;
         };
 
         Auth.User.prototype.isPayWithBankCardEnabled = function () {

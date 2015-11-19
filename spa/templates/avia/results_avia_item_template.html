@@ -138,7 +138,9 @@
 
         <!-- tooltip price -->
         {{#isAgency()}}
-            <PriceGeneric PriceDetailsTooltipData="{{PriceDetailsTooltipData}}"/>
+            {{#if AgencyType != 1}}
+                <PriceGeneric PriceDetailsTooltipData="{{PriceDetailsTooltipData}}"/>
+            {{/if}}
         {{/}}
 
         <span class="button" on-click='goToPaymentClick:{{this}}'>Купить</span>

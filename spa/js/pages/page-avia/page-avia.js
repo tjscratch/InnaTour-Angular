@@ -40,6 +40,10 @@ innaAppControllers.
                 return ($scope.$root.user != null && $scope.$root.user.isAgency());
             };
 
+            if($rootScope.$root.user){
+                $scope.AgencyType = $rootScope.$root.user.getAgencyType();
+            }
+
             $scope.isShowShare = true;
 
             $scope.$on('avia.form.loaded', function (event) {
@@ -182,9 +186,13 @@ innaAppControllers.
                         {name: "По времени прибытия ОБРАТНО", sort: avia.sortType.byBackArrivalTime}
                     ];
 
-                    if ($scope.isAgency()) {
-                        self.list.push({name: "По доходности", sort: avia.sortType.byAgencyProfit});
-                        //self.sortType = avia.sortType.byAgencyProfit;
+                    if ($scope.isAgency() ) {
+                        if($rootScope.$root.user){
+                            if($rootScope.$root.user.getAgencyType() != 1){
+                                self.list.push({name: "По доходности", sort: avia.sortType.byAgencyProfit});
+                                //self.sortType = avia.sortType.byAgencyProfit;
+                            }
+                        }
                         self.sortType = avia.sortType.byPrice;
                     }
                     else {
@@ -1360,7 +1368,9 @@ innaAppControllers.
 
                         ticketsCount: $scope.ticketsCount,
 
-                        items: $scope.visibleFilteredTicketsList
+                        items: $scope.visibleFilteredTicketsList,
+
+                        AgencyType: $scope.AgencyType
                     }
                 });
 

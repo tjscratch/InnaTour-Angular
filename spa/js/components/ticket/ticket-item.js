@@ -2,6 +2,7 @@
 
 angular.module('innaApp.components').
     factory('TicketItem', [
+        '$rootScope',
         'EventManager',
         'innaAppApiEvents',
         '$filter',
@@ -12,7 +13,7 @@ angular.module('innaApp.components').
 
         'ModelTicket',
         'ModelPrice',
-        function (EventManager, Events, $filter, $routeParams, aviaHelper, $templateCache, DynamicBlock, ModelTicket, ModelPrice) {
+        function ($rootScope, EventManager, Events, $filter, $routeParams, aviaHelper, $templateCache, DynamicBlock, ModelTicket, ModelPrice) {
 
             /**
              * Компонент TicketItem
@@ -32,7 +33,8 @@ angular.module('innaApp.components').
                     showWarning: function () {
                         return this.showWarning();
                     },
-                    TimeFormatted: aviaHelper.getFlightTimeFormatted
+                    TimeFormatted: aviaHelper.getFlightTimeFormatted,
+                    AgencyType: null
                 },
                 partials: {
                     collOneContent: $templateCache.get('components/ticket/templ/avia-dp.hbs.html'),
@@ -46,6 +48,9 @@ angular.module('innaApp.components').
                     var modelTicket = new ModelTicket(this.get('ticket'));
                     var modelPrice = new ModelPrice({data: this.get('ticket')});
 
+                    if($rootScope.$root.user){
+                        this.set('AgencyType', $rootScope.$root.user.getAgencyType());
+                    }
 
                     this.set({
                         modelTicket: modelTicket,

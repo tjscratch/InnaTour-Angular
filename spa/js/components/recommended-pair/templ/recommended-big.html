@@ -300,7 +300,7 @@
 				<div class="b-cost__price-value">
 					{{recommendedPair.getFullPackagePrice() | price}}
 					<i class="fa fa-rub"></i>
-					<ng:any ng-if="recommendedPair.hotel.data.PriceObject"
+					<ng:any ng-if="recommendedPair.hotel.data.PriceObject && $root.user.getAgencyType() != 1"
 					        price-generic-directive
 					        price-object="recommendedPair.hotel.data.PriceObject"
 					        tooltip-klass="bundle"></ng:any>
