@@ -485,7 +485,7 @@ innaAppControllers.
                             //if (item.PriceObject != null && item.PriceDetails != null) {
                             if (item.PriceDetails != null) {
 
-                                //item.PriceDetailsTooltipData.push({ name: 'Сбор Инна-Тур', price: item.PriceObject.TotalInnaProfit });
+                                //item.PriceDetailsTooltipData.push({ name: 'Сбор ИННА ТУР', price: item.PriceObject.TotalInnaProfit });
                                 //item.PriceDetailsTooltipData.push({ name: 'Сбор агента', price: item.PriceObject.TotalAgentReward });
                                 //item.PriceDetailsTooltipData.push({ name: 'Агентское вознаграждение', price: item.PriceObject.TotalAgentRate });
 

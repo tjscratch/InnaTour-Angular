@@ -90,7 +90,7 @@ innaAppControllers.
                     $scope.title = partner.title + " - " + $scope.getPartnersTitle();
                 }
                 else {
-                    $scope.title = "Инна-Тур - " + $scope.getTitle();
+                    $scope.title = "ИННА ТУР - " + $scope.getTitle();
                 }
             }
 
