@@ -180,24 +180,51 @@ innaAppControllers.
 
 
             (function __INITIAL__() {
+
+                //параметры забираются из урла и до # (location.search) и после ($location.search())
+
+                //yandex
+                var label = getParameterByName('label') || $location.search().label;
+                var from = getParameterByName('from') || $location.search().from;
+                var tourist = getParameterByName('tourist') || $location.search().tourist;
+                var fromParam = getParameterByName('from_param') || $location.search().from_param;
+
+                var partnerMarker = getParameterByName('PartnerMarker') || getParameterByName('partnermarker') || getParameterByName('partner_marker')
+                    || $location.search().PartnerMarker || $location.search().partnermarker || $location.search().partner_marker;
+
+                var idPartner = getParameterByName('id_partner') || $location.search().id_partner;
+                var data = getParameterByName('data') || $location.search().data;
+
                 var advParams = {
-                    from: $location.search().from || '',
-                    tourist: $location.search().tourist || '',
-                    from_param: $location.search().from_param || '',
-                    PartnerMarker: $location.search().PartnerMarker || '',
-                    id_partner: $location.search().id_partner || '',
-                    data: $location.search().data || ''
+                    from: from || '',
+                    tourist: tourist || '',
+                    from_param: fromParam || '',
+                    PartnerMarker: label || partnerMarker || '',//label перекрывает partnerMarker
+                    id_partner: idPartner || '',
+                    data: data || ''
                 };
 
                 delete $location.$$search.from;
                 delete $location.search().tourist;
                 delete $location.$$search.from_param;
+
                 delete $location.$$search.PartnerMarker;
+                delete $location.$$search.partnermarker;
+                delete $location.$$search.partner_marker;
+
                 delete $location.$$search.id_partner;
                 delete $location.$$search.data;
                 $location.$$compose();
                 if(advParams.from || advParams.PartnerMarker){
+                    console.log('advParams', advParams);
                     dataService.getPartnershipCookie(advParams);
+                }
+
+                function getParameterByName(name) {
+                    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                        results = regex.exec(location.search);
+                    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
                 }
             })();
         }]);
