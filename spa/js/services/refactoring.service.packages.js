@@ -19,7 +19,7 @@ innaAppServices.service('PackagesService', function ($http, appApi) {
         sendEmptySearch: function (params) {
             return $http({
                 url: appApi.PACKAGES_EMPTY_SEARCH,
-                method: 'GET',
+                method: 'POST',
                 params: params,
                 cache: false
             });
