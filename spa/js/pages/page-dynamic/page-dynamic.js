@@ -453,6 +453,11 @@ innaAppControllers.controller('PageDynamicPackage', [
                 if (ListPanelComponent) {
                     ListPanelComponent.wait();
                 }
+
+                //Debug;
+                //this.combination404();
+                //return;
+
                 PackagesService.getCombinationHotels(this.getIdCombination().params)
                     .success(function (data) {
 
@@ -625,13 +630,27 @@ innaAppControllers.controller('PageDynamicPackage', [
                 track.noResultsDp();
 
                 this._balloonLoad.updateView({
-                    template: 'not-found.html',
-                    title: 'Мы ничего не нашли',
-                    content: 'Попробуйте изменить условия поиска',
+                    balloon_class: 'b-baloon-error-form',
+                    template: 'not-found-form.html',
+                    title: 'К нашему удивлению, мы не нашли для Вас <br/>подходящего варианта за 30 секунд',
+                    content: 'Оставьте адрес электронной почты или номер телефона, <br/>чтобы получить от нас специальное предложение на путешествие.',
                     callbackClose: function () {
                         that.balloonCloser();
                     },
-                    callback: function () {
+                    callback: function (data) {
+                        //console.log('baloon send callback', data);
+
+                        var params = JSON.parse(JSON.stringify(that.getIdCombination().params));
+                        params.Email = data.email;
+                        params.Phone = data.phone;
+                        console.log('sendEmptySearch, params', params);
+
+                        PackagesService.sendEmptySearch(params)
+                            .success(function (data) {
+                            })
+                            .error(function (data) {
+                            });
+
                         that.balloonCloser();
                     }
                 });

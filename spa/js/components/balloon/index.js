@@ -77,6 +77,39 @@ innaAppConponents.
                         },
                         teardown: function () {
 
+                        },
+                        resetValid: function() {
+                            that.set('validationError', false);
+                        },
+                        send: function(event) {
+                            if (event && event.original) {
+                                event.original.stopPropagation();
+                                event.original.preventDefault();
+                            }
+
+                            var email = document.getElementById('baloon_not_found_email').value;
+                            var phone = document.getElementById('baloon_not_found_phone').value;
+
+                            function validate(email, phone) {
+                                if ((email && email.length > 0) ||
+                                    (phone && phone.length > 0)) {
+                                    that.set('validationError', false);
+                                    return true;
+                                }
+                                else {
+                                    that.set('validationError', true);
+                                    return false;
+                                }
+                            }
+
+
+                            if (validate(email, phone)) {
+                                if (typeof this.get('callback') == 'function') {
+                                    this.get('callback')({email: email, phone: phone});
+                                }
+
+                                that.dispose();
+                            }
                         }
                     });
 
@@ -160,7 +193,8 @@ innaAppConponents.
                             content: data.content,
                             partnerData: data.partnerData,
                             callbackClose: data.callbackClose || null,
-                            callback: data.callback || null
+                            callback: data.callback || null,
+                            balloon_class: data.balloon_class || null
                         });
 
 

@@ -1,0 +1,20 @@
+<div class="balloon-notfound balloon-notfound_form"></div>
+
+<div class="balloon-title">{{{title}}}</div>
+<p class="balloon-info">{{{content}}}</p>
+<div class="balloon-actions">
+    <div>
+        <input id="baloon_not_found_email" on-change="resetValid" class="b-not-found-input" type="text" placeholder="e-mail" />
+    </div>
+    <div>
+        <input id="baloon_not_found_phone" on-change="resetValid" class="b-not-found-input" type="text" placeholder="телефон" />
+    </div>
+</div>
+{{#if validationError}}
+<div class="balloon-actions">
+    <div class="b-not-found-input-error">Необходимо заполнить хотя бы одно поле</div>
+</div>
+{{/if}}
+<div class="balloon-actions">
+    <a href="#" on-click="send" class="button balloon-button balloon-button-send">Отправить</a>
+</div>

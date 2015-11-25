@@ -11,5 +11,6 @@ innaAppServices.factory('appApi', function () {
         GET_CURRENT_LOCATION_BY_IP: url('/Dictionary/GetCurrentLocation'),
         GET_AGENCY_LIST: url('/agency/AgencyList'),
         DYNAMIC_TO_SUGGEST: url('/Dictionary/Hotel'),
+        PACKAGES_EMPTY_SEARCH: url('/Packages/EmptySearch'),
     }
 });
