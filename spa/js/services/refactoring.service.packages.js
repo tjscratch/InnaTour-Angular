@@ -20,8 +20,7 @@ innaAppServices.service('PackagesService', function ($http, appApi) {
             return $http({
                 url: appApi.PACKAGES_EMPTY_SEARCH,
                 method: 'POST',
-                params: params,
-                cache: false
+                data: params
             });
         }
     }
