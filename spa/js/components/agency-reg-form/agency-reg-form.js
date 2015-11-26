@@ -32,8 +32,19 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
         }
     });
 
+    $scope.bookModuleNeeded = false;
+    $scope.$watch('bookModuleNeeded', function (data) {
+        if (data) {
+            $scope.agencyReg.BookModuleNeeded = true;
+        }
+        else {
+            $scope.agencyReg.BookModuleNeeded = false;
+        }
+    });
+
     $scope.agencySubmit = function (form) {
         if (form.$valid) {
+            console.log('$scope.agencyReg', $scope.agencyReg);
             dataService.agencyCreate($scope.agencyReg)
                 .success(function (data) {
                     switch (data.Status) {
