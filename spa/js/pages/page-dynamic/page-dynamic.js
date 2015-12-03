@@ -62,13 +62,17 @@ innaAppControllers.controller('PageDynamicPackage', [
             var routeParams = angular.copy(searchParams);
             var HotelId = ($scope.recommendedPair.hotel) ? $scope.recommendedPair.hotel.data.HotelId : null;
             var TicketId = ($scope.recommendedPair.ticket) ? $scope.recommendedPair.ticket.data.VariantId1 : null;
+            var ProviderId = ($scope.recommendedPair.hotel) ? $scope.recommendedPair.hotel.data.ProviderId : null;
             var params = {};
-
+            
             if (!HotelId) {
                 HotelId = routeParams.hotel;
             }
             if (!TicketId) {
                 TicketId = routeParams.ticket;
+            }
+            if (!ProviderId) {
+                ProviderId = routeParams.ProviderId;
             }
 
 
@@ -78,11 +82,15 @@ innaAppControllers.controller('PageDynamicPackage', [
             if (TicketId) {
                 TicketId = TicketId.toString();
             }
+            if (ProviderId) {
+                ProviderId = ProviderId.toString();
+            }
 
 
             params = {
                 HotelId: HotelId || null,
                 TicketId: TicketId || null,
+                ProviderId: ProviderId || null,
                 AddFilter: true
             };
             params = angular.extend(routeParams, params);
@@ -205,6 +213,7 @@ innaAppControllers.controller('PageDynamicPackage', [
                     $scope.safeApply(function () {
                         $scope.recommendedPair.setHotel(data);
                         $location.search('hotel', data.data.HotelId);
+                        $location.search('ProviderId', data.data.ProviderId);
                     });
                 });
 
