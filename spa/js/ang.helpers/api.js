@@ -45,7 +45,7 @@ angular.module('innaApp.API', [])
             DYNAMIC_SEARCH: url('/Packages/Search'),
             DYNAMIC_SEARCH_HOTELS: url('/Packages/SearchHotels'),
             DYNAMIC_SEARCH_TICKETS: url('/Packages/SearchTickets'),
-            DYNAMIC_HOTEL_DETAILS: url('/Packages/SearchHotel'),
+            DYNAMIC_HOTEL_DETAILS: url('/Packages/HotelDetails'),
             DYNAMIC_GET_DIRECTORY_BY_IP: url('/Dictionary/GetCurrentCity'),
 
             B2B_DISPLAY_ORDER: url('/Payment/Index'),
