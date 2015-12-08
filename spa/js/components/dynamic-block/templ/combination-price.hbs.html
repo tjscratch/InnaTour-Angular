@@ -58,7 +58,9 @@
             <i class="fa fa-rub"></i>
 
             {{#if PriceObject}}
-            <PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}"/>
+                {{#if AgencyType != 1}}
+                    <PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}"/>
+                {{/if}}
             {{/if}}
         </div>
         <div class="b-cost__price-desc">цена за человека</div>
