@@ -403,6 +403,7 @@
                         TicketBackId: $scope.item.VariantId2,
                         RoomId: $scope.roomId,
                         Filter: {
+                            ProviderId: $scope.hotel.ProviderId,
                             DepartureId: $routeParams.DepartureId,
                             ArrivalId: $routeParams.ArrivalId,
                             StartVoyageDate: $scope.searchParams.StartVoyageDate,
