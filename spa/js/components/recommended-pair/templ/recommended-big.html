@@ -124,7 +124,7 @@
 
 	<div class="b-result__cell b-result__cell_even"
 	     ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}"
-			>
+	>
 
 		<div class="spinner spinner-hotel">
 			<div class="rect rect1"></div>
@@ -135,31 +135,27 @@
 		</div>
 
 
-		<div class="hotel-info__special-mark" ng-if="recommendedPair.getProfit() > 1000">
-
-			<div ng-if="!isClosed && recommendedPairStatus == 3"
-			     tooltip-directive-base
-			     tooltip-klass="nocorner:fixed"
-			     close="true"
-			     position="top_right"
-			     is-visible="isVisible"
-			     width="300"
-			     templ="popover.hbs.html">
-
-				<div class="b-tooltip__header">
-					<h3>Отель был изменен</h3>
-				</div>
-
-				<div class="b-tooltip__body">
+		<div ng-if="!isClosed && recommendedPairStatus == 3"
+		     tooltip-directive-base
+		     tooltip-klass="nocorner:fixed"
+		     close="true"
+		     position="top_right"
+		     is-visible="isVisible"
+		     width="300"
+		     templ="popover.hbs.html">
+			<div class="b-tooltip__header">
+				<h3>Отель был изменен</h3>
+			</div>
+			<div class="b-tooltip__body">
                 <span class="b-tooltip__body__text">
                    К сожалению, выбранный вариант проживания уже
                     недоступен, в пакет будет включен рекомендован-
                     ный отель.
                 </span>
-				</div>
-
 			</div>
+		</div>
 
+		<div class="hotel-info__special-mark" ng-if="recommendedPair.getProfit() > 1000">
 			<span class="icon-crown icon-sprite-crown"></span>
 			Спецпредложение
 		</div>
@@ -170,10 +166,10 @@
 
 				<div class="hotel-info__photo" style="background-image: url({{recommendedPair.hotel.data.HotelPhoto180}})"
 				     ng-if="recommendedPair.hotel.data.HotelPhoto180"
-						></div>
+				></div>
 				<div class="hotel-info__photo" style="background-image: url('/spa/img/hotels/no_photo70x70.png')"
 				     ng-if="!recommendedPair.hotel.data.HotelPhoto180"
-						></div>
+				></div>
 
 				<!--<img class="hotel-info__photo" ng-src="{{recommendedPair.hotel.data.HotelPhoto180}}" ng-if="recommendedPair.hotel.data.HotelPhoto180" alt="">-->
 				<!--<img class="hotel-info__photo" src="/spa/img/hotels/no_photo70x70.png" ng-if="!recommendedPair.hotel.data.HotelPhoto180" alt="">-->
@@ -196,7 +192,7 @@
 					<div class="hotel-go-to-map">
                         <span class="hotel-info-name-link"
                               ng-click="recommendedHotelToMap()"
-		                        >(на карте)</span>
+                        >(на карте)</span>
 						<!--EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));-->
 					</div>
 
@@ -223,7 +219,7 @@
 		   link-in-new-window-if-can
 		   ng-if="stateHotel"
 		   target="_blank"
-				>
+		>
 		</a>
 
 		<div class="bottom-actions">
@@ -231,14 +227,14 @@
 			   class="button button-middle button-orange button-replace"
 			   ng-if="!(stateHotel && !asMap) && !hotelCount"
 			   ng-click="toggleTab('hotel', $event)"
-					>
+			>
 				Еще варианты отелей {{asMap}}
 			</a>
 			<a href="javascript:void(0);"
 			   class="button button-middle button-orange button-replace"
 			   ng-if="!stateHotel && !asMap && hotelCount"
 			   ng-click="toggleTab('hotel', $event)"
-					>
+			>
 				Еще
 				{{hotelCount}}
 				{{hotelCount | pluralize: [
@@ -253,7 +249,7 @@
 			   ng-if="stateHotel"
 			   target="_blank"
 			   style="top: -22px;right: 0; z-index: 20"
-					>Подробнее</a>
+			>Подробнее</a>
 			<!-- tripadvisor -->
 			<div class="hotel-info__tripadvisor"
 			     ng-if="stateHotel">
@@ -281,7 +277,6 @@
 		<div share-link-directive
 		     location="{{location}}"
 		     position="left"></div>
-
 
 
 		<div class="b-cost b-cost__old" ng-if="!CostPerPersonShow">
