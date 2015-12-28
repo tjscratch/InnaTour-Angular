@@ -416,6 +416,9 @@
                     };
 
                 m.PartnerMarker = (window.partners && window.partners.partnerMarker) ? window.partners.partnerMarker : null;
+
+                //partnerOperatorId
+                m.partnerOperatorId = (window.partners && window.partners.partnerOperatorId) ? window.partners.partnerOperatorId : null;
                 return m;
             }
 

@@ -109,7 +109,6 @@ innaAppControllers.
             });
 
 
-            // TODO : HELL
             $scope.baloon = aviaHelper.baloon;
 
 
@@ -225,6 +224,15 @@ innaAppControllers.
                     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
                         results = regex.exec(location.search);
                     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+                }
+
+
+                //partners
+                if (window.partners && window.partners.partnerOperatorId && window.partners.innaOperatorId) {
+                    dataService.AuthByPartnerInfo({
+                        partnerOperatorId: partnerOperatorId,
+                        innaOperatorId: innaOperatorId
+                    });
                 }
             })();
         }]);

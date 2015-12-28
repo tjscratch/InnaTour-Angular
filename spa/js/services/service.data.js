@@ -253,6 +253,15 @@
 //                    });
                 },
 
+                AuthByPartnerInfo: function (data) {
+                    console.log('AuthByPartnerInfo', data);
+                    //$http({
+                    //    url: apiUrls.PARTNERSHIP_GET_COOKIE,
+                    //    method: "GET",
+                    //    params: data
+                    //});
+                },
+
                 /**
                  * получение ID текущей локации
                  * @param callbackSuccess
