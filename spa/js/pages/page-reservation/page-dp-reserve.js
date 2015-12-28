@@ -368,7 +368,7 @@
                 //переходим на страницу оплаты
                 var url = Urls.URL_DYNAMIC_PACKAGES_BUY + $scope.OrderNum;
                 $location.url(url);
-            }
+            };
 
             $scope.getApiModel = function (data) {
                 var m = {};
@@ -451,7 +451,25 @@
                                 //аналитика
                                 track.dpGoBuy();
 
-                                if ($scope.$root.user != null && $scope.$root.user.isNeedRedirectToCabinetAfterReservation()) {
+                                //WL partner
+                                if ($scope.$root.user != null && $scope.$root.user.isWlAgency()) {
+                                    //показываем сообщения
+                                    if (data.HotelBooked) {
+                                        $scope.baloon.show("Бронь успешно создана", "После оплаты, документы можно скачать в личном кабинете",
+                                            aviaHelper.baloonType.success,
+                                            function () {
+                                                $location.path(Urls.URL_ROOT);
+                                            });
+                                    }
+                                    else {
+                                        $scope.baloon.show("Заявка на бронирование создана", "Бронирование будет осуществлено после оплаты",
+                                            aviaHelper.baloonType.success,
+                                            function () {
+                                                $location.path(Urls.URL_ROOT);
+                                            });
+                                    }
+                                }
+                                else if ($scope.$root.user != null && $scope.$root.user.isAgency()) {
                                     $scope.goToB2bCabinet();
                                 }
                                 else {

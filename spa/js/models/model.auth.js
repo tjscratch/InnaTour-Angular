@@ -24,8 +24,7 @@ innaAppServices.factory('modelAuth', [
             };
         };
 
-        Auth.User.prototype.isNeedRedirectToCabinetAfterReservation = function () {
-            var isAgency = this.raw.AgencyName.length > 0;
+        Auth.User.prototype.isWlAgency = function () {
             var isWLPartnerRole = false;
             if (this.raw.UserRoles && this.raw.UserRoles.length > 0) {
                 for(var i=0; i<this.raw.UserRoles.length; i++) {
@@ -37,13 +36,7 @@ innaAppServices.factory('modelAuth', [
                 }
             }
 
-            //если WL партнер - то не редиректим
-            if (isWLPartnerRole) {
-                return false;
-            }
-            else {
-                return isAgency;
-            }
+            return isWLPartnerRole;
         };
 
         Auth.User.prototype.displayName = function () {
