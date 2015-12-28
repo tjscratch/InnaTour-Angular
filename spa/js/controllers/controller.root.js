@@ -9,12 +9,13 @@ innaAppControllers.
         '$scope',
         '$location',
         'dataService',
+        'AuthDataProvider',
         'eventsHelper',
         'urlHelper',
         'innaApp.Urls',
         'innaAppApiEvents',
         'aviaHelper',
-        function (EventManager, $log, $scope, $location, dataService, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
+        function (EventManager, $log, $scope, $location, dataService, AuthDataProvider, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
 
             //js загрузился - показываем все спрятанные элементы
             setTimeout(function () {
@@ -229,10 +230,18 @@ innaAppControllers.
 
                 //partners
                 if (window.partners && window.partners.partnerOperatorId && window.partners.innaOperatorId) {
-                    dataService.AuthByPartnerInfo({
-                        partnerOperatorId: partnerOperatorId,
-                        innaOperatorId: innaOperatorId
-                    });
+                    var dataSingIn = {
+                        InnaUserId: window.partners.innaOperatorId,
+                        ExternalUserId: window.partners.partnerOperatorId
+                    };
+                    console.log('AuthDataProvider.signIn', dataSingIn);
+                    AuthDataProvider.signIn(dataSingIn,
+                        function (data) { //success
+                            console.log('AuthDataProvider.signIn success', data);
+                            $scope.$emit(Events.AUTH_SIGN_IN, data);
+                        }, function (err) { //error
+                            console.log('AuthDataProvider.signIn error', err);
+                        });
                 }
             })();
         }]);
