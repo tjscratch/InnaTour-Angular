@@ -235,7 +235,7 @@ innaAppControllers.
                         ExternalUserId: window.partners.partnerOperatorId
                     };
                     console.log('AuthDataProvider.signIn', dataSingIn);
-                    AuthDataProvider.signIn(dataSingIn,
+                    AuthDataProvider.signInWL(dataSingIn,
                         function (data) { //success
                             console.log('AuthDataProvider.signIn success', data);
                             $scope.$emit(Events.AUTH_SIGN_IN, data);
