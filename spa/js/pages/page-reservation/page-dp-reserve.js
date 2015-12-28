@@ -451,7 +451,7 @@
                                 //аналитика
                                 track.dpGoBuy();
 
-                                if ($scope.isAgency()) {
+                                if ($scope.$root.user != null && $scope.$root.user.isNeedRedirectToCabinetAfterReservation()) {
                                     $scope.goToB2bCabinet();
                                 }
                                 else {
