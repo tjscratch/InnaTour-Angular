@@ -11,7 +11,7 @@ angular.module('innaApp.services')
                 },
                 signInWL: function (data, callbackSuccess, callbackError) {
                     //AjaxHelper.post(urls.AUTH_SIGN_IN_WL, data, callbackSuccess, callbackError);
-                    $http.post(urls.AUTH_SIGN_IN_WL).success(callbackSuccess).
+                    $http.post(urls.AUTH_SIGN_IN_WL, data).success(callbackSuccess).
                         error(callbackError);
                 },
                 sendToken: function (data, callbackSuccess, callbackError) {
