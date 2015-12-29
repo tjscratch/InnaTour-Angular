@@ -1216,7 +1216,7 @@ innaAppControllers.
                                         trackContinueSuccess(pageType);
 
                                         //3dSecure
-                                        processPay3d(data.Data);
+                                        processPay3d(data.Data, data.InnaTermUrl);
                                     }
                                     else if (data.PreauthStatus == 2) {
                                         trackContinueSuccess(pageType);
@@ -1415,13 +1415,20 @@ innaAppControllers.
 
             $scope.buyFrame = new buyFrame();
 
-            function processPay3d(data) {
+            function processPay3d(data, innaTermUrl) {
                 var params = '';
                 var jData = angular.fromJson(data);
                 if (jData) {
                     //console.log('jData: ' + angular.toJson(jData));
                     //jData.TermUrl = app_main.apiHost + '/api/v1/Psb/PaymentRederect';
-                    jData.TermUrl = location.protocol + '//' + location.hostname + '/api/v1/Psb/PaymentRederect';
+
+                    if (innaTermUrl) {
+                        jData.TermUrl = location.protocol + '//' + location.hostname + innaTermUrl;
+                    }
+                    else {
+                        jData.TermUrl = location.protocol + '//' + location.hostname + '/api/v1/Psb/PaymentRederect';
+                    }
+
                     //console.log('jData: ' + angular.toJson(jData));
 
                     var keys = _.keys(jData);

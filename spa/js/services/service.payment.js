@@ -135,7 +135,7 @@
                 },
 
                 pay: function (queryData, successCallback, errCallback) {
-                    $http.post(apiUrls.AVIA_PAY, queryData).success(function (data, status) {
+                    $http.post(apiUrls.DO_PAY, queryData).success(function (data, status) {
                         successCallback(data);
                     }).
                         error(function (data, status) {
