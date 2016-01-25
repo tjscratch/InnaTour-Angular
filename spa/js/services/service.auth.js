@@ -9,6 +9,11 @@ angular.module('innaApp.services')
                 signIn: function (data, callbackSuccess, callbackError) {
                     AjaxHelper.postDebaunced(urls.AUTH_SIGN_IN, data, callbackSuccess, callbackError);
                 },
+                signInWL: function (data, callbackSuccess, callbackError) {
+                    //AjaxHelper.post(urls.AUTH_SIGN_IN_WL, data, callbackSuccess, callbackError);
+                    $http.post(urls.AUTH_SIGN_IN_WL, data).success(callbackSuccess).
+                        error(callbackError);
+                },
                 sendToken: function (data, callbackSuccess, callbackError) {
                     AjaxHelper.postDebaunced(urls.AUTH_RESTORE_A, data, callbackSuccess, callbackError);
                 },

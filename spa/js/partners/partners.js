@@ -25,6 +25,11 @@
     //PartnerMarker
     self.partnerMarker = null;
 
+    //partnerOperatorId
+    //innaOperatorId
+    self.partnerOperatorId = null;
+    self.innaOperatorId = null;
+
     var maxClientHeight = 730;
 
     self.getParentLocation = function () {
@@ -446,6 +451,13 @@
             if (data.options.partnerMarker != null && data.options.partnerMarker.length > 0) {
                 self.partnerMarker = data.options.partnerMarker;
                 console.log('partnerMarker set:', self.partnerMarker);
+            }
+
+            if (data.options.partnerOperatorId && data.options.innaOperatorId) {
+                self.partnerOperatorId = data.options.partnerOperatorId;
+                self.innaOperatorId = data.options.innaOperatorId;
+                console.log('partnerOperatorId set:', self.partnerOperatorId);
+                console.log('innaOperatorId set:', self.innaOperatorId);
             }
         }
     }
