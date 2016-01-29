@@ -179,9 +179,12 @@
     
     <div class="b-cc-container">
         <div class="b-cc-front">
-            <img ng-if="visaOrMastercard == null" src="spa/img/cc.png" class="b-cc-type" alt="">
-            <img ng-if="visaOrMastercard == true" src="spa/img/cc-visa.png" class="b-cc-type" alt="">
-            <img ng-if="visaOrMastercard == false" src="spa/img/cc-mc.png" class="b-cc-type" alt="">
+            <div class="b-cc-cont">
+                <img ng-if="visaOrMastercard == null" src="spa/img/cc.png" class="b-cc-type" alt="">
+                <img ng-if="visaOrMastercard == true" src="spa/img/cc-visa.png" class="b-cc-type" alt="">
+                <img ng-if="visaOrMastercard == false" src="spa/img/cc-mc.png" class="b-cc-type" alt="">
+                <img ng-if="isUniteller" src="spa/img/cc-uniteller.png" class="b-cc-uniteller" alt="">
+            </div>
 
             <div class="b-cc-block">
                 <label class="b-cc-block-label b-cc-block-label-number">Номер карты <br>(16 цифр)</label>
@@ -263,7 +266,11 @@
             используя платежный шлюз Промсвязьбанка
         </div>
 
-        <img src="/spa/img/logos.png" class="b-logos" alt="">
+        <div class="b-logos-cont">
+            <img ng-if="isUniteller" src="/spa/img/cc-uniteller.png" class="b-logos-uniteller" alt="">
+            <img ng-if="isUniteller" src="/spa/img/logos-uniteller.png" class="b-logos" alt="">
+            <img ng-if="!isUniteller" src="/spa/img/logos.png" class="b-logos" alt="">
+        </div>
     </div>
     <div class="buy-message-block" ng-if="buyCommentsForm.isEnabled">
         Если Вы не успеваете оплатить до тайм-лимита или Вы хотите оплатить другим способом,

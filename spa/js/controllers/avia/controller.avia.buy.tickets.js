@@ -28,6 +28,8 @@ innaAppControllers.
 
             var self = this;
 
+            $scope.isUniteller = true;
+
             var B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
             $scope.B2B_HOST_Order = B2B_HOST + '/Order/Edit/';
 
