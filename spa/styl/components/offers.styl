@@ -1,650 +1,645 @@
-.light-theme .offers-black {
-  background: #f6f6f6;
+.light-theme .offers-black{
+    background: #f6f6f6;
 }
-
-.light-theme .offers-dark-grey {
-  background: #fff;
+.light-theme .offers-dark-grey{
+    background: #fff;
 }
-
 .light-theme .offers-title,
-.light-theme .offers-description {
-  color: #393939;
+.light-theme .offers-description{
+    color: #393939;
 }
-
-.landing-title {
+.landing-title{
     font-family: ProximaNova;
-    font-weight : normal;
+    font-weight: normal;
     font-size: 25px;
     text-align: center;
 }
-
-.landing-title-sub {
+.landing-title-sub{
     font-family: ProximaNova;
     font-size: 25px;
     text-align: center;
     font-weight: lighter;
     margin: 5px 0 15px 0;
 }
-
-.landing-cont {
-    &:after {
+.landing-cont{
+    &:after{
         content: '';
         display: inline-block;
         width: 100%;
         clear: both;
     }
 }
-
-.landing-col {
+.landing-col{
     float: left;
     width: 470px;
 
-    &.left {
+    &.left{
         margin-right: 10px;
     }
-    &.right {
+    &.right{
         margin-left: 10px;
-        
+
     }
 }
-
-.landing-area {
-    .offers-description p {
+.landing-area{
+    .offers-description p{
         margin: 0 0 16px 0;
     }
 }
+.offers{
 
-.offers {
-
-  &-black, &-dark-grey, &-white, &-light-grey {
-    padding-bottom: 50px;
-  }
-
-  &-black {
-    background: #000;
-  }
-
-  &-white {
-    background: #fff;
-    padding-bottom: 20px;
-  }
-
-  &-light-grey {
-    background: #f6f6f6;
-  }
-
-  &-dark-grey {
-    background: #242323;
-  }
-
-  &-container {
-    @extend .main__center;
-    padding-top: 40px;
-  }
-
-  &-title {
-    color: #fff;
-    font-family: ProximaNovaLight;
-    font-size: 27px;
-    text-align: center;
-    font-weight: lighter;
-
-    &-sub {
-        font-size: 22px;
-    }
-  }
-
-  &-description {
-    color: #b2b2b2;
-    font-size: 16px;
-    margin: 15px 0 30px;
-  }
-
-  &-white &-title,
-  &-light-grey &-title {
-    color: #333;
-    font-family: ProximaNova;
-    text-align: left;
-    font-size: 45px;
-  }
-
-  &-white &-description,
-  &-light-grey &-description {
-    color: #333;
-    font-size: 18px;
-    text-align: left;
-
-  }
-
-  &-list {
-    text-align: justify;
-    line-height: 0;
-
-    &:after {
-      content: '';
-      display: inline-block;
-      font-size: 0;
-      height: 0;
-      line-height: 0;
-      width: 100%;
-    }
-  }
-
-  &-list_new-landing {
-    padding-bottom 0;
-    position: relative;
-    overflow: hidden;
-    text-align : left;
-    line-height : normal;
-
-    .landing-title {
-      padding-bottom : 40px;
+    &-black, &-dark-grey, &-white, &-light-grey{
+        padding-bottom: 50px;
     }
 
-
-
-    &__item {
-      position: relative;
-      vertical-align: middle;
-      padding: 8px 45px 13px 66px
-      height: 55px;
-      margin-bottom: 35px;
-      font-size : 15px;
-      &:nth-child(even) {
-        padding-right: 0px;
-      }
+    &-black{
+        background: #000;
     }
 
-    &__img {
-      box-sizing: border-box;
-      width: 54px;
-      height: 54px;
-      line-height: 0;
-      font-size: 0;
-      overflow: hidden;
-      position: absolute;
-      top: 0;
-      left: 0;
+    &-white{
+        background: #fff;
+        padding-bottom: 20px;
     }
 
-    .row:last-child {
-      .offers-list_new-landing__item {
-        margin-bottom: 0;
-      }
+    &-light-grey{
+        background: #f6f6f6;
     }
-  }
 
-  &-column {
-    display: inline-block;
-
-    .offer-small {
-      display: block;
+    &-dark-grey{
+        background: #242323;
     }
-  }
 
-  &-card {
-    &-banner-container {
-      height: 470px;
-      position: relative;
-
-      &.programm {
-        height: 300px;
-      }
-
-      .banner-dots {
+    &-container{
         @extend .main__center;
-        position: static;
-        visibility: hidden;
+        padding-top: 40px;
+    }
 
-        &-container {
-          bottom: 40px;
-          position: absolute;
-          visibility: hidden;
-          width: 100%;
-          z-index: 5;
-        }
-      }
-
-      .dot {
-        visibility: visible;
-      }
-
-      .breadcrumbs {
+    &-title{
         color: #fff;
-        @extend .main__center;
+        font-family: ProximaNovaLight;
+        font-size: 27px;
+        text-align: center;
+        font-weight: lighter;
 
-        &-container {
-          position: absolute;
-          top: 16px;
-          width: 100%;
-          z-index: 5;
+        &-sub{
+            font-size: 22px;
         }
-      }
-
-      .info {
-        color: #fff;
-        @extend .main__center;
-
-        &-container {
-          position: absolute;
-          top: 60px;
-          width: 100%;
-          z-index: 5;
-        }
-
-        .name {
-          font-size: 45px;
-          font-weight: normal;
-        }
-
-        .description {
-          font-family: ProximaNovaLight;
-          font-size: 18px;
-          line-height: 24px;
-          margin-top: 22px;
-          width: 510px;
-        }
-      }
-
-      &.main {
-        .info-container {
-          top: 280px;
-          text-shadow: 0 0 24px rgba(0, 0, 0, .5);
-
-          .name {
-            font-family: ProximaNova;
-            font-weight: bold;
-            font-size: 32px;
-            line-height: 28px;
-          }
-
-          .description {
-            margin-top: 5px 0;
-            font-size: 20px;
-            line-height: 20px;
-          }
-
-          .price {
-            font-family: ProximaNova;
-            font-weight: bold;
-          }
-        }
-
-        .offer-card-banner-item {
-          cursor: pointer;
-        }
-      }
     }
 
-    &-banner-list {
-      height: 100%;
-      position: relative;
-      z-index: 1;
+    &-description{
+        color: #b2b2b2;
+        font-size: 16px;
+        margin: 15px 0 30px;
     }
-  }
 
-  &-filter {
-    @extend .main__center;
-    font-size: 16px;
-    height: 59px;
-    line-height: 59px;
-
-    &-contacts {
-      font-size: 14px;
-
-      .phone {
+    &-white &-title,
+    &-light-grey &-title{
+        color: #333;
         font-family: ProximaNova;
-        font-weight: bold;
-        padding-left: 33px;
-      }
+        text-align: left;
+        font-size: 45px;
     }
 
-    &-container {
-      background: #fff;
-      border-bottom: 1px solid #c8c8c8;
+    &-white &-description,
+    &-light-grey &-description{
+        color: #333;
+        font-size: 18px;
+        text-align: left;
+
     }
 
-    .label-country {
-      margin-left: 20px;
+    &-list{
+        text-align: justify;
+        line-height: 0;
+
+        &:after{
+            content: '';
+            display: inline-block;
+            font-size: 0;
+            height: 0;
+            line-height: 0;
+            width: 100%;
+        }
     }
 
-    &-programs, &-countries {
-      margin: 0 0 0 6px;
-      vertical-align: middle;
-      min-width: 206px;
+    &-list_new-landing{
+        padding-bottom 0;
+        position: relative;
+        overflow: hidden;
+        text-align: left;
+        line-height: normal;
+
+        .landing-title{
+            padding-bottom: 40px;
+        }
+
+        &__item{
+            position: relative;
+            vertical-align: middle;
+            padding: 8px 45px 13px 66px
+            height: 55px;
+            margin-bottom: 35px;
+            font-size: 15px;
+            &:nth-child(even){
+                padding-right: 0px;
+            }
+        }
+
+        &__img{
+            box-sizing: border-box;
+            width: 54px;
+            height: 54px;
+            line-height: 0;
+            font-size: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .row:last-child{
+            .offers-list_new-landing__item{
+                margin-bottom: 0;
+            }
+        }
     }
 
-    &-countries {
-      margin: 0 0 0 5px;
+    &-column{
+        display: inline-block;
+
+        .offer-small{
+            display: block;
+        }
     }
-  }
+
+    &-card{
+        &-banner-container{
+            height: 470px;
+            position: relative;
+
+            &.programm{
+                height: 300px;
+            }
+
+            .banner-dots{
+                @extend .main__center;
+                position: static;
+                visibility: hidden;
+
+                &-container{
+                    bottom: 40px;
+                    position: absolute;
+                    visibility: hidden;
+                    width: 100%;
+                    z-index: 5;
+                }
+            }
+
+            .dot{
+                visibility: visible;
+            }
+
+            .breadcrumbs{
+                color: #fff;
+                @extend .main__center;
+
+                &-container{
+                    position: absolute;
+                    top: 16px;
+                    width: 100%;
+                    z-index: 5;
+                }
+            }
+
+            .info{
+                color: #fff;
+                @extend .main__center;
+
+                &-container{
+                    position: absolute;
+                    top: 60px;
+                    width: 100%;
+                    z-index: 5;
+                }
+
+                .name{
+                    font-size: 45px;
+                    font-weight: normal;
+                }
+
+                .description{
+                    font-family: ProximaNovaLight;
+                    font-size: 18px;
+                    line-height: 24px;
+                    margin-top: 22px;
+                    width: 510px;
+                }
+            }
+
+            &.main{
+                .info-container{
+                    top: 280px;
+                    text-shadow: 0 0 24px rgba(0, 0, 0, .5);
+
+                    .name{
+                        font-family: ProximaNova;
+                        font-weight: bold;
+                        font-size: 32px;
+                        line-height: 28px;
+                    }
+
+                    .description{
+                        margin-top: 5px 0;
+                        font-size: 20px;
+                        line-height: 20px;
+                    }
+
+                    .price{
+                        font-family: ProximaNova;
+                        font-weight: bold;
+                    }
+                }
+
+                .offer-card-banner-item{
+                    cursor: pointer;
+                }
+            }
+        }
+
+        &-banner-list{
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+    }
+
+    &-filter{
+        @extend .main__center;
+        font-size: 16px;
+        height: 59px;
+        line-height: 59px;
+
+        &-contacts{
+            font-size: 14px;
+
+            .phone{
+                font-family: ProximaNova;
+                font-weight: bold;
+                padding-left: 33px;
+            }
+        }
+
+        &-container{
+            background: #fff;
+            border-bottom: 1px solid #c8c8c8;
+        }
+
+        .label-country{
+            margin-left: 20px;
+        }
+
+        &-programs, &-countries{
+            margin: 0 0 0 6px;
+            vertical-align: middle;
+            min-width: 206px;
+        }
+
+        &-countries{
+            margin: 0 0 0 5px;
+        }
+    }
 }
-
-.darken-container {
-  background: #000;
-  height: 100%;
-  left: 0;
-  opacity: .25;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 4;
+.offers-layout__mod{
+    .offers-black{
+        padding-bottom 0
+    }
+    .offers-container{
+        padding-top 0
+        padding-bottom 50px
+    }
 }
-
-.offer {
-  &-small, &-middle, &-large, &-extra-large {
-    cursor: pointer;
-    display: inline-block;
-    font-size: 16px;
-    overflow: hidden;
-    margin-top: 10px;
-    line-height: normal;
-    position: relative;
-
-    &:before {
-      background: #2F3646;
-      content: '';
-      height: 100%;
-      opacity: 0;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      z-index: 1;
-    }
-  }
-
-  &-animation:hover {
-    &:before {
-      opacity: .7;
-    }
-    .offer-img {
-      //filter: grayscale(100%);
-    }
-
-    .offer-info {
-      display: none;
-    }
-    .offer-info-hover {
-      display: block;
-    }
-  }
-
-  &-small {
-    height: 209px;
-    width: 313px;
-  }
-
-  &-middle {
-    height: 320px;
-    width: 475px;
-  }
-
-  &-large {
-    height: 428px;
-    width: 637px;
-  }
-
-  &-extra-large {
-    height: 428px;
-    width: $site-width;
-  }
-
-  &-info, &-info-hover {
+.darken-container{
+    background: #000;
     height: 100%;
-    display: block;
+    left: 0;
+    opacity: .25;
     position: absolute;
-    text-align: center;
     top: 0;
     width: 100%;
-    z-index: 5;
+    z-index: 4;
+}
+.offer{
+    &-small, &-middle, &-large, &-extra-large{
+        cursor: pointer;
+        display: inline-block;
+        font-size: 16px;
+        overflow: hidden;
+        margin-top: 10px;
+        line-height: normal;
+        position: relative;
 
-    &:before {
-      content: '';
-      height: 100%;
-      display: inline-block;
-      vertical-align: middle;
+        &:before{
+            background: #2f3646;
+            content: '';
+            height: 100%;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 1;
+        }
     }
 
-    &-container {
-      display: inline-block;
-      vertical-align: middle;
-      width: 95%;
+    &-animation:hover{
+        &:before{
+            opacity: .7;
+        }
+        .offer-img{
+            //filter: grayscale(100%);
+        }
+
+        .offer-info{
+            display: none;
+        }
+        .offer-info-hover{
+            display: block;
+        }
     }
-  }
 
-  &-info-hover {
-    display: none;
-  }
-
-  &-title {
-    color: #fff;
-    font-family: ProximaNova;
-    font-weight: bold;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  &-price {
-    color: #fff;
-    font-family: ProximaNovaLight;
-    overflow: hidden;
-    white-space: nowrap;
-
-    &-number {
-      font-family: ProximaNova;
-      font-weight: bold;
+    &-small{
+        height: 209px;
+        width: 313px;
     }
-  }
 
-  &-info-hover &-price {
-    font-family: ProximaNova;
-    font-weight: bold;
-    margin-top: 6%;
-  }
+    &-middle{
+        height: 320px;
+        width: 475px;
+    }
 
-  &-date {
-    margin-top: 6%;
-    color: #fff;
-    overflow: hidden;
-    white-space: nowrap;
-  }
+    &-large{
+        height: 428px;
+        width: 637px;
+    }
 
-  &-info-bold {
-    font-family: ProximaNova;
-    font-weight: bold;
-  }
+    &-extra-large{
+        height: 428px;
+        width: $site-width;
+    }
 
-  /** large */
-  &-large &-title {
-    font-size: 44px;
-    line-height: 50px;
-  }
-  &-large &-price,
-  &-large &-info-hover &-price,
-  &-large &-date {
-    font-size: 24px;
-    margin-top: 6px;
-  }
-
-  /** middle */
-  &-middle &-title {
-    font-size: 30px;
-    line-height: 36px;
-  }
-  &-middle &-price,
-  &-middle &-info-hover &-price,
-  &-middle &-date {
-    font-size: 20px;
-  }
-
-  /** small */
-  &-small &-title {
-    font-size: 24px;
-    line-height: 30px;
-  }
-  &-small &-price,
-  &-small &-info-hover &-price,
-  &-small &-date {
-    font-size: 18px;
-    margin-top: 6px;
-  }
-
-  /** extra-large */
-  &-extra-large &-title {
-    font-size: 44px;
-    line-height: 52px;
-  }
-  &-extra-large &-price,
-  &-extra-large &-info-hover &-price,
-  &-extra-large &-date {
-    font-size: 24px;
-  }
-
-  // offer cards
-  &-card {
-    margin-top: 10px;
-    line-height: 0;
-    position: relative;
-
-    &-banner-item {
-      background: #000;
-      height: 470px;
-      overflow: hidden;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      z-index: 1;
-
-      &.programm {
-        height: 300px;
-      }
-
-      .img {
-        background-color: #000;
-        background-position: center top;
-        background-size: auto 100%;
-        background-repeat: no-repeat;
+    &-info, &-info-hover{
         height: 100%;
+        display: block;
         position: absolute;
+        text-align: center;
+        top: 0;
         width: 100%;
+        z-index: 5;
 
-      }
+        &:before{
+            content: '';
+            height: 100%;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        &-container{
+            display: inline-block;
+            vertical-align: middle;
+            width: 95%;
+        }
     }
 
-    &-info {
-      background: #fff;
-      border-bottom: 1px solid #c9c9c9;
-      display: inline-block;
-      height: 208px;
-      line-height: normal;
-      margin-left: 10px;
-      position: relative;
-      vertical-align: top;
-      width: 647px;
+    &-info-hover{
+        display: none;
+    }
 
-      .link {
-        color: $blue;
-      }
-
-      .title {
-        font-size: 21px;
-        font-weight: normal;
-        margin: 16px 10px 0 20px;
-      }
-
-      .description {
-        color: #474747;
-        font-size: 14px;
-        line-height: 21px;
-        margin: 12px 10px 0 20px;
-      }
-
-      .presentation-link {
-        font-size: 13px;
-        position: absolute;
-        left: 20px;
-        bottom: 15px;
-      }
-
-      .button {
-        border: 0;
-        bottom: 10px;
+    &-title{
         color: #fff;
         font-family: ProximaNova;
         font-weight: bold;
-        font-size: 14px;
-        margin: 0;
-        padding: 12px;
-        position: absolute;
-        right: 12px;
-      }
-    }
-  }
-
-  &-order-form {
-    margin: 20px 33px 100px;
-    width: 775px;
-
-    .field,
-    .field-text {
-      width: 723px;
+        overflow: hidden;
+        white-space: nowrap;
     }
 
-    .field-text {
-      height: 154px;
+    &-price{
+        color: #fff;
+        font-family: ProximaNovaLight;
+        overflow: hidden;
+        white-space: nowrap;
+
+        &-number{
+            font-family: ProximaNova;
+            font-weight: bold;
+        }
     }
 
-    .offer-description {
-      position: absolute;
-      bottom: 30px;
-      height: 50px;
-      width: 600px;
+    &-info-hover &-price{
+        font-family: ProximaNova;
+        font-weight: bold;
+        margin-top: 6%;
     }
 
-    .offer-submit {
-      font-size: 18px;
-      height: 50px;
-      width: 155px;
-      position: absolute;
-      right: 33px;
-      bottom: 29px;
+    &-date{
+        margin-top: 6%;
+        color: #fff;
+        overflow: hidden;
+        white-space: nowrap;
     }
-  }
+
+    &-info-bold{
+        font-family: ProximaNova;
+        font-weight: bold;
+    }
+
+    /** large */
+    &-large &-title{
+        font-size: 44px;
+        line-height: 50px;
+    }
+    &-large &-price,
+    &-large &-info-hover &-price,
+    &-large &-date{
+        font-size: 24px;
+        margin-top: 6px;
+    }
+
+    /** middle */
+    &-middle &-title{
+        font-size: 30px;
+        line-height: 36px;
+    }
+    &-middle &-price,
+    &-middle &-info-hover &-price,
+    &-middle &-date{
+        font-size: 20px;
+    }
+
+    /** small */
+    &-small &-title{
+        font-size: 24px;
+        line-height: 30px;
+    }
+    &-small &-price,
+    &-small &-info-hover &-price,
+    &-small &-date{
+        font-size: 18px;
+        margin-top: 6px;
+    }
+
+    /** extra-large */
+    &-extra-large &-title{
+        font-size: 44px;
+        line-height: 52px;
+    }
+    &-extra-large &-price,
+    &-extra-large &-info-hover &-price,
+    &-extra-large &-date{
+        font-size: 24px;
+    }
+
+    // offer cards
+    &-card{
+        margin-top: 10px;
+        line-height: 0;
+        position: relative;
+
+        &-banner-item{
+            background: #000;
+            height: 470px;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 1;
+
+            &.programm{
+                height: 300px;
+            }
+
+            .img{
+                background-color: #000;
+                background-position: center top;
+                background-size: auto 100%;
+                background-repeat: no-repeat;
+                height: 100%;
+                position: absolute;
+                width: 100%;
+
+            }
+        }
+
+        &-info{
+            background: #fff;
+            border-bottom: 1px solid #c9c9c9;
+            display: inline-block;
+            height: 208px;
+            line-height: normal;
+            margin-left: 10px;
+            position: relative;
+            vertical-align: top;
+            width: 647px;
+
+            .link{
+                color: $blue;
+            }
+
+            .title{
+                font-size: 21px;
+                font-weight: normal;
+                margin: 16px 10px 0 20px;
+            }
+
+            .description{
+                color: #474747;
+                font-size: 14px;
+                line-height: 21px;
+                margin: 12px 10px 0 20px;
+            }
+
+            .presentation-link{
+                font-size: 13px;
+                position: absolute;
+                left: 20px;
+                bottom: 15px;
+            }
+
+            .button{
+                border: 0;
+                bottom: 10px;
+                color: #fff;
+                font-family: ProximaNova;
+                font-weight: bold;
+                font-size: 14px;
+                margin: 0;
+                padding: 12px;
+                position: absolute;
+                right: 12px;
+            }
+        }
+    }
+
+    &-order-form{
+        margin: 20px 33px 100px;
+        width: 775px;
+
+        .field,
+        .field-text{
+            width: 723px;
+        }
+
+        .field-text{
+            height: 154px;
+        }
+
+        .offer-description{
+            position: absolute;
+            bottom: 30px;
+            height: 50px;
+            width: 600px;
+        }
+
+        .offer-submit{
+            font-size: 18px;
+            height: 50px;
+            width: 155px;
+            position: absolute;
+            right: 33px;
+            bottom: 29px;
+        }
+    }
 }
+.pdf-link{
+    color: #7d7d7d;
 
-.pdf-link {
-  color: #7d7d7d;
+    &:before{
+        background: url(/spa/img/pdf_icon.png);
+        display: inline-block;
+        content: '';
+        height: 23px;
+        margin-right: 10px;
+        position: relative;
+        top: 8px;
+        width: 17px;
+    }
 
-  &:before {
-    background: url(/spa/img/pdf_icon.png);
-    display: inline-block;
-    content: '';
-    height: 23px;
-    margin-right: 10px;
-    position: relative;
-    top: 8px;
-    width: 17px;
-  }
-
-  a {
-    color: #000;
-    border-bottom: 1px solid #a3a3a3;
-    text-decoration: none;
-  }
+    a{
+        color: #000;
+        border-bottom: 1px solid #a3a3a3;
+        text-decoration: none;
+    }
 }
+@media screen and (orientation: portrait){
+    .offer{
+        &-small{
+            width 312px;
+        }
 
-@media screen and (orientation:portrait) {
-  .offer {
-    &-small {
-      width 312px;
-    }
+        &-middle{
+            width 474px;
+        }
 
-    &-middle {
-      width 474px;
+        &-large{
+            width 636px
+        }
     }
-
-    &-large {
-      width 636px
-    }
-  }
 }

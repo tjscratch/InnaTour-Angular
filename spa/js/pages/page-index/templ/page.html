@@ -1,5 +1,5 @@
 <!-- Полная копипста из tour_grid_page -->
-<div class="layout">
+<div class="layout offers-layout__mod">
 	<div class="offers-card-banner-container main" ng-controller="SliderCtrl" ng-show="slides.length > 0" app-slider>
 		<ul class="offers-card-banner-list Offer-card-banners">
 			<li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
@@ -35,6 +35,50 @@
 		</ul>
 		<div class="banner-dots-container">
 			<ul class="banner-dots Banner-dots"></ul>
+		</div>
+	</div>
+
+	<div ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even, 'offers-dark-grey':$odd}"
+	     ng-repeat="section in sections">
+		<div class="offers-container">
+
+			<div ng-if="landing.canDisplayDataForLandingPages && $index == 0">
+				<h2 class="landing-title" ng-if="!isNullOrEmpty(landing.SectionTitle)">
+					{{::landing.SectionTitle}}
+				</h2>
+
+				<p class="landing-title-sub" ng-if="!isNullOrEmpty(landing.SubSectionTitle)">
+					{{::landing.SubSectionTitle}}
+				</p>
+
+				<div class="landing-area">
+					<p class="offers-description"
+					   ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 1"
+					   ng-bind-html="landing.TextIntro"></p>
+
+					<div class="landing-cont">
+						<div class="landing-col left offers-description"
+						     ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2"
+						     ng-bind-html="landing.columsTextIntro[0]">
+						</div>
+						<div class="landing-col right offers-description"
+						     ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2"
+						     ng-bind-html="landing.columsTextIntro[1]">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--<p class="offers-description" ng-if="!landing.canDisplayDataForLandingPages">
+				{{::section.Description}}
+			</p>-->
+
+			<div class="offers-list" ng-controller="OffersListCtrl">
+				<ng:any ng-repeat="block in section.OfferLayouts track by $index">
+					<ng:include src="getTemplateUrlByBlockType(block.OfferLayoutType)">
+					</ng:include>
+				</ng:any>
+			</div>
 		</div>
 	</div>
 
@@ -104,47 +148,4 @@
 		</div>
 	</div>
 
-	<div ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even, 'offers-dark-grey':$odd}"
-	     ng-repeat="section in sections">
-		<div class="offers-container">
-
-			<div ng-if="landing.canDisplayDataForLandingPages && $index == 0">
-				<h2 class="landing-title" ng-if="!isNullOrEmpty(landing.SectionTitle)">
-					{{::landing.SectionTitle}}
-				</h2>
-
-				<p class="landing-title-sub" ng-if="!isNullOrEmpty(landing.SubSectionTitle)">
-					{{::landing.SubSectionTitle}}
-				</p>
-
-				<div class="landing-area">
-					<p class="offers-description"
-					   ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 1"
-					   ng-bind-html="landing.TextIntro"></p>
-
-					<div class="landing-cont">
-						<div class="landing-col left offers-description"
-						     ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2"
-						     ng-bind-html="landing.columsTextIntro[0]">
-						</div>
-						<div class="landing-col right offers-description"
-						     ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2"
-						     ng-bind-html="landing.columsTextIntro[1]">
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!--<p class="offers-description" ng-if="!landing.canDisplayDataForLandingPages">
-				{{::section.Description}}
-			</p>-->
-
-			<div class="offers-list" ng-controller="OffersListCtrl">
-				<ng:any ng-repeat="block in section.OfferLayouts track by $index">
-					<ng:include src="getTemplateUrlByBlockType(block.OfferLayoutType)">
-					</ng:include>
-				</ng:any>
-			</div>
-		</div>
-	</div>
 </div>
