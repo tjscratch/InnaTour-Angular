@@ -643,3 +643,11 @@
         }
     }
 }
+// скрываем у партнеров первый оффер, хак для задачи https://innatec.atlassian.net/browse/IN-5688
+.partner-wl{
+    .offers-list{
+        .offer-extra-large:nth-child(1){
+            display none
+        }
+    }
+}
