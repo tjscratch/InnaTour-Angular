@@ -12,5 +12,8 @@ innaAppServices.factory('appApi', function () {
         GET_AGENCY_LIST: url('/agency/AgencyList'),
         DYNAMIC_TO_SUGGEST: url('/Dictionary/Hotel'),
         PACKAGES_EMPTY_SEARCH: url('/Packages/EmptySearch'),
+
+        GET_SMS_CODE: url('/Verification/SendCode'),
+        CHECK_SMS_CODE: url('/Verification/CheckCode'),
     }
 });

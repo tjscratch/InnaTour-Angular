@@ -9,6 +9,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
               dataService,
               paymentService,
               storageService,
+              CheckSmsService,
               aviaHelper,
               eventsHelper,
               urlHelper,
@@ -362,6 +363,8 @@ innaAppControllers.controller('ReserveTicketsCtrl',
         $scope.hotelRules = new $scope.helper.hotelRules();
 
         $scope.insuranceRules = new $scope.helper.insuranceRules();
+
+        $scope.checkReserveSms = new $scope.helper.checkReserveSms();
 
         $scope.loadTarifs = function (variantTo, varianBack, aviaInfo) {
             $scope.tarifs.fillInfo(aviaInfo);
@@ -1378,7 +1381,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
 
             $scope.tripInsideRFFlag = $scope.isTripInsideRF($scope.item);
             console.log('$scope.tripInsideRFFlag', $scope.tripInsideRFFlag);
-           
+
             //$scope.fillDefaultModel();
             $scope.fillStoredModel();
 
@@ -1431,7 +1434,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
             }
         };
 
-        
+
         $scope.$watch('agree', function(data){
             if (data && $scope.agreeError == true){
                 $scope.agreeError = false;
@@ -1485,9 +1488,32 @@ innaAppControllers.controller('ReserveTicketsCtrl',
         $scope.setOferta();
 
 
+        $scope.sms_code = '';
         //оплата
+
+        $scope.submitSms = function () {
+            CheckSmsService.getSmsCode({Phone: '+79099593106'})
+              .success(function (data){
+                  console.log(data)
+              })
+        }
+
+
+        $scope.submitSmsCode = function (code){
+            CheckSmsService.checkSmsCode({Phone: '+79099593106', Code: code})
+              .success(function (data) {
+                  console.log(data)
+              })
+
+        }
+
+
         $scope.processToPayment = function ($event) {
             eventsHelper.preventBubbling($event);
+
+            //$scope.baloon.show("Бронирование авиабилетов", "Это займет не более 30 секунд dfcsfc");
+            $scope.checkReserveSms();
+
 
             //для отладки, если есть параметр debug
             $scope.saveFilledModel();
@@ -1519,7 +1545,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                 }
             });
 
-            
+
             if (invalidItem != null) {
 
                 // скроллим страницу вверх
@@ -1537,8 +1563,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
             if (!$scope.agree){
                 $scope.agreeError = true;
             }
-            
-            
+
 
             //если модель валидна - бронируем
             if ($scope.validationModel.isModelValid() && $scope.agree) {
