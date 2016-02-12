@@ -1190,7 +1190,9 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                     var lastEtap = $scope.item.EtapsTo[$scope.item.EtapsTo.length - 1];
                     var countryId = lastEtap.InCountryId;
 
-                    if (countryId) {
+                    //https://innatec.atlassian.net/browse/IN-5637
+                    //если страна назначения РФ - то выводим все страны - не фильтруем
+                    if (countryId && countryId != 189) {
                         //фильтруем
                         data = _.filter(data, function (cit) {
                             if (cit.Id == countryId) {
