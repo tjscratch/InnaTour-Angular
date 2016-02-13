@@ -436,6 +436,9 @@
 					       ng-class="{'error' : sms_code_error}"
 					       type="number" autocomplete="off" ng-model="sms_code"/>
 				</div>
+				<div class="checkSms__error" ng-if="sms_code_error">
+					введен неправильный код
+				</div>
 				<div class="checkSms__timeout" ng-if="timer != 0">
 					запросить заново возможно не ранее чем через
 					<span ng-if="timer >= 60000">
@@ -449,9 +452,6 @@
 					<span class="checkSms__new" ng-click="submitSms()">
 						запросить заново
 					</span>
-				</div>
-				<div class="checkSms__error" ng-if="sms_code_error">
-					введен неправильный код
 				</div>
 				<span class="button" ng-click="submitSmsCode($event, sms_code)">Отправить</span>
 			</div>
