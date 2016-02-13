@@ -170,6 +170,8 @@
                     $scope.hotel = data.Hotel;
                     $scope.room = data.Hotel.Room;
                     $scope.price = data.Price;
+                    //$scope.NeedSmsValidation = data.NeedSmsValidation;
+                    $scope.NeedSmsValidation = true;
 
                     //ищем страховку
                     $scope.isInsuranceIncluded = false;
