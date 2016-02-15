@@ -62,7 +62,7 @@ function sprites(options) {
 gulp.task('sprite', function (cb) {
     sprites({
         src: conf.img + '/sprites',
-        imgPathSparite : '/spa/img/sprites/',
+        imgPathSparite : '/spa/sprites/',
         dest: conf.styl + '/sprite.styl',
         done: cb
     });

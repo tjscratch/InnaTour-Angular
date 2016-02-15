@@ -30,7 +30,7 @@ gulp.task('build-project', function (callback) {
         ['remove-publish', 'remove-manifest', 'remove-bower'],
         'create-manifest',
 
-        'sprite',
+        'sprite-gen',
         'styles-app',
         'replace-config',
         ['styles', 'concat-bower-components', 'build-concat', 'widget-search', 'build-lk'],
@@ -52,7 +52,7 @@ gulp.task('default', function (callback) {
     runSequence(
         ['remove-manifest', 'remove-bower'],
         'create-manifest',
-        'sprite',
+        'sprite-gen',
         'styles-app',
         'replace-config',
         'widget-search',

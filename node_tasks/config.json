@@ -9,6 +9,7 @@
   "styl": "./spa/styl",
   "templ": "./spa/templates",
   "img": "./spa/img",
+  "sprites": "./spa/img/sprites",
   "publish": "./publish",
   "config_path": "./node_tasks/config.json",
   "node_path": "./node_tasks",
