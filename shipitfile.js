@@ -38,7 +38,7 @@ module.exports = function (shipit) {
         return shipit.start(
             'after.deploy::copy.package.json',
             'after.deploy::run.npm.install',
-            //'after.deploy::run.build',
+            'after.deploy::run.build',
             'after.deploy::restart.service',
             'print.rollback'
         );
