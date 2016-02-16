@@ -9,6 +9,7 @@
   "styl": "./spa/styl",
   "templ": "./spa/templates",
   "img": "./spa/img",
+  "sprites": "./spa/img/sprites",
   "publish": "./publish",
   "config_path": "./node_tasks/config.json",
   "node_path": "./node_tasks",
@@ -56,5 +57,5 @@
     }
   },
   "tripadvisor": "www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId=",
-  "version": "build-0.6b904862-0.fotk3fg"
+  "version": "build-0.8b499fe5-0.vav7u9"
 }
