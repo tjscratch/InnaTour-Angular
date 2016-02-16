@@ -1527,7 +1527,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
           } else {
             $scope.checkReserveSms.close($event);
             $scope.baloon.show("Бронирование авиабилетов", "Это займет не более 30 секунд");
-            //$scope.reserve();
+            $scope.reserve();
           }
         }, function errorCallback (response) {
           $scope.sms_code_error = true;
@@ -1621,7 +1621,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
         }else{
           $scope.baloon.show("Бронирование авиабилетов", "Это займет не более 30 секунд");
           //бронируем
-          //$scope.reserve();
+          $scope.reserve();
         }
       }
 
