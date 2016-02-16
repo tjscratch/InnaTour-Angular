@@ -31,7 +31,7 @@ gulp.task('sprite-gen', ['remove-sprite'], function () {
   // Pipe image stream through image optimizer and onto disk
   var imgStream = spriteData.img
     // DEV: We must buffer our stream into a Buffer for `imagemin`
-    .pipe(buffer())
+    //.pipe(buffer())
     .pipe(imagemin())
     .pipe(gulp.dest(conf.sprites));
 
