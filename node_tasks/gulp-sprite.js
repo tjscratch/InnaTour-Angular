@@ -13,14 +13,20 @@ var tmpl = require('./styl.template.handlebars');
 var spritesmith = require('gulp.spritesmith');
 
 
-gulp.task('remove-sprite', function (cb) {
+gulp.task('remove-sprite-style', function (cb) {
   return del(conf.sprites + '/build', {
     force: true
   }, cb);
 });
 
+gulp.task('remove-sprite-img', function (cb) {
+  return del(conf.styl + '/sprite.styl', {
+    force: true
+  }, cb);
+});
 
-gulp.task('sprite-gen', ['remove-sprite'], function () {
+
+gulp.task('sprite-gen', ['remove-sprite-style', 'remove-sprite-img'], function () {
 
   var spriteData = gulp.src(conf.sprites + '/**/*.png').pipe(spritesmith({
     imgName: 'sprite-' + Math.random(1000).toString(16) + '.png',
