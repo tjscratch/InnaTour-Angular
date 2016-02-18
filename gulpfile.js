@@ -25,6 +25,24 @@ console.info('----------------------------');
  */
 
 
+gulp.task('build', function (callback) {
+    runSequence(
+        ['remove-publish', 'remove-manifest', 'remove-bower'],
+        'create-manifest',
+
+        'replace-config',
+        ['styles-app'],
+        ['styles', 'concat-bower-components', 'build-concat', 'widget-search', 'build-lk'],
+        'version-cache',
+        'html-replace',
+        ['copy-project', 'copy-node-app'],
+        'replace-partners',
+        'replace-node-config',
+        'replace-node-app',
+        callback);
+});
+
+
 gulp.task('build-project', function (callback) {
     runSequence(
         ['remove-publish', 'remove-manifest', 'remove-bower'],
