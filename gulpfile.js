@@ -30,9 +30,9 @@ gulp.task('build-project', function (callback) {
         ['remove-publish', 'remove-manifest', 'remove-bower'],
         'create-manifest',
 
-        'sprite-gen',
-        'styles-app',
+        ['sprite-gen'],
         'replace-config',
+        ['styles-app'],
         ['styles', 'concat-bower-components', 'build-concat', 'widget-search', 'build-lk'],
         'version-cache',
         'html-replace',
