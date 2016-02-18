@@ -495,7 +495,7 @@
                     },
                     showPriceChanged: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.priceChanged, closeFn);
-                    }, 
+                    },
 	                showAgencyRegSuccess: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.agencyRegSuccess, closeFn);
                     },
@@ -938,6 +938,48 @@
                     }
                 },
 
+                checkReserveSms: function () {
+                    var self = this;
+                    self.isOpened = false;
+
+                    self.height = 0;
+
+                    self.calcScreenHeight = function () {
+                        var w = window,
+                            d = document,
+                            e = d.documentElement,
+                            g = d.getElementsByTagName('body')[0],
+                            x = w.innerWidth || e.clientWidth || g.clientWidth,
+                            y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+
+                        self.height = y - 92;
+
+                        if (window.partners && window.partners.clientSize) {
+                            var height = window.partners.clientSize.height - 92;
+                            if (height < 500){
+                                height = 500;
+                            }
+                            self.height = height;
+                        }
+
+                        self.style = {height: self.height };
+                    };
+
+                    self.style = null;
+
+                    self.show = function ($event) {
+                        eventsHelper.preventBubbling($event);
+                        self.calcScreenHeight();
+                        utils.scrollFix();
+                        self.isOpened = true;
+                    };
+                    self.close = function ($event) {
+                        eventsHelper.preventBubbling($event);
+                        utils.scrollFix(true);
+                        self.isOpened = false;
+                    }
+                },
+
                 visaControl: function () {
                     var self = this;
 
@@ -961,7 +1003,7 @@
                                 array.push({name: name, link: link});
                             }
                         }
-                        
+
                         var isCitRussia = false;
                         var visaEtapNeeded = false;
                         var visaEtapRulesNeeded = false;
