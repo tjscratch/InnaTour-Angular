@@ -9,7 +9,7 @@ module.exports = function (shipit) {
             branch: 'release',
             ignores: ['.git', 'node_modules'],
             keepReleases: 20,
-            deleteOnRollback: false,
+            deleteOnRollback: true,
             //key: '~/.ssh/id_rsa.pub',
             shallowClone: true
         },
