@@ -24,6 +24,24 @@ console.info('----------------------------');
  * можно в файле node_tasks/concat.js
  */
 
+/**
+ * сборка в режиме разработки - gulp
+ * или с сервером livereload NODE_ENV=DEV gulp
+ */
+gulp.task('build', function (callback) {
+    runSequence(
+        ['remove-manifest', 'remove-bower'],
+        'create-manifest',
+        'sprite-gen',
+        'styles-app',
+        'replace-config',
+        'widget-search',
+        'build-lk',
+        ['styles', 'build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
+        'build-angular-parts',
+        callback);
+});
+
 
 gulp.task('build-project', function (callback) {
     runSequence(

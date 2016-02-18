@@ -28,7 +28,8 @@ module.exports = function (shipit) {
 
     shipit.on('fetched', function () {
         return shipit.start(
-            'pre.deploy::build'
+            'pre.deploy::build',
+            'pre.deploy::build-project'
         );
     });
 
@@ -53,6 +54,10 @@ module.exports = function (shipit) {
 
     //собирает проект локально, перед копированием на сервер
     shipit.blTask('pre.deploy::build', function () {
+        return shipit.local('cd ' + shipit.config.workspace + ' && NODE_ENV=DEV gulp build');
+    });
+
+    shipit.blTask('pre.deploy::build-project', function () {
         return shipit.local('cd ' + shipit.config.workspace + ' && NODE_ENV=production gulp build-project');
     });
 
