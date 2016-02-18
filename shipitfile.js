@@ -11,7 +11,7 @@ module.exports = function (shipit) {
             keepReleases: 20,
             deleteOnRollback: true,
             //key: '~/.ssh/id_rsa.pub',
-            shallowClone: false
+            shallowClone: true
         },
         staging: {
             servers: 'root@5.200.60.73:2223'
