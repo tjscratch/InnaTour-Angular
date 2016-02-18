@@ -206,6 +206,8 @@ innaAppControllers.
                                 //log('getSelectedVariant dataItem: ' + angular.toJson(data));
                                 $scope.item = data;
                                 $scope.price = data.Price;
+                                $scope.NeedSmsValidation = data.NeedSmsValidation;
+                                console.log('NeedSmsValidation - ' + $scope.NeedSmsValidation);
                                 //console.log('data:');
                                 //console.log($scope.item);
                                 //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
