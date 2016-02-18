@@ -28,7 +28,7 @@ module.exports = function (shipit) {
 
     shipit.on('fetched', function () {
         return shipit.start(
-            //'pre.deploy::build'
+            'pre.deploy::build'
         );
     });
 
