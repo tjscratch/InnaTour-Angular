@@ -53,7 +53,7 @@ module.exports = function (shipit) {
 
     //собирает проект локально, перед копированием на сервер
     shipit.blTask('pre.deploy::build', function () {
-        return shipit.local('cd ' + shipit.config.workspace + '&& NODE_ENV=production gulp remove-sprite-style && NODE_ENV=production gulp build-project');
+        return shipit.local('cd ' + shipit.config.workspace + '&& NODE_ENV=production gulp build-project');
     });
 
 
