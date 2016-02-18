@@ -14,7 +14,7 @@ var spritesmith = require('gulp.spritesmith');
 
 
 gulp.task('remove-sprite', function (cb) {
-  return del(conf.sprites + '/sprite.png', {
+  return del(conf.sprites + '/build', {
     force: true
   }, cb);
 });
@@ -23,7 +23,7 @@ gulp.task('remove-sprite', function (cb) {
 gulp.task('sprite-gen', ['remove-sprite'], function () {
 
   var spriteData = gulp.src(conf.sprites + '/**/*.png').pipe(spritesmith({
-    imgName: 'sprite.png',
+    imgName: 'sprite-' + Math.random(1000).toString(16) + '.png',
     cssName: 'sprite.styl',
     cssTemplate: tmpl
   }));
@@ -33,7 +33,7 @@ gulp.task('sprite-gen', ['remove-sprite'], function () {
     // DEV: We must buffer our stream into a Buffer for `imagemin`
     .pipe(buffer())
     .pipe(imagemin())
-    .pipe(gulp.dest(conf.sprites));
+    .pipe(gulp.dest(conf.sprites + '/build'));
 
   // Pipe CSS stream through CSS optimizer and onto disk
   var cssStream = spriteData.css
