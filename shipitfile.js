@@ -8,7 +8,7 @@ module.exports = function (shipit) {
             repositoryUrl: 'git@bitbucket.org:innatec/inna-frontend-git.git',
             branch: 'release',
             ignores: ['.git', 'node_modules'],
-            keepReleases: 10,
+            keepReleases: 20,
             deleteOnRollback: false,
             //key: '~/.ssh/id_rsa.pub',
             shallowClone: true
