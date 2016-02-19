@@ -1,0 +1,59 @@
+btx-button-color1() {
+    padding 8px 15px
+    border: none;
+    background: $btn-green-bg;
+    border-radius: $btn-green-border-radius;
+    color $btn-green-color
+    font-size 20px
+    font-weight bold
+
+    &:hover {
+        background: $btn-green-bg-hover
+        text-decoration: none;
+    }
+    &:active {
+        background: $btn-green-bg-active
+        text-decoration: none;
+    }
+}
+
+btx-button-color2() {
+    padding 6px 15px
+    border: none;
+    background: $btn-green-bg;
+    border-radius: $btn-green-border-radius;
+    color $btn-green-color
+    font-size 16px
+    font-weight bold
+
+    &:hover{
+        background: $btn-green-bg-hover
+        text-decoration: none;
+    }
+    &:active{
+        background: $btn-green-bg-active
+        text-decoration: none;
+    }
+}
+
+btx-button1() {
+    padding: 5px 16px;
+    btx-button-color1()
+}
+
+btx-button2() {
+    padding: 5px 16px;
+    btx-button-color2()
+}
+
+btx-checkbox-bg() {
+    background: url("/spa/img/i.png") no-repeat 2px -590px $green;
+}
+
+btx-checkbox-border() {
+    border: 2px solid $green;
+}
+
+.balloon-button {
+    btx-button-color1()
+}
