@@ -15,5 +15,9 @@ innaAppServices.factory('appApi', function () {
 
         GET_SMS_CODE: url('/Verification/SendCode'),
         CHECK_SMS_CODE: url('/Verification/CheckCode'),
+
+
+        PACKAGES_DISCOUNTED_PRICE: url('/PackagesOrder/DiscountedPrice'),
+        AVIA_DISCOUNTED_PRICE: url('/AviaOrder/DiscountedPrice'),
     }
 });

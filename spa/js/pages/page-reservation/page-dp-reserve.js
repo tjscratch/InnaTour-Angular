@@ -13,18 +13,19 @@
         'storageService',
         'urlHelper',
         '$timeout',
+        'PromoCodes',
 
         '$templateCache',
         //components
         'Balloon',
-        function (RavenWrapper, $scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, $templateCache, Balloon) {
+        function (RavenWrapper, $scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon) {
 
             $scope.baloon.showExpireCheck();
 
-            Raven.setExtraContext({key: "__RESERVATION_CONTEXT__"});
+            Raven.setExtraContext({ key: "__RESERVATION_CONTEXT__" });
 
             // TODO : наследование контроллера
-            $controller('ReserveTicketsCtrl', {$scope: $scope});
+            $controller('ReserveTicketsCtrl', { $scope: $scope });
 
             if ($scope.isAgency() || (window.partners && window.partners.isWL())) {
             }
@@ -100,7 +101,7 @@
                 return url;
             };
 
-            function addition() {
+            function addition () {
                 var self = this;
                 this.customerWishlist = '';
                 this.isNeededVisa = false;
@@ -109,7 +110,7 @@
             }
 
 
-            function goToSearch() {
+            function goToSearch () {
                 var url = $scope.goBackUrl().replace('/#', '');
                 $location.url(url);
             }
@@ -130,7 +131,7 @@
             };
 
 
-            function getCheckParams() {
+            function getCheckParams () {
                 var qData = {
                     HotelId: $scope.hotel.HotelId,
                     HoteProviderId: $scope.hotel.ProviderId,
@@ -155,7 +156,7 @@
                 return qData;
             }
 
-            function successSearch(data) {
+            function successSearch (data) {
                 $scope.$apply(function ($scope) {
 
                     $scope.addition = new addition();
@@ -176,12 +177,12 @@
 
                     //ищем страховку
                     $scope.isInsuranceIncluded = false;
-                    (function getInsurance(included){
-                        if (included){
+                    (function getInsurance (included) {
+                        if (included) {
                             var re = /Страховка/ig;
-                            for(var i=0; i<included.length; i++){
+                            for (var i = 0; i < included.length; i++) {
                                 var item = included[i];
-                                if (re.test(item.Name)){
+                                if (re.test(item.Name)) {
                                     $scope.isInsuranceIncluded = true;
                                     break;
                                 }
@@ -204,7 +205,7 @@
                 });
             }
 
-            function errorSearch(data, status) {
+            function errorSearch (data, status) {
                 $scope.safeApply(function () {
                     $scope.baloon.showNotFound("Вариант больше недоступен", "Вы будете направлены на результаты поиска",
                         function () {
@@ -225,7 +226,7 @@
 
             //http://lh.inna.ru/#/packages/reservation/6733-6623-01.11.2015-15.11.2015-0-2-2-97014-800125836-800125978-2?room=d13a0aef-28a4-7bef-9ff8-e0f5f5ef2ade&hotel=97014&ticket=800125836#SectionRoom
             //http://lh.inna.ru/#/packages/reservation/6733-6623-01.11.2015-15.11.2015-0-2--97014-800126499-800126604-2?room=f7a3259d-cc28-4d7e-3c44-7fcb3a6e70c8&hotel=97014&ticket=800126499#SectionRoom
-            function goToAvia() {
+            function goToAvia () {
                 var url = Urls.URL_DYNAMIC_PACKAGES_SEARCH +
                     [
                         $routeParams.DepartureId,
@@ -240,15 +241,15 @@
             }
 
 
-            function goToHotelDetails() {
+            function goToHotelDetails () {
                 var detailsUrl = $scope.getHotelInfoLink($scope.item.VariantId1, $scope.item.VariantId2, $scope.hotel.HotelId, $scope.hotel.ProviderId);
                 var url = detailsUrl.replace('/#', '');
                 $location.url(url);
             }
 
 
-            function noAvailability(data) {
-                function showBaloon(text1, text2) {
+            function noAvailability (data) {
+                function showBaloon (text1, text2) {
                     $scope.safeApply(function () {
                         $scope.baloon.showNotFound(text1, text2,
                             function () {
@@ -285,7 +286,7 @@
             /**
              * проверяем, что остались билеты для покупки
              */
-            function packageCheckAvailability() {
+            function packageCheckAvailability () {
                 var getCheckParamsRaven = getCheckParams();
                 paymentService.packageCheckAvailability({
                     data: getCheckParamsRaven,
@@ -425,7 +426,22 @@
                 return m;
             }
 
-            //бронируем
+
+            /**
+             * начало промо код
+             */
+            $scope.checkPromoCode = function () {
+                PromoCodes.getPackagesDiscountedPrice({code: $scope.promoCode})
+                    .success(function (data){
+                        console.log(data)
+                    })
+            }
+            /**
+             * конец промо код
+             */
+
+
+                //бронируем
             $scope.reserve = function () {
                 //console.log('$scope.reserve');
                 var m = $scope.getApiModelForReserve();
