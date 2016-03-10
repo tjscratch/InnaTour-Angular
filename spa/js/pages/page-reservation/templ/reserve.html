@@ -289,16 +289,19 @@
 					       class="b-field-text b-promo-code__input"
 					       type="text"
 					       ng-model="promoCode"/>
-					<div class="b-promo-code__input-error-message">Код не опознан</div>
+					<div class="b-promo-code__input-error-message"
+					     ng-if="promoCodeStatus == 2 || promoCodeStatus == 3"
+					>Код не опознан
+					</div>
 				</div>
 				<span class="button b-promo-code__button"
-				        ng-click="checkPromoCode()">Применить
+				      ng-click="checkPromoCode()">Применить
 				</span>
 			</div>
-			<div class="b-promo-code__info">
+			<div class="b-promo-code__info" ng-if="promoCodeStatus == 1">
 				Ввведен промо-код
-				<b>dfzcscf</b>
-				на 5% скидку
+				<b>{{ promoCode }}</b>
+				на {{ promoCodeSale }}% скидку
 			</div>
 
 		</div>

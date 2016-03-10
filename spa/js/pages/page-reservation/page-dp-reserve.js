@@ -423,55 +423,30 @@
 
                 //partnerOperatorId
                 m.partnerOperatorId = (window.partners && window.partners.partnerOperatorId) ? window.partners.partnerOperatorId : null;
+
+                if($scope.promoCode){
+                    m.promoCodeString = $scope.promoCode;
+                }
                 return m;
             }
 
 
             /**
              * начало промо код
-             * CP-8T5Q4-LZ0SOBE
-             * CP-8T5Q4-LZ0SOBE
-             * CP-D9V4P-FG4L0IG
+             *
+             * CP-OGUM4-OR4JZM1
              */
             $scope.checkPromoCode = function () {
                 var m = $scope.getApiModelForReserve();
-                var checkPromoCodeParams = {
-                    //PromoDiscountModel: {
-                        //"searchParams": {
-                        //    "HotelId": "435490",
-                        //    "HotelProviderId": "4",
-                        //    "TicketToId": "801128027",
-                        //    "TicketBackId": "801128131",
-                        //    "TicketClass": "0",
-                        //    "RoomId": "c77e916a-e6bc-a708-0e88-d793704cf4b6",
-                        //    "Filter": {
-                        //        "DepartureId": "6733",
-                        //        "ArrivalId": "6623",
-                        //        "StartVoyageDate": "2016-04-01",
-                        //        "EndVoyageDate": "2016-04-15",
-                        //        "TicketClass": "0",
-                        //        "Adult": "1"
-                        //    },
-                        //    "CustomerWishlist": ""
-                        //},
-                        //"promoCodeString": "CP-D9V4P-FG4L0IG"
-                    //}
-                    "PromoDiscountModel": {
-                        "searchParams": m.apiModel.SearchParams,
-                        "promoCodeString": $scope.promoCode
-                    }
-                }
-
-                //{
-                //searchParams: m.apiModel.SearchParams,
-                //searchParams: m.apiModel.SearchParams,
-                //promoCodeString: $scope.promoCode
-
-                //};
-                //checkPromoCodeParams.promoCodeString = $scope.promoCode;
+                var checkPromoCodeParams = m.apiModel;
                 PromoCodes.getPackagesDiscountedPrice(checkPromoCodeParams)
                     .success(function (data) {
-                        console.log(data)
+                        $scope.promoCodeStatus = data.Status;
+                        $scope.promoCodeDetailStatus = data.DetailStatus;
+                        if($scope.promoCodeStatus == 1){
+                            $scope.promoCodeSale = data.Details.PromoCode.rule_value;
+                            $scope.price = data.Details.NewPrice;
+                        }
                     })
             }
             /**
