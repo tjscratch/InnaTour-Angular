@@ -24,11 +24,13 @@ innaAppControllers.
         'Balloon',
         function AviaBuyTicketsCtrl(RavenWrapper, $log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Urls, $templateCache, Balloon) {
 
+
             Raven.setExtraContext({key: "__BUY_TICKETS_CONTEXT__"});
 
             var self = this;
 
             $scope.isUniteller = true;
+            $scope.admitadSuccess = false;
 
             var B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
             $scope.B2B_HOST_Order = B2B_HOST + '/Order/Edit/';
@@ -781,7 +783,7 @@ innaAppControllers.
                     }
 
                     paymentService.getRepricing($scope.orderNum, function (data) {
-                            //console.log(data);
+
                             switch (data.Type) {
                                 case 1:
                                 {
@@ -1260,7 +1262,6 @@ innaAppControllers.
             };
 
             function setSuccessBuyResult(resultType) {
-                console.log('setSuccessBuyResult');
                 //пришел ответ - или оплачено или ошибка
                 $scope.isOrderPaid = true;
 
@@ -1274,12 +1275,22 @@ innaAppControllers.
 
                 var pageType = getActionType();
 
+                // возвращает cookie с именем name, если есть, если нет, то undefined
+                function getCookie (name) {
+                    var matches = document.cookie.match(new RegExp(
+                        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+                    ));
+                    return matches ? decodeURIComponent(matches[1]) : undefined;
+                }
+                $scope.admitad_uid = getCookie('admitad_uid');
                 //аналитика - авиа - заказ выполнен
                 if (pageType == actionTypeEnum.avia) {
+                    $scope.admitadSuccess = true;
                     track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
                     track.aviaPayBtnSubmit();
                 }
                 else if (pageType == actionTypeEnum.dp) {//аналитика - ДП - заказ выполнен
+                    $scope.admitadSuccess = true;
                     track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
                     track.dpPayBtnSubmit();
                 }
