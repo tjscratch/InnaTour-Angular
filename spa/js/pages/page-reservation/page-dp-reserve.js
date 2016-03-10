@@ -429,10 +429,48 @@
 
             /**
              * начало промо код
+             * CP-8T5Q4-LZ0SOBE
+             * CP-8T5Q4-LZ0SOBE
+             * CP-D9V4P-FG4L0IG
              */
             $scope.checkPromoCode = function () {
-                PromoCodes.getPackagesDiscountedPrice({code: $scope.promoCode})
-                    .success(function (data){
+                var m = $scope.getApiModelForReserve();
+                var checkPromoCodeParams = {
+                    //PromoDiscountModel: {
+                        //"searchParams": {
+                        //    "HotelId": "435490",
+                        //    "HotelProviderId": "4",
+                        //    "TicketToId": "801128027",
+                        //    "TicketBackId": "801128131",
+                        //    "TicketClass": "0",
+                        //    "RoomId": "c77e916a-e6bc-a708-0e88-d793704cf4b6",
+                        //    "Filter": {
+                        //        "DepartureId": "6733",
+                        //        "ArrivalId": "6623",
+                        //        "StartVoyageDate": "2016-04-01",
+                        //        "EndVoyageDate": "2016-04-15",
+                        //        "TicketClass": "0",
+                        //        "Adult": "1"
+                        //    },
+                        //    "CustomerWishlist": ""
+                        //},
+                        //"promoCodeString": "CP-D9V4P-FG4L0IG"
+                    //}
+                    "PromoDiscountModel": {
+                        "searchParams": m.apiModel.SearchParams,
+                        "promoCodeString": $scope.promoCode
+                    }
+                }
+
+                //{
+                //searchParams: m.apiModel.SearchParams,
+                //searchParams: m.apiModel.SearchParams,
+                //promoCodeString: $scope.promoCode
+
+                //};
+                //checkPromoCodeParams.promoCodeString = $scope.promoCode;
+                PromoCodes.getPackagesDiscountedPrice(checkPromoCodeParams)
+                    .success(function (data) {
                         console.log(data)
                     })
             }
