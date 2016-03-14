@@ -55,9 +55,9 @@ app.constant('innaApp.Urls', {
     URL_PACKAGES_LANDING: '/packages/ppc/',
 
     URL_AGENCY_REG_FORM: '/registration/',
-    
+
     URL_WHERE_TO_BUY: '/where-to-buy/',
-    
+
     URL_HELP: '/help/',
 
     URL_TRANSFERS: '/transfers/',
@@ -66,6 +66,15 @@ app.constant('innaApp.Urls', {
 });
 
 app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, $location, $window, $filter) {
+
+
+    // устанавливаем куку от admitad на 100 дней на всяк случай
+    var admitad_uid = $location.$$search.admitad_uid;
+    var date = new Date;
+    date.setDate(date.getDate() + 100);
+    if(admitad_uid){
+        document.cookie = "admitad_uid=" + admitad_uid + "; path=/; expires=" + date.toUTCString();
+    }
 
     // Ractive.defaults
     Ractive.defaults.data.pluralize = utils.pluralize || null;
@@ -121,10 +130,10 @@ app.config([
     '$sceProvider',
     function ($routeProvider, $locationProvider, $httpProvider, url, $sceProvider, $filter) {
 
-        function dynamic() {
+        function dynamic () {
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.realType == window.partners.WLType.full) {
-                if (partner.name == 'biletix'){
+                if (partner.name == 'biletix') {
                     return {
                         templateUrl: 'pages/partners/biletixPage.html',
                         controller: 'FullWLMainCtrl',
@@ -139,8 +148,8 @@ app.config([
                     }
                 }
             }
-            else if (partner != null && partner.realType == window.partners.WLType.b2b){
-                if (partner.name == 'sputnik'){
+            else if (partner != null && partner.realType == window.partners.WLType.b2b) {
+                if (partner.name == 'sputnik') {
                     return {
                         templateUrl: 'pages/page-index/templ/page_sputnik.html',
                         controller: 'DynamicPackageMordaCtrl',
@@ -157,10 +166,10 @@ app.config([
             }
         }
 
-        function avia() {
+        function avia () {
             var partner = window.partners ? window.partners.getPartner() : null;
-            if (partner != null && partner.realType == window.partners.WLType.b2b){
-                if (partner.name == 'sputnik'){
+            if (partner != null && partner.realType == window.partners.WLType.b2b) {
+                if (partner.name == 'sputnik') {
                     return {
                         templateUrl: 'pages/page-tours/templ/page-tours-ctrl_sputnik.html',
                         controller: 'AviaSearchMainCtrl',
@@ -185,192 +194,154 @@ app.config([
         $sceProvider.enabled(false);
 
         $routeProvider.
-            //Главная
-            when(url.URL_ROOT, dynamic()).
-            when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?-:DepartureId-:ArrivalId?', dynamic()).
-            when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?-:DepartureId', dynamic()).
-            when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?', dynamic()).
-            when(url.URL_PACKAGES_LANDING + ':sectionId', dynamic()).
-            when(url.URL_TOURS, {
-                templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
-                controller: 'ToursCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_PROGRAMMS + 'category/:id', {
-                templateUrl: 'pages/it_category_page.html',
-                controller: 'IndividualToursCategoryCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_PROGRAMMS, {
-                templateUrl: 'pages/it_grid_page.html',
-                controller: 'IndividualToursCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_ABOUT, {
-                templateUrl: 'pages/about_page.html',
-                controller: 'AboutCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_CONTACTS, {
-                templateUrl: 'pages/contacts_page.html',
-                controller: 'ContactsCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_CERTIFICATES, {
-                templateUrl: 'pages/certificates_page.html',
-                controller: 'ContactsCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_AVIA + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
-                templateUrl: 'pages/avia/search_form.html',
-                controller: 'AviaSearchMainCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_AVIA + ':FromUrl-:ToUrl', {
-                templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
-                controller: 'AviaSearchMainCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_AVIA, avia()).
-            when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType-:VariantId1-:VariantId2?', {
-                templateUrl: 'pages/page-avia/templ/search_results.html',
-                controller: 'AviaSearchResultsCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
-                templateUrl: 'pages/page-avia/templ/search_results.html',
-                controller: 'AviaSearchResultsCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_AVIA_RESERVATION + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
-                ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2', {
-                templateUrl: 'pages/page-reservation/templ/reserve.html',
-                controller: 'AviaReserveTicketsCtrl',
-                resolve: authController.resolve
-            }).
-            //when(url.URL_AVIA_BUY + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
-            //    ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2-:OrderNum', {
-            //        templateUrl: 'pages/avia/tickets_buy.html',
-            //        controller: 'AviaBuyTicketsCtrl',
-            //        resolve: authController.resolve
-            //    }).
-            when(url.URL_BUY + ':OrderNum', {
-                templateUrl: 'pages/avia/tickets_buy.html',
-                controller: 'AviaBuyTicketsCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_BUY_SUCCESS + ':OrderNum', {
-                templateUrl: 'pages/avia/tickets_buy.html',
-                controller: 'AviaBuyTicketsCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_BUY_ERROR + ':OrderNum', {
-                templateUrl: 'pages/avia/tickets_buy.html',
-                controller: 'AviaBuyTicketsCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_AVIA_BUY_SUCCESS + ':OrderNum', {
-                templateUrl: 'pages/avia/tickets_buy.html',
-                controller: 'AviaBuyTicketsCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_AVIA_BUY_ERROR + ':OrderNum', {
-                templateUrl: 'pages/avia/tickets_buy.html',
-                controller: 'AviaBuyTicketsCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_AVIA_BUY + ':OrderNum', {
-                templateUrl: 'pages/avia/tickets_buy.html',
-                controller: 'AviaBuyTicketsCtrl',
-                resolve: authController.resolve
-            }).
-            //when(url.URL_DYNAMIC_PACKAGES_BUY_SUCCESS + ':OrderNum?', {
-            //    templateUrl: 'pages/page-buy-success/templ/page.html',
-            //    controller: 'PageBuySuccess',
-            //    resolve: authController.resolve
-            //}).
-            when(url.URL_DYNAMIC_PACKAGES_BUY_SUCCESS + ':OrderNum', {
-                templateUrl: 'pages/avia/tickets_buy.html',
-                controller: 'AviaBuyTicketsCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_DYNAMIC_PACKAGES_BUY_ERROR + ':OrderNum', {
-                templateUrl: 'pages/avia/tickets_buy.html',
-                controller: 'AviaBuyTicketsCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.URL_DYNAMIC_PACKAGES_BUY + ':OrderNum', {
-                templateUrl: 'pages/avia/tickets_buy.html',
-                controller: 'AviaBuyTicketsCtrl',
-                resolve: authController.resolve
-            }).
-            when('/hotelticket/', {
-                templateUrl: 'pages/hotelticket_page.html',
-                controller: 'HotelPlusTicketCtrl',
-                resolve: authController.resolve
-            }).
-            when('/hotels/', {
-                templateUrl: 'pages/hotels_page.html',
-                controller: 'HotelsCtrl',
-                resolve: authController.resolve
-            }).
-            
-            when(url.URL_DYNAMIC_PACKAGES + ':DepartureId-:ArrivalId', dynamic()).//URL для контекста по ДП
-            when(url.URL_DYNAMIC_PACKAGES, dynamic()).
-            when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
-                templateUrl: 'pages/page-dynamic/templ/page-dynamic-controller.html',
-                controller: 'PageDynamicPackage',
-                resolve: authController.resolve,
-                reloadOnSearch: false
-            }).
-            when(url.URL_DYNAMIC_HOTEL_DETAILS + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId', {
-                templateUrl: 'pages/page-dynamic-details/templ/hotel-details.html',
-                controller: 'PageHotelDetails',
-                resolve: authController.resolve,
-                reloadOnSearch: false
-            }).
-            when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId', {
-                templateUrl: 'pages/page-reservation/templ/reserve.html',
-                controller: 'DynamicReserveTicketsCtrl',
-                resolve: authController.resolve
-            }).
-            when(url.B2B_DISPLAY_ORDER + ':OrderId', {
-                templateUrl: 'pages/page-dynamic-details/templ/hotel-details.html',
-                controller: 'PageHotelDetails',
-                resolve: authController.resolve,
-                reloadOnSearch: false
-                /*templateUrl: 'pages/page-display-order/templ/display-order.html',
-                 controller: 'B2B_DisplayOrder'*/
-            }).
-            when(url.URL_AUTH_RESTORE, dynamic()).
-            when(url.URL_AUTH_SIGNUP, dynamic()).
-            when(url.URL_HELP, {
-                templateUrl: 'pages/page-help/templ/base.hbs.html',
-                controller: 'HelpPageController',
-                resolve: authController.resolve,
-                reloadOnSearch: false
-            }).
-            when(url.URL_AGENCY_REG_FORM, {
-                templateUrl: 'components/agency-reg-form/templ/index.html',
-                controller: 'AgencyRegFormCtrl'
-            }).
-            when(url.URL_WHERE_TO_BUY, {
-                templateUrl: 'components/where-to-buy/templ/where-to-buy.html',
-                controller: 'WhereToBuyCtrl'
-            }).
-            when(url.URL_TRANSFERS, {
-                templateUrl: 'pages/page-transfers/templ/page-transfers.html',
-                controller: 'TrasnfersPageCtrl',
-                resolve: authController.resolve
-            }).
-            otherwise({
-                redirectTo: url.URL_ROOT
-            });
+        //Главная
+        when(url.URL_ROOT, dynamic()).when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?-:DepartureId-:ArrivalId?', dynamic()).when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?-:DepartureId', dynamic()).when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?', dynamic()).when(url.URL_PACKAGES_LANDING + ':sectionId', dynamic()).when(url.URL_TOURS, {
+            templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
+            controller: 'ToursCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_PROGRAMMS + 'category/:id', {
+            templateUrl: 'pages/it_category_page.html',
+            controller: 'IndividualToursCategoryCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_PROGRAMMS, {
+            templateUrl: 'pages/it_grid_page.html',
+            controller: 'IndividualToursCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_ABOUT, {
+            templateUrl: 'pages/about_page.html',
+            controller: 'AboutCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_CONTACTS, {
+            templateUrl: 'pages/contacts_page.html',
+            controller: 'ContactsCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_CERTIFICATES, {
+            templateUrl: 'pages/certificates_page.html',
+            controller: 'ContactsCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_AVIA + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
+            templateUrl: 'pages/avia/search_form.html',
+            controller: 'AviaSearchMainCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_AVIA + ':FromUrl-:ToUrl', {
+            templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
+            controller: 'AviaSearchMainCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_AVIA, avia()).when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType-:VariantId1-:VariantId2?', {
+            templateUrl: 'pages/page-avia/templ/search_results.html',
+            controller: 'AviaSearchResultsCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
+            templateUrl: 'pages/page-avia/templ/search_results.html',
+            controller: 'AviaSearchResultsCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_AVIA_RESERVATION + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
+            ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2', {
+            templateUrl: 'pages/page-reservation/templ/reserve.html',
+            controller: 'AviaReserveTicketsCtrl',
+            resolve: authController.resolve
+        }).
+        //when(url.URL_AVIA_BUY + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
+        //    ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2-:OrderNum', {
+        //        templateUrl: 'pages/avia/tickets_buy.html',
+        //        controller: 'AviaBuyTicketsCtrl',
+        //        resolve: authController.resolve
+        //    }).
+        when(url.URL_BUY + ':OrderNum', {
+            templateUrl: 'pages/avia/tickets_buy.html',
+            controller: 'AviaBuyTicketsCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_BUY_SUCCESS + ':OrderNum', {
+            templateUrl: 'pages/avia/tickets_buy.html',
+            controller: 'AviaBuyTicketsCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_BUY_ERROR + ':OrderNum', {
+            templateUrl: 'pages/avia/tickets_buy.html',
+            controller: 'AviaBuyTicketsCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_AVIA_BUY_SUCCESS + ':OrderNum', {
+            templateUrl: 'pages/avia/tickets_buy.html',
+            controller: 'AviaBuyTicketsCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_AVIA_BUY_ERROR + ':OrderNum', {
+            templateUrl: 'pages/avia/tickets_buy.html',
+            controller: 'AviaBuyTicketsCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_AVIA_BUY + ':OrderNum', {
+            templateUrl: 'pages/avia/tickets_buy.html',
+            controller: 'AviaBuyTicketsCtrl',
+            resolve: authController.resolve
+        }).
+        //when(url.URL_DYNAMIC_PACKAGES_BUY_SUCCESS + ':OrderNum?', {
+        //    templateUrl: 'pages/page-buy-success/templ/page.html',
+        //    controller: 'PageBuySuccess',
+        //    resolve: authController.resolve
+        //}).
+        when(url.URL_DYNAMIC_PACKAGES_BUY_SUCCESS + ':OrderNum', {
+            templateUrl: 'pages/avia/tickets_buy.html',
+            controller: 'AviaBuyTicketsCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_DYNAMIC_PACKAGES_BUY_ERROR + ':OrderNum', {
+            templateUrl: 'pages/avia/tickets_buy.html',
+            controller: 'AviaBuyTicketsCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_DYNAMIC_PACKAGES_BUY + ':OrderNum', {
+            templateUrl: 'pages/avia/tickets_buy.html',
+            controller: 'AviaBuyTicketsCtrl',
+            resolve: authController.resolve
+        }).when('/hotelticket/', {
+            templateUrl: 'pages/hotelticket_page.html',
+            controller: 'HotelPlusTicketCtrl',
+            resolve: authController.resolve
+        }).when('/hotels/', {
+            templateUrl: 'pages/hotels_page.html',
+            controller: 'HotelsCtrl',
+            resolve: authController.resolve
+        }).when(url.URL_DYNAMIC_PACKAGES + ':DepartureId-:ArrivalId', dynamic()).//URL для контекста по ДП
+        when(url.URL_DYNAMIC_PACKAGES, dynamic()).when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
+            templateUrl: 'pages/page-dynamic/templ/page-dynamic-controller.html',
+            controller: 'PageDynamicPackage',
+            resolve: authController.resolve,
+            reloadOnSearch: false
+        }).when(url.URL_DYNAMIC_HOTEL_DETAILS + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId', {
+            templateUrl: 'pages/page-dynamic-details/templ/hotel-details.html',
+            controller: 'PageHotelDetails',
+            resolve: authController.resolve,
+            reloadOnSearch: false
+        }).when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId', {
+            templateUrl: 'pages/page-reservation/templ/reserve.html',
+            controller: 'DynamicReserveTicketsCtrl',
+            resolve: authController.resolve
+        }).when(url.B2B_DISPLAY_ORDER + ':OrderId', {
+            templateUrl: 'pages/page-dynamic-details/templ/hotel-details.html',
+            controller: 'PageHotelDetails',
+            resolve: authController.resolve,
+            reloadOnSearch: false
+            /*templateUrl: 'pages/page-display-order/templ/display-order.html',
+             controller: 'B2B_DisplayOrder'*/
+        }).when(url.URL_AUTH_RESTORE, dynamic()).when(url.URL_AUTH_SIGNUP, dynamic()).when(url.URL_HELP, {
+            templateUrl: 'pages/page-help/templ/base.hbs.html',
+            controller: 'HelpPageController',
+            resolve: authController.resolve,
+            reloadOnSearch: false
+        }).when(url.URL_AGENCY_REG_FORM, {
+            templateUrl: 'components/agency-reg-form/templ/index.html',
+            controller: 'AgencyRegFormCtrl'
+        }).when(url.URL_WHERE_TO_BUY, {
+            templateUrl: 'components/where-to-buy/templ/where-to-buy.html',
+            controller: 'WhereToBuyCtrl'
+        }).when(url.URL_TRANSFERS, {
+            templateUrl: 'pages/page-transfers/templ/page-transfers.html',
+            controller: 'TrasnfersPageCtrl',
+            resolve: authController.resolve
+        }).otherwise({
+            redirectTo: url.URL_ROOT
+        });
 
         /*$locationProvider.html5Mode({
-            enabled: true
-            //requireBase: false
-        });*/
+         enabled: true
+         //requireBase: false
+         });*/
     }
 ]);
 
@@ -395,11 +366,11 @@ app.config(['$provide', function ($provide) {
     $provide.decorator("$exceptionHandler", ["$delegate", function (del) {
         return function (ex, cause) {
             if (Raven) {
-                Raven.setExtraContext({context: "__$ExceptionHandler_CONTEXT__"})
+                Raven.setExtraContext({ context: "__$ExceptionHandler_CONTEXT__" })
                 Raven.captureException(new Error(ex), {
                     extra: {
-                        dataError : ex,
-                        cause : cause
+                        dataError: ex,
+                        cause: cause
                     }
                 });
             }
@@ -453,7 +424,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
      * @param [prefix]
      * @returns {string}
      */
-    function toParam(object, prefix) {
+    function toParam (object, prefix) {
         var stack = [];
         var value;
         var key;
@@ -508,7 +479,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
 //замена директиве link-in-new-window-if-can
 //jQuery версия - работает и с angular и с ractive
 (function ($) {
-    function getHashFromUrl(url) {
+    function getHashFromUrl (url) {
         var indexOfHash = url.indexOf("/#");
         var newUrl;
         if (indexOfHash > -1) {
@@ -520,7 +491,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
         return newUrl;
     }
 
-    function processLinks() {
+    function processLinks () {
         //находим все ссылки
         var links = $('a[link-in-new-window-if-can=""]');
         //console.log('links', links.length);
@@ -530,7 +501,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
         });
     }
 
-    function processLink(element) {
+    function processLink (element) {
         //var isBlank = false;
         //удаляем этот аттрибут, чтобы не открывалось новое пустое окно
         if (element.attr('target') == '_blank') {
