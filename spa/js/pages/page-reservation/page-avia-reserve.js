@@ -273,7 +273,8 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
             };
             m.Filter = angular.toJson($scope.criteria);
             if ($scope.promoCode) {
-                m.PromoCodeString = $scope.promoCode;
+                m.PromoCode = $scope.promoCode;
+                m.promoCodeString = m.PromoCode
             }
             return m;
         }
