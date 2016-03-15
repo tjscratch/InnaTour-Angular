@@ -8,7 +8,7 @@ innaAppDirectives.directive('manager', function ($templateCache) {
         //    uid: '='
         //},
         link: function ($scope, element, attrs) {
-
+            $scope.url = "http://52.25.27.254/";
         }
     }
 });
