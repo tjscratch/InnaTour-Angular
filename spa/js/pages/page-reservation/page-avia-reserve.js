@@ -287,7 +287,7 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
         $scope.checkPromoCode = function () {
             var m = $scope.getApiModelForReserve();
             var checkPromoCodeParams = m.apiModel;
-            PromoCodes.getPackagesDiscountedPrice(checkPromoCodeParams)
+            PromoCodes.getAviaDiscountedPrice(checkPromoCodeParams)
                 .success(function (data) {
                     $scope.promoCodeStatus = data.Status;
                     $scope.promoCodeDetailStatus = data.DetailStatus;
