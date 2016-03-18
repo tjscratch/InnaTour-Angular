@@ -3,7 +3,7 @@ var express = require('express'),
     http    = require('http'),
     https   = require('https');
 
-var parser = require('xml2json');
+var to_json = require('xmljson').to_json;
 
 router.get('/server-proxy/', function (req, res, next) {
     var proxyUrl = req.query['url'];
@@ -41,8 +41,17 @@ router.get('/manager/defined', function (req, res, next) {
             });
 
             res1.on('end', function () {
-                var json = parser.toJson(output);
-                res.end(json, 'binary');
+                to_json(output, function (error, data) {
+                    // Module returns a JS object
+                    //console.log(data);
+                    // -> { prop1: 'val1', prop2: 'val2', prop3: 'val3' }
+
+                    // Format as a JSON string
+                    //console.log(JSON.stringify(data));
+                    // -> {"prop1":"val1","prop2":"val2","prop3":"val3"}
+
+                    res.end(JSON.stringify(data), 'binary');
+                });
             });
         }
     });

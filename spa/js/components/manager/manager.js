@@ -16,28 +16,33 @@ innaAppDirectives.directive('manager', function ($templateCache, $http, $interva
             $scope.url = url;
             $scope.showChat = false;
 
+            function setManager(){
+                $http({
+                    url: managerOnline,
+                    method: 'GET'
+                }).success(function (data) {
+                    //console.log(data.response.meetings);
+                    if (data.response.meetings.meeting) {
+                        if (data.response.meetings.meeting.running == "true") {
+                            $scope.showChat = true;
+                        } else {
+                            $scope.showChat = false;
+                        }
+                    } else {
+                        $scope.showChat = false;
+                    }
+                })
+            }
+
+            setManager();
             var stop;
             $scope.fight = function () {
                 // Don't start a new fight if we are already fighting
                 if (angular.isDefined(stop)) return;
 
                 stop = $interval(function () {
-                    $http({
-                        url: managerOnline,
-                        method: 'GET'
-                    }).success(function (data) {
-                        //console.log(data.response.meetings);
-                        if (data.response.meetings.meeting) {
-                            if (data.response.meetings.meeting.running == "true") {
-                                $scope.showChat = true;
-                            } else {
-                                $scope.showChat = false;
-                            }
-                        } else {
-                            $scope.showChat = false;
-                        }
-                    })
-                }, 2000);
+                    setManager();
+                }, 4000);
             };
 
             $scope.stopFight = function () {
