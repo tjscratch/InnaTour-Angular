@@ -3,7 +3,7 @@ var express = require('express'),
     http    = require('http'),
     https   = require('https');
 
-var to_json = require('xmljson').to_json;
+//var to_json = require('xmljson').to_json;
 
 router.get('/server-proxy/', function (req, res, next) {
     var proxyUrl = req.query['url'];
@@ -16,6 +16,7 @@ router.get('/server-proxy/', function (req, res, next) {
     }
 });
 
+/**
 router.get('/manager/defined', function (req, res, next) {
     var options = {
         hostname: '5.200.61.62',
@@ -60,6 +61,7 @@ router.get('/manager/defined', function (req, res, next) {
     });
     req1.end();
 });
+ */
 
 module.exports = router;
 
