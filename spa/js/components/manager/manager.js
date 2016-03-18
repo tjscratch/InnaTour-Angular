@@ -1,4 +1,4 @@
-innaAppDirectives.directive('manager', function ($templateCache, $http, $interval) {
+innaAppDirectives.directive('manager', function ($templateCache, $http, $interval, Balloon) {
     return {
         replace: true,
         template: $templateCache.get("components/manager/templ/index.html"),
@@ -14,9 +14,9 @@ innaAppDirectives.directive('manager', function ($templateCache, $http, $interva
 
             var managerOnline = "/manager/defined";
             $scope.url = url;
-            $scope.showChat = false;
+            $scope.showChat = true;
 
-            function setManager(){
+            function setManager () {
                 $http({
                     url: managerOnline,
                     method: 'GET'
@@ -34,7 +34,7 @@ innaAppDirectives.directive('manager', function ($templateCache, $http, $interva
                 })
             }
 
-            setManager();
+            //setManager();
             var stop;
             $scope.fight = function () {
                 // Don't start a new fight if we are already fighting
@@ -52,12 +52,27 @@ innaAppDirectives.directive('manager', function ($templateCache, $http, $interva
                 }
             };
 
-            $scope.fight();
+            //$scope.fight();
 
             $scope.$on('$destroy', function () {
                 // Make sure that the interval is destroyed too
                 $scope.stopFight();
             });
+
+            //fullWidth
+            $scope.fullWidth = false;
+            $scope.toggleFullWidth = function () {
+                var managerContainer = $(".b-manager__container");
+                managerContainer.toggleClass("b-manager__container-open")
+                managerContainer.toggleClass("b-manager__container-close")
+                var btnToggle = managerContainer.find(".manager-full-view");
+                btnToggle.toggleClass('manager-full-view-toggle');
+                $("body").append(managerContainer);
+            };
+
+            $(".manager-full-view-toggle").on("click", function () {
+                console.log(33333)
+            })
 
 
         }
