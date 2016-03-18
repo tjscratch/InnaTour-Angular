@@ -1,4 +1,4 @@
-innaAppDirectives.directive('manager', function ($templateCache) {
+innaAppDirectives.directive('manager', function ($templateCache, $http, $interval) {
     return {
         replace: true,
         template: $templateCache.get("components/manager/templ/index.html"),
@@ -8,7 +8,53 @@ innaAppDirectives.directive('manager', function ($templateCache) {
         //    uid: '='
         //},
         link: function ($scope, element, attrs) {
-            $scope.url = "http://5.200.61.62/";
+            var url = "http://5.200.61.62/";
+
+            //var managerOnline = url + "http://5.200.61.62/bigbluebutton/api/getMeetings?checksum=38cd5a4d4dacf75df8d10b65ddfeb8665cf38080";
+
+            var managerOnline = "/manager/defined";
+            $scope.url = url;
+            $scope.showChat = false;
+
+            var stop;
+            $scope.fight = function () {
+                // Don't start a new fight if we are already fighting
+                if (angular.isDefined(stop)) return;
+
+                stop = $interval(function () {
+                    $http({
+                        url: managerOnline,
+                        method: 'GET'
+                    }).success(function (data) {
+                        //console.log(data.response.meetings);
+                        if (data.response.meetings.meeting) {
+                            if (data.response.meetings.meeting.running == "true") {
+                                $scope.showChat = true;
+                            } else {
+                                $scope.showChat = false;
+                            }
+                        } else {
+                            $scope.showChat = false;
+                        }
+                    })
+                }, 2000);
+            };
+
+            $scope.stopFight = function () {
+                if (angular.isDefined(stop)) {
+                    $interval.cancel(stop);
+                    stop = undefined;
+                }
+            };
+
+            $scope.fight();
+
+            $scope.$on('$destroy', function () {
+                // Make sure that the interval is destroyed too
+                $scope.stopFight();
+            });
+
+
         }
     }
 });
