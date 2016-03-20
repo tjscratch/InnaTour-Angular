@@ -60,20 +60,20 @@ innaAppDirectives.directive('manager', function ($templateCache, $http, $interva
             });
 
             //fullWidth
-            $scope.fullWidth = false;
+            $scope.fullView = false;
             $scope.toggleFullWidth = function () {
+                console.log(44444)
+                $scope.fullView = true;
                 var managerContainer = $(".b-manager__container");
-                managerContainer.toggleClass("b-manager__container-open")
-                managerContainer.toggleClass("b-manager__container-close")
-                var btnToggle = managerContainer.find(".manager-full-view");
-                btnToggle.toggleClass('manager-full-view-toggle');
                 $("body").append(managerContainer);
             };
 
-            $(".manager-full-view-toggle").on("click", function () {
-                console.log(33333)
-            })
-
+            $scope.toggleFullWidthclose = function () {
+                console.log(55555)
+                $scope.fullView = false;
+                var managerContainer = $(".b-manager__container");
+                $(".b-manager").append(managerContainer);
+            };
 
         }
     }
