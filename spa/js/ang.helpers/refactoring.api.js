@@ -15,5 +15,7 @@ innaAppServices.factory('appApi', function () {
 
         GET_SMS_CODE: url('/Verification/SendCode'),
         CHECK_SMS_CODE: url('/Verification/CheckCode'),
+
+        GET_MANAGER_STATUS: url('/TalkingHeadSupportApi/GetManagerStatus'),
     }
 });
