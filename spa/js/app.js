@@ -47,6 +47,14 @@ app.constant('innaApp.Urls', {
     URL_CONTACTS: '/contacts/',
     URL_CERTIFICATES: '/certificates/',
 
+    /**
+     * begin hotels
+     */
+    URL_HOTELS: '/hotels/',
+    /**
+     * end hotels
+     */
+
     URL_AUTH_RESTORE: '/account/restore-password/',
     URL_AUTH_SIGNUP: '/account/signup/',
 
@@ -72,7 +80,7 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     var admitad_uid = $location.$$search.admitad_uid;
     var date = new Date;
     date.setDate(date.getDate() + 100);
-    if(admitad_uid){
+    if (admitad_uid) {
         document.cookie = "admitad_uid=" + admitad_uid + "; path=/; expires=" + date.toUTCString();
     }
 
@@ -328,15 +336,23 @@ app.config([
             templateUrl: 'components/agency-reg-form/templ/index.html',
             controller: 'AgencyRegFormCtrl'
         }).when(url.URL_WHERE_TO_BUY, {
-            templateUrl: 'components/where-to-buy/templ/where-to-buy.html',
-            controller: 'WhereToBuyCtrl'
-        }).when(url.URL_TRANSFERS, {
-            templateUrl: 'pages/page-transfers/templ/page-transfers.html',
-            controller: 'TrasnfersPageCtrl',
-            resolve: authController.resolve
-        }).otherwise({
-            redirectTo: url.URL_ROOT
-        });
+                templateUrl: 'components/where-to-buy/templ/where-to-buy.html',
+                controller: 'WhereToBuyCtrl'
+            })
+            .when(url.URL_TRANSFERS, {
+                templateUrl: 'pages/page-transfers/templ/page-transfers.html',
+                controller: 'TrasnfersPageCtrl',
+                resolve: authController.resolve
+            })
+
+            .when(url.URL_HOTELS, {
+                templateUrl: 'pages/page-hotels/templ/index.html',
+                controller: 'PageHotelsCtrl'
+            })
+
+            .otherwise({
+                redirectTo: url.URL_ROOT
+            });
 
         /*$locationProvider.html5Mode({
          enabled: true

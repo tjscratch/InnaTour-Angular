@@ -91,6 +91,9 @@ innaAppControllers
                 else if (loc.startsWith(appUrls.URL_AVIA) && !loc.startsWith(appUrls.URL_AVIA_RESERVATION) && !loc.startsWith(appUrls.URL_AVIA_BUY)) {
                     return 'components/search_form/templ/avia_search_form.html';
                 }
+                else if (loc.startsWith(appUrls.URL_HOTELS)) {
+                    return 'components/search_form/templ/hotels_search_form.html';
+                }
 
                 //на бронировании и покупке формы нет
                 else {
