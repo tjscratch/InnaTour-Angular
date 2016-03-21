@@ -4,9 +4,9 @@ module.exports = function (shipit) {
     shipit.initConfig({
         default: {
             workspace: 'shipit_build',
-            deployTo: '/home/deploy/www/inna-frontend',
+            deployTo: '/home/deploy/www/inna-frontend-manager',
             repositoryUrl: 'git@bitbucket.org:innatec/inna-frontend-git.git',
-            branch: 'release',
+            branch: 'IN-5867',
             ignores: ['.git', 'node_modules'],
             keepReleases: 20,
             deleteOnRollback: true,
@@ -86,8 +86,8 @@ module.exports = function (shipit) {
 
     shipit.blTask('after.deploy::restart.service', function () {
         var cmd = '';
-        cmd += 'sudo service inna-frontend stop; ';
-        cmd += 'sudo service inna-frontend start';
+        cmd += 'sudo service inna-frontend-manager stop; ';
+        cmd += 'sudo service inna-frontend-manager start';
         return shipit.remote(cmd);
     });
 };
