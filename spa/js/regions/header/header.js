@@ -92,7 +92,7 @@ innaAppControllers
                     return 'components/search_form/templ/avia_search_form.html';
                 }
                 else if (loc.startsWith(appUrls.URL_HOTELS)) {
-                    return 'components/search_form/templ/hotels_search_form.html';
+                    return 'components/search-form-hotels/templ/form.html';
                 }
 
                 //на бронировании и покупке формы нет
