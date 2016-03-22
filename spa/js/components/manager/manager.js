@@ -1,4 +1,4 @@
-innaAppDirectives.directive('manager', function ($templateCache, $interval, ManagerService) {
+innaAppDirectives.directive('manager', function ($templateCache, $interval, $timeout, ManagerService) {
     return {
         replace: true,
         template: $templateCache.get("components/manager/templ/index.html"),
@@ -12,6 +12,7 @@ innaAppDirectives.directive('manager', function ($templateCache, $interval, Mana
 
             $scope.url = url;
             $scope.showChat = false;
+            $scope.showChatManager = false;
 
             function setManager () {
                 ManagerService.getManagerStatus()
@@ -19,11 +20,16 @@ innaAppDirectives.directive('manager', function ($templateCache, $interval, Mana
                         if (data.Data.meetings.meeting) {
                             if (data.Data.meetings.meeting.running) {
                                 $scope.showChat = true;
+                                $timeout(function (){
+                                    $scope.showChatManager = true;
+                                }, 10000)
                             } else {
                                 $scope.showChat = false;
+                                $scope.showChatManager = false;
                             }
                         } else {
                             $scope.showChat = false;
+                            $scope.showChatManager = false;
                         }
                     })
             }
