@@ -6,9 +6,10 @@ innaAppServices.service('HotelService', function ($http, $q, appApi) {
             function prepareData (response) {
                 var data = [];
                 angular.forEach(response, function (item) {
-                    var fullName = item.Name + ", " + item.CountryName;
-                    var fullNameHtml = "<span class='i-name'>" + item.Name + "</span>," + "<span class='i-country'>" + item.CountryName + "</span>";
-                    data.push({ id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata });
+                    var fullName = item.CountryName + ", " + item.Name;
+                    var fullNameHtml = "<span class='b-hotels-typeahead-list-item__country'>" + item.CountryName + "</span>, " +
+                        "<span class='b-hotels-typeahead-list-item__name'>" + item.Name + "</span>";
+                    data.push({ id: item.Id, nameHtml: fullNameHtml, name: fullName });
                 });
                 return data;
             }

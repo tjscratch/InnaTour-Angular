@@ -23,7 +23,7 @@ $border-color-gray = #bdbdbd;
 .b-search-form-hotels__field{
 
 }
-.b-search-form-hotels__typeahead{
+.b-hotels-typeahead{
     width 400px
 }
 .b-search-form-hotels__field{
@@ -36,7 +36,7 @@ $border-color-gray = #bdbdbd;
         left 0
         top $control-height
         z-index 1000
-        max-height 320px
+        //max-height 250px
         overflow-y auto
         overflow-x hidden
         margin 0
@@ -51,6 +51,7 @@ $border-color-gray = #bdbdbd;
         li{
             position relative
             left 0
+            padding-right 13px
 
             &.active{
                 background #e6e7e9
@@ -65,7 +66,7 @@ $border-color-gray = #bdbdbd;
     }
     //END typeahead
 }
-.b-search-form-hotels__typeahead-input{
+.b-hotels-typeahead__input{
     width 100%
     height $control-height
     padding 0 10px
@@ -87,4 +88,13 @@ $border-color-gray = #bdbdbd;
     &:disabled{
         background-color #e0e0e0
     }
+}
+.b-hotels-typeahead-list-item{
+    padding 6px 10px
+    cursor pointer
+    white-space nowrap
+}
+.b-hotels-typeahead-list-item__country{
+}
+.b-hotels-typeahead-list-item__name{
 }

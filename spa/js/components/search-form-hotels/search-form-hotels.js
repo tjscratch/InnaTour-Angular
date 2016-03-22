@@ -1,17 +1,12 @@
 innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
     return {
         replace: true,
-        template: $templateCache.get("components/search-form-hotels/templ/index.html"),
-        controller: function ($scope, HotelService, $routeParams) {
+        template: $templateCache.get("components/search-form-hotels/templ/form.html"),
+        controller: function ($scope, HotelService) {
+
 
             /**
-             * templates url
-             */
-            //$scope.typeaheadTemplateCustom = $templateCache.get('components/search-form-hotels/templ/typeaheadTemplateCustom.html');
-
-            //console.log($scope.typeaheadTemplateCustom);
-            /**
-             * поиск локали откуда для авиа и ДП одно и то же
+             * поиск "Город/Название отеля"
              */
             $scope.getLocationFrom = function (text) {
                 return HotelService.getSuggest(text)
@@ -20,9 +15,6 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                     });
             };
 
-
-        },
-        link: function ($scope) {
 
         }
     }
