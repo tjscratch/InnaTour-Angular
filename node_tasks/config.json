@@ -42,7 +42,7 @@
     },
     "front": {
       "test": "http://test.inna.ru",
-      "prod": "https://inna.ru",
+      "prod": "http://manager.inna.ru",
       "beta": "http://beta.inna.ru"
     },
     "static": {
@@ -57,5 +57,5 @@
     }
   },
   "tripadvisor": "www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId=",
-  "version": "build-0.da3d13a4-0.gharfr8"
+  "version": "build-0.751cf25f-0.3291eeo"
 }
