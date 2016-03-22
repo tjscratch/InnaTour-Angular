@@ -2,7 +2,7 @@
 
 	<div class="b-search-form-hotels__field b-hotels-typeahead">
 		<input
-				class="b-hotels-typeahead__input"
+				class="b-search-form-hotels-typeahead__input"
 				type="text"
 				placeholder="Город/Название отеля"
 				ng-model="locationFrom"
@@ -14,6 +14,14 @@
 
 		<div widget-error-tooltip error="{{fromIdError}}"></div>
 	</div>
+
+
+	<div class="b-contenteditable"
+	     contenteditable="true">
+		<span>acfsc</span>
+		<b>ardedr</b>
+	</div>
+
 
 	<div tabindex="7" click-on-focus class="search-form__submit search-button-block_small no-outline-on-focus"
 	     ng-click="searchStart($event)">
