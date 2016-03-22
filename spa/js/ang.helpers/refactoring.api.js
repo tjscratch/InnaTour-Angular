@@ -15,5 +15,7 @@ innaAppServices.factory('appApi', function () {
 
         GET_SMS_CODE: url('/Verification/SendCode'),
         CHECK_SMS_CODE: url('/Verification/CheckCode'),
+
+        HOTELS_GET_SUGGEST: url('/Hotels/SuggestionList'),
     }
 });
