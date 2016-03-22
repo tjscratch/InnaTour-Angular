@@ -4,9 +4,9 @@ module.exports = function (shipit) {
     shipit.initConfig({
         default: {
             workspace: 'shipit_build',
-            deployTo: '/home/deploy/www/inna-frontend-manager',
+            deployTo: '/home/deploy/www/inna-frontend',
             repositoryUrl: 'git@bitbucket.org:innatec/inna-frontend-git.git',
-            branch: 'IN-5867',
+            branch: 'release',
             ignores: ['.git', 'node_modules'],
             keepReleases: 20,
             deleteOnRollback: true,
