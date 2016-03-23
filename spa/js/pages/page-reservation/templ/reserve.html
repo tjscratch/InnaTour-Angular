@@ -258,23 +258,57 @@
 				                            менеджер свяжется c Вами и предложит разные варианты.
 				</div>
 				<ul class="buy__more-options">
-					<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededVisa">
-						<ins class="b-checkbox"></ins>
-						Виза</label></li>
+					<li>
+						<label class="b-agreement">
+							<input type="checkbox" ng-model="addition.isNeededVisa"/>
+							<ins class="b-checkbox"></ins>
+							Виза
+						</label>
+					</li>
 					<!--<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededMedicalInsurance">-->
 					<!--<ins class="b-checkbox"></ins>-->
 					<!--Страховки</label></li>-->
-					<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededTransfer">
-						<ins class="b-checkbox"></ins>
-						Трансфер</label></li>
+					<li>
+						<label class="b-agreement">
+							<input type="checkbox" ng-model="addition.isNeededTransfer"/>
+							<ins class="b-checkbox"></ins>
+							Трансфер
+						</label>
+					</li>
 				</ul>
 			</div>
 		</ng:any>
+
+		<div class="b-promo-code">
+			<div class="b-promo-code__field">
+				<label class="b-promo-code__label" for="b-promo-code__input">
+					У меня есть промо-код
+				</label>
+				<div class="b-promo-code__input-container">
+					<input id="b-promo-code__input"
+					       class="b-field-text b-promo-code__input"
+					       type="text"
+					       ng-model="promoCode"/>
+					<div class="b-promo-code__input-error-message"
+					     ng-if="promoCodeStatus == 2 || promoCodeStatus == 3"
+					>Код не опознан
+					</div>
+				</div>
+				<span class="button b-promo-code__button"
+				      ng-click="checkPromoCode()">Применить
+				</span>
+			</div>
+			<div class="b-promo-code__info" ng-if="promoCodeStatus == 1">
+				Ввведен промо-код
+				<b>{{ promoCode }}</b>
+				на {{ promoCodeSale }}% скидку
+			</div>
+
+		</div>
+
 	</div>
 
-
 	<div class="b-sum-container">
-
 
 		<div class="b-agreement-cc">
 			<label class="b-agreement">
