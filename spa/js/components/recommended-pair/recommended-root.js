@@ -196,14 +196,15 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                         $timeout(function () {
                             $animate.removeClass('.recommended-pair', 'ticket-loading')
                         }, 500);
-                        
+
                         // TODO : заменяем дату заезда  в отель
                                 // ToDo: дату заезда берем из поля CheckIn  билета, хз насколько это клево
                                 // так как при выборе другого авиа билета может измениться дата прилета
                                 $scope.recommendedPair.hotel.data.CheckIn = $scope.recommendedPair.ticket.data.CheckIn;
+                                $scope.recommendedPair.hotel.data.CheckOut = $scope.recommendedPair.ticket.data.HotelCheckOut;
 
 
-                                // пересчитываем количество ночей 
+                                // пересчитываем количество ночей
                                 var start = moment($scope.recommendedPair.hotel.data.CheckIn);
                                 var end   = moment($scope.recommendedPair.hotel.data.CheckOut);
                                 $scope.recommendedPair.hotel.data.NightCount = Math.ceil(end.diff(start,  'days', true));
@@ -258,7 +259,7 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                  * показ блока с ценой за человека
                  */
                 $scope.CostPerPersonShow = true;
-                
+
 
                 /*Events*/
                 $scope.$on('$destroy', function () {
