@@ -1,6 +1,7 @@
 <form class="b-search-form b-search-form-hotels">
 
 	<div class="b-search-form-hotels__field b-hotels-typeahead">
+
 		<input
 				class="b-search-form-hotels-typeahead__input"
 				type="text"
@@ -17,7 +18,13 @@
 
 
 	<div class="b-contenteditable"
-	     contenteditable="true">
+	     contenteditable="true"
+	     ng-model="locationFrom"
+	     typeahead="state as state.name for state in getLocationFrom($viewValue) | filter:$viewValue"
+	     typeahead-template-url="components/search-form-hotels/templ/typeaheadTemplateCustom.html"
+	     typeahead-wait-ms="300"
+	     ng-change="fromIdError = null"
+	>
 		<span>acfsc</span>
 		<b>ardedr</b>
 	</div>
