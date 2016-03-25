@@ -9,9 +9,10 @@ innaAppControllers
         'eventsHelper',
         'urlHelper',
         'innaApp.Urls',
+        'refactoringAppUrls',
         'innaAppApiEvents',
         'aviaHelper',
-        function (EventManager, $scope, $element, $location, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
+        function (EventManager, $scope, $element, $location, eventsHelper, urlHelper, appUrls, refactoringAppUrls, Events, aviaHelper) {
 
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.name == 'sputnik') {
@@ -91,7 +92,7 @@ innaAppControllers
                 else if (loc.startsWith(appUrls.URL_AVIA) && !loc.startsWith(appUrls.URL_AVIA_RESERVATION) && !loc.startsWith(appUrls.URL_AVIA_BUY)) {
                     return 'components/search_form/templ/avia_search_form.html';
                 }
-                else if (loc.startsWith(appUrls.URL_HOTELS)) {
+                else if (loc.startsWith(refactoringAppUrls.URL_HOTELS)) {
                     return 'components/search-form-hotels/templ/index.html';
                 }
 

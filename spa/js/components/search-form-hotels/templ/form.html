@@ -16,11 +16,11 @@
 
 
 	<div class="b-search-form-hotels__field b-hotels-daterange">
-		<input date-picker-date-format
+		<input date-picker-date-format-hotels
 		       class="b-search-form-hotels__input b-search-form-hotels__input-datapicker"
 		       type="text"
 		       name="startDate"
-		       ng-model="startDate"
+		       ng-model="hotelsSearchForm.StartVoyageDate"
 		       placeholder="Дата заезда"
 		       ng-focus="startDateError = null"
 		       autocomplete="off"
@@ -40,7 +40,7 @@
 
 
 	<div tabindex="7" click-on-focus class="search-form__submit search-button-block_small no-outline-on-focus"
-	     ng-click="searchStart($event)">
+	     ng-click="hotelsSearchStart($event)">
 		Найти
 	</div>
 

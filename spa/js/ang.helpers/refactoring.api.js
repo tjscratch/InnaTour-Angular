@@ -21,5 +21,6 @@ innaAppServices.factory('appApi', function () {
         AVIA_DISCOUNTED_PRICE: url('/AviaOrder/DiscountedPrice'),
 
         HOTELS_GET_SUGGEST: url('/Hotels/SuggestionList'),
+        HOTELS_GET_LIST: url('/Hotels/SearchHotelList'),
     }
 });

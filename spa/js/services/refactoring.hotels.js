@@ -25,6 +25,17 @@ innaAppServices.service('HotelService', function ($http, $q, appApi) {
             });
 
             return deferred.promise;
+        },
+        /**
+         * @param params
+         * ArrivalId=6733&StartVoyageDate=2016-05-24&NightCount=2&Adult=2
+         */
+        getHotelsList: function (params){
+            $http({
+                url: appApi.HOTELS_GET_LIST,
+                method: "GET",
+                params: params
+            })
         }
     }
 });

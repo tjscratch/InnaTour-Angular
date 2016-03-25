@@ -47,14 +47,6 @@ app.constant('innaApp.Urls', {
     URL_CONTACTS: '/contacts/',
     URL_CERTIFICATES: '/certificates/',
 
-    /**
-     * begin hotels
-     */
-    URL_HOTELS: '/hotels/',
-    /**
-     * end hotels
-     */
-
     URL_AUTH_RESTORE: '/account/restore-password/',
     URL_AUTH_SIGNUP: '/account/signup/',
 
@@ -135,8 +127,9 @@ app.config([
     '$locationProvider',
     '$httpProvider',
     'innaApp.Urls',
+    'refactoringAppUrls',
     '$sceProvider',
-    function ($routeProvider, $locationProvider, $httpProvider, url, $sceProvider, $filter) {
+    function ($routeProvider, $locationProvider, $httpProvider, url, refactoringAppUrls, $sceProvider, $filter) {
 
         function dynamic () {
             var partner = window.partners ? window.partners.getPartner() : null;
@@ -345,10 +338,20 @@ app.config([
                 resolve: authController.resolve
             })
 
-            .when(url.URL_HOTELS, {
+            /**
+             * begin hotels
+             */
+            .when(refactoringAppUrls.URL_HOTELS, {
                 templateUrl: 'pages/page-hotels/templ/index.html',
                 controller: 'PageHotelsCtrl'
             })
+            .when(refactoringAppUrls.URL_HOTELS + ':ArrivalId--:StartVoyageDate--:NightCount--:Adult', {
+                templateUrl: 'pages/page-hotels-search-result/templ/index.html',
+                controller: 'PageHotelsSearchResultCtrl'
+            })
+            /**
+             * end hotels
+             */
 
             .otherwise({
                 redirectTo: url.URL_ROOT
