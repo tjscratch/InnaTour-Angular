@@ -30,8 +30,9 @@ innaAppServices.service('HotelService', function ($http, $q, appApi) {
          * @param params
          * ArrivalId=6733&StartVoyageDate=2016-05-24&NightCount=2&Adult=2
          */
-        getHotelsList: function (params){
-            $http({
+        getHotelsList: function (params) {
+            //console.log(params)
+            return $http({
                 url: appApi.HOTELS_GET_LIST,
                 method: "GET",
                 params: params
