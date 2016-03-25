@@ -42,7 +42,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
 
             $element.find('.b-search-form-hotels__input-datapicker').datepicker({
                 format: "d M yyyy",
-                startDate: $scope.hotelsSearchForm.StartVoyageDate,
+                startDate: $scope.setStartDate,
                 endDate: new Date($scope.setStartDate.valueOf() + 86400000 * 365),
                 language: "ru",
                 autoclose: true,
