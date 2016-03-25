@@ -2,10 +2,11 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
     return {
         replace: true,
         template: $templateCache.get("components/search-form-hotels/templ/form.html"),
-        controller: function ($element, $scope, $timeout, $location, refactoringAppUrls, HotelService) {
+        controller: function ($element, $scope, $routeParams, $timeout, $location, refactoringAppUrls, HotelService, dataService) {
 
 
             $scope.hotelsSearchForm = {};
+
 
             /**
              * BEGIN example form data
@@ -32,8 +33,24 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
 
 
             /**
-             * begin datepicker
+             * BEGIN
+             * установка значений в поля формы поиска из $routeParams
              */
+            dataService.getDPLocationById($routeParams.ArrivalId)
+                .then(function (data) {
+                    $scope.locationFrom = {
+                        id: $routeParams.ArrivalId,
+                        name: data.CountryName + ", " + data.Name
+                    }
+                });
+
+            //var date = moment($routeParams.StartVoyageDate, 'DD MMM YYYY');
+            //$scope.hotelsSearchForm.StartVoyageDate = date.format('d M yyyy');
+            //$element.find('.b-search-form-hotels__input-datapicker').datepicker('setDate', new Date());
+            /**
+             * END
+             */
+
 
             /**
              * BEGIN datapicker
@@ -50,7 +67,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                 toggleActive: true
             })
             /**
-             * end datepicker
+             * END datepicker
              */
 
             /**
@@ -58,7 +75,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              * params:
              * ArrivalId=6733&StartVoyageDate=2016-05-24&NightCount=2&Adult=2
              */
-            $scope.hotelsSearchStart = function (event){
+            $scope.hotelsSearchStart = function (event) {
                 event.preventDefault();
                 $scope.hotelsSearchForm.ArrivalId = $scope.locationFrom ? $scope.locationFrom.id : null;
 

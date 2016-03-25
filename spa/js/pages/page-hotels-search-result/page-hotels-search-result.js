@@ -1,14 +1,11 @@
-innaAppControllers.controller('PageHotelsSearchResultCtrl', function ($scope, $routeParams, HotelService) {
+innaAppControllers.controller('PageHotelsSearchResultCtrl', function ($scope, $routeParams, HotelService, ListPanel) {
 
-
-    console.log($routeParams)
-    var params = $routeParams
-    console.log('params')
-    console.log(params)
-    if (params) {
+    if ($routeParams) {
         HotelService.getHotelsList($routeParams)
             .success(function (data) {
-                console.log(data);
+                console.log('HotelService.getHotelsList')
+                console.log(data)
+                $scope.hotels = data.Hotels;
             })
     }
 
