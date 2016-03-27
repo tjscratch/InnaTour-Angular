@@ -1,4 +1,4 @@
-.NightCountBlock{
+.NightCount{
     position relative
     z-index 2
     font-size 14px
@@ -6,7 +6,7 @@
     letter-spacing normal
     vertical-align top
 }
-.NightCountBlock__label{
+.NightCount__label{
     box-sizing border-box
     width 155px
     height 36px
@@ -16,6 +16,43 @@
     background: #fff url("/spa/img/i.png") no-repeat 90px -1879px;
     white-space nowrap
 }
-.NightCountBlock__dropdown{
+.NightCount__dropdown{
+    box-sizing border-box
+    position absolute
+    left 0
+    z-index 10
+    width 100%
+    margin-top 1px
+    padding 10px
+    background #fff
+    box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+}
+.NightCountCounter{
+    display flex
+    justify-content center
+}
+.NightCountCounter__increment{
+    box-sizing border-box
+    border 0
+    height 30px
+    width 30px
+    margin 0
+    border-radius 2px
+    transition background-color 0.3s linear
+    background-color: #89c13a;
+    cursor pointer;
+    font-size 18px;
+    color: #fff;
+    text-align: center;
 
+    display flex
+
+    .fa{
+        margin auto
+    }
+}
+.NightCountCounter__input{
+    width 60px
+    text-align center
+    font-size 15px
 }

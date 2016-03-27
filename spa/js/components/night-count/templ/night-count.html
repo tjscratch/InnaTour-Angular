@@ -1,13 +1,27 @@
-<div class="NightCountBlock">
-	<div class="NightCountBlock__label">{{nightCountDisplay}}</div>
-	<div class="NightCountBlock__dropdown">
+<div class="NightCount no-outline-on-focus">
+
+
+	<div class="NightCount__label">Количество ночей</div>
+
+
+	<div class="NightCount__dropdown" ng-show="isOpen">
+
+		<div class="NightCountCounter">
+			<div class="NightCountCounter__increment"
+			     ng-click="increment(-1)">
+				<i class="fa fa-minus"></i>
+			</div>
+			<input class="NightCountCounter__input"
+			       type="text"
+			       ng-model="count"
+			/>
+			<div class="NightCountCounter__increment"
+			     ng-click="increment(1)">
+				<i class="fa fa-plus"></i>
+			</div>
+		</div>
 
 	</div>
-	<ul class="search__list" ng-show="isOpen">
-		<li
-				ng-repeat="option in nightCount.getOptions()"
-				ng-class="({'true': 'current', 'false':''})[option == nightCount]"
-				ng-click="onChoose(option)">{{option.display}}
-		</li>
-	</ul>
+
+
 </div>

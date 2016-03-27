@@ -3,14 +3,15 @@ innaAppDirectives.directive('nightCount', function ($templateCache) {
         replace: true,
         template: $templateCache.get("components/night-count/templ/night-count.html"),
         scope: {
-            nightCount: '='
+            count: '='
         },
-        controller:  function ($scope) {
+        controller: function ($scope) {
             $scope.isOpen = false;
-            $scope.nightCountDisplay = "Количество ночей"
-            $scope.onChoose = function (option) {
-                $scope.nightCount = option;
-            }
+            $scope.nightCountDisplay = "Количество ночей";
+
+            $scope.increment = function (inc) {
+                $scope.count = $scope.count + inc;
+            };
         },
         link: function (scope, element, attrs) {
             $(document).click(function (event) {
@@ -18,7 +19,7 @@ innaAppDirectives.directive('nightCount', function ($templateCache) {
 
                 if (isInsideComponent) {
                     scope.$apply(function ($scope) {
-                        $scope.isOpen = !$scope.isOpen;
+                        $scope.isOpen = true;
                     });
                 } else {
                     scope.$apply(function ($scope) {
