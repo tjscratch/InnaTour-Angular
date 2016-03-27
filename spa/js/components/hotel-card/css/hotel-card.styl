@@ -1,27 +1,39 @@
+$HotelCard-height = 190px;
+$CardPrice__active-vertical-padding = 10px;
+$CardPrice__active-height = 40px;
+$CardPrice__active-line-height = 20px;
+$CardPrice__active-font-size = 18px;
+$CardPrice-padding = 10px;
+$HotelCardPhotos-width = 200px;
+$HotelCardPrice-width = 190px;
+$HotelCardInfo-width = $search-results-list-width - ($HotelCardPhotos-width + $HotelCardPrice-width);
+
 .HotelCard{
+    width $search-results-list-width;
     margin 0
     padding 0
     background #fff
 
     display flex
+    justify-content space-between
 }
-.HotelCard__photos{
+// BEGIN PHOTOS
+.HotelCardPhotos{
+    box-sizing border-box
     position relative
-    width 200px
-    height 190px
+    width $HotelCardPhotos-width
+    height $HotelCard-height
+
+    flex-grow 1
 }
-.HotelCard__photos-photo{
-    position absolute
-    left 0
-    right 0
-    top 0
-    bottom 0
-    background-position 50% 50%
-    background-size cover
-    background-repeat no-repeat
-}
+// END PHOTOS
+// BEGIN INFO
 .HotelCardInfo{
-    padding 10px 0 0 12px
+    box-sizing border-box
+    width $HotelCardInfo-width
+    padding 10px 12px
+    border-right 1px solid $color-separator
+    flex-grow 3
 }
 .HotelCardInfo__title{
     font-size: 18px;
@@ -37,3 +49,54 @@
     margin 5px 0
     font-size 14px;
 }
+// END INFO
+// BEGIN PRICE
+.HotelCardPrice{
+    width $HotelCardPrice-width
+    height $HotelCard-height
+}
+.CardPrice{
+    box-sizing border-box
+    width 100%
+    height 100%
+    padding $CardPrice-padding
+}
+.CardPrice__info{
+    height: $HotelCard-height - ($CardPrice__active-height + $CardPrice-padding* 2);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.CardPrice__price{
+
+}
+.CardPrice__price-desc{
+    margin: 4px 0;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+}
+.CardPrice__price-value{
+    margin: 4px 0;
+    line-height: 1;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    position: relative;
+    text-align center
+}
+.CardPrice__icon-currency{
+    font-size .9em
+}
+.CardPrice__active{
+    box-sizing border-box
+    display block
+    height $CardPrice__active-height
+    line-height $CardPrice__active-line-height
+    width 100%
+    padding $CardPrice__active-vertical-padding 15px
+    font-size $CardPrice__active-font-size
+    text-align center
+}
+// END PRICE
