@@ -345,7 +345,7 @@ app.config([
                 templateUrl: 'pages/page-hotels/templ/index.html',
                 controller: 'PageHotelsCtrl'
             })
-            .when(refactoringAppUrls.URL_HOTELS + ':ArrivalId--:StartVoyageDate--:NightCount--:Adult', {
+            .when(refactoringAppUrls.URL_HOTELS + ':ArrivalId-:StartVoyageDate-:NightCount-:Adult', {
                 templateUrl: 'pages/page-hotels-search-result/templ/index.html',
                 controller: 'PageHotelsSearchResultCtrl'
             })

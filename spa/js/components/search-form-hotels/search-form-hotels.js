@@ -2,7 +2,8 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
     return {
         replace: true,
         template: $templateCache.get("components/search-form-hotels/templ/form.html"),
-        controller: function ($element, $scope, $routeParams, $timeout, $location, refactoringAppUrls, HotelService, dataService) {
+        controller: function ($element, $scope, $routeParams, $timeout, $location,
+                              refactoringAppUrls, HotelService, dataService) {
 
 
             $scope.hotelsSearchForm = {};
@@ -11,10 +12,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
             /**
              * BEGIN example form data
              */
-            $scope.locationFrom = null;
-            $scope.adultCount = 2;
             $scope.childrenCount = 0;
-            $scope.hotelsSearchForm.Adult = $scope.adultCount + $scope.childrenCount;
             $scope.hotelsSearchForm.NightCount = 7;
             /**
              * END example form data
@@ -34,24 +32,40 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
 
             /**
              * BEGIN
-             * установка значений в поля формы поиска из $routeParams
+             * установка значения поля Adult формы поиска
              */
-            dataService.getDPLocationById($routeParams.ArrivalId)
-                .then(function (data) {
-                    $scope.locationFrom = {
-                        id: $routeParams.ArrivalId,
-                        name: data.CountryName + ", " + data.Name
-                    }
-                });
+            $scope.hotelsSearchForm.Adult = 2;
+            if($routeParams.Adult){
+                $scope.hotelsSearchForm.Adult = $routeParams.Adult;
+            }else{
+                $scope.hotelsSearchForm.Adult = 2;
+            }
             /**
              * END
              */
 
 
             /**
-             *
-             *
-             *
+             * BEGIN
+             * установка значения поля ArrivalId формы поиска из $routeParams
+             */
+            if($routeParams.ArrivalId){
+                dataService.getDPLocationById($routeParams.ArrivalId)
+                    .then(function (data) {
+                        $scope.locationFrom = {
+                            id: $routeParams.ArrivalId,
+                            name: data.CountryName + ", " + data.Name
+                        }
+                    });
+            }else{
+                $scope.locationFrom = null;
+            }
+            /**
+             * END
+             */
+
+
+            /**
              * BEGIN datapicker
              *
              *
@@ -82,10 +96,8 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              *
              *
              * END datepicker
-             *
-             *
-             *
              */
+
 
             /**
              * BEGIN hotelsSearchStart
@@ -94,9 +106,8 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              */
             $scope.hotelsSearchStart = function (event) {
                 event.preventDefault();
-                $scope.hotelsSearchForm.ArrivalId = $scope.locationFrom ? $scope.locationFrom.id : null;
 
-                console.log($scope.hotelsSearchForm.Adult);
+                $scope.hotelsSearchForm.ArrivalId = $scope.locationFrom ? $scope.locationFrom.id : null;
 
                 var searchUrl = refactoringAppUrls.URL_HOTELS +
                     [
@@ -104,7 +115,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                         $scope.hotelsSearchForm.StartVoyageDate,
                         $scope.hotelsSearchForm.NightCount,
                         $scope.hotelsSearchForm.Adult
-                    ].join('--');
+                    ].join('-');
 
                 $location.path(searchUrl);
             };
