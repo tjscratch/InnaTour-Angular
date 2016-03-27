@@ -1,5 +1,39 @@
-.b-hotel-card{
-    margin 5px 0
-    padding 10px
+.HotelCard{
+    margin 0
+    padding 0
     background #fff
+
+    display flex
+}
+.HotelCard__photos{
+    position relative
+    width 200px
+    height 190px
+}
+.HotelCard__photos-photo{
+    position absolute
+    left 0
+    right 0
+    top 0
+    bottom 0
+    background-position 50% 50%
+    background-size cover
+    background-repeat no-repeat
+}
+.HotelCardInfo{
+    padding 10px 0 0 12px
+}
+.HotelCardInfo__title{
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.HotelCardInfo__link{
+    color: $blue;
+    text-decoration: none;
+}
+.HotelCardInfo__text{
+    margin 5px 0
+    font-size 14px;
 }

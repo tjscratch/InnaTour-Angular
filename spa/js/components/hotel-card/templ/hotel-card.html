@@ -1,3 +1,35 @@
-<div class="b-hotel-card">
-	{{ hotel.HotelId }}
+<div class="HotelCard">
+	<div class="HotelCard__photos">
+		<hotel-gallery-directive
+				is-map="false"
+				photo-hotel="::hotel.Photos"
+				width="200"
+				height="190"></hotel-gallery-directive>
+	</div>
+	<div class="HotelCardInfo">
+
+
+		<stars-directive hotel-data="::hotel.Stars"></stars-directive>
+
+		<h2 class="HotelCardInfo__title">
+			<a class="HotelCardInfo__link"
+			   href="javascript:void(0);">
+				{{ ::hotel.HotelName }}
+			</a>
+		</h2>
+
+		<div class="HotelCardInfo__text">
+			{{ ::hotel.HotelCityName }}
+			{{ ::hotel.Address }}
+		</div>
+
+		<div class="HotelCardInfo__text" ng-if="hotel.MealCode == 'RO'">Без питания (RO)</div>
+		<div class="HotelCardInfo__text" ng-if="hotel.MealCode == 'BB'">Завтрак (BB)</div>
+		<div class="HotelCardInfo__text" ng-if="hotel.MealCode == 'HB'">Полупансион (HB)</div>
+		<div class="HotelCardInfo__text" ng-if="hotel.MealCode == 'FB'">Полный пансион (FB)</div>
+		<div class="HotelCardInfo__text" ng-if="hotel.MealCode == 'AI'">Все включено (AI)</div>
+
+		<trip-advisor-directive ng-if="hotel.TaFactor" hotel-data="hotel"></trip-advisor-directive>
+
+	</div>
 </div>

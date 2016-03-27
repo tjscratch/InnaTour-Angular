@@ -1,7 +1,13 @@
-<div class="b-search-hotel-results">
+<div class="results-body" id="top">
+	<div class="results-container results-container_list"
+	     ng-class="{'results-container__short':!padding}"
+	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)">
 
-	<div class="b-search-hotel__item" ng-repeat="hotel in hotels">
-		<hotel-card hotel="hotel"></hotel-card>
+		<div class="SearchHotelResults">
+			<div class="SearchHotelResults__item" ng-repeat="hotel in hotels">
+				<hotel-card hotel="hotel"></hotel-card>
+			</div>
+		</div>
+
 	</div>
-
 </div>
