@@ -2,8 +2,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
     return {
         replace: true,
         template: $templateCache.get("components/search-form-hotels/templ/form.html"),
-        controller: function ($element, $scope, $routeParams, $timeout, $location,
-                              refactoringAppUrls, HotelService, dataService) {
+        controller: function ($element, $scope, $routeParams, $timeout, $location, refactoringAppUrls, HotelService, dataService) {
 
 
             $scope.hotelsSearchForm = {};
