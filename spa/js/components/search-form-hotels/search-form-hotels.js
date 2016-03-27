@@ -43,21 +43,23 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                         name: data.CountryName + ", " + data.Name
                     }
                 });
-
-            //var date = moment($routeParams.StartVoyageDate, 'DD MMM YYYY');
-            //$scope.hotelsSearchForm.StartVoyageDate = date.format('d M yyyy');
-            //$element.find('.b-search-form-hotels__input-datapicker').datepicker('setDate', new Date());
             /**
              * END
              */
 
 
             /**
+             *
+             *
+             *
              * BEGIN datapicker
+             *
+             *
+             *
              */
             $scope.setStartDate = new Date();
-
-            $element.find('.b-search-form-hotels__input-datapicker').datepicker({
+            var datepickerElem = $element.find('.b-search-form-hotels__input-datapicker');
+            datepickerElem.datepicker({
                 format: "d M yyyy",
                 startDate: $scope.setStartDate,
                 endDate: new Date($scope.setStartDate.valueOf() + 86400000 * 365),
@@ -65,9 +67,24 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                 autoclose: true,
                 todayHighlight: true,
                 toggleActive: true
-            })
+            });
             /**
+             * установка значения датепикера из $routeParams
+             */
+            if($routeParams.StartVoyageDate){
+                var selectedDate = moment($routeParams.StartVoyageDate, 'YYYY MM DD');
+                $timeout(function () {
+                    datepickerElem.datepicker('update', new Date(selectedDate.valueOf()));
+                }, 0);
+            }
+            /**
+             *
+             *
+             *
              * END datepicker
+             *
+             *
+             *
              */
 
             /**
@@ -78,6 +95,8 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
             $scope.hotelsSearchStart = function (event) {
                 event.preventDefault();
                 $scope.hotelsSearchForm.ArrivalId = $scope.locationFrom ? $scope.locationFrom.id : null;
+
+                console.log($scope.hotelsSearchForm.Adult);
 
                 var searchUrl = refactoringAppUrls.URL_HOTELS +
                     [
