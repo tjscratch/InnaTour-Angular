@@ -7,11 +7,26 @@ innaAppDirectives.directive('nightCount', function ($templateCache) {
         },
         controller: function ($scope) {
             $scope.isOpen = false;
-            $scope.nightCountDisplay = "Количество ночей";
 
             $scope.increment = function (inc) {
-                $scope.count = $scope.count + inc;
+                if (inc == 'input_change') {
+                    incCount();
+                } else {
+                    incCount(inc);
+                }
             };
+
+            function incCount (number) {
+                var count = Math.ceil($scope.count) + Math.ceil(number);
+                if (count >= 1 && count <= 28) {
+                    $scope.count = count;
+                } else if (count <= 1) {
+                    $scope.count = 1;
+                } else if (count >= 28) {
+                    $scope.count = 28;
+                }
+            }
+
         },
         link: function (scope, element, attrs) {
             $(document).click(function (event) {

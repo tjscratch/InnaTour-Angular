@@ -12,7 +12,6 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              * BEGIN example form data
              */
             $scope.childrenCount = 0;
-            $scope.hotelsSearchForm.NightCount = 7;
             /**
              * END example form data
              */
@@ -33,11 +32,24 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              * BEGIN
              * установка значения поля Adult формы поиска
              */
-            $scope.hotelsSearchForm.Adult = 2;
             if($routeParams.Adult){
                 $scope.hotelsSearchForm.Adult = $routeParams.Adult;
             }else{
                 $scope.hotelsSearchForm.Adult = 2;
+            }
+            /**
+             * END
+             */
+
+
+            /**
+             * BEGIN
+             * установка значения поля NightCount формы поиска
+             */
+            if($routeParams.NightCount){
+                $scope.hotelsSearchForm.NightCount = $routeParams.NightCount;
+            }else{
+                $scope.hotelsSearchForm.NightCount = 7;
             }
             /**
              * END
