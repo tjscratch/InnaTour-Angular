@@ -1,3 +1,17 @@
-<div class="page-hotels">
-
+<div class="hotel-details ng-cloak" ng-if="hotelLoaded">
+	<div class="hotel-details__wrap main__center">
+		<div class="hotel-details__section hotel-details__section__crumbs" ng-if="!OrderId">
+			<ul class="section__crumbs__list">
+				<li class="section__crumbs__list__item">
+					<a href="/#/" class="section__crumbs__list__item__link">Главная</a>
+				</li>
+				<li class="section__crumbs__list__item">
+					<a ng-href="{{ hotelsIndexPath }}" class="section__crumbs__list__item__link">Результаты поиска</a>
+				</li>
+				<li class="section__crumbs__list__item">
+					Описание отеля и выбор номера
+				</li>
+			</ul>
+		</div>
+	</div>
 </div>

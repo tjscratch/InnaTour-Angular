@@ -5,6 +5,9 @@ innaAppDirectives.directive('hotelCard', function ($templateCache) {
         scope: {
             hotel: '=',
             hotelUrl: '='
+        },
+        link: function (scope, elem, attr) {
+            var HotelGalleryComponent = null;
         }
     }
 });

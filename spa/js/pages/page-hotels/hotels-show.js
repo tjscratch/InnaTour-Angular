@@ -1,5 +1,7 @@
 innaAppControllers.controller('HotelsShowController', function ($scope, $timeout, $routeParams, Balloon, HotelService) {
 
+    $scope.hotelLoaded = false;
+    $scope.hotelsIndexPath = '/#' + HotelService.getHotelsIndexUrl($routeParams);
 
     /**
      * при переходе на данную страницу
@@ -30,9 +32,9 @@ innaAppControllers.controller('HotelsShowController', function ($scope, $timeout
     HotelService.getHotelsDetails($routeParams)
         .success(function (data) {
             console.log(data)
+            $scope.hotelLoaded = true;
             $scope.baloonHotelLoad.teardown();
-        })
-
+        });
 
     $scope.$on('$destroy', function () {
         if ($scope.baloonHotelLoad) {
