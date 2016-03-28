@@ -3,10 +3,8 @@ innaAppDirectives.directive('hotelCard', function ($templateCache) {
         replace: true,
         template: $templateCache.get("components/hotel-card/templ/hotel-card.html"),
         scope: {
-            hotel: '='
-        },
-        controller: function ($element, $scope) {
-
+            hotel: '=',
+            hotelUrl: '='
         }
     }
 });

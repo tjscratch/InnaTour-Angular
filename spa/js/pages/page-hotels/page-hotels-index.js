@@ -1,5 +1,5 @@
 innaAppControllers.controller('PageHotelsIndexController', function ($scope, $routeParams, $location,
-                                                                      refactoringAppUrls, Balloon, HotelService) {
+                                                                     refactoringAppUrls, Balloon, HotelService) {
 
     /**
      * при переходе на данную страницу
@@ -16,7 +16,6 @@ innaAppControllers.controller('PageHotelsIndexController', function ($scope, $ro
             $scope.redirectHotels();
         }
     });
-
 
     /**
      * клик на балуне, по кнопке закрыть или "прервать поиск"
@@ -35,6 +34,12 @@ innaAppControllers.controller('PageHotelsIndexController', function ($scope, $ro
                 $scope.hotels = data.Hotels;
                 $scope.baloonHotelLoad.teardown();
             })
+    }
+
+    if ($routeParams) {
+        $scope.getHotelUrl = function (hotelId) {
+            return HotelService.getHotelsShowUrl(hotelId, $routeParams);
+        };
     }
 
 

@@ -12,7 +12,8 @@
 		<stars-directive hotel-data="::hotel.Stars"></stars-directive>
 		<h2 class="HotelCardInfo__title">
 			<a class="HotelCardInfo__link"
-			   href="javascript:void(0);">
+			   ng-href="{{::hotelUrl}}"
+			>
 				{{ ::hotel.HotelName }}
 			</a>
 		</h2>
@@ -34,12 +35,14 @@
 				<div class="CardPrice__price">
 					<div class="CardPrice__price-desc">Цена за номер:</div>
 					<div class="CardPrice__price-value">
-						{{ hotel.PackagePriceService | currency : "" : 0 }}
+						{{ ::hotel.PackagePriceService | currency : "" : 0 }}
 						<i class='fa fa-rub CardPrice__icon-currency'></i>
 					</div>
 				</div>
 			</div>
-			<div class="button CardPrice__active">Купить</div>
+			<a class="button CardPrice__active"
+			   ng-href="{{::hotelUrl}}"
+			>Купить</a>
 		</div>
 	</div>
 

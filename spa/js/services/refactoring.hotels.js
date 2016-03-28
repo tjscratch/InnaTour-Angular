@@ -1,4 +1,4 @@
-innaAppServices.service('HotelService', function ($http, $q, appApi) {
+innaAppServices.service('HotelService', function ($http, $q, appApi, refactoringAppUrls) {
     return {
         getSuggest: function (text) {
             var deferred = $q.defer();
@@ -31,12 +31,28 @@ innaAppServices.service('HotelService', function ($http, $q, appApi) {
          * ArrivalId=6733&StartVoyageDate=2016-05-24&NightCount=2&Adult=2
          */
         getHotelsList: function (params) {
-            //console.log(params)
             return $http({
                 url: appApi.HOTELS_GET_LIST,
                 method: "GET",
                 params: params
             })
+        },
+        hotelConcatParams: function (params) {
+            var urlParams = [
+                params.ArrivalId,
+                params.StartVoyageDate,
+                params.NightCount,
+                params.Adult
+            ].join('-');
+            return urlParams
+        },
+        getHotelsIndexUrl: function (params){
+            return refactoringAppUrls.URL_HOTELS + this.hotelConcatParams(params);
+        },
+        getHotelsShowUrl: function (hotelId, params){
+            var hotelParams = this.hotelConcatParams(params);
+            var hotelUrl = '/#' + refactoringAppUrls.URL_HOTELS + hotelId + '/' + hotelParams;
+            return hotelUrl
         }
     }
 });

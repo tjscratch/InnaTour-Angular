@@ -32,9 +32,9 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              * BEGIN
              * установка значения поля Adult формы поиска
              */
-            if($routeParams.Adult){
+            if ($routeParams.Adult) {
                 $scope.hotelsSearchForm.Adult = $routeParams.Adult;
-            }else{
+            } else {
                 $scope.hotelsSearchForm.Adult = 2;
             }
             /**
@@ -46,9 +46,9 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              * BEGIN
              * установка значения поля NightCount формы поиска
              */
-            if($routeParams.NightCount){
+            if ($routeParams.NightCount) {
                 $scope.hotelsSearchForm.NightCount = $routeParams.NightCount;
-            }else{
+            } else {
                 $scope.hotelsSearchForm.NightCount = 7;
             }
             /**
@@ -60,7 +60,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              * BEGIN
              * установка значения поля ArrivalId формы поиска из $routeParams
              */
-            if($routeParams.ArrivalId){
+            if ($routeParams.ArrivalId) {
                 dataService.getDPLocationById($routeParams.ArrivalId)
                     .then(function (data) {
                         $scope.locationFrom = {
@@ -68,7 +68,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                             name: data.CountryName + ", " + data.Name
                         }
                     });
-            }else{
+            } else {
                 $scope.locationFrom = null;
             }
             /**
@@ -96,7 +96,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
             /**
              * установка значения датепикера из $routeParams
              */
-            if($routeParams.StartVoyageDate){
+            if ($routeParams.StartVoyageDate) {
                 var selectedDate = moment($routeParams.StartVoyageDate, 'YYYY MM DD');
                 $timeout(function () {
                     datepickerElem.datepicker('update', new Date(selectedDate.valueOf()));
@@ -120,13 +120,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
 
                 $scope.hotelsSearchForm.ArrivalId = $scope.locationFrom ? $scope.locationFrom.id : null;
 
-                var searchUrl = refactoringAppUrls.URL_HOTELS +
-                    [
-                        $scope.hotelsSearchForm.ArrivalId,
-                        $scope.hotelsSearchForm.StartVoyageDate,
-                        $scope.hotelsSearchForm.NightCount,
-                        $scope.hotelsSearchForm.Adult
-                    ].join('-');
+                var searchUrl = HotelService.getHotelsIndexUrl($scope.hotelsSearchForm);
 
                 $location.path(searchUrl);
             };
