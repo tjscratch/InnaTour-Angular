@@ -3,9 +3,8 @@ innaAppDirectives.directive('goToScrollHotel', function () {
         restrict: 'A',
         link: function (scope, elm, attrs) {
             elm.bind('click', function (evt) {
-                console.log(attrs.goToScroll);
 
-                var element = document.querySelector('#' + attrs.goToScroll);
+                var element = document.querySelector('#' + attrs.goToScrollHotel);
 
                 if (element) {
                     var coords = utils.getCoords(element);
@@ -13,6 +12,7 @@ innaAppDirectives.directive('goToScrollHotel', function () {
                     var body = angular.element('html, body');
                     body.animate({ scrollTop: (coords.top - headerHeight) - 30 }, 300);
                 }
+
             });
         }
     }
