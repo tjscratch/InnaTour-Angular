@@ -10,6 +10,7 @@ innaAppDirectives.directive('goToScrollHotel', function () {
                     var coords = utils.getCoords(element);
                     var headerHeight = angular.element('.Header').height();
                     var body = angular.element('html, body');
+
                     body.animate({ scrollTop: (coords.top - headerHeight) - 30 }, 300);
                 }
 
