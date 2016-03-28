@@ -60,13 +60,47 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, refactoring
             ].join('-');
             return urlParams
         },
-        getHotelsIndexUrl: function (params){
+        getHotelsIndexUrl: function (params) {
             return refactoringAppUrls.URL_HOTELS + this.hotelConcatParams(params);
         },
-        getHotelsShowUrl: function (hotelId, providerId, params){
+        getHotelsShowUrl: function (hotelId, providerId, params) {
             var hotelParams = this.hotelConcatParams(params);
             var hotelUrl = '/#' + refactoringAppUrls.URL_HOTELS + hotelId + '/' + providerId + '/' + hotelParams;
             return hotelUrl
+        },
+        getShowPageMenu: function () {
+            return [
+                {
+                    id: 'SectionDetail',
+                    name: 'Описание отеля',
+                    active: false,
+                    klass: 'icon-sprite-description'
+                },
+                {
+                    id: 'SectionRoom',
+                    name: 'Выбор номера',
+                    active: false,
+                    klass: 'icon-sprite-room'
+                },
+                {
+                    id: 'SectionServices',
+                    name: 'Сервисы',
+                    active: false,
+                    klass: 'icon-sprite-services'
+                },
+                {
+                    id: 'SectionMap',
+                    name: 'Отель на карте',
+                    active: false,
+                    klass: 'icon-sprite-map'
+                },
+                {
+                    id: 'SectionReviews',
+                    name: 'Отзывы',
+                    active: false,
+                    klass: 'icon-sprite-reviews'
+                },
+            ];
         }
     }
 });

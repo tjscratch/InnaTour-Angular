@@ -1,0 +1,121 @@
+<div class="hotel-details ng-cloak" ng-if="hotelLoaded">
+	<div class="hotel-details__wrap main__center">
+
+
+		<div class="hotel-details__section hotel-details__section__crumbs">
+			<ul class="section__crumbs__list">
+				<li class="section__crumbs__list__item">
+					<a href="/#/" class="section__crumbs__list__item__link">Главная</a>
+				</li>
+				<li class="section__crumbs__list__item">
+					<a ng-href="{{ hotelsIndexPath }}" class="section__crumbs__list__item__link">Результаты поиска</a>
+				</li>
+				<li class="section__crumbs__list__item">
+					Описание отеля и выбор номера
+				</li>
+			</ul>
+		</div>
+
+
+		<div class="hotel-details__section hotel-details__section_layout_context">
+			<div class="hotel-details__ta hotel-details-ta-info"
+			     ng-click="goToScroll('SectionReviews')" ng-if="hotel.TaFactor">
+				<div trip-advisor-directive
+				     hotel-data="hotel"
+				     templ="ta.detail.html"></div>
+			</div>
+			<div class="hotel-details-name">
+				<div stars-directive
+				     hotel-data="hotel.Stars"
+				     class="hotel-details-stars"></div>
+				<div class="hotel-details-name__title">
+					{{hotel.HotelName}}
+				</div>
+			</div>
+		</div>
+
+
+		<div class="hotel-details__section_menu">
+			<div class="btn-group btn-group-justified">
+				<div ng-repeat="menu in Menu"
+				     go-to-scroll-hotel="{{ menu.id }}"
+				     class="btn hotel-details__section_menu__item">
+					<i class="{{menu.klass}} hotel-details__section_menu__icon"></i>
+					<span>{{menu.name}}</span>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="hotel-details__section hotel-details__section_gallery">
+			<div inna-gallery
+			     ng-if="(hotel.Photos && (hotel.Photos.LargePhotos.length || hotel.Photos.MediumPhotos.length))"
+			     photos="hotel.Photos"></div>
+		</div>
+
+
+		<div class="hotel-details__section" id="SectionDetail" ng-if="hotel.Description">
+			<div class="hotel-details__section-box">
+				<h2 class="hotel-details__section-title">Описание отеля</h2>
+
+				<div class="hotel-details__section-text">
+					<div class="hotel-details__section-text-viewport"
+					     ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
+						<div ng-repeat="section in hotel.Description track by $index">
+							<div ng-if="!showFullDescription" ng-bind-html="section.Content | limitFilter:250"></div>
+							<div ng-if="showFullDescription" ng-bind-html="section.Content"></div>
+						</div>
+						<p ng-if="showFullDescription || OrderId">
+							<b>Подробные сведения</b><br/><br/>
+							<b>Время прибытия:</b>&nbsp;{{hotel.CheckIn | date:'dd MMM yyyy HH:mm'}}&nbsp;&nbsp;&nbsp;&nbsp;
+							<b>Выезд:</b>&nbsp;{{hotel.CheckOut | date:'dd MMM yyyy HH:mm'}}
+						</p>
+					</div>
+					<p>
+						<span class="hotel-details__section-text-more"
+						      ng-if="showFullDescription"
+						      ng-click="toggleDescription()">Свернуть</span>
+
+						<span class="hotel-details__section-text-more"
+						      ng-if="!showFullDescription"
+						      ng-click="toggleDescription()">Развернуть</span>
+					</p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="hotel-details__section" id="SectionRoom">
+			<h2 class="hotel-details__section-title" ng-if="!hotelOnly">Выбор номера</h2>
+
+			<h2 class="hotel-details__section-title" ng-if="hotelOnly">Номер</h2>
+
+			<div class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
+				<ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'"
+				            ng-repeat="room in (onlyRoom || hotelRooms) track by $index"></ng:include>
+			</div>
+		</div>
+
+
+		<div class="hotel-details__section hotel-details__section_map" id="SectionMap">
+			<h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>
+
+			<div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
+				<div id="hotel-details-map"></div>
+			</div>
+		</div>
+
+
+		<div class="b-tripadvisor-widget-iframe" id="SectionReviews" ng-if="hotel.TaFactor">
+			<iframe
+					class="iframe_widget"
+					name="tripadvisor"
+					ng-src="{{TAWidget}}"
+					height="500"
+					width="100%"
+					frameborder="0"></iframe>
+		</div>
+
+
+	</div>
+</div>
