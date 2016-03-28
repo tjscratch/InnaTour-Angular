@@ -1,5 +1,10 @@
 innaAppControllers.controller('HotelsShowController', function ($scope, $timeout, $routeParams, Balloon, HotelService) {
 
+    // toDo хрень какая то, удалить надо бы
+    document.body.classList.add('bg_white');
+    document.body.classList.remove('light-theme');
+
+
     $scope.hotelLoaded = false;
     $scope.hotelsIndexPath = '/#' + HotelService.getHotelsIndexUrl($routeParams);
 
@@ -32,6 +37,8 @@ innaAppControllers.controller('HotelsShowController', function ($scope, $timeout
     HotelService.getHotelsDetails($routeParams)
         .success(function (data) {
             console.log(data)
+            $scope.hotel = data.Hotel;
+            $scope.hotelRooms = data.Rooms;
             $scope.hotelLoaded = true;
             $scope.baloonHotelLoad.teardown();
         });

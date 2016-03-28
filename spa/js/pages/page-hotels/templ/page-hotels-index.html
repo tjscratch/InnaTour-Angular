@@ -4,6 +4,9 @@
 	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)">
 
 		<div class="SearchHotelResults">
+			<div ng-if="hotels">
+				Найдено {{ hotels.length }}
+			</div>
 			<div class="SearchHotelResults__item" ng-repeat="hotel in hotels">
 				<hotel-card
 						hotel="hotel"
