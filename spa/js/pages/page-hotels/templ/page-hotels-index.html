@@ -7,7 +7,7 @@
 			<div class="SearchHotelResults__item" ng-repeat="hotel in hotels">
 				<hotel-card
 						hotel="hotel"
-						hotel-url="getHotelUrl(hotel.HotelId)"
+						hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
 				></hotel-card>
 			</div>
 		</div>

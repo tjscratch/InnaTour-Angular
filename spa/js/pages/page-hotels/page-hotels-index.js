@@ -36,9 +36,10 @@ innaAppControllers.controller('PageHotelsIndexController', function ($scope, $ro
             })
     }
 
+
     if ($routeParams) {
-        $scope.getHotelUrl = function (hotelId) {
-            return HotelService.getHotelsShowUrl(hotelId, $routeParams);
+        $scope.getHotelUrl = function (hotelId, providerId) {
+            return HotelService.getHotelsShowUrl(hotelId, providerId, $routeParams);
         };
     }
 

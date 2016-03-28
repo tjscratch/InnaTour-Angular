@@ -349,7 +349,7 @@ app.config([
                 templateUrl: 'pages/page-hotels/templ/page-hotels-index.html',
                 controller: 'PageHotelsIndexController'
             })
-            .when(refactoringAppUrls.URL_HOTELS + ':hotelId/' +':ArrivalId-:StartVoyageDate-:NightCount-:Adult', {
+            .when(refactoringAppUrls.URL_HOTELS + ':hotelId/' + ':providerId/' + ':ArrivalId-:StartVoyageDate-:NightCount-:Adult', {
                 templateUrl: 'pages/page-hotels/templ/page-hotels-show.html',
                 controller: 'PageHotelsShowController'
             })

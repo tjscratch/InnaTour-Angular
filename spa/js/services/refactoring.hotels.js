@@ -49,9 +49,9 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, refactoring
         getHotelsIndexUrl: function (params){
             return refactoringAppUrls.URL_HOTELS + this.hotelConcatParams(params);
         },
-        getHotelsShowUrl: function (hotelId, params){
+        getHotelsShowUrl: function (hotelId, providerId, params){
             var hotelParams = this.hotelConcatParams(params);
-            var hotelUrl = '/#' + refactoringAppUrls.URL_HOTELS + hotelId + '/' + hotelParams;
+            var hotelUrl = '/#' + refactoringAppUrls.URL_HOTELS + hotelId + '/' + providerId + '/' + hotelParams;
             return hotelUrl
         }
     }
