@@ -342,12 +342,16 @@ app.config([
              * begin hotels
              */
             .when(refactoringAppUrls.URL_HOTELS, {
-                templateUrl: 'pages/page-hotels/templ/index.html',
-                controller: 'PageHotelsCtrl'
+                templateUrl: 'pages/page-hotels/templ/page-hotels-root.html',
+                controller: 'PageHotelsRootController'
             })
             .when(refactoringAppUrls.URL_HOTELS + ':ArrivalId-:StartVoyageDate-:NightCount-:Adult', {
-                templateUrl: 'pages/page-hotels-search-result/templ/index.html',
-                controller: 'PageHotelsSearchResultCtrl'
+                templateUrl: 'pages/page-hotels/templ/page-hotels-index.html',
+                controller: 'PageHotelsIndexController'
+            })
+            .when(refactoringAppUrls.URL_HOTELS + ':hotelId/' +':ArrivalId-:StartVoyageDate-:NightCount-:Adult', {
+                templateUrl: 'pages/page-hotels/templ/page-hotels-show.html',
+                controller: 'PageHotelsShowController'
             })
             /**
              * end hotels

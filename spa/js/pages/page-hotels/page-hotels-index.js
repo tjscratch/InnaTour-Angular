@@ -1,4 +1,4 @@
-innaAppControllers.controller('PageHotelsSearchResultCtrl', function ($scope, $routeParams, $location,
+innaAppControllers.controller('PageHotelsIndexController', function ($scope, $routeParams, $location,
                                                                       refactoringAppUrls, Balloon, HotelService) {
 
     /**
