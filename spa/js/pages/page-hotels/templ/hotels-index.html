@@ -5,7 +5,8 @@
 
 		<div class="SearchHotelResults">
 			<div ng-if="hotels">
-				Найдено {{ hotels.length }}
+				Найдено
+				<b>{{hotels.length | asQuantity:"отель":"отеля":"отелей"}}</b>
 			</div>
 			<div class="SearchHotelResults__item" ng-repeat="hotel in hotels">
 				<hotel-card
