@@ -3,16 +3,25 @@
 	     ng-class="{'results-container__short':!padding}"
 	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)">
 
-		<div class="SearchHotelResults">
-			<div ng-if="hotels">
-				Найдено
-				<b>{{hotels.length | asQuantity:"отель":"отеля":"отелей"}}</b>
-			</div>
-			<div class="SearchHotelResults__item" ng-repeat="hotel in hotels">
+
+		<div ng-if="hotels">
+			Найдено
+			<b>{{hotels.length | asQuantity:"отель":"отеля":"отелей"}}</b>
+		</div>
+
+
+		<div class="SearchHotelResults" ng-if="hotels">
+			<div class="SearchHotelResults__item"
+			     ui-scroll="hotel in datasource"
+			     buffer-size="1"
+				>
 				<hotel-card
 						hotel="hotel"
 						hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
 				></hotel-card>
+			</div>
+			<div ng-if="loading">
+
 			</div>
 		</div>
 

@@ -1,5 +1,5 @@
-innaAppControllers.controller('HotelsIndexController', function ($scope, $routeParams, $location,
-                                                                     refactoringAppUrls, Balloon, HotelService) {
+innaAppControllers.controller('HotelsIndexController', function ($scope, $routeParams, $location, $timeout,
+                                                                 refactoringAppUrls, Balloon, HotelService) {
 
     /**
      * при переходе на данную страницу
@@ -35,6 +35,23 @@ innaAppControllers.controller('HotelsIndexController', function ($scope, $routeP
                 $scope.baloonHotelLoad.teardown();
             })
     }
+
+
+    var datasource = {};
+
+    datasource.get = function (index, count, success) {
+        console.log('index - ', index);
+        console.log('count - ', count);
+        $timeout(function () {
+            var result = [];
+            for (var i = 0; i <= $scope.hotels.length - 1; i++) {
+                result.push($scope.hotels[i]);
+            }
+            success(result);
+        }, 0);
+    };
+
+    $scope.datasource = datasource;
 
 
     if ($routeParams) {

@@ -54,7 +54,8 @@ gulp.task('concat-bower-components', function () {
         conf.bower + '/angular-touch/angular-touch.min.js',
         conf.bower + '/angular-hotkeys/build/hotkeys.min.js',
         conf.bower + '/moment/min/moment.min.js',
-        conf.bower + '/moment/locale/ru.js'
+        conf.bower + '/moment/locale/ru.js',
+        conf.bower + '/angular-ui-scroll/dist/ui-scroll.min.js'
     ], {base: 'bower_components'})
         .pipe(concat('bower-components.js'))
         .pipe(gulp.dest(conf.bower))
