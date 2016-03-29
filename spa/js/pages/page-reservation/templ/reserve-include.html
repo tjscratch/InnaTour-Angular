@@ -106,6 +106,12 @@
             </div>
         </div>
         <div class="b-result__cell result-cell">
+
+            <div share-link-directive
+                 location="{{currentPageUrl}}"
+                 position="left"
+                 style="z-index: 3000"></div>
+
             <img ng-if="hotel.ProviderLogoUrl" ng-src="{{hotel.ProviderLogoUrl}}" alt="" class="logo">
 
             <div class="hotel-info">

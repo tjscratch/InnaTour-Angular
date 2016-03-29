@@ -47,6 +47,17 @@ innaAppControllers.controller('ReserveTicketsCtrl',
 
     $scope.passengerCount = parseInt($routeParams.Adult) + ($routeParams.Children ? $routeParams.Children.split('_').length : 0);
 
+
+    console.log("$scope.user");
+    if($scope.user){
+      console.log($scope.user.raw.AgencyId);
+      $scope.currentPageUrl = $location.absUrl() + "&UserId=" + $scope.user.raw.AgencyId;
+    }else{
+      $scope.currentPageUrl = $location.absUrl();
+    }
+
+    console.log($scope.currentPageUrl);
+
     //$scope.documentTypeListFiltered = null;
 
     function filterDocType () {
