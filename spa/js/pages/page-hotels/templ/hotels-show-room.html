@@ -1,0 +1,133 @@
+<div class="hotel-details-rooms__room"
+     ng-class="{'hotel-details-rooms__room_state_open': room.isOpen, 'hotel-details-rooms__room_position_last': $last}">
+
+	<div class="hotel-details-rooms__room__item" ng-click="toggleRoom(room)">
+		<div class="row hotel-details-rooms__room__item-info">
+			<div class="col-xs-6 col-no-padding">
+				<div class="hotel-details-rooms__room-desc"
+				     ng-class="{'hotel-details-rooms__room-desc_empty' : RoomsPhotosIsEmpty}">
+
+					<div gallery-preview
+					     ng-click="showFullGallery($event)"
+					     photo="room.Photos.BaseUrl"
+					     width="80"
+					     height="80"
+					     width-preview="320"
+					     height-preview="270"
+					     hover-image-object="hoverImageObject"
+					     class="hotel-details-rooms__room_pic"
+					     ng-if="room.Photos"></div>
+
+					<div class="hotel-details-rooms__room_pic"
+					     ng-if="!room.Photos && !RoomsPhotosIsEmpty"
+					     style="background-image: url('spa/img/hotels/no_photo70x70.png')"></div>
+
+					<div class="hotel-details-rooms__room-desc_wrap">
+
+						<h3 class="hotel-details-rooms__room-title">
+							<!--<span class="like-link">{{room.RoomName | limitFilter:60 }}</span>-->
+							<span class="like-link">{{room.RoomName}}</span>
+
+
+                            <span tooltip-directive-base
+	                          ng-if="userIsAgency && (AgencyId == 20005)"
+	                          templ="empty.hbs.html"
+	                          el="true"
+	                          tooltip-klass="agency-inna"
+	                          position="right"
+	                          content-html="Комнат <b>{{room.RoomCount}}</b>. Цена <b>{{room.PackagePriceService}}</b> р"
+	                          class="b-display-inline b-agency"></span>
+						</h3>
+
+						<div class="hotel-details-rooms__room_bed-type-list">
+		                    <span ng-repeat="bed in room.BedTypeList">
+		                        {{bed.Name}}<span ng-if="!$last">,&nbsp;</span>
+		                    </span>
+						</div>
+
+		                <span class="hotel-details-rooms__room-rules-warning"
+		                  ng-if="userIsAgency && (!room.IsRefundable || (room.IsRefundable && room.IsReturnsWithFine))">
+		                <i class="icon-sprite-b2b-error-hotel css-sprite-b2b-error-hotel"></i>
+		                бронирование возможно после оплаты
+	                </span>
+					</div>
+
+					<ul class="hotel-details-extra hotel-details-extra_room">
+						<li ng-repeat="(name, caption) in room.Extra"
+						    class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">
+							{{caption.CategoryName}}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-xs-6 col-no-padding">
+				<div class="row">
+					<div class="col-xs-4 hotel-details-rooms__room-cancel-rules">
+		                <span class="hotel-details-rooms__room-cancel-rules-ok"
+		                      ng-if="room.IsRefundable && room.IsReturnsWithFine">
+		                    Отмена бронирования со штрафом
+		                </span>
+						<span ng-if="!room.IsRefundable">Без возможности возврата</span>
+					</div>
+
+					<div class="col-xs-3 hotel-details-rooms__room-price  col-no-padding">
+						<div class="hotel-details-rooms__room-price-diff" ng-if="!hotelOnly">
+
+							<div ng-if="room.Default && NewPrice"
+							     tooltip-directive-base
+							     tooltip-klass="nocorner:tooltip-price"
+							     position="top"
+							     pin="center"
+							     is-visible="true"
+							     position-style="absolute"
+							     width="300" ,
+							     close="true"
+							     el="true"
+							     property-watch="NewPricePackage"
+							     templ="popover.change-price.hbs.html">
+							</div>
+
+		                    <span ng-if="room.Default">
+			                    Включен в цену
+		                    </span>
+		                    <span ng-if="!room.Default">
+			                    {{room.PackagePrice - recommendedPair.getFullPackagePrice() | signed}}
+			                    <ng-include src="'components/ruble.html'"></ng-include>
+		                    </span>
+							<!--<span class="icon-crown icon-sprite-crown" ng-if="room.IsPackage"></span>-->
+						</div>
+
+						<div class="hotel-details-rooms__room-price-full" ng-if="!hotelOnly">
+							К оплате: {{room.PackagePrice | price}}
+							<ng-include src="'components/ruble.html'"></ng-include>
+						</div>
+					</div>
+
+					<div class="hotel-details-rooms__room-actions">
+                        <span class="btn btn-large btn-green btn-hotel-room-actions"
+                              ng-click="goReservation(room.RoomId)"
+                              ng-if="!hotelOnly">Купить</span>
+					</div>
+				</div>
+				<div class="row hotel-details-rooms__room__item-info_bottom">
+					<div class="col-xs-6 col-no-padding"></div>
+					<div class="col-xs-6 align-right col-no-padding">
+						<div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 1">
+							Остался последний номер!
+						</div>
+						<div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 2">
+							Осталось два номера!
+						</div>
+						<div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 3">
+							Осталось три номера!
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<ng:include src="'pages/page-hotels/templ/hotels-show-room-details.html'"></ng:include>
+</div>
+

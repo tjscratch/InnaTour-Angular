@@ -1,4 +1,4 @@
-innaAppControllers.controller('HotelsShowController', function ($scope, $timeout, $routeParams, Balloon, HotelService) {
+innaAppControllers.controller('HotelsShowController', function ($scope, $timeout, $location, $routeParams, Balloon, HotelService) {
 
     // toDo хрень какая то, удалить надо бы
     document.body.classList.add('bg_white');
@@ -81,6 +81,15 @@ innaAppControllers.controller('HotelsShowController', function ($scope, $timeout
             });
             marker.setMap(map);
         }, 0);
+    };
+
+
+    /**
+     * действия в комнате
+     */
+    $scope.goReservation = function (roomId){
+        var url = HotelService.getHotelsResevationUrl($routeParams.hotelId, $routeParams.providerId, roomId, $routeParams);
+        $location.url(url);
     };
 
 

@@ -1,0 +1,45 @@
+<div class="hotel-details-rooms__room__details">
+
+	<div class="balloon-close" ng-click="toggleRoom(room)" title="Закрыть">
+		<i class="icon-sprite-remove-blue"></i>
+	</div>
+
+	<div class="hotel-details-rooms__room__details__text">
+		<p ng-bind-html="room.Description | stripTags"></p>
+
+		<h3 ng-if="room.Extra">Включено в стоимость</h3>
+
+		<p ng-if="room.Extra">
+			<span ng-repeat="(name, list) in room.Extra" ng-init="isLastExtra = $last">
+				<span ng-repeat="item in list.List"
+				      ng-if="!isLastExtra || !$last">{{item | trim}}, </span>
+				<span ng-repeat="item in list.List"
+				      ng-if="isLastExtra && $last">{{item | trim}}.</span>
+            </span>
+		</p>
+
+		
+		<h3 ng-if="room.RoomAmenities.length > 0">Услуги</h3>
+
+		<p ng-if="room.RoomAmenities.length > 0">
+            <span ng-repeat="am in room.RoomAmenities">
+                {{am.Name | trim}}<span ng-if="!$last">,&nbsp;</span><span ng-if="$last">.</span>
+            </span>
+		</p>
+
+		<div ng-if="room.CancellationRule">
+			<h3>Правила отмены</h3>
+
+			<p ng-bind-html="room.CancellationRule"></p>
+
+			<div ng-bind-html="room.PolicyDescription"></div>
+		</div>
+		
+		<div ng-if="room.ResidenceRuleText">
+			<div ng-bind-html="room.ResidenceRuleText"></div>
+		</div>
+		
+	</div>
+</div>
+
+

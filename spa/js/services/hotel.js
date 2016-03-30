@@ -68,6 +68,11 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
             var hotelUrl = '/#' + AppRouteUrls.URL_HOTELS + hotelId + '/' + providerId + '/' + hotelParams;
             return hotelUrl
         },
+        getHotelsResevationUrl: function (hotelId, providerId, roomId, params) {
+            var hotelParams = this.hotelConcatParams(params);
+            var hotelUrl = AppRouteUrls.URL_RESERVATIONS + hotelId + '/' + providerId + '/' + roomId +'/' + hotelParams;
+            return hotelUrl
+        },
         getShowPageMenu: function () {
             return [
                 {

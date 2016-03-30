@@ -91,7 +91,7 @@
 			<h2 class="hotel-details__section-title" ng-if="hotelOnly">Номер</h2>
 
 			<div class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
-				<ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'"
+				<ng:include src="'pages/page-hotels/templ/hotels-show-room.html'"
 				            ng-repeat="room in (onlyRoom || hotelRooms) track by $index"></ng:include>
 			</div>
 		</div>
