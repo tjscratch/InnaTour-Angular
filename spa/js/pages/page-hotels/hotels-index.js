@@ -1,5 +1,5 @@
 innaAppControllers.controller('HotelsIndexController', function ($scope, $routeParams, $location, $timeout,
-                                                                 refactoringAppUrls, Balloon, HotelService) {
+                                                                 AppRouteUrls, Balloon, HotelService) {
 
     /**
      * при переходе на данную страницу
@@ -23,7 +23,7 @@ innaAppControllers.controller('HotelsIndexController', function ($scope, $routeP
      */
     $scope.redirectHotels = function () {
         $scope.baloonHotelLoad.teardown();
-        $location.path(refactoringAppUrls.URL_HOTELS);
+        $location.path(AppRouteUrls.URL_HOTELS);
     };
 
 

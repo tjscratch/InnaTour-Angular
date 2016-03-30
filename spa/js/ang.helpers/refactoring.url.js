@@ -1,10 +1,6 @@
-app.constant('refactoringAppUrls', {
-    /**
-     * begin hotels
-     */
-    URL_HOTELS: '/hotels/'
-    /**
-     * end hotels
-     */
+app.constant('AppRouteUrls', {
+
+    URL_HOTELS: '/hotels/',
+    URL_RESERVATIONS: '/reservations/'
 
 })

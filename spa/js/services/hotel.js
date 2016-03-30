@@ -1,4 +1,4 @@
-innaAppServices.service('HotelService', function ($http, $q, appApi, refactoringAppUrls) {
+innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrls) {
     return {
         getSuggest: function (text) {
             var deferred = $q.defer();
@@ -61,11 +61,11 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, refactoring
             return urlParams
         },
         getHotelsIndexUrl: function (params) {
-            return refactoringAppUrls.URL_HOTELS + this.hotelConcatParams(params);
+            return AppRouteUrls.URL_HOTELS + this.hotelConcatParams(params);
         },
         getHotelsShowUrl: function (hotelId, providerId, params) {
             var hotelParams = this.hotelConcatParams(params);
-            var hotelUrl = '/#' + refactoringAppUrls.URL_HOTELS + hotelId + '/' + providerId + '/' + hotelParams;
+            var hotelUrl = '/#' + AppRouteUrls.URL_HOTELS + hotelId + '/' + providerId + '/' + hotelParams;
             return hotelUrl
         },
         getShowPageMenu: function () {

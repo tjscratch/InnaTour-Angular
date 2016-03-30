@@ -266,7 +266,7 @@ innaAppControllers.
 
             $scope.objectToReserveTemplate = 'pages/avia/variant_partial.html';
             function setPackageTemplate() {
-                $scope.objectToReserveTemplate = 'pages/page-reservation/templ/reserve-include.html';
+                $scope.objectToReserveTemplate = 'pages/page-reservations/templ/reserve-include.html';
             }
 
             /*

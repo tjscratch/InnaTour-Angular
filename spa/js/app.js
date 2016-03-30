@@ -23,49 +23,6 @@ var app = angular.module('innaApp', [
 /* локализация дат moment */
 moment.locale('ru');
 
-app.constant('innaApp.Urls', {
-    URL_ROOT: '/',
-    URL_BUY: '/buy/',
-    URL_BUY_SUCCESS: '/buy-success/',
-    URL_BUY_ERROR: '/buy-error/',
-    URL_AVIA: '/avia/',
-    URL_AVIA_SEARCH: '/avia/search/',
-    URL_AVIA_RESERVATION: '/avia/reservation/',
-    URL_AVIA_BUY: '/avia/buy/',
-    URL_AVIA_BUY_SUCCESS: '/avia/buy-success/',
-    URL_AVIA_BUY_ERROR: '/avia/buy-error/',
-    URL_TOURS: '/tours/',
-    //URL_DYNAMIC_PACKAGES_BUY_SUCCESS: '/packages/buy/success/',
-    URL_DYNAMIC_PACKAGES_BUY: '/packages/buy/',
-    URL_DYNAMIC_PACKAGES_BUY_SUCCESS: '/packages/buy-success/',
-    URL_DYNAMIC_PACKAGES_BUY_ERROR: '/packages/buy-error/',
-    URL_DYNAMIC_PACKAGES: '/packages/',
-    URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
-    URL_DYNAMIC_HOTEL_DETAILS: '/packages/details/',
-    URL_DYNAMIC_PACKAGES_RESERVATION: '/packages/reservation/',
-    URL_PROGRAMMS: '/individualtours/',
-    URL_ABOUT: '/about/',
-    URL_CONTACTS: '/contacts/',
-    URL_CERTIFICATES: '/certificates/',
-
-    URL_AUTH_RESTORE: '/account/restore-password/',
-    URL_AUTH_SIGNUP: '/account/signup/',
-
-    B2B_DISPLAY_ORDER: '/display-order/',
-
-    URL_PACKAGES_LANDING: '/packages/ppc/',
-
-    URL_AGENCY_REG_FORM: '/registration/',
-
-    URL_WHERE_TO_BUY: '/where-to-buy/',
-
-    URL_HELP: '/help/',
-
-    URL_TRANSFERS: '/transfers/',
-
-    eof: null
-});
-
 app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, $location, $window, $filter) {
 
 
@@ -128,9 +85,9 @@ app.config([
     '$locationProvider',
     '$httpProvider',
     'innaApp.Urls',
-    'refactoringAppUrls',
+    'AppRouteUrls',
     '$sceProvider',
-    function ($routeProvider, $locationProvider, $httpProvider, url, refactoringAppUrls, $sceProvider, $filter) {
+    function ($routeProvider, $locationProvider, $httpProvider, url, AppRouteUrls, $sceProvider, $filter) {
 
         function dynamic () {
             var partner = window.partners ? window.partners.getPartner() : null;
@@ -239,7 +196,7 @@ app.config([
             resolve: authController.resolve
         }).when(url.URL_AVIA_RESERVATION + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
             ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2', {
-            templateUrl: 'pages/page-reservation/templ/reserve.html',
+            templateUrl: 'pages/page-reservations/templ/reserve.html',
             controller: 'AviaReserveTicketsCtrl',
             resolve: authController.resolve
         }).
@@ -311,7 +268,7 @@ app.config([
             resolve: authController.resolve,
             reloadOnSearch: false
         }).when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId', {
-            templateUrl: 'pages/page-reservation/templ/reserve.html',
+            templateUrl: 'pages/page-reservations/templ/reserve.html',
             controller: 'DynamicReserveTicketsCtrl',
             resolve: authController.resolve
         }).when(url.B2B_DISPLAY_ORDER + ':OrderId', {
@@ -342,21 +299,34 @@ app.config([
             /**
              * begin hotels
              */
-            .when(refactoringAppUrls.URL_HOTELS, {
+            .when(AppRouteUrls.URL_HOTELS, {
                 templateUrl: 'pages/page-hotels/templ/hotels-root.html',
                 controller: 'HotelsRootController'
             })
-            .when(refactoringAppUrls.URL_HOTELS + ':ArrivalId-:StartVoyageDate-:NightCount-:Adult', {
+            .when(AppRouteUrls.URL_HOTELS + ':ArrivalId-:StartVoyageDate-:NightCount-:Adult', {
                 templateUrl: 'pages/page-hotels/templ/hotels-index.html',
                 controller: 'HotelsIndexController'
             })
-            .when(refactoringAppUrls.URL_HOTELS + ':hotelId/' + ':providerId/' + ':ArrivalId-:StartVoyageDate-:NightCount-:Adult', {
+            .when(AppRouteUrls.URL_HOTELS + ':hotelId/' + ':providerId/' + ':ArrivalId-:StartVoyageDate-:NightCount-:Adult', {
                 templateUrl: 'pages/page-hotels/templ/hotels-show.html',
                 controller: 'HotelsShowController'
             })
             /**
              * end hotels
              */
+
+
+            /**
+             * begin reservation
+             */
+            .when(AppRouteUrls.URL_RESERVATIONS, {
+                templateUrl: 'pages/page-reservations/templ/reservations.html',
+                controller: 'ReservationsController'
+            })
+            /**
+             * end reservation
+             */
+
 
             .otherwise({
                 redirectTo: url.URL_ROOT

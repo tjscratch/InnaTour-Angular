@@ -36,7 +36,7 @@ innaAppControllers.controller('HotelsShowController', function ($scope, $timeout
      */
     $scope.redirectHotels = function () {
         $scope.baloonHotelLoad.teardown();
-        $location.path(refactoringAppUrls.URL_HOTELS);
+        $location.path(AppRouteUrls.URL_HOTELS);
     };
 
 
