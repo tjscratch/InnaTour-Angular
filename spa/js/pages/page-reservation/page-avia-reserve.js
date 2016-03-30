@@ -310,6 +310,7 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
 
             paymentService.reserve(apiModel,
                 function (data) {
+                    $cookieStore.remove('b2b_operator');
                     $scope.$apply(function ($scope) {
                         log('order: ' + angular.toJson(data));
                         if (data != null && data.OrderNum != null && data.Status != null && data.Status == 1 && data.OrderNum.length > 0) {
@@ -342,6 +343,7 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                 function (data, status) {
                     //аналитика
                     track.aviaReservationError();
+                    $cookieStore.remove('b2b_operator');
 
                     $scope.$apply(function ($scope) {
                         //ошибка

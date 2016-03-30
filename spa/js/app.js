@@ -16,7 +16,8 @@ var app = angular.module('innaApp', [
     'cfp.hotkeys',
     "ui.bootstrap",
     "widgetsInnaValidation",
-    "widgetsInnaWidgetServices"
+    "widgetsInnaWidgetServices",
+    "ngCookies"
 ]);
 
 /* локализация дат moment */
