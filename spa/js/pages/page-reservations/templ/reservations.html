@@ -11,35 +11,33 @@
 
 
 			<div class="b-field-group">
-				<div class="b-field-block b-field-email">
+				<div class="b-field-block">
 					<label class="b-field-label">E-mail</label>
 					<input class="b-field-text"
-					       ng-model="validationModel.email.value"
+					       ng-model="ReservationModel.Email"
 					       type="text"
 					       placeholder="ivan.ivanov@gmail.com"/>
 				</div>
-				<div class="b-field-block b-field-phone">
-					<label class="b-field-label b-label-phone">Мобильный телефон</label>
-					<div citizenship-select
-					     type="phonePrefix"
-					     value="validationModel.phonePrefix.value.id"
-					     list="phoneCodesList"
-					     class="b-phone-prefix-select"
-					></div>
-					<input autocomplete="off"
-					       depends-on="validationModel.phonePrefix"
-					       validate-events-dir
-					       ng-model="validationModel.phoneNum.value"
-					       ng-validation-model="validationModel.phoneNum" validate="validate(item, type)"
-					       validate-type="validateType.phoneNum"
-					       ng-class="{error:isFieldInvalid(validationModel.phoneNum)}"
-					       data-title="Неправильно введен мобильный телефон" name="phone" type="text"
+				<div class="b-field-block">
+					<label class="b-field-label">Мобильный телефон</label>
+					<input class="b-field-text"
+					       name="phone"
+					       type="text"
+					       autocomplete="off"
+					       ng-model="ReservationModel.Phone"
 					       masked-input
 					       phone-input
-					       mask="(999) 999-99-99"
-					       placeholder="(999) 999-99-99"
-					       change-event="'CODE_CHANGED'"
-					       class="b-field-text b-phone-num">
+					       mask="+7 (999) 999-99-99"
+					       placeholder="+7 (999) 999-99-99"/>
+				</div>
+			</div>
+
+			{{ ReservationModel.Passengers }}
+			<div class="b-field-group" ng-repeat="Passenger in ReservationModel.Passengers track by $index">
+				<div class="b-field-block">
+					<label class="b-field-label">
+						{{ Passenger.Index }}
+					</label>
 				</div>
 			</div>
 
