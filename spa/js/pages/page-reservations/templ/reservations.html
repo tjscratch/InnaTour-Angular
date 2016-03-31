@@ -32,11 +32,12 @@
 				</div>
 			</div>
 
-			{{ ReservationModel.Passengers }}
 			<div class="b-field-group" ng-repeat="Passenger in ReservationModel.Passengers track by $index">
 				<div class="b-field-block">
 					<label class="b-field-label">
 						{{ Passenger.Index }}
+						{{ Passenger.I }}
+						{{ Passenger.F }}
 					</label>
 				</div>
 			</div>
