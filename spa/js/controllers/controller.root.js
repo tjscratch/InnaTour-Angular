@@ -130,7 +130,7 @@ innaAppControllers.
 
 
             $scope.isBodyBg = function () {
-                return $scope.isActive('/avia/reservation/') || $scope.isActive('/packages/reservation/') || $scope.isActive('/buy/');
+                return $scope.isActive('/avia/reservation/') || $scope.isActive('/packages/reservation/') || $scope.isActive('/reservations/') || $scope.isActive('/buy/');
             };
 
             $scope.isTransferBg = function () {
