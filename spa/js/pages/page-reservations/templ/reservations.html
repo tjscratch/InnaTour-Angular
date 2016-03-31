@@ -6,18 +6,44 @@
 			<h2 class="buy__title">Информация о покупателе</h2>
 		</header>
 
+
 		<div class="buy-passanger__block">
+
+
 			<div class="b-field-group">
 				<div class="b-field-block b-field-email">
 					<label class="b-field-label">E-mail</label>
-					<input autocomplete="off" validate-events-dir ng-model="validationModel.email.value"
-					       ng-validation-model="validationModel.email" validate="validate(item, type)"
-					       validate-type="validateType.email"
-					       ng-class="{error:isFieldInvalid(validationModel.email)}"
-					       data-title="Неправильно введен email" type="text"
-					       placeholder="ivan.ivanov@gmail.com" class="b-field-text">
+					<input class="b-field-text"
+					       ng-model="validationModel.email.value"
+					       type="text"
+					       placeholder="ivan.ivanov@gmail.com"/>
+				</div>
+				<div class="b-field-block b-field-phone">
+					<label class="b-field-label b-label-phone">Мобильный телефон</label>
+					<div citizenship-select
+					     type="phonePrefix"
+					     value="validationModel.phonePrefix.value.id"
+					     list="phoneCodesList"
+					     class="b-phone-prefix-select"
+					></div>
+					<input autocomplete="off"
+					       depends-on="validationModel.phonePrefix"
+					       validate-events-dir
+					       ng-model="validationModel.phoneNum.value"
+					       ng-validation-model="validationModel.phoneNum" validate="validate(item, type)"
+					       validate-type="validateType.phoneNum"
+					       ng-class="{error:isFieldInvalid(validationModel.phoneNum)}"
+					       data-title="Неправильно введен мобильный телефон" name="phone" type="text"
+					       masked-input
+					       phone-input
+					       mask="(999) 999-99-99"
+					       placeholder="(999) 999-99-99"
+					       change-event="'CODE_CHANGED'"
+					       class="b-field-text b-phone-num">
 				</div>
 			</div>
+
+
 		</div>
 
 
@@ -29,7 +55,8 @@
 
 		<button type="submit"
 		        class="btn btn-green btn-large"
-		>btn</button>
+		>btn
+		</button>
 
 	</form>
 </div>
