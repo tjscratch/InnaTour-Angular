@@ -303,11 +303,11 @@ app.config([
                 templateUrl: 'pages/page-hotels/templ/hotels-root.html',
                 controller: 'HotelsRootController'
             })
-            .when(AppRouteUrls.URL_HOTELS + ':ArrivalId-:StartVoyageDate-:NightCount-:Adult', {
+            .when(AppRouteUrls.URL_HOTELS + ':StartVoyageDate/' +':ArrivalId-:NightCount-:Adult', {
                 templateUrl: 'pages/page-hotels/templ/hotels-index.html',
                 controller: 'HotelsIndexController'
             })
-            .when(AppRouteUrls.URL_HOTELS + ':hotelId/:providerId/:ArrivalId-:StartVoyageDate-:NightCount-:Adult', {
+            .when(AppRouteUrls.URL_HOTELS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult', {
                 templateUrl: 'pages/page-hotels/templ/hotels-show.html',
                 controller: 'HotelsShowController'
             })
@@ -319,7 +319,7 @@ app.config([
             /**
              * begin reservation
              */
-            .when(AppRouteUrls.URL_RESERVATIONS + ':hotelId/:providerId/:roomId/:ArrivalId-:StartVoyageDate-:NightCount-:Adult', {
+            .when(AppRouteUrls.URL_RESERVATIONS + ':hotelId/:providerId/:roomId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult', {
                 templateUrl: 'pages/page-reservations/templ/reservations.html',
                 controller: 'ReservationsController'
             })

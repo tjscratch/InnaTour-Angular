@@ -54,11 +54,10 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
         hotelConcatParams: function (params) {
             var urlParams = [
                 params.ArrivalId,
-                params.StartVoyageDate,
                 params.NightCount,
                 params.Adult
             ].join('-');
-            return urlParams
+            return params.StartVoyageDate + '/' + urlParams
         },
         getHotelsIndexUrl: function (params) {
             return AppRouteUrls.URL_HOTELS + this.hotelConcatParams(params);

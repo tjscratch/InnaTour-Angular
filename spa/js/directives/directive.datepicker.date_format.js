@@ -32,7 +32,7 @@ innaAppDirectives.directive('datePickerDateFormatHotels', function () {
 
                 if (value) {
                     var date = moment(value, 'DD MMM YYYY');
-                    return date.format('YYYY.MM.DD');
+                    return date.format('YYYY-MM-DD');
                 } else {
                     return null
                 }
