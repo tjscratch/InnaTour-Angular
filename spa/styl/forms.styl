@@ -211,11 +211,14 @@ button[type=submit]{
     background-position: center;
 }
 // begin form
+.FieldGroup{
+    display flex
+}
 .FieldText{
     display block
     box-sizing border-box
     width 100%
-    margin 0
+    margin $FieldText-vertical-margin 0
     border 1px solid $FieldText-border-color
     padding $FieldText-vertical-padding $FieldText-horizontal-padding
     font-size $FieldText-font-size
@@ -232,17 +235,22 @@ button[type=submit]{
         border-color $FieldText-invalid-border-color
         box-shadow 0 0 0 1px $FieldText-invalid-border-color
     }
+
+    placeholder(#999);
 }
 .FieldLabel{
+    display block
     width 100%
-    font-size 12px
-    margin 4px 0
-    color $red
+    margin 0 0 $FieldLabel-vertical-margin 0
+    padding 0 0 0 $FieldLabel-horizontal-padding
+    color $FieldLabel-text-color
+    font-size $FieldLabel-font-size
 }
-.FieldTextError{
+.FieldError{
+    display block
     width 100%
-    font-size 12px
-    margin 3px 0
-    color $red
+    margin $FieldError-vertical-margin 0 0 $FieldError-horizontal-margin
+    color $FieldError-text-color
+    font-size $FieldError-font-size
 }
 // end form

@@ -8,12 +8,14 @@
 		</header>
 
 
-		<div class="buy-passanger__block">
+		<fieldset class="ReservationFormBlock">
+			<div class="FieldGroup">
 
-			<div class="b-field-group">
-				<div class="b-field-block FieldBlock__email">
-					<label class="FieldLabel">E-mail</label>
-					<input class="FieldText"
+				<div class="FieldBlock FieldBlock__email">
+					<label for="ReservationModel.Email"
+					       class="FieldLabel">E-mail</label>
+					<input id="ReservationModel.Email"
+					       class="FieldText"
 					       ng-model="ReservationModel.Email"
 					       name="ReservationModelEmail"
 					       type="text"
@@ -21,29 +23,39 @@
 					       message-id="ReservationModelEmail"
 					       validator="required, email"
 					       valid-method="submit"
-					       required-error-message="Неправильно введен email"
+					       required-error-message="Введите E-mail"
+					       email-error-message="Неправильно введен E-mail"
 					/>
-					<div class="FieldTextError"
+					<div class="FieldError"
 					     id="ReservationModelEmail"></div>
 				</div>
-				<div class="b-field-block">
-					<label class="b-field-label">Мобильный телефон</label>
-					<input class="b-field-text"
-					       name="phone"
-					       type="text"
-					       autocomplete="off"
+
+				<div class="FieldBlock FieldBlock__phone">
+					<label for="ReservationModel.Phone"
+					       class="FieldLabel">Мобильный телефон</label>
+					<input id="ReservationModel.Phone"
+					       class="FieldText"
 					       ng-model="ReservationModel.Phone"
+					       name="ReservationModelPhone"
+					       type="text"
+
+					       message-id="ReservationModelPhone"
+					       validator="required, phone"
+					       valid-method="submit"
+					       required-error-message="Укажите номер телефона"
+					       email-error-message="Неправильно введен E-mail"
+
 					       masked-input
 					       phone-input
 					       mask="+7 (999) 999-99-99"
 					       placeholder="+7 (999) 999-99-99"
-					       validator="required"
-					       valid-method="submit"
-					       required-error-message="введите"
 					/>
+					<div class="FieldError"
+					     id="ReservationModelPhone"></div>
 				</div>
+
 			</div>
-		</div>
+		</fieldset>
 
 		<header class="buy__header">
 			<h2 class="buy__title">Пассажиры</h2>
