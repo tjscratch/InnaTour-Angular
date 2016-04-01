@@ -1,235 +1,248 @@
 button,
-button[type=submit] {
-  border : 0 none;
+button[type=submit]{
+    border: 0 none;
 }
-
-
-.hidden-select {
-  border: 0;
-  display: block;
-  height: 100%;
-  opacity: 0;
-  position: absolute;
-  width: 100%;
-}
-
-.checkbox {
-  border-radius: 4px;
-  background-color: #89c13a;
-  display: inline-block;
-  height: 19px;
-  margin-right: 11px;
-  vertical-align: top;
-  width: 19px;
-
-  &.checked {
-    background-image: url(/spa/img/check.png);
-  }
-
-  &-label {
-    color: #242424;
-    font-size: 15px;
-    line-height: 19px;
-  }
-}
-
-
-.field,
-.field-text {
-  transition : border-color 200;
-  placeholder(#777);
-  border: 1px solid #cecece;
-  border-radius: 1px;
-  font-family : ProximaNova, Arial, sans-serif;
-  font-weight : normal;
-  font-size: 18px;
-  height: 60px;
-  outline: none;
-  margin-top: 13px;
-  padding: 0 25px;
-
-
-  &.error,
-  &.valid {
-    border-color: #b70000;
-    background-image: url(/spa/img/field-cross.png);
-    background-position: center right;
-    background-repeat: no-repeat;
-  }
-
-  &.valid {
-    border-color: #89c13a;
-    background-image: url(/spa/img/field-cross.png);
-    background-position: center right;
-    background-repeat: no-repeat;
-  }
-
-  &-error {
-    color: #b70000;
+.hidden-select{
+    border: 0;
     display: block;
-    font-size: 12px;
-    margin-top: 5px
-  }
-}
-
-
-
-.field-text {
-  resize: vertical;
-  padding-top: 25px;
-}
-
-
-
-
-
-.combo-box {
-  background: #fff;
-  border: 1px solid #ccd2d4;
-  cursor: pointer;
-  display: inline-block;
-  height: 35px;
-  line-height: 35px;
-  margin-top: 1px;
-  position: relative;
-  vertical-align: top;
-  z-index: 1;
-
-  &-item-current {
-    display: inline-block;
-    font-family : ProximaNova, Arial, sans-serif;
-    font-weight : normal;
-    font-size: 16px;
-    overflow: hidden;
-    margin-left: 10px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-
-  .icon-triangle {
+    height: 100%;
+    opacity: 0;
     position: absolute;
-    right: 12px;
-    top: 12px;
-  }
+    width: 100%;
+}
+.checkbox{
+    border-radius: 4px;
+    background-color: #89c13a;
+    display: inline-block;
+    height: 19px;
+    margin-right: 11px;
+    vertical-align: top;
+    width: 19px;
 
-  &-list {
+    &.checked{
+        background-image: url(/spa/img/check.png);
+    }
+
+    &-label{
+        color: #242424;
+        font-size: 15px;
+        line-height: 19px;
+    }
+}
+.field,
+.field-text{
+    transition: border-color 200;
+    placeholder(#777);
+    border: 1px solid #cecece;
+    border-radius: 1px;
+    font-family: ProximaNova, Arial, sans-serif;
+    font-weight: normal;
+    font-size: 18px;
+    height: 60px;
+    outline: none;
+    margin-top: 13px;
+    padding: 0 25px;
+
+    &.error,
+    &.valid{
+        border-color: #b70000;
+        background-image: url(/spa/img/field-cross.png);
+        background-position: center right;
+        background-repeat: no-repeat;
+    }
+
+    &.valid{
+        border-color: #89c13a;
+        background-image: url(/spa/img/field-cross.png);
+        background-position: center right;
+        background-repeat: no-repeat;
+    }
+
+    &-error{
+        color: #b70000;
+        display: block;
+        font-size: 12px;
+        margin-top: 5px
+    }
+}
+.field-text{
+    resize: vertical;
+    padding-top: 25px;
+}
+.combo-box{
     background: #fff;
     border: 1px solid #ccd2d4;
-    border-top: 1px;
-    cursor: auto;
-    padding: @list-padding 0;
-    overflow-y: auto;
-    position: absolute;
-    max-height: ($list-item-height * $count-list) - $list-padding;
-    left: -1px;
-    top: 100%;
-
-    &-item {
-      color: #242424;
-      cursor: pointer;
-      font-size: 15px;
-      height: $list-item-height;
-      line-height: 30px;
-      padding: 0 12px;
-      white-space: nowrap;
-
-      &:hover {
-        background: #eff2f3;
-      }
-
-      &-separator {
-        border-top: 1px solid #dfe6e8;
-      }
-    }
-  }
-}
-
-
-
-.popup {
-  background: #fff;
-  box-shadow : 0, 0, 30px, 0, rgba(0, 0, 0, .5);
-  display: inline-block;
-  position: relative;
-  vertical-align: middle;
-  text-align: left;
-
-  &-form-header {
-    font-size: 30px;
-    margin-bottom: 4px;
-  }
-
-  &-container {
-    position: fixed;
-    left: 0;
-    text-align: center;
-    z-index: 301;
-
-    &:before {
-      content: '';
-      display: inline-block;
-      height: 100%;
-      vertical-align: middle;
-    }
-  }
-
-  &-state {
-    overflow: hidden;
-  }
-
-  &-fade,
-  &-container {
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-  }
-
-  &-fade {
-    background: #000;
-    opacity: .2;
-    z-index: 301;
-  }
-
-  &-close-button {
     cursor: pointer;
-    position: absolute;
-    right : 5px;
-    top: 5px;
-    line-height :0;
-    font-size :0;
-    padding: 5px;
-  }
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 1px;
+    position: relative;
+    vertical-align: top;
+    z-index: 1;
 
-  .form-header {
-    font-size: 30px;
-  }
+    &-item-current{
+        display: inline-block;
+        font-family: ProximaNova, Arial, sans-serif;
+        font-weight: normal;
+        font-size: 16px;
+        overflow: hidden;
+        margin-left: 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
-  .description {
-    color: #777;
-    font-size: 14px;
-  }
+    .icon-triangle{
+        position: absolute;
+        right: 12px;
+        top: 12px;
+    }
+
+    &-list{
+        background: #fff;
+        border: 1px solid #ccd2d4;
+        border-top: 1px;
+        cursor: auto;
+        padding: @list-padding 0;
+        overflow-y: auto;
+        position: absolute;
+        max-height: ($list-item-height * $count-list) - $list-padding;
+        left: -1px;
+        top: 100%;
+
+        &-item{
+            color: #242424;
+            cursor: pointer;
+            font-size: 15px;
+            height: $list-item-height;
+            line-height: 30px;
+            padding: 0 12px;
+            white-space: nowrap;
+
+            &:hover{
+                background: #eff2f3;
+            }
+
+            &-separator{
+                border-top: 1px solid #dfe6e8;
+            }
+        }
+    }
 }
+.popup{
+    background: #fff;
+    box-shadow: 0, 0, 30px, 0, rgba(0, 0, 0, .5);
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    text-align: left;
 
+    &-form-header{
+        font-size: 30px;
+        margin-bottom: 4px;
+    }
 
+    &-container{
+        position: fixed;
+        left: 0;
+        text-align: center;
+        z-index: 301;
 
+        &:before{
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+    }
 
-.fixed-request-button {
-  border-radius: 0;
-  height: 193px;
-  position: fixed!important;
-  padding: 0 !important;
-  right: 0;
-  top: 50%;
-  margin-top: -96px;
-  z-index: 10;
-  width: 36px;
+    &-state{
+        overflow: hidden;
+    }
+
+    &-fade,
+    &-container{
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+    }
+
+    &-fade{
+        background: #000;
+        opacity: .2;
+        z-index: 301;
+    }
+
+    &-close-button{
+        cursor: pointer;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        line-height: 0;
+        font-size: 0;
+        padding: 5px;
+    }
+
+    .form-header{
+        font-size: 30px;
+    }
+
+    .description{
+        color: #777;
+        font-size: 14px;
+    }
 }
-
-.fixed-request-button, .fixed-request-button:hover {
-  background-image: url(/spa/img/request-button-text.png);
-  background-repeat: no-repeat;
-  background-position: center;
+.fixed-request-button{
+    border-radius: 0;
+    height: 193px;
+    position: fixed !important;
+    padding: 0 !important;
+    right: 0;
+    top: 50%;
+    margin-top: -96px;
+    z-index: 10;
+    width: 36px;
 }
+.fixed-request-button, .fixed-request-button:hover{
+    background-image: url(/spa/img/request-button-text.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+// begin form
+.FieldText{
+    display block
+    box-sizing border-box
+    width 100%
+    margin 0
+    border 1px solid $FieldText-border-color
+    padding $FieldText-vertical-padding $FieldText-horizontal-padding
+    font-size $FieldText-font-size
+    font-family $FieldText-font-family
+    border-radius $FieldText-border-radius
+    outline none
+    vertical-align top
+
+    &:focus{
+        border-color $FieldText-focus-border-color
+    }
+
+    &.ng-invalid{
+        border-color $FieldText-invalid-border-color
+        box-shadow 0 0 0 1px $FieldText-invalid-border-color
+    }
+}
+.FieldLabel{
+    width 100%
+    font-size 12px
+    margin 4px 0
+    color $red
+}
+.FieldTextError{
+    width 100%
+    font-size 12px
+    margin 3px 0
+    color $red
+}
+// end form
