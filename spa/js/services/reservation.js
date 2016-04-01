@@ -10,7 +10,7 @@
  Passengers[0][ExpirationDate]=10.10.2020
  Passengers[0][Citizen]=189
  Passengers[0][Index]=0
- Passengers[1][Sex]=1
+ Passengers[1][Sex]=1||2
  Passengers[1][I]=ASFAF
  Passengers[1][F]=PVEL
  Passengers[1][Birthday]=10.10.1980
@@ -80,7 +80,7 @@ innaAppServices.service('ReservationService', function ($http) {
         Passenger: function () {
             return {
                 Index: null,
-                Sex: null,
+                Sex: 1,
                 I: null,
                 F: null,
                 Birthday: null,

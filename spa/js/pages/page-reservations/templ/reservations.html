@@ -1,11 +1,12 @@
-<div class="Reservations">
+<div class="ReservationForm">
 	<form id="reservationForm"
 	      name="ReservationForm"
 	>
 
-		<header class="buy__header">
-			<h2 class="buy__title">Информация о покупателе</h2>
-		</header>
+
+		<h3 class="ReservationForm__title">
+			Информация о покупателе
+		</h3>
 
 
 		<fieldset class="ReservationFormBlock">
@@ -42,7 +43,7 @@
 					       message-id="ReservationModelPhone"
 					       validator="required, phone"
 					       valid-method="submit"
-					       required-error-message="Укажите номер телефона"
+					       required-error-message="Введите номер телефона"
 					       email-error-message="Неправильно введен E-mail"
 
 					       masked-input
@@ -57,32 +58,70 @@
 			</div>
 		</fieldset>
 
-		<header class="buy__header">
-			<h2 class="buy__title">Пассажиры</h2>
-		</header>
 
-		<fieldset class="buy__blocks" ng-repeat="passenger in ReservationModel.Passengers">
-			<div class="b-field-group b-field-group-passport">
-				<div class="b-field-block b-field-second-name">
-					<label class="b-field-label">Фамилия</label>
-					<input class="FieldText"
-					       upper-latin
+		<h3 class="ReservationForm__title">
+			Пассажиры
+		</h3>
+
+
+		<fieldset class="ReservationFormBlock" ng-repeat="passenger in ReservationModel.Passengers">
+			<div class="FieldGroup">
+				<div class="FieldBlock FieldBlock__sex">
+					<label class="FieldLabel">Пол</label>
+					<div class="FieldSex">
+						<label class="FieldSex__label"
+						       ng-class="{'FieldSex__label-active' : passenger.Sex == 1}">
+							<input class="FieldSex__input"
+							       type="radio"
+							       name="passengerSex"
+							       value="1"
+							       ng-model="passenger.Sex"/>
+							<div class="fa fa-male FieldSex__icon"></div>
+						</label>
+						<label class="FieldSex__label"
+						       ng-class="{'FieldSex__label-active' : passenger.Sex == 2}">
+							<input class="FieldSex__input"
+							       type="radio"
+							       name="passengerSex"
+							       value="2"
+							       ng-model="passenger.Sex"/>
+							<div class="fa fa-female FieldSex__icon"></div>
+						</label>
+					</div>
+				</div>
+				<div class="FieldBlock FieldBlock__second-name">
+					<label for="passenger.F{{$index}}"
+					       class="FieldLabel">Фамилия</label>
+					<input id="passenger.F{{$index}}"
+					       class="FieldText"
 					       ng-model="passenger.F"
-					       name="passenger.F{{$index}}"
-					       message-id="passenger.F{{$index}}"
 					       type="text"
 					       placeholder="IVANOV"
+					       name="passengerF{{$index}}"
+					       message-id="passengerF{{$index}}"
 					       validator="required"
+					       valid-method="submit"
+					       required-error-message="Введите фамилию"
 					/>
+					<div class="FieldError"
+					     id="passengerF{{$index}}"></div>
 				</div>
-				<div class="b-field-block b-field-block-surname">
-					<label class="b-field-label">Имя</label>
-					<input class="b-field-text"
-					       upper-latin
+				<div class="FieldBlock FieldBlock__surname">
+					<label for="passenger.I{{$index}}"
+					       class="FieldLabel">Имя</label>
+					<input id="passenger.I{{$index}}"
+					       class="FieldText"
 					       ng-model="passenger.I"
 					       type="text"
-					       placeholder="IVANOV"
+					       placeholder="IVAN"
+					       name="passengerI{{$index}}"
+					       message-id="passengerI{{$index}}"
+					       validator="required"
+					       valid-method="submit"
+					       required-error-message="Введите имя"
 					/>
+					<div class="FieldError"
+					     id="passengerI{{$index}}"></div>
 				</div>
 			</div>
 		</fieldset>

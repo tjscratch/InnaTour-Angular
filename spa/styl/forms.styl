@@ -253,4 +253,34 @@ button[type=submit]{
     color $FieldError-text-color
     font-size $FieldError-font-size
 }
+.FieldSex{
+    display flex
+    box-sizing border-box
+    width 100%
+    margin $FieldText-vertical-margin 0
+    border 1px solid $FieldText-border-color
+    border-radius $FieldText-border-radius
+    vertical-align top
+    overflow hidden
+}
+.FieldSex__label{
+    height 30px
+    width 30px
+    display flex
+    color $green
+    background $white
+    cursor pointer
+    transition: all .2s
+}
+.FieldSex__label-active{
+    background $green
+    color $white
+    transition: all .2s
+}
+.FieldSex__icon{
+    margin auto
+}
+.FieldSex__input{
+    display none
+}
 // end form
