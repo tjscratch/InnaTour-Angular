@@ -14,8 +14,17 @@ innaAppControllers.controller('ReservationsController', function ($scope, $route
     }
 
     $scope.ReservationForm = {
-        checkValid: $validationProvider.checkValid
+        checkValid: $validationProvider.checkValid,
+        submit: function (form) {
+            $validationProvider.validate(form);
+            console.log(form)
+        }
     };
+
+
+    $scope.ReservationFormSubmit = function (form){
+        console.log(form);
+    }
 
 
 });
