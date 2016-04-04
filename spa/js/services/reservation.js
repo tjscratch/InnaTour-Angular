@@ -57,16 +57,14 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
                 PartnerMarker: null,
                 partnerOperatorId: null,
                 SearchParams: {
-                    HotelId: null,
-                    HotelProviderId: null,
+                    Adult: null,
+                    ArrivalId: null,
+                    NightCount: null,
+                    StartVoyageDate: null,
+                    hotelId: null,
+                    providerId: null,
                     RoomId: null,
                     CustomerWishlist: null,
-                    Filter: {
-                        ProviderId: null,
-                        ArrivalId: null,
-                        StartVoyageDate: null,
-                        Adult: null
-                    }
                 },
                 Passengers: []
             };
@@ -109,11 +107,29 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
                 Citizen: 189
             };
         },
+        PassengerFake1: function () {
+            return {
+                Index: null,
+                Sex: 2,
+                I: 'MARIA',
+                F: 'PAVLOVA',
+                Birthday: '10.10.1980',
+                DocumentId: 1,
+                Number: 245356356,
+                ExpirationDate: '10.10.2020',
+                Citizen: 189
+            };
+        },
         getReservationModel: function (PassengerCount, testMode) {
             var GenerateReservationModel = this.ReservationModel();
             if(testMode){
                 for (var i = 0; i < PassengerCount; i++) {
-                    var NewPassenger = this.PassengerFake();
+                    var NewPassenger;
+                    if(i == 0){
+                        NewPassenger = this.PassengerFake();
+                    }else{
+                        NewPassenger = this.PassengerFake1();
+                    }
                     NewPassenger["Index"] = i;
                     GenerateReservationModel.Email = "test@inna.ru";
                     GenerateReservationModel.Phone = "+79099593106";
@@ -130,7 +146,7 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
         },
         reservation: function (params) {
             return $http({
-                url: appApi.PACKAGE_RESERVATION,
+                url: appApi.HOTELS_RESERVATION,
                 method: 'POST',
                 data: params
             });

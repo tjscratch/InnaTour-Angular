@@ -14,12 +14,15 @@ innaAppControllers.controller('ReservationsController', function ($scope, $route
         $scope.ReservationModel = ReservationService.getReservationModel($routeParams.Adult);
     }
 
+    $scope.ReservationModel.SearchParams = $routeParams;
+
 
     $scope.form = {
         checkValid: $validationProvider.checkValid,
         submit: function (form) {
             $validationProvider.validate(form);
             console.log(form)
+            console.log($scope.ReservationModel)
             ReservationService.reservation($scope.ReservationModel)
                 .success(function (data){
                     console.log(data);
