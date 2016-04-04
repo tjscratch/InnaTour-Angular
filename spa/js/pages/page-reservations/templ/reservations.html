@@ -148,13 +148,23 @@
 				<div class="FieldBlock FieldBlock__citizen">
 					<label class="FieldLabel">Гражданство</label>
 
+					<ui-select ng-model="passenger.Citizen"
+					           theme="selectize"
+					           ng-disabled="disabled">
+						<ui-select-match placeholder="Гражданство">{{$select.selected.Name}}</ui-select-match>
+						<ui-select-choices repeat="country in countries | filter: $select.search">
+							<span ng-bind-html="country.Name | highlight: $select.search"></span>
+						</ui-select-choices>
+					</ui-select>
+
 					<!--<div citizenship-select-->
-					     <!--ng-validation-model="passenger.citizenship"-->
-					     <!--value="passenger.citizenship.value.id"-->
-					     <!--list="citizenshipList"-->
-					     <!--result-set="passenger.citizenship.setValue(item)"-->
+					<!--ng-validation-model="passenger.citizenship"-->
+					<!--value="passenger.citizenship.value.id"-->
+					<!--list="citizenshipList"-->
+					<!--result-set="passenger.citizenship.setValue(item)"-->
 					<!--&gt;</div>-->
 
+					<div class="FieldLabel">{{uiSelectCountry}}</div>
 				</div>
 
 
@@ -162,15 +172,7 @@
 		</fieldset>
 
 
-		<p>Selected: {{country.selected}}</p>
-		<ui-select ng-model="country.selected" theme="selectize" ng-disabled="disabled" style="width: 300px;">
-			<ui-select-match placeholder="Select or search a country in the list...">{{$select.selected.name}}</ui-select-match>
-			<ui-select-choices repeat="country in countries | filter: $select.search">
-				<span ng-bind-html="country.name | highlight: $select.search"></span>
-				<small ng-bind-html="country.code | highlight: $select.search"></small>
-			</ui-select-choices>
-		</ui-select>
-
+		{{ ReservationModel }}
 
 		<button class="button b-sum-button"
 		        type="submit"

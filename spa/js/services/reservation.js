@@ -151,5 +151,11 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
                 data: params
             });
         },
+        countries: function () {
+            return $http({
+                url: appApi.GET_COUNTRIES,
+                method: 'GET'
+            });
+        },
     }
 });
