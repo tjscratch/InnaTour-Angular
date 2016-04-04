@@ -39,7 +39,7 @@
  PartnerMarker
  partnerOperatorId
  */
-innaAppServices.service('ReservationService', function ($http) {
+innaAppServices.service('ReservationService', function ($http, appApi) {
     return {
         /**
          * ReservationModel
@@ -115,6 +115,8 @@ innaAppServices.service('ReservationService', function ($http) {
                 for (var i = 0; i < PassengerCount; i++) {
                     var NewPassenger = this.PassengerFake();
                     NewPassenger["Index"] = i;
+                    GenerateReservationModel.Email = "test@inna.ru";
+                    GenerateReservationModel.Phone = "+79099593106";
                     GenerateReservationModel.Passengers.push(NewPassenger);
                 }
             }else{
@@ -126,6 +128,12 @@ innaAppServices.service('ReservationService', function ($http) {
             }
             return GenerateReservationModel
         },
-
+        reservation: function (params) {
+            return $http({
+                url: appApi.PACKAGE_RESERVATION,
+                method: 'POST',
+                data: params
+            });
+        },
     }
 });
