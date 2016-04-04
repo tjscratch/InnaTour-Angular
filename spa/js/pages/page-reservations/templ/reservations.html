@@ -105,6 +105,7 @@
 					<div class="FieldError"
 					     id="passengerF{{$index}}"></div>
 				</div>
+
 				<div class="FieldBlock FieldBlock__surname">
 					<label for="passenger.I{{$index}}"
 					       class="FieldLabel">Имя</label>
@@ -122,6 +123,41 @@
 					<div class="FieldError"
 					     id="passengerI{{$index}}"></div>
 				</div>
+
+				<div class="FieldBlock FieldBlock__birthday">
+					<label for="passenger.Birthday{{$index}}"
+					       class="FieldLabel">Дата рождения</label>
+
+					<input id="passenger.Birthday{{$index}}"
+					       class="FieldText"
+					       ng-model="passenger.Birthday"
+					       type="text"
+					       masked-input
+					       mask="99.99.9999"
+					       placeholder="дд.мм.гггг"
+					       name="passengerBirthday{{$index}}"
+					       message-id="passengerBirthday{{$index}}"
+					       validator="required"
+					       valid-method="submit"
+					       required-error-message="Введите дату рождения"
+					>
+					<div class="FieldError"
+					     id="passengerBirthday{{$index}}"></div>
+				</div>
+
+				<div class="FieldBlock FieldBlock__citizen">
+					<label class="FieldLabel">Гражданство</label>
+
+					<div citizenship-select
+					     ng-validation-model="passenger.citizenship"
+					     value="passenger.citizenship.value.id"
+					     list="citizenshipList"
+					     result-set="passenger.citizenship.setValue(item)"
+					></div>
+
+				</div>
+
+
 			</div>
 		</fieldset>
 
