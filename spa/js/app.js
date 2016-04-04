@@ -19,7 +19,8 @@ var app = angular.module('innaApp', [
     "widgetsInnaWidgetServices",
     'ui.scroll',
     'validation',
-    'validation.rule'
+    'validation.rule',
+    'ui.select'
 ]);
 
 /* локализация дат moment */
