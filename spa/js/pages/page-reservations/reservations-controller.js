@@ -37,23 +37,23 @@ innaAppControllers.controller('ReservationsController', function ($scope, $route
      * @type {undefined}
      */
     $scope.disabled = undefined;
-    // $scope.uiSelectCountry = [];
     $scope.enable = function () {
         $scope.disabled = false;
     };
     $scope.disable = function () {
         $scope.disabled = true;
     };
-    $scope.clear = function () {
-        // $scope.uiSelectCountry.selected = undefined;
-    };
 
-    ReservationService.countries()
+    ReservationService.getCountries()
         .success(function (data) {
             $scope.countries = data;
         })
         .error(function (data) {
             console.log('ReservationService.countries: ' + data);
-        })
+        });
+
+
+    $scope.documentTypes = ReservationService.getDocumentTypes();
+
 
 });

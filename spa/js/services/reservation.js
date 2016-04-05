@@ -19,7 +19,7 @@
  Passengers[1][ExpirationDate]=10.10.2021
  Passengers[1][Citizen]=189
  Passengers[1][Index]=1
-
+ 
  I
  F
  Email=maxstbn@gmail.com
@@ -122,12 +122,12 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
         },
         getReservationModel: function (PassengerCount, testMode) {
             var GenerateReservationModel = this.ReservationModel();
-            if(testMode){
+            if (testMode) {
                 for (var i = 0; i < PassengerCount; i++) {
                     var NewPassenger;
-                    if(i == 0){
+                    if (i == 0) {
                         NewPassenger = this.PassengerFake();
-                    }else{
+                    } else {
                         NewPassenger = this.PassengerFake1();
                     }
                     NewPassenger["Index"] = i;
@@ -135,7 +135,7 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
                     GenerateReservationModel.Phone = "+79099593106";
                     GenerateReservationModel.Passengers.push(NewPassenger);
                 }
-            }else{
+            } else {
                 for (var i = 0; i < PassengerCount; i++) {
                     var NewPassenger = this.Passenger();
                     NewPassenger["Index"] = i;
@@ -151,11 +151,19 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
                 data: params
             });
         },
-        countries: function () {
+        getCountries: function () {
             return $http({
                 url: appApi.GET_COUNTRIES,
                 method: 'GET'
             });
         },
+        getDocumentTypes: function () {
+            return [
+                { Id: 1, Name: 'Паспорт РФ' },
+                { Id: 2, Name: 'Загранпаспорт' },
+                { Id: 3, Name: 'Св-во о рождении' },
+                { Id: 4, Name: 'Иностранный документ' }
+            ];
+        }
     }
 });
