@@ -1,29 +1,65 @@
 /**
  * для валидации используется библиотека
  * https://github.com/huei90/angular-validation
+ * во вьюхе используем как
+ * ReservationsController as reservation
  */
-innaAppControllers.controller('ReservationsController', function ($scope, $routeParams, $location, $injector, ReservationService) {
+innaAppControllers.controller('ReservationsController', function ($scope,
+                                                                  $routeParams,
+                                                                  $location,
+                                                                  $injector,
+                                                                  Balloon,
+                                                                  HotelService,
+                                                                  ReservationService) {
+
+    var self = this;
+
+    /**
+     * проверяем доступность выбранной комнаты
+     */
+    self.baloonHotelAvailable = new Balloon();
+    self.baloonHotelAvailable.updateView({
+        template: 'expireHotel.html',
+        balloonClose: false,
+        callback: function () {
+            redirectHotel();
+        }
+    });
+
+    function redirectHotel () {
+        self.baloonHotelAvailable.teardown();
+        $location.path(AppRouteUrls.URL_HOTELS);
+    };
+
+
+    /**
+     * проверка доступности выбранной комнаты
+     */
+    HotelService.getHotelsIsAvailable($routeParams)
+        .success(function (data) {
+            if (data.Rooms[0].IsAvailable) {
+                self.baloonHotelAvailable.teardown();
+            }
+        })
 
 
     var $validationProvider = $injector.get('$validation');
     // если в url есть параметр ?test=1
     // заполняем данные пассажира фейковыми данными
     if ($location.$$search && $location.$$search.test == 1) {
-        $scope.ReservationModel = ReservationService.getReservationModel($routeParams.Adult, 1);
+        self.ReservationModel = ReservationService.getReservationModel($routeParams.Adult, 1);
     } else {
-        $scope.ReservationModel = ReservationService.getReservationModel($routeParams.Adult);
+        self.ReservationModel = ReservationService.getReservationModel($routeParams.Adult);
     }
 
-    $scope.ReservationModel.SearchParams = $routeParams;
+    self.ReservationModel.SearchParams = $routeParams;
 
 
-    $scope.form = {
+    self.form = {
         checkValid: $validationProvider.checkValid,
         submit: function (form) {
             $validationProvider.validate(form);
-            console.log(form)
-            console.log($scope.ReservationModel)
-            ReservationService.reservation($scope.ReservationModel)
+            ReservationService.reservation(self.ReservationModel)
                 .success(function (data) {
                     console.log(data);
                 })
@@ -36,24 +72,23 @@ innaAppControllers.controller('ReservationsController', function ($scope, $route
      * ui-select
      * @type {undefined}
      */
-    $scope.disabled = undefined;
-    $scope.enable = function () {
-        $scope.disabled = false;
-    };
-    $scope.disable = function () {
-        $scope.disabled = true;
-    };
-
     ReservationService.getCountries()
         .success(function (data) {
-            $scope.countries = data;
+            self.countries = data;
         })
         .error(function (data) {
             console.log('ReservationService.countries: ' + data);
         });
 
 
-    $scope.documentTypes = ReservationService.getDocumentTypes();
+    self.documentTypes = ReservationService.getDocumentTypes();
 
+
+    $scope.$on('$destroy', function () {
+        if (self.baloonHotelAvailable) {
+            self.baloonHotelAvailable.teardown();
+            self.baloonHotelAvailable = null;
+        }
+    });
 
 });

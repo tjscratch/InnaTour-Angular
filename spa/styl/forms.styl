@@ -249,9 +249,13 @@ button[type=submit]{
 .FieldError{
     display block
     width 100%
-    margin $FieldError-vertical-margin 0 0 $FieldError-horizontal-margin
+    margin 0 0 0 $FieldError-horizontal-margin
     color $FieldError-text-color
     font-size $FieldError-font-size
+
+    .validation-valid{
+        display none
+    }
 }
 .FieldSex{
     display flex
@@ -283,5 +287,24 @@ button[type=submit]{
 }
 .FieldSex__input{
     display none
+}
+// ui-select
+.selectize-control{
+    &.ng-invalid{
+        .selectize-input{
+            border-color $FieldText-invalid-border-color
+            box-shadow 0 0 0 1px $FieldText-invalid-border-color
+        }
+    }
+}
+.ui-select-match{
+    display block
+    box-sizing border-box
+    width 100%
+    padding-right 10px
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+    vertical-align top
 }
 // end form

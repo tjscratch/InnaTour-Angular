@@ -324,7 +324,7 @@ app.config([
              */
             .when(AppRouteUrls.URL_RESERVATIONS + ':hotelId/:providerId/:roomId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult', {
                 templateUrl: 'pages/page-reservations/templ/reservations.html',
-                controller: 'ReservationsController'
+                controller: 'ReservationsController as reservation'
             })
             /**
              * end reservation

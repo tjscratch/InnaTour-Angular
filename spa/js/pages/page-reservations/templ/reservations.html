@@ -5,6 +5,15 @@
 
 
 		<h3 class="ReservationForm__title">
+			Оформление и оплата
+		</h3>
+
+		<div>
+			<!--Стоимость пакета за {{passengerCount | perPerson}}: <b>{{price| price}}-->
+		</div>
+
+
+		<h3 class="ReservationForm__title">
 			Информация о покупателе
 		</h3>
 
@@ -17,7 +26,7 @@
 					       class="FieldLabel">E-mail</label>
 					<input id="ReservationModel.Email"
 					       class="FieldText"
-					       ng-model="ReservationModel.Email"
+					       ng-model="reservation.ReservationModel.Email"
 					       name="ReservationModelEmail"
 					       type="text"
 					       placeholder="ivan.ivanov@gmail.com"
@@ -36,7 +45,7 @@
 					       class="FieldLabel">Мобильный телефон</label>
 					<input id="ReservationModel.Phone"
 					       class="FieldText"
-					       ng-model="ReservationModel.Phone"
+					       ng-model="reservation.ReservationModel.Phone"
 					       name="ReservationModelPhone"
 					       type="text"
 
@@ -63,7 +72,7 @@
 		</h3>
 
 
-		<fieldset class="ReservationFormBlock" ng-repeat="passenger in ReservationModel.Passengers">
+		<fieldset class="ReservationFormBlock" ng-repeat="passenger in reservation.ReservationModel.Passengers">
 			<div class="FieldGroup ReservationFormBlock__FieldGroup">
 
 				<div class="FieldBlock FieldBlock__sex">
@@ -96,7 +105,7 @@
 					       class="FieldText"
 					       ng-model="passenger.F"
 					       type="text"
-					       placeholder="IVANOV"
+					       placeholder="Фамилия"
 					       name="passengerF{{$index}}"
 					       message-id="passengerF{{$index}}"
 					       validator="required"
@@ -114,7 +123,7 @@
 					       class="FieldText"
 					       ng-model="passenger.I"
 					       type="text"
-					       placeholder="IVAN"
+					       placeholder="Имя"
 					       name="passengerI{{$index}}"
 					       message-id="passengerI{{$index}}"
 					       validator="required"
@@ -151,7 +160,6 @@
 
 					<ui-select ng-model="passenger.Citizen"
 					           theme="selectize"
-					           ng-disabled="disabled"
 
 					           name="passengerCitizen{{ $index }}"
 					           message-id="passengerCitizen{{ $index }}"
@@ -160,7 +168,7 @@
 					           required-error-message="Укажите гражданство"
 					           >
 						<ui-select-match placeholder="Гражданство">{{$select.selected.Name}}</ui-select-match>
-						<ui-select-choices repeat="country.Id as country in countries | filter: $select.search"
+						<ui-select-choices repeat="country.Id as country in reservation.countries | filter: $select.search"
 						                   refresh-delay="0">
 							<span ng-bind-html="country.Name | highlight: $select.search"></span>
 						</ui-select-choices>
@@ -175,7 +183,6 @@
 
 					<ui-select ng-model="passenger.DocumentId"
 					           theme="selectize"
-					           ng-disabled="disabled"
 
 					           name="passengerDocumentId{{ $index }}"
 					           message-id="passengerDocumentId{{ $index }}"
@@ -184,7 +191,7 @@
 					           required-error-message="Укажите тип документа"
 					           >
 						<ui-select-match placeholder="Тип документа">{{$select.selected.Name}}</ui-select-match>
-						<ui-select-choices repeat="document.Id as document in documentTypes | filter: $select.search"
+						<ui-select-choices repeat="document.Id as document in reservation.documentTypes | filter: $select.search"
 						                   refresh-delay="0">
 							<span ng-bind-html="document.Name | highlight: $select.search"></span>
 						</ui-select-choices>
@@ -239,10 +246,12 @@
 		<button class="button b-sum-button"
 		        type="submit"
 		        validation-submit="ReservationForm"
-		        ng-click="form.submit(ReservationForm)">
+		        ng-click="reservation.form.submit(ReservationForm)">
 			Перейти к оплате
 		</button>
 
+
+		{{ reservation.ReservationModel }}
 
 	</form>
 </div>
