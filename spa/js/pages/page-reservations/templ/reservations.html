@@ -150,21 +150,22 @@
 
 					<ui-select ng-model="passenger.Citizen"
 					           theme="selectize"
-					           ng-disabled="disabled">
+					           ng-disabled="disabled"
+
+					           name="passengerCitizen{{ $index }}"
+					           message-id="passengerCitizen{{ $index }}"
+					           validator="required"
+					           valid-method="submit"
+					           required-error-message="Укажите гражданство"
+					           >
 						<ui-select-match placeholder="Гражданство">{{$select.selected.Name}}</ui-select-match>
-						<ui-select-choices repeat="country in countries | filter: $select.search">
+						<ui-select-choices repeat="country.Id as country in countries | filter: $select.search"
+						                   refresh-delay="0">
 							<span ng-bind-html="country.Name | highlight: $select.search"></span>
 						</ui-select-choices>
 					</ui-select>
 
-					<!--<div citizenship-select-->
-					<!--ng-validation-model="passenger.citizenship"-->
-					<!--value="passenger.citizenship.value.id"-->
-					<!--list="citizenshipList"-->
-					<!--result-set="passenger.citizenship.setValue(item)"-->
-					<!--&gt;</div>-->
-
-					<div class="FieldLabel">{{uiSelectCountry}}</div>
+					<div id="passengerCitizen{{ $index }}" class="FieldError"></div>
 				</div>
 
 
