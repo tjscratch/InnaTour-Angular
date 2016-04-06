@@ -7,6 +7,7 @@ $CardPrice-padding = 10px;
 $HotelCardPhotos-width = 200px;
 $HotelCardPrice-width = 190px;
 $HotelCardInfo-width = $search-results-list-width - ($HotelCardPhotos-width + $HotelCardPrice-width);
+$HotelCardBorderColor = #cfcfcf;
 
 .HotelCard{
     width $search-results-list-width;
@@ -14,7 +15,7 @@ $HotelCardInfo-width = $search-results-list-width - ($HotelCardPhotos-width + $H
     padding 0
     background #fff
 
-    box-shadow 0 0 5px rgba(0, 0, 0, .4);
+    box-shadow 0 0 0 1px $HotelCardBorderColor;
 
     display flex
     justify-content space-between
@@ -34,7 +35,7 @@ $HotelCardInfo-width = $search-results-list-width - ($HotelCardPhotos-width + $H
     box-sizing border-box
     width $HotelCardInfo-width
     padding 10px 12px
-    border-right 1px solid $color-separator
+    border-right 1px solid $HotelCardBorderColor
     flex-grow 300
 }
 .HotelCardInfo__title{
@@ -102,3 +103,32 @@ $HotelCardInfo-width = $search-results-list-width - ($HotelCardPhotos-width + $H
     text-align center
 }
 // END PRICE
+
+// BEGIN HOTEL CARD INFO
+.HotelCard__info{
+    flex-wrap wrap
+    width 520px
+    padding 10px
+
+    .HotelCardPhotos{
+        width 130px
+        height 130px
+    }
+    .HotelCardInfo{
+        width: auto;
+        padding-top: 0;
+        border-right: none;
+    }
+}
+.HotelCardPhotos__Photo{
+    width 130px
+    height 130px
+    background-position center center
+    background-size cover
+    background-repeat no-repeat
+}
+.HotelCardRoomInfo{
+    width 100%
+    margin 10px 0 0 0
+}
+// END HOTEL CARD INFO

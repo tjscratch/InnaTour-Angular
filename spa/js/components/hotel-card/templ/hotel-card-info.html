@@ -1,0 +1,30 @@
+<div class="HotelCard HotelCard__info">
+
+	<div class="HotelCardPhotos">
+		<div class="HotelCardPhotos__Photo"
+		     style="background-image: url('{{ ::hotel.HotelPhoto200 }}')"
+		></div>
+	</div>
+
+	<div class="HotelCardInfo">
+		<stars-directive hotel-data="::hotel.Stars"></stars-directive>
+		<h2 class="HotelCardInfo__title">
+			<a class="HotelCardInfo__link"
+			   ng-href="{{::hotelUrl}}"
+			>
+				{{ ::hotel.HotelName }}
+			</a>
+		</h2>
+		<div class="HotelCardInfo__text">
+			{{ ::hotel.HotelFullAdress }}
+		</div>
+		<ng:include src="'components/hotel-card/templ/hotel-card-date.html'"></ng:include>
+		<ng:include src="'components/hotel-card/templ/hotel-card-meal.html'"></ng:include>
+		<trip-advisor-directive ng-if="hotel.TaFactor" hotel-data="hotel"></trip-advisor-directive>
+	</div>
+
+	<div class="HotelCardRoomInfo">
+		{{ ::hotelRoom.RoomName }}
+	</div>
+
+</div>

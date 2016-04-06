@@ -1,4 +1,5 @@
-<div class="ReservationForm">
+<div class="ReservationForm"
+     ng-if="reservation.hotelInfo">
 	<form id="reservationForm"
 	      name="ReservationForm"
 	>
@@ -15,11 +16,11 @@
 		</div>
 
 
-		<hotel-card
+		<hotel-card-info
 				hotel="reservation.hotelInfo.Hotel"
-				hotel-info="true"
+				hotel-room="reservation.hotelInfo.Room"
 				hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
-		></hotel-card>
+		></hotel-card-info>
 
 
 		<ng:include src="'pages/page-reservations/templ/reservations-customer-info.html'"></ng:include>

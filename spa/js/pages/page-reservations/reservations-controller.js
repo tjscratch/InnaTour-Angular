@@ -33,22 +33,15 @@ innaAppControllers.controller('ReservationsController', function ($scope,
 
 
     /**
-     * проверка доступности выбранной комнаты
-     */
-    HotelService.getHotelsIsAvailable($routeParams)
-        .success(function (data) {
-            if (data.Rooms[0].IsAvailable) {
-                self.baloonHotelAvailable.teardown();
-            }
-        })
-
-
-    /**
      * получение данных выбранной комнаты
+     * и проверка доступности выбранной комнаты
      */
     HotelService.getHotelBuy($routeParams)
         .success(function (data) {
             console.log(data);
+            if (data.Available) {
+                self.baloonHotelAvailable.teardown();
+            }
             self.hotelInfo = data;
         })
 
