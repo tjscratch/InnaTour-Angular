@@ -19,7 +19,7 @@
  Passengers[1][ExpirationDate]=10.10.2021
  Passengers[1][Citizen]=189
  Passengers[1][Index]=1
- 
+
  I
  F
  Email=maxstbn@gmail.com
@@ -50,6 +50,7 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
             return {
                 Email: null,
                 Phone: null,
+                Agree: null,
                 IsSubscribe: false,
                 IsNeededVisa: false,
                 IsNeededTransfer: false,

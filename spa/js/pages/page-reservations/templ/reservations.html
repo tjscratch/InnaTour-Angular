@@ -19,15 +19,49 @@
 		<ng:include src="'pages/page-reservations/templ/reservations-passengers-info.html'"></ng:include>
 
 
-		<button class="button b-sum-button"
-		        type="submit"
-		        validation-submit="ReservationForm"
-		        ng-click="reservation.form.submit(ReservationForm)">
-			Перейти к оплате
-		</button>
+		<div class="ReservationForm__Agree">
+			<label class="FieldCheckbox">
+				<input class="FieldCheckbox__input"
+				       type="checkbox"
+				       name="ReservationModelAgree"
+				       ng-model="reservation.ReservationModel.Agree"
+				       message-id="ReservationModelAgree"
+				       validator="required"
+				       valid-method="submit"
+				       required-error-message="Нужно согласиться с условиями"/>
+				<div class="FieldCheckbox__checkbox fa fa-check"></div>
+				<div class="FieldCheckbox__label">
+					Я принимаю условия <a class="link" ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a>,
+					и не возражаю против обработки моих
+					персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).
+				</div>
+			</label>
+			<div class="FieldError" id="ReservationModelAgree"></div>
+		</div>
 
 
-		{{ reservation.ReservationModel }}
+		<div class="ReservationFormActive">
+
+			<div class="ReservationFormSum">
+				<div class="ReservationFormSum__price-label">
+					Сумма к оплате:
+				</div>
+				<div class="ReservationFormSum__price">
+					{{ 34567 | currency : "" : 0 }}<i class='fa fa-rub'></i>
+				</div>
+			</div>
+
+			<div class="ReservationFormActive__btn">
+				<button class="button b-sum-button"
+				        type="submit"
+				        validation-submit="ReservationForm"
+				        ng-click="reservation.form.submit(ReservationForm)">
+					Перейти к оплате
+				</button>
+			</div>
+
+		</div>
+
 
 	</form>
 </div>

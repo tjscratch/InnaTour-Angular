@@ -288,6 +288,32 @@ button[type=submit]{
 .FieldSex__input{
     display none
 }
+.FieldCheckbox{
+    margin: $FieldText-vertical-margin 0;
+
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+.FieldCheckbox__input{
+    display: none;
+}
+.FieldCheckbox__checkbox{
+    display block
+    width 15px
+    height 15px
+    margin-right 8px
+    border 2px solid $green
+    border-radius 3px
+    font-size 15px
+    color $white
+}
+.FieldCheckbox__input:checked + .FieldCheckbox__checkbox{
+    background $green
+}
+.FieldCheckbox__label{
+    font-size $medium
+}
 // ui-select
 .selectize-control{
     &.ng-invalid{
