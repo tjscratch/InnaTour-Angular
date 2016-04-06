@@ -29,7 +29,8 @@
 		<trip-advisor-directive ng-if="hotel.TaFactor" hotel-data="hotel"></trip-advisor-directive>
 	</div>
 
-	<div class="HotelCardPrice">
+	<div class="HotelCardPrice"
+	     ng-if="!hotelInfo">
 		<div class="CardPrice">
 			<div class="CardPrice__info">
 				<div class="CardPrice__price">

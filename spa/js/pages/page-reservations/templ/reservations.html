@@ -15,6 +15,13 @@
 		</div>
 
 
+		<hotel-card
+				hotel="reservation.hotelInfo.Hotel"
+				hotel-info="true"
+				hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
+		></hotel-card>
+
+
 		<ng:include src="'pages/page-reservations/templ/reservations-customer-info.html'"></ng:include>
 		<ng:include src="'pages/page-reservations/templ/reservations-passengers-info.html'"></ng:include>
 

@@ -49,6 +49,7 @@ innaAppControllers.controller('ReservationsController', function ($scope,
     HotelService.getHotelBuy($routeParams)
         .success(function (data) {
             console.log(data);
+            self.hotelInfo = data;
         })
 
 
