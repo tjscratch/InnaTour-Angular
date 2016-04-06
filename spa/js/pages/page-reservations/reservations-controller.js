@@ -43,6 +43,15 @@ innaAppControllers.controller('ReservationsController', function ($scope,
         })
 
 
+    /**
+     * получение данных выбранной комнаты
+     */
+    HotelService.getHotelBuy($routeParams)
+        .success(function (data) {
+            console.log(data);
+        })
+
+
     var $validationProvider = $injector.get('$validation');
     // если в url есть параметр ?test=1
     // заполняем данные пассажира фейковыми данными

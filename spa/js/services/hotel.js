@@ -51,6 +51,13 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
                 params: params
             })
         },
+        getHotelBuy: function (params) {
+            return $http({
+                url: appApi.HOTELS_HOTEL_BUY,
+                method: "GET",
+                params: params
+            })
+        },
         hotelConcatParams: function (params) {
             var urlParams = [
                 params.ArrivalId,
