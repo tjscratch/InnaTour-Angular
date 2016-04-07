@@ -24,7 +24,14 @@
 	</div>
 
 	<div class="HotelCardRoomInfo">
-		{{ ::hotelRoom.RoomName }}
+
+		<div class="HotelCardRoomInfo__RoomName">{{ ::hotelRoom.RoomName }}</div>
+
+		<div class="HotelCardRoomInfo__RoomInfo">
+			<span ng-repeat="bed in hotelRoom.BedTypeList track by $index">
+				{{bed.Name}}<span ng-if="!$last">,&nbsp;</span>
+			</span>
+		</div>
 	</div>
 
 </div>
