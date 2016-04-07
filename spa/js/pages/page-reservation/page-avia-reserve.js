@@ -272,6 +272,9 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                 VariantId2: $scope.item.VariantId2
             };
             m.Filter = angular.toJson($scope.criteria);
+
+            m.Agree = $scope.agree;
+
             if ($scope.promoCode) {
                 m.PromoCode = $scope.promoCode;
                 m.promoCodeString = m.PromoCode
