@@ -5,7 +5,7 @@
 		<div class="row hotel-details-rooms__room__item-info">
 			<div class="col-xs-6 col-no-padding">
 				<div class="hotel-details-rooms__room-desc"
-				     ng-class="{'hotel-details-rooms__room-desc_empty' : RoomsPhotosIsEmpty}">
+				     ng-class="{'hotel-details-rooms__room-desc_empty' : !room.Photos}">
 
 					<div gallery-preview
 					     ng-click="showFullGallery($event)"
@@ -18,9 +18,6 @@
 					     class="hotel-details-rooms__room_pic"
 					     ng-if="room.Photos"></div>
 
-					<div class="hotel-details-rooms__room_pic"
-					     ng-if="!room.Photos && !RoomsPhotosIsEmpty"
-					     style="background-image: url('spa/img/hotels/no_photo70x70.png')"></div>
 
 					<div class="hotel-details-rooms__room-desc_wrap">
 
@@ -87,19 +84,17 @@
 							     templ="popover.change-price.hbs.html">
 							</div>
 
-		                    <span ng-if="room.Default">
-			                    Включен в цену
+
+		                    <span>
+			                    {{ room.PackagePriceService | currency : "" : 0 }}
+			                    <i class='fa fa-rub'></i>
 		                    </span>
-		                    <span ng-if="!room.Default">
-			                    {{room.PackagePrice - recommendedPair.getFullPackagePrice() | signed}}
-			                    <ng-include src="'components/ruble.html'"></ng-include>
-		                    </span>
-							<!--<span class="icon-crown icon-sprite-crown" ng-if="room.IsPackage"></span>-->
 						</div>
 
 						<div class="hotel-details-rooms__room-price-full" ng-if="!hotelOnly">
-							К оплате: {{room.PackagePrice | price}}
-							<ng-include src="'components/ruble.html'"></ng-include>
+							К оплате:
+							{{ room.PackagePriceService | currency : "" : 0 }}
+							<i class='fa fa-rub'></i>
 						</div>
 					</div>
 

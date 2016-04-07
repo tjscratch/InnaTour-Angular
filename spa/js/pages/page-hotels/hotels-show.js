@@ -36,26 +36,30 @@ innaAppControllers.controller('HotelsShowController', function ($scope, $timeout
      */
     $scope.redirectHotels = function () {
         $scope.baloonHotelLoad.teardown();
-        $location.path(AppRouteUrls.URL_HOTELS);
+        $location.path('/#' + AppRouteUrls.URL_HOTELS);
     };
 
 
     HotelService.getHotelsDetails($routeParams)
         .success(function (data) {
             console.log(data)
-            $scope.hotel = data.Hotel;
-            $scope.hotelRooms = data.Rooms;
-            $scope.hotelLoaded = true;
-            parseAmenities($scope.hotel);
-            if ($scope.hotel.ProviderId == 4) {
-                $scope.TAWidget = app_main.tripadvisorEx + $scope.hotel.HotelId;
-            } else if ($scope.hotel.ProviderId == 2) {
-                $scope.TAWidget = app_main.tripadvisorOk + $scope.hotel.HotelId;
+            if(data.Success){
+                $scope.hotel = data.Hotel;
+                $scope.hotelRooms = data.Rooms;
+                $scope.hotelLoaded = true;
+                parseAmenities($scope.hotel);
+                if ($scope.hotel.ProviderId == 4) {
+                    $scope.TAWidget = app_main.tripadvisorEx + $scope.hotel.HotelId;
+                } else if ($scope.hotel.ProviderId == 2) {
+                    $scope.TAWidget = app_main.tripadvisorOk + $scope.hotel.HotelId;
+                }
+                if ($scope.hotel.Latitude && $scope.hotel.Longitude) {
+                    loadMap($scope.hotel.Latitude, $scope.hotel.Longitude, $scope.hotel.HotelName);
+                }
+                $scope.baloonHotelLoad.teardown();
+            }else{
+                $scope.redirectHotels();
             }
-            if ($scope.hotel.Latitude && $scope.hotel.Longitude) {
-                loadMap($scope.hotel.Latitude, $scope.hotel.Longitude, $scope.hotel.HotelName);
-            }
-            $scope.baloonHotelLoad.teardown();
         });
 
 
