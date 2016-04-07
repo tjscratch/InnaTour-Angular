@@ -97,8 +97,38 @@
 		</div>
 
 
+		<div class="hotel-details__section" id="SectionServices">
+			<h2 class="hotel-details__section-title">Сервисы</h2>
+
+			<div class="hotel-details-resume">
+				<div class="hotel-details-resume__section hotel-details-resume__section_{{key}}"
+				     ng-repeat="Amenities in hotel.AmenitiesArray track by $index">
+					<h4 class="hotel-details-resume__section-title">{{Amenities.CategoryName}}</h4>
+
+
+					<!-- сделано в тупую : руками разбил массив на две части в методе parseAmenities -->
+					<div class="hotel-details-resume__wrapper">
+						<ul class="hotel-details-resume__list" ng-if="Amenities.part.part1.length">
+							<li class="hotel-details-resume__item"
+							    ng-repeat="item in Amenities.part.part1 track by $index">
+								{{item}}
+							</li>
+						</ul>
+
+						<ul class="hotel-details-resume__list" ng-if="Amenities.part.part2.length">
+							<li class="hotel-details-resume__item"
+							    ng-repeat="item in Amenities.part.part2 track by $index">
+								{{item}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 		<div class="hotel-details__section hotel-details__section_map" id="SectionMap">
-			<h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>
+			<h2 class="hotel-details__section-title">{{::hotel.HotelFullAdress}}</h2>
 
 			<div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
 				<div id="hotel-details-map"></div>

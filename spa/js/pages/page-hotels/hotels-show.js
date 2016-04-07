@@ -1,5 +1,5 @@
 innaAppControllers.controller('HotelsShowController', function ($scope, $timeout, $location, $routeParams, Balloon, HotelService) {
-    
+
     // toDo хрень какая то, удалить надо бы
     document.body.classList.add('bg_white');
     document.body.classList.remove('light-theme');
@@ -46,6 +46,7 @@ innaAppControllers.controller('HotelsShowController', function ($scope, $timeout
             $scope.hotel = data.Hotel;
             $scope.hotelRooms = data.Rooms;
             $scope.hotelLoaded = true;
+            parseAmenities($scope.hotel);
             if ($scope.hotel.ProviderId == 4) {
                 $scope.TAWidget = app_main.tripadvisorEx + $scope.hotel.HotelId;
             } else if ($scope.hotel.ProviderId == 2) {
@@ -85,11 +86,42 @@ innaAppControllers.controller('HotelsShowController', function ($scope, $timeout
 
 
     /**
+     * Amenities
+     */
+    function parseAmenities (hotel) {
+        hotel.AmenitiesArray = [];
+
+        if (hotel && Object.keys(hotel.Amenities).length) {
+
+            for (var key in hotel.Amenities) {
+                var countPart = Math.ceil(hotel.Amenities[key].List.length / 2);
+                var ListOrigin = [].concat(hotel.Amenities[key].List);
+                var ListPart1 = [].concat(ListOrigin.splice(countPart, ListOrigin.length));
+                var ListPart2 = [].concat(ListOrigin);
+
+                hotel.Amenities[key].part = {
+                    part1: ListPart1,
+                    part2: ListPart2
+                }
+
+                hotel.AmenitiesArray.push(hotel.Amenities[key]);
+            }
+        }
+    }
+
+
+    /**
      * действия в комнате
      */
     $scope.goReservation = function (roomId){
         var url = HotelService.getHotelsResevationUrl($routeParams.hotelId, $routeParams.providerId, roomId, $routeParams);
         $location.url(url);
+    };
+
+
+    $scope.toggleRoom = function (room) {
+        //converts undefined into boolean on the fly
+        room.isOpen = !!!room.isOpen;
     };
 
 
