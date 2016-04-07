@@ -13,15 +13,23 @@
 		<div class="SearchHotelResults" ng-if="hotels">
 			<div class="SearchHotelResults__item"
 			     ui-scroll="hotel in datasource"
-			     buffer-size="1"
-				>
+			     is-loading="loading"
+			>
 				<hotel-card
 						hotel="hotel"
 						hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
 				></hotel-card>
 			</div>
-			<div ng-if="loading">
-
+			<div class="SearchHotelResults__loading"
+			     ng-if="loading">
+				<div class="spinner in-balloon">
+					<div class="rect rect1"></div>
+					<div class="rect rect2"></div>
+					<div class="rect rect3"></div>
+					<div class="rect rect4"></div>
+					<div class="rect rect5"></div>
+					<img class="gif" src="/spa/img/spinner.gif">
+				</div>
 			</div>
 		</div>
 

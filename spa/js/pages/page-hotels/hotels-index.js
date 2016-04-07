@@ -1,6 +1,10 @@
 innaAppControllers.controller('HotelsIndexController', function ($scope, $routeParams, $location, $timeout,
                                                                  AppRouteUrls, Balloon, HotelService) {
 
+    // toDo хрень какая то, удалить надо бы
+    document.body.classList.add('bg_white');
+    document.body.classList.remove('light-theme');
+
     /**
      * при переходе на данную страницу
      * показываем прелоадер на время
@@ -40,14 +44,8 @@ innaAppControllers.controller('HotelsIndexController', function ($scope, $routeP
     var datasource = {};
 
     datasource.get = function (index, count, success) {
-        console.log('index - ', index);
-        console.log('count - ', count);
         $timeout(function () {
-            var result = [];
-            for (var i = 0; i <= $scope.hotels.length - 1; i++) {
-                result.push($scope.hotels[i]);
-            }
-            success(result);
+            success($scope.hotels.slice(index, index + count));
         }, 0);
     };
 
