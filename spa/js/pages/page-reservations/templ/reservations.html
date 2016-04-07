@@ -1,19 +1,39 @@
 <div class="ReservationForm"
      ng-if="reservation.hotelInfo">
+
+	<div class="ReservationForm__breadcrumbs hotel-details__section hotel-details__section__crumbs">
+		<ul class="section__crumbs__list">
+			<li class="section__crumbs__list__item">
+				<a href="/#/" class="section__crumbs__list__item__link">Главная</a>
+			</li>
+			<li class="section__crumbs__list__item">
+				<a ng-href="{{ reservation.hotelsIndexPath }}" class="section__crumbs__list__item__link">Результаты поиска</a>
+			</li>
+			<li class="section__crumbs__list__item">
+				<a ng-href="{{ reservation.hotelsShowPath }}" class="section__crumbs__list__item__link">Описание отеля и выбор номера</a>
+			</li>
+			<li class="section__crumbs__list__item">
+				Бронирование номера
+			</li>
+		</ul>
+	</div>
+
+
+	<div class="ReservationForm__head">
+		<h3 class="ReservationForm__title ReservationForm__title-head">
+			Оформление и оплата
+		</h3>
+	</div>
+
+
+	<div>
+		<!--Стоимость пакета за {{passengerCount | perPerson}}: <b>{{price| price}}-->
+	</div>
+
+
 	<form id="reservationForm"
 	      name="ReservationForm"
 	>
-
-
-		<div class="ReservationForm__head">
-			<h3 class="ReservationForm__title ReservationForm__title-head">
-				Оформление и оплата
-			</h3>
-		</div>
-
-		<div>
-			<!--Стоимость пакета за {{passengerCount | perPerson}}: <b>{{price| price}}-->
-		</div>
 
 
 		<hotel-card-info

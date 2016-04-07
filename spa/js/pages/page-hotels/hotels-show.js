@@ -1,5 +1,5 @@
 innaAppControllers.controller('HotelsShowController', function ($scope, $timeout, $location, $routeParams, Balloon, HotelService) {
-
+    
     // toDo хрень какая то, удалить надо бы
     document.body.classList.add('bg_white');
     document.body.classList.remove('light-theme');

@@ -13,7 +13,10 @@ innaAppControllers.controller('ReservationsController', function ($scope,
                                                                   ReservationService) {
 
     var self = this;
-
+    self.hotelsIndexPath = '/#' + HotelService.getHotelsIndexUrl($routeParams);
+    
+    self.hotelsShowPath = HotelService.getHotelsShowUrl($routeParams.hotelId, $routeParams.providerId, $routeParams);
+    
     /**
      * проверяем доступность выбранной комнаты
      */
