@@ -30,6 +30,20 @@ innaAppControllers.controller('HotelsShowController', function ($scope, $timeout
         }
     });
 
+    function baloonError() {
+        $scope.baloonHotelLoad.updateView({
+            template: 'err.html',
+            title: 'Что-то пошло не так',
+            content: 'Попробуйте начать поиск заново',
+            callbackClose: function () {
+                $scope.redirectHotels();
+            },
+            callback: function () {
+                $scope.redirectHotels();
+            }
+        });
+    }
+
     /**
      * клик на балуне, по кнопке закрыть или "прервать поиск"
      * редиректим на /hotels/
@@ -41,11 +55,11 @@ innaAppControllers.controller('HotelsShowController', function ($scope, $timeout
 
 
     HotelService.getHotelsDetails($routeParams)
-        .success(function (data) {
-            console.log(data)
-            if(data.Success){
-                $scope.hotel = data.Hotel;
-                $scope.hotelRooms = data.Rooms;
+        .then(function (response) {
+            console.log(response)
+            if (response.status == 200 && response.data.Success) {
+                $scope.hotel = response.data.Hotel;
+                $scope.hotelRooms = response.data.Rooms;
                 $scope.hotelLoaded = true;
                 parseAmenities($scope.hotel);
                 if ($scope.hotel.ProviderId == 4) {
@@ -57,9 +71,12 @@ innaAppControllers.controller('HotelsShowController', function ($scope, $timeout
                     loadMap($scope.hotel.Latitude, $scope.hotel.Longitude, $scope.hotel.HotelName);
                 }
                 $scope.baloonHotelLoad.teardown();
-            }else{
-                $scope.redirectHotels();
+            } else {
+                baloonError();
             }
+        }, function (response) {
+            console.log(response)
+            baloonError();
         });
 
 
@@ -117,7 +134,7 @@ innaAppControllers.controller('HotelsShowController', function ($scope, $timeout
     /**
      * действия в комнате
      */
-    $scope.goReservation = function (roomId){
+    $scope.goReservation = function (roomId) {
         var url = HotelService.getHotelsResevationUrl($routeParams.hotelId, $routeParams.providerId, roomId, $routeParams);
         $location.url(url);
     };

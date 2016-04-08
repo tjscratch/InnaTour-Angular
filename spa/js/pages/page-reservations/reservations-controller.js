@@ -7,6 +7,7 @@
 innaAppControllers.controller('ReservationsController', function ($scope,
                                                                   $routeParams,
                                                                   $location,
+                                                                  AppRouteUrls,
                                                                   $injector,
                                                                   Balloon,
                                                                   HotelService,
@@ -14,9 +15,10 @@ innaAppControllers.controller('ReservationsController', function ($scope,
 
     var self = this;
     self.hotelsIndexPath = '/#' + HotelService.getHotelsIndexUrl($routeParams);
-    
+
     self.hotelsShowPath = HotelService.getHotelsShowUrl($routeParams.hotelId, $routeParams.providerId, $routeParams);
-    
+
+
     /**
      * проверяем доступность выбранной комнаты
      */
@@ -31,22 +33,43 @@ innaAppControllers.controller('ReservationsController', function ($scope,
 
     function redirectHotel () {
         self.baloonHotelAvailable.teardown();
-        $location.path(AppRouteUrls.URL_HOTELS);
+        console.log(self.hotelsShowPath)
+        $location.path(self.hotelsShowPath);
     };
 
+    function baloonError () {
+        self.baloonHotelAvailable.updateView({
+            template: 'err.html',
+            title: 'Выбранная комната не доступна',
+            content: 'Попробуйте начать поиск заново',
+            callbackClose: function () {
+                console.log(33333)
+                redirectHotel();
+            },
+            callback: function () {
+                console.log(44444)
+                redirectHotel();
+            }
+        });
+    }
 
     /**
      * получение данных выбранной комнаты
      * и проверка доступности выбранной комнаты
      */
     HotelService.getHotelBuy($routeParams)
-        .success(function (data) {
-            console.log(data);
-            if (data.Available) {
+        .then(function (response) {
+            console.log(response)
+            if (response.status == 200 && response.data.Available) {
                 self.baloonHotelAvailable.teardown();
+                self.hotelInfo = response.data;
+            } else {
+                baloonError();
             }
-            self.hotelInfo = data;
-        })
+        }, function (response) {
+            console.log(response)
+            baloonError();
+        });
 
 
     var $validationProvider = $injector.get('$validation');

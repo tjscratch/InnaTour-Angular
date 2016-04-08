@@ -41,8 +41,17 @@ innaAppControllers.controller('HotelsIndexController', function ($scope, $routeP
                 }
             }, function (response) {
                 console.log(response)
-                // $scope.data = response.data || "Request failed";
-                // $scope.status = response.status;
+                $scope.baloonHotelLoad.updateView({
+                    template: 'err.html',
+                    title: 'Что-то пошло не так',
+                    content: 'Попробуйте начать поиск заново',
+                    callbackClose: function () {
+                        $scope.redirectHotels();
+                    },
+                    callback: function () {
+                        $scope.redirectHotels();
+                    }
+                });
             });
     }
 
