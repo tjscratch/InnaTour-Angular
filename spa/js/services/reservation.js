@@ -83,10 +83,10 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
                 I: null,
                 F: null,
                 Birthday: null,
-                DocumentId: null,
+                DocumentId: 1,
                 Number: null,
                 ExpirationDate: null,
-                Citizen: null
+                Citizen: 189
             };
         },
         /**

@@ -7,7 +7,8 @@
 				<div class="hotel-details-rooms__room-desc"
 				     ng-class="{'hotel-details-rooms__room-desc_empty' : !room.Photos}">
 
-					<div gallery-preview
+					<div ng-if="room.Photos"
+					     gallery-preview
 					     ng-click="showFullGallery($event)"
 					     photo="room.Photos.BaseUrl"
 					     width="80"
@@ -16,7 +17,7 @@
 					     height-preview="270"
 					     hover-image-object="hoverImageObject"
 					     class="hotel-details-rooms__room_pic"
-					     ng-if="room.Photos"></div>
+					></div>
 
 
 					<div class="hotel-details-rooms__room-desc_wrap">
@@ -27,13 +28,13 @@
 
 
                             <span tooltip-directive-base
-	                          ng-if="userIsAgency && (AgencyId == 20005)"
-	                          templ="empty.hbs.html"
-	                          el="true"
-	                          tooltip-klass="agency-inna"
-	                          position="right"
-	                          content-html="Комнат <b>{{room.RoomCount}}</b>. Цена <b>{{room.PackagePriceService}}</b> р"
-	                          class="b-display-inline b-agency"></span>
+                                  ng-if="userIsAgency && (AgencyId == 20005)"
+                                  templ="empty.hbs.html"
+                                  el="true"
+                                  tooltip-klass="agency-inna"
+                                  position="right"
+                                  content-html="Комнат <b>{{room.RoomCount}}</b>. Цена <b>{{room.PackagePriceService}}</b> р"
+                                  class="b-display-inline b-agency"></span>
 						</h3>
 
 						<div class="hotel-details-rooms__room_bed-type-list">
@@ -43,7 +44,7 @@
 						</div>
 
 		                <span class="hotel-details-rooms__room-rules-warning"
-		                  ng-if="userIsAgency && (!room.IsRefundable || (room.IsRefundable && room.IsReturnsWithFine))">
+		                      ng-if="userIsAgency && (!room.IsRefundable || (room.IsRefundable && room.IsReturnsWithFine))">
 		                <i class="icon-sprite-b2b-error-hotel css-sprite-b2b-error-hotel"></i>
 		                бронирование возможно после оплаты
 	                </span>

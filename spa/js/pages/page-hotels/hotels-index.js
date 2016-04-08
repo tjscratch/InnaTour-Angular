@@ -2,7 +2,7 @@ innaAppControllers.controller('HotelsIndexController', function ($scope, $routeP
                                                                  AppRouteUrls, Balloon, HotelService) {
 
     // toDo хрень какая то, удалить надо бы
-    document.body.classList.add('bg_white');
+    document.body.classList.add('bg_gray-light');
     document.body.classList.remove('light-theme');
 
     /**
@@ -34,10 +34,16 @@ innaAppControllers.controller('HotelsIndexController', function ($scope, $routeP
     if ($routeParams) {
         $scope.baloonHotelLoad.show();
         HotelService.getHotelsList($routeParams)
-            .success(function (data) {
-                $scope.hotels = data.Hotels;
-                $scope.baloonHotelLoad.teardown();
-            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    $scope.hotels = response.data.Hotels;
+                    $scope.baloonHotelLoad.teardown();
+                }
+            }, function (response) {
+                console.log(response)
+                // $scope.data = response.data || "Request failed";
+                // $scope.status = response.status;
+            });
     }
 
 
