@@ -87,14 +87,14 @@
 
 
 		                    <span>
-			                    {{ room.PackagePriceService | currency : "" : 0 }}
+			                    {{ room.Price | currency : "" : 0 }}
 			                    <i class='fa fa-rub'></i>
 		                    </span>
 						</div>
 
 						<div class="hotel-details-rooms__room-price-full" ng-if="!hotelOnly">
 							К оплате:
-							{{ room.PackagePriceService | currency : "" : 0 }}
+							{{ room.Price | currency : "" : 0 }}
 							<i class='fa fa-rub'></i>
 						</div>
 					</div>
