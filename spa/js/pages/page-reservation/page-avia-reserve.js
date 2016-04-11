@@ -18,7 +18,8 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
     'urlHelper',
     'Validators',
     'innaApp.Urls',
-    function ($log, $controller, $timeout, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, PromoCodes, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Urls) {
+    '$cookieStore',
+    function ($log, $controller, $timeout, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, PromoCodes, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Urls, $cookieStore) {
 
         // TODO : наследование контроллера
         $controller('ReserveTicketsCtrl', { $scope: $scope });

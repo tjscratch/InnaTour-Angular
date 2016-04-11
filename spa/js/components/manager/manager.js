@@ -8,7 +8,7 @@ innaAppDirectives.directive('manager', function ($templateCache, $interval, $tim
         //    uid: '='
         //},
         link: function ($scope, element, attrs) {
-            var url = "http://5.200.61.62/";
+            var url = "//manager.inna.ru/";
 
             $scope.url = url;
             $scope.showChat = false;
@@ -64,14 +64,12 @@ innaAppDirectives.directive('manager', function ($templateCache, $interval, $tim
             //fullWidth
             $scope.fullView = false;
             $scope.toggleFullWidth = function () {
-                console.log(44444)
                 $scope.fullView = true;
                 var managerContainer = $(".b-manager__container");
                 $("body").append(managerContainer);
             };
 
             $scope.toggleFullWidthclose = function () {
-                console.log(55555)
                 $scope.fullView = false;
                 var managerContainer = $(".b-manager__container");
                 $(".b-manager").append(managerContainer);

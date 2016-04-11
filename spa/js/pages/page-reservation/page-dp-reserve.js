@@ -18,7 +18,8 @@
         '$templateCache',
         //components
         'Balloon',
-        function (RavenWrapper, $scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon) {
+        '$cookieStore',
+        function (RavenWrapper, $scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon, $cookieStore) {
 
             $scope.baloon.showExpireCheck();
 
