@@ -53,6 +53,21 @@ innaAppControllers.controller('ReservationsController', function ($scope,
         });
     }
 
+    function baloonReservation () {
+        self.baloonHotelReservation = new Balloon();
+        self.baloonHotelReservation.updateView({
+            template: 'load.html',
+            title: 'Бронирование комнаты',
+            content: 'Это займет не более 30 секунд',
+            callbackClose: function () {
+                redirectHotel();
+            },
+            callback: function () {
+                redirectHotel();
+            }
+        });
+    }
+
     /**
      * получение данных выбранной комнаты
      * и проверка доступности выбранной комнаты
@@ -88,10 +103,16 @@ innaAppControllers.controller('ReservationsController', function ($scope,
         checkValid: $validationProvider.checkValid,
         submit: function (form) {
             $validationProvider.validate(form);
+            console.log('start reservation');
+            baloonReservation();
             ReservationService.reservation(self.ReservationModel)
                 .success(function (data) {
-                    console.log(data);
-                })
+                    console.log('reservation success', data);
+                    self.baloonHotelReservation.teardown();
+                    if (data.RedirectUrl) {
+                        window.location.replace(data.RedirectUrl);
+                    }
+                });
         }
     };
 
@@ -117,6 +138,10 @@ innaAppControllers.controller('ReservationsController', function ($scope,
         if (self.baloonHotelAvailable) {
             self.baloonHotelAvailable.teardown();
             self.baloonHotelAvailable = null;
+        }
+        if(self.baloonHotelReservation){
+            self.baloonHotelReservation.teardown();
+            self.baloonHotelReservation = null;
         }
     });
 
