@@ -20,7 +20,8 @@ innaAppServices.factory('modelAuth', [
                 AgencyPaymentWithSvyaznoy: data.AgencyPaymentWithSvyaznoy,
                 AgencyPaymentWithTourPay: data.AgencyPaymentWithTourPay,
                 AgencyType: data.AgencyType,
-                UserRoles: data.UserRoles
+                UserRoles: data.UserRoles,
+                UserId: data.UserId
             };
         };
 
