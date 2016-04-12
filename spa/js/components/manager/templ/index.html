@@ -1,9 +1,13 @@
 <div class="b-manager" ng-if="showChat">
+
 	<div class="b-manager__container" ng-class="{'b-manager__container-open' : fullView}">
+
 		<div class="manager-full-view" ng-click="toggleFullWidth()" ng-if="!fullView"><i class="fa fa-arrows-alt"></i></div>
 		<div class="manager-full-view" ng-click="toggleFullWidthclose()" ng-if="fullView"><i class="fa fa-arrows-alt"></i></div>
 
-		<iframe class="b-manager__iframe" src="{{ url }}"></iframe>
+		<div class="b-manager__iframe-container">
+			<iframe class="b-manager__iframe" src="{{ url }}"></iframe>
+		</div>
 
 		<div class="manager-loader" ng-show="!showChatManager">
 			<div class="balloon-loading">
