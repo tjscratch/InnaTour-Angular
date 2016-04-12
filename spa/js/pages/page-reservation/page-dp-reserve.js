@@ -425,6 +425,8 @@
                 //partnerOperatorId
                 m.partnerOperatorId = (window.partners && window.partners.partnerOperatorId) ? window.partners.partnerOperatorId : null;
 
+                m.Agree = $scope.agree;
+
                 if($scope.promoCode){
                     m.PromoCode = $scope.promoCode;
                     m.promoCodeString = m.PromoCode
