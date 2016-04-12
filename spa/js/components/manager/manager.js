@@ -14,6 +14,7 @@ innaAppDirectives.directive('manager', function ($templateCache, $interval, $tim
                     .then(function (res) {
                         if (res) {
                             $scope.showChat = true;
+                            $scope.stopFight();
                             $timeout(function () {
                                 $scope.showChatManager = true;
                             }, 10000)
@@ -106,6 +107,7 @@ innaAppDirectives.directive('managerWidget', function ($templateCache, $interval
                     .then(function (res) {
                         if (res) {
                             $scope.showChat = true;
+                            $scope.stopFight();
                         } else {
                             $scope.showChat = false;
                         }
