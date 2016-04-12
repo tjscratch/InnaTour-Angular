@@ -1,0 +1,33 @@
+<div class="b-manager-widget"
+     ng-class="{'b-manager-widget__open' : openWidget, 'b-manager-widget__open-full' : openFullWidth}"
+     >
+
+	<div class="b-manager-widget__label"
+	     ng-if="!openWidget"
+	     ng-click="toggleOpenWidget()"
+	>
+		Видеочат
+	</div>
+
+
+	<div class="b-manager-widget__container"
+	     ng-class="{'b-manager__container-open' : fullView}"
+	>
+
+		<div class="manager-full-view"
+		     ng-click="toggleOpenFullWidth()"
+		     title="На весь экран">
+			<i class="fa fa-arrows-alt"></i>
+		</div>
+
+		<div class="b-manager-widget__toggle"
+		     ng-click="toggleOpenWidget()"
+		     title="Свернуть окно видеоменеджера"
+		><i class="fa fa-close"></i></div>
+
+		<iframe class="b-manager__iframe"
+		        src="{{ url }}"
+		></iframe>
+
+	</div>
+</div>
