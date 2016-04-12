@@ -11,22 +11,20 @@ innaAppDirectives.directive('manager', function ($templateCache, $interval, $tim
 
             function setManager () {
                 ManagerService.getManagerStatus()
-                    .success(function (data) {
-                        if (data.Data.meetings.meeting) {
-                            if (data.Data.meetings.meeting.running) {
-                                $scope.showChat = true;
-                                $timeout(function () {
-                                    $scope.showChatManager = true;
-                                }, 10000)
-                            } else {
-                                $scope.showChat = false;
-                                $scope.showChatManager = false;
-                            }
+                    .then(function (res) {
+                        if (res) {
+                            $scope.showChat = true;
+                            $timeout(function () {
+                                $scope.showChatManager = true;
+                            }, 10000)
                         } else {
                             $scope.showChat = false;
                             $scope.showChatManager = false;
                         }
-                    })
+                    }, function (res) {
+                        $scope.showChat = false;
+                        $scope.showChatManager = false;
+                    });
             }
 
             //setManager();
@@ -86,14 +84,13 @@ innaAppDirectives.directive('managerWidget', function ($templateCache, $interval
             $scope.openWidget = false;
             $scope.openFullWidth = false;
 
-            // $scope.showChat = false;
-            // $scope.showChatManager = false;
+            $scope.showChat = false;
 
 
             $scope.toggleOpenWidget = function () {
                 $scope.openWidget = !$scope.openWidget;
 
-                if(!$scope.openWidget){
+                if (!$scope.openWidget) {
                     $scope.openFullWidth = false;
                 }
             };
@@ -106,25 +103,16 @@ innaAppDirectives.directive('managerWidget', function ($templateCache, $interval
 
             function setManager () {
                 ManagerService.getManagerStatus()
-                    .success(function (data) {
-                        if (data.Data.meetings.meeting) {
-                            if (data.Data.meetings.meeting.running) {
-                                $scope.showChat = true;
-                                $timeout(function () {
-                                    $scope.showChatManager = true;
-                                }, 10000)
-                            } else {
-                                $scope.showChat = false;
-                                $scope.showChatManager = false;
-                            }
+                    .then(function (res) {
+                        if (res) {
+                            $scope.showChat = true;
                         } else {
                             $scope.showChat = false;
-                            $scope.showChatManager = false;
                         }
-                    })
+                    }, function (res) {
+                        $scope.showChat = false;
+                    });
             }
-
-            //setManager();
 
 
             var stop;
