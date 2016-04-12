@@ -13,7 +13,9 @@ innaAppDirectives.directive('manager', function ($templateCache, $interval, $tim
                 ManagerService.getManagerStatus()
                     .then(function (res) {
                         if (res) {
-                            $scope.showChat = true;
+                            $timeout(function () {
+                                $scope.showChat = true;
+                            },0)
                             $scope.stopFight();
                             $timeout(function () {
                                 $scope.showChatManager = true;
