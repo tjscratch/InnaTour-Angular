@@ -10,6 +10,7 @@ innaAppDirectives.directive('manager', function ($templateCache, $interval, $tim
             $scope.showChatManager = false;
 
             function setManager () {
+                console.log('getManagerStatus')
                 ManagerService.getManagerStatus()
                     .then(function (res) {
                         if (res) {
@@ -30,7 +31,7 @@ innaAppDirectives.directive('manager', function ($templateCache, $interval, $tim
                     });
             }
 
-            //setManager();
+            setManager();
 
 
             var stop;
@@ -105,11 +106,12 @@ innaAppDirectives.directive('managerWidget', function ($templateCache, $interval
 
 
             function setManager () {
+                console.log('getManagerStatus widget')
                 ManagerService.getManagerStatus()
                     .then(function (res) {
                         if (res) {
                             $scope.showChat = true;
-                            $scope.stopFight();
+                            $scope.stopFightWidget();
                         } else {
                             $scope.showChat = false;
                         }
@@ -118,30 +120,31 @@ innaAppDirectives.directive('managerWidget', function ($templateCache, $interval
                     });
             }
 
+            setManager();
 
-            var stop;
-            $scope.fight = function () {
-                // Don't start a new fight if we are already fighting
-                if (angular.isDefined(stop)) return;
+            var stopWidget;
+            $scope.fightWidget = function () {
+                // Don't start a new fightWidget if we are already fighting
+                if (angular.isDefined(stopWidget)) return;
 
-                stop = $interval(function () {
+                stopWidget = $interval(function () {
                     setManager();
-                }, 2000);
+                }, 6000);
             };
 
-            $scope.stopFight = function () {
-                if (angular.isDefined(stop)) {
-                    $interval.cancel(stop);
-                    stop = undefined;
+            $scope.stopFightWidget = function () {
+                if (angular.isDefined(stopWidget)) {
+                    $interval.cancel(stopWidget);
+                    stopWidget = undefined;
                 }
             };
 
-            $scope.fight();
+            $scope.fightWidget();
 
 
             $scope.$on('$destroy', function () {
                 // Make sure that the interval is destroyed too
-                $scope.stopFight();
+                $scope.stopFightWidget();
             });
         }
     }
