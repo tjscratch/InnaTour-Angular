@@ -3,6 +3,7 @@
 innaAppControllers
     .controller('RegionHeader', [
         'EventManager',
+        '$rootScope',
         '$scope',
         '$element',
         '$location',
@@ -12,7 +13,8 @@ innaAppControllers
         'AppRouteUrls',
         'innaAppApiEvents',
         'aviaHelper',
-        function (EventManager, $scope, $element, $location, eventsHelper, urlHelper, appUrls, AppRouteUrls, Events, aviaHelper) {
+        '$timeout',
+        function (EventManager, $rootScope, $scope, $element, $location, eventsHelper, urlHelper, appUrls, AppRouteUrls, Events, aviaHelper, $timeout) {
 
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.name == 'sputnik') {
@@ -21,6 +23,19 @@ innaAppControllers
             else{
                 $scope.headerTemplateSrc = 'regions/header/templ/header.html';
             }
+
+
+            /**
+             * Отели у нас работают только для b2b клиентов
+             * поэтому если не b2b пользователь попал на страницу отелей
+             * редиректим его на главную
+             */
+            $scope.isAgency = false;
+            $scope.$on(Events.AUTH_USER_SET, function (e, data) {
+                if (data) {
+                    $scope.isAgency = data.isAgency();
+                }
+            });
 
 
             $scope.$on('$routeChangeStart', function (next, current) {

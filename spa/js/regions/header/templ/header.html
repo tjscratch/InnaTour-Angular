@@ -49,7 +49,9 @@
 
                     <li class="partners-hide"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
 
-                    <li class="partners-hide"><a href="/#/hotels/" ng-class="{active:isActive('/hotels/')}">Отели</a></li>
+                    <li class="partners-hide"
+                        ng-if="isAgency"
+                    ><a href="/#/hotels/" ng-class="{active:isActive('/hotels/')}">Отели</a></li>
 
                     <!--<li class="partners-hide"><a href="/#/tours/" ng-class="{active:isActive(urls.URL_TOURS)}">Туры</a>
                     </li>-->
