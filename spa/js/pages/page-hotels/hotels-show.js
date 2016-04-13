@@ -1,8 +1,24 @@
-innaAppControllers.controller('HotelsShowController', function ($scope, $timeout, $location, $routeParams, Balloon, HotelService) {
+innaAppControllers.controller('HotelsShowController', function ($rootScope, $scope, $timeout, $location, $routeParams, Balloon, HotelService) {
 
     // toDo хрень какая то, удалить надо бы
     document.body.classList.add('bg_white');
     document.body.classList.remove('light-theme');
+
+
+    /**
+     * Отели у нас работают только для b2b клиентов
+     * поэтому если не b2b пользователь попал на страницу отелей
+     * редиректим его на главную
+     */
+    $timeout(function () {
+        var isAgency = false;
+        if ($rootScope.$root.user) {
+            isAgency = $rootScope.$root.user.isAgency();
+        }
+        if (isAgency == false) {
+            $location.path('/#/');
+        }
+    }, 500);
 
 
     $scope.hotelLoaded = false;
@@ -30,7 +46,7 @@ innaAppControllers.controller('HotelsShowController', function ($scope, $timeout
         }
     });
 
-    function baloonError() {
+    function baloonError () {
         $scope.baloonHotelLoad.updateView({
             template: 'err.html',
             title: 'Что-то пошло не так',

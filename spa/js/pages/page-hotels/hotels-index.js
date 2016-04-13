@@ -1,9 +1,26 @@
-innaAppControllers.controller('HotelsIndexController', function ($scope, $routeParams, $location, $timeout,
+innaAppControllers.controller('HotelsIndexController', function ($rootScope, $scope, $routeParams, $location, $timeout,
                                                                  AppRouteUrls, Balloon, HotelService) {
 
     // toDo хрень какая то, удалить надо бы
     document.body.classList.add('bg_gray-light');
     document.body.classList.remove('light-theme');
+
+
+    /**
+     * Отели у нас работают только для b2b клиентов
+     * поэтому если не b2b пользователь попал на страницу отелей
+     * редиректим его на главную
+     */
+    $timeout(function () {
+        var isAgency = false;
+        if ($rootScope.$root.user) {
+            isAgency = $rootScope.$root.user.isAgency();
+        }
+        if (isAgency == false) {
+            $location.path('/#/');
+        }
+    }, 500);
+
 
     /**
      * при переходе на данную страницу

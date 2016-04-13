@@ -4,7 +4,9 @@
  * во вьюхе используем как
  * ReservationsController as reservation
  */
-innaAppControllers.controller('ReservationsController', function ($scope,
+innaAppControllers.controller('ReservationsController', function ($rootScope,
+                                                                  $scope,
+                                                                  $timeout,
                                                                   $routeParams,
                                                                   $location,
                                                                   AppRouteUrls,
@@ -17,6 +19,22 @@ innaAppControllers.controller('ReservationsController', function ($scope,
     self.hotelsIndexPath = '/#' + HotelService.getHotelsIndexUrl($routeParams);
 
     self.hotelsShowPath = HotelService.getHotelsShowUrl($routeParams.hotelId, $routeParams.providerId, $routeParams);
+
+
+    /**
+     * Отели у нас работают только для b2b клиентов
+     * поэтому если не b2b пользователь попал на страницу отелей
+     * редиректим его на главную
+     */
+    $timeout(function () {
+        var isAgency = false;
+        if ($rootScope.$root.user) {
+            isAgency = $rootScope.$root.user.isAgency();
+        }
+        if (isAgency == false) {
+            $location.path('/#/');
+        }
+    }, 500);
 
 
     /**
