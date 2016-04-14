@@ -111,6 +111,14 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
 
 
             /**
+             * BEGIN form validation
+             */
+            /**
+             * END form validation
+             */
+
+
+            /**
              * BEGIN hotelsSearchStart
              * params:
              * ArrivalId=6733&StartVoyageDate=2016-05-24&NightCount=2&Adult=2
