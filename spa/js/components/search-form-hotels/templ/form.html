@@ -1,7 +1,8 @@
 <form class="b-search-form b-search-form-hotels">
 
 
-	<div class="b-search-form-hotels__field b-hotels-typeahead">
+	<div class="b-search-form-hotels__field b-hotels-typeahead"
+		ng-class="{'b-search-form-hotels__field-error' : ArrivalIdError}">
 		<input
 				class="b-search-form-hotels__input b-search-form-hotels__input-typeahead"
 				type="text"
@@ -10,23 +11,36 @@
 				typeahead="state as state.name for state in getLocationFrom($viewValue) | filter:$viewValue"
 				typeahead-template-url="components/search-form-hotels/templ/typeaheadTemplateCustom.html"
 				typeahead-wait-ms="300"
-				ng-change="fromIdError = null"
+				ng-change="ArrivalIdError = null"
 		/>
+		<div error-tooltip
+		     useHorizontalForm={{true}}
+		     position-top="44px"
+		     align="width-center"
+		     message="{{ArrivalIdError}}"
+		></div>
 	</div>
 
 
-	<div class="b-search-form-hotels__field b-hotels-daterange">
+	<div class="b-search-form-hotels__field b-hotels-daterange"
+	     ng-class="{'b-search-form-hotels__field-error' : StartVoyageDateError}">
 		<input date-picker-date-format-hotels
 		       class="b-search-form-hotels__input b-search-form-hotels__input-datapicker"
 		       type="text"
 		       name="startDate"
 		       ng-model="hotelsSearchForm.StartVoyageDate"
 		       placeholder="Дата заезда"
-		       ng-focus="startDateError = null"
+		       ng-focus="StartVoyageDateError = null"
 		       autocomplete="off"
 		/>
 		<i class="fa fa-calendar b-search-form-hotels__field-icon"></i>
-		<div widget-error-tooltip error="{{startDateError}}"></div>
+
+		<div error-tooltip
+		     useHorizontalForm={{true}}
+		     position-top="44px"
+		     align="width-center"
+		     message="{{StartVoyageDateError}}"
+		></div>
 	</div>
 
 

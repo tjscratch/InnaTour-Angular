@@ -17,7 +17,8 @@ innaAppDirectives.directive('nightCount', function ($templateCache) {
             };
 
             function incCount (number) {
-                var count = Math.ceil($scope.count) + Math.ceil(number);
+                var num = Math.ceil(number) ? Math.ceil(number) : 0;
+                var count = Math.ceil($scope.count) + num;
                 if (count >= 1 && count <= 28) {
                     $scope.count = count;
                 } else if (count <= 1) {

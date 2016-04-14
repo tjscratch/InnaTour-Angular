@@ -104,3 +104,18 @@ $border-color-gray = #bdbdbd;
     margin-top -7.5px
     font-size 15px
 }
+.b-search-form-hotels__field-error{
+    .b-search-form-hotels__input{
+        border-color $red
+        box-shadow inset 0 0 4px $red
+    }
+
+    .ui-tooltip{
+        background-color: $red;
+        text-align: center;
+
+        &:before{
+            border-color: transparent transparent $red transparent;
+        }
+    }
+}
