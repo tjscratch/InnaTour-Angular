@@ -6,9 +6,9 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
             function prepareData (response) {
                 var data = [];
                 angular.forEach(response, function (item) {
-                    var fullName = item.CountryName + ", " + item.Name;
-                    var fullNameHtml = "<span class='b-search-form-hotels-typeahead-list-item__country'>" + item.CountryName + "</span>, " +
-                        "<span class='b-search-form-hotels-typeahead-list-item__name'>" + item.Name + "</span>";
+                    var fullName = item.Name + ", " + item.CountryName;
+                    var fullNameHtml = "<span class='b-search-form-hotels-typeahead-list-item__country'>" + item.Name + "</span>, " +
+                        "<span class='b-search-form-hotels-typeahead-list-item__name'>" + item.CountryName + "</span>";
                     data.push({ id: item.Id, nameHtml: fullNameHtml, name: fullName });
                 });
                 return data;

@@ -65,7 +65,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                     .then(function (data) {
                         $scope.locationFrom = {
                             id: $routeParams.ArrivalId,
-                            name: data.CountryName + ", " + data.Name
+                            name: data.Name + ", " + data.CountryName
                         }
                     });
             } else {
