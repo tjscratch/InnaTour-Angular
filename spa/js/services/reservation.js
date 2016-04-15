@@ -160,10 +160,10 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
         },
         getDocumentTypes: function () {
             return [
-                { Id: 1, Name: 'Паспорт РФ' },
-                { Id: 2, Name: 'Загранпаспорт' },
-                { Id: 3, Name: 'Св-во о рождении' },
-                { Id: 4, Name: 'Иностранный документ' }
+                { Id: 0, Name: 'Паспорт РФ' },
+                { Id: 1, Name: 'Загранпаспорт' },
+                { Id: 2, Name: 'Св-во о рождении' },
+                { Id: 3, Name: 'Иностранный документ' }
             ];
         }
     }
