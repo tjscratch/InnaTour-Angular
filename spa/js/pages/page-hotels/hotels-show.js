@@ -162,6 +162,12 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     };
 
 
+    $scope.hoverImageObject = {
+        timeOutHover: null,
+        hoverImageShow: false,
+        hoverImageStyle: {}
+    };
+
     $scope.$on('$destroy', function () {
         if ($scope.baloonHotelLoad) {
             $scope.baloonHotelLoad.teardown();
