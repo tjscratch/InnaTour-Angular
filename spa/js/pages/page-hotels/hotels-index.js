@@ -44,6 +44,7 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
      */
     $scope.redirectHotels = function () {
         $scope.baloonHotelLoad.teardown();
+        $scope.baloonHotelNotFound.teardown();
         $location.path(AppRouteUrls.URL_HOTELS);
     };
 
@@ -52,9 +53,22 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
         $scope.baloonHotelLoad.show();
         HotelService.getHotelsList($routeParams)
             .then(function (response) {
-                if (response.status == 200) {
+                if (response.status == 200 && response.data.Hotels.length > 0) {
                     $scope.hotels = response.data.Hotels;
                     $scope.baloonHotelLoad.teardown();
+                } else {
+                    $scope.baloonHotelNotFound = new Balloon();
+                    $scope.baloonHotelNotFound.updateView({
+                        template: 'not-found.html',
+                        title: 'Мы ничего не нашли',
+                        content: "Попробуйте изменить условия поиска",
+                        callbackClose: function () {
+                            $scope.redirectHotels();
+                        },
+                        callback: function () {
+                            $scope.redirectHotels();
+                        },
+                    });
                 }
             }, function (response) {
                 console.log(response)
@@ -95,6 +109,10 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
         if ($scope.baloonHotelLoad) {
             $scope.baloonHotelLoad.teardown();
             $scope.baloonHotelLoad = null;
+        }
+        if ($scope.baloonHotelNotFound) {
+            $scope.baloonHotelNotFound.teardown();
+            $scope.baloonHotelNotFound = null;
         }
     });
 });

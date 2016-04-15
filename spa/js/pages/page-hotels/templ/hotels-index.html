@@ -4,11 +4,19 @@
 	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)">
 
 
-		<div ng-if="hotels">
+		<div ng-if="hotels.length > 0">
 			Найдено
 			<b>{{hotels.length | asQuantity:"отель":"отеля":"отелей"}}</b>
 		</div>
 
+		<div class="balloon">
+			<div class="balloon-notfound"></div>
+			<div class="balloon-title">Мы ничего не нашли</div>
+			<p class="balloon-info">Попробуйте изменить условия поиска</p>
+			<div class="balloon-actions">
+				<a href="#" class="button balloon-button">Новый поиск</a>
+			</div>
+		</div>
 
 		<div class="SearchHotelResults" ng-if="hotels">
 			<div class="SearchHotelResults__item"
