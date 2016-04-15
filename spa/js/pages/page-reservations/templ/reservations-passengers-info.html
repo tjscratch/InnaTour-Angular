@@ -28,6 +28,7 @@
 				</label>
 			</div>
 		</div>
+
 		<div class="FieldBlock FieldBlock__second-name">
 			<label for="passenger.F{{$index}}"
 			       class="FieldLabel">Фамилия</label>
@@ -140,15 +141,18 @@
 			       type="text"
 			       name="passengerNumber{{$index}}"
 			       message-id="passengerNumber{{$index}}"
-			       validator="required"
+			       validator="required, number"
 			       valid-method="submit"
 			       required-error-message="Укажите номер документа"
+			       number-error-message="Неправильный формат номера документа"
 			/>
 			<div class="FieldError" id="passengerNumber{{$index}}"></div>
 		</div>
 
 
-		<div class="FieldBlock FieldBlock__ExpirationDate">
+		<div class="FieldBlock FieldBlock__ExpirationDate"
+		     ng-if="passenger.DocumentId != 0" <!-- если в документа выбран Паспорт РФ, срок действия указывать не надо-->
+		>
 			<label for="passenger.ExpirationDate{{$index}}"
 			       class="FieldLabel">Действителен до</label>
 

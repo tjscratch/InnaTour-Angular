@@ -23,6 +23,9 @@
 		</div>
 		<ng:include src="'components/hotel-card/templ/hotel-card-date.html'"></ng:include>
 		<ng:include src="'components/hotel-card/templ/hotel-card-meal.html'"></ng:include>
+		<div class="HotelCardInfo__text" style="font-size: 10px">
+			{{ ::hotel.CalculationString }}
+		</div>
 		<trip-advisor-directive ng-if="hotel.TaFactor" hotel-data="hotel"></trip-advisor-directive>
 	</div>
 
