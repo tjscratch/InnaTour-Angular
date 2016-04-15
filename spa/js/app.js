@@ -82,6 +82,26 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     });
 }]);
 
+
+app.config(['$validationProvider', function ($validationProvider) {
+    // Setup `ip` validation
+    var expression = {
+        passport: /^.*([a-zA-Z]).*([а-яА-ЯёЁ])(\D)*(\d{6})+$/
+    };
+    
+    var validMsg = {
+        passport: {
+            error: 'Неверный формат',
+            success: 'Ок'
+        }
+    };
+    
+    $validationProvider
+        .setExpression(expression)
+        .setDefaultMsg(validMsg);
+}]);
+
+
 app.config([
     //'$templateCache',
     '$routeProvider',

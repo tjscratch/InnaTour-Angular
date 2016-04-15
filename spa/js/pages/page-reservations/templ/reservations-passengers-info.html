@@ -114,12 +114,7 @@
 
 			<ui-select ng-model="passenger.DocumentId"
 			           theme="selectize"
-
 			           name="passengerDocumentId{{ $index }}"
-			           message-id="passengerDocumentId{{ $index }}"
-			           validator="required"
-			           valid-method="submit"
-			           required-error-message="Укажите тип документа"
 			>
 				<ui-select-match placeholder="Тип документа">{{$select.selected.Name}}</ui-select-match>
 				<ui-select-choices repeat="document.Id as document in reservation.documentTypes | filter: $select.search"
@@ -127,31 +122,83 @@
 					<span ng-bind-html="document.Name | highlight: $select.search"></span>
 				</ui-select-choices>
 			</ui-select>
-
-			<div id="passengerDocumentId{{ $index }}" class="FieldError"></div>
 		</div>
 
 
 		<div class="FieldBlock FieldBlock__Number">
 			<label for="passenger.Number{{$index}}"
 			       class="FieldLabel">Серия и номер</label>
-			<input id="passenger.Number{{$index}}"
+
+			<!-- если в документа выбран Паспорт РФ DocumentId == 0-->
+			<input ng-if="passenger.DocumentId == 0"
+			       id="passenger.Number{{$index}}"
 			       class="FieldText"
 			       ng-model="passenger.Number"
 			       type="text"
 			       name="passengerNumber{{$index}}"
 			       message-id="passengerNumber{{$index}}"
-			       validator="required, number"
+			       validator="required, number, minlength=10, maxlength=10"
 			       valid-method="submit"
 			       required-error-message="Укажите номер документа"
-			       number-error-message="Неправильный формат номера документа"
+			       number-error-message="Допустимы только цифры"
+			       minlength-error-message="Длинна серии и номера паспорта 10 цифр"
+			       maxlength-error-message="Длинна серии и номера паспорта 10 цифр"
 			/>
+			<!-- если в документа выбран Загранпаспорт DocumentId == 1 -->
+			<input ng-if="passenger.DocumentId == 1"
+			       id="passenger.Number{{$index}}"
+			       class="FieldText"
+			       ng-model="passenger.Number"
+			       type="text"
+			       name="passengerNumber{{$index}}"
+			       message-id="passengerNumber{{$index}}"
+			       validator="required, number, minlength=7, maxlength=9"
+			       valid-method="submit"
+			       required-error-message="Укажите номер документа"
+			       number-error-message="Допустимы только цифры"
+			       minlength-error-message="Длинна серии и номера паспорта от 7 до 9 цифр"
+			       maxlength-error-message="Длинна серии и номера паспорта от 7 до 9 цифр"
+			/>
+
+			<!-- показываем если выбрано Свидетельство о рождении DocumentId == 2 -->
+			<input ng-if="passenger.DocumentId == 2"
+			       id="passenger.Number{{$index}}"
+			       class="FieldText"
+			       ng-model="passenger.Number"
+			       type="text"
+			       placeholder="XIЮД324244"
+			       name="passengerNumber{{$index}}"
+			       message-id="passengerNumber{{$index}}"
+			       validator="required, passport, minlength=10, maxlength=10"
+			       valid-method="submit"
+			       required-error-message="Укажите серию и номер документа"
+			       passport-error-message="Неверный формат документа"
+			       minlength-error-message="Длинна серии и номера 10 цифр"
+			       maxlength-error-message="Длинна серии и номера 10 цифр"
+			/>
+
+			<!-- показываем если выбран Иностранный документ DocumentId == 3 -->
+			<input ng-if="passenger.DocumentId == 3"
+			       id="passenger.Number{{$index}}"
+			       class="FieldText"
+			       ng-model="passenger.Number"
+			       type="text"
+			       name="passengerNumber{{$index}}"
+			       message-id="passengerNumber{{$index}}"
+			       validator="required, minlength=5, maxlength=15"
+			       valid-method="submit"
+			       required-error-message="Укажите серию и номер документа"
+			       minlength-error-message="Длинна серии и номера паспорта от 5 до 15 цифр"
+			       maxlength-error-message="Длинна серии и номера паспорта от 5 до 15 цифр"
+			/>
+
 			<div class="FieldError" id="passengerNumber{{$index}}"></div>
 		</div>
 
 
+		<!-- срок действия указываем только для загранпаспорта-->
 		<div class="FieldBlock FieldBlock__ExpirationDate"
-		     ng-if="passenger.DocumentId != 0" <!-- если в документа выбран Паспорт РФ, срок действия указывать не надо-->
+		     ng-if="passenger.DocumentId == 1"
 		>
 			<label for="passenger.ExpirationDate{{$index}}"
 			       class="FieldLabel">Действителен до</label>
