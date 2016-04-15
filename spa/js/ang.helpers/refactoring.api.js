@@ -25,7 +25,8 @@ innaAppServices.factory('appApi', function () {
         HOTELS_GET_DETAILS: url('/Hotels/HotelDetails'),
         HOTELS_HOTEL_BUY: url('/Hotels/HotelBuy'),
         HOTELS_RESERVATION: url('/HotelsOrder/Reservation'),
-
+    
+        BUS_GET_LIST: url('/Hotels/SearchbusList'),
 
         GET_COUNTRIES: url('/Dictionary/Country'),
     }

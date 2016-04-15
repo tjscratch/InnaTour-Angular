@@ -110,6 +110,9 @@ innaAppControllers
                 else if (loc.startsWith(AppRouteUrls.URL_HOTELS)) {
                     return 'components/search-form-hotels/templ/index.html';
                 }
+                else if (loc.startsWith(AppRouteUrls.URL_BUS)) {
+                    return 'components/search-form-hotels/templ/index.html';
+                }
 
                 //на бронировании и покупке формы нет
                 else {

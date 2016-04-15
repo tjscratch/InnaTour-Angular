@@ -37,6 +37,13 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
                 params: params
             })
         },
+        getBusList: function (params) {
+            return $http({
+                url: appApi.BUS_GET_LIST,
+                method: "GET",
+                params: params
+            })
+        },
         getHotelsDetails: function (params) {
             return $http({
                 url: appApi.HOTELS_GET_DETAILS,
@@ -61,6 +68,9 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
         },
         getHotelsIndexUrl: function (params) {
             return AppRouteUrls.URL_HOTELS + this.hotelConcatParams(params);
+        },
+        getBusIndexUrl: function (params) {
+            return AppRouteUrls.URL_BUS + this.hotelConcatParams(params);
         },
         getHotelsShowUrl: function (hotelId, providerId, params) {
             var hotelParams = this.hotelConcatParams(params);

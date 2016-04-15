@@ -126,9 +126,16 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
             $scope.hotelsSearchStart = function (event) {
                 event.preventDefault();
 
+                var isBus = $location.path().startsWith(AppRouteUrls.URL_BUS);
+
                 $scope.hotelsSearchForm.ArrivalId = $scope.locationFrom ? $scope.locationFrom.id : null;
 
-                var searchUrl = HotelService.getHotelsIndexUrl($scope.hotelsSearchForm);
+                var searchUrl;
+                if(isBus){
+                    searchUrl = HotelService.getBusIndexUrl($scope.hotelsSearchForm);
+                }else{
+                    searchUrl = HotelService.getHotelsIndexUrl($scope.hotelsSearchForm);
+                }
 
                 var validateArrivalId = widgetValidators.required($scope.hotelsSearchForm.ArrivalId, 'ArrivalId', 'Введите город или страну, куда планируете поехать');
                 var validateStartVoyageDate = widgetValidators.required($scope.hotelsSearchForm.StartVoyageDate, 'StartVoyageDate', 'Выберите дату заезда');
