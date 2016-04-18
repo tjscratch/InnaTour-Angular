@@ -92,7 +92,15 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                 autoclose: true,
                 todayHighlight: true,
                 toggleActive: true
-            });
+            }).on('show', function () {
+                /**
+                 * fix
+                 * https://innatec.atlassian.net/browse/IN-4644
+                 */
+                $(".datepicker .datepicker-switch").on('click', function (e) {
+                    e.stopPropagation();
+                })
+            })
             /**
              * установка значения датепикера из $routeParams
              */

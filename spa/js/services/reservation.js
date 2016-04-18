@@ -102,8 +102,8 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
                 I: 'ALEX',
                 F: 'GABRIELAN',
                 Birthday: '23.11.1984',
-                DocumentId: 2,
-                Number: 664667234,
+                DocumentId: 0,
+                Number: 6646637234,
                 ExpirationDate: '10.10.2022',
                 Citizen: 189
             };
@@ -115,8 +115,8 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
                 I: 'MARI',
                 F: 'GABRIELAN',
                 Birthday: '05.04.1981',
-                DocumentId: 2,
-                Number: 664667276,
+                DocumentId: 0,
+                Number: 6646672276,
                 ExpirationDate: '10.10.2020',
                 Citizen: 189
             };
