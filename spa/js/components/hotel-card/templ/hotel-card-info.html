@@ -7,13 +7,11 @@
 	</div>
 
 	<div class="HotelCardInfo">
-		<stars-directive hotel-data="::hotel.Stars"></stars-directive>
+		<stars-directive hotel-data="::hotel.Stars"
+		                 ng-if="::hotel.Stars"
+		></stars-directive>
 		<h2 class="HotelCardInfo__title">
-			<a class="HotelCardInfo__link"
-			   ng-href="{{::hotelUrl}}"
-			>
-				{{ ::hotel.HotelName }}
-			</a>
+			{{ ::hotel.HotelName }}
 		</h2>
 		<div class="HotelCardInfo__text">
 			{{ ::hotel.HotelFullAdress }}

@@ -37,7 +37,9 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
      */
     $scope.baloonHotelLoad = new Balloon();
     $scope.baloonHotelLoad.updateView({
-        template: 'search.html',
+        loading: true,
+        title: 'Собираем данные',
+        balloonContent: 'Это может занять какое-то время',
         callbackClose: function () {
             $scope.redirectHotels();
         },
