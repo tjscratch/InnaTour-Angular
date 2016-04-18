@@ -86,12 +86,39 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
 app.config(['$validationProvider', function ($validationProvider) {
     // Setup `ip` validation
     var expression = {
-        passport: /^.*([a-zA-Z]).*([а-яА-ЯёЁ])(\D)*(\d{6})+$/
+        passport: /^.*([a-zA-Z]).*([а-яА-ЯёЁ])(\D)*(\d{6})+$/,
+        date_format: function (value, scope, element, attrs, param) {
+            var date = moment(value, 'DD.MM.YYYY');
+            return date.isValid();
+        },
+        birthday: function (value, scope, element, attrs, param) {
+            var nowDate = moment();
+            var oldDate = moment().subtract('years', 100);
+            var date = moment(value, 'DD.MM.YYYY');
+            return date.isBefore(nowDate) && date.isAfter(oldDate);
+        },
+        document_expired: function (value, scope, element, attrs, param) {
+            var nowDate = moment();
+            var date = moment(value, 'DD.MM.YYYY');
+            return date.isAfter(nowDate);
+        }
     };
 
     var validMsg = {
         passport: {
             error: 'Неверный формат',
+            success: 'Ок'
+        },
+        date_format: {
+            error: 'Не правильный формат даты',
+            success: 'Ок'
+        },
+        birthday: {
+            error: 'Не правильная дата рождения',
+            success: 'Ок'
+        },
+        document_expired: {
+            error: 'Не правильный срок действия документа',
             success: 'Ок'
         }
     };

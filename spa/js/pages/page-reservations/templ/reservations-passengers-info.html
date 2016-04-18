@@ -78,7 +78,7 @@
 			       placeholder="дд.мм.гггг"
 			       name="passengerBirthday{{$index}}"
 			       message-id="passengerBirthday{{$index}}"
-			       validator="required"
+			       validator="required, date_format, birthday"
 			       valid-method="submit"
 			       required-error-message="Введите дату рождения"
 			>
@@ -212,7 +212,7 @@
 			       placeholder="дд.мм.гггг"
 			       name="passengerExpirationDate{{$index}}"
 			       message-id="passengerExpirationDate{{$index}}"
-			       validator="required"
+			       validator="required, date_format, document_expired"
 			       valid-method="submit"
 			       required-error-message="Введите дату рождения"
 			>
