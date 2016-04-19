@@ -147,6 +147,8 @@ innaAppControllers.
                     case '/avia/':
                     case '/tours/':
                     case '/packages/':
+                    case '/hotels/':
+                    case '/bus/':
                         if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
                             $scope.SearchFormExpandPadding = {'padding-top': 0}
                         }else{
