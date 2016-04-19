@@ -77,9 +77,19 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
             var hotelUrl = AppRouteUrls.URL_HOTELS + hotelId + '/' + providerId + '/' + hotelParams;
             return hotelUrl
         },
+        getBusShowUrl: function (hotelId, providerId, params) {
+            var hotelParams = this.hotelConcatParams(params);
+            var hotelUrl = AppRouteUrls.URL_BUS + hotelId + '/' + providerId + '/' + hotelParams;
+            return hotelUrl
+        },
         getHotelsResevationUrl: function (hotelId, providerId, roomId, params) {
             var hotelParams = this.hotelConcatParams(params);
-            var hotelUrl = AppRouteUrls.URL_RESERVATIONS + hotelId + '/' + providerId + '/' + roomId +'/' + hotelParams;
+            var hotelUrl = AppRouteUrls.URL_RESERVATIONS + 'hotels/' + hotelId + '/' + providerId + '/' + roomId +'/' + hotelParams;
+            return hotelUrl
+        },
+        getBusResevationUrl: function (hotelId, providerId, roomId, params) {
+            var hotelParams = this.hotelConcatParams(params);
+            var hotelUrl = AppRouteUrls.URL_RESERVATIONS + 'bus/' + hotelId + '/' + providerId + '/' + roomId +'/' + hotelParams;
             return hotelUrl
         },
         getShowPageMenu: function () {

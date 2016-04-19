@@ -10,8 +10,11 @@
 				<li class="section__crumbs__list__item">
 					<a ng-href="{{ hotelsIndexPath }}" class="section__crumbs__list__item__link">Результаты поиска</a>
 				</li>
-				<li class="section__crumbs__list__item">
+				<li class="section__crumbs__list__item" ng-if="isActive('/hotels/')">
 					Описание отеля и выбор номера
+				</li>
+				<li class="section__crumbs__list__item" ng-if="isActive('/bus/')">
+					Описание автобусного тура
 				</li>
 			</ul>
 		</div>

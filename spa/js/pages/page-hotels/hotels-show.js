@@ -152,8 +152,28 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     /**
      * действия в комнате
      */
+    function isActive(route) {
+        var loc = $location.path();
+        var abs = $location.absUrl();
+
+        if (route == '/') {
+            return ((abs.indexOf('/tours/?') > -1) || loc == route);
+        }
+        else {
+            if (loc.indexOf(route) > -1)
+                return true;
+            else
+                return false;
+        }
+    };
+
+    
     $scope.goReservation = function (roomId) {
-        var url = HotelService.getHotelsResevationUrl($routeParams.hotelId, $routeParams.providerId, roomId, $routeParams);
+        if(isActive('/bus/')){
+            var url = HotelService.getBusResevationUrl($routeParams.hotelId, $routeParams.providerId, roomId, $routeParams);
+        }else{
+            var url = HotelService.getHotelsResevationUrl($routeParams.hotelId, $routeParams.providerId, roomId, $routeParams);
+        }
         $location.url(url);
     };
 

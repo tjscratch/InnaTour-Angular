@@ -19,6 +19,9 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
     self.hotelsIndexPath = '/#' + HotelService.getHotelsIndexUrl($routeParams);
 
     self.hotelsShowPath = HotelService.getHotelsShowUrl($routeParams.hotelId, $routeParams.providerId, $routeParams);
+    self.busShowPath = HotelService.getBusShowUrl($routeParams.hotelId, $routeParams.providerId, $routeParams);
+    
+    self.typeProduct = $routeParams.typeProduct;
 
     self.passengerCount = $routeParams.Adult;
 

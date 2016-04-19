@@ -72,7 +72,7 @@ innaAppControllers.controller('BusIndexController', function ($scope, $routePara
 
     if ($routeParams) {
         $scope.getHotelUrl = function (hotelId, providerId) {
-            return '/#' + HotelService.getHotelsShowUrl(hotelId, providerId, $routeParams);
+            return '/#' + HotelService.getBusShowUrl(hotelId, providerId, $routeParams);
         };
     }
 

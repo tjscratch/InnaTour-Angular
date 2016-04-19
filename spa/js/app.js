@@ -363,6 +363,10 @@ app.config([
                 templateUrl: 'pages/page-hotels/templ/hotels-index.html',
                 controller: 'BusIndexController'
             })
+            .when(AppRouteUrls.URL_BUS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult', {
+                templateUrl: 'pages/page-hotels/templ/hotels-show.html',
+                controller: 'HotelsShowController'
+            })
             /**
              * end bus tours
              */
@@ -370,7 +374,7 @@ app.config([
             /**
              * begin reservation
              */
-            .when(AppRouteUrls.URL_RESERVATIONS + ':hotelId/:providerId/:roomId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult', {
+            .when(AppRouteUrls.URL_RESERVATIONS + ':typeProduct/:hotelId/:providerId/:roomId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult', {
                 templateUrl: 'pages/page-reservations/templ/reservations.html',
                 controller: 'ReservationsController as reservation'
             })
