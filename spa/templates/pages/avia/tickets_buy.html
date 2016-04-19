@@ -1,6 +1,7 @@
 <!-- Search Results -->
 <div class="results-body buy-form" id="buy-listener">
 	<form action="javascript:void(0)" method="post" class="results-body">
+
 		<div class="main__center" ng-if="reservationModel.IsService">
 			<header class="buy__header">
 				<h2 class="buy__title">Оплата сервисного сбора</h2>
@@ -11,7 +12,9 @@
 			</header>
 		</div>
 		<div class="main__center" ng-if="!reservationModel.IsService">
-			<ng:include src="objectToReserveTemplate" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
+			<ng:include src="objectToReserveTemplate"
+			            ng-repeat="item in [aviaInfo] track by $index"
+			></ng:include>
 
 			<ng:include src="'components/need-visa/templ/index.html'" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
 

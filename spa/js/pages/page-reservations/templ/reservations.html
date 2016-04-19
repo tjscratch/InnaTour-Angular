@@ -19,30 +19,11 @@
 	</div>
 
 
-	<div class="ReservationForm__head">
-		<h3 class="ReservationForm__title ReservationForm__title-head">
-			Оформление и оплата
-		</h3>
-	</div>
-
-
-	<div>
-		<!--Стоимость пакета за {{passengerCount | perPerson}}: <b>{{price| price}}-->
-	</div>
-
-
 	<form id="reservationForm"
 	      name="ReservationForm"
 	>
 
-
-		<hotel-card-info
-				hotel="reservation.hotelInfo.Hotel"
-				hotel-room="reservation.hotelInfo.Room"
-				hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
-		></hotel-card-info>
-
-
+		<ng:include src="'pages/page-reservations/templ/reservations-hotel-info.html'"></ng:include>
 		<ng:include src="'pages/page-reservations/templ/reservations-customer-info.html'"></ng:include>
 		<ng:include src="'pages/page-reservations/templ/reservations-passengers-info.html'"></ng:include>
 

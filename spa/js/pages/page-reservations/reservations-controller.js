@@ -14,27 +14,14 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                                                                   Balloon,
                                                                   HotelService,
                                                                   ReservationService) {
-    
+
     var self = this;
     self.hotelsIndexPath = '/#' + HotelService.getHotelsIndexUrl($routeParams);
-    
+
     self.hotelsShowPath = HotelService.getHotelsShowUrl($routeParams.hotelId, $routeParams.providerId, $routeParams);
-    
-    
-    /**
-     * Отели у нас работают только для b2b клиентов
-     * поэтому если не b2b пользователь попал на страницу отелей
-     * редиректим его на главную
-     */
-    $timeout(function () {
-        var isAgency = false;
-        if ($rootScope.$root.user) {
-            isAgency = $rootScope.$root.user.isAgency();
-        }
-        if (isAgency == false) {
-            $location.path('/#/');
-        }
-    }, 500);
+
+    self.passengerCount = $routeParams.Adult;
+
     
     /**
      * проверяем доступность выбранной комнаты
@@ -47,13 +34,12 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
             redirectHotel();
         }
     });
-    
+
     function redirectHotel () {
         self.baloonHotelAvailable.teardown();
-        console.log(self.hotelsShowPath)
         $location.path(self.hotelsShowPath);
     };
-    
+
     function baloonError () {
         self.baloonHotelAvailable.updateView({
             template: 'err.html',
@@ -69,7 +55,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
             }
         });
     }
-    
+
     function baloonReservation () {
         self.baloonHotelReservation = new Balloon();
         self.baloonHotelReservation.updateView({
@@ -84,7 +70,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
             }
         });
     }
-    
+
     /**
      * получение данных выбранной комнаты
      * и проверка доступности выбранной комнаты
@@ -102,8 +88,8 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
             console.log(response)
             baloonError();
         });
-    
-    
+
+
     var $validationProvider = $injector.get('$validation');
     // если в url есть параметр ?test=1
     // заполняем данные пассажира фейковыми данными
@@ -112,10 +98,10 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
     } else {
         self.ReservationModel = ReservationService.getReservationModel($routeParams.Adult);
     }
-    
+
     self.ReservationModel.SearchParams = $routeParams;
-    
-    
+
+
     self.form = {
         checkValid: $validationProvider.checkValid,
         submit: function (form) {
@@ -132,8 +118,8 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                 });
         }
     };
-    
-    
+
+
     /**
      * begin
      * ui-select
@@ -146,11 +132,11 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         .error(function (data) {
             console.log('ReservationService.countries: ' + data);
         });
-    
-    
+
+
     self.documentTypes = ReservationService.getDocumentTypes();
-    
-    
+
+
     $scope.$on('$destroy', function () {
         if (self.baloonHotelAvailable) {
             self.baloonHotelAvailable.teardown();
@@ -161,5 +147,5 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
             self.baloonHotelReservation = null;
         }
     });
-    
+
 });

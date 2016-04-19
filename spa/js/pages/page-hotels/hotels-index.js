@@ -11,15 +11,15 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
      * поэтому если не b2b пользователь попал на страницу отелей
      * редиректим его на главную
      */
-    $timeout(function () {
-        var isAgency = false;
-        if ($rootScope.$root.user) {
-            isAgency = $rootScope.$root.user.isAgency();
-        }
-        if (isAgency == false) {
-            $location.path('/#/');
-        }
-    }, 500);
+    // $timeout(function () {
+    //     var isAgency = false;
+    //     if ($rootScope.$root.user) {
+    //         isAgency = $rootScope.$root.user.isAgency();
+    //     }
+    //     if (isAgency == false) {
+    //         $location.path('/#/');
+    //     }
+    // }, 500);
 
 
     /**
