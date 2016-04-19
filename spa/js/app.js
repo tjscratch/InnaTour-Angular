@@ -355,10 +355,7 @@ app.config([
             /**
              * begin bus tours
              */
-            .when(AppRouteUrls.URL_BUS, {
-                templateUrl: 'pages/page-hotels/templ/hotels-root.html',
-                controller: 'HotelsRootController'
-            })
+            .when(AppRouteUrls.URL_BUS, dynamic())
             .when(AppRouteUrls.URL_BUS + ':StartVoyageDate/' + ':ArrivalId-:NightCount-:Adult', {
                 templateUrl: 'pages/page-hotels/templ/hotels-index.html',
                 controller: 'BusIndexController'
