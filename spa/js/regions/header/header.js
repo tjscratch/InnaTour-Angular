@@ -111,7 +111,7 @@ innaAppControllers
                     return 'components/search-form-hotels/templ/index.html';
                 }
                 else if (loc.startsWith(AppRouteUrls.URL_BUS)) {
-                    return 'components/search-form-hotels/templ/index.html';
+                    return 'components/search-form-bus/templ/index.html';
                 }
 
                 //на бронировании и покупке формы нет
