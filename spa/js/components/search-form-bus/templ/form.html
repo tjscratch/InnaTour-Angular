@@ -3,10 +3,12 @@
 
 	<div class="b-search-form-hotels__field b-bus-typeahead"
 		ng-class="{'b-search-form-hotels__field-error' : ArrivalIdError}">
+
+		<!--
 		<input
 				class="b-search-form-hotels__input b-search-form-hotels__input-typeahead"
 				type="text"
-				placeholder="Город/Название отеля"
+				placeholder="Город отправления"
 				ng-model="locationFrom"
 				typeahead="state as state.name for state in getLocationFrom($viewValue) | filter:$viewValue"
 				typeahead-template-url="components/search-form-bus/templ/typeaheadTemplateCustom.html"
@@ -19,6 +21,16 @@
 		     align="width-center"
 		     message="{{ArrivalIdError}}"
 		></div>
+-->
+		<ui-select ng-model="hotelsSearchForm.ArrivalId"
+		           theme="selectize"
+		>
+			<ui-select-match placeholder="Город отправления">{{$select.selected.Name}}</ui-select-match>
+			<ui-select-choices repeat="city.Id as city in cities | filter: $select.search" refresh-delay="0">
+				<span ng-bind-html="city.Name | highlight: $select.search"></span>
+			</ui-select-choices>
+		</ui-select>
+
 	</div>
 
 

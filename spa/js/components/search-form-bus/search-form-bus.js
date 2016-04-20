@@ -61,16 +61,14 @@ innaAppDirectives.directive('searchFormBus', function ($templateCache) {
              * установка значения поля ArrivalId формы поиска из $routeParams
              */
             if ($routeParams.ArrivalId) {
-                dataService.getDPLocationById($routeParams.ArrivalId)
-                    .then(function (data) {
-                        $scope.locationFrom = {
-                            id: $routeParams.ArrivalId,
-                            name: data.Name + ", " + data.CountryName
-                        }
-                    });
+                $scope.hotelsSearchForm.ArrivalId = $routeParams.ArrivalId;
             } else {
-                $scope.locationFrom = null;
+                $scope.hotelsSearchForm.ArrivalId = 6733;
             }
+            $scope.cities = [
+                { Name: 'Москва', Id: 6733 },
+                { Name: 'Санкт-Петербург', Id: 3005 }
+            ]
             /**
              * END
              */
@@ -125,8 +123,6 @@ innaAppDirectives.directive('searchFormBus', function ($templateCache) {
              */
             $scope.hotelsSearchStart = function (event) {
                 event.preventDefault();
-
-                $scope.hotelsSearchForm.ArrivalId = $scope.locationFrom ? $scope.locationFrom.id : null;
 
                 var searchUrl = HotelService.getBusIndexUrl($scope.hotelsSearchForm);
 
