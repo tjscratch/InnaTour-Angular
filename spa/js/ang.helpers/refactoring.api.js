@@ -20,6 +20,6 @@ innaAppServices.factory('appApi', function () {
         PACKAGES_DISCOUNTED_PRICE: url('/PackagesOrder/DiscountedPrice'),
         AVIA_DISCOUNTED_PRICE: url('/AviaOrder/DiscountedPrice'),
 
-        GET_MANAGER_STATUS: url('/TalkingHeadSupportApi/GetManagerStatus'),
+        GET_MANAGER_STATUS: url('/TalkingHeadSupportApi/GetManagerStatus2'),
     }
 });
