@@ -184,8 +184,10 @@ innaAppDirectives.directive('hotelGalleryDirective', [
 
 
                 $scope.$on('$destroy', function () {
-                    HotelGalleryComponent.teardown();
-                    HotelGalleryComponent = null;
+                    if (HotelGalleryComponent) {
+                        HotelGalleryComponent.teardown();
+                        HotelGalleryComponent = null;
+                    }
                 })
             }
         }
