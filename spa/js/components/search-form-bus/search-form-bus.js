@@ -6,7 +6,7 @@ innaAppDirectives.directive('searchFormBus', function ($templateCache) {
 
 
             $scope.hotelsSearchForm = {};
-
+            $scope.hotelsSearchForm.NightCount = 2;
 
             /**
              * BEGIN example form data
@@ -18,17 +18,6 @@ innaAppDirectives.directive('searchFormBus', function ($templateCache) {
 
 
             /**
-             * поиск "Город/Название отеля"
-             */
-            $scope.getLocationFrom = function (text) {
-                return HotelService.getSuggest(text)
-                    .then(function (data) {
-                        return data;
-                    });
-            };
-
-
-            /**
              * BEGIN
              * установка значения поля Adult формы поиска
              */
@@ -36,20 +25,6 @@ innaAppDirectives.directive('searchFormBus', function ($templateCache) {
                 $scope.hotelsSearchForm.Adult = $routeParams.Adult;
             } else {
                 $scope.hotelsSearchForm.Adult = 2;
-            }
-            /**
-             * END
-             */
-
-
-            /**
-             * BEGIN
-             * установка значения поля NightCount формы поиска
-             */
-            if ($routeParams.NightCount) {
-                $scope.hotelsSearchForm.NightCount = $routeParams.NightCount;
-            } else {
-                $scope.hotelsSearchForm.NightCount = 7;
             }
             /**
              * END
@@ -129,6 +104,7 @@ innaAppDirectives.directive('searchFormBus', function ($templateCache) {
                 var validateArrivalId = widgetValidators.required($scope.hotelsSearchForm.ArrivalId, 'ArrivalId', 'Введите город или страну, куда планируете поехать');
                 var validateStartVoyageDate = widgetValidators.required($scope.hotelsSearchForm.StartVoyageDate, 'StartVoyageDate', 'Выберите дату заезда');
 
+                console.log(searchUrl);
                 $q.all([validateArrivalId, validateStartVoyageDate])
                     .then(function (data) {
                         $location.path(searchUrl);
