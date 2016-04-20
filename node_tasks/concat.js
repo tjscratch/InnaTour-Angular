@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
+var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglifyjs');
 var gulpif = require('gulp-if');
 var conf = require('./config');
@@ -83,43 +84,51 @@ gulp.task('concat-lib', function () {
         conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.ru.min.js'
     ])
 
-        .pipe(concat('app-lib.js', {insertSourceName: {open: '/*', close: '*/'}}))
+        .pipe(concat('app-lib.js'))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 
 /* PARTS */
 gulp.task('concat-components', function () {
-    return gulp.src([
-        conf.src + '/components/**/*.js'
-    ])
-        .pipe(concat('components.js', {insertSourceName: {open: '/*', close: '*/'}}))
+    return gulp.src(conf.src + '/components/**/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(concat('components.js'))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('concat-regions', function () {
     return gulp.src(conf.src + '/regions/**/*.js')
-        .pipe(concat('regions.js', {insertSourceName: {open: '/*', close: '*/'}}))
+        .pipe(sourcemaps.init())
+        .pipe(concat('regions.js'))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('concat-pages', function () {
     return gulp.src(conf.src + '/pages/**/*.js')
-        .pipe(concat('pages.js', {insertSourceName: {open: '/*', close: '*/'}}))
+        .pipe(sourcemaps.init())
+        .pipe(concat('pages.js'))
         .pipe(ngAnnotate())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 
 gulp.task('build-controllers', function () {
     return gulp.src([conf.src + '/controllers/**/*.js'])
-        .pipe(concat('angular-controllers.js', {insertSourceName: {open: '/*', close: '*/'}}))
+        .pipe(sourcemaps.init())
+        .pipe(concat('angular-controllers.js'))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('build-services', function () {
     return gulp.src([conf.src + '/services/**/*.js'])
-        .pipe(concat('angular-services.js', {insertSourceName: {open: '/*', close: '*/'}}))
+        .pipe(sourcemaps.init())
+        .pipe(concat('angular-services.js'))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
@@ -131,7 +140,7 @@ gulp.task('build-directives', function () {
         conf.widgets + '/search/js/services.js',
         conf.widgets + '/search/js/validation.js'
     ])
-        .pipe(concat('angular-directives.js', {insertSourceName: {open: '/*', close: '*/'}}))
+        .pipe(concat('angular-directives.js'))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
@@ -140,19 +149,23 @@ gulp.task('build-models', function () {
         conf.src + '/models/model.js',
         conf.src + '/models/**/*.js'
     ])
-        .pipe(concat('angular-models.js', {insertSourceName: {open: '/*', close: '*/'}}))
+        .pipe(concat('angular-models.js'))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('build-helpers', function () {
     return gulp.src([conf.src + '/helpers/**/*.js'])
-        .pipe(concat('angular-helpers.js', {insertSourceName: {open: '/*', close: '*/'}}))
+        .pipe(sourcemaps.init())
+        .pipe(concat('angular-helpers.js'))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('build-ang.helpers', function () {
     return gulp.src([conf.src + '/ang.helpers/**/*.js'])
-        .pipe(concat('angular-ang.helpers.js', {insertSourceName: {open: '/*', close: '*/'}}))
+        .pipe(sourcemaps.init())
+        .pipe(concat('angular-ang.helpers.js'))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
