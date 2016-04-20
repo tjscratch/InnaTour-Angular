@@ -7,8 +7,11 @@
 				<li class="section__crumbs__list__item">
 					<a href="/#/" class="section__crumbs__list__item__link">Главная</a>
 				</li>
-				<li class="section__crumbs__list__item">
+				<li class="section__crumbs__list__item" ng-if="isActive('/hotels/')">
 					<a ng-href="{{ hotelsIndexPath }}" class="section__crumbs__list__item__link">Результаты поиска</a>
+				</li>
+				<li class="section__crumbs__list__item" ng-if="isActive('/bus/')">
+					<a ng-href="{{ busIndexPath }}" class="section__crumbs__list__item__link">Результаты поиска</a>
 				</li>
 				<li class="section__crumbs__list__item" ng-if="isActive('/hotels/')">
 					Описание отеля и выбор номера
@@ -59,7 +62,8 @@
 
 		<div class="hotel-details__section" id="SectionDetail" ng-if="hotel.Description">
 			<div class="hotel-details__section-box">
-				<h2 class="hotel-details__section-title">Описание отеля</h2>
+				<h2 class="hotel-details__section-title" ng-if="isActive('/hotels/')">Описание отеля</h2>
+				<h2 class="hotel-details__section-title" ng-if="isActive('/bus/')">Описание тура</h2>
 
 				<div class="hotel-details__section-text">
 					<div class="hotel-details__section-text-viewport"

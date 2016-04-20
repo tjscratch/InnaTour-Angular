@@ -125,6 +125,40 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
                     klass: 'icon-sprite-reviews'
                 },
             ];
+        },
+        getShowPageMenuBus: function () {
+            return [
+                {
+                    id: 'SectionDetail',
+                    name: 'Описание тура',
+                    active: false,
+                    klass: 'icon-sprite-description'
+                },
+                {
+                    id: 'SectionRoom',
+                    name: 'Выбор номера',
+                    active: false,
+                    klass: 'icon-sprite-room'
+                },
+                {
+                    id: 'SectionServices',
+                    name: 'Сервисы',
+                    active: false,
+                    klass: 'icon-sprite-services'
+                },
+                {
+                    id: 'SectionMap',
+                    name: 'Место отправления',
+                    active: false,
+                    klass: 'icon-sprite-map'
+                },
+                {
+                    id: 'SectionReviews',
+                    name: 'Отзывы',
+                    active: false,
+                    klass: 'icon-sprite-reviews'
+                },
+            ];
         }
     }
 });

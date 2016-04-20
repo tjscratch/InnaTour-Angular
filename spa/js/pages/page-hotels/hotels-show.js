@@ -5,6 +5,22 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     document.body.classList.remove('light-theme');
 
 
+    function isActive (route) {
+        var loc = $location.path();
+        var abs = $location.absUrl();
+
+        if (route == '/') {
+            return ((abs.indexOf('/tours/?') > -1) || loc == route);
+        }
+        else {
+            if (loc.indexOf(route) > -1)
+                return true;
+            else
+                return false;
+        }
+    };
+
+
     /**
      * Отели у нас работают только для b2b клиентов
      * поэтому если не b2b пользователь попал на страницу отелей
@@ -23,6 +39,7 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
 
     $scope.hotelLoaded = false;
     $scope.hotelsIndexPath = '/#' + HotelService.getHotelsIndexUrl($routeParams);
+    $scope.busIndexPath = '/#' + HotelService.getBusIndexUrl($routeParams);
     $scope.TAWidget = '';
     $scope.showFullDescription = false;
 
@@ -68,7 +85,11 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
      */
     $scope.redirectHotels = function () {
         $scope.baloonHotelLoad.teardown();
-        $location.path('/#' + AppRouteUrls.URL_HOTELS);
+        if (isActive('/bus/')) {
+            $location.path(AppRouteUrls.URL_BUS);
+        } else {
+            $location.path(AppRouteUrls.URL_HOTELS);
+        }
     };
 
 
@@ -101,7 +122,11 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     /**
      * отрисовка меню страницы
      */
-    $scope.Menu = HotelService.getShowPageMenu();
+    if (isActive('/bus/')) {
+        $scope.Menu = HotelService.getShowPageMenuBus();
+    } else {
+        $scope.Menu = HotelService.getShowPageMenu();
+    }
 
 
     /**
@@ -152,22 +177,6 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     /**
      * действия в комнате
      */
-    function isActive(route) {
-        var loc = $location.path();
-        var abs = $location.absUrl();
-
-        if (route == '/') {
-            return ((abs.indexOf('/tours/?') > -1) || loc == route);
-        }
-        else {
-            if (loc.indexOf(route) > -1)
-                return true;
-            else
-                return false;
-        }
-    };
-
-    
     $scope.goReservation = function (roomId) {
         if(isActive('/bus/')){
             var url = HotelService.getBusResevationUrl($routeParams.hotelId, $routeParams.providerId, roomId, $routeParams);

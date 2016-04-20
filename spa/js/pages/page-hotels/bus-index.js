@@ -29,7 +29,7 @@ innaAppControllers.controller('BusIndexController', function ($scope, $routePara
     $scope.redirectHotels = function () {
         $scope.baloonHotelLoad.teardown();
         $scope.baloonHotelNotFound.teardown();
-        $location.path(AppRouteUrls.URL_HOTELS);
+        $location.path(AppRouteUrls.URL_BUS);
     };
 
 
