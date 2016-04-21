@@ -348,11 +348,6 @@ app.config([
             //    controller: 'HotelsShowController'
             //})
             /**
-             * end hotels
-             */
-
-
-            /**
              * begin bus tours
              */
             .when(AppRouteUrls.URL_BUS, dynamic())
