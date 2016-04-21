@@ -6,8 +6,11 @@
 			<li class="section__crumbs__list__item">
 				<a href="/#/" class="section__crumbs__list__item__link">Главная</a>
 			</li>
-			<li class="section__crumbs__list__item">
+			<li class="section__crumbs__list__item" ng-if="reservation.typeProduct == 'hotels'">
 				<a ng-href="{{ reservation.hotelsIndexPath }}" class="section__crumbs__list__item__link">Результаты поиска</a>
+			</li>
+			<li class="section__crumbs__list__item" ng-if="reservation.typeProduct == 'bus'">
+				<a ng-href="{{ reservation.busIndexPath }}" class="section__crumbs__list__item__link">Результаты поиска</a>
 			</li>
 			<li class="section__crumbs__list__item" ng-if="reservation.typeProduct == 'hotels'">
 				<a ng-href="/#{{ reservation.hotelsShowPath }}" class="section__crumbs__list__item__link">Описание отеля и выбор номера</a>

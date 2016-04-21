@@ -62,7 +62,8 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
             var urlParams = [
                 params.ArrivalId,
                 params.NightCount,
-                params.Adult
+                params.Adult,
+                params.ChildrenCount
             ].join('-');
             return params.StartVoyageDate + '/' + urlParams
         },
@@ -139,12 +140,6 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
                     name: 'Выбор номера',
                     active: false,
                     klass: 'icon-sprite-room'
-                },
-                {
-                    id: 'SectionServices',
-                    name: 'Сервисы',
-                    active: false,
-                    klass: 'icon-sprite-services'
                 },
                 {
                     id: 'SectionMap',

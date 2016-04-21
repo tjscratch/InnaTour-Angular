@@ -5,8 +5,14 @@
         Оформление и оплата
     </h3>
 
-    <div class="ReservationForm__head-price-info">
+    <div class="ReservationForm__head-price-info" ng-if="reservation.typeProduct == 'hotels'">
         Стоимость отеля за {{reservation.passengerCount | perPerson}}:
+        <div class="ReservationForm__head-price">
+            {{ reservation.hotelInfo.Room.Price | currency : "" : 0 }}<i class='fa fa-rub'></i>
+        </div>
+    </div>
+    <div class="ReservationForm__head-price-info" ng-if="reservation.typeProduct == 'bus'">
+        Стоимость тура за {{reservation.passengerCount | perPerson}}:
         <div class="ReservationForm__head-price">
             {{ reservation.hotelInfo.Room.Price | currency : "" : 0 }}<i class='fa fa-rub'></i>
         </div>

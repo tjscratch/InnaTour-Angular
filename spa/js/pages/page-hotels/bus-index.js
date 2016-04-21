@@ -1,6 +1,8 @@
 innaAppControllers.controller('BusIndexController', function ($scope, $routeParams, $location, $timeout,
                                                               AppRouteUrls, Balloon, HotelService) {
 
+    var self = this;
+
     // toDo хрень какая то, удалить надо бы
     document.body.classList.add('bg_gray-light');
     document.body.classList.remove('light-theme');
@@ -33,9 +35,14 @@ innaAppControllers.controller('BusIndexController', function ($scope, $routePara
     };
 
 
+
     if ($routeParams) {
+        var searchParams = angular.copy($routeParams);
+        self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
+        searchParams.Adult = self.passengerCount;
+        searchParams.ChildrenCount = null;
         $scope.baloonHotelLoad.show();
-        HotelService.getBusList($routeParams)
+        HotelService.getBusList(searchParams)
             .then(function (response) {
                 if (response.status == 200 && response.data.Hotels.length > 0) {
                     $scope.hotels = response.data.Hotels;

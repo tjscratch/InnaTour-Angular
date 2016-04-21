@@ -17,15 +17,16 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
 
     var self = this;
     self.hotelsIndexPath = '/#' + HotelService.getHotelsIndexUrl($routeParams);
+    self.busIndexPath = '/#' + HotelService.getBusIndexUrl($routeParams);
 
     self.hotelsShowPath = HotelService.getHotelsShowUrl($routeParams.hotelId, $routeParams.providerId, $routeParams);
     self.busShowPath = HotelService.getBusShowUrl($routeParams.hotelId, $routeParams.providerId, $routeParams);
-    
+
     self.typeProduct = $routeParams.typeProduct;
 
-    self.passengerCount = $routeParams.Adult;
+    self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
 
-    
+
     /**
      * проверяем доступность выбранной комнаты
      */
@@ -78,7 +79,11 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
      * получение данных выбранной комнаты
      * и проверка доступности выбранной комнаты
      */
-    HotelService.getHotelBuy($routeParams)
+    var buyParams = angular.copy($routeParams);
+    buyParams.Adult = self.passengerCount;
+    buyParams.ChildrenCount = null;
+    buyParams.typeProduct = null;
+    HotelService.getHotelBuy(buyParams)
         .then(function (response) {
             console.log(response)
             if (response.status == 200 && response.data.Available) {
@@ -97,9 +102,9 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
     // если в url есть параметр ?test=1
     // заполняем данные пассажира фейковыми данными
     if ($location.$$search && $location.$$search.test == 1) {
-        self.ReservationModel = ReservationService.getReservationModel($routeParams.Adult, 1);
+        self.ReservationModel = ReservationService.getReservationModel(self.passengerCount, 1);
     } else {
-        self.ReservationModel = ReservationService.getReservationModel($routeParams.Adult);
+        self.ReservationModel = ReservationService.getReservationModel(self.passengerCount);
     }
 
     self.ReservationModel.SearchParams = $routeParams;

@@ -1,5 +1,7 @@
 innaAppControllers.controller('HotelsShowController', function ($rootScope, $scope, $timeout, $location, $routeParams, Balloon, HotelService) {
 
+    var self = this;
+
     // toDo хрень какая то, удалить надо бы
     document.body.classList.add('bg_white');
     document.body.classList.remove('light-theme');
@@ -93,7 +95,11 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     };
 
 
-    HotelService.getHotelsDetails($routeParams)
+    var searchParams = angular.copy($routeParams);
+    self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
+    searchParams.Adult = self.passengerCount;
+    searchParams.ChildrenCount = null;
+    HotelService.getHotelsDetails(searchParams)
         .then(function (response) {
             console.log(response)
             if (response.status == 200 && response.data.Success) {
