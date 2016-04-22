@@ -56,7 +56,7 @@ innaAppDirectives.directive('searchFormBus', function ($templateCache) {
             var datepickerElem = $element.find('.b-search-form-hotels__input-datapicker');
             datepickerElem.datepicker({
                 format: "d M yyyy",
-                startDate: $scope.setStartDate,
+                startDate: new Date($scope.setStartDate.valueOf() + 86400000 * 1),
                 endDate: new Date($scope.setStartDate.valueOf() + 86400000 * 365),
                 language: "ru",
                 autoclose: true,
