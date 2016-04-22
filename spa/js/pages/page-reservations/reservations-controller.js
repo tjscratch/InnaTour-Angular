@@ -139,6 +139,9 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                 if (data.RedirectUrl) {
                     window.location.replace(data.RedirectUrl);
                 }
+                if(!data.HotelBooked){
+                    baloonError();
+                }
             });
     };
 
