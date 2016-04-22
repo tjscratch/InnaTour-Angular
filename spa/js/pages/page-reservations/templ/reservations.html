@@ -108,12 +108,12 @@
 					введен неправильный код
 				</div>
 				<div class="checkSms__timeout" ng-if="timer != 0">
-					запросить заново возможно не ранее чем через
+					запросить код заново можно через
 					<span ng-if="timer >= 60000">
-						{{helper.moment(timer).format("m")}} мин
+						{{timer | date:'m'}} мин
 					</span>
 					<span ng-if="timer < 60000">
-						{{helper.moment(timer).format("s")}} сек
+						{{timer | date:'s'}} сек
 					</span>
 				</div>
 				<div class="checkSms__timeout" ng-if="timer == 0">

@@ -43,12 +43,30 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
     });
 
     function redirectHotel () {
-        self.baloonHotelAvailable.teardown();
-        $location.path(self.hotelsShowPath);
+        $timeout(function () {
+            if (self.typeProduct == 'bus') {
+                $location.path(self.busShowPath);
+            } else {
+                $location.path(self.hotelsShowPath);
+            }
+        }, 0);
+        if (self.baloonHotelAvailable) {
+            self.baloonHotelAvailable.teardown();
+            self.baloonHotelAvailable = null;
+        }
+        if (self.baloonHotelReservation) {
+            self.baloonHotelReservation.teardown();
+            self.baloonHotelReservation = null;
+        }
+        if (self.baloonHotelError) {
+            self.baloonHotelError.teardown();
+            self.baloonHotelError = null;
+        }
     };
 
     function baloonError () {
-        self.baloonHotelAvailable.updateView({
+        self.baloonHotelError = new Balloon();
+        self.baloonHotelError.updateView({
             template: 'err.html',
             title: 'Выбранная комната не доступна',
             content: 'Попробуйте начать поиск заново',
@@ -117,14 +135,16 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         checkValid: $validationProvider.checkValid,
         submit: function (e, form) {
             $validationProvider.validate(form);
-            if(form.$valid){
-                if (self.hotelInfo.NeedSmsValidation) {
-                    $scope.submitSms();
-                    $scope.checkReserveSms.show(e);
-                } else {
-                    reservation();
+            $timeout(function () {
+                if (form.$valid) {
+                    if (self.hotelInfo.NeedSmsValidation) {
+                        $scope.submitSms();
+                        $scope.checkReserveSms.show(e);
+                    } else {
+                        reservation();
+                    }
                 }
-            }
+            }, 0);
         }
     };
 
@@ -139,7 +159,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                 if (data.RedirectUrl) {
                     window.location.replace(data.RedirectUrl);
                 }
-                if(!data.HotelBooked){
+                if (data.HotelBooked == false) {
                     baloonError();
                 }
             });
@@ -152,7 +172,6 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
     $scope.sms_code = '';
     $scope.sms_code_error = false;
     $scope.timer = 60000;
-    $scope.helper = aviaHelper;
 
     $scope.submitSms = function () {
         $scope.fight();
@@ -226,6 +245,10 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         if (self.baloonHotelReservation) {
             self.baloonHotelReservation.teardown();
             self.baloonHotelReservation = null;
+        }
+        if (self.baloonHotelError) {
+            self.baloonHotelError.teardown();
+            self.baloonHotelError = null;
         }
     });
 
