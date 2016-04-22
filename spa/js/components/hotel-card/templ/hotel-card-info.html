@@ -2,8 +2,13 @@
 
 	<div class="HotelCardPhotos">
 		<div class="HotelCardPhotos__Photo"
+		     ng-if="hotel.HotelPhoto200"
 		     style="background-image: url('{{ ::hotel.HotelPhoto200 }}')"
 		></div>
+		<div class="HotelCardPhotos__Photo-empty"
+		     ng-if="!hotel.HotelPhoto200">
+			<i class="fa fa-bus" aria-hidden="true"></i>
+		</div>
 	</div>
 
 	<div class="HotelCardInfo">
