@@ -13,7 +13,10 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                                                                   $injector,
                                                                   Balloon,
                                                                   HotelService,
-                                                                  ReservationService) {
+                                                                  ReservationService,
+                                                                  aviaHelper,
+                                                                  $interval,
+                                                                  CheckSmsService) {
 
     var self = this;
     self.hotelsIndexPath = '/#' + HotelService.getHotelsIndexUrl($routeParams);
@@ -112,20 +115,87 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
 
     self.form = {
         checkValid: $validationProvider.checkValid,
-        submit: function (form) {
+        submit: function (e, form) {
             $validationProvider.validate(form);
-            console.log('start reservation');
-            baloonReservation();
-            ReservationService.reservation(self.ReservationModel)
-                .success(function (data) {
-                    console.log('reservation success', data);
-                    self.baloonHotelReservation.teardown();
-                    if (data.RedirectUrl) {
-                        window.location.replace(data.RedirectUrl);
-                    }
-                });
+            if(form.$valid){
+                if (self.hotelInfo.NeedSmsValidation) {
+                    $scope.submitSms();
+                    $scope.checkReserveSms.show(e);
+                } else {
+                    reservation();
+                }
+            }
         }
     };
+
+
+    function reservation () {
+        console.log('start reservation');
+        baloonReservation();
+        ReservationService.reservation(self.ReservationModel)
+            .success(function (data) {
+                console.log('reservation success', data);
+                self.baloonHotelReservation.teardown();
+                if (data.RedirectUrl) {
+                    window.location.replace(data.RedirectUrl);
+                }
+            });
+    };
+
+    /**
+     * begin checkReserveSms
+     */
+    $scope.checkReserveSms = new aviaHelper.checkReserveSms();
+    $scope.sms_code = '';
+    $scope.sms_code_error = false;
+    $scope.timer = 60000;
+    $scope.helper = aviaHelper;
+
+    $scope.submitSms = function () {
+        $scope.fight();
+        $scope.timer = 60000;
+        CheckSmsService.getSmsCode({ Phone: self.ReservationModel.Phone })
+            .success(function (data) {
+                console.log(data)
+            })
+    }
+
+    //console.log($scope.validationModel.phone.value)
+
+    $scope.submitSmsCode = function ($event, code) {
+        CheckSmsService.checkSmsCode({ Phone: self.ReservationModel.Phone, Code: code })
+            .then(function successCallback (response) {
+                if (response.data == 0) {
+                    $scope.sms_code_error = true;
+                } else {
+                    $scope.checkReserveSms.close($event);
+                    reservation();
+                }
+            }, function errorCallback (response) {
+                $scope.sms_code_error = true;
+            });
+    };
+
+    var stop;
+    $scope.fight = function () {
+        if (angular.isDefined(stop)) return;
+        stop = $interval(function () {
+            if ($scope.timer > 0) {
+                $scope.timer = $scope.timer - 1000;
+            } else {
+                $scope.stopFight();
+            }
+        }, 1000);
+    };
+    $scope.stopFight = function () {
+        if (angular.isDefined(stop)) {
+            $interval.cancel(stop);
+            stop = undefined;
+        }
+    };
+    /**
+     * end checkReserveSms
+     */
 
 
     /**

@@ -146,13 +146,7 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
                     name: 'Место отправления',
                     active: false,
                     klass: 'icon-sprite-map'
-                },
-                {
-                    id: 'SectionReviews',
-                    name: 'Отзывы',
-                    active: false,
-                    klass: 'icon-sprite-reviews'
-                },
+                }
             ];
         }
     }

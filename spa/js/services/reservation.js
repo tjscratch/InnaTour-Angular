@@ -83,7 +83,7 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
                 I: null,
                 F: null,
                 Birthday: null,
-                DocumentId: 1,
+                DocumentId: 0,
                 Number: null,
                 ExpirationDate: null,
                 Citizen: 189
@@ -133,7 +133,8 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
                     }
                     NewPassenger["Index"] = i;
                     GenerateReservationModel.Email = "pasha_hotels@inna.ru";
-                    GenerateReservationModel.Phone = "+79069593106";
+                    GenerateReservationModel.Phone = "+79099593106";
+                    GenerateReservationModel.Agree = true;
                     GenerateReservationModel.Passengers.push(NewPassenger);
                 }
             } else {

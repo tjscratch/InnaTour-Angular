@@ -36,7 +36,8 @@
 		<div class="CardPrice">
 			<div class="CardPrice__info">
 				<div class="CardPrice__price">
-					<div class="CardPrice__price-desc">Цена за номер:</div>
+					<div class="CardPrice__price-desc" ng-if="currentActive('/hotels/')">Цена за номер:</div>
+					<div class="CardPrice__price-desc" ng-if="currentActive('/bus/')">Цена за тур:</div>
 					<div class="CardPrice__price-value">
 						{{ ::hotel.Price | currency : "" : 0 }}
 						<i class='fa fa-rub CardPrice__icon-currency'></i>

@@ -1,4 +1,5 @@
 <div class="ReservationForm"
+     ng-cloak=""
      ng-if="reservation.hotelInfo">
 
 	<div class="ReservationForm__breadcrumbs hotel-details__section hotel-details__section__crumbs">
@@ -72,8 +73,7 @@
 			<div class="ReservationFormActive__btn">
 				<button class="button b-sum-button"
 				        type="submit"
-				        validation-submit="ReservationForm"
-				        ng-click="reservation.form.submit(ReservationForm)">
+				        ng-click="reservation.form.submit($event, ReservationForm)">
 					Забронировать
 				</button>
 			</div>
@@ -83,3 +83,47 @@
 
 	</form>
 </div>
+
+
+<!-- Baloon checkReserveSms -->
+<div class="overlay js-overlay" ng-if="checkReserveSms.isOpened">
+	<div class="scroll-fix" ng-style="hotelRules.style">
+		<div class="balloon" style="width: 440px">
+			<div class="checkSms">
+				<div class="checkSms__icon">
+					<i class="icon-sprite-checkReserveSms"></i>
+				</div>
+				<div class="checkSms__title">
+					Подтверждение заказа
+				</div>
+				<label for="sms_code" class="checkSms__notice">
+					На ваш номер {{ validationModel.phone.value }} направлен СМС код, введите его в форму:
+				</label>
+				<div class="checkSms__input-container">
+					<input id="sms_code" class="b-field-text"
+					       ng-class="{'error' : sms_code_error}"
+					       type="number" autocomplete="off" ng-model="sms_code"/>
+				</div>
+				<div class="checkSms__error" ng-if="sms_code_error">
+					введен неправильный код
+				</div>
+				<div class="checkSms__timeout" ng-if="timer != 0">
+					запросить заново возможно не ранее чем через
+					<span ng-if="timer >= 60000">
+						{{helper.moment(timer).format("m")}} мин
+					</span>
+					<span ng-if="timer < 60000">
+						{{helper.moment(timer).format("s")}} сек
+					</span>
+				</div>
+				<div class="checkSms__timeout" ng-if="timer == 0">
+					<span class="checkSms__new" ng-click="submitSms()">
+						запросить заново
+					</span>
+				</div>
+				<span class="button" ng-click="submitSmsCode($event, sms_code)">Отправить</span>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /Baloon -->
