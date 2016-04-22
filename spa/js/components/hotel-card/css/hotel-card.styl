@@ -114,6 +114,11 @@ $HotelCardBorderColor = #e7e7e7;
         width 130px
         height 130px
     }
+    .HotelCardPhotos__Photo-empty{
+        width 130px
+        height 130px
+        font-size: 36px;
+    }
     .HotelCardInfo{
         width: auto;
         padding-top: 0;
@@ -126,6 +131,24 @@ $HotelCardBorderColor = #e7e7e7;
     background-position center center
     background-size cover
     background-repeat no-repeat
+}
+.HotelCardPhotos__Photo-empty{
+    width $HotelCardPhotos-width
+    height $HotelCard-height
+    background-position center center
+    background-size cover
+    background-repeat no-repeat
+    background-color $color-gray-light2
+
+    background-image: radial-gradient(50% 100%, #f8f8f8 0%, #e7e7e7 100%);
+    border: 1px solid #e7e7e7;
+    font-size: 46px;
+    color: #d7d7d7;
+    letter-spacing: 0px;
+
+    display flex
+    align-items center
+    justify-content center
 }
 .HotelCardRoomInfo{
     width 100%

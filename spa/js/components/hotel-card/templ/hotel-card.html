@@ -2,10 +2,16 @@
 
 	<div class="HotelCardPhotos">
 		<hotel-gallery-directive
+				ng-if="hotel.Photos"
 				is-map="false"
 				photo-hotel="::hotel.Photos"
 				width="200"
 				height="190"></hotel-gallery-directive>
+
+		<div class="HotelCardPhotos__Photo-empty"
+		     ng-if="!hotel.Photos">
+			<i class="fa fa-bus" aria-hidden="true"></i>
+		</div>
 	</div>
 
 	<div class="HotelCardInfo">
@@ -25,9 +31,6 @@
 		</div>
 		<ng:include src="'components/hotel-card/templ/hotel-card-date.html'"></ng:include>
 		<ng:include src="'components/hotel-card/templ/hotel-card-meal.html'"></ng:include>
-		<div class="HotelCardInfo__text" style="font-size: 10px">
-			{{ ::hotel.CalculationString }}
-		</div>
 		<trip-advisor-directive ng-if="hotel.TaFactor" hotel-data="hotel"></trip-advisor-directive>
 	</div>
 
