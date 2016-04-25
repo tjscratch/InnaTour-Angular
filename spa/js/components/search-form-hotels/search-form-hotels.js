@@ -82,8 +82,12 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              *
              *
              */
-            $scope.setStartDate = new Date();
             var datepickerElem = $element.find('.b-search-form-hotels__input-datapicker');
+            $element.find(".b-search-form-hotels__field-icon").on('click', function (e) {
+                e.preventDefault();
+                datepickerElem.trigger('focus');
+            });
+            $scope.setStartDate = new Date();
             datepickerElem.datepicker({
                 format: "d M yyyy",
                 startDate: $scope.setStartDate,
