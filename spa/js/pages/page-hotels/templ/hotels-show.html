@@ -72,10 +72,15 @@
 							<div ng-if="!showFullDescription" ng-bind-html="section.Content | limitFilter:250"></div>
 							<div ng-if="showFullDescription" ng-bind-html="section.Content"></div>
 						</div>
-						<p ng-if="showFullDescription || OrderId">
+						<p ng-if="showFullDescription && isActive('/hotels/')">
 							<b>Подробные сведения</b><br/><br/>
 							<b>Время прибытия:</b>&nbsp;{{hotel.CheckIn | date:'dd MMM yyyy HH:mm'}}&nbsp;&nbsp;&nbsp;&nbsp;
 							<b>Выезд:</b>&nbsp;{{hotel.CheckOut | date:'dd MMM yyyy HH:mm'}}
+						</p>
+						<p ng-if="showFullDescription && isActive('/bus/')">
+							<b>Подробные сведения</b><br/><br/>
+							<b>Время выезда:</b>&nbsp;{{hotel.CheckIn | date:'dd MMM yyyy HH:mm'}}&nbsp;&nbsp;&nbsp;&nbsp;
+							<b>Возвращение:</b>&nbsp;{{hotel.CheckOut | date:'dd MMM yyyy HH:mm'}}
 						</p>
 					</div>
 					<p>
