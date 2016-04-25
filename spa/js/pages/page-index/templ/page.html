@@ -38,7 +38,11 @@
 		</div>
 	</div>
 
-	<div ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even 'offers-dark-grey':$odd}"
+	<!--
+	<div ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even, 'offers-dark-grey':$odd}"
+	     ng-repeat="section in sections">
+	     -->
+	<div ng-class="{'Offers-anchor':($index == 0)}"
 	     ng-repeat="section in sections">
 		<div class="offers-container">
 
@@ -82,7 +86,7 @@
 		</div>
 	</div>
 
-	<div class="offers-list offers-list_new-landing offers-black" ng-if="sections.length">
+	<div class="offers-list offers-list_new-landing" ng-if="sections.length">
 		<div class="offers-container">
 
 			<h2 class="landing-title" ng-if="!landing.canDisplayDataForLandingPages">
