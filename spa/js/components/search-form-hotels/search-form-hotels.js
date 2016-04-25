@@ -3,20 +3,11 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
         replace: true,
         template: $templateCache.get("components/search-form-hotels/templ/form.html"),
         controller: function ($element, $scope, $routeParams, $timeout, $location, AppRouteUrls, HotelService, dataService, widgetValidators, $q) {
-
-
+            
+            
             $scope.hotelsSearchForm = {};
-
-
-            /**
-             * BEGIN example form data
-             */
-            $scope.childrenCount = 0;
-            /**
-             * END example form data
-             */
-
-
+            
+            
             /**
              * поиск "Город/Название отеля"
              */
@@ -26,8 +17,8 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                         return data;
                     });
             };
-
-
+            
+            
             /**
              * BEGIN
              * установка значения поля Adult формы поиска
@@ -37,11 +28,16 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
             } else {
                 $scope.hotelsSearchForm.Adult = 2;
             }
+            if ($routeParams.ChildrenCount) {
+                $scope.hotelsSearchForm.ChildrenCount = $routeParams.ChildrenCount;
+            } else {
+                $scope.hotelsSearchForm.ChildrenCount = 0;
+            }
             /**
              * END
              */
-
-
+            
+            
             /**
              * BEGIN
              * установка значения поля NightCount формы поиска
@@ -54,8 +50,8 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
             /**
              * END
              */
-
-
+            
+            
             /**
              * BEGIN
              * установка значения поля ArrivalId формы поиска из $routeParams
@@ -74,8 +70,8 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
             /**
              * END
              */
-
-
+            
+            
             /**
              * BEGIN datapicker
              *
@@ -120,16 +116,16 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              *
              * END datepicker
              */
-
-
+            
+            
             /**
              * BEGIN form validation
              */
             /**
              * END form validation
              */
-
-
+            
+            
             /**
              * BEGIN hotelsSearchStart
              * params:
@@ -137,30 +133,30 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              */
             $scope.hotelsSearchStart = function (event) {
                 event.preventDefault();
-
+                
                 var isBus = $location.path().startsWith(AppRouteUrls.URL_BUS);
-
+                
                 $scope.hotelsSearchForm.ArrivalId = $scope.locationFrom ? $scope.locationFrom.id : null;
-
+                
                 var searchUrl;
-                if(isBus){
+                if (isBus) {
                     searchUrl = HotelService.getBusIndexUrl($scope.hotelsSearchForm);
-                }else{
+                } else {
                     searchUrl = HotelService.getHotelsIndexUrl($scope.hotelsSearchForm);
                 }
-
+                
                 var validateArrivalId = widgetValidators.required($scope.hotelsSearchForm.ArrivalId, 'ArrivalId', 'Введите город или страну, куда планируете поехать');
                 var validateStartVoyageDate = widgetValidators.required($scope.hotelsSearchForm.StartVoyageDate, 'StartVoyageDate', 'Выберите дату заезда');
-
+                
                 $q.all([validateArrivalId, validateStartVoyageDate])
                     .then(function (data) {
                         $location.path(searchUrl);
                     }, function (error) {
                         showError(error);
                     });
-
+                
             };
-
+            
             function showError (error) {
                 if (error.name == 'ArrivalId') {
                     $scope.ArrivalIdError = error.error;
@@ -172,7 +168,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
             /**
              * END hotelsSearchStart
              */
-
+            
         }
     }
 });

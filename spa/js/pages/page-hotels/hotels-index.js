@@ -50,8 +50,12 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
 
 
     if ($routeParams) {
+        var searchParams = angular.copy($routeParams);
+        self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
+        searchParams.Adult = self.passengerCount;
+        searchParams.ChildrenCount = null;
         $scope.baloonHotelLoad.show();
-        HotelService.getHotelsList($routeParams)
+        HotelService.getHotelsList(searchParams)
             .then(function (response) {
                 if (response.status == 200 && response.data.Hotels.length > 0) {
                     $scope.hotels = response.data.Hotels;
