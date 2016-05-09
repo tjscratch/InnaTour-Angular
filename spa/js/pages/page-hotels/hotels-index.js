@@ -1,5 +1,6 @@
 innaAppControllers.controller('HotelsIndexController', function ($rootScope, $scope, $routeParams, $location, $timeout,
-                                                                 AppRouteUrls, Balloon, HotelService) {
+                                                                 AppRouteUrls, Balloon, HotelService,
+                                                                 EventManager, innaAppApiEvents) {
 
     // toDo хрень какая то, удалить надо бы
     document.body.classList.add('bg_gray-light');
@@ -48,6 +49,9 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
         $location.path(AppRouteUrls.URL_HOTELS);
     };
 
+    $scope.filtersSettingsHotels = null;
+    $scope.asMap = false;
+    $scope.activePanel = 'hotels';
 
     if ($routeParams) {
         var searchParams = angular.copy($routeParams);
@@ -60,6 +64,15 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                 if (response.status == 200 && response.data.Hotels.length > 0) {
                     $scope.hotels = response.data.Hotels;
                     $scope.baloonHotelLoad.teardown();
+
+                    /* данный для настроек панели фильтров */
+                    $scope.filtersSettingsHotels = {
+                        filtersData: HotelService.getHotelFilters(),
+                        Collection: $scope.hotels,
+                        filter_hotel: true,
+                        filter_avia: false
+                    };
+
                 } else {
                     $scope.baloonHotelNotFound = new Balloon();
                     $scope.baloonHotelNotFound.updateView({
@@ -90,16 +103,23 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
             });
     }
 
+    EventManager.on(innaAppApiEvents.FILTER_PANEL_CHANGE, function (data){
+        console.log(data)
+        $scope.hotels = data;
+    });
 
-    var datasource = {};
+    $scope.filters = HotelService.getHotelFilters();
 
-    datasource.get = function (index, count, success) {
-        $timeout(function () {
-            success($scope.hotels.slice(index, index + count));
-        }, 0);
-    };
 
-    $scope.datasource = datasource;
+    //var datasource = {};
+    //
+    //datasource.get = function (index, count, success) {
+    //    $timeout(function () {
+    //        success($scope.hotels.slice(index, index + count));
+    //    }, 0);
+    //};
+    //
+    //$scope.datasource = datasource;
 
 
     if ($routeParams) {

@@ -4,14 +4,13 @@
 	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)">
 
 
-		<div ng-if="hotels.length > 0">
+		<div class="SearchHotelResultsCount" ng-if="hotels.length > 0">
 			Найдено
 			<b>{{::hotels.length | asQuantity:"тур":"тура":"туров"}}</b>
 		</div>
 
-		<div class="SearchHotelResults" ng-if="hotels">
-
-			<div class="SearchHotelResults__item"
+		<div class="SearchHotelResultsList" ng-if="hotels">
+			<div class="SearchHotelResultsList__item"
 			     ng-repeat="hotel in hotels track by $index"
 			>
 				<hotel-card
@@ -19,29 +18,6 @@
 						hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
 				></hotel-card>
 			</div>
-
-			<!-- ui-scroll
-			<div class="SearchHotelResults__item"
-			     ui-scroll="hotel in datasource"
-			     is-loading="loading"
-			>
-				<hotel-card
-						hotel="hotel"
-						hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
-				></hotel-card>
-			</div>
-			<div class="SearchHotelResults__loading"
-			     ng-if="loading">
-				<div class="spinner in-balloon">
-					<div class="rect rect1"></div>
-					<div class="rect rect2"></div>
-					<div class="rect rect3"></div>
-					<div class="rect rect4"></div>
-					<div class="rect rect5"></div>
-					<img class="gif" src="/spa/img/spinner.gif">
-				</div>
-			</div>
-			-->
 		</div>
 
 	</div>
