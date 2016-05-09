@@ -104,8 +104,9 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
     }
 
     EventManager.on(innaAppApiEvents.FILTER_PANEL_CHANGE, function (data){
-        console.log(data)
-        $scope.hotels = data;
+        $scope.$apply(function (){
+            $scope.hotels = data;
+        })
     });
 
     $scope.filters = HotelService.getHotelFilters();
