@@ -67,7 +67,7 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
 
                     /* данный для настроек панели фильтров */
                     $scope.filtersSettingsHotels = {
-                        filtersData: HotelService.getHotelFilters(),
+                        filtersData: response.data.Filter,
                         Collection: $scope.hotels,
                         filter_hotel: true,
                         filter_avia: false
