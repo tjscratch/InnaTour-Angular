@@ -1,16 +1,57 @@
+$b-offer-offset = 1.5px;
+
 .b-offers-container{
     max-width: $site-width;
     margin: 50px auto;
 }
 .b-offers{
+    //display: flex;
+    //flex-wrap: wrap;
+    margin: 0 -$b-offer-offset;
 
+    font-size: 0;
 }
 .b-offer{
+    box-sizing: border-box;
+    display: inline-block;
     position: relative;
-    background-position: center;
+    padding: $b-offer-offset;
+    vertical-align: top;
+
+    font-size: 1rem;
     color: $white;
+
+    &:nth-child(1){
+        width 50%
+        height 300px
+    }
+    &:nth-child(2n){
+        width 50%
+        height 150px
+    }
+    &:nth-child(3n){
+        width 50%
+        height 150px
+    }
+    &:nth-child(4n){
+        width 50%
+        height 150px
+    }
+}
+.b-offer__bg{
+    position: absolute;
+    left: $b-offer-offset;
+    right: $b-offer-offset;
+    top: $b-offer-offset;
+    bottom: $b-offer-offset;
+    background-position: center;
 }
 .b-offer__container{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     padding: 20px;
     background-color: rgba(0, 0, 0, .3);
 }
