@@ -1,268 +1,29 @@
 <div class="b-offers">
 
-	<div class="b-offer">
+	<div class="b-offer" ng-repeat="offer in offers track by $index">
 		<div class="b-offer__bg"
-		     style="background-image: url('http://s.test.inna.ru/Files/Photos/140221190450/140221191248/p_960x428.jpg')">
+		     style="background-image: url({{ offer.img }})">
 			<div class="b-offer__container">
 
 				<h2 class="b-offer__title">
 					<div class="b-offer__title-sub">
-						Куба
+						{{ offer.titleSub }}
+						{{ $index }}
 					</div>
 					<div class="b-offer__title-main">
-						Гавана
+						{{ offer.titleMain }}
 					</div>
 					<div class="b-offer__title-info">
-						7 ночей, на двоих
+						{{ offer.titleInfo }}
 					</div>
 				</h2>
 
 				<div class="b-offer__price">
 					<div class="b-offer__price-txt">
-						от
+						{{ offer.priceTxt }}
 					</div>
 					<div class="b-offer__price-value">
-						59 450
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="b-offer">
-		<div class="b-offer__bg"
-		     style="background-image: url('http://s.test.inna.ru/Files/Photos/140221190450/140221191248/p_960x428.jpg')">
-			<div class="b-offer__container">
-
-				<h2 class="b-offer__title">
-					<div class="b-offer__title-sub">
-						Куба
-					</div>
-					<div class="b-offer__title-main">
-						Гавана
-					</div>
-					<div class="b-offer__title-info">
-						7 ночей, на двоих
-					</div>
-				</h2>
-
-				<div class="b-offer__price">
-					<div class="b-offer__price-txt">
-						от
-					</div>
-					<div class="b-offer__price-value">
-						59 450
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="b-offer">
-		<div class="b-offer__bg"
-		     style="background-image: url('http://s.test.inna.ru/Files/Photos/140221190450/140221191248/p_960x428.jpg')">
-			<div class="b-offer__container">
-
-				<h2 class="b-offer__title">
-					<div class="b-offer__title-sub">
-						Куба
-					</div>
-					<div class="b-offer__title-main">
-						Гавана
-					</div>
-					<div class="b-offer__title-info">
-						7 ночей, на двоих
-					</div>
-				</h2>
-
-				<div class="b-offer__price">
-					<div class="b-offer__price-txt">
-						от
-					</div>
-					<div class="b-offer__price-value">
-						59 450
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="b-offer">
-		<div class="b-offer__bg"
-		     style="background-image: url('http://s.test.inna.ru/Files/Photos/140221190450/140221191248/p_960x428.jpg')">
-			<div class="b-offer__container">
-
-				<h2 class="b-offer__title">
-					<div class="b-offer__title-sub">
-						Куба
-					</div>
-					<div class="b-offer__title-main">
-						Гавана
-					</div>
-					<div class="b-offer__title-info">
-						7 ночей, на двоих
-					</div>
-				</h2>
-
-				<div class="b-offer__price">
-					<div class="b-offer__price-txt">
-						от
-					</div>
-					<div class="b-offer__price-value">
-						59 450
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="b-offer">
-		<div class="b-offer__bg"
-		     style="background-image: url('http://s.test.inna.ru/Files/Photos/140221190450/140221191248/p_960x428.jpg')">
-			<div class="b-offer__container">
-
-				<h2 class="b-offer__title">
-					<div class="b-offer__title-sub">
-						Куба
-					</div>
-					<div class="b-offer__title-main">
-						Гавана
-					</div>
-					<div class="b-offer__title-info">
-						7 ночей, на двоих
-					</div>
-				</h2>
-
-				<div class="b-offer__price">
-					<div class="b-offer__price-txt">
-						от
-					</div>
-					<div class="b-offer__price-value">
-						59 450
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="b-offer">
-		<div class="b-offer__bg"
-		     style="background-image: url('http://s.test.inna.ru/Files/Photos/140221190450/140221191248/p_960x428.jpg')">
-			<div class="b-offer__container">
-
-				<h2 class="b-offer__title">
-					<div class="b-offer__title-sub">
-						Куба
-					</div>
-					<div class="b-offer__title-main">
-						Гавана
-					</div>
-					<div class="b-offer__title-info">
-						7 ночей, на двоих
-					</div>
-				</h2>
-
-				<div class="b-offer__price">
-					<div class="b-offer__price-txt">
-						от
-					</div>
-					<div class="b-offer__price-value">
-						59 450
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="b-offer">
-		<div class="b-offer__bg"
-		     style="background-image: url('http://s.test.inna.ru/Files/Photos/140221190450/140221191248/p_960x428.jpg')">
-			<div class="b-offer__container">
-
-				<h2 class="b-offer__title">
-					<div class="b-offer__title-sub">
-						Куба
-					</div>
-					<div class="b-offer__title-main">
-						Гавана
-					</div>
-					<div class="b-offer__title-info">
-						7 ночей, на двоих
-					</div>
-				</h2>
-
-				<div class="b-offer__price">
-					<div class="b-offer__price-txt">
-						от
-					</div>
-					<div class="b-offer__price-value">
-						59 450
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="b-offer">
-		<div class="b-offer__bg"
-		     style="background-image: url('http://s.test.inna.ru/Files/Photos/140221190450/140221191248/p_960x428.jpg')">
-			<div class="b-offer__container">
-
-				<h2 class="b-offer__title">
-					<div class="b-offer__title-sub">
-						Куба
-					</div>
-					<div class="b-offer__title-main">
-						Гавана
-					</div>
-					<div class="b-offer__title-info">
-						7 ночей, на двоих
-					</div>
-				</h2>
-
-				<div class="b-offer__price">
-					<div class="b-offer__price-txt">
-						от
-					</div>
-					<div class="b-offer__price-value">
-						59 450
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="b-offer">
-		<div class="b-offer__bg"
-		     style="background-image: url('http://s.test.inna.ru/Files/Photos/140221190450/140221191248/p_960x428.jpg')">
-			<div class="b-offer__container">
-
-				<h2 class="b-offer__title">
-					<div class="b-offer__title-sub">
-						Куба
-					</div>
-					<div class="b-offer__title-main">
-						Гавана
-					</div>
-					<div class="b-offer__title-info">
-						7 ночей, на двоих
-					</div>
-				</h2>
-
-				<div class="b-offer__price">
-					<div class="b-offer__price-txt">
-						от
-					</div>
-					<div class="b-offer__price-value">
-						59 450
+						{{ offer.priceValue }}
 					</div>
 				</div>
 
