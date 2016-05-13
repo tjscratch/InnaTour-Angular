@@ -14,7 +14,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
             }
 
             var offers = [];
-            for (var i = 0; i < 16; i++) {
+            for (var i = 0; i < 34; i++) {
                 var offer = {
                     img: "http://s.test.inna.ru/Files/Photos/140221190450/140221191248/p_960x428.jpg",
                     titleSub: "Куба",
