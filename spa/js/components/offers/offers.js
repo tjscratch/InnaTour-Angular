@@ -7,38 +7,26 @@ innaAppDirectives.directive('offers', function ($templateCache) {
         },
         controller: function ($scope, $location) {
 
-            var offer = {
-                img: "http://s.test.inna.ru/Files/Photos/140221190450/140221191248/p_960x428.jpg",
-                titleSub: "Куба",
-                titleMain: "Гавана",
-                titleInfo: "7 ночей, на двоих",
-                priceTxt: "от",
-                priceValue: "59 450"
+            function randomInteger (min, max) {
+                var rand = min + Math.random() * (max - min)
+                rand = Math.round(rand);
+                return rand;
             }
 
-            $scope.offers = [];
-
-
             var offers = [];
-            for (var i = 0; i < 9; i++) {
+            for (var i = 0; i < 16; i++) {
+                var offer = {
+                    img: "http://s.test.inna.ru/Files/Photos/140221190450/140221191248/p_960x428.jpg",
+                    titleSub: "Куба",
+                    titleMain: "Гавана",
+                    titleInfo: "7 ночей, на двоих",
+                    priceTxt: "от",
+                    priceValue: randomInteger(20000, 300000)
+                };
                 offers.push(offer);
             }
 
-
-            var copyOffers = angular.copy(offers);
-            var newOffers = [];
-            var countIndex = 0;
-            for (var i = 0; i < offers.length; i++) {
-                if (i % 3 == 0) {
-                    countIndex = i / 3;
-                } else {
-
-                }
-                var of = copyOffers.shift(0);
-                console.log(countIndex)
-                newOffers[countIndex].push(of);
-                console.log(newOffers);
-            }
+            $scope.offers = _.partitionArray(offers, 3);
 
         }
     }

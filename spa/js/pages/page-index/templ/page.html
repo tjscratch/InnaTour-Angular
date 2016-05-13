@@ -1,5 +1,5 @@
 <!-- Полная копипста из tour_grid_page -->
-<div class="layout offers-layout__mod"> 
+<div class="layout offers-layout__mod">
 	<div class="offers-card-banner-container main" ng-controller="SliderCtrl" ng-show="slides.length > 0" app-slider>
 		<ul class="offers-card-banner-list Offer-card-banners">
 			<li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
@@ -39,7 +39,7 @@
 	</div>
 
 
-	<div class="b-offers-container">
+	<div class="b-offers-container" ng-cloak>
 		<offers></offers>
 	</div>
 
