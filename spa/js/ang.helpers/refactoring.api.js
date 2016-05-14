@@ -29,5 +29,7 @@ innaAppServices.factory('appApi', function () {
         BUS_GET_LIST: url('/Hotels/SearchbusList'),
 
         GET_COUNTRIES: url('/Dictionary/Country'),
+        
+        GET_OFFERS: url('/BestOffer/GetOffers'),
     }
 });

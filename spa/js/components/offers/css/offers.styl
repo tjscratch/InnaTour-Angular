@@ -1,19 +1,43 @@
 $b-offer-offset = 1.5px;
-offerSize(width, height){
+offerSize(width, height) {
     width: width;
     padding-top: height;
 }
+
 /////////
 /////////
 ///////// offers container
 /////////
 /////////
-.b-offers-container{
+.b-offers-container {
     max-width: $site-width;
     margin: 50px auto;
 }
-.b-offers{
+
+.b-offers {
     //font-size: 0;
+}
+
+/////////
+/////////
+///////// offer filters
+/////////
+/////////
+.b-offers-filters {
+    position: relative;
+    z-index: 200;
+
+    display: flex;
+    justify-content: space-between;
+
+    margin: 0 0 50px;
+}
+.b-offers-filter{
+    z-index: 2000;
+    width: 22.5%;
+}
+.b-offers-filter-sort{
+    width: 31%;
 }
 /////////
 /////////
@@ -22,14 +46,15 @@ offerSize(width, height){
 /////////
 $b-offer-row-size = 44%;
 $b-offer-row-size-2 = 33%;
-.b-offers__row{
+.b-offers__row {
     position: relative;
     width: 100%;
     //height: 0;
     margin: 0 -$b-offer-offset;
     font-size: 0;
 }
-.b-offers__row-top{
+
+.b-offers__row-top {
     position: relative;
     z-index 20
     padding 10px
@@ -38,25 +63,26 @@ $b-offer-row-size-2 = 33%;
     font-size 1rem
     text-align center
 }
-.b-offers__row{
-    &:nth-child(1){
+
+.b-offers__row {
+    &:nth-child(1) {
         padding: 0 0 $b-offer-row-size;
-        .b-offer{
-            &:nth-child(1){
+        .b-offer {
+            &:nth-child(1) {
                 right: auto;
                 left: 0;
                 top: 0;
                 bottom: auto;
                 offerSize(66%, $b-offer-row-size);
             }
-            &:nth-child(2){
+            &:nth-child(2) {
                 right: 0;
                 left: auto;
                 top: 0;
                 bottom: auto;
                 offerSize(34%, ($b-offer-row-size / 2));
             }
-            &:nth-child(3){
+            &:nth-child(3) {
                 right: 0;
                 left: auto;
                 top: auto;
@@ -65,22 +91,22 @@ $b-offer-row-size-2 = 33%;
             }
         }
     }
-    &:nth-child(2n){
+    &:nth-child(2n) {
         padding: 0 0 $b-offer-row-size;
-        .b-offer{
-            &:nth-child(1){
+        .b-offer {
+            &:nth-child(1) {
                 left: auto;
                 right: 0;
                 top: 0;
                 offerSize(66%, $b-offer-row-size);
             }
-            &:nth-child(2){
+            &:nth-child(2) {
                 right: auto;
                 left: 0;
                 top: 0;
                 offerSize(34%, ($b-offer-row-size / 2));
             }
-            &:nth-child(3){
+            &:nth-child(3) {
                 right: auto;
                 left: 0;
                 bottom: 0;
@@ -88,24 +114,24 @@ $b-offer-row-size-2 = 33%;
             }
         }
     }
-    &:nth-child(3n){
+    &:nth-child(3n) {
         padding: 0 0 ($b-offer-row-size + $b-offer-row-size-2);
 
-        .b-offer{
-            &:nth-child(1){
+        .b-offer {
+            &:nth-child(1) {
                 left: auto;
                 right: 0;
                 top: 0;
                 offerSize(100%, $b-offer-row-size);
             }
-            &:nth-child(2){
+            &:nth-child(2) {
                 right: auto;
                 left: 0;
                 top: auto;
                 bottom: 0;
                 offerSize(50%, $b-offer-row-size-2);
             }
-            &:nth-child(3){
+            &:nth-child(3) {
                 right: 0;
                 left: auto;
                 top: auto;
@@ -114,25 +140,25 @@ $b-offer-row-size-2 = 33%;
             }
         }
     }
-    &:nth-child(4n + 1){
+    &:nth-child(4n + 1) {
         padding: 0 0 $b-offer-row-size;
 
-        .b-offer{
-            &:nth-child(1){
+        .b-offer {
+            &:nth-child(1) {
                 right: auto;
                 left: 0;
                 top: 0;
                 bottom: auto;
                 offerSize(66%, $b-offer-row-size);
             }
-            &:nth-child(2){
+            &:nth-child(2) {
                 right: 0;
                 left: auto;
                 top: 0;
                 bottom: auto;
                 offerSize(34%, ($b-offer-row-size / 2));
             }
-            &:nth-child(3){
+            &:nth-child(3) {
                 right: 0;
                 left: auto;
                 top: auto;
@@ -142,12 +168,13 @@ $b-offer-row-size-2 = 33%;
         }
     }
 }
+
 /////////
 /////////
 ///////// offer
 /////////
 /////////
-.b-offer{
+.b-offer {
     position: absolute;
     height: 0;
     box-sizing: border-box;
@@ -156,7 +183,8 @@ $b-offer-row-size-2 = 33%;
     font-size: 1rem;
     color: $white;
 }
-.b-offer__bg{
+
+.b-offer__bg {
     position: absolute;
     left: 0;
     right: 0;
@@ -167,7 +195,8 @@ $b-offer-row-size-2 = 33%;
     background-size: cover;
     transition: all 1s;
 }
-.b-offer__container{
+
+.b-offer__container {
     position: absolute;
     left: $b-offer-offset;
     right: $b-offer-offset;
@@ -175,13 +204,14 @@ $b-offer-row-size-2 = 33%;
     bottom: $b-offer-offset;
     overflow: hidden;
 
-    &:hover{
-        .b-offer__bg{
+    &:hover {
+        .b-offer__bg {
             transform: translateZ(0) scale(1.3);
         }
     }
 }
-.b-offer__container-txt{
+
+.b-offer__container-txt {
     position: absolute;
     left: 0;
     right: 0;
@@ -191,7 +221,8 @@ $b-offer-row-size-2 = 33%;
     padding: 15px;
     background-color: rgba(0, 0, 0, .3);
 }
-.b-offer__container-link{
+
+.b-offer__container-link {
     position: absolute;
     left: 0;
     right: 0;
@@ -199,40 +230,48 @@ $b-offer-row-size-2 = 33%;
     bottom: 0;
     z-index: 3;
 }
-.b-offer__title{
+
+.b-offer__title {
     position: absolute;
     top: 15px;
     font-weight: normal;
 }
-.b-offer__title-sub{
+
+.b-offer__title-sub {
     font-size: 15px;
     color: #d6d6d6;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
 }
-.b-offer__title-main{
+
+.b-offer__title-main {
     font-size: 29px;
     color: #fff;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
 }
-.b-offer__title-info{
+
+.b-offer__title-info {
     font-size: 14px;
     color: #fff;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
 }
-.b-offer__price{
+
+.b-offer__price {
     position: absolute;
     bottom: 15px;
 }
-.b-offer__price-txt{
+
+.b-offer__price-txt {
     font-size: 14px;
     color: #fff;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
 }
-.b-offer__price-value{
+
+.b-offer__price-value {
     font-size: 29px;
     color: #fff;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
 }
-.b-offer__price-currency{
+
+.b-offer__price-currency {
     font-size: 25px;
 }
