@@ -1,56 +1,57 @@
 <div class="b-offers-container">
 
+    <div class="b-offers-filters-container">
+        <div class="b-offers-filters">
 
-    <div class="b-offers-filters">
+            <ui-select ng-model="filter.Location"
+                       theme="selectize"
+                       append-to-body="'true'"
+                       on-select="filterChange(filter)"
+                       class="b-offers-filter">
+                <ui-select-match placeholder="Location">{{$select.selected.Text}}</ui-select-match>
+                <ui-select-choices repeat="item.Value as item in Locations | filter: $select.search"
+                                   refresh-delay="0">
+                    <span ng-bind-html="item.Text | highlight: $select.search"></span>
+                </ui-select-choices>
+            </ui-select>
 
-        <ui-select ng-model="filter.Location"
-                   theme="selectize"
-                   append-to-body="'true'"
-                   on-select="filterChange(filter)"
-                   class="b-offers-filter">
-            <ui-select-match placeholder="Location">{{$select.selected.Text}}</ui-select-match>
-            <ui-select-choices repeat="item.Value as item in Locations | filter: $select.search"
-                               refresh-delay="0">
-                <span ng-bind-html="item.Text | highlight: $select.search"></span>
-            </ui-select-choices>
-        </ui-select>
+            <ui-select ng-model="filter.Month"
+                       theme="selectize"
+                       append-to-body="'true'"
+                       on-select="filterChange(filter)"
+                       class="b-offers-filter">
+                <ui-select-match placeholder="Month">{{$select.selected.Text}}</ui-select-match>
+                <ui-select-choices repeat="item.Value as item in Months | filter: $select.search"
+                                   refresh-delay="0">
+                    <span ng-bind-html="item.Text | highlight: $select.search"></span>
+                </ui-select-choices>
+            </ui-select>
 
-        <ui-select ng-model="filter.Month"
-                   theme="selectize"
-                   append-to-body="'true'"
-                   on-select="filterChange(filter)"
-                   class="b-offers-filter">
-            <ui-select-match placeholder="Month">{{$select.selected.Text}}</ui-select-match>
-            <ui-select-choices repeat="item.Value as item in Months | filter: $select.search"
-                               refresh-delay="0">
-                <span ng-bind-html="item.Text | highlight: $select.search"></span>
-            </ui-select-choices>
-        </ui-select>
+            <ui-select ng-model="filter.Period"
+                       theme="selectize"
+                       append-to-body="'true'"
+                       on-select="filterChange(filter)"
+                       class="b-offers-filter">
+                <ui-select-match placeholder="Period">{{$select.selected.Text}}</ui-select-match>
+                <ui-select-choices repeat="item.Value as item in Periods | filter: $select.search"
+                                   refresh-delay="0">
+                    <span ng-bind-html="item.Text | highlight: $select.search"></span>
+                </ui-select-choices>
+            </ui-select>
 
-        <ui-select ng-model="filter.Period"
-                   theme="selectize"
-                   append-to-body="'true'"
-                   on-select="filterChange(filter)"
-                   class="b-offers-filter">
-            <ui-select-match placeholder="Period">{{$select.selected.Text}}</ui-select-match>
-            <ui-select-choices repeat="item.Value as item in Periods | filter: $select.search"
-                               refresh-delay="0">
-                <span ng-bind-html="item.Text | highlight: $select.search"></span>
-            </ui-select-choices>
-        </ui-select>
+            <ui-select ng-model="Sort"
+                       theme="selectize"
+                       append-to-body="'true'"
+                       on-select="offersSort(Sort)"
+                       class="b-offers-filter b-offers-filter__sort">
+                <ui-select-match placeholder="Sort">Сортировать: {{$select.selected.Text}}</ui-select-match>
+                <ui-select-choices repeat="item.Value as item in Sorts | filter: $select.search"
+                                   refresh-delay="0">
+                    <span ng-bind-html="item.Text | highlight: $select.search"></span>
+                </ui-select-choices>
+            </ui-select>
 
-        <ui-select ng-model="Sort"
-                   theme="selectize"
-                   append-to-body="'true'"
-                   on-select="offersSort(Sort)"
-                   class="b-offers-filter-sort">
-            <ui-select-match placeholder="Sort">Сортировать: {{$select.selected.Text}}</ui-select-match>
-            <ui-select-choices repeat="item.Value as item in Sorts | filter: $select.search"
-                               refresh-delay="0">
-                <span ng-bind-html="item.Text | highlight: $select.search"></span>
-            </ui-select-choices>
-        </ui-select>
-
+        </div>
     </div>
 
 
