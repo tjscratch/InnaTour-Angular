@@ -16,14 +16,13 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 Period: null
             };
 
-            Offer.getOffers()
-                .then(
-                    function (res) {
-                        setDefaultValue(res);
-                    }, function (res) {
-                        console.log('/BestOffer/GetOffers ERROR');
-                        console.log(res);
-                    });
+            Offer.getOffers().then(
+                function (res) {
+                    setDefaultValue(res);
+                }, function (res) {
+                    console.log('/BestOffer/GetOffers ERROR');
+                    console.log(res);
+                });
 
 
             function setDefaultValue(res) {
@@ -35,28 +34,32 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 $scope.Sorts = res.data.Sort;
 
 
-                $scope.filter.Location = _.find($scope.Locations, function (item) {
+                var LocationObj = _.find($scope.Locations, function (item) {
                     return item.Selected == true;
                 });
-                if (!$scope.filter.Location) {
+                if (!LocationObj) {
                     /**
                      * если локация сохранена в кеше то берем её оттуда
                      * если кэш путой подставляем id Москвы 6733
                      */
                     var cacheLocation = serviceCache.getObject('DP_from');
                     var cacheLocationId = cacheLocation ? cacheLocation.Id : 6733;
-                    $scope.filter.Location = _.find($scope.Locations, function (item) {
+                    LocationObj = _.find($scope.Locations, function (item) {
                         return item.Value == cacheLocationId;
                     });
+                    $scope.filter.Location = LocationObj.Value;
+                }else{
+                    $scope.filter.Location = LocationObj.Value;
                 }
-
-                $scope.filter.Month = _.find($scope.Months, function (item) {
+                var MonthObj = _.find($scope.Months, function (item) {
                     return item.Selected == true;
                 });
+                $scope.filter.Month = MonthObj.Value;
 
-                $scope.filter.Period = _.find($scope.Periods, function (item) {
+                var PeriodObj = _.find($scope.Periods, function (item) {
                     return item.Selected == true;
                 });
+                $scope.filter.Period = PeriodObj.Value;
 
                 $scope.Sort = _.find($scope.Sorts, function (item) {
                     return item.Selected == true;
@@ -64,6 +67,39 @@ innaAppDirectives.directive('offers', function ($templateCache) {
 
             }
 
+
+            $scope.filterChange = function (filter) {
+                console.log(filter);
+                Offer.getOffers(filter).then(
+                    function (res) {
+                        console.log(res.data);
+                    }, function (res) {
+                        console.log('/BestOffer/GetOffers ERROR');
+                        console.log(res);
+                    });
+
+            };
+
+
+            $scope.offersSort = function (sortableType) {
+                console.log('offersSort');
+                console.log(sortableType);
+            };
+
+
+//
+//
+//
+//
+//
+//
+// генерация офферов
+//
+//
+//
+//
+//
+//
             function randomInteger(min, max) {
                 var rand = min + Math.random() * (max - min)
                 rand = Math.round(rand);
