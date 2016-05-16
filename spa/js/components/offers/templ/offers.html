@@ -1,98 +1,102 @@
 <div class="b-offers-container">
 
-    <div class="b-offers-filters-container">
-        <div class="b-offers-filters">
+	<div class="b-offers-filters-container">
+		<div class="b-offers-filters">
 
-            <ui-select ng-model="filter.Location"
-                       theme="selectize"
-                       append-to-body="'true'"
-                       on-select="filterChange(filter)"
-                       class="b-offers-filter">
-                <ui-select-match placeholder="Location">{{$select.selected.Text}}</ui-select-match>
-                <ui-select-choices repeat="item.Value as item in Locations | filter: $select.search"
-                                   refresh-delay="0">
-                    <span ng-bind-html="item.Text | highlight: $select.search"></span>
-                </ui-select-choices>
-            </ui-select>
+			<ui-select ng-model="filter.Location"
+			           theme="selectize"
+			           append-to-body="'true'"
+			           on-select="filterChange(filter)"
+			           class="b-offers-filter">
+				<ui-select-match placeholder="Откуда">{{$select.selected.Text}}</ui-select-match>
+				<ui-select-choices repeat="item.Value as item in Locations | filter: $select.search"
+				                   refresh-delay="0">
+					<span ng-bind-html="item.Text | highlight: $select.search"></span>
+				</ui-select-choices>
+			</ui-select>
 
-            <ui-select ng-model="filter.Month"
-                       theme="selectize"
-                       append-to-body="'true'"
-                       on-select="filterChange(filter)"
-                       class="b-offers-filter">
-                <ui-select-match placeholder="Month">{{$select.selected.Text}}</ui-select-match>
-                <ui-select-choices repeat="item.Value as item in Months | filter: $select.search"
-                                   refresh-delay="0">
-                    <span ng-bind-html="item.Text | highlight: $select.search"></span>
-                </ui-select-choices>
-            </ui-select>
+			<ui-select ng-model="filter.Month"
+			           theme="selectize"
+			           append-to-body="'true'"
+			           on-select="filterChange(filter)"
+			           class="b-offers-filter">
+				<ui-select-match placeholder="Когда">{{$select.selected.Text}}</ui-select-match>
+				<ui-select-choices repeat="item.Value as item in Months | filter: $select.search"
+				                   refresh-delay="0">
+					<span ng-bind-html="item.Text | highlight: $select.search"></span>
+				</ui-select-choices>
+			</ui-select>
 
-            <ui-select ng-model="filter.Period"
-                       theme="selectize"
-                       append-to-body="'true'"
-                       on-select="filterChange(filter)"
-                       class="b-offers-filter">
-                <ui-select-match placeholder="Period">{{$select.selected.Text}}</ui-select-match>
-                <ui-select-choices repeat="item.Value as item in Periods | filter: $select.search"
-                                   refresh-delay="0">
-                    <span ng-bind-html="item.Text | highlight: $select.search"></span>
-                </ui-select-choices>
-            </ui-select>
+			<ui-select ng-model="filter.Period"
+			           theme="selectize"
+			           append-to-body="'true'"
+			           on-select="filterChange(filter)"
+			           class="b-offers-filter">
+				<ui-select-match placeholder="На сколько">{{$select.selected.Text}}</ui-select-match>
+				<ui-select-choices repeat="item.Value as item in Periods | filter: $select.search"
+				                   refresh-delay="0">
+					<span ng-bind-html="item.Text | highlight: $select.search"></span>
+				</ui-select-choices>
+			</ui-select>
 
-            <ui-select ng-model="Sort"
-                       theme="selectize"
-                       append-to-body="'true'"
-                       on-select="offersSort(Sort)"
-                       class="b-offers-filter b-offers-filter__sort">
-                <ui-select-match placeholder="Sort">Сортировать: {{$select.selected.Text}}</ui-select-match>
-                <ui-select-choices repeat="item.Value as item in Sorts | filter: $select.search"
-                                   refresh-delay="0">
-                    <span ng-bind-html="item.Text | highlight: $select.search"></span>
-                </ui-select-choices>
-            </ui-select>
+			<ui-select ng-model="Sort"
+			           theme="selectize"
+			           append-to-body="'true'"
+			           on-select="offersSort(Sort)"
+			           class="b-offers-filter b-offers-filter__sort">
+				<ui-select-match placeholder="Сортировать">Сортировать: {{$select.selected.Text}}</ui-select-match>
+				<ui-select-choices repeat="item.Value as item in Sorts | filter: $select.search"
+				                   refresh-delay="0">
+					<span ng-bind-html="item.Text | highlight: $select.search"></span>
+				</ui-select-choices>
+			</ui-select>
 
-        </div>
-    </div>
+		</div>
+	</div>
 
 
-    <div class="b-offers">
-        <div class="b-offers__row" ng-repeat="offerArr in offers track by $index">
-            <div class="b-offer" ng-repeat="offer in offerArr track by $index">
-                <div class="b-offer__container">
-                    <div class="b-offer__bg"
-                         style="background-image: url('{{ offer.img }}')"
-                    ></div>
+	<div class="b-offers">
+		<div class="b-offers__row"
+		     ng-repeat="offerArr in offers track by $index"
+		     ng-class="{'b-offers__row-1' : (offerArr.length == 1), 'b-offers__row-2' : (offerArr.length == 2)}"
+		>
+			<div class="b-offer"
+			     ng-repeat="offer in offerArr track by $index"
+			>
+				<div class="b-offer__container">
+					<div class="b-offer__bg"
+					     style="background-image: url('{{ offer.img }}')"
+					></div>
 
-                    <a class="b-offer__container-link" href="#"></a>
+					<a class="b-offer__container-link" href="#"></a>
 
-                    <div class="b-offer__container-txt">
+					<div class="b-offer__container-txt">
 
-                        <h2 class="b-offer__title">
-                            <div class="b-offer__title-sub">
-                                {{ offer.titleSub }}
-                            </div>
-                            <div class="b-offer__title-main">
-                                {{ offer.titleMain }}
-                            </div>
-                            <div class="b-offer__title-info">
-                                {{ offer.titleInfo }}
-                            </div>
-                        </h2>
+						<h2 class="b-offer__title">
+							<div class="b-offer__title-sub">
+								{{ offer.titleSub }}
+							</div>
+							<div class="b-offer__title-main">
+								{{ offer.titleMain }}
+							</div>
+							<div class="b-offer__title-info">
+								{{ offer.titleInfo }}
+							</div>
+						</h2>
 
-                        <div class="b-offer__price">
-                            <div class="b-offer__price-txt">
-                                {{ offer.priceTxt }}
-                            </div>
-                            <div class="b-offer__price-value">
-                                {{ offer.priceValue | currency : "" : 0 }}
-                                <i class="fa fa-rub b-offer__price-currency"></i>
-                            </div>
-                        </div>
+						<div class="b-offer__price">
+							<div class="b-offer__price-txt">
+								{{ offer.priceTxt }}
+							</div>
+							<div class="b-offer__price-value">
+								{{ offer.priceValue | currency : "" : 0 }}
+								<i class="fa fa-rub b-offer__price-currency"></i>
+							</div>
+						</div>
 
-                    </div>
-                </div>
-            </div>
-            <div class="b-offers__row-top">{{ $index + 1}}</div>
-        </div>
-    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

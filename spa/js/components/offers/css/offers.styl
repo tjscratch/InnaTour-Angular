@@ -1,5 +1,5 @@
 $b-offer-offset = 1.5px;
-offerSize(width, height) {
+offerSize(width, height){
     width: width;
     padding-top: height;
 }
@@ -8,9 +8,9 @@ offerSize(width, height) {
 ///////// offers container
 /////////
 /////////
-.b-offers-container {
+.b-offers-container{
 }
-.b-offers {
+.b-offers{
     max-width: $site-width;
     margin: 0 auto;
 }
@@ -19,12 +19,12 @@ offerSize(width, height) {
 ///////// offer filters
 ///////// <i class="fa fa-check" aria-hidden="true"></i>
 /////////
-.b-offers-filters-container {
+.b-offers-filters-container{
     margin: 0 0 50px;
 
-    background-image: linear-gradient(-180deg, #1B1B1B 0%, #2B2B2B 100%);
+    background-image: linear-gradient(-180deg, #1b1b1b 0%, #2b2b2b 100%);
 }
-.b-offers-filters {
+.b-offers-filters{
     max-width: $site-width;
     margin: 0 auto 50px;
     padding: 10px 0;
@@ -32,33 +32,33 @@ offerSize(width, height) {
     display: flex;
     justify-content: space-between;
 }
-.b-offers-filter {
+.b-offers-filter{
     z-index: 2000;
     width: 22.7%;
 
-    &.selectize-control {
-        .selectize-input {
+    &.selectize-control{
+        .selectize-input{
             padding: 9px 10px;
             border-radius: 0;
             background-color: $white;
             background-image: none;
             border: none;
         }
-        .selectize-dropdown {
+        .selectize-dropdown{
             border-radius: 0;
             border: none;
 
-            .option {
+            .option{
                 position: relative;
                 padding: 7px 8px 7px 28px;
                 color: #000;
             }
-            .ui-select-choices-row.active {
-                .option {
-                    background-color: #E4E6E8;
+            .ui-select-choices-row.active{
+                .option{
+                    background-color: #e4e6e8;
                     color: #000;
 
-                    &:before {
+                    &:before{
                         content: "\f00c";
                         position: absolute;
                         left: 10px;
@@ -73,7 +73,7 @@ offerSize(width, height) {
         }
     }
 }
-.b-offers-filter__sort {
+.b-offers-filter__sort{
     width: 31%;
 }
 /////////
@@ -83,41 +83,32 @@ offerSize(width, height) {
 /////////
 $b-offer-row-size = 44%;
 $b-offer-row-size-2 = 33%;
-.b-offers__row {
+.b-offers__row{
     position: relative;
     width: 100%;
     //height: 0;
     margin: 0 -$b-offer-offset;
     font-size: 0;
 }
-.b-offers__row-top {
-    position: relative;
-    z-index 20
-    padding 10px
-    background-color #00a000
-    color #fff
-    font-size 1rem
-    text-align center
-}
-.b-offers__row {
-    &:nth-child(1) {
+.b-offers__row{
+    &:nth-child(3n + 1){
         padding: 0 0 $b-offer-row-size;
-        .b-offer {
-            &:nth-child(1) {
+        .b-offer{
+            &:nth-child(1){
                 right: auto;
                 left: 0;
                 top: 0;
                 bottom: auto;
                 offerSize(66%, $b-offer-row-size);
             }
-            &:nth-child(2) {
+            &:nth-child(2){
                 right: 0;
                 left: auto;
                 top: 0;
                 bottom: auto;
                 offerSize(34%, ($b-offer-row-size / 2));
             }
-            &:nth-child(3) {
+            &:nth-child(3){
                 right: 0;
                 left: auto;
                 top: auto;
@@ -126,22 +117,22 @@ $b-offer-row-size-2 = 33%;
             }
         }
     }
-    &:nth-child(2n) {
+    &:nth-child(3n + 2){
         padding: 0 0 $b-offer-row-size;
-        .b-offer {
-            &:nth-child(1) {
+        .b-offer{
+            &:nth-child(1){
                 left: auto;
                 right: 0;
                 top: 0;
                 offerSize(66%, $b-offer-row-size);
             }
-            &:nth-child(2) {
+            &:nth-child(2){
                 right: auto;
                 left: 0;
                 top: 0;
                 offerSize(34%, ($b-offer-row-size / 2));
             }
-            &:nth-child(3) {
+            &:nth-child(3){
                 right: auto;
                 left: 0;
                 bottom: 0;
@@ -149,24 +140,24 @@ $b-offer-row-size-2 = 33%;
             }
         }
     }
-    &:nth-child(3n) {
+    &:nth-child(3n + 3){
         padding: 0 0 ($b-offer-row-size + $b-offer-row-size-2);
 
-        .b-offer {
-            &:nth-child(1) {
+        .b-offer{
+            &:nth-child(1){
                 left: auto;
                 right: 0;
                 top: 0;
                 offerSize(100%, $b-offer-row-size);
             }
-            &:nth-child(2) {
+            &:nth-child(2){
                 right: auto;
                 left: 0;
                 top: auto;
                 bottom: 0;
                 offerSize(50%, $b-offer-row-size-2);
             }
-            &:nth-child(3) {
+            &:nth-child(3){
                 right: 0;
                 left: auto;
                 top: auto;
@@ -175,30 +166,32 @@ $b-offer-row-size-2 = 33%;
             }
         }
     }
-    &:nth-child(4n + 1) {
-        padding: 0 0 $b-offer-row-size;
-
-        .b-offer {
-            &:nth-child(1) {
+    &.b-offers__row-1{
+        .b-offer{
+            &:nth-child(1){
                 right: auto;
                 left: 0;
                 top: 0;
                 bottom: auto;
-                offerSize(66%, $b-offer-row-size);
+                offerSize(100%, $b-offer-row-size);
             }
-            &:nth-child(2) {
+        }
+    }
+    &.b-offers__row-2{
+        .b-offer{
+            &:nth-child(1){
+                right: auto;
+                left: 0;
+                top: 0;
+                bottom: auto;
+                offerSize(50%, $b-offer-row-size-2);
+            }
+            &:nth-child(2){
                 right: 0;
                 left: auto;
                 top: 0;
                 bottom: auto;
-                offerSize(34%, ($b-offer-row-size / 2));
-            }
-            &:nth-child(3) {
-                right: 0;
-                left: auto;
-                top: auto;
-                bottom: 0;
-                offerSize(34%, ($b-offer-row-size / 2));
+                offerSize(50%, $b-offer-row-size-2);
             }
         }
     }
@@ -208,7 +201,7 @@ $b-offer-row-size-2 = 33%;
 ///////// offer
 /////////
 /////////
-.b-offer {
+.b-offer{
     position: absolute;
     height: 0;
     box-sizing: border-box;
@@ -217,7 +210,7 @@ $b-offer-row-size-2 = 33%;
     font-size: 1rem;
     color: $white;
 }
-.b-offer__bg {
+.b-offer__bg{
     position: absolute;
     left: 0;
     right: 0;
@@ -228,7 +221,7 @@ $b-offer-row-size-2 = 33%;
     background-size: cover;
     transition: all 1s;
 }
-.b-offer__container {
+.b-offer__container{
     position: absolute;
     left: $b-offer-offset;
     right: $b-offer-offset;
@@ -236,13 +229,13 @@ $b-offer-row-size-2 = 33%;
     bottom: $b-offer-offset;
     overflow: hidden;
 
-    &:hover {
-        .b-offer__bg {
+    &:hover{
+        .b-offer__bg{
             transform: translateZ(0) scale(1.3);
         }
     }
 }
-.b-offer__container-txt {
+.b-offer__container-txt{
     position: absolute;
     left: 0;
     right: 0;
@@ -252,7 +245,7 @@ $b-offer-row-size-2 = 33%;
     padding: 15px;
     background-color: rgba(0, 0, 0, .3);
 }
-.b-offer__container-link {
+.b-offer__container-link{
     position: absolute;
     left: 0;
     right: 0;
@@ -260,40 +253,40 @@ $b-offer-row-size-2 = 33%;
     bottom: 0;
     z-index: 3;
 }
-.b-offer__title {
+.b-offer__title{
     position: absolute;
     top: 15px;
     font-weight: normal;
 }
-.b-offer__title-sub {
+.b-offer__title-sub{
     font-size: 15px;
     color: #d6d6d6;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
 }
-.b-offer__title-main {
+.b-offer__title-main{
     font-size: 29px;
     color: #fff;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
 }
-.b-offer__title-info {
+.b-offer__title-info{
     font-size: 14px;
     color: #fff;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
 }
-.b-offer__price {
+.b-offer__price{
     position: absolute;
     bottom: 15px;
 }
-.b-offer__price-txt {
+.b-offer__price-txt{
     font-size: 14px;
     color: #fff;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
 }
-.b-offer__price-value {
+.b-offer__price-value{
     font-size: 29px;
     color: #fff;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
 }
-.b-offer__price-currency {
+.b-offer__price-currency{
     font-size: 25px;
 }
