@@ -211,15 +211,13 @@ $b-offer-row-size-2 = 28%;
     color: $white;
 }
 .b-offer__bg{
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    position: relative;
+    width: 100%;
+    min-height: 100%;
     z-index: 1;
-    background-position: center;
-    background-size: cover;
-    transition: all 1s;
+    vertical-align: top;
+    transform: translateZ(0) scale(1.05);
+    transition: all 1.2s cubic-bezier(0.18, 0.89, 0.32, 1.28) 0s;
 }
 .b-offer__container{
     position: absolute;

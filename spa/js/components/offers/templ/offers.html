@@ -64,9 +64,13 @@
 			     ng-repeat="offer in offerArr track by $index"
 			>
 				<div class="b-offer__container">
-					<div class="b-offer__bg"
-					     style="background-image: url('{{ offer.img }}')"
-					></div>
+					<!--<div class="b-offer__bg"-->
+					     <!--style="background-image: url('{{ offer.img }}')"-->
+					<!--&gt;</div>-->
+
+					<img class="b-offer__bg"
+					     ng-src="{{ offer.img }}"
+					     alt="{{ offer.titleSub }}, {{ offer.titleMain }}, {{ offer.titleInfo }}"/>
 
 					<a class="b-offer__container-link" href="#"></a>
 
