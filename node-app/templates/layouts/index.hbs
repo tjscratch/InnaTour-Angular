@@ -99,9 +99,9 @@
 		!function (f, b, e, v, n, t, s) {
 			if (f.fbq)return;
 			n = f.fbq = function () {
-				n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-			}
-			;
+				n.callMethod ?
+						n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+			};
 			if (!f._fbq)f._fbq = n;
 			n.push = n;
 			n.loaded = !0;
@@ -110,17 +110,18 @@
 			t = b.createElement(e);
 			t.async = !0;
 			t.src = v;
-			s = b.getElementsByTagName(e)
-			0;
+			s = b.getElementsByTagName(e)[0];
 			s.parentNode.insertBefore(t, s)
 		}(window,
 				document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
 		fbq('init', '968767913213519');
 		fbq('track', "PageView");</script>
 	<noscript><img height="1" width="1" style="display:none"
 	               src="https://www.facebook.com/tr?id=968767913213519&ev=PageView&noscript=1"
 	/></noscript>
     <!-- End Facebook Pixel Code -->
+
 
 </head>
 <body class="light-theme"
@@ -206,8 +207,10 @@
 
 <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=true"></script>
+<!--
 <script type="text/javascript"
         src="https://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.13/src/infobox_packed.js"></script>
+        -->
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
 <!-- build:bower_components -->
