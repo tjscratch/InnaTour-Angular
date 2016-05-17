@@ -1,43 +1,5 @@
 <!-- Полная копипста из tour_grid_page -->
 <div class="layout offers-layout__mod">
-    <div class="offers-card-banner-container main" ng-controller="SliderCtrl" ng-show="slides.length > 0" app-slider>
-        <ul class="offers-card-banner-list Offer-card-banners">
-            <li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
-                <!--<img class="img" ng-src="slide.Image" />-->
-                <div class="img" style="background-image: url('{{slide.Image}}')"></div>
-                <div class="darken-container" ng-if="slide.NeedFilterBrightness"
-                     ng-click="offerClickSlider(slide, $event, $index)"></div>
-                <div class="info-container" ng-click="offerClickSlider(slide, $event, $index)">
-                    <div class="info">
-                        <h3 class="name" ng-if="!isNullOrEmpty(slide.FrontTitleRow1)">
-                            {{::slide.FrontTitleRow1}}
-                        </h3>
-
-                        <h3 class="name" ng-if="!isNullOrEmpty(slide.FrontTitleRow2)">
-                            {{::slide.FrontTitleRow2}}
-                        </h3>
-
-                        <p class="description" ng-if="!isNullOrEmpty(slide.FrontSubTitleRow1)">
-                            {{::slide.FrontSubTitleRow1}}
-                        </p>
-
-                        <p class="description" ng-if="!isNullOrEmpty(slide.FrontSubTitleRow2)">
-                            {{::slide.FrontSubTitleRow2}}
-                        </p>
-
-                        <p class="description" ng-if="!isNullOrEmpty(slide.FrontPrice)">
-                            {{::slide.FrontPrice}}
-                            <span class="price"></span>
-                        </p>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <div class="banner-dots-container">
-            <ul class="banner-dots Banner-dots"></ul>
-        </div>
-    </div>
-
 
     <offers ng-cloak></offers>
 
