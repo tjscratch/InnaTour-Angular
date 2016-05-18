@@ -49,7 +49,6 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                     return item.Selected == true;
                 });
                 $scope.Sort = SortObj.Value;
-                $scope.offersSort($scope.Sort);
             };
 
             $scope.showOffers = false;
@@ -65,7 +64,6 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 function (res) {
                     setDefaultValue(res);
                 }, function (res) {
-                    console.log(res);
                     RavenWrapper.raven({
                         captureMessage: 'Offer.getOffers(): ERROR!',
                         dataResponse: res,
@@ -92,8 +90,9 @@ innaAppDirectives.directive('offers', function ($templateCache) {
             $scope.filterChange = function (filter) {
                 Offer.getOffers(filter).then(
                     function (res) {
-                        console.log(res.data);
+                        $scope.offersServer = res.data.Offers;
                         $scope.showOffers = true;
+                        $scope.offersSort($scope.Sort, $scope.offersServer);
                     }, function (res) {
                         RavenWrapper.raven({
                             captureMessage: 'Offer.getOffers(filter): ERROR!',
@@ -104,8 +103,8 @@ innaAppDirectives.directive('offers', function ($templateCache) {
 
             };
 
-            var offers = Offer.mock(12);
-            $scope.offersSort = function (sortableType) {
+            // var offers = Offer.mock(12);
+            $scope.offersSort = function (sortableType, offers) {
                 $scope.offers = Offer.sortable(sortableType, offers);
             };
 

@@ -50,7 +50,8 @@
 					     ng-repeat="category in Categories"
 					     ng-class="{'active' : category.Selected}"
 					     ng-click="setCategory(category)"
-					>{{ category.Text }}</div>
+					>{{ category.Text }}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -102,7 +103,7 @@
 			<ui-select ng-model="Sort"
 			           theme="selectize"
 			           append-to-body="'true'"
-			           on-select="offersSort(Sort)"
+			           on-select="offersSort(Sort, offersServer)"
 			           class="b-offers-filter b-offers-filter__sort">
 				<ui-select-match placeholder="Сортировать">Сортировать: {{$select.selected.Text}}</ui-select-match>
 				<ui-select-choices repeat="item.Value as item in Sorts | filter: $select.search"
@@ -125,36 +126,42 @@
 			     ng-repeat="offer in offerArr track by $index"
 			>
 				<div class="b-offer__container">
-					<!--<div class="b-offer__bg"-->
-					<!--style="background-image: url('{{ offer.img }}')"-->
-					<!--&gt;</div>-->
+					<div class="b-offer__bg"
+					     style="background-image: url('{{ offer.ImageL }}')"
+					></div>
 
-					<img class="b-offer__bg"
-					     ng-src="{{ offer.img }}"
-					     alt="{{ offer.titleSub }}, {{ offer.titleMain }}, {{ offer.titleInfo }}"/>
+					<!--<img class="b-offer__bg"
+					     ng-src="{{ offer.ImageL }}"
+					     alt="{{ offer.Country }}, {{ offer.Location }}, {{ offer.Nights | asQuantity: 'ночь':'ночи':'ночей'}} на двоих"/>
+					     -->
 
-					<a class="b-offer__container-link" href="#"></a>
+					<a class="b-offer__container-link"
+					   href="{{ offer.Details }}"
+					   target="_blank"></a>
 
 					<div class="b-offer__container-txt">
 
 						<h2 class="b-offer__title">
 							<div class="b-offer__title-sub">
-								{{ offer.titleSub }}
+								{{ offer.Country }}
 							</div>
 							<div class="b-offer__title-main">
-								{{ offer.titleMain }}
+								{{ offer.Location }}
 							</div>
 							<div class="b-offer__title-info">
-								{{ offer.titleInfo }}
+								{{ offer.Nights | asQuantity:"ночь":"ночи":"ночей"}},
+								<span ng-if="offer.Adults == 1">на одного</span>
+								<span ng-if="offer.Adults == 2">на двоих</span>
+								<span ng-if="offer.Adults == 3">на троих</span>
 							</div>
 						</h2>
 
 						<div class="b-offer__price">
 							<div class="b-offer__price-txt">
-								{{ offer.priceTxt }}
+								от
 							</div>
 							<div class="b-offer__price-value">
-								{{ offer.priceValue | currency : "" : 0 }}
+								{{ offer.Price | currency : "" : 0 }}
 								<i class="fa fa-rub b-offer__price-currency"></i>
 							</div>
 						</div>

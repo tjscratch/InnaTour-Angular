@@ -11,17 +11,17 @@ innaAppServices.service('Offer', function ($http, appApi) {
             var sortOffers;
             if (sortableType == 0) {
                 sortOffers = _.sortBy(offers, function (o) {
-                    return o.popular;
+                    return o.Price > 0;
                 });
             }
             if (sortableType == 1) {
                 sortOffers = _.sortBy(offers, function (o) {
-                    return o.priceValue;
+                    return o.Price;
                 });
             }
             if (sortableType == 2) {
                 sortOffers = _.sortBy(offers, function (o) {
-                    return -o.priceValue;
+                    return -o.Price;
                 });
             }
             return _.partitionArray(sortOffers, 3);
