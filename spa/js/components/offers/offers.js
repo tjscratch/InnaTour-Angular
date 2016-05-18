@@ -2,10 +2,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
     return {
         replace: true,
         template: $templateCache.get("components/offers/templ/offers.html"),
-        link: function (scope, elem, attr) {
-
-        },
-        controller: function ($scope, serviceCache, Offer) {
+        controller: function ($scope, RavenWrapper, serviceCache, Offer) {
 
             function setDefaultValue (res) {
 
@@ -43,12 +40,19 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 });
                 $scope.filter.Period = PeriodObj.Value;
 
+                var CategoryObj = _.find($scope.Categories, function (item) {
+                    return item.Selected == true;
+                });
+                $scope.filter.Category = CategoryObj.Value;
+
                 var SortObj = _.find($scope.Sorts, function (item) {
                     return item.Selected == true;
                 });
                 $scope.Sort = SortObj.Value;
                 $scope.offersSort($scope.Sort);
             };
+
+            $scope.showOffers = false;
 
             $scope.filter = {
                 Category: null,
@@ -61,18 +65,41 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 function (res) {
                     setDefaultValue(res);
                 }, function (res) {
-                    console.log('/BestOffer/GetOffers ERROR');
                     console.log(res);
+                    RavenWrapper.raven({
+                        captureMessage: 'Offer.getOffers(): ERROR!',
+                        dataResponse: res,
+                        dataRequest: null
+                    });
                 });
 
+            $scope.setCategory = function (category) {
+                var categories = [];
+                for (var i = 0; i < $scope.Categories.length; i++) {
+                    var item = $scope.Categories[i];
+                    if (category == item) {
+                        item.Selected = true;
+                    } else {
+                        item.Selected = false;
+                    }
+                    categories.push(item);
+                }
+                $scope.Categories = categories;
+                $scope.filter.Category = category.Value;
+                $scope.filterChange($scope.filter);
+            };
 
             $scope.filterChange = function (filter) {
                 Offer.getOffers(filter).then(
                     function (res) {
                         console.log(res.data);
+                        $scope.showOffers = true;
                     }, function (res) {
-                        console.log('/BestOffer/GetOffers ERROR');
-                        console.log(res);
+                        RavenWrapper.raven({
+                            captureMessage: 'Offer.getOffers(filter): ERROR!',
+                            dataResponse: res,
+                            dataRequest: $scope.filter
+                        });
                     });
 
             };
