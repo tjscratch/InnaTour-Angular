@@ -9,7 +9,7 @@
 			<b>{{::hotels.length | asQuantity:"тур":"тура":"туров"}}</b>
 		</div>
 
-		<div class="SearchHotelResultsList" ng-if="hotels">
+		<div class="SearchHotelResultsList" ng-if="hotels.length > 0">
 			<div class="SearchHotelResultsList__item"
 			     ng-repeat="hotel in hotels track by $index"
 			>
