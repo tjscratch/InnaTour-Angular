@@ -47,7 +47,7 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     $rootScope.bodyClickListeners = [];
 
     $rootScope.addBodyClickListner = function (key, eventDelegate) {
-        $rootScope.bodyClickListeners.push({ key: key, eventDelegate: eventDelegate });
+        $rootScope.bodyClickListeners.push({key: key, eventDelegate: eventDelegate});
     };
 
     $rootScope.bodyClick = function () {
@@ -139,7 +139,7 @@ app.config([
     '$sceProvider',
     function ($routeProvider, $locationProvider, $httpProvider, url, AppRouteUrls, $sceProvider, $filter) {
 
-        function dynamic () {
+        function dynamic() {
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.realType == window.partners.WLType.full) {
                 if (partner.name == 'biletix') {
@@ -175,7 +175,7 @@ app.config([
             }
         }
 
-        function avia () {
+        function avia() {
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.realType == window.partners.WLType.b2b) {
                 if (partner.name == 'sputnik') {
@@ -326,9 +326,9 @@ app.config([
             templateUrl: 'components/agency-reg-form/templ/index.html',
             controller: 'AgencyRegFormCtrl'
         }).when(url.URL_WHERE_TO_BUY, {
-                templateUrl: 'components/where-to-buy/templ/where-to-buy.html',
-                controller: 'WhereToBuyCtrl'
-            })
+            templateUrl: 'components/where-to-buy/templ/where-to-buy.html',
+            controller: 'WhereToBuyCtrl'
+        })
             .when(url.URL_TRANSFERS, {
                 templateUrl: 'pages/page-transfers/templ/page-transfers.html',
                 controller: 'TrasnfersPageCtrl',
@@ -338,14 +338,21 @@ app.config([
             /**
              * begin hotels
              */
-            .when(AppRouteUrls.URL_HOTELS, dynamic())
+            // .when(AppRouteUrls.URL_HOTELS, dynamic)
+            .when(AppRouteUrls.URL_HOTELS, {
+                templateUrl: 'pages/page-hotels/templ/hotels-root.html',
+                controller: 'HotelsRootController',
+                resolve: authController.resolve
+            })
             .when(AppRouteUrls.URL_HOTELS + ':StartVoyageDate/' + ':ArrivalId-:NightCount-:Adult-:ChildrenCount', {
-               templateUrl: 'pages/page-hotels/templ/hotels-index.html',
-               controller: 'HotelsIndexController'
+                templateUrl: 'pages/page-hotels/templ/hotels-index.html',
+                controller: 'HotelsIndexController',
+                resolve: authController.resolve
             })
             .when(AppRouteUrls.URL_HOTELS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:ChildrenCount', {
-               templateUrl: 'pages/page-hotels/templ/hotels-show.html',
-               controller: 'HotelsShowController'
+                templateUrl: 'pages/page-hotels/templ/hotels-show.html',
+                controller: 'HotelsShowController',
+                resolve: authController.resolve
             })
             /**
              * begin bus tours
@@ -407,7 +414,7 @@ app.config(['$provide', function ($provide) {
     $provide.decorator("$exceptionHandler", ["$delegate", function (del) {
         return function (ex, cause) {
             if (Raven) {
-                Raven.setExtraContext({ context: "__$ExceptionHandler_CONTEXT__" })
+                Raven.setExtraContext({context: "__$ExceptionHandler_CONTEXT__"})
                 Raven.captureException(new Error(ex), {
                     extra: {
                         dataError: ex,
@@ -465,7 +472,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
      * @param [prefix]
      * @returns {string}
      */
-    function toParam (object, prefix) {
+    function toParam(object, prefix) {
         var stack = [];
         var value;
         var key;
@@ -520,7 +527,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
 //замена директиве link-in-new-window-if-can
 //jQuery версия - работает и с angular и с ractive
 (function ($) {
-    function getHashFromUrl (url) {
+    function getHashFromUrl(url) {
         var indexOfHash = url.indexOf("/#");
         var newUrl;
         if (indexOfHash > -1) {
@@ -532,7 +539,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
         return newUrl;
     }
 
-    function processLinks () {
+    function processLinks() {
         //находим все ссылки
         var links = $('a[link-in-new-window-if-can=""]');
         //console.log('links', links.length);
@@ -542,7 +549,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
         });
     }
 
-    function processLink (element) {
+    function processLink(element) {
         //var isBlank = false;
         //удаляем этот аттрибут, чтобы не открывалось новое пустое окно
         if (element.attr('target') == '_blank') {
