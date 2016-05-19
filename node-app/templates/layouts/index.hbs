@@ -99,9 +99,9 @@
 		!function (f, b, e, v, n, t, s) {
 			if (f.fbq)return;
 			n = f.fbq = function () {
-				n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-			}
-			;
+				n.callMethod ?
+						n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+			};
 			if (!f._fbq)f._fbq = n;
 			n.push = n;
 			n.loaded = !0;
@@ -110,11 +110,11 @@
 			t = b.createElement(e);
 			t.async = !0;
 			t.src = v;
-			s = b.getElementsByTagName(e)
-			0;
+			s = b.getElementsByTagName(e)[0];
 			s.parentNode.insertBefore(t, s)
 		}(window,
 				document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
 		fbq('init', '968767913213519');
 		fbq('track', "PageView");</script>
 	<noscript><img height="1" width="1" style="display:none"
@@ -205,8 +205,10 @@
 
 <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=true"></script>
+<!--<script type="text/javascript"-->
+        <!--src="https://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.13/src/infobox_packed.js"></script>-->
 <script type="text/javascript"
-        src="https://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.13/src/infobox_packed.js"></script>
+        src="/bower_components/google-maps-utility-library-v3-infobox/dist/infobox.min.js"></script>
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
 <!-- build:bower_components -->
@@ -214,7 +216,7 @@
 <!-- endbuild -->
 
 <script>
-    Raven.config('https://5423ebfb08194592901a70946621e5b4@sentry.inna.ru:9000/2', {
+    Raven.config('https://59926a30fbc14817a463747bd24cd7fa@app.getsentry.com/78136', {
         whitelistUrls: [/\.inna\.ru/],
         logger: 'javascript'
         /*, dataCallback: function(data) {
@@ -267,6 +269,49 @@
              src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/960692718/?value=0&guid=ON&script=0"/>
     </div>
 </noscript>
+
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+	if (window.partners && !window.partners.isWL()) {
+		var ua = navigator.userAgent.toLowerCase();
+		var platform = navigator.platform.toLowerCase();
+		var platformName = ua.match(/ip(?:ad|od|hone)/) ? 'ios' : (ua.match(/(?:webos|android)/) || platform.match(/mac|win|linux/) || ['other'])[0];
+		var isMobile = /ios|android|webos/.test(platformName);
+		if (!isMobile) {
+			window.$zopim || (function (d, s) {
+				var z = $zopim = function (c) {
+					z._.push(c)
+				}, $ = z.s =
+						d.createElement(s), e = d.getElementsByTagName(s)[0];
+				z.set = function (o) {
+					z.set._.push(o)
+				};
+				z._ = [];
+				z.set._ = [];
+				$.async = !0;
+				$.setAttribute('charset', 'utf-8');
+				$.src = '//v2.zopim.com/?2aZ00ADGa92tSwVaDs8vM1JiY6wPNdZN';
+				z.t = +new Date;
+				$.type = 'text/javascript';
+				e.parentNode.insertBefore($, e)
+				$.onload = function () {
+					document.querySelector(".zopim").style.width = "145px"
+				}
+			})(document, 'script');
+		}
+	}
+</script>
+<!--End of Zopim Live Chat Script-->
+
+{{#unless partner }}
+    <!-- BEGIN CLICKTEX CODE
+    {literal}
+    -->
+    <script type="text/javascript" charset="utf-8" async="async" src="//www.clicktex.ru/code/6491"></script>
+    <!--
+    {/literal}
+    END CLICKTEX CODE -->
+{{/unless}}
 
 
 <div id="debug_api_host" style="position: absolute; top: 10px; left: 10px; font-size: 12px; color: #fff; z-index: 1000;"></div>
