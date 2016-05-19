@@ -8,7 +8,7 @@ innaAppControllers.controller('HotelsRootController', function ($rootScope, $loc
     $timeout(function () {
         var isAgency = false;
         if ($rootScope.$root.user) {
-            if (parseInt($rootScope.$root.user.getAgencyId()) == 20005) {
+            if (parseInt($rootScope.$root.user.getAgencyId()) == 20005 || parseInt($rootScope.$root.user.getAgencyId()) == 2) {
                 isAgency = true;
             }
         }

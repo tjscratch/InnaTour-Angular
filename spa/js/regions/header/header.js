@@ -33,7 +33,7 @@ innaAppControllers
             $scope.isAgency = false;
             $scope.$on(Events.AUTH_USER_SET, function (e, data) {
                 if (data) {
-                    if (parseInt(data.getAgencyId()) == 20005) {
+                    if (parseInt(data.getAgencyId()) == 20005 || parseInt(data.getAgencyId()) == 2) {
                         $scope.isAgency = true;
                     }
                 }
