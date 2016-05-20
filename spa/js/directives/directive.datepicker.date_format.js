@@ -10,11 +10,30 @@ innaAppDirectives.directive('datePickerDateFormat', function () {
             //});
 
             ngModel.$parsers.push(function (value) {
-                
+
                 if(value){
                     var date = moment(value, 'DD MMM YYYY');
                     return date.format('D.M.YYYY');
                 }else{
+                    return null
+                }
+            });
+
+        }
+    };
+});
+
+innaAppDirectives.directive('datePickerDateFormatHotels', function () {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function ($scope, element, attr, ngModel) {
+            ngModel.$parsers.push(function (value) {
+
+                if (value) {
+                    var date = moment(value, 'DD MMM YYYY');
+                    return date.format('YYYY-MM-DD');
+                } else {
                     return null
                 }
             });

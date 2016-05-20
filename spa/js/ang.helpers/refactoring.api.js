@@ -19,6 +19,16 @@ innaAppServices.factory('appApi', function () {
         PACKAGES_DISCOUNTED_PRICE: url('/PackagesOrder/DiscountedPrice'),
         AVIA_DISCOUNTED_PRICE: url('/AviaOrder/DiscountedPrice'),
 
+        HOTELS_GET_SUGGEST: url('/Hotels/SuggestionList'),
+        HOTELS_GET_LIST: url('/Hotels/SearchHotelList'),
+        HOTELS_GET_DETAILS: url('/Hotels/HotelDetails'),
+        HOTELS_HOTEL_BUY: url('/Hotels/HotelBuy'),
+        HOTELS_RESERVATION: url('/HotelsOrder/Reservation'),
+    
+        BUS_GET_LIST: url('/Hotels/SearchbusList'),
+
+        GET_COUNTRIES: url('/Dictionary/Country'),
+
         GET_MANAGER_STATUS: url('/TalkingHeadSupportApi/GetManagerStatus2'),
     }
 });

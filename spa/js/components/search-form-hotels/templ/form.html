@@ -1,0 +1,72 @@
+<form class="b-search-form b-search-form-hotels">
+
+
+	<div class="b-search-form-hotels__field b-hotels-typeahead"
+		ng-class="{'b-search-form-hotels__field-error' : ArrivalIdError}">
+		<input
+				class="b-search-form-hotels__input b-search-form-hotels__input-typeahead"
+				type="text"
+				placeholder="Город/Название отеля"
+				ng-model="locationFrom"
+				typeahead="state as state.name for state in getLocationFrom($viewValue) | filter:$viewValue"
+				typeahead-template-url="components/search-form-hotels/templ/typeaheadTemplateCustom.html"
+				typeahead-wait-ms="300"
+				ng-change="ArrivalIdError = null"
+		/>
+		<div error-tooltip
+		     useHorizontalForm={{true}}
+		     position-top="44px"
+		     align="width-center"
+		     message="{{ArrivalIdError}}"
+		></div>
+	</div>
+
+
+	<div class="b-search-form-hotels__field b-hotels-daterange"
+	     ng-class="{'b-search-form-hotels__field-error' : StartVoyageDateError}">
+		<input date-picker-date-format-hotels
+		       class="b-search-form-hotels__input b-search-form-hotels__input-datapicker"
+		       type="text"
+		       name="startDate"
+		       ng-model="hotelsSearchForm.StartVoyageDate"
+		       placeholder="Дата заезда"
+		       ng-focus="StartVoyageDateError = null"
+		       autocomplete="off"
+		/>
+		<i class="fa fa-calendar b-search-form-hotels__field-icon"></i>
+
+		<div error-tooltip
+		     useHorizontalForm={{true}}
+		     position-top="44px"
+		     align="width-center"
+		     message="{{StartVoyageDateError}}"
+		></div>
+	</div>
+
+
+	<div class="b-search-form-hotels__field">
+		<night-count
+				tabindex="6"
+				count="hotelsSearchForm.NightCount"
+				>
+		</night-count>
+	</div>
+
+
+	<div class="b-search-form-hotels__field">
+		<div counter-people
+		     click-on-focus
+		     tabindex="5"
+		     adult-count="hotelsSearchForm.Adult"
+		     children-count="hotelsSearchForm.ChildrenCount"
+		     childrens-age="childrensAge"
+		     class="b-wrapp_type_inline no-outline-on-focus"></div>
+	</div>
+
+
+	<div tabindex="7" click-on-focus class="search-form__submit search-button-block_small no-outline-on-focus"
+	     ng-click="hotelsSearchStart($event)">
+		Найти
+	</div>
+
+</form>

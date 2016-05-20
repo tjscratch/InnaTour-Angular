@@ -1,0 +1,111 @@
+.ReservationForm{
+    width $site-width
+    margin 0 auto
+    padding 130px 20px 30px
+    background $white
+}
+.ReservationForm__breadcrumbs{
+    margin 0 0 25px
+
+    .section__crumbs__list__item{
+        &:first-child{
+            padding-left 0
+        }
+    }
+}
+.ReservationForm__title{
+    font-size: 21px;
+    line-height 1
+    font-weight: bold;
+    margin: $ReservationForm__title-margin-top 0 $ReservationForm__title-margin-bottom;
+}
+.ReservationForm__title-head{
+    margin-top: 0;
+}
+.ReservationForm__head{
+    display flex;
+    justify-content space-between;
+    margin 20px 0;
+}
+.ReservationForm__head-price-info{
+    white-space nowrap
+}
+.ReservationForm__head-price{
+    display inline-block
+    margin 0 0 0 10px
+    font-size 24px
+    font-weight bold
+    vertical-align baseline
+}
+.ReservationFormBlock{
+    margin $ReservationFormBlock-margin-vertical 0
+    padding $ReservationFormBlock-padding-vertical $ReservationFormBlock-padding-horizontal
+    background $ReservationFormBlock-bg
+    border none
+}
+.ReservationFormBlock__FieldGroup{
+    flex-direction row
+    justify-content flex-start
+}
+.FieldBlock__email{
+    width 380px
+}
+.FieldBlock__phone{
+    width 150px
+    margin-left 20px
+}
+.FieldBlock__sex{
+    margin-right 5px
+}
+.FieldBlock__second-name{
+    width 150px
+    margin-right 0
+}
+.FieldBlock__surname{
+    position relative
+    width 110px
+    margin-left -1px
+    margin-right 5px
+}
+.FieldBlock__birthday{
+    width 90px
+    margin-right 5px
+}
+.FieldBlock__citizen{
+    width 140px
+    margin-right 5px
+}
+.FieldBlock__DocumentId{
+    width 130px
+}
+.FieldBlock__Number{
+    width 100px
+    margin-right 5px
+}
+.FieldBlock__ExpirationDate{
+    width 100px
+}
+.ReservationForm__Agree{
+    margin 30px 0
+}
+.ReservationFormActive{
+    margin 30px 0
+
+    display flex
+    justify-content center
+    align-items center
+}
+.ReservationFormSum{
+    margin 0 30px 0 0
+
+    display flex
+    align-items center
+}
+.ReservationFormSum__price-label{
+    margin-right 10px
+    font-size 1.2rem
+}
+.ReservationFormSum__price{
+    font-size 34px
+    font-weight bold
+}

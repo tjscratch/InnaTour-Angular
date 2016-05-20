@@ -1,0 +1,35 @@
+<div class="results-body" id="top">
+	<div class="results-container results-container_list"
+	     ng-class="{'results-container__short':!padding}"
+	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)">
+
+		<div class="SearchHotelResultsFilters">
+			<ng:any filter-panel-hotel
+			        filters-settings="filtersSettingsHotels"
+			        as-map="asMap"
+			        type-panel="hotels"
+			        active-panel="activePanel"
+			        ng-show="filtersSettingsHotels"
+			></ng:any>
+		</div>
+
+		<div class="SearchHotelResultsCount" ng-if="hotels.length > 0">
+			Найдено
+			<b>{{hotels.length | asQuantity:"отель":"отеля":"отелей"}}</b>
+		</div>
+
+		<div class="SearchHotelResults">
+			<div class="SearchHotelResultsList" ng-if="hotels.length > 0">
+				<div class="SearchHotelResultsList__item"
+				     ng-repeat="hotel in hotels track by $index"
+				>
+					<hotel-card
+							hotel="hotel"
+							hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
+					></hotel-card>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

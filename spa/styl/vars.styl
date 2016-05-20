@@ -28,23 +28,75 @@ $col-cell-next-200 = 230px;
 
 $black = #333;
 $warning = #f8d8d0;
-$blue = #1e88c1;
+$blue = #0054b9;
 $gray = #a8abba;
 $gray-l = #878787;
+$gray-l2 = #868686;
+$gray-light = #fafafa;
+$gray-light-2 = #e7e7e7;
 $white = #fff;
 $orange = #ffaa00;
 $color-separator = #d6d7d9;
-/*$green = #61a427;*/
-//$green = #69c123;
-$green = #95cd47;
+//$green = #61a427;
+//$green = #95cd47;
+$green = #7cb621;
 $red = #ce1900;
-
 
 $small = .75em; /* 12px */
 $medium = .9em; /* 14px */
 $large = 1.1em; /* 18px */
 $big = 1.5em;   /* 24px */
 
+
+// begin hotel-card
+$HotelCard-height = 190px;
+$CardPrice__active-vertical-padding = 10px;
+$CardPrice__active-height = 40px;
+$CardPrice__active-line-height = 20px;
+$CardPrice__active-font-size = 18px;
+$CardPrice-padding = 10px;
+$HotelCardPhotos-width = 200px;
+$HotelCardPrice-width = 190px;
+$HotelCardInfo-width = $search-results-list-width - ($HotelCardPhotos-width + $HotelCardPrice-width);
+$HotelCardBorderColor = $gray-light-2;
+// end hotel-card
+
+// begin filters-list
+$filters-border-color = $gray-light-2;
+$filters-bg-color = $white;
+// end filters-list
+
+// begin FORMS
+$FieldText-border-color = #c0c0c2;
+$FieldText-focus-border-color = #999;
+$FieldText-invalid-border-color = $red;
+$FieldText-horizontal-padding = 5px;
+$FieldText-vertical-padding = 8px;
+$FieldText-font-size = $medium;
+$FieldText-border-radius = 2px;
+$FieldText-font-family = ProximaNova, Arial, sans-serif;
+$FieldText-vertical-margin = 3px;
+
+$FieldLabel-text-color = $gray-l;
+$FieldLabel-font-size = $small;
+$FieldLabel-vertical-margin = $FieldText-vertical-margin;
+$FieldLabel-horizontal-padding = 2px;
+
+$FieldError-text-color = $red;
+$FieldError-font-size = $small;
+$FieldError-horizontal-margin = 2px;
+// end FORMS
+
+// begin ReservationForm page
+$ReservationFormBlock-bg = #f5f5f5;
+
+$ReservationForm__title-margin-top = 30px;
+$ReservationForm__title-margin-bottom = 10px;
+
+$ReservationFormBlock-margin-vertical = 10px;
+$ReservationFormBlock-padding-vertical = 10px;
+$ReservationFormBlock-padding-horizontal = 20px;
+// end ReservationForm page
 
 calc(prop, val, fallback) {
   if (fallback) {

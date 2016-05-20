@@ -17,54 +17,15 @@ var app = angular.module('innaApp', [
     "ui.bootstrap",
     "widgetsInnaValidation",
     "widgetsInnaWidgetServices",
+    'ui.scroll',
+    'validation',
+    'validation.rule',
+    'ui.select',
     "ngCookies"
 ]);
 
 /* локализация дат moment */
 moment.locale('ru');
-
-app.constant('innaApp.Urls', {
-    URL_ROOT: '/',
-    URL_BUY: '/buy/',
-    URL_BUY_SUCCESS: '/buy-success/',
-    URL_BUY_ERROR: '/buy-error/',
-    URL_AVIA: '/avia/',
-    URL_AVIA_SEARCH: '/avia/search/',
-    URL_AVIA_RESERVATION: '/avia/reservation/',
-    URL_AVIA_BUY: '/avia/buy/',
-    URL_AVIA_BUY_SUCCESS: '/avia/buy-success/',
-    URL_AVIA_BUY_ERROR: '/avia/buy-error/',
-    URL_TOURS: '/tours/',
-    //URL_DYNAMIC_PACKAGES_BUY_SUCCESS: '/packages/buy/success/',
-    URL_DYNAMIC_PACKAGES_BUY: '/packages/buy/',
-    URL_DYNAMIC_PACKAGES_BUY_SUCCESS: '/packages/buy-success/',
-    URL_DYNAMIC_PACKAGES_BUY_ERROR: '/packages/buy-error/',
-    URL_DYNAMIC_PACKAGES: '/packages/',
-    URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
-    URL_DYNAMIC_HOTEL_DETAILS: '/packages/details/',
-    URL_DYNAMIC_PACKAGES_RESERVATION: '/packages/reservation/',
-    URL_PROGRAMMS: '/individualtours/',
-    URL_ABOUT: '/about/',
-    URL_CONTACTS: '/contacts/',
-    URL_CERTIFICATES: '/certificates/',
-
-    URL_AUTH_RESTORE: '/account/restore-password/',
-    URL_AUTH_SIGNUP: '/account/signup/',
-
-    B2B_DISPLAY_ORDER: '/display-order/',
-
-    URL_PACKAGES_LANDING: '/packages/ppc/',
-
-    URL_AGENCY_REG_FORM: '/registration/',
-
-    URL_WHERE_TO_BUY: '/where-to-buy/',
-
-    URL_HELP: '/help/',
-
-    URL_TRANSFERS: '/transfers/',
-
-    eof: null
-});
 
 app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, $location, $window, $filter) {
 
@@ -93,7 +54,7 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     $rootScope.bodyClickListeners = [];
 
     $rootScope.addBodyClickListner = function (key, eventDelegate) {
-        $rootScope.bodyClickListeners.push({ key: key, eventDelegate: eventDelegate });
+        $rootScope.bodyClickListeners.push({key: key, eventDelegate: eventDelegate});
     };
 
     $rootScope.bodyClick = function () {
@@ -128,16 +89,64 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     });
 }]);
 
+
+app.config(['$validationProvider', function ($validationProvider) {
+    // Setup `ip` validation
+    var expression = {
+        passport: /^.*([a-zA-Z]).*([а-яА-ЯёЁ])(\D)*(\d{6})+$/,
+        date_format: function (value, scope, element, attrs, param) {
+            var date = moment(value, 'DD.MM.YYYY');
+            return date.isValid();
+        },
+        birthday: function (value, scope, element, attrs, param) {
+            var nowDate = moment();
+            var oldDate = moment().subtract('years', 100);
+            var date = moment(value, 'DD.MM.YYYY');
+            return date.isBefore(nowDate) && date.isAfter(oldDate);
+        },
+        document_expired: function (value, scope, element, attrs, param) {
+            var nowDate = moment();
+            var date = moment(value, 'DD.MM.YYYY');
+            return date.isAfter(nowDate);
+        }
+    };
+
+    var validMsg = {
+        passport: {
+            error: 'Неверный формат',
+            success: 'Ок'
+        },
+        date_format: {
+            error: 'Не правильный формат даты',
+            success: 'Ок'
+        },
+        birthday: {
+            error: 'Не правильная дата рождения',
+            success: 'Ок'
+        },
+        document_expired: {
+            error: 'Не правильный срок действия документа',
+            success: 'Ок'
+        }
+    };
+
+    $validationProvider
+        .setExpression(expression)
+        .setDefaultMsg(validMsg);
+}]);
+
+
 app.config([
     //'$templateCache',
     '$routeProvider',
     '$locationProvider',
     '$httpProvider',
     'innaApp.Urls',
+    'AppRouteUrls',
     '$sceProvider',
-    function ($routeProvider, $locationProvider, $httpProvider, url, $sceProvider, $filter) {
+    function ($routeProvider, $locationProvider, $httpProvider, url, AppRouteUrls, $sceProvider, $filter) {
 
-        function dynamic () {
+        function dynamic() {
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.realType == window.partners.WLType.full) {
                 if (partner.name == 'biletix') {
@@ -173,7 +182,7 @@ app.config([
             }
         }
 
-        function avia () {
+        function avia() {
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.realType == window.partners.WLType.b2b) {
                 if (partner.name == 'sputnik') {
@@ -200,8 +209,7 @@ app.config([
 
         $sceProvider.enabled(false);
 
-        $routeProvider.
-        //Главная
+        $routeProvider.//Главная
         when(url.URL_ROOT, dynamic()).when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?-:DepartureId-:ArrivalId?', dynamic()).when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?-:DepartureId', dynamic()).when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?', dynamic()).when(url.URL_PACKAGES_LANDING + ':sectionId', dynamic()).when(url.URL_TOURS, {
             templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
             controller: 'ToursCtrl',
@@ -244,11 +252,10 @@ app.config([
             resolve: authController.resolve
         }).when(url.URL_AVIA_RESERVATION + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
             ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2', {
-            templateUrl: 'pages/page-reservation/templ/reserve.html',
+            templateUrl: 'pages/page-reservations/templ/reserve.html',
             controller: 'AviaReserveTicketsCtrl',
             resolve: authController.resolve
-        }).
-        //when(url.URL_AVIA_BUY + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
+        }).//when(url.URL_AVIA_BUY + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
         //    ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2-:OrderNum', {
         //        templateUrl: 'pages/avia/tickets_buy.html',
         //        controller: 'AviaBuyTicketsCtrl',
@@ -278,8 +285,7 @@ app.config([
             templateUrl: 'pages/avia/tickets_buy.html',
             controller: 'AviaBuyTicketsCtrl',
             resolve: authController.resolve
-        }).
-        //when(url.URL_DYNAMIC_PACKAGES_BUY_SUCCESS + ':OrderNum?', {
+        }).//when(url.URL_DYNAMIC_PACKAGES_BUY_SUCCESS + ':OrderNum?', {
         //    templateUrl: 'pages/page-buy-success/templ/page.html',
         //    controller: 'PageBuySuccess',
         //    resolve: authController.resolve
@@ -296,14 +302,6 @@ app.config([
             templateUrl: 'pages/avia/tickets_buy.html',
             controller: 'AviaBuyTicketsCtrl',
             resolve: authController.resolve
-        }).when('/hotelticket/', {
-            templateUrl: 'pages/hotelticket_page.html',
-            controller: 'HotelPlusTicketCtrl',
-            resolve: authController.resolve
-        }).when('/hotels/', {
-            templateUrl: 'pages/hotels_page.html',
-            controller: 'HotelsCtrl',
-            resolve: authController.resolve
         }).when(url.URL_DYNAMIC_PACKAGES + ':DepartureId-:ArrivalId', dynamic()).//URL для контекста по ДП
         when(url.URL_DYNAMIC_PACKAGES, dynamic()).when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
             templateUrl: 'pages/page-dynamic/templ/page-dynamic-controller.html',
@@ -316,7 +314,7 @@ app.config([
             resolve: authController.resolve,
             reloadOnSearch: false
         }).when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId', {
-            templateUrl: 'pages/page-reservation/templ/reserve.html',
+            templateUrl: 'pages/page-reservations/templ/reserve.html',
             controller: 'DynamicReserveTicketsCtrl',
             resolve: authController.resolve
         }).when(url.B2B_DISPLAY_ORDER + ':OrderId', {
@@ -337,13 +335,63 @@ app.config([
         }).when(url.URL_WHERE_TO_BUY, {
             templateUrl: 'components/where-to-buy/templ/where-to-buy.html',
             controller: 'WhereToBuyCtrl'
-        }).when(url.URL_TRANSFERS, {
-            templateUrl: 'pages/page-transfers/templ/page-transfers.html',
-            controller: 'TrasnfersPageCtrl',
-            resolve: authController.resolve
-        }).otherwise({
-            redirectTo: url.URL_ROOT
-        });
+        })
+            .when(url.URL_TRANSFERS, {
+                templateUrl: 'pages/page-transfers/templ/page-transfers.html',
+                controller: 'TrasnfersPageCtrl',
+                resolve: authController.resolve
+            })
+
+            /**
+             * begin hotels
+             */
+            // .when(AppRouteUrls.URL_HOTELS, dynamic)
+            .when(AppRouteUrls.URL_HOTELS, {
+                templateUrl: 'pages/page-hotels/templ/hotels-root.html',
+                controller: 'HotelsRootController',
+                resolve: authController.resolve
+            })
+            .when(AppRouteUrls.URL_HOTELS + ':StartVoyageDate/' + ':ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+                templateUrl: 'pages/page-hotels/templ/hotels-index.html',
+                controller: 'HotelsIndexController',
+                resolve: authController.resolve
+            })
+            .when(AppRouteUrls.URL_HOTELS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+                templateUrl: 'pages/page-hotels/templ/hotels-show.html',
+                controller: 'HotelsShowController',
+                resolve: authController.resolve
+            })
+            /**
+             * begin bus tours
+             */
+            .when(AppRouteUrls.URL_BUS, dynamic())
+            .when(AppRouteUrls.URL_BUS + ':StartVoyageDate/' + ':ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+                templateUrl: 'pages/page-hotels/templ/bus-index.html',
+                controller: 'BusIndexController'
+            })
+            .when(AppRouteUrls.URL_BUS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+                templateUrl: 'pages/page-hotels/templ/hotels-show.html',
+                controller: 'HotelsShowController'
+            })
+            /**
+             * end bus tours
+             */
+
+            /**
+             * begin reservation
+             */
+            .when(AppRouteUrls.URL_RESERVATIONS + ':typeProduct/:hotelId/:providerId/:roomId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+                templateUrl: 'pages/page-reservations/templ/reservations.html',
+                controller: 'ReservationsController as reservation'
+            })
+            /**
+             * end reservation
+             */
+
+
+            .otherwise({
+                redirectTo: url.URL_ROOT
+            });
 
         /*$locationProvider.html5Mode({
          enabled: true
@@ -373,7 +421,7 @@ app.config(['$provide', function ($provide) {
     $provide.decorator("$exceptionHandler", ["$delegate", function (del) {
         return function (ex, cause) {
             if (Raven) {
-                Raven.setExtraContext({ context: "__$ExceptionHandler_CONTEXT__" })
+                Raven.setExtraContext({context: "__$ExceptionHandler_CONTEXT__"})
                 Raven.captureException(new Error(ex), {
                     extra: {
                         dataError: ex,
@@ -431,7 +479,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
      * @param [prefix]
      * @returns {string}
      */
-    function toParam (object, prefix) {
+    function toParam(object, prefix) {
         var stack = [];
         var value;
         var key;
@@ -486,7 +534,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
 //замена директиве link-in-new-window-if-can
 //jQuery версия - работает и с angular и с ractive
 (function ($) {
-    function getHashFromUrl (url) {
+    function getHashFromUrl(url) {
         var indexOfHash = url.indexOf("/#");
         var newUrl;
         if (indexOfHash > -1) {
@@ -498,7 +546,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
         return newUrl;
     }
 
-    function processLinks () {
+    function processLinks() {
         //находим все ссылки
         var links = $('a[link-in-new-window-if-can=""]');
         //console.log('links', links.length);
@@ -508,7 +556,7 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
         });
     }
 
-    function processLink (element) {
+    function processLink(element) {
         //var isBlank = false;
         //удаляем этот аттрибут, чтобы не открывалось новое пустое окно
         if (element.attr('target') == '_blank') {

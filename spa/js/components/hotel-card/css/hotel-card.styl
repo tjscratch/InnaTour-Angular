@@ -1,0 +1,155 @@
+.HotelCard{
+    width $search-results-list-width;
+    margin 0
+    padding 0
+    background #fff
+
+    box-shadow 0 0 0 1px $HotelCardBorderColor;
+
+    display flex
+    justify-content space-between
+}
+// BEGIN PHOTOS
+.HotelCardPhotos{
+    box-sizing border-box
+    position relative
+    width $HotelCardPhotos-width
+    height $HotelCard-height
+
+    flex-grow 1
+}
+// END PHOTOS
+// BEGIN INFO
+.HotelCardInfo{
+    box-sizing border-box
+    width $HotelCardInfo-width
+    padding 10px 12px
+    border-right 1px solid $HotelCardBorderColor
+    flex-grow 300
+}
+.HotelCardInfo__title{
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.HotelCardInfo__link{
+    color: $blue;
+    text-decoration: none;
+}
+.HotelCardInfo__text{
+    margin 5px 0
+    font-size 14px;
+}
+// END INFO
+// BEGIN PRICE
+.HotelCardPrice{
+    width $HotelCardPrice-width
+    height $HotelCard-height
+}
+.CardPrice{
+    box-sizing border-box
+    width 100%
+    height 100%
+    padding $CardPrice-padding
+}
+.CardPrice__info{
+    height: $HotelCard-height - ($CardPrice__active-height + $CardPrice-padding* 2);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.CardPrice__price{
+
+}
+.CardPrice__price-desc{
+    margin: 4px 0;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+}
+.CardPrice__price-value{
+    margin: 4px 0;
+    line-height: 1;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    position: relative;
+    text-align center
+}
+.CardPrice__icon-currency{
+    font-size .9em
+}
+.CardPrice__active{
+    box-sizing border-box
+    display block
+    height $CardPrice__active-height
+    line-height $CardPrice__active-line-height
+    width 100%
+    padding $CardPrice__active-vertical-padding 15px
+    font-size $CardPrice__active-font-size
+    text-align center
+}
+// END PRICE
+
+// BEGIN HOTEL CARD INFO
+.HotelCard__info{
+    flex-wrap wrap
+    width 520px
+    padding 10px
+
+    .HotelCardPhotos{
+        width 130px
+        height 130px
+    }
+    .HotelCardPhotos__Photo-empty{
+        width 130px
+        height 130px
+        font-size: 36px;
+    }
+    .HotelCardInfo{
+        //width: auto;
+        padding-top: 0;
+        border-right: none;
+    }
+}
+.HotelCardPhotos__Photo{
+    width 130px
+    height 130px
+    background-position center center
+    background-size cover
+    background-repeat no-repeat
+}
+.HotelCardPhotos__Photo-empty{
+    width $HotelCardPhotos-width
+    height $HotelCard-height
+    background-position center center
+    background-size cover
+    background-repeat no-repeat
+    background-color $color-gray-light2
+
+    background-image: radial-gradient(50% 100%, #f8f8f8 0%, #e7e7e7 100%);
+    border: 1px solid #e7e7e7;
+    font-size: 46px;
+    color: #d7d7d7;
+    letter-spacing: 0px;
+
+    display flex
+    align-items center
+    justify-content center
+}
+.HotelCardRoomInfo{
+    width 100%
+    margin 10px 0 0 0
+}
+.HotelCardRoomInfo__RoomName{
+    margin 0 0 5px
+    font-weight bold
+}
+.HotelCardRoomInfo__RoomInfo{
+    margin: 5px 0;
+    color: $gray-l;
+    line-height: 20px;
+}
+// END HOTEL CARD INFO

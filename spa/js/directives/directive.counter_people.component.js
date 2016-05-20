@@ -11,7 +11,7 @@ innaAppDirectives.directive('counterPeople', ['$templateCache', function($templa
             childrenCount: '=',
             childrensAge: '='
         },
-        controller: ['$scope', function($scope){
+        controller: ['$scope', '$location', function($scope, $location){
             /*Properties*/
             $scope.isOpen = false;
 
@@ -38,6 +38,21 @@ innaAppDirectives.directive('counterPeople', ['$templateCache', function($templa
             $scope.sum = function(a, b){
                 return +a + +b;
             }
+
+            $scope.currentActive = function (route) {
+                var loc = $location.path();
+                var abs = $location.absUrl();
+
+                if (route == '/') {
+                    return ((abs.indexOf('/tours/?') > -1) || loc == route);
+                }
+                else {
+                    if (loc.indexOf(route) > -1)
+                        return true;
+                    else
+                        return false;
+                }
+            };
 
             /*Watchers*/
             $scope.$watch('adultCount', function(newValue, oldValue){
@@ -73,8 +88,8 @@ innaAppDirectives.directive('counterPeople', ['$templateCache', function($templa
 
                 scope.$apply(function($scope){
                     if (isOnComponentTitle) {
-                        //фикс выбора детей - для WL-full скролим страницу вниз
-                        //при открытии
+                        //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅ WL-full пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+                        //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                         if (!scope.isOpen && window.partners && window.partners.isFullWL()) {
                             window.partners.scrollToChildSelector();
                         }
@@ -114,8 +129,8 @@ innaAppDirectives.directive('counterPeopleChildAgeSelector', ['$templateCache', 
 
                 if (isInsideComponent) {
                     scope.$apply(function ($scope) {
-                        //фикс выбора детей - для WL-full скролим страницу вниз
-                        //при открытии
+                        //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅ WL-full пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+                        //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                         if (!scope.isOpen && window.partners && window.partners.isFullWL()) {
                             window.partners.scrollToChildSelectorItem();
                         }

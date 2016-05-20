@@ -3,23 +3,41 @@
 innaAppControllers
     .controller('RegionHeader', [
         'EventManager',
+        '$rootScope',
         '$scope',
         '$element',
         '$location',
         'eventsHelper',
         'urlHelper',
         'innaApp.Urls',
+        'AppRouteUrls',
         'innaAppApiEvents',
         'aviaHelper',
-        function (EventManager, $scope, $element, $location, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
+        '$timeout',
+        function (EventManager, $rootScope, $scope, $element, $location, eventsHelper, urlHelper, appUrls, AppRouteUrls, Events, aviaHelper, $timeout) {
 
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.name == 'sputnik') {
                 $scope.headerTemplateSrc = 'regions/header/templ/header_sputnik.html';
             }
-            else{
+            else {
                 $scope.headerTemplateSrc = 'regions/header/templ/header.html';
             }
+
+
+            /**
+             * Отели у нас работают только для b2b клиентов
+             * поэтому если не b2b пользователь попал на страницу отелей
+             * редиректим его на главную
+             */
+            $scope.isAgency = false;
+            $scope.$on(Events.AUTH_USER_SET, function (e, data) {
+                if (data) {
+                    if (parseInt(data.getAgencyId()) == 20005 || parseInt(data.getAgencyId()) == 2) {
+                        $scope.isAgency = true;
+                    }
+                }
+            });
 
 
             $scope.$on('$routeChangeStart', function (next, current) {
@@ -78,7 +96,7 @@ innaAppControllers
 
                 var loc = $location.path();
                 var isDynamic = (
-                    loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
+                        loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
                     ) || loc == appUrls.URL_ROOT;
 
                 var abs = $location.absUrl();
@@ -91,6 +109,12 @@ innaAppControllers
                 else if (loc.startsWith(appUrls.URL_AVIA) && !loc.startsWith(appUrls.URL_AVIA_RESERVATION) && !loc.startsWith(appUrls.URL_AVIA_BUY)) {
                     return 'components/search_form/templ/avia_search_form.html';
                 }
+                else if (loc.startsWith(AppRouteUrls.URL_HOTELS)) {
+                    return 'components/search-form-hotels/templ/index.html';
+                }
+                else if (loc.startsWith(AppRouteUrls.URL_BUS)) {
+                    return 'components/search-form-bus/templ/index.html';
+                }
 
                 //на бронировании и покупке формы нет
                 else {
@@ -99,7 +123,7 @@ innaAppControllers
             };
 
 
-            function setShadow (){
+            function setShadow() {
                 if ($location.path().indexOf(appUrls.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
                     $scope.shadow = true;
                 } else {

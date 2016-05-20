@@ -95,7 +95,7 @@ angular.module('innaApp.services')
                         sort: {
                             hotels: [
                                 {
-                                    name: 'По цене пакета',
+                                    name: 'По цене',
                                     value: 'byPackagePrice',
                                     isChecked: true
                                 },
@@ -118,7 +118,7 @@ angular.module('innaApp.services')
                             ],
                             avia: [
                                 {
-                                    name: 'По цене пакета',
+                                    name: 'По цене',
                                     value: 'byPackagePrice',
                                     isChecked: true
                                 },

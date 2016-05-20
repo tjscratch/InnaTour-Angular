@@ -25,8 +25,9 @@ innaAppControllers
         'ModelTicketsCollection',
         'ModelTicket',
         'ModelHotel',
+        'AppRouteUrls',
         function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, $route, DynamicFormSubmitListener, $q, $anchorScroll, Balloon, $filter,
-                  ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
+                  ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel, AppRouteUrls) {
 
             DynamicFormSubmitListener.listen();
 
@@ -214,10 +215,12 @@ innaAppControllers
                     success: function (resp) {
                         _balloonLoad.fire('hide');
 
-                        $scope.recommendedPair.setTicket(new ModelTicket(resp.AviaInfo))
+                        if(resp.AviaInfo != null){
+                            $scope.recommendedPair.setTicket(new ModelTicket(resp.AviaInfo))
+                        }
 
 
-                        if (resp.Hotel) {
+                        if (resp.Hotel != null && resp.AviaInfo != null) {
                             $scope.recommendedPair.setHotel(new ModelHotel(resp.Hotel));
                             $scope.hotel = resp.Hotel;
                             $scope.hotelRooms = [$scope.hotel.Room];
@@ -240,6 +243,25 @@ innaAppControllers
                         if (('displayTicket' in $location.search())) {
                             $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, {noClose: true, noChoose: true, ticket: $scope.recommendedPair.ticket})
                         }
+
+
+                        if (resp.Hotel != null && resp.AviaInfo == null) {
+                            $scope.displayHotel = true;
+                            $scope.hotel = resp.Hotel;
+                            $scope.hotelRooms = [$scope.hotel.Room];
+                            $scope.hotelRooms[0].isOpen = true;
+                            $scope.hotelOnly = true;
+                            parseAmenities($scope.hotel);
+                            if ($scope.hotel.ProviderId == 4) {
+                                $scope.TAWidget = app_main.tripadvisorEx + $scope.hotel.HotelId;
+                            } else if ($scope.hotel.ProviderId == 2) {
+                                $scope.TAWidget = app_main.tripadvisorOk + $scope.hotel.HotelId;
+                            }
+                            $timeout(function () {
+                                loadMap();
+                            }, 50);
+                        }
+
                     },
                     error: function () {
                         _balloonLoad.dispose();
@@ -284,7 +306,7 @@ innaAppControllers
                         //ticket.modelTicket = ticket;
                         $scope.recommendedPair.setTicket(ticket);
                         $scope.recommendedPair.setHotel(hotel);
-                        $scope.recommendedPairStatus = data.Status;                        
+                        $scope.recommendedPairStatus = data.Status;
 
                         $location.search('displayHotel', hotel.data.HotelId);
 
@@ -306,7 +328,7 @@ innaAppControllers
                         $timeout(function () {
                             loadMap();
                         }, 50);
-                        
+
                         $scope.Additional = data.Additional;
                         $scope.Included = data.Included;
 
@@ -536,7 +558,7 @@ innaAppControllers
                         $routeParams.TicketBackId,
                         $scope.hotel.ProviderId
                     ].join('-');
-                
+
                 $location.search({
                     room: room.RoomId,
                     hotel: $scope.hotel.HotelId,

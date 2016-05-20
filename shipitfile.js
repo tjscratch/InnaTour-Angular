@@ -5,8 +5,8 @@ module.exports = function (shipit) {
         default: {
             workspace: 'shipit_build',
             deployTo: '/home/deploy/www/inna-frontend',
-            repositoryUrl: 'git@bitbucket.org:innatec/inna-frontend-git.git',
-            branch: 'release',
+            repositoryUrl: 'ssh://git@gitlab.inna.ru:223/frontend-dev/inna-angular.git',
+            branch: 'master',
             ignores: ['.git', 'node_modules'],
             keepReleases: 20,
             deleteOnRollback: true,

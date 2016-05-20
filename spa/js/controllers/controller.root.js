@@ -130,7 +130,7 @@ innaAppControllers.
 
 
             $scope.isBodyBg = function () {
-                return $scope.isActive('/avia/reservation/') || $scope.isActive('/packages/reservation/') || $scope.isActive('/buy/');
+                return $scope.isActive('/avia/reservation/') || $scope.isActive('/packages/reservation/') || $scope.isActive('/reservations/') || $scope.isActive('/buy/');
             };
 
             $scope.isTransferBg = function () {
@@ -147,6 +147,8 @@ innaAppControllers.
                     case '/avia/':
                     case '/tours/':
                     case '/packages/':
+                    case '/hotels/':
+                    case '/bus/':
                         if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
                             $scope.SearchFormExpandPadding = {'padding-top': 0}
                         }else{

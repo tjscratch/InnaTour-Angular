@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html xmlns:ng="https://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name='yandex-verification' content='40fd92efcc007a47'/>
+    <!--<meta name="viewport" content="initial-scale=1, user-scalable=yes">-->
+    <meta name="viewport" content="width=980">
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE"/>
+
+    <!-- Данные партнеров -->
+    {{> partners/title_fav}}
+
+    <base href="/"/>
+
+    <!--[if lte IE 9]>
+    <script>
+        var loc = document.location;
+        //если нет #
+        if ((loc.href.indexOf(loc.hostname + '/#') === -1) && loc.pathname.length > 1) {
+            var host = loc.protocol + '//' + loc.hostname;
+            var indexStart = loc.href.indexOf(host) + host.length;
+            var path = loc.href.substring(indexStart);
+            loc.href = loc.protocol + '//' + loc.hostname + '/#' + path;
+        }
+    </script>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script>
+        document.createElement('ng-include');
+        document.createElement('ng-pluralize');
+        document.createElement('ng-view');
+        document.createElement('ng-value');
+        document.createElement('ng-model');
+
+        // Optionally these for CSS
+        document.createElement('ng:include');
+        document.createElement('ng:pluralize');
+        document.createElement('ng:view');
+        document.createElement('ng:any');
+    </script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="/spa/lib/jquery-ui/jquery-ui.1.11.2.min.css"/>
+
+    <!--<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>-->
+
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css"/>
+
+    <!-- build:app-stylus -->
+    <link rel="stylesheet" href="/build/css/common.min.css"/>
+    <!-- endbuild -->
+
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="/build/css/ie.min.css"/>
+    <![endif]-->
+
+    <!--[if lt IE 10]>
+    <style type="text/css">
+        .spinner *{
+            display: none;
+        }
+    </style>
+    <![endif]-->
+
+
+    <!-- build:app-config-debug -->
+    <script>window.FrontedDebug = true;</script>
+    <!-- endbuild -->
+
+    <script src="/spa/lib/if-browser.js"></script>
+    <script>
+        var old = ifBrowser();
+
+        if (old.bName) {
+            var oldV = old.bNameV.split('.');
+            if (oldV[0] == 'ie' && oldV[1] <= 8) {
+                location.href = '/spa/browser.html'
+            } else if (oldV[0] == 'ie' && oldV[1] <= 9) {
+                var style = document.createElement('style');
+                style.innerHTML = '.spinner .rect{display:none !important;} .spinner .gif{display:inline;width:60px;height:60px;}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+                console.log('IE8');
+            }
+        }
+    </script>
+
+    <!-- Подключение партнеров -->
+    {{> partners/data}}
+    <script id="partners-css-inject" src="spa/js/partners/partners.js"></script>
+
+    <!--a/b тесты-->
+    <script src="//cdn.optimizely.com/js/2018230704.js"></script>
+    <script type="text/javascript">
+        function hashHandler(){
+            this.oldHash = window.location.hash;
+            this.Check;
+
+            /* Activate experiments when the page first loads: */
+            window["optimizely"] = window["optimizely"] || [];
+            window["optimizely"].push["activate"]
+
+            var that = this;
+            var detect = function(){
+                if(that.oldHash!=window.location.hash){
+                    that.oldHash = window.location.hash;
+                    window.optimizely = window.optimizely || [];
+                    window.optimizely.push(["activate"]);
+                }
+            };
+            this.Check = setInterval(function(){ detect() }, 50);
+        }
+
+        var hashDetection = new hashHandler();
+    </script>
+    <!--a/b тесты-->
+
+    <!-- Подключение аналитики -->
+    {{> partners/ga}}
+
+
+    <!-- start Mixpanel -->
+    <script type="text/javascript">(function (e, b) {
+        if (!b.__SV) {
+            var a, f, i, g;
+            window.mixpanel = b;
+            b._i = [];
+            b.init = function (a, e, d) {
+                function f(b, h) {
+                    var a = h.split(".");
+                    2 == a.length && (b = b[a[0]], h = a[1]);
+                    b[h] = function () {
+                        b.push([h].concat(Array.prototype.slice.call(arguments, 0)))
+                    }
+                }
+
+                var c = b;
+                "undefined" !== typeof d ? c = b[d] = [] : d = "mixpanel";
+                c.people = c.people || [];
+                c.toString = function (b) {
+                    var a = "mixpanel";
+                    "mixpanel" !== d && (a += "." + d);
+                    b || (a += " (stub)");
+                    return a
+                };
+                c.people.toString = function () {
+                    return c.toString(1) + ".people (stub)"
+                };
+                i = "disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+                for (g = 0; g < i.length; g++)f(c, i[g]);
+                b._i.push([a, e, d])
+            };
+            b.__SV = 1.2;
+            a = e.createElement("script");
+            a.type = "text/javascript";
+            a.async = !0;
+            a.src = ("https:" === e.location.protocol ? "https:" : "http:") + '//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';
+            f = e.getElementsByTagName("script")[0];
+            f.parentNode.insertBefore(a, f)
+        }
+    })(document, window.mixpanel || []);
+    mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>
+    <!-- end Mixpanel -->
+
+    <!-- Facebook Pixel Code -->
+	<script>
+		!function (f, b, e, v, n, t, s) {
+			if (f.fbq)return;
+			n = f.fbq = function () {
+				n.callMethod ?
+						n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+			};
+			if (!f._fbq)f._fbq = n;
+			n.push = n;
+			n.loaded = !0;
+			n.version = '2.0';
+			n.queue = [];
+			t = b.createElement(e);
+			t.async = !0;
+			t.src = v;
+			s = b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t, s)
+		}(window,
+				document, 'script', '//connect.facebook.net/en_US/fbevents.js');
+
+		fbq('init', '968767913213519');
+		fbq('track', "PageView");</script>
+	<noscript><img height="1" width="1" style="display:none"
+	               src="https://www.facebook.com/tr?id=968767913213519&ev=PageView&noscript=1"
+	/></noscript>
+    <!-- End Facebook Pixel Code -->
+
+</head>
+<body class="light-theme"
+      ng-class="{'ios': iOS, 'not-ios': !iOS, 'body-bg':isBodyBg(), 'search-form-expanded': FormExpand, 'transfer-bg':isTransferBg()}"
+      ng-click="bodyClick()"
+      popup-form
+      ng-style="BodyStyleGlobal">
+
+<!-- Rating@Mail.ru counter -->
+<script type="text/javascript">
+	var _tmr = window._tmr || (window._tmr = []);
+	_tmr.push({ id: "2748264", type: "pageView", start: (new Date()).getTime() });
+	(function (d, w, id) {
+		if (d.getElementById(id)) return;
+		var ts = d.createElement("script");
+		ts.type = "text/javascript";
+		ts.async = true;
+		ts.id = id;
+		ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
+		var f = function () {
+			var s = d.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(ts, s);
+		};
+		if (w.opera == "[object Opera]") {
+			d.addEventListener("DOMContentLoaded", f, false);
+		} else {
+			f();
+		}
+	})(document, window, "topmailru-code");
+</script>
+<noscript>
+	<div style="position:absolute;left:-10000px;">
+		<img src="//top-fwz1.mail.ru/counter?id=2748264;js=na" style="border:0;" height="1" width="1" alt="Рейтинг@Mail.ru"/>
+	</div>
+</noscript>
+<!-- //Rating@Mail.ru counter -->
+<script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=PvPIxJhbx0jliWeyg71SwsSslQfqkPggw*dTz6cPE/FrWUaUu8qKD79b/G2nXyAfrj4BiXPaH/EaCd9QA1Ly2y9tY1*r5ft4qpnkX/GLiLk7dbEZd2A8LtE0IZcMW6S*d0XUKpHmcZSJYyPcok7CPy15w3LZN9FfJ9WJgRVeu38-';</script>
+
+
+<!-- Компонент рекламы -->
+<div adv-component></div>
+
+<div id="main-content-div" class="main scroll-fix">
+    <!-- HEADER -->
+
+    <div class="header Header" ng-controller="RegionHeader" ng-class="{'header_shadow' : shadow}">
+        <ng:include src="headerTemplateSrc"></ng:include>
+    </div>
+    <!-- \\ HEADER -->
+
+
+    <!-- PAGE CONTENT -->
+    <div class="wrpr"
+         ng-class="{'reserve':isActive('/avia/reservation/') || isActive('/packages/reservation/'),
+         'b-main-page':isActive('/')}"
+         ng-style="isFooterHiddenWrprStyle">
+        <ng:view></ng:view>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer" ng-controller="RegionFooter" ng-show="isFooterVisible">
+    <ng:include src="footerTemplateSrc"></ng:include>
+</div>
+<!-- \\ FOOTER -->
+
+<ng:include src="'popup/mainform.html'"></ng:include>
+
+<!-- Baloon -->
+<div baloon is-show="baloon.isVisible" caption="baloon.caption" text="baloon.text" type="baloon.type"
+     close-fn="baloon.closeFn" data="baloon.data"></div>
+<!-- /Baloon -->
+
+<script type="text/javascript">
+    if (window.partners) {
+        window.partners.afterBodyLoad();
+    }
+</script>
+
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=true"></script>
+<script type="text/javascript"
+        src="https://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.13/src/infobox_packed.js"></script>
+<!--<script src="https://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU"-->
+        <!--type="text/javascript"></script>-->
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+
+<!-- build:bower_components -->
+<script src="/bower_components/bower-components.js"></script>
+<!-- endbuild -->
+
+<script>
+    Raven.config('https://5423ebfb08194592901a70946621e5b4@sentry.inna.ru:9000/2', {
+        whitelistUrls: [/\.inna\.ru/],
+        logger: 'javascript'
+        /*, dataCallback: function(data) {
+         console.info(data, "raven data");
+         return data;
+         }*/
+    }).install();
+</script>
+
+<!--[if lt IE 10]>
+<script src="/spa/lib/ie.placeholder.js"></script>
+<![endif]-->
+
+
+<!-- build:app-config-js -->
+<script src="/build/js/config.js"></script>
+<!-- endbuild -->
+
+
+<!--файлы заменяются при билде на app-main.js-->
+<!-- build:app-main-js -->
+
+<script src="/build/js/app-lib.js"></script>
+<script src="/build/js/angular-parts.js"></script>
+<script src="/build/js/templates.js"></script>
+
+<script src="/build/js/pages.js"></script>
+<script src="/build/js/components.js"></script>
+<script src="/build/js/regions.js"></script>
+
+<!-- endbuild -->
+
+
+<!--excel-->
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.full.min.js"></script>-->
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function () {
+            try {
+                w.yaCounter12702715 = new Ya.Metrika({
+                    id: 12702715,
+                    webvisor: true,
+                    clickmap: true,
+                    trackLinks: true,
+                    accurateTrackBounce: true,
+                    trackHash: true
+                });
+            } catch (e) {
+            }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () {
+                    n.parentNode.insertBefore(s, n);
+                };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else {
+            f();
+        }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript>
+    <div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
+<!-- /Yandex.Metrika counter -->
+
+<!-- Remarketing Google -->
+<script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 960692718;
+    var google_custom_params = window.google_tag_params;
+    var google_remarketing_only = true;
+    //var google_conversion_format = 3;
+    /* ]]> */
+</script>
+<div style="display: none;">
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+</div>
+
+<noscript>
+    <div style="display:inline;">
+        <img class="google_conversion__hidden" height="1" width="1" style="border-style:none;" alt=""
+             src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/960692718/?value=0&guid=ON&script=0"/>
+    </div>
+</noscript>
+
+
+<!--<link rel="stylesheet" href="//cdn.callbackhunter.com/widget/tracker.css">-->
+<!--<script type="text/javascript" src="//cdn.callbackhunter.com/widget/tracker.js" charset="UTF-8"></script>-->
+<!--<script type="text/javascript">var hunter_code = "7b1047f88bd5bb333c82e7c0592abd87";</script>-->
+
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+    if (window.partners && !window.partners.isWL()) {
+        var ua = navigator.userAgent.toLowerCase();
+        var platform = navigator.platform.toLowerCase();
+        var platformName = ua.match(/ip(?:ad|od|hone)/) ? 'ios' : (ua.match(/(?:webos|android)/) || platform.match(/mac|win|linux/) || ['other'])[0];
+        var isMobile = /ios|android|webos/.test(platformName);
+        if (!isMobile) {
+            window.$zopim || (function (d, s) {
+                var z = $zopim = function (c) {
+                    z._.push(c)
+                }, $ = z.s =
+                        d.createElement(s), e = d.getElementsByTagName(s)[0];
+                z.set = function (o) {
+                    z.set.
+                            _.push(o)
+                };
+                z._ = [];
+                z.set._ = [];
+                $.async = !0;
+                $.setAttribute('charset', 'utf-8');
+                $.src = '//v2.zopim.com/?2aZ00ADGa92tSwVaDs8vM1JiY6wPNdZN';
+                z.t = +new Date;
+                $.
+                        type = 'text/javascript';
+                e.parentNode.insertBefore($, e)
+                $.onload = function () {
+                    document.querySelector(".zopim").style.width = "145px"
+                }
+            })(document, 'script');
+        }
+    }
+</script>
+<!--End of Zopim Live Chat Script-->
+
+
+<!--
+<script type="text/javascript">
+    if (!partners.isFullWL()) {
+        var reformalOptions =
+            { project_id: 723309, project_host: "innatour.reformal.ru", tab_orientation: "left", tab_indent: "50%", tab_bg_color: "#89c13a", tab_border_color: "#FFFFFF", tab_image_url: "http://tab.reformal.ru/T9GC0LfRi9Cy0Ysg0Lgg0L%252FRgNC10LTQu9C%252B0LbQtdC90LjRjw==/FFFFFF/4bfb34d91c8d7fb481972ca3c84aec38/left/0/tab.png", tab_border_width: 0 }
+                ;
+        (function () {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.async = true;
+            script.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'media.reformal.ru/widgets/v3/reformal.js';
+            document.getElementsByTagName('head')[0].appendChild(script);
+        })();
+    }
+</script>
+<noscript><a href="http://reformal.ru"><img src="http://media.reformal.ru/reformal.png"/></a><a
+        href="http://innatour.reformal.ru">Oтзывы и предложения для ИННА ТУР</a></noscript>
+-->
+
+<!--<script type="text/javascript" src="//assets.zendesk.com/external/zenbox/v2.6/zenbox.js"></script>-->
+<!--<style type="text/css" media="screen, projection">-->
+<!--@import url(//assets.zendesk.com/external/zenbox/v2.6/zenbox.css);-->
+<!--</style>-->
+<!--<script type="text/javascript">
+  if (typeof(Zenbox) !== "undefined") {
+    Zenbox.init({
+      dropboxID:   "20176365",
+      url:         "https://innatour.zendesk.com",
+      tabTooltip:  "Поддержка",
+      tabImageURL: "https://p4.zdassets.com/external/zenbox/images/tab_ru_support_right.png",
+      tabColor:    "#89c13a",
+      tabPosition: "Right"
+    });
+  }
+</script>-->
+
+
+
+
+{{#unless partner }}
+<!-- BEGIN CLICKTEX CODE
+{literal}
+-->
+	<script type="text/javascript" charset="utf-8" async="async" src="//www.clicktex.ru/code/6491"></script>
+<!--
+{/literal}
+END CLICKTEX CODE -->
+{{/unless}}
+
+<div id="debug_api_host" style="position: absolute; top: 10px; left: 10px; font-size: 12px; color: #fff; z-index: 1000;"></div>
+<script type="text/javascript">
+    var debugApiHost = localStorage.getItem('debug_api_host');
+    if (debugApiHost && debugApiHost.length > 0 && debugApiHost.indexOf('http') > -1) {
+        document.getElementById('debug_api_host').innerText = 'api host: ' + debugApiHost;
+    }
+</script>
+
+</body>
+</html>

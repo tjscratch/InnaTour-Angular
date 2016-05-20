@@ -1,0 +1,40 @@
+<div class="HotelCard HotelCard__info">
+
+	<div class="HotelCardPhotos">
+		<div class="HotelCardPhotos__Photo"
+		     ng-if="hotel.HotelPhoto200"
+		     style="background-image: url('{{ ::hotel.HotelPhoto200 }}')"
+		></div>
+		<div class="HotelCardPhotos__Photo-empty"
+		     ng-if="!hotel.HotelPhoto200">
+			<i class="fa fa-bus" aria-hidden="true"></i>
+		</div>
+	</div>
+
+	<div class="HotelCardInfo">
+		<stars-directive hotel-data="::hotel.Stars"
+		                 ng-if="::hotel.Stars"
+		></stars-directive>
+		<h2 class="HotelCardInfo__title">
+			{{ ::hotel.HotelName }}
+		</h2>
+		<div class="HotelCardInfo__text">
+			{{ ::hotel.HotelFullAdress }}
+		</div>
+		<ng:include src="'components/hotel-card/templ/hotel-card-date.html'"></ng:include>
+		<ng:include src="'components/hotel-card/templ/hotel-card-info-meal.html'"></ng:include>
+		<trip-advisor-directive ng-if="hotel.TaFactor" hotel-data="hotel"></trip-advisor-directive>
+	</div>
+
+	<div class="HotelCardRoomInfo">
+
+		<div class="HotelCardRoomInfo__RoomName">{{ ::hotelRoom.RoomName }}</div>
+
+		<div class="HotelCardRoomInfo__RoomInfo">
+			<span ng-repeat="bed in hotelRoom.BedTypeList track by $index">
+				{{bed.Name}}<span ng-if="!$last">,&nbsp;</span>
+			</span>
+		</div>
+	</div>
+
+</div>

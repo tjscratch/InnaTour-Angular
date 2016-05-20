@@ -1,0 +1,30 @@
+<div class="NightCount no-outline-on-focus">
+
+
+	<div class="NightCount__label">
+		{{count | asQuantity:"ночь":"ночи":"ночей"}}
+	</div>
+
+
+	<div class="NightCount__dropdown" ng-show="isOpen">
+
+		<div class="NightCountCounter">
+			<div class="NightCountCounter__increment"
+			     ng-click="increment(-1)">
+				<i class="fa fa-minus"></i>
+			</div>
+			<input class="NightCountCounter__input"
+			       type="text"
+			       ng-model="count"
+			       ng-blur="increment('input_change')"
+			/>
+			<div class="NightCountCounter__increment"
+			     ng-click="increment(1)">
+				<i class="fa fa-plus"></i>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>

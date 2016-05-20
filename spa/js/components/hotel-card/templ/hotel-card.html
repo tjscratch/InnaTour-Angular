@@ -1,0 +1,56 @@
+<div class="HotelCard">
+
+	<div class="HotelCardPhotos">
+		<hotel-gallery-directive
+				ng-if="hotel.Photos"
+				is-map="false"
+				photo-hotel="hotel.Photos"
+				width="200"
+				height="190"></hotel-gallery-directive>
+
+		<div class="HotelCardPhotos__Photo-empty"
+		     ng-if="!hotel.Photos">
+			<i class="fa fa-bus" aria-hidden="true"></i>
+		</div>
+	</div>
+
+	<div class="HotelCardInfo">
+		<stars-directive hotel-data="hotel.Stars"
+		                 ng-if="hotel.Stars"
+		></stars-directive>
+		<h2 class="HotelCardInfo__title">
+			<a class="HotelCardInfo__link"
+			   ng-href="{{hotelUrl}}"
+			>
+				{{ hotel.HotelName }}
+			</a>
+		</h2>
+		<div class="HotelCardInfo__text">
+			{{ hotel.HotelCityName }}
+			{{ hotel.Address }}
+		</div>
+		<ng:include src="'components/hotel-card/templ/hotel-card-date.html'"></ng:include>
+		<ng:include src="'components/hotel-card/templ/hotel-card-meal.html'"></ng:include>
+		<trip-advisor-directive ng-if="hotel.TaFactor" hotel-data="hotel"></trip-advisor-directive>
+	</div>
+
+	<div class="HotelCardPrice"
+	     ng-if="!hotelInfo">
+		<div class="CardPrice">
+			<div class="CardPrice__info">
+				<div class="CardPrice__price">
+					<div class="CardPrice__price-desc" ng-if="currentActive('/hotels/')">Цена за номер:</div>
+					<div class="CardPrice__price-desc" ng-if="currentActive('/bus/')">Цена за тур:</div>
+					<div class="CardPrice__price-value">
+						{{ hotel.Price | currency : "" : 0 }}
+						<i class='fa fa-rub CardPrice__icon-currency'></i>
+					</div>
+				</div>
+			</div>
+			<a class="button CardPrice__active"
+			   ng-href="{{hotelUrl}}"
+			>Купить</a>
+		</div>
+	</div>
+
+</div>
