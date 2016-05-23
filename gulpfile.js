@@ -1,4 +1,5 @@
 ﻿var dir         = require('require-dir')('./node_tasks'),
+    dirBin      = require('require-dir')('./bin'),
     gulp        = require('gulp'),
     gutil       = require('gulp-util'),
     runSequence = require('run-sequence');
@@ -23,7 +24,6 @@ console.info('----------------------------');
  * Посмотреть основную сборку ( конкатенацию файлов )
  * можно в файле node_tasks/concat.js
  */
-
 
 gulp.task('build', function (callback) {
     runSequence(
@@ -82,3 +82,27 @@ gulp.task('default', function (callback) {
         'build-lk-watch',
         callback);
 });
+
+
+gulp.task('new', function (callback) {
+    runSequence(
+        'remove-dist',
+        'build-css-ie',
+        'md5-img',
+        'md5-css',
+        // ['remove-manifest', 'remove-bower'],
+        // 'create-manifest',
+        // 'sprite-gen',
+        // 'styles-app',
+        // 'replace-config',
+        // 'widget-search',
+        // 'build-lk',
+        // ['styles', 'build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
+        // 'build-angular-parts',
+        // 'watch',
+        // 'widget-search-watch',
+        // 'build-lk-watch',
+        callback
+    )
+});
+
