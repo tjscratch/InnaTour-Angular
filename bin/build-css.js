@@ -23,23 +23,20 @@ var distCss = './dist/spa/css';
  *
  *
  */
-/**
- * для font-awesome необходимо скопировать папку с шрифтами, иначе не подгрузятся
- * ./bower_components/font-awesome/fonts >> ./dist/spa/fonts
- */
+// для font-awesome необходимо скопировать папку с шрифтами, иначе не подгрузятся
+// ./bower_components/font-awesome/fonts >> ./dist/spa/fonts
 gulp.task('copy-font-font-awesome', function () {
     var srcUrl = './bower_components/font-awesome/fonts',
         distUrl = './dist/spa/fonts';
     gulp.src(srcUrl + '/**').pipe(gulp.dest(distUrl));
 });
-
-
 gulp.task('build-css-libs', ['copy-font-font-awesome'], function () {
     return gulp.src([
         './spa/lib/jquery-ui/jquery-ui.1.11.2.min.css',
         './bower_components/font-awesome/css/font-awesome.min.css',
         './bower_components/angular-ui-select/dist/select.min.css',
         './spa/lib/selectize/selectize.default.css',
+        './spa/styl/components/jquery-ui-1.10.4.custom.css',
     ])
         .pipe(sourcemaps.init())
         .pipe(concat('libs.css'))
@@ -59,7 +56,6 @@ gulp.task('build-css-libs', ['copy-font-font-awesome'], function () {
  *
  *
  *
- * 
  * END
  * Конкат css библиотек в один файл
  *
