@@ -68,11 +68,7 @@ gulp.task('concat-styles-libs', ['copy-font-font-awesome'], function () {
  */
 var srcAdv = './spa/js/components/adv/**/*.styl',
     distAdv = './spa/js/components/adv',
-    srcComponents = './spa/js/components/**/*.styl',
-    srcPages = './spa/js/pages/**/*.styl',
-    srcRegions = './spa/js/regions/**/*.styl',
-    srcCommon = './spa/styl/common.styl',
-    distCssTemp = './spa/styl/temp';
+    srcCommon = './spa/styl/common.styl';
 
 gulp.task('build-styles-partners-adv', function () {
     return gulp.src(srcAdv)
@@ -82,47 +78,20 @@ gulp.task('build-styles-partners-adv', function () {
         .pipe(gulp.dest(distAdv));
 });
 
-gulp.task('concat-styles-components', function () {
-    return gulp.src(['!' + srcAdv, srcComponents])
-        .pipe(sourcemaps.init())
-        .pipe(concat('components.styl'))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(distCssTemp));
-});
-
-gulp.task('concat-styles-pages', function () {
-    return gulp.src(srcPages)
-        .pipe(sourcemaps.init())
-        .pipe(concat('pages.styl'))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(distCssTemp));
-});
-
-gulp.task('concat-styles-regions', function () {
-    return gulp.src(srcRegions)
-        .pipe(sourcemaps.init())
-        .pipe(concat('regions.styl'))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(distCssTemp));
-});
-
-
-//gulp.task('build-styles-common', ['concat-styles-components', 'concat-styles-pages', 'concat-styles-regions'], function () {
 gulp.task('build-styles-common', function () {
     return gulp.src(srcCommon)
-        //.pipe(gulpif(condition, uglify()))
         .pipe(sourcemaps.init())
         .pipe(stylus({
             use: [nib()]
         }))
-        //.pipe(cleanCSS({
-        //        debug: true,
-        //        compatibility: 'ie9'
-        //    },
-        //    function (details) {
-        //        console.log(details.name + ' originalSize: ' + details.stats.originalSize);
-        //        console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
-        //    }))
+        .pipe(gulpif(_ENV_ === 'production', cleanCSS({
+                debug: true,
+                compatibility: 'ie9'
+            },
+            function (details) {
+                console.log(details.name + ' originalSize: ' + details.stats.originalSize);
+                console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
+            })))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(distCss));
 });
