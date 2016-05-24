@@ -70,7 +70,7 @@ var srcAdv = './spa/js/components/adv/**/*.styl',
     distAdv = './spa/js/components/adv',
     srcCommon = './spa/styl/common.styl';
 
-gulp.task('build-styles-partners-adv', function () {
+gulp.task('build-styles-adv', function () {
     return gulp.src(srcAdv)
         .pipe(stylus({use: [nib()]}))
         .pipe(shorthand())
@@ -192,8 +192,36 @@ gulp.task('build-css', function (callback) {
         'build-styles-print',
         'build-styles-partners',
         'build-styles-partners-euroset',
-        'build-styles-partners-adv',
+        'build-styles-adv',
         'copy-fonts',
         callback
     )
+});
+
+
+gulp.task('build-css-watch', function () {
+    
+    gulp.watch([
+        './spa/styl/**/*.styl',
+        './spa/js/components/**/*.styl',
+        './spa/js/pages/**/*.styl',
+        './spa/js/regions/**/*.styl',
+        '!./spa/styl/partners/**/*.styl',
+        '!./spa/styl/**/ticket.styl',
+        '!./spa/styl/**/ie.styl',
+        '!./spa/styl/**/print.styl'
+    ], ['build-styles-common'])
+        .on('change', function (file) {
+            
+        });
+    
+    gulp.watch(srcAdv, ['build-styles-adv'])
+        .on('change', function (file) {
+            
+        });
+
+    gulp.watch('./spa/styl/partners/**/*.styl', ['build-styles-partners'])
+        .on('change', function (file) {
+            
+        });
 });

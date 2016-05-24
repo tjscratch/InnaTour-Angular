@@ -96,8 +96,9 @@ gulp.task('new', function (callback) {
         ['build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
         'build-angular-parts',
         'copy-node-app',
-        'md5-img',
-        'md5-css',
+        //'md5-img',
+        //'md5-css',
+        'build-css-watch',
         callback
     )
 });
