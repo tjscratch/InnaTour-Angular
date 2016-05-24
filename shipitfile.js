@@ -1,5 +1,7 @@
 module.exports = function (shipit) {
     require('shipit-deploy')(shipit);
+    require('shipit-nvm')(shipit);
+
 
     shipit.initConfig({
         default: {
@@ -11,10 +13,27 @@ module.exports = function (shipit) {
             keepReleases: 20,
             deleteOnRollback: true,
             //key: '~/.ssh/id_rsa.pub',
-            shallowClone: false
+            shallowClone: false,
+            stopService: 'sudo service inna-frontend stop; ',
+            startService: 'sudo service inna-frontend start'
         },
         staging: {
-            servers: 'root@5.200.60.73:2223'
+            servers: 'root@5.200.60.73:2223',
+            nodeExec: 'nvm exec 6.2.0'
+        },
+        test: {
+            workspace: 'shipit_build_test',
+            deployTo: '/home/deploy/www/inna-frontend-test',
+            repositoryUrl: 'ssh://git@gitlab.inna.ru:223/frontend-dev/inna-angular.git',
+            branch: 'test',
+            ignores: ['.git', 'node_modules'],
+            keepReleases: 5,
+            deleteOnRollback: true,
+            shallowClone: false,
+            stopService: 'sudo service inna-frontend-test stop; ',
+            startService: 'sudo service inna-frontend-test start',
+            servers: 'deploy@5.200.60.73:2210',
+            nodeExec: 'nvm exec 6.2.0'
         }
     });
 
@@ -33,8 +52,6 @@ module.exports = function (shipit) {
     });
 
     shipit.on('cleaned', function () {
-        console.log('event cleaned');
-
         return shipit.start(
             'after.deploy::copy.package.json',
             'after.deploy::run.npm.install',
@@ -86,8 +103,8 @@ module.exports = function (shipit) {
 
     shipit.blTask('after.deploy::restart.service', function () {
         var cmd = '';
-        cmd += 'sudo service inna-frontend stop; ';
-        cmd += 'sudo service inna-frontend start';
+        cmd += shipit.config.stopService;
+        cmd += shipit.config.startService;
         return shipit.remote(cmd);
     });
 };
