@@ -1,7 +1,7 @@
-﻿var dir         = require('require-dir')('./node_tasks'),
-    dirBin      = require('require-dir')('./bin'),
-    gulp        = require('gulp'),
-    gutil       = require('gulp-util'),
+﻿var dir = require('require-dir')('./node_tasks'),
+    dirBin = require('require-dir')('./bin'),
+    gulp = require('gulp'),
+    gutil = require('gulp-util'),
     runSequence = require('run-sequence');
 
 
@@ -89,9 +89,6 @@ gulp.task('new', function (callback) {
         'remove-dist',
         'build-css-ie',
         'build-css-components',
-        'copy-node-app',
-        'md5-img',
-        'md5-css',
         // ['remove-manifest', 'remove-bower'],
         // 'create-manifest',
         // 'sprite-gen',
@@ -99,11 +96,11 @@ gulp.task('new', function (callback) {
         // 'replace-config',
         // 'widget-search',
         // 'build-lk',
-        // ['styles', 'build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
-        // 'build-angular-parts',
-        // 'watch',
-        // 'widget-search-watch',
-        // 'build-lk-watch',
+        ['build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
+        'build-angular-parts',
+        'copy-node-app',
+        'md5-img',
+        'md5-css',
         callback
     )
 });
