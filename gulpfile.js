@@ -88,6 +88,7 @@ gulp.task('new', function (callback) {
     runSequence(
         'remove-dist',
         'build-css-ie',
+        'build-css-components',
         'copy-node-app',
         'md5-img',
         'md5-css',

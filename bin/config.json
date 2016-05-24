@@ -1,12 +1,13 @@
 {
   "styles": {
     "ie": "./spa/styl/ie.styl",
-    "pages": "./spa/js/pages/**/*.styl"
+    "pages": "./spa/js/pages/**/*.styl",
+    "componentsAppAdv": "./spa/js/components/adv/**/*.styl"
   },
   "dist": {
     "path": "./dist",
-    "css": "./dist/css",
-    "img": "./dist/img",
+    "css": "./dist/spa/css",
+    "img": "./dist/spa/img",
     "nodeApp": {
       "path": "./dist/node-app",
       "layouts": "./dist/node-app/templates/layouts",

@@ -32,6 +32,18 @@ gulp.task('build-css-ie', function () {
 });
 
 
+/* простой конкат  */
+gulp.task('build-css-components', function () {
+    return gulp.src("./spa/styl/components.styl")
+        .pipe(sourcemaps.init())
+        .pipe(stylus({
+            compress: (_ENV_ === 'production' || _ENV_ === 'beta') ? true : false
+        }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(config.dist.css));
+});
+
+
 // return gulp.src([conf.src + '/pages/**/*.styl'])
 //     .pipe(concat('pages.styl'))
 //     .pipe(gulp.dest(conf.styl + '/temp'))
