@@ -12,6 +12,7 @@ var _ENV_ = process.env.NODE_ENV || 'DEV';
 
 
 var distCss = './dist/spa/css';
+var distCssTemp = './dist/spa/css/temp';
 
 /**
  *
@@ -20,15 +21,15 @@ var distCss = './dist/spa/css';
  *
  */
 
- //для font-awesome необходимо скопировать папку с шрифтами, иначе не подгрузятся
- //./bower_components/font-awesome/fonts >> ./dist/spa/fonts
+//для font-awesome необходимо скопировать папку с шрифтами, иначе не подгрузятся
+//./bower_components/font-awesome/fonts >> ./dist/spa/fonts
 gulp.task('copy-font-font-awesome', function () {
     var srcUrl = './bower_components/font-awesome/fonts',
         distUrl = './dist/spa/fonts';
     gulp.src(srcUrl + '/**').pipe(gulp.dest(distUrl));
 });
 
-gulp.task('build-css-libs', ['copy-font-font-awesome'], function () {
+gulp.task('concat-styles-libs', ['copy-font-font-awesome'], function () {
     return gulp.src([
         './spa/lib/jquery-ui/jquery-ui.1.11.2.min.css',
         './bower_components/font-awesome/css/font-awesome.min.css',
@@ -64,7 +65,7 @@ gulp.task('build-css-libs', ['copy-font-font-awesome'], function () {
  * Сборка ie.css
  *
  */
-gulp.task('build-style-ie', function () {
+gulp.task('build-styles-ie', function () {
     var srcIeStyl = './spa/styl/ie.styl';
     return gulp.src(srcIeStyl)
         .pipe(sourcemaps.init())
@@ -91,4 +92,52 @@ gulp.task('build-style-ie', function () {
  *
  */
 
-gulp.task('build-css', ['build-css-libs', 'build-style-ie']);
+
+/**
+ *
+ * BEGIN
+ * Сборка основного css файла
+ *
+ */
+var srcAdv = './spa/js/components/adv/**/*.styl',
+    srcComponents = './spa/js/components/**/*.styl';
+
+gulp.task('concat-styles-components', function () {
+    return gulp.src(['!' + srcAdv, srcComponents])
+        .pipe(concat('components.styl'))
+        .pipe(gulp.dest(distCssTemp));
+});
+
+//gulp.task('styl-pages', function () {
+//    return gulp.src([conf.src + '/pages/**/*.styl'])
+//        .pipe(concat('pages.styl'))
+//        .pipe(gulp.dest(conf.styl + '/temp'))
+//});
+//
+//gulp.task('styl-regions', function () {
+//    return gulp.src([conf.src + '/regions/**/*.styl'])
+//        .pipe(concat('regions.styl'))
+//        .pipe(gulp.dest(conf.styl + '/temp'))
+//});
+/* \\\ простой конкат  */
+
+
+// add sourcemap
+//gulp.task('styl-common', function () {
+//    optStyl.import = styleBase;
+//
+//    return gulp.src([conf.styl + '/common.styl'])
+//        .pipe(stylus(optStyl))
+//        .pipe(concat('common.min.css'))
+//        .pipe(gulp.dest(conf.build + '/css'))
+//        .pipe(gulpif(_ENV_ == 'DEV', livereload()))
+//});
+
+/**
+ *
+ * END
+ * Сборка основного css файла
+ *
+ */
+
+gulp.task('build-css', ['concat-styles-libs', 'build-styles-ie']);

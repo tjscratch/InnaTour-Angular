@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var conf = require('./config');
-var fs = require('fs');
+var fs = require('graceful-fs');
 var Q = require('q');
 
 var _ENV_ = process.env.NODE_ENV || '';
