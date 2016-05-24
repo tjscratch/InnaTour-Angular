@@ -87,10 +87,7 @@ gulp.task('default', function (callback) {
 gulp.task('new', function (callback) {
     runSequence(
         'remove-dist',
-        'build-css-ie',
-        'build-css-components',
-        'build-css-pages',
-        'build-css-common',
+        'build-css',
         // ['remove-manifest', 'remove-bower'],
         // 'create-manifest',
         // 'sprite-gen',
