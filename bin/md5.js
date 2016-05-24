@@ -16,7 +16,12 @@ gulp.task('md5-img', function () {
 });
 
 gulp.task('md5-css', function () {
-    return gulp.src(config.dist.css + '/*.css')
-        .pipe(md5(10, config.dist.nodeApp.layouts + '/index.hbs'))
-        .pipe(gulp.dest(config.dist.css));
+    var cssSrc   = config.dist.css + '/*.css',
+        quoteSrc = config.dist.nodeApp.layouts + '/*.hbs',
+        cssDst   = config.dist.css;
+
+
+    return gulp.src(cssSrc)
+        .pipe(md5(10, quoteSrc))
+        .pipe(gulp.dest(cssDst));
 });

@@ -22,7 +22,8 @@ gulp.task('build-css-ie', function () {
     return gulp.src(config.styles.ie)
         .pipe(sourcemaps.init())
         .pipe(stylus({
-            use: [nib()],
+            use: nib(),
+            import: ['nib'],
             compress: (_ENV_ === 'production' || _ENV_ === 'beta') ? true : false
         }))
         .pipe(concat('ie.css'))
