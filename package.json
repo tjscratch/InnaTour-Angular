@@ -65,9 +65,11 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^1.8.0",
+    "gulp-clean-css": "^2.0.8",
     "gulp-cleanhtml": "^1.0.1",
     "gulp-concat": "^2.6.0",
     "gulp-md5-plus": "^0.2.5",
+    "gulp-shorthand": "^1.1.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-stylus": "^2.3.1",
     "nib": "^1.1.0"
