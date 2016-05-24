@@ -89,6 +89,8 @@ gulp.task('new', function (callback) {
         'remove-dist',
         'build-css-ie',
         'build-css-components',
+        'build-css-pages',
+        'build-css-common',
         // ['remove-manifest', 'remove-bower'],
         // 'create-manifest',
         // 'sprite-gen',

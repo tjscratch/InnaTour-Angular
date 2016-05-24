@@ -23,7 +23,6 @@ gulp.task('build-css-ie', function () {
         .pipe(sourcemaps.init())
         .pipe(stylus({
             use: nib(),
-            import: ['nib'],
             compress: (_ENV_ === 'production' || _ENV_ === 'beta') ? true : false
         }))
         .pipe(concat('ie.css'))
@@ -32,16 +31,42 @@ gulp.task('build-css-ie', function () {
 });
 
 
-/* простой конкат  */
 gulp.task('build-css-components', function () {
     return gulp.src("./spa/styl/components.styl")
         .pipe(sourcemaps.init())
         .pipe(stylus({
+            use: nib(),
             compress: (_ENV_ === 'production' || _ENV_ === 'beta') ? true : false
         }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(config.dist.css));
 });
+
+
+gulp.task('build-css-pages', function () {
+    return gulp.src("./spa/styl/pages.styl")
+        .pipe(sourcemaps.init())
+        .pipe(stylus({
+            use: nib(),
+            compress: (_ENV_ === 'production' || _ENV_ === 'beta') ? true : false
+        }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(config.dist.css));
+});
+
+
+gulp.task('build-css-common', function () {
+    return gulp.src("./spa/styl/common.styl")
+        .pipe(sourcemaps.init())
+        .pipe(stylus({
+            use: nib(),
+            compress: (_ENV_ === 'production' || _ENV_ === 'beta') ? true : false
+        }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(config.dist.css));
+});
+
+
 
 
 // return gulp.src([conf.src + '/pages/**/*.styl'])

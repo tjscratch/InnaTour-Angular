@@ -48,7 +48,6 @@
     "method-override": "2.3.0",
     "morgan": "^1.5.0",
     "nconf": "^0.7.1",
-    "nib": "1.0.4",
     "node-sprite": "0.1.2",
     "q": "1.1.2",
     "request": "^2.49.0",
@@ -70,6 +69,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-md5-plus": "^0.2.5",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-stylus": "^2.3.1"
+    "gulp-stylus": "^2.3.1",
+    "nib": "^1.1.0"
   }
 }
