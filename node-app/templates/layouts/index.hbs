@@ -42,22 +42,15 @@
     <![endif]-->
 
 
-    <!-- build:app-stylus -->
-    <!--<link rel="stylesheet" href="/build/css/common.min.css"/>-->
     <link rel="stylesheet" href="/spa/css/common.css"/>
-    <!-- endbuild -->
-
     <link rel="stylesheet" href="/spa/css/libs.css"/>
-    <!--<link rel="stylesheet" href="/dist/spa/css/common.css"/>-->
-    <!--<link rel="stylesheet" href="/dist/spa/css/components.css"/>-->
-    <!--<link rel="stylesheet" href="/dist/spa/css/pages.css"/>-->
     <!--[if lt IE 9]>
     <link rel="stylesheet" href="/spa/css/ie.css"/>
     <![endif]-->
 
     <!--[if lt IE 10]>
     <style type="text/css">
-        .spinner *{
+        .spinner * {
             display: none;
         }
     </style>
@@ -94,31 +87,31 @@
     {{> partners/ga}}
 
     <!-- Facebook Pixel Code -->
-	<script>
-		!function (f, b, e, v, n, t, s) {
-			if (f.fbq)return;
-			n = f.fbq = function () {
-				n.callMethod ?
-						n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-			};
-			if (!f._fbq)f._fbq = n;
-			n.push = n;
-			n.loaded = !0;
-			n.version = '2.0';
-			n.queue = [];
-			t = b.createElement(e);
-			t.async = !0;
-			t.src = v;
-			s = b.getElementsByTagName(e)[0];
-			s.parentNode.insertBefore(t, s)
-		}(window,
-				document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq)return;
+            n = f.fbq = function () {
+                n.callMethod ?
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq)f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window,
+                document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
-		fbq('init', '968767913213519');
-		fbq('track', "PageView");</script>
-	<noscript><img height="1" width="1" style="display:none"
-	               src="https://www.facebook.com/tr?id=968767913213519&ev=PageView&noscript=1"
-	/></noscript>
+        fbq('init', '968767913213519');
+        fbq('track', "PageView");</script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=968767913213519&ev=PageView&noscript=1"
+    /></noscript>
     <!-- End Facebook Pixel Code -->
 
 </head>
@@ -130,30 +123,31 @@
 
 <!-- Rating@Mail.ru counter -->
 <script type="text/javascript">
-	var _tmr = window._tmr || (window._tmr = []);
-	_tmr.push({ id: "2748264", type: "pageView", start: (new Date()).getTime() });
-	(function (d, w, id) {
-		if (d.getElementById(id)) return;
-		var ts = d.createElement("script");
-		ts.type = "text/javascript";
-		ts.async = true;
-		ts.id = id;
-		ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
-		var f = function () {
-			var s = d.getElementsByTagName("script")[0];
-			s.parentNode.insertBefore(ts, s);
-		};
-		if (w.opera == "[object Opera]") {
-			d.addEventListener("DOMContentLoaded", f, false);
-		} else {
-			f();
-		}
-	})(document, window, "topmailru-code");
+    var _tmr = window._tmr || (window._tmr = []);
+    _tmr.push({id: "2748264", type: "pageView", start: (new Date()).getTime()});
+    (function (d, w, id) {
+        if (d.getElementById(id)) return;
+        var ts = d.createElement("script");
+        ts.type = "text/javascript";
+        ts.async = true;
+        ts.id = id;
+        ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
+        var f = function () {
+            var s = d.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(ts, s);
+        };
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else {
+            f();
+        }
+    })(document, window, "topmailru-code");
 </script>
 <noscript>
-	<div style="position:absolute;left:-10000px;">
-		<img src="//top-fwz1.mail.ru/counter?id=2748264;js=na" style="border:0;" height="1" width="1" alt="Рейтинг@Mail.ru"/>
-	</div>
+    <div style="position:absolute;left:-10000px;">
+        <img src="//top-fwz1.mail.ru/counter?id=2748264;js=na" style="border:0;" height="1" width="1"
+             alt="Рейтинг@Mail.ru"/>
+    </div>
 </noscript>
 <!-- //Rating@Mail.ru counter -->
 
@@ -205,7 +199,7 @@
 <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=true"></script>
 <!--<script type="text/javascript"-->
-        <!--src="https://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.13/src/infobox_packed.js"></script>-->
+<!--src="https://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.13/src/infobox_packed.js"></script>-->
 <script type="text/javascript"
         src="/bower_components/google-maps-utility-library-v3-infobox/dist/infobox.min.js"></script>
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
@@ -271,34 +265,34 @@
 
 <!--Start of Zopim Live Chat Script-->
 <script type="text/javascript">
-	if (window.partners && !window.partners.isWL()) {
-		var ua = navigator.userAgent.toLowerCase();
-		var platform = navigator.platform.toLowerCase();
-		var platformName = ua.match(/ip(?:ad|od|hone)/) ? 'ios' : (ua.match(/(?:webos|android)/) || platform.match(/mac|win|linux/) || ['other'])[0];
-		var isMobile = /ios|android|webos/.test(platformName);
-		if (!isMobile) {
-			window.$zopim || (function (d, s) {
-				var z = $zopim = function (c) {
-					z._.push(c)
-				}, $ = z.s =
-						d.createElement(s), e = d.getElementsByTagName(s)[0];
-				z.set = function (o) {
-					z.set._.push(o)
-				};
-				z._ = [];
-				z.set._ = [];
-				$.async = !0;
-				$.setAttribute('charset', 'utf-8');
-				$.src = '//v2.zopim.com/?2aZ00ADGa92tSwVaDs8vM1JiY6wPNdZN';
-				z.t = +new Date;
-				$.type = 'text/javascript';
-				e.parentNode.insertBefore($, e)
-				$.onload = function () {
-					document.querySelector(".zopim").style.width = "145px"
-				}
-			})(document, 'script');
-		}
-	}
+    if (window.partners && !window.partners.isWL()) {
+        var ua = navigator.userAgent.toLowerCase();
+        var platform = navigator.platform.toLowerCase();
+        var platformName = ua.match(/ip(?:ad|od|hone)/) ? 'ios' : (ua.match(/(?:webos|android)/) || platform.match(/mac|win|linux/) || ['other'])[0];
+        var isMobile = /ios|android|webos/.test(platformName);
+        if (!isMobile) {
+            window.$zopim || (function (d, s) {
+                var z = $zopim = function (c) {
+                    z._.push(c)
+                }, $ = z.s =
+                        d.createElement(s), e = d.getElementsByTagName(s)[0];
+                z.set = function (o) {
+                    z.set._.push(o)
+                };
+                z._ = [];
+                z.set._ = [];
+                $.async = !0;
+                $.setAttribute('charset', 'utf-8');
+                $.src = '//v2.zopim.com/?2aZ00ADGa92tSwVaDs8vM1JiY6wPNdZN';
+                z.t = +new Date;
+                $.type = 'text/javascript';
+                e.parentNode.insertBefore($, e)
+                $.onload = function () {
+                    document.querySelector(".zopim").style.width = "145px"
+                }
+            })(document, 'script');
+        }
+    }
 </script>
 <!--End of Zopim Live Chat Script-->
 
@@ -313,7 +307,8 @@
 {{/unless}}
 
 
-<div id="debug_api_host" style="position: absolute; top: 10px; left: 10px; font-size: 12px; color: #fff; z-index: 1000;"></div>
+<div id="debug_api_host"
+     style="position: absolute; top: 10px; left: 10px; font-size: 12px; color: #fff; z-index: 1000;"></div>
 <script type="text/javascript">
     var debugApiHost = localStorage.getItem('debug_api_host');
     if (debugApiHost && debugApiHost.length > 0 && debugApiHost.indexOf('http') > -1) {

@@ -38,7 +38,7 @@ gulp.task('concat-styles-libs', ['copy-font-font-awesome'], function () {
         './spa/lib/selectize/selectize.default.css',
         './spa/styl/components/jquery-ui-1.10.4.custom.css',
     ])
-        .pipe(sourcemaps.init())
+        .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
         .pipe(concat('libs.css'))
         .pipe(shorthand())
         .pipe(cleanCSS({
@@ -49,7 +49,7 @@ gulp.task('concat-styles-libs', ['copy-font-font-awesome'], function () {
                 console.log(details.name + ' originalSize: ' + details.stats.originalSize);
                 console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
             }))
-        .pipe(sourcemaps.write())
+        .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
         .pipe(gulp.dest(distCss));
 });
 /**
@@ -80,7 +80,7 @@ gulp.task('build-styles-partners-adv', function () {
 
 gulp.task('build-styles-common', function () {
     return gulp.src(srcCommon)
-        .pipe(sourcemaps.init())
+        .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
         .pipe(stylus({
             use: [nib()]
         }))
@@ -92,7 +92,7 @@ gulp.task('build-styles-common', function () {
                 console.log(details.name + ' originalSize: ' + details.stats.originalSize);
                 console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
             })))
-        .pipe(sourcemaps.write())
+        .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
         .pipe(gulp.dest(distCss));
 });
 
@@ -119,14 +119,11 @@ gulp.task('copy-fonts', function () {
 gulp.task('build-styles-ie', function () {
     var srcIeStyl = './spa/styl/ie.styl';
     return gulp.src(srcIeStyl)
-        .pipe(sourcemaps.init())
         .pipe(stylus({
             use: [nib()],
             compress: (_ENV_ === 'production') ? true : false
         }))
         .pipe(shorthand())
-        .pipe(cleanCSS())
-        .pipe(sourcemaps.write())
         .pipe(gulp.dest(distCss));
 });
 /**
@@ -148,8 +145,6 @@ gulp.task('build-styles-ticket', function () {
     return gulp.src(srcUrl)
         .pipe(stylus({use: [nib()]}))
         .pipe(concat('ticket.min.css'))
-        .pipe(shorthand())
-        .pipe(cleanCSS())
         .pipe(gulp.dest(distCss));
 });
 gulp.task('build-styles-print', function () {
@@ -157,28 +152,28 @@ gulp.task('build-styles-print', function () {
     return gulp.src(srcUrl)
         .pipe(stylus({use: [nib()]}))
         .pipe(concat('print.css'))
-        .pipe(shorthand())
-        .pipe(cleanCSS())
         .pipe(gulp.dest(distCss));
 });
 gulp.task('build-styles-partners', function () {
     var srcUrl = './spa/styl/partners/**/*.base.styl',
         distSrcPartners = './spa/styl/partners';
     return gulp.src(srcUrl)
+        .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
         .pipe(stylus({use: [nib()]}))
         .pipe(shorthand())
         .pipe(cleanCSS())
+        .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
         .pipe(gulp.dest(distSrcPartners));
 });
 gulp.task('build-styles-partners-euroset', function () {
     var srcUrl = './spa/partners/euroset/assets/page.base.styl',
         distSrcPartners = './spa/partners/euroset/assets';
     return gulp.src(srcUrl)
-        .pipe(sourcemaps.init())
+        .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
         .pipe(stylus({use: [nib()]}))
         .pipe(shorthand())
         .pipe(cleanCSS())
-        .pipe(sourcemaps.write())
+        .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
         .pipe(gulp.dest(distSrcPartners));
 });
 /**

@@ -88,8 +88,6 @@ gulp.task('new', function (callback) {
     runSequence(
         'remove-dist',
         'build-css',
-        // ['remove-manifest', 'remove-bower'],
-        // 'create-manifest',
         // 'sprite-gen',
         // 'styles-app',
         // 'replace-config',
