@@ -4,6 +4,7 @@ var shorthand = require('gulp-shorthand');
 var cleanCSS = require('gulp-clean-css');
 var nib = require('nib');
 
+var gulpif = require('gulp-if');
 var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
@@ -62,6 +63,87 @@ gulp.task('concat-styles-libs', ['copy-font-font-awesome'], function () {
 /**
  *
  * BEGIN
+ * Сборка основного css файла
+ *
+ */
+var srcAdv = './spa/js/components/adv/**/*.styl',
+    distAdv = './spa/js/components/adv',
+    srcComponents = './spa/js/components/**/*.styl',
+    srcPages = './spa/js/pages/**/*.styl',
+    srcRegions = './spa/js/regions/**/*.styl',
+    srcCommon = './spa/styl/common.styl',
+    distCssTemp = './spa/styl/temp';
+
+gulp.task('build-styles-partners-adv', function () {
+    return gulp.src(srcAdv)
+        .pipe(stylus({use: [nib()]}))
+        .pipe(shorthand())
+        .pipe(cleanCSS())
+        .pipe(gulp.dest(distAdv));
+});
+
+gulp.task('concat-styles-components', function () {
+    return gulp.src(['!' + srcAdv, srcComponents])
+        .pipe(sourcemaps.init())
+        .pipe(concat('components.styl'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distCssTemp));
+});
+
+gulp.task('concat-styles-pages', function () {
+    return gulp.src(srcPages)
+        .pipe(sourcemaps.init())
+        .pipe(concat('pages.styl'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distCssTemp));
+});
+
+gulp.task('concat-styles-regions', function () {
+    return gulp.src(srcRegions)
+        .pipe(sourcemaps.init())
+        .pipe(concat('regions.styl'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distCssTemp));
+});
+
+
+//gulp.task('build-styles-common', ['concat-styles-components', 'concat-styles-pages', 'concat-styles-regions'], function () {
+gulp.task('build-styles-common', function () {
+    return gulp.src(srcCommon)
+        //.pipe(gulpif(condition, uglify()))
+        .pipe(sourcemaps.init())
+        .pipe(stylus({
+            use: [nib()]
+        }))
+        //.pipe(cleanCSS({
+        //        debug: true,
+        //        compatibility: 'ie9'
+        //    },
+        //    function (details) {
+        //        console.log(details.name + ' originalSize: ' + details.stats.originalSize);
+        //        console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
+        //    }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distCss));
+});
+
+// копирование шрифтов
+gulp.task('copy-fonts', function () {
+    var srcUrl = './spa/fonts',
+        distUrl = './dist/spa/fonts';
+    gulp.src(srcUrl + '/**').pipe(gulp.dest(distUrl));
+});
+
+/**
+ *
+ * END
+ * Сборка основного css файла
+ *
+ */
+
+/**
+ *
+ * BEGIN
  * Сборка ie.css
  *
  */
@@ -89,64 +171,51 @@ gulp.task('build-styles-ie', function () {
 /**
  *
  * BEGIN
- * Сборка основного css файла
+ * Сборка всякой фигни
  *
  */
-var srcAdv = './spa/js/components/adv/**/*.styl',
-    srcComponents = './spa/js/components/**/*.styl',
-    srcPages = './spa/js/pages/**/*.styl',
-    srcRegions = './spa/js/regions/**/*.styl',
-    srcCommon = './spa/styl/common.styl',
-    distCssTemp = './spa/styl/temp';
-
-gulp.task('concat-styles-components', function () {
-    return gulp.src(['!' + srcAdv, srcComponents])
-        .pipe(concat('components.styl'))
-        .pipe(gulp.dest(distCssTemp));
-});
-
-gulp.task('concat-styles-pages', function () {
-    return gulp.src(srcPages)
-        .pipe(concat('pages.styl'))
-        .pipe(gulp.dest(distCssTemp));
-});
-
-gulp.task('concat-styles-regions', function () {
-    return gulp.src(srcRegions)
-        .pipe(concat('regions.styl'))
-        .pipe(gulp.dest(distCssTemp));
-});
-
-
-gulp.task('build-styles-common', ['concat-styles-components', 'concat-styles-pages', 'concat-styles-regions'], function () {
-    return gulp.src(srcCommon)
-        .pipe(sourcemaps.init())
-        .pipe(stylus({
-            use: [nib()]
-        }))
-        .pipe(cleanCSS({
-                debug: true,
-                compatibility: 'ie9'
-            },
-            function (details) {
-                console.log(details.name + ' originalSize: ' + details.stats.originalSize);
-                console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
-            }))
-        .pipe(sourcemaps.write())
+gulp.task('build-styles-ticket', function () {
+    var srcUrl = './spa/styl/ticket.styl';
+    return gulp.src(srcUrl)
+        .pipe(stylus({use: [nib()]}))
+        .pipe(concat('ticket.min.css'))
+        .pipe(shorthand())
+        .pipe(cleanCSS())
         .pipe(gulp.dest(distCss));
 });
-
-// копирование шрифтов
-gulp.task('copy-fonts', function () {
-    var srcUrl = './spa/fonts',
-        distUrl = './dist/spa/fonts';
-    gulp.src(srcUrl + '/**').pipe(gulp.dest(distUrl));
+gulp.task('build-styles-print', function () {
+    var srcUrl = './spa/styl/print.styl';
+    return gulp.src(srcUrl)
+        .pipe(stylus({use: [nib()]}))
+        .pipe(concat('print.css'))
+        .pipe(shorthand())
+        .pipe(cleanCSS())
+        .pipe(gulp.dest(distCss));
 });
-
+gulp.task('build-styles-partners', function () {
+    var srcUrl = './spa/styl/partners/**/*.base.styl',
+        distSrcPartners = './spa/styl/partners';
+    return gulp.src(srcUrl)
+        .pipe(stylus({use: [nib()]}))
+        .pipe(shorthand())
+        .pipe(cleanCSS())
+        .pipe(gulp.dest(distSrcPartners));
+});
+gulp.task('build-styles-partners-euroset', function () {
+    var srcUrl = './spa/partners/euroset/assets/page.base.styl',
+        distSrcPartners = './spa/partners/euroset/assets';
+    return gulp.src(srcUrl)
+        .pipe(sourcemaps.init())
+        .pipe(stylus({use: [nib()]}))
+        .pipe(shorthand())
+        .pipe(cleanCSS())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distSrcPartners));
+});
 /**
  *
  * END
- * Сборка основного css файла
+ * Сборка всякой фигни
  *
  */
 
@@ -155,6 +224,11 @@ gulp.task('build-css', function (callback) {
         'concat-styles-libs',
         'build-styles-ie',
         'build-styles-common',
+        'build-styles-ticket',
+        'build-styles-print',
+        'build-styles-partners',
+        'build-styles-partners-euroset',
+        'build-styles-partners-adv',
         'copy-fonts',
         callback
     )
