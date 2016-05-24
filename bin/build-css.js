@@ -10,26 +10,24 @@ var config = require('./config');
 
 var _ENV_ = process.env.NODE_ENV || 'DEV';
 
+
 var distCss = './dist/spa/css';
 
 /**
  *
- *
- *
  * BEGIN
  * Конкат css библиотек в один файл
  *
- *
- *
- *
  */
-// для font-awesome необходимо скопировать папку с шрифтами, иначе не подгрузятся
-// ./bower_components/font-awesome/fonts >> ./dist/spa/fonts
+
+ //для font-awesome необходимо скопировать папку с шрифтами, иначе не подгрузятся
+ //./bower_components/font-awesome/fonts >> ./dist/spa/fonts
 gulp.task('copy-font-font-awesome', function () {
     var srcUrl = './bower_components/font-awesome/fonts',
         distUrl = './dist/spa/fonts';
     gulp.src(srcUrl + '/**').pipe(gulp.dest(distUrl));
 });
+
 gulp.task('build-css-libs', ['copy-font-font-awesome'], function () {
     return gulp.src([
         './spa/lib/jquery-ui/jquery-ui.1.11.2.min.css',
@@ -54,14 +52,43 @@ gulp.task('build-css-libs', ['copy-font-font-awesome'], function () {
 });
 /**
  *
- *
- *
  * END
  * Конкат css библиотек в один файл
  *
+ */
+
+
+/**
  *
+ * BEGIN
+ * Сборка ie.css
  *
+ */
+gulp.task('build-style-ie', function () {
+    var srcIeStyl = './spa/styl/ie.styl';
+    return gulp.src(srcIeStyl)
+        .pipe(sourcemaps.init())
+        .pipe(stylus({
+            use: nib(),
+            compress: (_ENV_ === 'production') ? true : false
+        }))
+        .pipe(shorthand())
+        .pipe(cleanCSS({
+                debug: true,
+                compatibility: 'ie9'
+            },
+            function (details) {
+                console.log(details.name + ' originalSize: ' + details.stats.originalSize);
+                console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
+            }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distCss));
+});
+/**
+ *
+ * END
+ * Сборка ie.css
  *
  */
 
-gulp.task('build-css', ['build-css-libs']);
+gulp.task('build-css', ['build-css-libs', 'build-style-ie']);

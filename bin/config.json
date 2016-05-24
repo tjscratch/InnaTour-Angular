@@ -1,6 +1,5 @@
 {
   "styles": {
-    "ie": "./spa/styl/ie.styl",
     "pages": "./spa/js/pages/**/*.styl",
     "componentsAppAdv": "./spa/js/components/adv/**/*.styl"
   },
