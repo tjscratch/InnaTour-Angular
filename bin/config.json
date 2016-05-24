@@ -3,14 +3,21 @@
     "ie": "./spa/styl/ie.styl",
     "pages": "./spa/js/pages/**/*.styl"
   },
-  "dist":{
+  "dist": {
     "path": "./dist",
     "css": "./dist/css",
-    "img": "./dist/img"
+    "img": "./dist/img",
+    "nodeApp": {
+      "path": "./dist/node-app",
+      "layouts": "./dist/node-app/templates/layouts",
+      "partials": "./dist/node-app/templates/partials"
+    }
+  },
+  "nodeApp": {
+    "path": "./node-app"
   },
   "build": "./build",
   "bower": "./bower_components",
-  "backendTempl": "./backend/templates/partials",
   "nodeAppLayouts": "./node-app/templates/layouts",
   "nodeAppPartials": "./node-app/templates/partials",
   "dest": "./spa",
