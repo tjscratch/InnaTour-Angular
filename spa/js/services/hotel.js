@@ -85,12 +85,12 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
         },
         getHotelsResevationUrl: function (hotelId, providerId, roomId, params) {
             var hotelParams = this.hotelConcatParams(params);
-            var hotelUrl = AppRouteUrls.URL_RESERVATIONS + 'hotels/' + hotelId + '/' + providerId + '/' + roomId +'/' + hotelParams;
+            var hotelUrl = AppRouteUrls.URL_RESERVATIONS + 'hotels/' + hotelId + '/' + providerId + '/' + roomId + '/' + hotelParams;
             return hotelUrl
         },
         getBusResevationUrl: function (hotelId, providerId, roomId, params) {
             var hotelParams = this.hotelConcatParams(params);
-            var hotelUrl = AppRouteUrls.URL_RESERVATIONS + 'bus/' + hotelId + '/' + providerId + '/' + roomId +'/' + hotelParams;
+            var hotelUrl = AppRouteUrls.URL_RESERVATIONS + 'bus/' + hotelId + '/' + providerId + '/' + roomId + '/' + hotelParams;
             return hotelUrl
         },
         getShowPageMenu: function () {
@@ -148,6 +148,136 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
                     klass: 'icon-sprite-map'
                 }
             ];
-        }
+        },
+
+
+        /**
+         * hotels filters
+         */
+        getHotelFilters: function () {
+            return {
+                "Hotels": {
+                    "Price": {
+                        "Min": 28180.0,
+                        "Max": 138817.0,
+                        "Value": 138817.0
+                    }
+                    ,
+                    "Stars": {
+                        "List": [{
+                            "Value": 5.0,
+                            "Price": 87851.0
+                        }, {
+                            "Value": 4.0,
+                            "Price": 48171.0
+                        }, {
+                            "Value": 3.0,
+                            "Price": 29725.0
+                        }, {
+                            "Value": 2.0,
+                            "Price": 28180.0
+                        }, {
+                            "Value": 1.0,
+                            "Price": 32636.0
+                        }
+                        ]
+                    }
+                    ,
+                    "TaFactor": {
+                        "List": [{
+                            "Value": 5.0,
+                            "Price": 33185.0
+                        }, {
+                            "Value": 4.0,
+                            "Price": 34828.0
+                        }, {
+                            "Value": 1.0,
+                            "Price": 28180.0
+                        }
+                        ]
+                    }
+                    ,
+                    "HotelType": {
+                        "List": [{
+                            "Price": 32636.0,
+                            "Value": "Апартаменты",
+                            "Name": "Апартаменты"
+                        }, {
+                            "Price": 32636.0,
+                            "Value": "Отель",
+                            "Name": "Отель"
+                        }, {
+                            "Price": 37019.0,
+                            "Value": "Пансион",
+                            "Name": "Пансион"
+                        }
+                        ]
+                    }
+                    ,
+                    "Extra": {
+                        "List": [{
+                            "Price": 28180.0,
+                            "Value": "BarRestaurant",
+                            "Name": "Бар/Ресторан"
+                        }, {
+                            "Price": 33254.0,
+                            "Value": "SwimmingPool",
+                            "Name": "Бассейн"
+                        }, {
+                            "Price": 36472.0,
+                            "Value": "Breakfast",
+                            "Name": "Завтрак"
+                        }, {
+                            "Price": 32703.0,
+                            "Value": "Internet",
+                            "Name": "Интернет"
+                        }, {
+                            "Price": 32703.0,
+                            "Value": "Parking",
+                            "Name": "Парковка"
+                        }, {
+                            "Price": 101494.0,
+                            "Value": "ServicesForChildren",
+                            "Name": "Сервисы для детей"
+                        }, {
+                            "Price": 28180.0,
+                            "Value": "SPA",
+                            "Name": "СПА"
+                        }, {
+                            "Price": 28180.0,
+                            "Value": "Fitness",
+                            "Name": "Фитнес"
+                        }
+                        ]
+                    }
+                    ,
+                    "Meal": {
+                        "List": [{
+                            "Name": "Без питания",
+                            "Order": 1,
+                            "Price": 28180.0,
+                            "Value": "RO"
+                        }, {
+                            "Name": "Завтраки",
+                            "Order": 2,
+                            "Price": 36472.0,
+                            "Value": "BB"
+                        }, {
+                            "Name": "Полупансион",
+                            "Order": 3,
+                            "Price": 40607.0,
+                            "Value": "HB"
+                        }, {
+                            "Name": "Полный пансион",
+                            "Order": 5,
+                            "Price": 35873.0,
+                            "Value": "FB"
+                        }
+                        ]
+                    }
+                }
+            }
+        },
+
     }
 });
