@@ -43,20 +43,20 @@
 		</div>
 
 
-		<div class="b-offers-categories-container">
-			<div class="b-offers-categories">
-				<div class="b-offers-category__list">
-					<div class="b-offers-category"
-					     ng-repeat="category in Categories"
-					     ng-class="{'active' : category.Selected}"
-					     ng-click="setCategory(category)"
-					>{{ category.Text }}
-					</div>
+	</div>
+
+
+	<div class="b-offers-categories-container">
+		<div class="b-offers-categories">
+			<div class="b-offers-category__list">
+				<div class="b-offers-category"
+				     ng-repeat="category in Categories"
+				     ng-class="{'active' : category.Selected}"
+				     ng-click="setCategory(category)"
+				>{{ category.Text }}
 				</div>
 			</div>
 		</div>
-
-
 	</div>
 
 
@@ -127,13 +127,8 @@
 			>
 				<div class="b-offer__container">
 					<div class="b-offer__bg"
-					     style="background-image: url('{{ offer.ImageL }}')"
+					     style="background-image: url('{{ offerArr.length == 1 ? offer.ImageL : offer.ImageS }}')"
 					></div>
-
-					<!--<img class="b-offer__bg"
-					     ng-src="{{ offer.ImageL }}"
-					     alt="{{ offer.Country }}, {{ offer.Location }}, {{ offer.Nights | asQuantity: 'ночь':'ночи':'ночей'}} на двоих"/>
-					     -->
 
 					<a class="b-offer__container-link"
 					   href="{{ offer.Details }}"
@@ -178,7 +173,7 @@
          ng-repeat="section in sections">
          -->
 	<div ng-class="{'Offers-anchor':($index == 0)}"
-	     ng-if="!showOffers"
+	     ng-if="!showOffers && false"
 	     ng-repeat="section in sections">
 		<div class="offers-container">
 

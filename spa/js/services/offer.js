@@ -24,7 +24,8 @@ innaAppServices.service('Offer', function ($http, appApi) {
                     return -o.Price;
                 });
             }
-            return _.partitionArray(sortOffers, 3);
+            //return _.partitionArray(sortOffers, 3);
+            return _.partitionArray(sortOffers, 2);
         },
         //
         // генерация фейковых офферов

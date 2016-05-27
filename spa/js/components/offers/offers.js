@@ -7,6 +7,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
             function setDefaultValue (res) {
 
                 $scope.Categories = res.data.Categories;
+                $scope.Categories.length = 8;
                 $scope.Locations = res.data.Locations;
                 $scope.Months = res.data.Month;
                 $scope.Periods = res.data.Period;
@@ -44,6 +45,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                     return item.Selected == true;
                 });
                 $scope.filter.Category = CategoryObj.Value;
+                $scope.setCategory(CategoryObj);
 
                 var SortObj = _.find($scope.Sorts, function (item) {
                     return item.Selected == true;
