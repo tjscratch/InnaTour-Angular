@@ -87,6 +87,7 @@ gulp.task('default', function (callback) {
 gulp.task('new', function (callback) {
     runSequence(
         'remove-dist',
+        'build-sprite',
         'build-css',
         // 'sprite-gen',
         // 'styles-app',
