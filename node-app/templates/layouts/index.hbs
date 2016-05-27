@@ -204,9 +204,9 @@
         src="/bower_components/google-maps-utility-library-v3-infobox/dist/infobox.min.js"></script>
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
-<!-- build:bower_components -->
-<script src="/bower_components/bower-components.js"></script>
-<!-- endbuild -->
+
+<script src="/build/js/vendor.js"></script>
+
 
 <script>
     Raven.config('https://59926a30fbc14817a463747bd24cd7fa@app.getsentry.com/78136', {
@@ -231,8 +231,6 @@
 
 <!--файлы заменяются при билде на app-main.js-->
 <!-- build:app-main-js -->
-
-<script src="/build/js/app-lib.js"></script>
 <script src="/build/js/angular-parts.js"></script>
 <script src="/build/js/templates.js"></script>
 
