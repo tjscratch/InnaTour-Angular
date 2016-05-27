@@ -86,8 +86,8 @@ module.exports = function (shipit) {
     
     shipit.blTask('after.deploy::restart.service', function () {
         var cmd = '';
-        cmd += 'sudo service inna-frontend-manager stop; ';
-        cmd += 'sudo service inna-frontend-manager start';
+        cmd += 'sudo service inna-frontend stop; ';
+        cmd += 'sudo service inna-frontend start';
         return shipit.remote(cmd);
     });
 };
