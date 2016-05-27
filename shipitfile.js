@@ -1,8 +1,6 @@
 module.exports = function (shipit) {
     require('shipit-deploy')(shipit);
-    require('shipit-nvm')(shipit);
-
-
+    
     shipit.initConfig({
         default: {
             workspace: 'shipit_build',
@@ -13,45 +11,30 @@ module.exports = function (shipit) {
             keepReleases: 20,
             deleteOnRollback: true,
             //key: '~/.ssh/id_rsa.pub',
-            shallowClone: false,
-            stopService: 'sudo service inna-frontend stop; ',
-            startService: 'sudo service inna-frontend start'
+            shallowClone: false
         },
         staging: {
-            servers: 'root@5.200.60.73:2223',
-            nodeExec: 'nvm exec 6.2.0'
-        },
-        test: {
-            workspace: 'shipit_build_test',
-            deployTo: '/home/deploy/www/inna-frontend-test',
-            repositoryUrl: 'ssh://git@gitlab.inna.ru:223/frontend-dev/inna-angular.git',
-            branch: 'test',
-            ignores: ['.git', 'node_modules'],
-            keepReleases: 5,
-            deleteOnRollback: true,
-            shallowClone: false,
-            stopService: 'sudo service inna-frontend-test stop; ',
-            startService: 'sudo service inna-frontend-test start',
-            servers: 'deploy@5.200.60.73:2210',
-            nodeExec: 'nvm exec 6.2.0'
+            servers: 'root@5.200.60.73:2223'
         }
     });
-
+    
     shipit.task('pwd', function () {
         return shipit.remote('pwd');
     });
-
+    
     shipit.task('ls', function () {
         return shipit.remote('ls -la');
     });
-
+    
     shipit.on('fetched', function () {
         return shipit.start(
             'pre.deploy::build'
         );
     });
-
+    
     shipit.on('cleaned', function () {
+        console.log('event cleaned');
+        
         return shipit.start(
             'after.deploy::copy.package.json',
             'after.deploy::run.npm.install',
@@ -60,37 +43,37 @@ module.exports = function (shipit) {
             'print.rollback'
         );
     });
-
+    
     shipit.task('print.rollback', function () {
         console.log('=================================================');
         console.log('Отменить деплой:');
         console.log('shipit staging rollback');
         console.log('=================================================');
     });
-
+    
     //собирает проект локально, перед копированием на сервер
     shipit.blTask('pre.deploy::build', function () {
         return shipit.local('cd ' + shipit.config.workspace + '&& NODE_ENV=production gulp build-project');
     });
-
-
+    
+    
     //копируем package.json в корневую папку,
     //чтобы каждый раз не устанавливать все пакеты заново
     //для ускорения билда короче
     shipit.blTask('after.deploy::copy.package.json', function () {
         return shipit.remote('cd ' + shipit.currentPath + ' && cp package.json ' + shipit.config.deployTo);
     });
-
+    
     //запускаем npm install в корневой папке
     shipit.blTask('after.deploy::run.npm.install', function () {
         return shipit.remote('cd ' + shipit.config.deployTo + ' && npm install');
     });
-
+    
     //запускаем build --release в текущем билде
     shipit.blTask('after.deploy::run.build', function () {
         return shipit.remote('cd ' + shipit.currentPath + ' && NODE_ENV=production gulp build-project');
     });
-
+    
     //перезапускаем приложение
     //forever list | grep -q build.server.js - возвращает 0 - если не нашлось строки 'build.server.js', 1 - если нашлось
     //и соответственно запускается команда
@@ -100,11 +83,11 @@ module.exports = function (shipit) {
     //    cmd += ' forever start '+ shipit.currentPath + '/build/server.js;';
     //    return shipit.remote(cmd);
     //});
-
+    
     shipit.blTask('after.deploy::restart.service', function () {
         var cmd = '';
-        cmd += shipit.config.stopService;
-        cmd += shipit.config.startService;
+        cmd += 'sudo service inna-frontend stop; ';
+        cmd += 'sudo service inna-frontend start';
         return shipit.remote(cmd);
     });
 };
