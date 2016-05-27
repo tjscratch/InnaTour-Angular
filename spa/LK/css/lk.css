@@ -313,7 +313,7 @@ h4 {
 .col-xs-7 {
   position: relative;
   float: left;
-  width: 58.33333333333334%;
+  width: 58.333333333333336%;
   min-height: 1px;
   box-sizing: border-box;
   padding-left: 5px;
@@ -331,7 +331,7 @@ h4 {
 .col-xs-9 {
   position: relative;
   float: left;
-  width: 75.00000000000001%;
+  width: 75%;
   min-height: 1px;
   box-sizing: border-box;
   padding-left: 5px;
@@ -349,7 +349,7 @@ h4 {
 .col-xs-11 {
   position: relative;
   float: left;
-  width: 91.66666666666666%;
+  width: 91.66666666666667%;
   min-height: 1px;
   box-sizing: border-box;
   padding-left: 5px;
