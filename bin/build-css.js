@@ -10,10 +10,9 @@ var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var config = require('./config');
 
+
 var _ENV_ = process.env.NODE_ENV || 'DEV';
 
-
-var distCss = './dist/spa/css';
 
 /**
  *
@@ -50,7 +49,7 @@ gulp.task('concat-styles-libs', ['copy-font-font-awesome'], function () {
                 console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
             }))
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
-        .pipe(gulp.dest(distCss));
+        .pipe(gulp.dest(config.styles.distSrc));
 });
 /**
  *
@@ -93,7 +92,7 @@ gulp.task('build-styles-common', function () {
                 console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
             })))
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
-        .pipe(gulp.dest(distCss));
+        .pipe(gulp.dest(config.styles.distSrc));
 });
 
 // копирование шрифтов
@@ -124,7 +123,7 @@ gulp.task('build-styles-ie', function () {
             compress: (_ENV_ === 'production') ? true : false
         }))
         .pipe(shorthand())
-        .pipe(gulp.dest(distCss));
+        .pipe(gulp.dest(config.styles.distSrc));
 });
 /**
  *
@@ -145,14 +144,14 @@ gulp.task('build-styles-ticket', function () {
     return gulp.src(srcUrl)
         .pipe(stylus({use: [nib()]}))
         .pipe(concat('ticket.min.css'))
-        .pipe(gulp.dest(distCss));
+        .pipe(gulp.dest(config.styles.distSrc));
 });
 gulp.task('build-styles-print', function () {
     var srcUrl = './spa/styl/print.styl';
     return gulp.src(srcUrl)
         .pipe(stylus({use: [nib()]}))
         .pipe(concat('print.css'))
-        .pipe(gulp.dest(distCss));
+        .pipe(gulp.dest(config.styles.distSrc));
 });
 gulp.task('build-styles-partners', function () {
     var srcUrl = './spa/styl/partners/**/*.base.styl',
