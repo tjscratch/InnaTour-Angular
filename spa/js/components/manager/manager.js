@@ -125,7 +125,7 @@ innaAppDirectives.directive('managerWidget', function ($templateCache, $interval
 
                 stopWidget = $interval(function () {
                     setManager();
-                }, 35000);
+                }, 31000);
             };
 
             $scope.stopFightWidget = function () {
