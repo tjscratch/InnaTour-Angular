@@ -1,6 +1,6 @@
 module.exports = function (shipit) {
     require('shipit-deploy')(shipit);
-
+    
     shipit.initConfig({
         default: {
             workspace: 'shipit_build',
@@ -17,24 +17,24 @@ module.exports = function (shipit) {
             servers: 'root@5.200.60.73:2223'
         }
     });
-
+    
     shipit.task('pwd', function () {
         return shipit.remote('pwd');
     });
-
+    
     shipit.task('ls', function () {
         return shipit.remote('ls -la');
     });
-
+    
     shipit.on('fetched', function () {
         return shipit.start(
             'pre.deploy::build'
         );
     });
-
+    
     shipit.on('cleaned', function () {
         console.log('event cleaned');
-
+        
         return shipit.start(
             'after.deploy::copy.package.json',
             'after.deploy::run.npm.install',
@@ -43,37 +43,37 @@ module.exports = function (shipit) {
             'print.rollback'
         );
     });
-
+    
     shipit.task('print.rollback', function () {
         console.log('=================================================');
         console.log('Отменить деплой:');
         console.log('shipit staging rollback');
         console.log('=================================================');
     });
-
+    
     //собирает проект локально, перед копированием на сервер
     shipit.blTask('pre.deploy::build', function () {
         return shipit.local('cd ' + shipit.config.workspace + '&& NODE_ENV=production gulp build-project');
     });
-
-
+    
+    
     //копируем package.json в корневую папку,
     //чтобы каждый раз не устанавливать все пакеты заново
     //для ускорения билда короче
     shipit.blTask('after.deploy::copy.package.json', function () {
         return shipit.remote('cd ' + shipit.currentPath + ' && cp package.json ' + shipit.config.deployTo);
     });
-
+    
     //запускаем npm install в корневой папке
     shipit.blTask('after.deploy::run.npm.install', function () {
         return shipit.remote('cd ' + shipit.config.deployTo + ' && npm install');
     });
-
+    
     //запускаем build --release в текущем билде
     shipit.blTask('after.deploy::run.build', function () {
         return shipit.remote('cd ' + shipit.currentPath + ' && NODE_ENV=production gulp build-project');
     });
-
+    
     //перезапускаем приложение
     //forever list | grep -q build.server.js - возвращает 0 - если не нашлось строки 'build.server.js', 1 - если нашлось
     //и соответственно запускается команда
@@ -83,7 +83,7 @@ module.exports = function (shipit) {
     //    cmd += ' forever start '+ shipit.currentPath + '/build/server.js;';
     //    return shipit.remote(cmd);
     //});
-
+    
     shipit.blTask('after.deploy::restart.service', function () {
         var cmd = '';
         cmd += 'sudo service inna-frontend-manager stop; ';

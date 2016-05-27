@@ -1,56 +1,97 @@
 {{#if PriceObjectCalculate}}
-    <div class="b-tooltip-price b-tooltip-price_{{tooltipKlass}}">
-        <span class="icon-price-info cursor-pointer
-                {{(!iconWhite) ? 'icon-sprite-price-info' : 'icon-sprite-price-info-white'}}"
-                on-click='toggleShow'></span>
+<div class="b-tooltip-price b-tooltip-price_{{tooltipKlass}}">
 
-		{{#if isVisible}}
-            <div class="tooltip tooltip_{{position}} tooltip-price tooltip-price_at_hotel-card {{PriceObject ? 'tooltip-price_big':''}}">
+    <i class="fa fa-info-circle b-tooltip-price__icon
+              {{(PriceObjectCalculate.Color == 0) ? ' b-tooltip-price__icon-red' : nil}}
+              {{(PriceObjectCalculate.Color == 1) ? ' b-tooltip-price__icon-green' : nil}}
+        "
+       aria-hidden="true"
+       on-click='toggleShow'></i>
 
-                <div class="tooltip-price__b2b">
-                    <ul>
-                        <li class="list-price-item">
-                            <div class="row">
-                                <div class="col-xs-6 col-no-padding">
-                                    Сбор агента
-                                </div>
-                                <div class="col-xs-6 col-no-padding list-price-item__right">
+    <!--<span class="icon-price-info cursor-pointer-->
+    <!--{{(!iconWhite) ? 'icon-sprite-price-info' : 'icon-sprite-price-info-white'}}"-->
+    <!--on-click='toggleShow'></span>-->
+
+    {{#if isVisible}}
+    <div class="tooltip tooltip_{{position}} tooltip-price tooltip-price_at_hotel-card {{PriceObject ? 'tooltip-price_big':''}}">
+
+        <div class="tooltip-price__b2b">
+
+            <!--{{{JSON.stringify(PriceObjectCalculate, null, '<br>')}}}-->
+
+            {{#if PriceObjectCalculate.NewDPMoney }}
+            <ul>
+                <li class="list-price-item">
+                    <div class="row">
+                        <div class="col-xs-6 col-no-padding">
+                            Доход
+                        </div>
+                        <div class="col-xs-6 col-no-padding list-price-item__right">
+                            <div class="list-price">
+                                {{priceFilter(PriceObjectCalculate.NewDPMoney)}}
+                                {{>ruble}}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-price-item">
+                    <div class="row">
+                        <div class="col-xs-6 col-no-padding">
+                            Доход в процентах
+                        </div>
+                        <div class="col-xs-6 col-no-padding list-price-item__right">
+                            <div class="list-price">
+                                {{PriceObjectCalculate.NewDPPercent}}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            {{else}}
+            <ul>
+                <li class="list-price-item">
+                    <div class="row">
+                        <div class="col-xs-6 col-no-padding">
+                            Сбор агента
+                        </div>
+                        <div class="col-xs-6 col-no-padding list-price-item__right">
 			                        <span class="list-price">
 				                        {{priceFilter(PriceObjectCalculate.TotalAgentRate)}}
 				                        {{>ruble}}
 			                        </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-price-item">
-                            <div class="row">
-                                <div class="col-xs-6 col-no-wrap col-no-padding">
-                                    Агент. вознагр.
-                                </div>
-                                <div class="col-xs-6 col-no-padding list-price-item__right">
+                        </div>
+                    </div>
+                </li>
+                <li class="list-price-item">
+                    <div class="row">
+                        <div class="col-xs-6 col-no-wrap col-no-padding">
+                            Агент. вознагр.
+                        </div>
+                        <div class="col-xs-6 col-no-padding list-price-item__right">
 			                        <span class="list-price">
 			                            {{priceFilter(PriceObjectCalculate.TotalInnaAgentRate)}}
 				                        {{>ruble}}
 			                        </span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-price-item">
-                            <div class="row">
-                                <div class="col-xs-6 col-no-padding">
-                                    Доход
-                                </div>
-                                <div class="col-xs-6 col-no-padding list-price-item__right">
+                        </div>
+                    </div>
+                </li>
+                <li class="list-price-item">
+                    <div class="row">
+                        <div class="col-xs-6 col-no-padding">
+                            Доход
+                        </div>
+                        <div class="col-xs-6 col-no-padding list-price-item__right">
 			                        <span class="list-price">
 			                            {{priceFilter(PriceObjectCalculate.TotalAgentProfit)}}
 				                        {{>ruble}}
 			                        </span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-		{{/if}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            {{/if}}
+        </div>
     </div>
+    {{/if}}
+</div>
 {{/if}}
