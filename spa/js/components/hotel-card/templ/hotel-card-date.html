@@ -1,7 +1,7 @@
 <div class="HotelCardInfo__text">
 	с
-	{{::hotel.CheckIn | date :"dd MMM"}}
+	{{hotel.CheckIn | date :"dd MMM"}}
 	по
-	{{::hotel.CheckOut | date :"dd MMM"}},
-	{{::hotel.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+	{{hotel.CheckOut | date :"dd MMM"}},
+	{{hotel.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
 </div>

@@ -1,5 +1,6 @@
 innaAppControllers.controller('HotelsIndexController', function ($rootScope, $scope, $routeParams, $location, $timeout,
-                                                                 AppRouteUrls, Balloon, HotelService) {
+                                                                 AppRouteUrls, Balloon, HotelService,
+                                                                 EventManager, innaAppApiEvents) {
 
     // toDo хрень какая то, удалить надо бы
     document.body.classList.add('bg_gray-light');
@@ -11,15 +12,17 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
      * поэтому если не b2b пользователь попал на страницу отелей
      * редиректим его на главную
      */
-    // $timeout(function () {
-    //     var isAgency = false;
-    //     if ($rootScope.$root.user) {
-    //         isAgency = $rootScope.$root.user.isAgency();
-    //     }
-    //     if (isAgency == false) {
-    //         $location.path('/#/');
-    //     }
-    // }, 500);
+    $timeout(function () {
+        var isAgency = false;
+        if ($rootScope.$root.user) {
+            if (parseInt($rootScope.$root.user.getAgencyId()) == 20005 || parseInt($rootScope.$root.user.getAgencyId()) == 2) {
+                isAgency = true;
+            }
+        }
+        if (isAgency == false) {
+            $location.path('/#/');
+        }
+    }, 500);
 
 
     /**
@@ -48,14 +51,30 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
         $location.path(AppRouteUrls.URL_HOTELS);
     };
 
+    $scope.filtersSettingsHotels = null;
+    $scope.asMap = false;
+    $scope.activePanel = 'hotels';
 
     if ($routeParams) {
+        var searchParams = angular.copy($routeParams);
+        self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
+        searchParams.Adult = self.passengerCount;
+        searchParams.ChildrenCount = null;
         $scope.baloonHotelLoad.show();
-        HotelService.getHotelsList($routeParams)
+        HotelService.getHotelsList(searchParams)
             .then(function (response) {
                 if (response.status == 200 && response.data.Hotels.length > 0) {
                     $scope.hotels = response.data.Hotels;
                     $scope.baloonHotelLoad.teardown();
+
+                    /* данный для настроек панели фильтров */
+                    $scope.filtersSettingsHotels = {
+                        filtersData: response.data.Filter,
+                        Collection: $scope.hotels,
+                        filter_hotel: true,
+                        filter_avia: false
+                    };
+
                 } else {
                     $scope.baloonHotelNotFound = new Balloon();
                     $scope.baloonHotelNotFound.updateView({
@@ -86,16 +105,24 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
             });
     }
 
+    EventManager.on(innaAppApiEvents.FILTER_PANEL_CHANGE, function (data){
+        $scope.$apply(function (){
+            $scope.hotels = data;
+        })
+    });
 
-    var datasource = {};
+    $scope.filters = HotelService.getHotelFilters();
 
-    datasource.get = function (index, count, success) {
-        $timeout(function () {
-            success($scope.hotels.slice(index, index + count));
-        }, 0);
-    };
 
-    $scope.datasource = datasource;
+    //var datasource = {};
+    //
+    //datasource.get = function (index, count, success) {
+    //    $timeout(function () {
+    //        success($scope.hotels.slice(index, index + count));
+    //    }, 0);
+    //};
+    //
+    //$scope.datasource = datasource;
 
 
     if ($routeParams) {

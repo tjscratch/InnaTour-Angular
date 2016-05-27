@@ -20,7 +20,7 @@ innaAppControllers
             if (partner != null && partner.name == 'sputnik') {
                 $scope.headerTemplateSrc = 'regions/header/templ/header_sputnik.html';
             }
-            else{
+            else {
                 $scope.headerTemplateSrc = 'regions/header/templ/header.html';
             }
 
@@ -33,7 +33,9 @@ innaAppControllers
             $scope.isAgency = false;
             $scope.$on(Events.AUTH_USER_SET, function (e, data) {
                 if (data) {
-                    $scope.isAgency = data.isAgency();
+                    if (parseInt(data.getAgencyId()) == 20005 || parseInt(data.getAgencyId()) == 2) {
+                        $scope.isAgency = true;
+                    }
                 }
             });
 
@@ -94,7 +96,7 @@ innaAppControllers
 
                 var loc = $location.path();
                 var isDynamic = (
-                    loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
+                        loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
                     ) || loc == appUrls.URL_ROOT;
 
                 var abs = $location.absUrl();
@@ -121,7 +123,7 @@ innaAppControllers
             };
 
 
-            function setShadow (){
+            function setShadow() {
                 if ($location.path().indexOf(appUrls.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
                     $scope.shadow = true;
                 } else {
