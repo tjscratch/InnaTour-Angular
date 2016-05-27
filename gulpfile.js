@@ -89,17 +89,27 @@ gulp.task('new', function (callback) {
         'remove-dist',
         'build-sprite',
         'build-css',
-        // 'sprite-gen',
-        // 'styles-app',
-        // 'replace-config',
-        // 'widget-search',
-        // 'build-lk',
         ['build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
         'build-angular-parts',
         'copy-node-app',
+        'copy-img',
+        'build-css-watch',
+        'build-angular-templates-watch',
+        callback
+    )
+});
+
+gulp.task('new-deploy', function (callback) {
+    runSequence(
+        'remove-dist',
+        'build-sprite',
+        'build-css',
+        ['build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
+        'build-angular-parts',
+        'copy-node-app',
+        'build-angular-templates-md5',
         'md5-img',
         'md5-css',
-        'build-css-watch',
         callback
     )
 });

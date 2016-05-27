@@ -1,4 +1,12 @@
 {
+  "templates": {
+    "src": [
+      "./spa/templates/**/*.html",
+      "./spa/js/**/*.html",
+      "./spa/js/widgets/search/templ/*.html"
+    ],
+    "dist": "./dist/spa/js"
+  },
   "styles": {
     "pages": "./spa/js/pages/**/*.styl",
     "componentsAppAdv": "./spa/js/components/adv/**/*.styl"
