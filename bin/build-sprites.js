@@ -1,7 +1,6 @@
 var del = require('del');
 var gulp = require('gulp');
 var buffer = require('vinyl-buffer');
-var csso = require('gulp-csso');
 var imagemin = require('gulp-imagemin');
 var merge = require('merge-stream');
 var handlebars = require('handlebars');
