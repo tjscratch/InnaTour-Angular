@@ -105,7 +105,7 @@ innaAppDirectives.directive('managerWidget', function ($templateCache, $interval
             };
 
 
-            $scope.$on('showManager', function (data) {
+            $scope.$on('showManager', function (event, data) {
                 $scope.showChat = data;
             });
 
