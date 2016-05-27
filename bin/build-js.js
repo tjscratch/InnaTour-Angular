@@ -56,3 +56,22 @@ gulp.task('build-angular-templates', function () {
 gulp.task('build-angular-templates-watch', function () {
     gulp.watch(config.templates.src, ['build-angular-templates'])
 });
+
+
+// сборка приложения
+gulp.task('build-app', function () {
+    return gulp.src(config.js.srcApp)
+        .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
+        .pipe(concat('app.js'))
+        .pipe(gulpif(_ENV_ == 'production',
+            uglify({
+                mangle: true,
+                compress: true,
+                output: {
+                    beautify: false
+                }
+            })
+        ))
+        .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
+        .pipe(gulp.dest(config.js.distSrc));
+});

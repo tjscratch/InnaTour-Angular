@@ -21,13 +21,30 @@ var config = {
             "./spa/js/widgets/search/templ/*.html"
         ],
         "angularModuleName": "innaApp.templates",
-        "distSrc": "./build/js",
-        "distSrcMd5": "./build/js/*.js"
+        "distSrc": "./dist/spa/js",
+        "distSrcMd5": "./dist/spa/js/*.js"
     },
     "js": {
-        "src": "",
-        "distSrc": "./build/js",
-        "distSrcMd5": "./build/js/*.js",
+        "srcApp": [
+            "./spa/js/app.js",
+            "./spa/js/tracking.js",
+            "./spa/js/filters.js",
+            "./spa/js/mediator.js",
+            "./spa/js/components/**/*.js",
+            "./spa/js/regions/**/*.js",
+            "./spa/js/pages/**/*.js",
+            "./spa/js/controllers/**/*.js",
+            "./spa/js/services/**/*.js",
+            "./spa/js/directives/**/*.js",
+            "./spa/js/widgets/search/js/directives.js",
+            "./spa/js/widgets/search/js/form.js",
+            "./spa/js/widgets/search/js/services.js",
+            "./spa/js/widgets/search/js/validation.js",
+            "./spa/js/models/model.js",
+            "./spa/js/models/**/*.js",
+            "./spa/js/helpers/**/*.js",
+            "./spa/js/ang.helpers/**/*.js",
+        ],
         "bowerSrcs": [
             "./bower_components/underscore/underscore-min.js",
             "./bower_components/raven-js/dist/raven.min.js",
@@ -47,6 +64,7 @@ var config = {
             "./bower_components/angular-validation/dist/angular-validation.min.js",
             "./bower_components/angular-validation/dist/angular-validation-rule.min.js",
             "./bower_components/angular-ui-select/dist/select.min.js",
+            "./bower_components/google-maps-utility-library-v3-infobox/dist/infobox.min.js",
             "./spa/lib/moment-ru.js",
             "./spa/lib/polyfill/**/*.js",
             "./spa/lib/jquery.maskedinput.js",
@@ -57,8 +75,13 @@ var config = {
             "./spa/lib/ui-bootstrap-typeahead-custom/typeahead.js",
             "./spa/lib/bootstrap-datepicker/bootstrap-datepicker.js",
             "./spa/lib/bootstrap-datepicker/bootstrap-datepicker.ru.min.js"
-        ]
+        ],
+        "distSrc": "./dist/spa/js",
+        "distSrcMd5": "./dist/spa/js/*.js"
     },
+    "widgets": {
+        "src": "./spa/js/widgets"
+    }
 }
 
 module.exports = config;

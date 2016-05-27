@@ -17,8 +17,8 @@ gulp.task('md5-css', function () {
         .pipe(gulp.dest(config.styles.distSrc));
 });
 
-gulp.task('build-angular-templates-md5', function () {
-    return gulp.src(config.templates.distSrcMd5)
+gulp.task('md5-js', function () {
+    return gulp.src(config.js.distSrcMd5)
         .pipe(md5(10, config.nodeApp.distLayouts))
-        .pipe(gulp.dest(config.templates.distSrc));
+        .pipe(gulp.dest(config.js.distSrc));
 });
