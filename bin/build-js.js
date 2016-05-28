@@ -53,11 +53,6 @@ gulp.task('build-angular-templates', function () {
         .pipe(gulp.dest(config.templates.distSrc));
 });
 
-gulp.task('build-angular-templates-watch', function () {
-    gulp.watch(config.templates.src, ['build-angular-templates'])
-});
-
-
 // сборка приложения
 gulp.task('build-app', function () {
     return gulp.src(config.js.srcApp)
@@ -75,3 +70,9 @@ gulp.task('build-app', function () {
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
         .pipe(gulp.dest(config.js.distSrc));
 });
+
+gulp.task('build-app-watch', function () {
+    gulp.watch(config.templates.src, ['build-angular-templates']);
+    gulp.watch(config.js.srcApp, ['build-app']);
+});
+

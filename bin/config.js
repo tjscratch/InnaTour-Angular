@@ -26,6 +26,7 @@ var config = {
     },
     "js": {
         "srcApp": [
+            "./spa/js/config.js",
             "./spa/js/app.js",
             "./spa/js/tracking.js",
             "./spa/js/filters.js",
@@ -36,14 +37,14 @@ var config = {
             "./spa/js/controllers/**/*.js",
             "./spa/js/services/**/*.js",
             "./spa/js/directives/**/*.js",
+            "./spa/js/helpers/**/*.js",
+            "./spa/js/ang.helpers/**/*.js",
+            "./spa/js/models/model.js",
+            "./spa/js/models/**/*.js",
             "./spa/js/widgets/search/js/directives.js",
             "./spa/js/widgets/search/js/form.js",
             "./spa/js/widgets/search/js/services.js",
             "./spa/js/widgets/search/js/validation.js",
-            "./spa/js/models/model.js",
-            "./spa/js/models/**/*.js",
-            "./spa/js/helpers/**/*.js",
-            "./spa/js/ang.helpers/**/*.js",
         ],
         "bowerSrcs": [
             "./bower_components/underscore/underscore-min.js",

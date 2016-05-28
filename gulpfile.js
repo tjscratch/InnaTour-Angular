@@ -95,7 +95,7 @@ gulp.task('new', function (callback) {
         'copy-node-app',
         'copy-img',
         'build-css-watch',
-        'build-angular-templates-watch',
+        'build-app-watch',
         callback
     )
 });
