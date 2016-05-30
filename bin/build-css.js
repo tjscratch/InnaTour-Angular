@@ -11,7 +11,13 @@ var sourcemaps = require('gulp-sourcemaps');
 var config = require('./config');
 
 
-var _ENV_ = process.env.NODE_ENV || 'DEV';
+
+var env = process.env.NODE_ENV;
+if (env === 'production' || env === 'test' || env === 'beta') {
+    var _ENV_ = 'production'
+}else{
+    var _ENV_ = 'DEV'
+}
 
 
 /**

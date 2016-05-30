@@ -16,7 +16,9 @@ console.info('----------------------------');
 /**
  * Полная сборка проект
  * Сборка в production запускается в окружении - production
- * NODE_ENV=production gulp build-project
+ * NODE_ENV=production gulp build
+ * NODE_ENV=beta gulp build
+ * NODE_ENV=test gulp build
  * После сборки проект копируется в папку PUBLISH
  *
  *
