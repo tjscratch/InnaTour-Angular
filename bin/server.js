@@ -8,7 +8,7 @@ gulp.task('server', ['browser-sync'], function () {
 
 gulp.task('browser-sync', ['nodemon'], function() {
     browserSync.init(null, {
-        proxy: "http://localhost:8666",
+        proxy: "http://localhost:8667",
         serveStatic: ['./dist'],
         //files: [
         //    "./dist"
@@ -22,7 +22,7 @@ gulp.task('nodemon', function (cb) {
     var started = false;
 
     return nodemon({
-        script: './node-app/app.js'
+        script: './dist/node-app/app.js'
     }).on('start', function () {
         if (!started) {
             cb();

@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     config = require('./config'),
     Q = require('q');
 
-var _ENV_ = process.env.NODE_ENV || '';
+var _ENV_ = process.env.NODE_ENV || 'DEV';
 var __PROTOCOL__ = (_ENV_ === 'production') ? config.protocol.https : config.protocol.http;
 
 
@@ -16,6 +16,9 @@ if (_ENV_ === 'production') {
     var env = 'prod'
 }
 if (_ENV_ === 'test') {
+    var env = 'test'
+}
+if (_ENV_ === 'DEV') {
     var env = 'test'
 }
 if (_ENV_ === 'beta') {
