@@ -36,7 +36,7 @@ gulp.task('build-libs', function () {
 gulp.task('build-angular-templates', function () {
     return gulp.src(config.templates.src)
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
-        .pipe(gulpif(_ENV_ == 'production', cleanhtml()))
+        .pipe(cleanhtml())
         .pipe(templateCache({
             module: config.templates.angularModuleName
         }))
@@ -58,6 +58,7 @@ gulp.task('build-app', function () {
     return gulp.src(config.js.srcApp)
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
         .pipe(concat('app.js'))
+        .pipe(ngAnnotate())
         .pipe(gulpif(_ENV_ == 'production',
             uglify({
                 mangle: true,

@@ -1,7 +1,7 @@
 angular.module('innaApp.API', [])
     .factory('innaApp.API.const', function () {
         function url(s, apiHost) {
-            var host = '';
+            var host = app_main.apiHost;
             host = host || '';
 
             var result = host + '/api/v1' + s;

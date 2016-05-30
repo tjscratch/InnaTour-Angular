@@ -1,4 +1,5 @@
-﻿var dir = require('require-dir')('./node_tasks'),
+﻿var
+    //dir = require('require-dir')('./node_tasks'),
     dirBin = require('require-dir')('./bin'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
@@ -92,10 +93,13 @@ gulp.task('new', function (callback) {
         'build-libs',
         'build-angular-templates',
         'build-app',
-        'copy-node-app',
+        'copy-js',
+        //'copy-node-app',
         'copy-img',
+        'replace-config',
         'build-css-watch',
         'build-app-watch',
+        'server',
         callback
     )
 });

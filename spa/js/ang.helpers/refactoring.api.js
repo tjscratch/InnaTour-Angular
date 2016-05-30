@@ -1,6 +1,6 @@
 innaAppServices.factory('appApi', function () {
     function url(s) {
-        var host = '';
+        var host = app_main.apiHost;
         host = host || '';
         return host + '/api/v1' + s;
     }
