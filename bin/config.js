@@ -3,6 +3,10 @@ var config = {
         "src": "./dist"
     },
     "nodeApp": {
+        "src": "./node-app/**",
+        "configSrc": "./node-app/config/config.json",
+        "configDist": "./dist/node-app/config",
+        "distSrc": "./dist/node-app",
         "distLayouts": "./dist/node-app/templates/layouts/*.hbs"
     },
     "images": {

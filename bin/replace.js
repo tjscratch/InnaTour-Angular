@@ -67,7 +67,7 @@ gulp.task('replace-config', function () {
 //Конфиг для api запросов ноды
 gulp.task('replace-node-config', function (cb) {
     setTimeout(function () {
-        gulp.src('./node-app/config/config.json')
+        gulp.src(config.nodeApp.configSrc)
             .pipe(replace({
                 patterns: [
                     {
@@ -80,7 +80,7 @@ gulp.task('replace-node-config', function (cb) {
                     }
                 ]
             }))
-            .pipe(gulp.dest('./node-app/config'));
+            .pipe(gulp.dest(config.nodeApp.configDist));
         cb();
     }, 1000);
 });
