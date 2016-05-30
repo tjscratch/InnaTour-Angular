@@ -160,7 +160,14 @@ gulp.task('build-styles-partners', function () {
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
         .pipe(stylus({use: [nib()]}))
         .pipe(shorthand())
-        .pipe(cleanCSS())
+        .pipe(gulpif(_ENV_ === 'production', cleanCSS({
+                debug: true,
+                compatibility: 'ie9'
+            },
+            function (details) {
+                console.log(details.name + ' originalSize: ' + details.stats.originalSize);
+                console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
+            })))
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
         .pipe(gulp.dest(distSrcPartners));
 });
@@ -171,7 +178,14 @@ gulp.task('build-styles-partners-euroset', function () {
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
         .pipe(stylus({use: [nib()]}))
         .pipe(shorthand())
-        .pipe(cleanCSS())
+        .pipe(gulpif(_ENV_ === 'production', cleanCSS({
+                debug: true,
+                compatibility: 'ie9'
+            },
+            function (details) {
+                console.log(details.name + ' originalSize: ' + details.stats.originalSize);
+                console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
+            })))
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
         .pipe(gulp.dest(distSrcPartners));
 });

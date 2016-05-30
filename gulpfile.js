@@ -34,7 +34,7 @@ gulp.task('build', function (callback) {
         'build-app',
         'copy-js',
         'copy-img',
-        'replace-config',
+        'replace',
         'md5-js',
         'md5-img',
         'md5-css',

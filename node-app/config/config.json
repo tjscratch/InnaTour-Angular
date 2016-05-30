@@ -1,4 +1,4 @@
 {
   "port": 8666,
-  "apiHost": "@@api_host"
+  "apiHost": "http://api.test.inna.ru"
 }

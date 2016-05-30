@@ -86,7 +86,7 @@ var config = {
         "http": "http://",
         "https": "https://"
     },
-    "partners_version": "v1",
+    "partners_version": "/v1",
     "hosts": {
         "b2b": {
             "test": "http://b2b.test.inna.ru",
@@ -107,6 +107,11 @@ var config = {
             "test": "http://api.test.inna.ru",
             "prod": "https://api.inna.ru",
             "beta": "http://api.beta.inna.ru"
+        },
+        "port":{
+            "test": 8667,
+            "prod": 8666,
+            "beta": 8668
         },
         "front": {
             "test": "http://test.inna.ru",

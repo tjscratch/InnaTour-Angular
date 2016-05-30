@@ -1,0 +1,4 @@
+{
+  "port": "@@port",
+  "apiHost": "@@api_host"
+}

@@ -18,34 +18,11 @@ var b2bPartnerHost = (_ENV_ === 'production') ? config.hosts.b2bPartner.prod : (
 var frontHost = (_ENV_ === 'production') ? config.hosts.front.prod : ((_ENV_ === 'beta') ? config.hosts.front.beta : config.hosts.front.test);
 var staticHost = (_ENV_ === 'production') ? config.hosts.static.prod : ((_ENV_ === 'beta') ? config.hosts.static.beta : config.hosts.static.test);
 var partnersHost = (_ENV_ === 'production') ? config.hosts.partners.prod : ((_ENV_ === 'beta') ? config.hosts.partners.beta : config.hosts.partners.test);
+var port = (_ENV_ === 'production') ? config.hosts.port.prod : ((_ENV_ === 'beta') ? config.hosts.port.beta : config.hosts.port.test);
 
-/*console.info(apiHost);
- console.info(b2bHost);
- console.info(frontHost);
- console.info(staticHost);
- console.info(partnersHost);*/
 
-function getConfReplace() {
-
-    var manifest = null;
-
-    try{
-        manifest = require('./manifest');
-    } catch (e){
-    }
-
-    return {
-        'app-config-debug': '<script>window.FrontedDebug = false;</script>',
-        'app-config-js': '/' + config.version + '/js/config.js',
-        'app-main-js': '/' + config.version + '/js/app-main.js',
-        'bower_components': '/bower_components' + manifest["/bower-components.js"],
-        'app-stylus': '/' + config.version + '/css/common.min.css'
-    }
-}
-
-// Копируем в папку publish
 gulp.task('replace-partners', function () {
-    return gulp.src(config.src + '/partners/module.js')
+    return gulp.src('./spa/js/partners/module.js')
         .pipe(replace({
             patterns: [
                 {
@@ -57,7 +34,7 @@ gulp.task('replace-partners', function () {
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
             mangle: false
         })))
-        .pipe(gulp.dest(config.publish + '/spa/js/partners/' + config.partners_version));
+        .pipe(gulp.dest(config.js.distSrc + config.partners_version));
 });
 
 gulp.task('replace-config', function () {
@@ -96,6 +73,10 @@ gulp.task('replace-node-config', function (cb) {
                     {
                         match: 'api_host',
                         replacement: apiHost
+                    },
+                    {
+                        match: 'port',
+                        replacement: port
                     }
                 ]
             }))
@@ -106,8 +87,7 @@ gulp.task('replace-node-config', function (cb) {
 
 
 gulp.task('replace', [
-    'replace-index',
-    'release-tours',
-    'replace-browser',
-    'replace-HTML'
+    'replace-partners',
+    'replace-config',
+    'replace-node-config'
 ]);
