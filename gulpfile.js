@@ -1,6 +1,4 @@
-﻿var
-    //dir = require('require-dir')('./node_tasks'),
-    dirBin = require('require-dir')('./bin'),
+﻿var bin = require('require-dir')('./bin'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
     runSequence = require('run-sequence');
@@ -28,38 +26,20 @@ console.info('----------------------------');
 
 gulp.task('build', function (callback) {
     runSequence(
-        ['remove-publish', 'remove-manifest', 'remove-bower'],
-        'create-manifest',
-
+        'remove-dist',
+        'build-sprite',
+        'build-css',
+        'build-libs',
+        'build-angular-templates',
+        'build-app',
+        'copy-js',
+        'copy-img',
         'replace-config',
-        ['styles-app'],
-        ['styles', 'concat-bower-components', 'build-concat', 'widget-search', 'build-lk'],
-        'version-cache',
-        'html-replace',
-        ['copy-project', 'copy-node-app'],
-        'replace-partners',
-        'replace-node-config',
-        'replace-node-app',
-        callback);
-});
-
-
-gulp.task('build-project', function (callback) {
-    runSequence(
-        ['remove-publish', 'remove-manifest', 'remove-bower'],
-        'create-manifest',
-
-        ['sprite-gen'],
-        'replace-config',
-        ['styles-app'],
-        ['styles', 'concat-bower-components', 'build-concat', 'widget-search', 'build-lk'],
-        'version-cache',
-        'html-replace',
-        ['copy-project', 'copy-node-app'],
-        'replace-partners',
-        'replace-node-config',
-        'replace-node-app',
-        callback);
+        'md5-js',
+        'md5-img',
+        'md5-css',
+        callback
+    )
 });
 
 
@@ -69,24 +49,6 @@ gulp.task('build-project', function (callback) {
  */
 gulp.task('default', function (callback) {
     runSequence(
-        ['remove-manifest', 'remove-bower'],
-        'create-manifest',
-        'sprite-gen',
-        'styles-app',
-        'replace-config',
-        'widget-search',
-        'build-lk',
-        ['styles', 'build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
-        'build-angular-parts',
-        'watch',
-        'widget-search-watch',
-        'build-lk-watch',
-        callback);
-});
-
-
-gulp.task('new', function (callback) {
-    runSequence(
         'remove-dist',
         'build-sprite',
         'build-css',
@@ -94,7 +56,6 @@ gulp.task('new', function (callback) {
         'build-angular-templates',
         'build-app',
         'copy-js',
-        //'copy-node-app',
         'copy-img',
         'replace-config',
         'build-css-watch',
@@ -103,19 +64,3 @@ gulp.task('new', function (callback) {
         callback
     )
 });
-
-gulp.task('new-deploy', function (callback) {
-    runSequence(
-        'remove-dist',
-        'build-sprite',
-        'build-css',
-        ['build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
-        'build-angular-parts',
-        'copy-node-app',
-        'md5-js',
-        'md5-img',
-        'md5-css',
-        callback
-    )
-});
-

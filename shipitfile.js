@@ -71,7 +71,7 @@ module.exports = function (shipit) {
     
     //запускаем build --release в текущем билде
     shipit.blTask('after.deploy::run.build', function () {
-        return shipit.remote('cd ' + shipit.currentPath + ' && NODE_ENV=production gulp build-project');
+        return shipit.remote('cd ' + shipit.currentPath + ' && NODE_ENV=production gulp build');
     });
     
     //перезапускаем приложение
