@@ -53,6 +53,23 @@ _.provide = function(jPath){
     return o;
 };
 
+/**
+ * разбиваем массив arr на подмассивы длинной length
+ * var arr = [1,2,3,4,5];
+ * _.partitionArray(arr, 2) => [[1,2],[3,4],[5]]
+ * @param arr
+ * @param length
+ * @returns {Array}
+ */
+_.partitionArray = function (arr, length) {
+    var count = Math.ceil(arr.length / length);
+    var newArr = [];
+    for (var i = 0; i < count; i++) {
+        newArr.push(arr.splice(0, length))
+    }
+    return newArr;
+}
+
 $.whenAll = function(list){
     return $.when.apply($, list);
 }
