@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var stylus = require('gulp-stylus');
-var shorthand = require('gulp-shorthand');
 var cleanCSS = require('gulp-clean-css');
 var nib = require('nib');
 
@@ -45,7 +44,6 @@ gulp.task('concat-styles-libs', ['copy-font-font-awesome'], function () {
     ])
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
         .pipe(concat('libs.css'))
-        .pipe(shorthand())
         .pipe(cleanCSS({
                 debug: true,
                 compatibility: 'ie10'
@@ -78,7 +76,6 @@ var srcAdv = './spa/js/components/adv/**/*.styl',
 gulp.task('build-styles-adv', function () {
     return gulp.src(srcAdv)
         .pipe(stylus({use: [nib()]}))
-        .pipe(shorthand())
         .pipe(cleanCSS())
         .pipe(gulp.dest(distAdv));
 });
@@ -128,7 +125,6 @@ gulp.task('build-styles-ie', function () {
             use: [nib()],
             compress: (_ENV_ === 'production') ? true : false
         }))
-        .pipe(shorthand())
         .pipe(gulp.dest(config.styles.distSrc));
 });
 /**
@@ -165,7 +161,6 @@ gulp.task('build-styles-partners', function () {
     return gulp.src(srcUrl)
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
         .pipe(stylus({use: [nib()]}))
-        .pipe(shorthand())
         .pipe(gulpif(_ENV_ === 'production', cleanCSS({
                 debug: true,
                 compatibility: 'ie9'
@@ -183,7 +178,6 @@ gulp.task('build-styles-partners-euroset', function () {
     return gulp.src(srcUrl)
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
         .pipe(stylus({use: [nib()]}))
-        .pipe(shorthand())
         .pipe(gulpif(_ENV_ === 'production', cleanCSS({
                 debug: true,
                 compatibility: 'ie9'

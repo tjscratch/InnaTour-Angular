@@ -108,9 +108,9 @@ var config = {
             "beta": "http://partner.beta.inna.ru"
         },
         "api": {
-            "test": "http://api.test.inna.ru",
+            "test": "http://test.inna.ru",
             "prod": "https://api.inna.ru",
-            "beta": "http://api.beta.inna.ru"
+            "beta": "http://beta.inna.ru"
         },
         "port":{
             "prod": 8666,
