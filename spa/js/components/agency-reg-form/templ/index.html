@@ -49,6 +49,7 @@
 						       name="Name"
 						       ng-model="agencyReg.Name"
 						       required=""
+							   ng-maxlength="10"
 						       placeholder="ЗАО ИННА ТУР"
 						       ng-class="{'error': agency.$submitted && agency.Name.$invalid || agency.Name.$touched && agency.Name.$invalid}"
 								>
@@ -200,6 +201,13 @@
 						<input type="checkbox" ng-model="bookModuleNeeded">
 						<ins class="b-checkbox"></ins>
 						Нужен модуль боронирования (white-label) на сайт
+					</label>
+				</div>
+				<div class="b-field-group">
+					<label class="b-agreement">
+						<input type="checkbox" ng-model="UFN">
+						<ins class="b-checkbox"></ins>
+						Упрощенная форма налогообложения
 					</label>
 				</div>
 				<div class="b-field-group action">
