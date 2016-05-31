@@ -14,7 +14,8 @@
   "scripts": {
     "start": "node",
     "deploy": "shipit staging deploy",
-    "deploy:test": "shipit test deploy"
+    "deploy:test": "shipit test deploy",
+    "deploy:beta": "shipit beta deploy"
   },
   "dependencies": {
     "async": "0.9.0",

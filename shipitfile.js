@@ -31,7 +31,7 @@ module.exports = function (shipit) {
         },
         beta: {
             workspace: 'shipit_build_test',
-            deployTo: '/home/deploy/www/inna-frontend-test',
+            deployTo: '/home/deploy/www/inna-frontend-beta',
             repositoryUrl: 'ssh://git@gitlab.inna.ru:223/frontend-dev/inna-angular.git',
             branch: 'deploy',
             ignores: ['.git', 'node_modules'],
