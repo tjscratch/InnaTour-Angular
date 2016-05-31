@@ -69,8 +69,8 @@ gulp.task('concat-styles-libs', ['copy-font-font-awesome'], function () {
  * Сборка основного css файла
  *
  */
-var srcAdv = './spa/js/components/adv/**/*.styl',
-    distAdv = './spa/js/components/adv',
+var srcAdv = './spa/js/adv/**/*.styl',
+    distAdv = './dist/spa/css',
     srcCommon = './spa/styl/common.styl';
 
 gulp.task('build-styles-adv', function () {

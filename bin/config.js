@@ -2,6 +2,10 @@ var config = {
     "dist": {
         "src": "./dist"
     },
+    "adv": {
+        "srcCss": "./spa/js/adv/**/*.styl",
+        "distCss": "./dist/spa/css"
+    },
     "nodeApp": {
         "src": "./node-app/**",
         "configSrc": "./node-app/config/config.json",
@@ -22,6 +26,7 @@ var config = {
         "src": [
             "./spa/templates/**/*.html",
             "./spa/js/**/*.html",
+            "./spa/js/adv/**/*.html",
             "./spa/js/widgets/search/templ/*.html"
         ],
         "angularModuleName": "innaApp.templates",
@@ -34,6 +39,7 @@ var config = {
             "./spa/js/tracking.js",
             "./spa/js/filters.js",
             "./spa/js/mediator.js",
+            "./spa/js/adv/*.js",
             "./spa/js/components/**/*.js",
             "./spa/js/regions/**/*.js",
             "./spa/js/pages/**/*.js",

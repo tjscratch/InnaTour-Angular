@@ -11,7 +11,7 @@ angular.module('innaApp.directives')
 
             return {
                 replace: true,
-                template: $templateCache.get('components/adv/templ/index.adv.html'),
+                template: $templateCache.get('adv/templ/index.adv.html'),
                 controller: [
                     '$element',
                     '$scope',
@@ -53,7 +53,7 @@ angular.module('innaApp.directives')
                                 injectStyle.type = 'text/css';
                                 injectStyle.setAttribute('id', 'injectStyleAdv');
                                 injectStyle.rel = 'stylesheet';
-                                injectStyle.href = '/spa/js/components/adv/css/adv.base.css?' + Math.random(1000).toString(16);
+                                injectStyle.href = '/spa/css/adv.base.css?' + Math.random(1000).toString(16);
                                 document.getElementsByTagName('head')[0].appendChild(injectStyle);
 
                                 show();
