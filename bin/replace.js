@@ -11,7 +11,7 @@ var __PROTOCOL__ = (_ENV_ === 'production') ? config.protocol.https : config.pro
 
 
 console.log(_ENV_);
-
+var apiDevHost = '';
 if (_ENV_ === 'production') {
     var env = 'prod'
 }
@@ -19,7 +19,8 @@ if (_ENV_ === 'test') {
     var env = 'test'
 }
 if (_ENV_ === 'DEV') {
-    var env = 'test'
+    var env = 'dev'
+    apiDevHost = config.hosts.api[env];
 }
 if (_ENV_ === 'beta') {
     var env = 'beta'
@@ -67,6 +68,7 @@ gulp.task('replace-config', function () {
             {
                 json: {
                     'api_host': apiHost,
+                    'api_dev_host': apiDevHost,
                     'b2b_host': b2bHost,
                     'b2b_host_sputnik': b2bHostSputnik,
                     'b2bPartnerHost': b2bPartnerHost,

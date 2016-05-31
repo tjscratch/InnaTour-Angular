@@ -94,41 +94,49 @@ var config = {
     "hosts": {
         "b2b": {
             "test": "http://b2b.test.inna.ru",
+            "dev": "http://b2b.test.inna.ru",
             "prod": "https://b2b.inna.ru",
             "beta": "http://b2b.beta.inna.ru"
         },
         "b2bSputnik": {
             "test": "http://b2b.sputnik.test.inna.ru",
+            "dev": "http://b2b.sputnik.test.inna.ru",
             "prod": "https://lk.sputnik.travel",
             "beta": "http://b2b.sputnik.beta.inna.ru"
         },
         "b2bPartner": {
             "test": "http://partner.test.inna.ru",
+            "dev": "http://partner.test.inna.ru",
             "prod": "https://partner.inna.ru",
             "beta": "http://partner.beta.inna.ru"
         },
         "api": {
             "test": "http://api.test.inna.ru",
+            "dev": "http://test.inna.ru",
             "prod": "https://api.inna.ru",
             "beta": "http://api.beta.inna.ru"
         },
-        "port":{
+        "port": {
             "prod": 8666,
             "test": 8667,
+            "dev": 8667,
             "beta": 8668
         },
         "front": {
             "test": "http://test.inna.ru",
+            "dev": "http://test.inna.ru",
             "prod": "https://inna.ru",
             "beta": "http://beta.inna.ru"
         },
         "static": {
             "test": "http://s.test.inna.ru",
+            "dev": "http://s.test.inna.ru",
             "prod": "https://s.inna.ru",
             "beta": "https://s.inna.ru"
         },
         "partners": {
             "test": "http://{0}.test.inna.ru",
+            "dev": "http://{0}.test.inna.ru",
             "prod": "https://{0}.inna.ru",
             "beta": "http://{0}.beta.inna.ru"
         }
