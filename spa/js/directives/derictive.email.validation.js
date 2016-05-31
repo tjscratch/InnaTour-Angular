@@ -1,5 +1,5 @@
 innaAppDirectives.directive('checkEmailFormat', function () {
-    var EMAIL_REGX = /^[A-Za-z0-9!#$%&'*+/=?^_`{|}~.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+    var EMAIL_REGX = /^[A-Za-z0-9!#$%&'*+/=?^_`{|}~.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,10}$/;
     return {
         restrict: 'A',
         require: 'ngModel',
