@@ -16,8 +16,7 @@ innaAppServices.factory('appApi', function () {
 
         GET_SMS_CODE: url('/Verification/SendCode'),
         CHECK_SMS_CODE: url('/Verification/CheckCode'),
-
-
+        
         PACKAGES_DISCOUNTED_PRICE: url('/PackagesOrder/DiscountedPrice'),
         AVIA_DISCOUNTED_PRICE: url('/AviaOrder/DiscountedPrice'),
 
@@ -32,5 +31,7 @@ innaAppServices.factory('appApi', function () {
         GET_COUNTRIES: url('/Dictionary/Country'),
         
         GET_OFFERS: url('/BestOffer/GetOffers'),
+
+        GET_MANAGER_STATUS: url('/TalkingHeadSupportApi/GetManagerStatus2'),
     }
 });

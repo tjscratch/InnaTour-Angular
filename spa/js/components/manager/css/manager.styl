@@ -1,0 +1,138 @@
+$widget-widht = 960px;
+$widget-height = 350px;
+.b-manager{
+    padding 20px 0
+    background #f6f6f6
+}
+.b-manager__container{
+    position relative
+    width $widget-widht
+    height $widget-height
+    margin 0 auto
+
+    .manager-full-view{
+        right 12px
+    }
+}
+.b-manager__iframe-container{
+    position relative
+    z-index 1
+
+    width 100%
+    height 100%
+}
+.b-manager__iframe{
+    position relative
+    z-index 1
+
+    width 100%
+    height 100%
+    border none
+    vertical-align top
+    background-color #212121;
+}
+.manager-full-view{
+    position absolute
+    right 40px
+    top 7px
+    z-index 2000
+    cursor pointer
+    color $white
+}
+.b-manager__container-open{
+    position fixed
+    top 0
+    bottom 0
+    left 0
+    right 0
+    z-index 16000003
+
+    width 100%
+    height 100%
+    padding 0
+
+    .manager-loader{
+        background #fff
+    }
+}
+.manager-loader{
+    position absolute
+    left 0
+    right 0
+    top 0
+    bottom 0
+    z-index 2
+
+    padding 130px 0
+    text-align center
+    background #f6f6f6
+}
+.b-manager-widget{
+    position: fixed;
+    z-index: 5000;
+    top: 30px;
+    right: 0;
+
+    .b-manager__container{
+        display none
+    }
+}
+.b-manager-widget__open{
+    top: 0;
+    width $widget-widht + 4px;
+    height $widget-height + 4px;
+
+    .b-manager-widget__container{
+        width $widget-widht;
+        height $widget-height;
+        padding: 2px;
+        opacity: 1;
+    }
+    .b-manager-widget__toggle,
+    .manager-full-view{
+        top 9px
+    }
+}
+.b-manager-widget__open-full{
+    left 0
+    right 0
+    top 0
+    bottom 0
+    width 100%
+    height 100%
+
+    .b-manager-widget__container{
+        padding 0
+        width 100%
+        height 100%
+    }
+    .b-manager-widget__toggle,
+    .manager-full-view{
+        top 7px
+    }
+}
+.b-manager-widget__label{
+    padding: 10px 20px;
+    background-color: $green;
+    color: $white;
+    border-radius: 3px 3px 0 0;
+    cursor: pointer;
+    transform: rotate(-90deg);
+    transform-origin: 100% 100%;
+}
+.b-manager-widget__container{
+    position relative;
+    width 2px;
+    height 1px;
+    opacity 0.01;
+    border-radius: 1px;
+    background-color: $green;
+}
+.b-manager-widget__toggle{
+    position absolute
+    right 9px
+    top 7px
+    z-index 2000
+    color $white
+    cursor pointer
+}

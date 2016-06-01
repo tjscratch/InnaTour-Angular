@@ -104,7 +104,7 @@ logs
 start_on_node_server.cmd
 spa/js/widgets/search/inna-search.js
 spa/partners/**/assets/*.css
-node-app/cache__api_v1_partner_getall.json
+cache__api_v1_partner_getall.json
 
 
 sprite.png

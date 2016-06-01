@@ -1,0 +1,26 @@
+<div class="b-manager" ng-if="showChat">
+
+	<div class="b-manager__container" ng-class="{'b-manager__container-open' : fullView}">
+
+		<div class="manager-full-view" ng-click="toggleFullWidth()" ng-if="!fullView"><i class="fa fa-arrows-alt"></i></div>
+		<div class="manager-full-view" ng-click="toggleFullWidthclose()" ng-if="fullView"><i class="fa fa-arrows-alt"></i></div>
+
+		<div class="b-manager__iframe-container">
+			<iframe class="b-manager__iframe" src="{{ url }}"></iframe>
+		</div>
+
+		<div class="manager-loader" ng-show="!showChatManager">
+			<div class="balloon-loading">
+				<div class="spinner in-balloon">
+					<div class="rect rect1"></div>
+					<div class="rect rect2"></div>
+					<div class="rect rect3"></div>
+					<div class="rect rect4"></div>
+					<div class="rect rect5"></div>
+					<img class="gif" src="/spa/img/spinner.gif">
+				</div>
+			</div>
+			<div class="balloon-title">Загрузка видеоменеджера</div>
+		</div>
+	</div>
+</div>

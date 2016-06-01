@@ -20,7 +20,8 @@ var app = angular.module('innaApp', [
     'ui.scroll',
     'validation',
     'validation.rule',
-    'ui.select'
+    'ui.select',
+    "ngCookies"
 ]);
 
 /* локализация дат moment */
@@ -31,10 +32,16 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
 
     // устанавливаем куку от admitad на 100 дней на всяк случай
     var admitad_uid = $location.$$search.admitad_uid;
-    var date = new Date;
-    date.setDate(date.getDate() + 100);
-    if (admitad_uid) {
+    if(admitad_uid){
+        var date = new Date;
+        date.setDate(date.getDate() + 100);
         document.cookie = "admitad_uid=" + admitad_uid + "; path=/; expires=" + date.toUTCString();
+    }
+    var b2b_operator = $location.$$search.b2b_operator;
+    if(b2b_operator){
+        var date_b2b_operator = new Date;
+        date_b2b_operator.setDate(date_b2b_operator.getDate() + 1);
+        document.cookie = "b2b_operator=" + b2b_operator + "; path=/; expires=" + date_b2b_operator.toUTCString();
     }
 
     // Ractive.defaults

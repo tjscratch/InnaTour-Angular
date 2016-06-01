@@ -18,7 +18,8 @@
         '$templateCache',
         //components
         'Balloon',
-        function (RavenWrapper, $scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon) {
+        '$cookieStore',
+        function (RavenWrapper, $scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon, $cookieStore) {
 
             $scope.baloon.showExpireCheck();
 
@@ -475,7 +476,7 @@
                 paymentService.packageReserve({
                     data: apiModel,
                     success: function (data) {
-
+                        $cookieStore.remove('b2b_operator');
                         $scope.safeApply(function () {
                             //console.log('order: ' + angular.toJson(data));
                             if (data != null && data.OrderNum != null && data.OrderNum.length > 0 && data.Status != null && data.Status == 1 && data.OrderNum.length > 0) {
@@ -531,7 +532,7 @@
                         });
                     },
                     error: function (data) {
-
+                        $cookieStore.remove('b2b_operator');
                         RavenWrapper.raven({
                             level: 6,
                             captureMessage: 'RESERVE PACKAGES: SERVER ERROR',
