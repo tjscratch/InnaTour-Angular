@@ -160,7 +160,7 @@ var config = {
             "beta": "http://api.beta.inna.ru"
         },
         "port": {
-            "prod": 8666,
+            "prod": 8669,
             "test": 8667,
             "dev": 8667,
             "beta": 8668
