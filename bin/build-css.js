@@ -156,9 +156,7 @@ gulp.task('build-styles-print', function () {
         .pipe(gulp.dest(config.styles.distSrc));
 });
 gulp.task('build-styles-partners', function () {
-    var srcUrl = './spa/styl/partners/**/*.base.styl',
-        distSrcPartners = './spa/styl/partners';
-    return gulp.src(srcUrl)
+    return gulp.src(config.partners.css.src)
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
         .pipe(stylus({use: [nib()]}))
         .pipe(gulpif(_ENV_ === 'production', cleanCSS({
@@ -170,7 +168,7 @@ gulp.task('build-styles-partners', function () {
                 console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
             })))
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
-        .pipe(gulp.dest(distSrcPartners));
+        .pipe(gulp.dest(config.partners.css.distSrc));
 });
 gulp.task('build-styles-partners-euroset', function () {
     var srcUrl = './spa/partners/euroset/assets/page.base.styl',
@@ -219,7 +217,7 @@ gulp.task('build-css-watch', function () {
         './spa/js/components/**/*.styl',
         './spa/js/pages/**/*.styl',
         './spa/js/regions/**/*.styl',
-        '!./spa/styl/partners/**/*.styl',
+        './spa/styl/partners/**/*.styl',
         '!./spa/styl/**/ticket.styl',
         '!./spa/styl/**/ie.styl',
         '!./spa/styl/**/print.styl'

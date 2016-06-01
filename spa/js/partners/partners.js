@@ -332,14 +332,14 @@
             //если не задан css партнера - грузим FullWL - по умолчанию
             if (src && src.length > 0)
             {
-                link.href = "/spa/styl/partners" + src + '?' + uniqKey;
+                link.href = "/spa/css/partners" + src + '?' + uniqKey;
             }
             else {
-                link.href = "/spa/styl/partners/full_wl/full_wl.base.css?" + uniqKey;
+                link.href = "/spa/css/partners/full_wl/full_wl.base.css?" + uniqKey;
             }
         }
         else if (partner.realType == window.partners.WLType.lite) {
-            link.href = "/spa/styl/partners/lite_wl/lite_wl.base.css" + '?' + uniqKey;
+            link.href = "/spa/css/partners/lite_wl/lite_wl.base.css" + '?' + uniqKey;
         }
         insertAfter(link, d.getElementById("partners-css-inject"))
         console.log('partner css loaded', link.href);

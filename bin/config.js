@@ -97,8 +97,15 @@ var config = {
         "https": "https://"
     },
     "partners": {
-        "src": "./spa/js/partners/module.js",
-        "distSrc": "./dist/spa/js/partners/v1"
+        // spa/css/partners/biletix/biletix.base.css?0.454ae1f654a52
+        "css": {
+            "src": "./spa/styl/partners/**/*.base.styl",
+            "distSrc": "./dist/spa/css/partners"
+        },
+        "module": {
+            "src": "./spa/js/partners/module.js",
+            "distSrc": "./dist/spa/js/partners/v1"
+        }
     },
     "hosts": {
         "b2b": {
