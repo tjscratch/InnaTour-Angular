@@ -96,7 +96,10 @@ var config = {
         "http": "http://",
         "https": "https://"
     },
-    "partners_version": "/v1",
+    "partners": {
+        "src": "./spa/js/partners/module.js",
+        "distSrc": "./dist/spa/js/partners/v1"
+    },
     "hosts": {
         "b2b": {
             "test": "http://b2b.test.inna.ru",

@@ -46,7 +46,7 @@ var port = config.hosts.port[env];
 
 
 gulp.task('replace-partners', function () {
-    return gulp.src('./spa/js/partners/module.js')
+    return gulp.src(config.partners.src)
         .pipe(replace({
             patterns: [
                 {
@@ -58,7 +58,7 @@ gulp.task('replace-partners', function () {
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
             mangle: false
         })))
-        .pipe(gulp.dest(config.js.distSrc + config.partners_version));
+        .pipe(gulp.dest(config.partners.distSrc));
 });
 
 gulp.task('replace-config', function () {
