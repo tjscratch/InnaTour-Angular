@@ -58,7 +58,7 @@
                         <!--<h3 class="title" ng-bind-html="offer.Name"></h3>-->
                         <a class="link" ng-click="programClick(offer)" ng-href="{{offer.PdfUrl}}" target="_blank"><h3 class="title" ng-bind-html="offer.Name"></h3></a>
                         <p class="description" ng-bind-html="offer.Description | breakFilter"></p>
-                        <span class="presentation-link pdf-link"><a ng-click="programClick(offer)" ng-href="{{offer.PdfUrl}}" target="_blank">Описание программы</a><!--???кб--></span>
+                        <span class="presentation-link"><a class="pdf-link" ng-click="programClick(offer)" ng-href="{{offer.PdfUrl}}" target="_blank"><img src="spa/img/pdf_icon.png"></a><a class="doc-link" ng-if=" offer.DocUrl != '' " ng-href="{{offer.DocUrl}} " target="_blank"><img src="spa/img/doc_icon.png"></a>Описание программы<!--???кб--></span>
                         <button ng-if="!isOfferHaveUrl(offer)" class="button" ng-click="popupForm_Show(offer)">ОТПРАВИТЬ ЗАЯВКУ</button>
                         <a ng-if="isOfferHaveUrl(offer)" target="_blank" class="button" ng-href="{{offer.Url}}">&nbsp;&nbsp;&nbsp;Забронировать&nbsp;&nbsp;&nbsp;</a>
                     </div>
