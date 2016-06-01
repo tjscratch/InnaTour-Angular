@@ -5,14 +5,14 @@ module.exports = function (shipit) {
     shipit.initConfig({
         staging: {
             workspace: 'shipit_build',
-            deployTo: '/home/deploy/www/inna-frontend',
+            deployTo: '/home/deploy/www/inna-frontend-prod',
             repositoryUrl: 'ssh://git@gitlab.inna.ru:223/frontend-dev/inna-angular.git',
-            branch: 'master',
+            branch: 'deploy',
             ignores: ['.git', 'node_modules'],
             keepReleases: 20,
             deleteOnRollback: true,
             shallowClone: false,
-            restartService: 'sudo restart inna-frontend',
+            restartService: 'sudo restart inna-frontend-prod',
             build: ' && NODE_ENV=production gulp build',
             servers: 'root@5.200.60.73:2223'
         },
