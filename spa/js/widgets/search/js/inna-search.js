@@ -111,7 +111,7 @@
         .ready('app', function () {
             setTimeout(function () {
                 bootstrap()
-            }, 350);
+            }, 150);
         })
 
     $script(sources.app, 'app');
