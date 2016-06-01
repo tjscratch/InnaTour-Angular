@@ -97,7 +97,6 @@ var config = {
         "https": "https://"
     },
     "partners": {
-        // spa/css/partners/biletix/biletix.base.css?0.454ae1f654a52
         "css": {
             "src": "./spa/styl/partners/**/*.base.styl",
             "distSrc": "./dist/spa/css/partners"
@@ -106,6 +105,10 @@ var config = {
             "src": "./spa/js/partners/module.js",
             "distSrc": "./dist/spa/js/partners/v1"
         }
+    },
+    "lk":{
+        "src": "./spa/LK/**",
+        "distSrc": "./dist/spa/LK",
     },
     "hosts": {
         "b2b": {

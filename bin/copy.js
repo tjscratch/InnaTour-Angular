@@ -13,3 +13,7 @@ gulp.task('copy-js', function () {
 gulp.task('copy-img', function () {
     gulp.src(config.images.src).pipe(gulp.dest(config.images.distSrc));
 });
+
+gulp.task('copy-lk', function () {
+    gulp.src(config.lk.src).pipe(gulp.dest(config.lk.distSrc));
+});
