@@ -1,4 +1,4 @@
-innaAppDirectives.directive('manager', function ($rootScope, $templateCache, $interval, $timeout) {
+innaAppDirectives.directive('manager', function ($templateCache, $interval, $timeout) {
     return {
         replace: true,
         template: $templateCache.get("components/manager/templ/index.html"),
@@ -38,7 +38,7 @@ innaAppDirectives.directive('manager', function ($rootScope, $templateCache, $in
 });
 
 
-innaAppDirectives.directive('managerWidget', function ($templateCache, $interval, $timeout, ManagerService) {
+innaAppDirectives.directive('managerWidget', function ($rootScope, $templateCache, $interval, $timeout, ManagerService) {
     return {
         replace: true,
         template: $templateCache.get("components/manager/templ/widget.html"),
