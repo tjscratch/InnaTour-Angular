@@ -14,7 +14,8 @@ module.exports = function (shipit) {
             shallowClone: true,
             restartService: 'sudo restart inna-frontend-prod',
             build: ' && NODE_ENV=production gulp build',
-            servers: 'root@5.200.60.73:2223'
+            servers: 'root@5.200.60.73:2223',
+            revertDeloy: 'npm run deploy:rollback'
         },
         test: {
             workspace: 'shipit_build_test',
@@ -28,6 +29,7 @@ module.exports = function (shipit) {
             restartService: 'sudo restart inna-frontend-test',
             build: ' && NODE_ENV=test gulp build',
             servers: 'deploy@5.200.60.73:2210',
+            revertDeloy: 'npm run deploy:test:rollback'
         },
         beta: {
             workspace: 'shipit_build_test',
@@ -41,6 +43,7 @@ module.exports = function (shipit) {
             restartService: 'sudo restart inna-frontend-beta',
             build: ' && NODE_ENV=beta gulp build',
             servers: 'deploy@5.200.60.73:2210',
+            revertDeloy: 'npm run deploy:beta:rollback'
         }
     });
 
@@ -70,7 +73,7 @@ module.exports = function (shipit) {
     shipit.task('print.rollback', function () {
         console.log('=================================================');
         console.log('Отменить деплой:');
-        console.log('shipit staging rollback');
+        console.log(shipit.config.revertDeloy);
         console.log('=================================================');
     });
 

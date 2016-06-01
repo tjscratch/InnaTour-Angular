@@ -14,8 +14,11 @@
   "scripts": {
     "start": "node",
     "deploy": "shipit staging deploy",
+    "deploy:rollback": "shipit staging rollback",
     "deploy:test": "shipit test deploy",
-    "deploy:beta": "shipit beta deploy"
+    "deploy:test:rollback": "shipit test rollback",
+    "deploy:beta": "shipit beta deploy",
+    "deploy:beta:rollback": "shipit beta rollback"
   },
   "dependencies": {
     "async": "0.9.0",
