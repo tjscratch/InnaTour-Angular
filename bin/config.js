@@ -110,6 +110,30 @@ var config = {
         "src": "./spa/LK/**",
         "distSrc": "./dist/spa/LK",
     },
+    "widget":{
+        "libsSrc": [
+            './bower_components/jquery/dist/jquery.min.js',
+            './bower_components/angular/angular.min.js',
+            './bower_components/angular-sanitize/angular-sanitize.min.js',
+            './spa/lib/ui-bootstrap-typeahead-custom/typeahead.js',
+            './spa/lib/bootstrap-datepicker/bootstrap-datepicker.js',
+            './spa/lib/bootstrap-datepicker/bootstrap-datepicker.ru.min.js',
+            './bower_components/moment/min/moment.min.js',
+            './bower_components/moment/locale/ru.js',
+            './spa/js/widgets/search/js/app.js',
+            './spa/js/widgets/search/js/services.js',
+            './spa/js/widgets/search/js/directives.js',
+            './spa/js/directives/directive.datepicker.date_format.js',
+            './spa/js/widgets/search/js/form.js',
+            './spa/js/widgets/search/js/validation.js',
+            './spa/js/widgets/search/js/filters.js',
+            './spa/js/widgets/search/build/templates.js'
+        ],
+        "cssSrc": "./spa/js/widgets/search/css/inna-search-widget.styl",
+        "templSrc": "./spa/js/widgets/search/templ/*.html",
+        "templDist": "./spa/js/widgets/search/build",
+        "distSrc": "./dist/spa/js/widgets/search/build"
+    },
     "hosts": {
         "b2b": {
             "test": "http://b2b.test.inna.ru",
