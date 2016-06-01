@@ -11,7 +11,7 @@ module.exports = function (shipit) {
             ignores: ['.git', 'node_modules'],
             keepReleases: 20,
             deleteOnRollback: true,
-            shallowClone: false,
+            shallowClone: true,
             restartService: 'sudo restart inna-frontend-prod',
             build: ' && NODE_ENV=production gulp build',
             servers: 'root@5.200.60.73:2223'
