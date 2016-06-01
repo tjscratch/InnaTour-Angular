@@ -8,6 +8,7 @@ gulp.task('copy-node-app', function () {
 gulp.task('copy-js', function () {
     gulp.src('./spa/lib/if-browser.js').pipe(gulp.dest(config.js.distSrc));
     gulp.src('./spa/js/partners/partners.js').pipe(gulp.dest(config.js.distSrc));
+    gulp.src('./spa/partners/**').pipe(gulp.dest('./dist/spa/partners'));
 });
 
 gulp.task('copy-img', function () {
