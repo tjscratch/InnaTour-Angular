@@ -1,0 +1,286 @@
+<div class="b-offers-container">
+
+
+	<div class="offers-card-banner-container main" ng-controller="SliderCtrl" ng-show="slides.length > 0" app-slider>
+
+
+		<ul class="offers-card-banner-list Offer-card-banners">
+			<li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
+				<!--<img class="img" ng-src="slide.Image" />-->
+				<div class="img" style="background-image: url('{{slide.Image}}')"></div>
+				<div class="darken-container" ng-if="slide.NeedFilterBrightness"
+				     ng-click="offerClickSlider(slide, $event, $index)"></div>
+				<div class="info-container" ng-click="offerClickSlider(slide, $event, $index)">
+					<div class="info">
+						<h3 class="name" ng-if="!isNullOrEmpty(slide.FrontTitleRow1)">
+							{{::slide.FrontTitleRow1}}
+						</h3>
+
+						<h3 class="name" ng-if="!isNullOrEmpty(slide.FrontTitleRow2)">
+							{{::slide.FrontTitleRow2}}
+						</h3>
+
+						<p class="description" ng-if="!isNullOrEmpty(slide.FrontSubTitleRow1)">
+							{{::slide.FrontSubTitleRow1}}
+						</p>
+
+						<p class="description" ng-if="!isNullOrEmpty(slide.FrontSubTitleRow2)">
+							{{::slide.FrontSubTitleRow2}}
+						</p>
+
+						<p class="description" ng-if="!isNullOrEmpty(slide.FrontPrice)">
+							{{::slide.FrontPrice}}
+							<span class="price"></span>
+						</p>
+					</div>
+				</div>
+			</li>
+		</ul>
+
+
+		<div class="banner-dots-container">
+			<ul class="banner-dots Banner-dots"></ul>
+		</div>
+
+
+	</div>
+
+
+	<div class="b-offers-categories-container">
+		<div class="b-offers-categories">
+			<div class="b-offers-category__list">
+				<div class="b-offers-category"
+				     ng-repeat="category in Categories"
+				     ng-class="{'active' : category.Selected}"
+				     ng-click="setCategory(category)"
+				>{{ category.Text }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="b-offers-filters-container"
+	     ng-if="showOffers">
+		<div class="b-offers-filters">
+
+			<ui-select ng-model="filter.Location"
+			           theme="selectize"
+			           append-to-body="'true'"
+			           on-select="filterChange(filter)"
+			           class="b-offers-filter">
+				<ui-select-match placeholder="Откуда">{{$select.selected.Text}}</ui-select-match>
+				<ui-select-choices repeat="item.Value as item in Locations | filter: $select.search"
+				                   refresh-delay="0">
+					<span ng-bind-html="item.Text | highlight: $select.search"></span>
+				</ui-select-choices>
+			</ui-select>
+
+			<ui-select ng-model="filter.Month"
+			           theme="selectize"
+			           append-to-body="'true'"
+			           on-select="filterChange(filter)"
+			           class="b-offers-filter">
+				<ui-select-match placeholder="Когда">{{$select.selected.Text}}</ui-select-match>
+				<ui-select-choices repeat="item.Value as item in Months | filter: $select.search"
+				                   refresh-delay="0">
+					<span ng-bind-html="item.Text | highlight: $select.search"></span>
+				</ui-select-choices>
+			</ui-select>
+
+			<ui-select ng-model="filter.Period"
+			           theme="selectize"
+			           append-to-body="'true'"
+			           on-select="filterChange(filter)"
+			           class="b-offers-filter">
+				<ui-select-match placeholder="На сколько">{{$select.selected.Text}}</ui-select-match>
+				<ui-select-choices repeat="item.Value as item in Periods | filter: $select.search"
+				                   refresh-delay="0">
+					<span ng-bind-html="item.Text | highlight: $select.search"></span>
+				</ui-select-choices>
+			</ui-select>
+
+			<ui-select ng-model="Sort"
+			           theme="selectize"
+			           append-to-body="'true'"
+			           on-select="offersSort(Sort, offersServer)"
+			           class="b-offers-filter b-offers-filter__sort">
+				<ui-select-match placeholder="Сортировать">Сортировать: {{$select.selected.Text}}</ui-select-match>
+				<ui-select-choices repeat="item.Value as item in Sorts | filter: $select.search"
+				                   refresh-delay="0">
+					<span ng-bind-html="item.Text | highlight: $select.search"></span>
+				</ui-select-choices>
+			</ui-select>
+
+		</div>
+	</div>
+
+
+	<div class="b-offers"
+	     ng-if="showOffers">
+		<div class="b-offers__row"
+		     ng-repeat="offerArr in offers track by $index"
+		     ng-class="{'b-offers__row-1' : (offerArr.length == 1), 'b-offers__row-2' : (offerArr.length == 2)}"
+		>
+			<div class="b-offer"
+			     ng-repeat="offer in offerArr track by $index"
+			>
+				<div class="b-offer__container">
+					<div class="b-offer__bg"
+					     style="background-image: url('{{ offerArr.length == 1 ? offer.ImageL : offer.ImageS }}')"
+					></div>
+
+					<a class="b-offer__container-link"
+					   href="{{ offer.Details }}"
+					   target="_blank"></a>
+
+					<div class="b-offer__container-txt">
+
+						<h2 class="b-offer__title">
+							<div class="b-offer__title-sub">
+								{{ offer.Country }}
+							</div>
+							<div class="b-offer__title-main">
+								{{ offer.Location }}
+							</div>
+							<div class="b-offer__title-info">
+								{{ offer.Nights | asQuantity:"ночь":"ночи":"ночей"}},
+								<span ng-if="offer.Adults == 1">на одного</span>
+								<span ng-if="offer.Adults == 2">на двоих</span>
+								<span ng-if="offer.Adults == 3">на троих</span>
+							</div>
+						</h2>
+
+						<div class="b-offer__price">
+							<div class="b-offer__price-txt">
+								от
+							</div>
+							<div class="b-offer__price-value">
+								{{ offer.Price | currency : "" : 0 }}
+								<i class="fa fa-rub b-offer__price-currency"></i>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--
+    <div ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even, 'offers-dark-grey':$odd}"
+         ng-repeat="section in sections">
+         -->
+	<div ng-class="{'Offers-anchor':($index == 0)}"
+	     ng-if="!showOffers && false"
+	     ng-repeat="section in sections">
+		<div class="offers-container">
+
+			<div ng-if="landing.canDisplayDataForLandingPages && $index == 0">
+				<h2 class="landing-title" ng-if="!isNullOrEmpty(landing.SectionTitle)">
+					{{::landing.SectionTitle}}
+				</h2>
+
+				<p class="landing-title-sub" ng-if="!isNullOrEmpty(landing.SubSectionTitle)">
+					{{::landing.SubSectionTitle}}
+				</p>
+
+				<div class="landing-area">
+					<p class="offers-description"
+					   ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 1"
+					   ng-bind-html="landing.TextIntro"></p>
+
+					<div class="landing-cont">
+						<div class="landing-col left offers-description"
+						     ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2"
+						     ng-bind-html="landing.columsTextIntro[0]">
+						</div>
+						<div class="landing-col right offers-description"
+						     ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2"
+						     ng-bind-html="landing.columsTextIntro[1]">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--<p class="offers-description" ng-if="!landing.canDisplayDataForLandingPages">
+				{{::section.Description}}
+			</p>-->
+
+			<div class="offers-list" ng-controller="OffersListCtrl">
+				<ng:any ng-repeat="block in section.OfferLayouts track by $index">
+					<ng:include src="getTemplateUrlByBlockType(block.OfferLayoutType)">
+					</ng:include>
+				</ng:any>
+			</div>
+		</div>
+	</div>
+
+	<div class="offers-list offers-list_new-landing" ng-if="sections.length">
+		<div class="offers-container">
+
+			<h2 class="landing-title" ng-if="!landing.canDisplayDataForLandingPages">
+				<!--{{::section.Name}}-->
+				Перелет + Отель — новая альтернатива классическим турам
+			</h2>
+
+			<div>
+				<div class="row">
+					<div class="offers-list_new-landing__item col-xs-6">
+						<i class="offers-list_new-landing__img">
+							<img ng-src="spa/img/index-landing/1.png" alt="img"/>
+						</i>
+						<b>Cвобода выбора</b>. 200 стран, 500+ авиакомпаний,
+						                     389 тыс. отелей с моментальным подтверждением.
+
+					</div>
+					<div class="offers-list_new-landing__item col-xs-6">
+						<i class="offers-list_new-landing__img">
+							<img ng-src="spa/img/index-landing/4.png" alt="img"/>
+						</i>
+						<b>Экономия до 20%</b>. Путешествуйте по специальным "пакетным" тарифам от лучших мировых
+						                      поставщиков.
+					</div>
+				</div>
+				<div class="row">
+					<div class="offers-list_new-landing__item col-xs-6">
+						<i class="offers-list_new-landing__img">
+							<img ng-src="spa/img/index-landing/2.png" alt="img"/>
+						</i>
+						<b>Только регулярные рейсы</b>. Вылет в любой день недели, поездки на уикенды и праздники.
+
+					</div>
+					<div class="offers-list_new-landing__item col-xs-6">
+						<i class="offers-list_new-landing__img">
+							<img ng-src="spa/img/index-landing/5.png" alt="img"/>
+						</i>
+
+						<div style="margin-top: 1px">
+							<b>Это надежно</b>. Моментальная оплата поставщикам при бронировании.
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offers-list_new-landing__item col-xs-6">
+						<i class="offers-list_new-landing__img">
+							<img ng-src="spa/img/index-landing/3.png" alt="img"/>
+						</i>
+
+						<div style="margin-top: -8px">
+							<b>Онлайн оплата банковской картой</b>. После оплаты мы пришлем ваш билет и ваучер на
+							                                      электронную почту.
+						</div>
+					</div>
+					<div class="offers-list_new-landing__item col-xs-6">
+						<i class="offers-list_new-landing__img">
+							<img ng-src="spa/img/index-landing/6.png" alt="img"/>
+						</i>
+						<b>Поддержка 24x7</b>. Поможем оформить визы, страховки, закажем трансфер или экскурсию.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

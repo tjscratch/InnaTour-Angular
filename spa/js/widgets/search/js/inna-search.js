@@ -89,7 +89,6 @@
     var widget = document.querySelector(".b-inna-search-widget");
     var sources = {
         'css': host + '/spa/js/widgets/search/build/inna-search-widget.css',
-        'jquery': host + '/bower_components/jquery/dist/jquery.min.js',
         'app': host + '/spa/js/widgets/search/build/inna-search-widget.js'
     };
 
@@ -109,17 +108,11 @@
 
 
     $script
-        .ready('jquery', function () {
-        })
         .ready('app', function () {
             setTimeout(function () {
                 bootstrap()
-            }, 350);
+            }, 150);
         })
-
-    //if (!window.$ || !window.jQuery) {
-    $script(sources.jquery, 'jquery');
-    //}
 
     $script(sources.app, 'app');
 

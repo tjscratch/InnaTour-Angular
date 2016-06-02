@@ -1,6 +1,7 @@
 innaAppServices.factory('appApi', function () {
     function url(s) {
-        var host = '';
+        var host = app_main.apiDevHost;
+        //var host = '';
         host = host || '';
         return host + '/api/v1' + s;
     }
@@ -28,6 +29,8 @@ innaAppServices.factory('appApi', function () {
         BUS_GET_LIST: url('/Hotels/SearchbusList'),
 
         GET_COUNTRIES: url('/Dictionary/Country'),
+        
+        GET_OFFERS: url('/BestOffer/GetOffers'),
 
         GET_MANAGER_STATUS: url('/TalkingHeadSupportApi/GetManagerStatus2'),
     }

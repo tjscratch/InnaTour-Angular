@@ -32,7 +32,7 @@ $blue = #0054b9;
 $gray = #a8abba;
 $gray-l = #878787;
 $gray-l2 = #868686;
-$gray-light = #fafafa;
+$gray-light = #f2f2f2;
 $gray-light-2 = #e7e7e7;
 $white = #fff;
 $orange = #ffaa00;
@@ -110,19 +110,19 @@ calc(prop, val, fallback) {
 
 color-button(name, color1, color2) {
 
-	bg = (color2/2 + color1/2);
-	t = (color1 - 6%);
-	b = (color2 - 20%);
+	bg = (color2/2 + color1/2)
+	//t = (color1 - 6%);
+	//b = (color2 - 20%);
 
 	&-{name} {
 
 		color: $white;
 		//text-shadow: 0 -1px 1px rgba($black, .40);
 
-		background: bg;
+		//background: bg;
 		background: rgba(bg, .9);
 		//border-color: t (t/2 + b/2) b;
-		gradient(top, rgba(color1, .9), rgba(color2, .9));
+		//gradient(top, rgba(color1, .9), rgba(color2, .9));
 
 		&:hover {
 			/*background-color: color1 + 10%;

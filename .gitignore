@@ -6,9 +6,7 @@ shipit_build
 Compiled
 _ReSharper.*
 obj/*
-bin/*
 */obj/*
-*/bin/*
 *.vssscc
 *.vspscc
 *.suo
@@ -110,3 +108,7 @@ cache__api_v1_partner_getall.json
 
 
 sprite.png
+
+dist
+cache__api_v1_partner_getall.json
+shipit_build_test

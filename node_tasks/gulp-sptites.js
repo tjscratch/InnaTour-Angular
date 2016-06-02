@@ -6,7 +6,7 @@ var Q = require('q');
 var _ = require('underscore');
 
 var exec = require('child_process').exec;
-var fs = require('fs');
+var fs = require('graceful-fs');
 var conf = require('./config');
 var log = gutil.log;
 
