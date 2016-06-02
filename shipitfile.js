@@ -18,10 +18,10 @@ module.exports = function (shipit) {
             revertDeloy: 'npm run deploy:rollback'
         },
         test: {
-            workspace: 'shipit_build_test',
+            workspace: 'shipit_build',
             deployTo: '/home/deploy/www/inna-frontend-test',
             repositoryUrl: 'ssh://git@gitlab.inna.ru:223/frontend-dev/inna-angular.git',
-            branch: 'deploy',
+            branch: 'new-test',
             ignores: ['.git', 'node_modules'],
             keepReleases: 5,
             deleteOnRollback: true,
@@ -32,10 +32,10 @@ module.exports = function (shipit) {
             revertDeloy: 'npm run deploy:test:rollback'
         },
         beta: {
-            workspace: 'shipit_build_test',
+            workspace: 'shipit_build',
             deployTo: '/home/deploy/www/inna-frontend-beta',
             repositoryUrl: 'ssh://git@gitlab.inna.ru:223/frontend-dev/inna-angular.git',
-            branch: 'deploy',
+            branch: 'new-beta',
             ignores: ['.git', 'node_modules'],
             keepReleases: 5,
             deleteOnRollback: true,
