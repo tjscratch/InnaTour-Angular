@@ -16,7 +16,7 @@
         <div class="search-date-block__date" ng-class="{'search-date-block__date_display_placeholder': !date2}">{{date2 ? long(date2) : 'Обратно'}}</div>
     </div>
 
-    <div class="js-datepicker datepicker-body" ng-show="isOpen">
+    <div class="js-datepicker datepicker-body" ng-show="isOpen" ng-mouseleave="isOpen = false">
         <div class="dp-head-cont">
             <div class="dtpk-head js-dp-head" style="margin: 0; padding: 0px 16px 10px 15px;">
                 <span class="dtpk-caption" ng-if="isFromSelecting">ТУДА</span>
