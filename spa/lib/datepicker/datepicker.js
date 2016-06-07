@@ -458,7 +458,8 @@
 					var tblEl = parentEl.parent().parent().parent();
 					var tblIndex = $('table', this).index(tblEl.get(0)) - 1;
 					var tmp = new Date(options.current);
-					console.log('непонятная дата' + tmp);
+					var todayDate = new Date();
+					todayDate.setHours(0, 0, 0, 0);
 					var changed = false;
 					var fillIt = false;
 					if (parentEl.is('th')) {
@@ -555,12 +556,14 @@
 									        options.initDateToIsSet = true;
 									        options.initDateFromIsSet = true;
 									        //если дата до < даты от
-									        if (options.date[1] < options.date[0]) {
+									        if ((options.date[1] < options.date[0]) && (+todayDate != options.date[1])) {
 									            //меняем даты местами
 									            var tValue = options.date[0];
 									            options.date[0] = options.date[1];
 									            options.date[1] = tValue;
-									        }
+									        } else if ((options.date[1] < options.date[0]) && (+todayDate == options.date[1])) {
+												options.date[1] = null;
+											}
 									    }
 											options.lastSel = !options.lastSel;
 										break;
@@ -570,18 +573,15 @@
 								}
 								break;
 						}
-						var todayDate = new Date();
-						todayDate.setHours(0, 0, 0, 0);
+
 						if(+todayDate == options.date[0]) {
-							options.date[0] = undefined;
+							options.lastSel = !options.lastSel;
 							fillIt = false;
 							changed = false;
 						} else {
 							fillIt = true;
 							changed = true;
 						}
-						console.log(+todayDate);
-						console.log('выбранная дата ' + options.date[0]);
 
 					}
 					if (fillIt) {
