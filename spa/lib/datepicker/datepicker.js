@@ -458,6 +458,7 @@
 					var tblEl = parentEl.parent().parent().parent();
 					var tblIndex = $('table', this).index(tblEl.get(0)) - 1;
 					var tmp = new Date(options.current);
+					console.log('непонятная дата' + tmp);
 					var changed = false;
 					var fillIt = false;
 					if (parentEl.is('th')) {
@@ -543,6 +544,7 @@
                                             //ставим дату от
 									        options.date[0] = (tmp.setHours(0, 0, 0, 0)).valueOf();
 									        options.initDateToIsSet = true;
+
 									        //если дата до < даты от - сбрасываем ее
 									        if (options.date[1] < options.date[0]) {
 									            options.date[1] = null;
@@ -560,8 +562,7 @@
 									            options.date[1] = tValue;
 									        }
 									    }
-
-										options.lastSel = !options.lastSel;
+											options.lastSel = !options.lastSel;
 										break;
 									default:
 										options.date = tmp.valueOf();
@@ -569,8 +570,19 @@
 								}
 								break;
 						}
-						fillIt = true;
-						changed = true;
+						var todayDate = new Date();
+						todayDate.setHours(0, 0, 0, 0);
+						if(+todayDate == options.date[0]) {
+							options.date[0] = undefined;
+							fillIt = false;
+							changed = false;
+						} else {
+							fillIt = true;
+							changed = true;
+						}
+						console.log(+todayDate);
+						console.log('выбранная дата ' + options.date[0]);
+
 					}
 					if (fillIt) {
 						fill(this);
@@ -627,6 +639,7 @@
 			},
 			show = function (ev) {
 				var cal = $('#' + $(this).data('datepickerId'));
+				console.log('Ид элемента' + $(this).data('datepickerId'));
 				if (!cal.is(':visible')) {
 					var calEl = cal.get(0);
 					fill(calEl);
