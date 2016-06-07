@@ -11,6 +11,7 @@ gulp.task('copy-js', function () {
     gulp.src('./spa/partners/**').pipe(gulp.dest('./dist/spa/partners'));
     gulp.src('./spa/*.css').pipe(gulp.dest('./dist/spa'));
     gulp.src('./spa/*.docx').pipe(gulp.dest('./dist/spa'));
+    gulp.src('./spa/*.html').pipe(gulp.dest('./dist/spa'));
     gulp.src('./spa/templates/pages/**/*.html').pipe(gulp.dest('./dist/spa/templates/pages'));
 });
 
