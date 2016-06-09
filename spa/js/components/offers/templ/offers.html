@@ -66,41 +66,47 @@
 
             <div class="b-offers-filters__group-left">
 
-                <ui-select ng-model="filter.Location"
-                           theme="selectize"
-                           append-to-body="'true'"
-                           on-select="filterChange(filter)"
-                           class="b-offers-filter">
-                    <ui-select-match placeholder="Откуда">{{$select.selected.Text}}</ui-select-match>
-                    <ui-select-choices repeat="item.Value as item in Locations | filter: $select.search"
-                                       refresh-delay="0">
-                        <span ng-bind-html="item.Text | highlight: $select.search"></span>
-                    </ui-select-choices>
-                </ui-select>
+                <div class="b-offers-filter__container">
+                    <ui-select ng-model="filter.Location"
+                               theme="selectize"
+                               append-to-body="'true'"
+                               on-select="filterChange(filter)"
+                               class="b-offers-filter b-offers-filter__location">
+                        <ui-select-match placeholder="Откуда">{{$select.selected.Text}}</ui-select-match>
+                        <ui-select-choices repeat="item.Value as item in Locations | filter: $select.search"
+                                           refresh-delay="0">
+                            <span ng-bind-html="item.Text | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
 
-                <ui-select ng-model="filter.Month"
-                           theme="selectize"
-                           append-to-body="'true'"
-                           on-select="filterChange(filter)"
-                           class="b-offers-filter">
-                    <ui-select-match placeholder="Когда">{{$select.selected.Text}}</ui-select-match>
-                    <ui-select-choices repeat="item.Value as item in Months | filter: $select.search"
-                                       refresh-delay="0">
-                        <span ng-bind-html="item.Text | highlight: $select.search"></span>
-                    </ui-select-choices>
-                </ui-select>
+                <div class="b-offers-filter__container">
+                    <ui-select ng-model="filter.Month"
+                               theme="selectize"
+                               append-to-body="'true'"
+                               on-select="filterChange(filter)"
+                               class="b-offers-filter">
+                        <ui-select-match placeholder="Когда">{{$select.selected.Text}}</ui-select-match>
+                        <ui-select-choices repeat="item.Value as item in Months | filter: $select.search"
+                                           refresh-delay="0">
+                            <span ng-bind-html="item.Text | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
 
-                <ui-select ng-model="filter.Period"
-                           theme="selectize"
-                           append-to-body="'true'"
-                           on-select="filterChange(filter)"
-                           class="b-offers-filter">
-                    <ui-select-match placeholder="На сколько">{{$select.selected.Text}}</ui-select-match>
-                    <ui-select-choices repeat="item.Value as item in Periods | filter: $select.search"
-                                       refresh-delay="0">
-                        <span ng-bind-html="item.Text | highlight: $select.search"></span>
-                    </ui-select-choices>
-                </ui-select>
+                <div class="b-offers-filter__container">
+                    <ui-select ng-model="filter.Period"
+                               theme="selectize"
+                               append-to-body="'true'"
+                               on-select="filterChange(filter)"
+                               class="b-offers-filter">
+                        <ui-select-match placeholder="На сколько">{{$select.selected.Text}}</ui-select-match>
+                        <ui-select-choices repeat="item.Value as item in Periods | filter: $select.search"
+                                           refresh-delay="0">
+                            <span ng-bind-html="item.Text | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
 
             </div>
 
@@ -123,7 +129,7 @@
     <div class="b-offers"
          ng-if="showOffers">
         <div class="loadingOffers"
-                ng-if="loadingOffers">
+             ng-if="loadingOffers">
             <div class="spinner in-balloon">
                 <div class="rect rect1"></div>
                 <div class="rect rect2"></div>
