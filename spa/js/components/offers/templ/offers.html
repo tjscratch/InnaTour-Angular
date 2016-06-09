@@ -85,7 +85,7 @@
                                theme="selectize"
                                append-to-body="'true'"
                                on-select="filterChange(filter)"
-                               class="b-offers-filter">
+                               class="b-offers-filter b-offers-filter__Month">
                         <ui-select-match placeholder="Когда">{{$select.selected.Text}}</ui-select-match>
                         <ui-select-choices repeat="item.Value as item in Months | filter: $select.search"
                                            refresh-delay="0">
@@ -99,7 +99,7 @@
                                theme="selectize"
                                append-to-body="'true'"
                                on-select="filterChange(filter)"
-                               class="b-offers-filter">
+                               class="b-offers-filter b-offers-filter__Period">
                         <ui-select-match placeholder="На сколько">{{$select.selected.Text}}</ui-select-match>
                         <ui-select-choices repeat="item.Value as item in Periods | filter: $select.search"
                                            refresh-delay="0">
