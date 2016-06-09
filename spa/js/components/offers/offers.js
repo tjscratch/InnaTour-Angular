@@ -45,7 +45,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                     return item.Selected == true;
                 });
                 $scope.filter.Category = CategoryObj.Value;
-                $scope.setCategory(CategoryObj);
+                //$scope.setCategory(CategoryObj);
 
                 var SortObj = _.find($scope.Sorts, function (item) {
                     return item.Selected == true;
@@ -78,9 +78,9 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 for (var i = 0; i < $scope.Categories.length; i++) {
                     var item = $scope.Categories[i];
                     if (category == item) {
-                        item.Selected = true;
+                        item.Active = true;
                     } else {
-                        item.Selected = false;
+                        item.Active = false;
                     }
                     categories.push(item);
                 }
