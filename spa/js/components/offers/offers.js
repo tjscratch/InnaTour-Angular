@@ -107,7 +107,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 $scope.showOffers = true;
                 Offer.getOffers(filter).then(
                     function (res) {
-                        if (res.data.Offers.length == 0) {
+                        if (res.data.Offers.length == 0 && $scope.filter.Location != 6733) {
                             $scope.filter.Location = 6733;
                             $scope.filterChange($scope.filter);
                         } else {
