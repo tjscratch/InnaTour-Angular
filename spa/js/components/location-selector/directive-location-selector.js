@@ -6,7 +6,7 @@ innaAppDirectives.directive('locationSelector', [
     'eventsHelper',
     'serviceCache',
     'dataService',
-    'DynamicPackagesDataProvider',
+    'EventManager',
     function ($templateCache) {
         return{
             replace: true,
@@ -27,7 +27,7 @@ innaAppDirectives.directive('locationSelector', [
                 useHorizontalForm: '=',
                 tabIndex: '='
             },
-            controller: function ($rootScope, $scope, $timeout, $routeParams, eventsHelper, serviceCache, dataService, DynamicPackagesDataProvider) {
+            controller: function ($rootScope, $scope, $timeout, $routeParams, eventsHelper, serviceCache, dataService, EventManager) {
 
                 
                 /**
@@ -44,6 +44,7 @@ innaAppDirectives.directive('locationSelector', [
 
                     if (!doNotUpdateText) {
                         $scope.currentCity = name.join(', ');
+                        EventManager.fire("locationSelectorChange", data);
                     }
 
                     $scope.selectedValue = data;
@@ -332,6 +333,7 @@ innaAppDirectives.directive('locationSelector', [
                         $scope.selectionControl.setSelected();
                         $scope.isOpened = false;
                     });
+                    $(document).off('click', clickHanlder);
                 }
 
                 $(document).click(clickHanlder);
