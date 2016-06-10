@@ -15,7 +15,6 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 $scope.Periods = res.data.Period;
                 $scope.Sorts = res.data.Sort;
                 
-                
                 //var LocationObj = _.find($scope.Locations, function (item) {
                 //    return item.Selected == true;
                 //});
@@ -44,10 +43,10 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 });
                 $scope.filter.Period = PeriodObj.Value;
                 
-                var CategoryObj = _.find($scope.Categories, function (item) {
-                    return item.Selected == true;
-                });
-                $scope.filter.Category = CategoryObj.Value;
+                //var CategoryObj = _.find($scope.Categories, function (item) {
+                //    return item.Selected == true;
+                //});
+                //$scope.filter.Category = CategoryObj.Value;
                 //$scope.setCategory(CategoryObj);
                 
                 var SortObj = _.find($scope.Sorts, function (item) {
@@ -115,7 +114,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                             $scope.offersServer = res.data.Offers;
                             $scope.showOffers = true;
                             $scope.loadingOffers = false;
-                            $scope.offersSort($scope.Sort, $scope.offersServer);
+                            $scope.offersSort($scope.Sort, $scope.offersServer, false);
                         }
                     }, function (res) {
                         RavenWrapper.raven({
@@ -139,19 +138,6 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 }
             };
 
-
-            // фильтрация результатов по бюджету
-            $scope.filtrateResultToPrice = function (price, offers) {
-                if(price >= 1000){
-                    var offers = _.filter(offers, function (item) {
-                        return item.Price < price;
-                    });
-                    $scope.offersSort($scope.Sort, offers);
-                }else{
-                    $scope.offersSort($scope.Sort, offers);
-                }
-            };
-            
         }
     }
 });

@@ -155,12 +155,12 @@ var config = {
         },
         "api": {
             "test": "http://api.test.inna.ru",
-            "dev": "http://test.inna.ru",
+            "dev": "http://beta.inna.ru",
             "prod": "https://api.inna.ru",
             "beta": "http://api.beta.inna.ru"
         },
         "port": {
-            "prod": 8666,
+            "prod": 8686,
             "test": 8667,
             "dev": 8667,
             "beta": 8668
