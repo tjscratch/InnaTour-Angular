@@ -2,8 +2,10 @@ innaAppDirectives.directive('offers', function ($templateCache) {
     return {
         replace: true,
         template: $templateCache.get("components/offers/templ/offers.html"),
-        controller: function ($scope, RavenWrapper, serviceCache, Offer, $timeout) {
-            
+        controller: function ($scope, RavenWrapper, serviceCache, Offer, $timeout, EventManager) {
+
+            $scope.price = null;
+
             function setDefaultValue(res) {
                 
                 $scope.Categories = res.data.Categories;
@@ -14,23 +16,24 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 $scope.Sorts = res.data.Sort;
                 
                 
-                var LocationObj = _.find($scope.Locations, function (item) {
-                    return item.Selected == true;
-                });
-                if (!LocationObj) {
-                    /**
-                     * если локация сохранена в кеше то берем её оттуда
-                     * если кэш путой подставляем id Москвы 6733
-                     */
-                    var cacheLocation = serviceCache.getObject('DP_from');
-                    var cacheLocationId = cacheLocation ? cacheLocation.Id : 6733;
-                    LocationObj = _.find($scope.Locations, function (item) {
-                        return item.Value == cacheLocationId;
-                    });
-                    $scope.filter.Location = LocationObj.Value;
-                } else {
-                    $scope.filter.Location = LocationObj.Value;
-                }
+                //var LocationObj = _.find($scope.Locations, function (item) {
+                //    return item.Selected == true;
+                //});
+                //if (!LocationObj) {
+                //var cacheLocation = serviceCache.getObject('DP_from');
+                //var cacheLocationId = cacheLocation ? cacheLocation.Id : 6733;
+                //LocationObj = _.find($scope.Locations, function (item) {
+                //    return item.Value == cacheLocationId;
+                //});
+                //$scope.filter.Location = LocationObj.Value;
+                //} else {
+                //    $scope.filter.Location = LocationObj.Value;
+                //}
+                var cacheLocation = serviceCache.getObject('DP_from');
+                var cacheLocationId = cacheLocation ? cacheLocation.Id : 6733;
+                $scope.filter.Location = cacheLocationId;
+
+
                 var MonthObj = _.find($scope.Months, function (item) {
                     return item.Selected == true;
                 });
@@ -59,7 +62,8 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 Category: null,
                 Location: null,
                 Month: null,
-                Period: null
+                Period: null,
+                WithoutVisa: null
             };
             
             Offer.getOffers().then(
@@ -86,7 +90,16 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 }
                 $scope.Categories = categories;
                 $scope.filter.Category = category.Value;
+                /**
+                 * если локация сохранена в кеше то берем её оттуда
+                 * если кэш путой подставляем id Москвы 6733
+                 */
                 $scope.filterChange($scope.filter);
+                EventManager.on("locationSelectorChange", function (data) {
+                    $scope.filter.Location = data.Id;
+                    $scope.filterChange($scope.filter);
+                });
+
             };
 
             $scope.loadingOffers = false;
@@ -95,10 +108,15 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 $scope.showOffers = true;
                 Offer.getOffers(filter).then(
                     function (res) {
-                        $scope.offersServer = res.data.Offers;
-                        $scope.showOffers = true;
-                        $scope.loadingOffers = false;
-                        $scope.offersSort($scope.Sort, $scope.offersServer);
+                        if (res.data.Offers.length == 0) {
+                            $scope.filter.Location = 6733;
+                            $scope.filterChange($scope.filter);
+                        } else {
+                            $scope.offersServer = res.data.Offers;
+                            $scope.showOffers = true;
+                            $scope.loadingOffers = false;
+                            $scope.offersSort($scope.Sort, $scope.offersServer);
+                        }
                     }, function (res) {
                         RavenWrapper.raven({
                             captureMessage: 'Offer.getOffers(filter): ERROR!',
@@ -110,8 +128,28 @@ innaAppDirectives.directive('offers', function ($templateCache) {
             };
             
             // var offers = Offer.mock(12);
-            $scope.offersSort = function (sortableType, offers) {
-                $scope.offers = Offer.sortable(sortableType, offers);
+            $scope.offersSort = function (sortableType, offers, price) {
+                if(price >= 1000){
+                    var offers = _.filter(offers, function (item) {
+                        return item.Price < price;
+                    });
+                    $scope.offers = Offer.sortable(sortableType, offers);
+                }else{
+                    $scope.offers = Offer.sortable(sortableType, offers);
+                }
+            };
+
+
+            // фильтрация результатов по бюджету
+            $scope.filtrateResultToPrice = function (price, offers) {
+                if(price >= 1000){
+                    var offers = _.filter(offers, function (item) {
+                        return item.Price < price;
+                    });
+                    $scope.offersSort($scope.Sort, offers);
+                }else{
+                    $scope.offersSort($scope.Sort, offers);
+                }
             };
             
         }

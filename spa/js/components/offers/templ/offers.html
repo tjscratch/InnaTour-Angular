@@ -66,14 +66,42 @@
 
             <div class="b-offers-filters__group-left">
 
+                <!--
+                                <div class="b-offers-filter__container">
+                                    <ui-select ng-model="filter.Location"
+                                               theme="selectize"
+                                               append-to-body="'true'"
+                                               on-select="filterChange(filter)"
+                                               class="b-offers-filter b-offers-filter__location">
+                                        <ui-select-match placeholder="Откуда">{{$select.selected.Text}}</ui-select-match>
+                                        <ui-select-choices repeat="item.Value as item in Locations | filter: $select.search"
+                                                           refresh-delay="0">
+                                            <span ng-bind-html="item.Text | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                -->
+
                 <div class="b-offers-filter__container">
-                    <ui-select ng-model="filter.Location"
+                    <div class="b-offers-filter-Price">
+                        <input class="b-offers-filter-Price__input"
+                               type="number"
+                               placeholder="Бюджет"
+                               ng-model="price"
+                               ng-change="offersSort(Sort, offersServer, price)">
+                        <i class="fa fa-rub b-offers-filter-Price__icon"></i>
+                    </div>
+                </div>
+
+
+                <div class="b-offers-filter__container">
+                    <ui-select ng-model="filter.Period"
                                theme="selectize"
                                append-to-body="'true'"
                                on-select="filterChange(filter)"
-                               class="b-offers-filter b-offers-filter__location">
-                        <ui-select-match placeholder="Откуда">{{$select.selected.Text}}</ui-select-match>
-                        <ui-select-choices repeat="item.Value as item in Locations | filter: $select.search"
+                               class="b-offers-filter b-offers-filter__Period">
+                        <ui-select-match placeholder="На сколько">{{$select.selected.Text}}</ui-select-match>
+                        <ui-select-choices repeat="item.Value as item in Periods | filter: $select.search"
                                            refresh-delay="0">
                             <span ng-bind-html="item.Text | highlight: $select.search"></span>
                         </ui-select-choices>
@@ -95,17 +123,18 @@
                 </div>
 
                 <div class="b-offers-filter__container">
-                    <ui-select ng-model="filter.Period"
-                               theme="selectize"
-                               append-to-body="'true'"
-                               on-select="filterChange(filter)"
-                               class="b-offers-filter b-offers-filter__Period">
-                        <ui-select-match placeholder="На сколько">{{$select.selected.Text}}</ui-select-match>
-                        <ui-select-choices repeat="item.Value as item in Periods | filter: $select.search"
-                                           refresh-delay="0">
-                            <span ng-bind-html="item.Text | highlight: $select.search"></span>
-                        </ui-select-choices>
-                    </ui-select>
+                    <div class="b-offers-filter-WithoutVisa">
+                        <label class="FieldCheckbox">
+                            <input class="FieldCheckbox__input"
+                                   type="checkbox"
+                                   ng-model="filter.WithoutVisa"
+                                   ng-change="filterChange(filter)">
+                            <div class="FieldCheckbox__checkbox fa fa-check"></div>
+                            <div class="FieldCheckbox__label">
+                                Без визы
+                            </div>
+                        </label>
+                    </div>
                 </div>
 
             </div>
@@ -113,7 +142,7 @@
             <ui-select ng-model="Sort"
                        theme="selectize"
                        append-to-body="'true'"
-                       on-select="offersSort(Sort, offersServer)"
+                       on-select="offersSort(Sort, offersServer, price)"
                        class="b-offers-filter b-offers-filter__sort">
                 <ui-select-match placeholder="Сортировать">Сортировать: {{$select.selected.Text}}</ui-select-match>
                 <ui-select-choices repeat="item.Value as item in Sorts | filter: $select.search"
