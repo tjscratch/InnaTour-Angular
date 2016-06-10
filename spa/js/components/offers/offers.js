@@ -62,7 +62,8 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 Category: null,
                 Location: null,
                 Month: null,
-                Period: null
+                Period: null,
+                WithoutVisa: null
             };
             
             Offer.getOffers().then(

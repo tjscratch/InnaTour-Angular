@@ -122,6 +122,21 @@
                     </ui-select>
                 </div>
 
+                <div class="b-offers-filter__container">
+                    <div class="b-offers-filter-WithoutVisa">
+                        <label class="FieldCheckbox">
+                            <input class="FieldCheckbox__input"
+                                   type="checkbox"
+                                   ng-model="filter.WithoutVisa"
+                                   ng-change="filterChange(filter)">
+                            <div class="FieldCheckbox__checkbox fa fa-check"></div>
+                            <div class="FieldCheckbox__label">
+                                Без визы
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
             </div>
 
             <ui-select ng-model="Sort"

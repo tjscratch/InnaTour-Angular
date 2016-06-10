@@ -1,3 +1,4 @@
+@import 'nib'
 $b-offer-offset = 1.5px;
 offerSize(width, height) {
     width: width;
@@ -122,8 +123,14 @@ offerSize(width, height) {
                 right: 8px !important;
             }
         }
-        .selectize-input > * {
-            vertical-align: middle;
+        .selectize-input {
+            & > * {
+                vertical-align: middle;
+                color #757575;
+            }
+            .ui-select-search {
+                placeholder((font-size 14.4px) (color #757575))
+            }
         }
         .selectize-dropdown {
             margin-top: 2px;
@@ -176,13 +183,43 @@ offerSize(width, height) {
     box-sizing: border-box;
     padding: 5px 10px;
     border: 1px solid #b8b8b8;
-    font-size: .9em;
+    font-size: 14.4px;
+    color #757575;
+    font-family ProximaNova, Arial, sans-serif
+
+    placeholder((font-size 14.4px) (color #757575))
 }
 .b-offers-filter-Price__icon {
     position: absolute;
     right: 8px;
     top: 7px;
-    font-size: .9em;
+    font-size: 14.4px;
+    color #333;
+}
+.b-offers-filter-WithoutVisa {
+    padding: 2px 0 0 5px;
+
+    .FieldCheckbox__checkbox {
+        display: flex;
+        width 17px
+        height 17px
+        border: 1px solid #b8b8b8;
+        background-color: $white;
+        font-size: 14.4px;
+    }
+    .FieldCheckbox__input:checked + .FieldCheckbox__checkbox {
+        background: $green;
+        border: 1px solid $green;
+
+        &:before {
+            display block
+            margin auto
+        }
+    }
+    .FieldCheckbox__label {
+        font-size 14.4px;
+        color #757575;
+    }
 }
 /////////
 /////////
