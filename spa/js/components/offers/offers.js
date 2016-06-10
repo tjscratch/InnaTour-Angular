@@ -3,7 +3,9 @@ innaAppDirectives.directive('offers', function ($templateCache) {
         replace: true,
         template: $templateCache.get("components/offers/templ/offers.html"),
         controller: function ($scope, RavenWrapper, serviceCache, Offer, $timeout, EventManager) {
-            
+
+            $scope.price = null;
+
             function setDefaultValue(res) {
                 
                 $scope.Categories = res.data.Categories;
@@ -125,8 +127,28 @@ innaAppDirectives.directive('offers', function ($templateCache) {
             };
             
             // var offers = Offer.mock(12);
-            $scope.offersSort = function (sortableType, offers) {
-                $scope.offers = Offer.sortable(sortableType, offers);
+            $scope.offersSort = function (sortableType, offers, price) {
+                if(price >= 1000){
+                    var offers = _.filter(offers, function (item) {
+                        return item.Price < price;
+                    });
+                    $scope.offers = Offer.sortable(sortableType, offers);
+                }else{
+                    $scope.offers = Offer.sortable(sortableType, offers);
+                }
+            };
+
+
+            // фильтрация результатов по бюджету
+            $scope.filtrateResultToPrice = function (price, offers) {
+                if(price >= 1000){
+                    var offers = _.filter(offers, function (item) {
+                        return item.Price < price;
+                    });
+                    $scope.offersSort($scope.Sort, offers);
+                }else{
+                    $scope.offersSort($scope.Sort, offers);
+                }
             };
             
         }

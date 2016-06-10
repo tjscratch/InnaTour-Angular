@@ -107,8 +107,8 @@ offerSize(width, height) {
         .selectize-input {
             padding: 4px 15px 4px 10px;
             border-radius: 0;
-            background-color: $white;
-            background-image: none;
+            background-color: $white !important;
+            background-image: none !important;
             border: 1px solid #F0BD4E;
 
             &:after {
@@ -166,6 +166,23 @@ offerSize(width, height) {
 }
 .b-offers-filter__sort {
     //width: 31%;
+}
+.b-offers-filter-Price {
+    position: relative;
+    width: 100px;
+}
+.b-offers-filter-Price__input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border: 1px solid #b8b8b8;
+    font-size: .9em;
+}
+.b-offers-filter-Price__icon {
+    position: absolute;
+    right: 8px;
+    top: 7px;
+    font-size: .9em;
 }
 /////////
 /////////
