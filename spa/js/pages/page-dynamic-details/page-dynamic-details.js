@@ -200,6 +200,7 @@ innaAppControllers
                 rooms.find(function (room) {
                     if (room.Default) {
                         $scope.recommendedPair.setRoom(room);
+                        $scope.recommendedPair.setFullPackagePrice(room);
                         return true;
                     }
                 })
