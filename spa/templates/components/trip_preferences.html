@@ -1,6 +1,6 @@
 <div class="search-people-block search__120 no-outline-on-focus">
     <div class="search-people">{{klassModel.display}}</div>
-    <ul class="search__list" ng-show="isOpen">
+    <ul class="search__list" ng-show="isOpen" ng-mouseleave="isOpen = false">
         <li
                 ng-repeat="option in klassModel.getOptions()"
                 ng-class="({'true': 'current', 'false':''})[option == klassModel]"
