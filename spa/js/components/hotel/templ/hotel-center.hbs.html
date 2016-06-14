@@ -45,6 +45,15 @@
 	</div>
 	{{/if}}
 
+	{{#if isMainAgency()}}
+	<div class="b-hotel-data__text">
+		{{#if hotel.ProviderId == 2}}Oktogo{{/if}}
+		{{#if hotel.ProviderId == 4}}Expedia{{/if}}
+		{{#if hotel.ProviderId == 5}}Alean{{/if}}
+		{{#if hotel.ProviderId == 8}}Ostrovok{{/if}}
+	</div>
+	{{/if}}
+
 	<div class="b-hotel-data__tripadvisor">
 		<Tripadvisor
 				TaCommentCount="{{hotel.TaCommentCount}}"

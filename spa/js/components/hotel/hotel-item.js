@@ -1,5 +1,6 @@
 angular.module('innaApp.components').
     factory('HotelItem', [
+        '$rootScope',
         'EventManager',
         'innaAppApiEvents',
         'innaApp.Urls',
@@ -12,7 +13,7 @@ angular.module('innaApp.components').
 
         'ModelHotel',
         'ModelPrice',
-        function (EventManager, Events, Urls, $filter, $routeParams, $location, $templateCache, DynamicBlock, HotelGallery, ModelHotel, ModelPrice) {
+        function ($rootScope, EventManager, Events, Urls, $filter, $routeParams, $location, $templateCache, DynamicBlock, HotelGallery, ModelHotel, ModelPrice) {
 
             /**
              * Компонент HotelItem
@@ -32,6 +33,16 @@ angular.module('innaApp.components').
                         classColl3: 'col-xs-3 result-choice'
                     },
                     isFullWL: (window.partners && window.partners.isFullWL()),
+
+                    isMainAgency: function () {
+                        var isAgency = false;
+                        if ($rootScope.$root.user) {
+                            if (parseInt($rootScope.$root.user.getAgencyId()) == 20005 || parseInt($rootScope.$root.user.getAgencyId()) == 2) {
+                                isAgency = true;
+                            }
+                        }
+                        return isAgency;
+                    },
 
                     /**
                      * Строим URL для страницы подробнее об отеле
