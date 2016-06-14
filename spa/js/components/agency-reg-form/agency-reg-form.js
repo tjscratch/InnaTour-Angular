@@ -42,6 +42,16 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
         }
     });
 
+    $scope.ufn = false;
+    $scope.$watch('ufn', function (data) {
+        if (data) {
+            $scope.agencyReg.UFN = true;
+        }
+        else {
+            $scope.agencyReg.UFN = false;
+        }
+    });
+
     $scope.agencySubmit = function (form) {
         if (form.$valid) {
             console.log('$scope.agencyReg', $scope.agencyReg);
