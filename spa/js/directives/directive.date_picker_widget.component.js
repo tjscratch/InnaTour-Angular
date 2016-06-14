@@ -191,15 +191,15 @@
                     else {
                         $scope.isOpen = true;
                     }
-                    $scope.isFromSelecting = true;
-                    //при клике будет выбрана дата от
-                    $scope.setLastSel(false);
-                    $scope.showPicker();
-                    setPosition({
-                        elemFromPosition: $event.currentTarget,
-                        picker          : $scope.datePicker,
-                        from            : true
-                    });
+                        $scope.isFromSelecting = true;
+                        //при клике будет выбрана дата от
+                        $scope.setLastSel(false);
+                        $scope.showPicker();
+                        setPosition({
+                            elemFromPosition: $event.currentTarget,
+                            picker: $scope.datePicker,
+                            from: true
+                        });
                 };
 
                 $scope.toggleTo = function ($event) {
