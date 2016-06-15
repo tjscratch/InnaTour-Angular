@@ -12,17 +12,17 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
      * поэтому если не b2b пользователь попал на страницу отелей
      * редиректим его на главную
      */
-    $timeout(function () {
-        var isAgency = false;
-        if ($rootScope.$root.user) {
-            if (parseInt($rootScope.$root.user.getAgencyId()) == 20005 || parseInt($rootScope.$root.user.getAgencyId()) == 2) {
-                isAgency = true;
-            }
-        }
-        if (isAgency == false) {
-            $location.path('/#/');
-        }
-    }, 500);
+    //$timeout(function () {
+    //    var isAgency = false;
+    //    if ($rootScope.$root.user) {
+    //        if (parseInt($rootScope.$root.user.getAgencyId()) == 20005 || parseInt($rootScope.$root.user.getAgencyId()) == 2) {
+    //            isAgency = true;
+    //        }
+    //    }
+    //    if (isAgency == false) {
+    //        $location.path('/#/');
+    //    }
+    //}, 500);
 
 
     /**

@@ -349,17 +349,17 @@ app.config([
             .when(AppRouteUrls.URL_HOTELS, {
                 templateUrl: 'pages/page-hotels/templ/hotels-root.html',
                 controller: 'HotelsRootController',
-                resolve: authController.resolve
+                //resolve: authController.resolve
             })
             .when(AppRouteUrls.URL_HOTELS + ':StartVoyageDate/' + ':ArrivalId-:NightCount-:Adult-:ChildrenCount', {
                 templateUrl: 'pages/page-hotels/templ/hotels-index.html',
                 controller: 'HotelsIndexController',
-                resolve: authController.resolve
+                //resolve: authController.resolve
             })
             .when(AppRouteUrls.URL_HOTELS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:ChildrenCount', {
                 templateUrl: 'pages/page-hotels/templ/hotels-show.html',
                 controller: 'HotelsShowController',
-                resolve: authController.resolve
+                //resolve: authController.resolve
             })
             /**
              * begin bus tours
