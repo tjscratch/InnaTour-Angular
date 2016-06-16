@@ -71,11 +71,9 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
             title: 'Возникла ошибка при бронировании',
             content: 'Попробуйте начать поиск заново',
             callbackClose: function () {
-                console.log(33333)
                 redirectHotel();
             },
             callback: function () {
-                console.log(44444)
                 redirectHotel();
             }
         });
