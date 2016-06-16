@@ -10,7 +10,12 @@
 
 		<div class="HotelCardPhotos__Photo-empty"
 		     ng-if="!hotel.Photos">
-			<i class="fa fa-bus" aria-hidden="true"></i>
+			<i class="fa fa-bus"
+			   aria-hidden="true"
+			   ng-if="currentActive('/bus/')"></i>
+			<i class="fa fa-bed"
+			   aria-hidden="true"
+			   ng-if="currentActive('/hotels/')"></i>
 		</div>
 	</div>
 
