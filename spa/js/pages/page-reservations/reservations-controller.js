@@ -68,7 +68,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         self.baloonHotelError = new Balloon();
         self.baloonHotelError.updateView({
             template: 'err.html',
-            title: 'Выбранная комната не доступна',
+            title: 'Возникла ошибка при бронировании',
             content: 'Попробуйте начать поиск заново',
             callbackClose: function () {
                 console.log(33333)
