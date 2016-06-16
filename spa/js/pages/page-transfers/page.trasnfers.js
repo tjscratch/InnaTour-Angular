@@ -1,8 +1,8 @@
 
 innaAppControllers.
     controller('TrasnfersPageCtrl', [
-        '$scope', '$routeParams', '$location',
-        function ($scope, $routeParams, $location) {
+        '$scope', '$routeParams', '$location','$sce',
+        function ($scope, $routeParams, $location, $sce) {
             var dataIndividual = [
                 {from:'Прага', to:'Отель Прага', price:'30€', notes:''},
                 {from:'Берлин', to:'Отель Берлин', price:'45€', notes:''},
@@ -145,13 +145,13 @@ innaAppControllers.
             $scope.tabs = [
                 {name:'Индивидуальный', active:true
                     //, url:'spa/files/individual-transfers.xlsx'
-                    , description: 'Стоимость указана за машину в одну сторону (1-3 человека)'
+                    , description: $sce.trustAsHtml('Стоимость указана за машину в одну сторону (1-3 человека). Стоимость трансферов может меняться, уточняйте стоимость у менеджеров «ИННА ТУР».<br> Стоимость трансферов на Мальдивских островах можно уточнить в описании номера отеля в разделе «Дополнительные платежи».')
                     , data: dataIndividual
                     , hash: 'individual'
                 },
                 {name:'Групповой'
                     //, url:'spa/files/group-transfers.xlsx'
-                    , description: 'Стоимость указана за человека туда и обратно'
+                    , description: $sce.trustAsHtml('Стоимость указана за человека туда и обратно. Стоимость трансферов может меняться, уточняйте стоимость у менеджеров «ИННА ТУР».<br> Стоимость трансферов на Мальдивских островах можно уточнить в описании номера отеля в разделе «Дополнительные платежи».')
                     , data: dataGroup
                     , hash: 'group'
                 }

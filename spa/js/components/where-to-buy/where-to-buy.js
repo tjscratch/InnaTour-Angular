@@ -90,7 +90,9 @@ innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $ti
                     37.620393
                 ],
                 zoom                      : 10,
-                controls                  : []
+                controls                  : ['zoomControl']
+            },{
+                suppressMapOpenBlock : true
             });
         }
 

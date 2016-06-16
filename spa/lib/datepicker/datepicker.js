@@ -458,6 +458,8 @@
 					var tblEl = parentEl.parent().parent().parent();
 					var tblIndex = $('table', this).index(tblEl.get(0)) - 1;
 					var tmp = new Date(options.current);
+					var todayDate = new Date();
+					todayDate.setHours(0, 0, 0, 0);
 					var changed = false;
 					var fillIt = false;
 					if (parentEl.is('th')) {
@@ -543,6 +545,7 @@
                                             //ставим дату от
 									        options.date[0] = (tmp.setHours(0, 0, 0, 0)).valueOf();
 									        options.initDateToIsSet = true;
+
 									        //если дата до < даты от - сбрасываем ее
 									        if (options.date[1] < options.date[0]) {
 									            options.date[1] = null;
@@ -553,15 +556,16 @@
 									        options.initDateToIsSet = true;
 									        options.initDateFromIsSet = true;
 									        //если дата до < даты от
-									        if (options.date[1] < options.date[0]) {
+									        if ((options.date[1] < options.date[0]) && (+todayDate != options.date[1])) {
 									            //меняем даты местами
 									            var tValue = options.date[0];
 									            options.date[0] = options.date[1];
 									            options.date[1] = tValue;
-									        }
+									        } else if ((options.date[1] < options.date[0]) && (+todayDate == options.date[1])) {
+												options.date[1] = null;
+											}
 									    }
-
-										options.lastSel = !options.lastSel;
+											options.lastSel = !options.lastSel;
 										break;
 									default:
 										options.date = tmp.valueOf();
@@ -569,8 +573,16 @@
 								}
 								break;
 						}
-						fillIt = true;
-						changed = true;
+
+						if(+todayDate == options.date[0]) {
+							options.lastSel = !options.lastSel;
+							fillIt = false;
+							changed = false;
+						} else {
+							fillIt = true;
+							changed = true;
+						}
+
 					}
 					if (fillIt) {
 						fill(this);
@@ -627,6 +639,7 @@
 			},
 			show = function (ev) {
 				var cal = $('#' + $(this).data('datepickerId'));
+				console.log('Ид элемента' + $(this).data('datepickerId'));
 				if (!cal.is(':visible')) {
 					var calEl = cal.get(0);
 					fill(calEl);
