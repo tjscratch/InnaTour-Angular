@@ -64,11 +64,14 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
         });
     };
 
-    $rootScope.$on('$routeChangeSuccess', function () {
+    $rootScope.$on('$routeChangeSuccess', function (event, newUrl, oldUrl) {
         //аналитика
         //console.log('$window._gaq.push $location.path(): ' + $location.path());
-        if ($window.ga != null)
+        if ($window.ga != null && newUrl.loadedTemplateUrl != undefined){
+            console.log('$routeChangeSuccess write ga - pageview');
             $window.ga('send', 'pageview', $location.path());
+        }
+
 
         if (window.partners) {
             //WL показываем фрейм, когда приложение заинитилось

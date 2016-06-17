@@ -31,13 +31,11 @@
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
         //        ga('create', 'UA-32173758-1', 'inna.ru, localhost:3000');
-        ga('create', 'UA-32173758-1', 'auto',
-                {'allowLinker': true}
-        );
+        ga('create', 'UA-32173758-1', 'auto', {'allowLinker': true});
         ga('require', 'linker');
-        ga('linker:autoLink', 'inna.ru', 'bookinna.ru', 'inna.tours');
-
+        ga('linker:autoLink', ['inna.ru', 'bookinna.ru', 'inna.tours']);
         ga('require', 'displayfeatures');
+
         //        ga('send', 'pageview');
 
     </script>
