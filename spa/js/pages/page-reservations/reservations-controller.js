@@ -27,8 +27,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
 
     self.typeProduct = $routeParams.typeProduct;
 
-    self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
-
+    self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.Children.split('_').length);
 
     /**
      * проверяем доступность выбранной комнаты
@@ -99,8 +98,14 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
      * и проверка доступности выбранной комнаты
      */
     var buyParams = angular.copy($routeParams);
-    buyParams.Adult = self.passengerCount;
-    buyParams.ChildrenCount = null;
+    if(buyParams.Children){
+        buyParams.ChildrenAges = buyParams.Children.split('_');
+        buyParams.Children = buyParams.Children.split('_').map(function (age) {
+            return { value: age };
+        });
+    }
+    //buyParams.Adult = buyParams.Adult;
+    //buyParams.Children = null;
     buyParams.typeProduct = null;
     HotelService.getHotelBuy(buyParams)
         .then(function (response) {

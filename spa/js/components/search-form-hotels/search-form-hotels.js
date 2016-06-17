@@ -28,10 +28,14 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
             } else {
                 $scope.hotelsSearchForm.Adult = 2;
             }
-            if ($routeParams.ChildrenCount) {
-                $scope.hotelsSearchForm.ChildrenCount = $routeParams.ChildrenCount;
-            } else {
-                $scope.hotelsSearchForm.ChildrenCount = 0;
+            if($routeParams.Children){
+                $scope.hotelsSearchForm.Children = $routeParams.Children.split('_').map(function (age) {
+                    return { value: age };
+                });
+                $scope.hotelsSearchForm.ChildrenCount = $scope.hotelsSearchForm.Children.length;
+            }else{
+                $scope.hotelsSearchForm.Children = [];
+                $scope.hotelsSearchForm.ChildrenCount = $scope.hotelsSearchForm.Children.length;
             }
             /**
              * END
@@ -133,7 +137,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              */
             $scope.hotelsSearchStart = function (event) {
                 event.preventDefault();
-                
+
                 var isBus = $location.path().startsWith(AppRouteUrls.URL_BUS);
                 
                 $scope.hotelsSearchForm.ArrivalId = $scope.locationFrom ? $scope.locationFrom.id : null;
@@ -157,7 +161,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                 
             };
             
-            function showError (error) {
+            function showError(error) {
                 if (error.name == 'ArrivalId') {
                     $scope.ArrivalIdError = error.error;
                 }

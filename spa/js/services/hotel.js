@@ -58,13 +58,23 @@ innaAppServices.service('HotelService', function ($http, $q, appApi, AppRouteUrl
                 params: params
             })
         },
+
         hotelConcatParams: function (params) {
+            var children = '';
+            if (params.Children) {
+                var childs = [];
+                for (var i = 0; i < params.Children.length; i++) {
+                    childs.push(params.Children[i].value);
+                }
+                children = childs.join('_');
+            }
             var urlParams = [
                 params.ArrivalId,
                 params.NightCount,
                 params.Adult,
-                params.ChildrenCount
+                children
             ].join('-');
+            //console.log(params.StartVoyageDate + '/' + urlParams)
             return params.StartVoyageDate + '/' + urlParams
         },
         getHotelsIndexUrl: function (params) {
