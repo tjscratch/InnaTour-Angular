@@ -4,9 +4,9 @@
     dpKey: 'dp_',
     writeAnalitics: function (gaGoal, yaGoal) {
 //        console.log('writeAnalitics', gaGoal, yaGoal)
-//        if (gaGoal != null && window.ga != null) {
-//            ga('send', 'pageview', gaGoal);
-//        }
+        if (gaGoal != null && window.ga != null) {
+            ga('send', 'pageview', gaGoal);
+        }
         if (yaGoal != null && window.yaCounter12702715 != null) {
             yaCounter12702715.reachGoal(yaGoal);
         }
