@@ -13,6 +13,7 @@ gulp.task('copy-js', function () {
     gulp.src('./spa/*.docx').pipe(gulp.dest('./dist/spa'));
     gulp.src('./spa/*.html').pipe(gulp.dest('./dist/spa'));
     gulp.src('./spa/templates/pages/**/*.html').pipe(gulp.dest('./dist/spa/templates/pages'));
+    gulp.src('./spa/google67180e948d7278f4.html').pipe(gulp.dest('./dist'));
 });
 
 gulp.task('copy-img', function () {
