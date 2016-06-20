@@ -27,7 +27,16 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
 
     self.typeProduct = $routeParams.typeProduct;
 
-    self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.Children.split('_').length);
+    var buyParams = angular.copy($routeParams);
+    if(buyParams.Children){
+        buyParams.ChildrenAges = buyParams.Children.split('_');
+        buyParams.Children = buyParams.Children.split('_').map(function (age) {
+            return { value: age };
+        });
+        self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.Children.split('_').length);
+    }else{
+        self.passengerCount = Math.ceil($routeParams.Adult);
+    }
 
     /**
      * проверяем доступность выбранной комнаты
@@ -97,13 +106,6 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
      * получение данных выбранной комнаты
      * и проверка доступности выбранной комнаты
      */
-    var buyParams = angular.copy($routeParams);
-    if(buyParams.Children){
-        buyParams.ChildrenAges = buyParams.Children.split('_');
-        buyParams.Children = buyParams.Children.split('_').map(function (age) {
-            return { value: age };
-        });
-    }
     //buyParams.Adult = buyParams.Adult;
     //buyParams.Children = null;
     buyParams.typeProduct = null;
