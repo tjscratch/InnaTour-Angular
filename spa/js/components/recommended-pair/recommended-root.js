@@ -258,7 +258,7 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                  * IN-5387
                  * показ блока с ценой за человека
                  */
-                $scope.CostPerPersonShow = true;
+                $scope.CostPerPersonShow = false;
 
 
                 /*Events*/
