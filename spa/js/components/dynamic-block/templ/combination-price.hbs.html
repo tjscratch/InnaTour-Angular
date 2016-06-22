@@ -22,13 +22,13 @@
             <div class="b-price__value">
                 {{priceFilter(PackagePrice)}}
                 <i class="fa fa-rub b-price__rub"></i>
+                <!-- Показываем только для авторизованного пользователя b2b -->
+                {{#if PriceObject}}
+                {{#if AgencyType != 1}}
+                <PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}"/>
+                {{/if}}
+                {{/if}}
             </div>
-            <!-- Показываем только для авторизованного пользователя b2b -->
-            {{#if PriceObject}}
-            {{#if AgencyType != 1}}
-            <PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}"/>
-            {{/if}}
-            {{/if}}
 
             {{#if modelPrice.getProfit() > 1000}}
             <div class="b-price__desc b-price__desc--economy">
