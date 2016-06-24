@@ -14,7 +14,7 @@
 		{{/if}}
 
 
-		{{#if filterItem.name == 'CostPerPerson'}}
+		{{#if filterItem.name == 'PackagePrice'}}
             <li class="b-switch-filters__item">
                 Не дороже {{$filter('price')(filterItem.val[0])}}
 	            {{pluralize(filterItem.val[0], ["рубль", "рубля","рублей"])}}

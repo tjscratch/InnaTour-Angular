@@ -28,7 +28,7 @@ innaAppControllers.
             var filters__body = document.querySelector('.js-filter-scroll');
             $scope.location = document.location.href;
 
-            $scope.usePricePerPerson = true;
+            $scope.usePricePerPerson = false;
             $scope.personsCount = parseInt($routeParams.AdultCount) + parseInt($routeParams.ChildCount) + parseInt($routeParams.InfantsCount);
             //$scope.ticketsCount - кол-во билетов
 
