@@ -611,22 +611,29 @@ $banner-item-height = 440px;
 }
 .pdf-link{
     color: #7d7d7d;
+    display: inline-block;
+    height: 23px;
+    margin-right: 10px;
+    position: relative;
+    top: 8px;
+    width: 17px;
 
-    &:before{
-        background: url(/spa/img/pdf_icon.png);
-        display: inline-block;
-        content: '';
-        height: 23px;
-        margin-right: 10px;
-        position: relative;
-        top: 8px;
-        width: 17px;
+    img {
+        height 23px
+        width 17px
     }
+}
+.doc-link{
+    display: inline-block;
+    height: 23px;
+    margin-right: 10px;
+    position: relative;
+    top: 8px;
+    width: 17px;
 
-    a{
-        color: #000;
-        border-bottom: 1px solid #a3a3a3;
-        text-decoration: none;
+    img{
+        height 23px
+        width 17px
     }
 }
 @media screen and (orientation: portrait){
