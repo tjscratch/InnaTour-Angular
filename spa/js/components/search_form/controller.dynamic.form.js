@@ -149,7 +149,6 @@ innaAppControllers
                 $scope.toCity = data;
             })
 
-
             function validate() {
                 Validators.required($scope.fromCity, Error('fromCity'), "Введите город отправления");
                 Validators.required($scope.toCity, Error('toCity'), "Введите город или страну, куда планируете поехать");
