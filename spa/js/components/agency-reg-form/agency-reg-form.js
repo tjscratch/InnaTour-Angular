@@ -42,13 +42,13 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
         }
     });
 
-    $scope.ufn = false;
-    $scope.$watch('ufn', function (data) {
+    $scope.SimplifiedTaxationSystem = false;
+    $scope.$watch('SimplifiedTaxationSystem', function (data) {
         if (data) {
-            $scope.agencyReg.UFN = true;
+            $scope.agencyReg.SimplifiedTaxationSystem = true;
         }
         else {
-            $scope.agencyReg.UFN = false;
+            $scope.agencyReg.SimplifiedTaxationSystem = false;
         }
     });
 
