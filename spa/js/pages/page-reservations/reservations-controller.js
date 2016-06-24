@@ -27,8 +27,16 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
 
     self.typeProduct = $routeParams.typeProduct;
 
-    self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
-
+    var buyParams = angular.copy($routeParams);
+    if(buyParams.Children){
+        buyParams.ChildrenAges = buyParams.Children.split('_');
+        buyParams.Children = buyParams.Children.split('_').map(function (age) {
+            return { value: age };
+        });
+        self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.Children.split('_').length);
+    }else{
+        self.passengerCount = Math.ceil($routeParams.Adult);
+    }
 
     /**
      * проверяем доступность выбранной комнаты
@@ -68,14 +76,12 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         self.baloonHotelError = new Balloon();
         self.baloonHotelError.updateView({
             template: 'err.html',
-            title: 'Выбранная комната не доступна',
+            title: 'Возникла ошибка при бронировании',
             content: 'Попробуйте начать поиск заново',
             callbackClose: function () {
-                console.log(33333)
                 redirectHotel();
             },
             callback: function () {
-                console.log(44444)
                 redirectHotel();
             }
         });
@@ -100,9 +106,8 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
      * получение данных выбранной комнаты
      * и проверка доступности выбранной комнаты
      */
-    var buyParams = angular.copy($routeParams);
-    buyParams.Adult = self.passengerCount;
-    buyParams.ChildrenCount = null;
+    //buyParams.Adult = buyParams.Adult;
+    //buyParams.Children = null;
     buyParams.typeProduct = null;
     HotelService.getHotelBuy(buyParams)
         .then(function (response) {
@@ -235,6 +240,38 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
 
 
     self.documentTypes = ReservationService.getDocumentTypes();
+
+
+
+    $scope.setOferta = function (isDp) {
+        var url = app_main.staticHost + '/files/doc/offer.pdf';
+
+        if (window.partners && window.partners.isFullWLOrB2bWl()) {
+            url = normalizeUrl(window.partners.getPartner().offertaContractLink);
+        }
+        else {
+            url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
+        }
+
+        function normalizeUrl (url) {
+            //если путь относительный
+            //"/Files/Doc/150715155346/150723141900/offer_premiertur76.pdf"
+            if (url && url.indexOf('/') == 0) {
+                //то дописываем до полного на статик
+                url = app_main.staticHost + url;
+            }
+            return url;
+        }
+
+        $scope.oferta = {
+            url: function () {
+                return url;
+            }
+        };
+    };
+    $scope.setOferta();
+
+
 
 
     $scope.$on('$destroy', function () {

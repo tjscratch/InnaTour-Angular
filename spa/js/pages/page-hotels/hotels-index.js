@@ -12,17 +12,17 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
      * поэтому если не b2b пользователь попал на страницу отелей
      * редиректим его на главную
      */
-    $timeout(function () {
-        var isAgency = false;
-        if ($rootScope.$root.user) {
-            if (parseInt($rootScope.$root.user.getAgencyId()) == 20005 || parseInt($rootScope.$root.user.getAgencyId()) == 2) {
-                isAgency = true;
-            }
-        }
-        if (isAgency == false) {
-            $location.path('/#/');
-        }
-    }, 500);
+    //$timeout(function () {
+    //    var isAgency = false;
+    //    if ($rootScope.$root.user) {
+    //        if (parseInt($rootScope.$root.user.getAgencyId()) == 20005 || parseInt($rootScope.$root.user.getAgencyId()) == 2) {
+    //            isAgency = true;
+    //        }
+    //    }
+    //    if (isAgency == false) {
+    //        $location.path('/#/');
+    //    }
+    //}, 500);
 
 
     /**
@@ -57,9 +57,16 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
 
     if ($routeParams) {
         var searchParams = angular.copy($routeParams);
-        self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
-        searchParams.Adult = self.passengerCount;
-        searchParams.ChildrenCount = null;
+        //self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
+        //searchParams.Adult = self.passengerCount;
+        searchParams.Adult = $routeParams.Adult;
+        //searchParams.ChildrenCount = null;
+
+        if(searchParams.Children){
+            searchParams.ChildrenAges = searchParams.Children.split('_');
+        }
+
+
         $scope.baloonHotelLoad.show();
         HotelService.getHotelsList(searchParams)
             .then(function (response) {
@@ -126,8 +133,15 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
 
 
     if ($routeParams) {
+        var searchParams = angular.copy($routeParams);
+        if(searchParams.Children){
+            searchParams.Children = searchParams.Children.split('_').map(function (age) {
+                return { value: age };
+            });
+        }
         $scope.getHotelUrl = function (hotelId, providerId) {
-            return '/#' + HotelService.getHotelsShowUrl(hotelId, providerId, $routeParams);
+            var url = '/#' + HotelService.getHotelsShowUrl(hotelId, providerId, searchParams);
+            return url
         };
     }
 

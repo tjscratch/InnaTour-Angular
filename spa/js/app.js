@@ -352,27 +352,27 @@ app.config([
             .when(AppRouteUrls.URL_HOTELS, {
                 templateUrl: 'pages/page-hotels/templ/hotels-root.html',
                 controller: 'HotelsRootController',
-                resolve: authController.resolve
+                //resolve: authController.resolve
             })
-            .when(AppRouteUrls.URL_HOTELS + ':StartVoyageDate/' + ':ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+            .when(AppRouteUrls.URL_HOTELS + ':StartVoyageDate/:ArrivalId-:NightCount-:Adult-:Children?', {
                 templateUrl: 'pages/page-hotels/templ/hotels-index.html',
                 controller: 'HotelsIndexController',
-                resolve: authController.resolve
+                //resolve: authController.resolve
             })
-            .when(AppRouteUrls.URL_HOTELS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+            .when(AppRouteUrls.URL_HOTELS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:Children?', {
                 templateUrl: 'pages/page-hotels/templ/hotels-show.html',
                 controller: 'HotelsShowController',
-                resolve: authController.resolve
+                //resolve: authController.resolve
             })
             /**
              * begin bus tours
              */
             .when(AppRouteUrls.URL_BUS, dynamic())
-            .when(AppRouteUrls.URL_BUS + ':StartVoyageDate/' + ':ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+            .when(AppRouteUrls.URL_BUS + ':StartVoyageDate/:ArrivalId-:NightCount-:Adult-:Children?', {
                 templateUrl: 'pages/page-hotels/templ/bus-index.html',
                 controller: 'BusIndexController'
             })
-            .when(AppRouteUrls.URL_BUS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+            .when(AppRouteUrls.URL_BUS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:Children?', {
                 templateUrl: 'pages/page-hotels/templ/hotels-show.html',
                 controller: 'HotelsShowController'
             })
@@ -383,7 +383,7 @@ app.config([
             /**
              * begin reservation
              */
-            .when(AppRouteUrls.URL_RESERVATIONS + ':typeProduct/:hotelId/:providerId/:roomId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+            .when(AppRouteUrls.URL_RESERVATIONS + ':typeProduct/:hotelId/:providerId/:roomId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:Children?', {
                 templateUrl: 'pages/page-reservations/templ/reservations.html',
                 controller: 'ReservationsController as reservation'
             })

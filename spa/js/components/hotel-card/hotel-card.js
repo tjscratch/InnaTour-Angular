@@ -36,6 +36,23 @@ innaAppDirectives.directive('hotelCardInfo', function ($templateCache) {
             hotel: '=',
             hotelRoom: '=',
             hotelUrl: '='
+        },
+        controller: function ($scope, $location) {
+
+            $scope.currentActive = function(route) {
+                var loc = $location.path();
+                var abs = $location.absUrl();
+
+                if (route == '/') {
+                    return ((abs.indexOf('/tours/?') > -1) || loc == route);
+                }
+                else {
+                    if (loc.indexOf(route) > -1)
+                        return true;
+                    else
+                        return false;
+                }
+            };
         }
     }
 });

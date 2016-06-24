@@ -21,7 +21,7 @@
         <div class="search-form-dialog-row" ng-show="childrenCount > 0 && !currentActive('/bus/')">
             <span class="label">Возраст детей</span>
             <div counter-people-child-age-selector
-                 ng-repeat="selector in childrensAge"
+                 ng-repeat="selector in childrensAge track by $index"
                  selector="selector"
                  class="child-years-select-container"></div>
         </div>
