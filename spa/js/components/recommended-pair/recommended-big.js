@@ -134,11 +134,8 @@ angular.module('innaApp.directives')
                             });
 
                             $scope.$on('loadDPHotels', function (event, data) {
-                                $scope.hotelCount = data.Hotels.length - 1;
-                            });
-
-                            $scope.$on('loadDPTickets', function (event, data) {
-                                $scope.ticketCount = data.AviaInfos.length - 1;
+                                $scope.hotelCount = data.HotelCount;
+                                $scope.ticketCount = data.TicketCount;
                             });
 
 
