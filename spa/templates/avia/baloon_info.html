@@ -8,10 +8,11 @@
 
             <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
                 <div title="Закрыть" class="balloon-close" ng-click="popupItemInfo.hide()">
-	                <i class="icon-sprite-remove-big"></i>
+                    <i class="icon-sprite-remove-big"></i>
                 </div>
 
                 <h3 class="b-tickets__title">Подробная информация по перелету</h3>
+
                 <ng:include ng-if="item.EtapsBack.length > 0" src="'avia/popup_item_info_two_ways.html'"></ng:include>
                 <ng:include ng-if="item.EtapsBack.length == 0 || item.EtapsBack == null"
                             src="'avia/popup_item_info_one_way.html'"></ng:include>
@@ -26,6 +27,15 @@
                                  position="right" class="tooltip-widget"></div>
                         </li>
                     </ul>
+
+                    <div class="b-tickets-refundable"
+                         ng-if="popupItemInfo.item.Refundable == 2">
+                        <span class="b-tickets-refundable__text">Невозвратный тариф</span>
+                        <i class="fa fa-question-circle b-tickets-refundable__fa"
+                           aria-hidden="true"
+                           ng-click="showTarif($event, popupItemInfo.item)"
+                        ></i>
+                    </div>
 
                     <div class="b-tickets__footer-inner" ng-if="hotel == null">
                         <div class="b-tickets__footer-price-block">
@@ -42,6 +52,45 @@
                     </div>
                 </div>
             </ng:any>
+        </div>
+    </div>
+</div>
+<!-- /Baloon -->
+
+<!-- Baloon -->
+<div class="overlay js-overlay" ng-if="tarifs.isOpened">
+    <div class="scroll-fix" ng-style="tarifs.style">
+        <div class="balloon balloon_medium js-tarifs">
+            <div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)">
+                <i class="icon-sprite-remove-big"></i>
+            </div>
+            <div class="b__rules-container">
+                <div class="b__rules_attention">
+                    <h3>Обратите внимание!</h3>
+
+                    <p>При не использовании одного из сегментов маршрута, последующие сегменты могут быть автоматически
+                        аннулированы авиакомпанией.
+                    </p>
+
+                    <p>Если по перелёту используется несколько разных правил/тарифов, то при обмене/возврате применяются
+                        более строгие правила. При обмене/возврате к возможным штрафным санкциям авиакомпании по
+                        правилам
+                        тарифа, дополнительно взымается сервисный сбор за услугу оформления обмена/возврата билета.
+                    </p>
+                    <ul class="b__rules-flies">
+                        <li ng-class="{current:item === tarifs.setected}" ng-repeat="item in tarifs.list"><a ng-href="#"
+                                                                                                             ng-click="tarifs.tarifClick($event, item)"><span><b>{{item.from}}
+						                                                                                                                                         → {{item.to}},</b> {{item.num}}, {{tarifs.class}} ({{item.nameFirstLetter}})</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="b__rules-grey">
+                    <h3>{{tarifs.setected.from}} → {{tarifs.setected.to}}</h3>
+                    <h4>Полные правила применения тарифа</h4>
+                    <!--<p>Пожалуйста, ознакомьтесь детальнее с условиями <a href="#">обмена/возврата</a>.</p>-->
+                    <p ng-bind-html="tarifs.tarifItem.Text | breakFilter"></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

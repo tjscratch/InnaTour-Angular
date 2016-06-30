@@ -109,7 +109,7 @@
     height: 530px;
     overflow: hidden;
     padding: 0;
-} 
+}
 
 .b__rules-grey
   background #e2e2e2
@@ -352,10 +352,23 @@
     .b-tickets__icons-share:hover:before
       background-position -80px -83px
 
-.b-tickets__footer
+.b-tickets__footer{
   clearfix()
   padding 14px 12px 14px 6px
-
+}
+.b-tickets-refundable{
+    float: left;
+    padding: 5px 0 0 0;
+}
+.b-tickets-refundable__text{
+    margin: 0 4px 0 0;
+    vertical-align: middle;
+}
+.b-tickets-refundable__fa{
+    font-size: 22px !important;
+    vertical-align: middle;
+    color: $gray;
+}
 .b-tickets__footer-inner
   float right
 
@@ -364,7 +377,7 @@
     text-align center
     border-radius 3px
     font-size 18px
-    
+
 
 .b-tickets__footer-price-block
   float left
