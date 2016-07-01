@@ -1,8 +1,8 @@
 button,
-button[type=submit]{
+button[type=submit] {
     border: 0 none;
 }
-.hidden-select{
+.hidden-select {
     border: 0;
     display: block;
     height: 100%;
@@ -10,7 +10,7 @@ button[type=submit]{
     position: absolute;
     width: 100%;
 }
-.checkbox{
+.checkbox {
     border-radius: 4px;
     background-color: #89c13a;
     display: inline-block;
@@ -19,18 +19,18 @@ button[type=submit]{
     vertical-align: top;
     width: 19px;
 
-    &.checked{
+    &.checked {
         background-image: url(/spa/img/check.png);
     }
 
-    &-label{
+    &-label {
         color: #242424;
         font-size: 15px;
         line-height: 19px;
     }
 }
 .field,
-.field-text{
+.field-text {
     transition: border-color 200;
     placeholder(#777);
     border: 1px solid #cecece;
@@ -44,32 +44,32 @@ button[type=submit]{
     padding: 0 25px;
 
     &.error,
-    &.valid{
+    &.valid {
         border-color: #b70000;
         background-image: url(/spa/img/field-cross.png);
         background-position: center right;
         background-repeat: no-repeat;
     }
 
-    &.valid{
+    &.valid {
         border-color: #89c13a;
         background-image: url(/spa/img/field-cross.png);
         background-position: center right;
         background-repeat: no-repeat;
     }
 
-    &-error{
+    &-error {
         color: #b70000;
         display: block;
         font-size: 12px;
         margin-top: 5px
     }
 }
-.field-text{
+.field-text {
     resize: vertical;
     padding-top: 25px;
 }
-.combo-box{
+.combo-box {
     background: #fff;
     border: 1px solid #ccd2d4;
     cursor: pointer;
@@ -81,7 +81,7 @@ button[type=submit]{
     vertical-align: top;
     z-index: 1;
 
-    &-item-current{
+    &-item-current {
         display: inline-block;
         font-family: ProximaNova, Arial, sans-serif;
         font-weight: normal;
@@ -92,13 +92,13 @@ button[type=submit]{
         white-space: nowrap;
     }
 
-    .icon-triangle{
+    .icon-triangle {
         position: absolute;
         right: 12px;
         top: 12px;
     }
 
-    &-list{
+    &-list {
         background: #fff;
         border: 1px solid #ccd2d4;
         border-top: 1px;
@@ -110,7 +110,7 @@ button[type=submit]{
         left: -1px;
         top: 100%;
 
-        &-item{
+        &-item {
             color: #242424;
             cursor: pointer;
             font-size: 15px;
@@ -119,17 +119,17 @@ button[type=submit]{
             padding: 0 12px;
             white-space: nowrap;
 
-            &:hover{
+            &:hover {
                 background: #eff2f3;
             }
 
-            &-separator{
+            &-separator {
                 border-top: 1px solid #dfe6e8;
             }
         }
     }
 }
-.popup{
+.popup {
     background: #fff;
     box-shadow: 0, 0, 30px, 0, rgba(0, 0, 0, .5);
     display: inline-block;
@@ -137,18 +137,18 @@ button[type=submit]{
     vertical-align: middle;
     text-align: left;
 
-    &-form-header{
+    &-form-header {
         font-size: 30px;
         margin-bottom: 4px;
     }
 
-    &-container{
+    &-container {
         position: fixed;
         left: 0;
         text-align: center;
         z-index: 301;
 
-        &:before{
+        &:before {
             content: '';
             display: inline-block;
             height: 100%;
@@ -156,12 +156,12 @@ button[type=submit]{
         }
     }
 
-    &-state{
+    &-state {
         overflow: hidden;
     }
 
     &-fade,
-    &-container{
+    &-container {
         bottom: 0;
         left: 0;
         position: fixed;
@@ -169,13 +169,13 @@ button[type=submit]{
         top: 0;
     }
 
-    &-fade{
+    &-fade {
         background: #000;
         opacity: .2;
         z-index: 301;
     }
 
-    &-close-button{
+    &-close-button {
         cursor: pointer;
         position: absolute;
         right: 5px;
@@ -185,16 +185,16 @@ button[type=submit]{
         padding: 5px;
     }
 
-    .form-header{
+    .form-header {
         font-size: 30px;
     }
 
-    .description{
+    .description {
         color: #777;
         font-size: 14px;
     }
 }
-.fixed-request-button{
+.fixed-request-button {
     border-radius: 0;
     height: 193px;
     position: fixed !important;
@@ -205,16 +205,16 @@ button[type=submit]{
     z-index: 10;
     width: 36px;
 }
-.fixed-request-button, .fixed-request-button:hover{
+.fixed-request-button, .fixed-request-button:hover {
     background-image: url(/spa/img/request-button-text.png);
     background-repeat: no-repeat;
     background-position: center;
 }
 // begin form
-.FieldGroup{
+.FieldGroup {
     display flex
 }
-.FieldText{
+.FieldText {
     display block
     box-sizing border-box
     width 100%
@@ -227,18 +227,18 @@ button[type=submit]{
     outline none
     vertical-align top
 
-    &:focus{
+    &:focus {
         border-color $FieldText-focus-border-color
     }
 
-    &.ng-invalid{
+    &.ng-invalid {
         border-color $FieldText-invalid-border-color
         box-shadow 0 0 0 1px $FieldText-invalid-border-color
     }
 
     placeholder(#999);
 }
-.FieldLabel{
+.FieldLabel {
     display block
     width 100%
     margin 0 0 $FieldLabel-vertical-margin 0
@@ -246,18 +246,18 @@ button[type=submit]{
     color $FieldLabel-text-color
     font-size $FieldLabel-font-size
 }
-.FieldError{
+.FieldError {
     display block
     width 100%
     margin 0 0 0 $FieldError-horizontal-margin
     color $FieldError-text-color
     font-size $FieldError-font-size
 
-    .validation-valid{
+    .validation-valid {
         display none
     }
 }
-.FieldSex{
+.FieldSex {
     display flex
     box-sizing border-box
     width 100%
@@ -267,7 +267,7 @@ button[type=submit]{
     vertical-align top
     overflow hidden
 }
-.FieldSex__label{
+.FieldSex__label {
     height 34px
     width 32px
     display flex
@@ -276,29 +276,29 @@ button[type=submit]{
     cursor pointer
     transition: all .2s
 }
-.FieldSex__label-active{
+.FieldSex__label-active {
     background $green
     color $white
     transition: all .2s
 }
-.FieldSex__icon{
+.FieldSex__icon {
     margin auto
     font-size 15px
 }
-.FieldSex__input{
+.FieldSex__input {
     display none
 }
-.FieldCheckbox{
+.FieldCheckbox {
     margin: $FieldText-vertical-margin 0;
 
     display: flex;
     align-items: center;
     user-select: none;
 }
-.FieldCheckbox__input{
+.FieldCheckbox__input {
     display: none;
 }
-.FieldCheckbox__checkbox{
+.FieldCheckbox__checkbox {
     display block
     width 15px
     height 15px
@@ -307,23 +307,31 @@ button[type=submit]{
     border-radius 3px
     font-size 15px
     color $white
+
+    &:before {
+        display none
+    }
 }
-.FieldCheckbox__input:checked + .FieldCheckbox__checkbox{
-    background $green
+.FieldCheckbox__input:checked + .FieldCheckbox__checkbox {
+    background: $green;
+
+    &:before {
+        display block
+    }
 }
-.FieldCheckbox__label{
+.FieldCheckbox__label {
     font-size $medium
 }
 // ui-select
-.selectize-control{
-    &.ng-invalid{
-        .selectize-input{
+.selectize-control {
+    &.ng-invalid {
+        .selectize-input {
             border-color $FieldText-invalid-border-color
             box-shadow 0 0 0 1px $FieldText-invalid-border-color
         }
     }
 }
-.ui-select-match{
+.ui-select-match {
     display block
     box-sizing border-box
     width 100%
