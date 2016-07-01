@@ -57,15 +57,15 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
 
     if ($routeParams) {
         var searchParams = angular.copy($routeParams);
-        //self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
-        //searchParams.Adult = self.passengerCount;
         searchParams.Adult = $routeParams.Adult;
-        //searchParams.ChildrenCount = null;
-
         if(searchParams.Children){
             searchParams.ChildrenAges = searchParams.Children.split('_');
         }
 
+        $scope.getHotelUrl = function (hotelId, providerId) {
+            var url = '/#' + HotelService.getHotelsShowUrl(hotelId, providerId, searchParams);
+            return url
+        };
 
         $scope.baloonHotelLoad.show();
         HotelService.getHotelsList(searchParams)
@@ -130,21 +130,6 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
     //};
     //
     //$scope.datasource = datasource;
-
-
-    if ($routeParams) {
-        var searchParams = angular.copy($routeParams);
-        if(searchParams.Children){
-            searchParams.Children = searchParams.Children.split('_').map(function (age) {
-                return { value: age };
-            });
-        }
-        $scope.getHotelUrl = function (hotelId, providerId) {
-            var url = '/#' + HotelService.getHotelsShowUrl(hotelId, providerId, searchParams);
-            return url
-        };
-    }
-
 
     $scope.$on('$destroy', function () {
         if ($scope.baloonHotelLoad) {
