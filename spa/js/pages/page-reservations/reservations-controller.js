@@ -13,6 +13,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                                                                   $injector,
                                                                   Balloon,
                                                                   HotelService,
+                                                                  dataService,
                                                                   ReservationService,
                                                                   aviaHelper,
                                                                   $interval,
@@ -241,7 +242,21 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
 
     self.documentTypes = ReservationService.getDocumentTypes();
 
-
+    if ($routeParams.ArrivalId) {
+        dataService.getDPLocationById($routeParams.ArrivalId)
+            .then(function (data) {
+                $scope.CountryId = data.CountryId;
+                //массив с кодами стран СНГ
+                var arrayCountryIds = [189, 69829, 35, 124, 215, 115];
+                //если код выбранной страны не входит в массив стран СНГ то тип документа ставим 1 (Загранпаспорт)
+                var zagran = _.indexOf(arrayCountryIds, $scope.CountryId);
+                if(zagran == -1) {
+                    self.ReservationModel.Passengers.forEach(function (item, i , arr) {
+                        item.DocumentId = 1;
+                    })
+                }
+            });
+    }
 
     $scope.setOferta = function (isDp) {
         var url = app_main.staticHost + '/files/doc/offer.pdf';
