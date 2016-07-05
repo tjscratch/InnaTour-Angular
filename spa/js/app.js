@@ -179,8 +179,10 @@ app.config([
 
             //default page
             return {
-                templateUrl: 'pages/page-index/templ/page.html',
-                controller: 'DynamicPackageMordaCtrl',
+                //templateUrl: 'pages/page-index/templ/page.html',
+                //controller: 'DynamicPackageMordaCtrl',
+                templateUrl: 'pages/page-hotels/templ/hotels-root.html',
+                controller: 'HotelsRootController',
                 resolve: authController.resolve
             }
         }

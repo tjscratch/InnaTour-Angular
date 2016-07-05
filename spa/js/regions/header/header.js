@@ -95,9 +95,12 @@ innaAppControllers
                 }
 
                 var loc = $location.path();
+                //var isDynamic = (
+                //        loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
+                //    ) || loc == appUrls.URL_ROOT;
                 var isDynamic = (
                         loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
-                    ) || loc == appUrls.URL_ROOT;
+                );
 
                 var abs = $location.absUrl();
                 if (loc == appUrls.URL_TOURS || abs.indexOf(appUrls.URL_TOURS + '?') > -1) {
@@ -109,7 +112,7 @@ innaAppControllers
                 else if (loc.startsWith(appUrls.URL_AVIA) && !loc.startsWith(appUrls.URL_AVIA_RESERVATION) && !loc.startsWith(appUrls.URL_AVIA_BUY)) {
                     return 'components/search_form/templ/avia_search_form.html';
                 }
-                else if (loc.startsWith(AppRouteUrls.URL_HOTELS)) {
+                else if (loc.startsWith(AppRouteUrls.URL_HOTELS) || loc == appUrls.URL_ROOT) {
                     return 'components/search-form-hotels/templ/index.html';
                 }
                 else if (loc.startsWith(AppRouteUrls.URL_BUS)) {
