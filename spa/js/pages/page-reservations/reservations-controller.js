@@ -28,11 +28,12 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
     self.typeProduct = $routeParams.typeProduct;
 
     var buyParams = angular.copy($routeParams);
+    buyParams.test = null;
     if(buyParams.Children){
         buyParams.ChildrenAges = buyParams.Children.split('_');
-        buyParams.Children = buyParams.Children.split('_').map(function (age) {
-            return { value: age };
-        });
+        //buyParams.Children = buyParams.Children.split('_').map(function (age) {
+        //    return { value: age };
+        //});
         self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.Children.split('_').length);
     }else{
         self.passengerCount = Math.ceil($routeParams.Adult);
@@ -129,6 +130,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
     var today = help.getTodayDate();
     var startDate = dateHelper.apiDateToJsDate($routeParams.StartVoyageDate);
     if(+today <= +startDate) {
+        buyParams.Children = null;
         buyParams.typeProduct = null;
         self.baloonHotelAvailable.updateView({
             template: 'expireHotel.html',
@@ -163,7 +165,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         self.ReservationModel = ReservationService.getReservationModel(self.passengerCount);
     }
 
-    self.ReservationModel.SearchParams = $routeParams;
+    self.ReservationModel.SearchParams = buyParams;
 
 
     self.form = {
