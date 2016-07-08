@@ -1,174 +1,148 @@
 body {
-  -webkit-font-smoothing: subpixel-antialiased !important;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -ms-backface-visibility: hidden;
-  font-smoothing: subpixel-antialiased !important;
-  background-size: 100%;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    font-smoothing: subpixel-antialiased !important;
+    background-size: 100%;
 
-  font-family: ProximaNova, Arial, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
 
+    &.scrollVisible {
+        overflow-y: visible;
+    }
 
-  &.scrollVisible {
-    overflow-y: visible;
-  }
+    &.overflow_hidden {
+        overflow: hidden !important;
+    }
 
-  &.overflow_hidden {
-    overflow: hidden !important;
-  }
+    &.disable-hover,
+    &.disable-hover * {
+        pointer-events: none !important;
+    }
 
-  &.disable-hover,
-  &.disable-hover * {
-    pointer-events: none !important;
-  }
-
-
-  &.blur_content {
-    filter: grayscale(0.2) blur(5px);
-    filter: url("blur.svg#gaussian_blur");
-    -webkit-filter: grayscale(0.2) blur(5px);
-    -o-filter: grayscale(0.1) blur(5px);
-  }
+    &.blur_content {
+        filter: grayscale(0.2) blur(5px);
+        filter: url("blur.svg#gaussian_blur");
+        -webkit-filter: grayscale(0.2) blur(5px);
+        -o-filter: grayscale(0.1) blur(5px);
+    }
 }
-
 .hide-while-loading {
     display none;
 }
-
 .main {
-  min-height: 100%;
-  //padding 0 $site-padding
+    min-height: 100%;
+    //padding 0 $site-padding
 
-  .wrpr {
-    padding-bottom: 300px;
+    .wrpr {
+        padding-bottom: 300px;
 
-    &.reserve {
-      padding-bottom: 280px;
+        &.reserve {
+            padding-bottom: 280px;
+        }
     }
-  }
 }
-
 .layout {
-  /*padding: $padding_over_search 0 0;*/
-  padding: $padding_over_head 0 0;
-  position: relative;
-  z-index: 1;
+    /*padding: $padding_over_search 0 0;*/
+    padding: $padding_over_head 0 0;
+    position: relative;
+    z-index: 1;
 }
-
-.layout-light{
-  position: relative;
-  z-index: 1;
-  padding: $padding-layout-light 0 0;
+.layout-light {
+    position: relative;
+    z-index: 1;
+    padding: $padding-layout-light 0 0;
 }
-
 .not-ios {
-  .scroll-fix {
-    position : relative;
-  }
+    .scroll-fix {
+        position: relative;
+    }
 }
-
 .ios {
-  .scroll-fix {
+    .scroll-fix {
 
-  }
+    }
 }
-
 .bg_white {
-  background #fff
+    background #fff
 }
 .bg_gray-light {
-  background $gray-light
+    background $gray-light
 }
-
 .clearfix {
-  clearfix()
+    clearfix()
 
-  &:before,
-  &:after {
-    content: '';
-    display: block;
-    clear: both;
-  }
+    &:before,
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
 }
-
-
 .light-theme {
-  background-color: $gray-light;
+    background-color: $gray-light;
 }
-
 .lighten-theme {
-  background-color: #e0e1e6;
+    background-color: #e0e1e6;
 }
-
 .cursor-pointer {
-  cursor: pointer;
+    cursor: pointer;
 }
-
 .align-right {
-  text-align: right;
+    text-align: right;
 }
-
 .align-left {
-  text-align: left;
+    text-align: left;
 }
-
 .nowrap {
-  white-space: nowrap;
+    white-space: nowrap;
 }
-
 .b-rub
-  display inline-block
-  padding-left 0.2em
-  font-family 'Rouble'
-  line-height normal
-  font-weight normal
-    line-height .8em
-
+    display inline-block
+    padding-left 0.2em
+    font-family 'Rouble'
+    line-height normal
+    font-weight normal
+        line-height .8em
 .pull-right
-  float right
-
+    float right
 .pull-left
-  float left
-
+    float left
+.wrapper {
+    margin 0 auto
+    width $site-width
+}
 .main__center {
-  margin 0 auto
-  width $site-width
+    margin 0 auto
+    width $site-width
 }
-
 .b-display-table
-  display: table;
-  border-collapse: collapse;
-
+    display: table;
+    border-collapse: collapse;
 .b-display-cell
-  display: table-cell;
-  vertical-align: top;
-
+    display: table-cell;
+    vertical-align: top;
 .b-display-inline {
-  display: inline-block;
-  vertical-align: top;
+    display: inline-block;
+    vertical-align: top;
 }
-
 .b-display-block {
-  display: block;
+    display: block;
 }
-
 .color-white {
-  color: #fff;
+    color: #fff;
 }
-
 .color-black {
-  color: #000;
+    color: #000;
 }
-
 .bg-white {
-  background-color: #fff;
+    background-color: #fff;
 }
-
 .bg-black {
-  background-color: #000;
+    background-color: #000;
 }
-
 .like-link {
-  cursor: pointer;
-  color: #1e88c1;
+    cursor: pointer;
+    color: #1e88c1;
 }

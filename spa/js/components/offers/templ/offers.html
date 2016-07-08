@@ -6,7 +6,6 @@
 
         <ul class="offers-card-banner-list Offer-card-banners">
             <li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
-                <!--<img class="img" ng-src="slide.Image" />-->
                 <div class="img" style="background-image: url('{{slide.Image}}')"></div>
                 <div class="darken-container" ng-if="slide.NeedFilterBrightness"
                      ng-click="offerClickSlider(slide, $event, $index)"></div>
