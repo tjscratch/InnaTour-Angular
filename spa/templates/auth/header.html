@@ -1,30 +1,37 @@
-<div class="header__user partners-hide" ng-controller="AuthCtrl">
+<div class="header-user partners-hide" ng-controller="AuthCtrl">
+
+    <div class="header-user__items" ng-if="user">
+
+        <div class="header-user__item" ng-click="showProfile($event)">
+            <i class="fa fa-user header-user__item-icon"></i>
+            <div class="header-user__item-text">
+                {{user.displayName()}}
+            </div>
+        </div>
+
+        <div class="header-user__item" ng-if="user.raw.MessagesCount > 0">
+            <i class="fa fa-envelope header-user__item-icon"></i>
+            <a class="header-user__item-text" href="{{B2B_HOST}}/Message">
+                {{+user.raw.MessagesCount}}
+            </a>
+        </div>
+
+        <div class="header-user__item">
+            <div class="header-user__item-text" ng-click="logout()">Выйти</div>
+        </div>
+
+    </div>
+
+    <div class="header-user__items" ng-if="!user">
+        <div class="header-user__item">
+            <i class="fa fa-user header-user__item-icon"></i>
+            <div class="header-user__item-text" ng-click="regOpenClick()">
+                {{ authLinkTitile }}
+            </div>
+        </div>
+    </div>
+
     <!-- user comes from rootScope -->
     <ng:include src="'auth/form.html'"></ng:include>
 
-    <ul class="header__user-nav" ng-if="user">
-        <li>
-	        <a href="javascript:void(0);" ng-click="showProfile($event)" class="header__user-nav-name">
-                <i class="fa fa-user"></i>
-                <span title="{{user.displayName()}}" class="header__user-nav-name-text">{{user.displayName()}}</span>
-	        </a>
-        </li>
-        <li ng-if="user.raw.MessagesCount > 0">
-            <i class="fa fa-envelope"></i>
-	        <a href="{{B2B_HOST}}/Message">
-                <span class="header__user-nav-counter">{{+user.raw.MessagesCount}}</span>
-	        </a>
-        </li>
-        <li>
-	        <a href="javascript:void(0);" ng-click="logout()">Выйти</a>
-        </li>
-    </ul>
-    <!--<div ng-if="user.raw.AgencyName" class="header__user-company"><a href="{{B2B_HOST}}/">{{user.raw.AgencyName}}</a></div>-->
-
-    <ul class="header__user-nav" ng-if="!user">
-        <li>
-	        <i class="fa fa-sign-in" aria-hidden="true"></i>
-	        <a href="javascript:void(0)" ng-click="regOpenClick()" class="header__user-nav-reg">{{ authLinkTitile }}</a>
-        </li>
-    </ul>
 </div>
