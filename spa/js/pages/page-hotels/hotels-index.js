@@ -57,59 +57,77 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
 
     if ($routeParams) {
         var searchParams = angular.copy($routeParams);
+        //self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
+        //searchParams.Adult = self.passengerCount;
         searchParams.Adult = $routeParams.Adult;
-        if(searchParams.Children){
+        //searchParams.ChildrenCount = null;
+
+        if (searchParams.Children) {
             searchParams.ChildrenAges = searchParams.Children.split('_');
         }
+        var help = dateHelper;
+        var today = help.getTodayDate();
+        var startDate = dateHelper.apiDateToJsDate(searchParams.StartVoyageDate);
+        if(+today <= +startDate) {
+            $scope.baloonHotelLoad.show();
+            HotelService.getHotelsList(searchParams)
+                .then(function (response) {
+                    if (response.status == 200 && response.data.Hotels.length > 0) {
+                        console.log('SEARCH PARAMS', searchParams);
+                        console.log('TODAY', today);
+                        console.log('START DATE', startDate);
+                        $scope.hotels = response.data.Hotels;
+                        $scope.baloonHotelLoad.teardown();
 
-        $scope.getHotelUrl = function (hotelId, providerId) {
-            var url = '/#' + HotelService.getHotelsShowUrl(hotelId, providerId, searchParams);
-            return url
-        };
+                        /* данный для настроек панели фильтров */
+                        $scope.filtersSettingsHotels = {
+                            filtersData: response.data.Filter,
+                            Collection: $scope.hotels,
+                            filter_hotel: true,
+                            filter_avia: false
+                        };
 
-        $scope.baloonHotelLoad.show();
-        HotelService.getHotelsList(searchParams)
-            .then(function (response) {
-                if (response.status == 200 && response.data.Hotels.length > 0) {
-                    $scope.hotels = response.data.Hotels;
-                    $scope.baloonHotelLoad.teardown();
-
-                    /* данный для настроек панели фильтров */
-                    $scope.filtersSettingsHotels = {
-                        filtersData: response.data.Filter,
-                        Collection: $scope.hotels,
-                        filter_hotel: true,
-                        filter_avia: false
-                    };
-
-                } else {
-                    $scope.baloonHotelNotFound = new Balloon();
-                    $scope.baloonHotelNotFound.updateView({
-                        template: 'not-found.html',
-                        title: 'Мы ничего не нашли',
-                        content: "Попробуйте изменить условия поиска",
+                    } else {
+                        $scope.baloonHotelNotFound = new Balloon();
+                        $scope.baloonHotelNotFound.updateView({
+                            template: 'not-found.html',
+                            title: 'Мы ничего не нашли',
+                            content: "Попробуйте изменить условия поиска",
+                            callbackClose: function () {
+                                $scope.redirectHotels();
+                            },
+                            callback: function () {
+                                $scope.redirectHotels();
+                            },
+                        });
+                    }
+                }, function (response) {
+                    console.log(response)
+                    $scope.baloonHotelLoad.updateView({
+                        template: 'err.html',
+                        title: 'Что-то пошло не так',
+                        content: 'Попробуйте начать поиск заново',
                         callbackClose: function () {
                             $scope.redirectHotels();
                         },
                         callback: function () {
                             $scope.redirectHotels();
-                        },
+                        }
                     });
-                }
-            }, function (response) {
-                console.log(response)
-                $scope.baloonHotelLoad.updateView({
-                    template: 'err.html',
-                    title: 'Что-то пошло не так',
-                    content: 'Попробуйте начать поиск заново',
-                    callbackClose: function () {
-                        $scope.redirectHotels();
-                    },
-                    callback: function () {
-                        $scope.redirectHotels();
-                    }
                 });
+        } else {
+            $scope.baloonHotelLoad.updateView({
+                template: 'err.html',
+                title: 'Дата заезда должна быть больше текущей даты!',
+                content: 'Попробуйте начать поиск заново',
+                callbackClose: function () {
+                    $scope.redirectHotels();
+                },
+                callback: function () {
+                    $scope.redirectHotels();
+                }
             });
+        }
     }
 
     EventManager.on(innaAppApiEvents.FILTER_PANEL_CHANGE, function (data){
@@ -130,6 +148,21 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
     //};
     //
     //$scope.datasource = datasource;
+
+
+    if ($routeParams) {
+        var searchParams = angular.copy($routeParams);
+        if(searchParams.Children){
+            searchParams.Children = searchParams.Children.split('_').map(function (age) {
+                return { value: age };
+            });
+        }
+        $scope.getHotelUrl = function (hotelId, providerId) {
+            var url = '/#' + HotelService.getHotelsShowUrl(hotelId, providerId, searchParams);
+            return url
+        };
+    }
+
 
     $scope.$on('$destroy', function () {
         if ($scope.baloonHotelLoad) {

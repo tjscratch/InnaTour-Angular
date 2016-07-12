@@ -121,35 +121,52 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
 
     if(searchParams.Children){
         searchParams.ChildrenAges = $routeParams.Children.split('_');
-        searchParams.Children = searchParams.Children.split('_').map(function (age) {
-            return { value: age };
-        });
+        // searchParams.Children = searchParams.Children.split('_').map(function (age) {
+        //     return { value: age };
+        // });
     }
 
-    HotelService.getHotelsDetails(searchParams)
-        .then(function (response) {
-            console.log(response)
-            if (response.status == 200 && response.data.Success) {
-                $scope.hotel = response.data.Hotel;
-                $scope.hotelRooms = response.data.Rooms;
-                $scope.hotelLoaded = true;
-                parseAmenities($scope.hotel);
-                if ($scope.hotel.ProviderId == 4) {
-                    $scope.TAWidget = app_main.tripadvisorEx + $scope.hotel.HotelId;
-                } else if ($scope.hotel.ProviderId == 2) {
-                    $scope.TAWidget = app_main.tripadvisorOk + $scope.hotel.HotelId;
+    var help = dateHelper;
+    var today = help.getTodayDate();
+    var startDate = dateHelper.apiDateToJsDate(searchParams.StartVoyageDate);
+    if(+today <= +startDate) {
+        HotelService.getHotelsDetails(searchParams)
+            .then(function (response) {
+                console.log(response)
+                if (response.status == 200 && response.data.Success) {
+                    $scope.hotel = response.data.Hotel;
+                    $scope.hotelRooms = response.data.Rooms;
+                    $scope.hotelLoaded = true;
+                    parseAmenities($scope.hotel);
+                    if ($scope.hotel.ProviderId == 4) {
+                        $scope.TAWidget = app_main.tripadvisorEx + $scope.hotel.HotelId;
+                    } else if ($scope.hotel.ProviderId == 2) {
+                        $scope.TAWidget = app_main.tripadvisorOk + $scope.hotel.HotelId;
+                    }
+                    if ($scope.hotel.Latitude && $scope.hotel.Longitude) {
+                        loadMap($scope.hotel.Latitude, $scope.hotel.Longitude, $scope.hotel.HotelName);
+                    }
+                    $scope.baloonHotelLoad.teardown();
+                } else {
+                    baloonError();
                 }
-                if ($scope.hotel.Latitude && $scope.hotel.Longitude) {
-                    loadMap($scope.hotel.Latitude, $scope.hotel.Longitude, $scope.hotel.HotelName);
-                }
-                $scope.baloonHotelLoad.teardown();
-            } else {
+            }, function (response) {
+                console.log(response)
                 baloonError();
+            });
+    } else {
+        $scope.baloonHotelLoad.updateView({
+            template: 'err.html',
+            title: 'Дата заезда должна быть больше текущей даты!',
+            content: 'Попробуйте начать поиск заново',
+            callbackClose: function () {
+                $scope.redirectHotels();
+            },
+            callback: function () {
+                $scope.redirectHotels();
             }
-        }, function (response) {
-            console.log(response)
-            baloonError();
         });
+    }
 
 
     /**
