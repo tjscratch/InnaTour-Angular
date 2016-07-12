@@ -18,10 +18,14 @@ innaAppDirectives.directive('searchFormBus', function ($templateCache) {
             } else {
                 $scope.hotelsSearchForm.Adult = 2;
             }
-            if ($routeParams.ChildrenCount) {
-                $scope.hotelsSearchForm.ChildrenCount = $routeParams.ChildrenCount;
-            } else {
-                $scope.hotelsSearchForm.ChildrenCount = 0;
+            if($routeParams.Children) {
+                $scope.hotelsSearchForm.Children = $routeParams.Children.split('_').map(function (age) {
+                    return { value: age };
+                });
+                $scope.hotelsSearchForm.ChildrenCount = $scope.hotelsSearchForm.Children.length;
+            }else{
+                $scope.hotelsSearchForm.Children = [];
+                $scope.hotelsSearchForm.ChildrenCount = $scope.hotelsSearchForm.Children.length;
             }
             /**
              * END
@@ -106,6 +110,7 @@ innaAppDirectives.directive('searchFormBus', function ($templateCache) {
                 var validateStartVoyageDate = widgetValidators.required($scope.hotelsSearchForm.StartVoyageDate, 'StartVoyageDate', 'Выберите дату заезда');
 
                 console.log(searchUrl);
+                console.log('ADULT', $scope.hotelsSearchForm.Adult);
                 $q.all([validateArrivalId, validateStartVoyageDate])
                     .then(function (data) {
                         $location.path(searchUrl);
