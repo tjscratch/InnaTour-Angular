@@ -14,7 +14,8 @@ angular.module('innaApp.directives')
                 '$timeout',
                 'urlHelper',
                 'innaAppApiEvents',
-                function (EventManager, $scope, $element, $routeParams, $location, aviaHelper, $timeout, urlHelper, Events) {
+                'paymentService',
+                function (EventManager, $scope, $element, $routeParams, $location, aviaHelper, $timeout, urlHelper, Events, paymentService) {
 
                     $('body').append($element);
 
@@ -84,6 +85,32 @@ angular.module('innaApp.directives')
                     $scope.$watch('popupItemInfo.isShow', function (value) {
                         if (value) $scope.location = window.location.href;
                     })
+
+
+                    /**
+                     * begin
+                     * попап с описание тарифа
+                     */
+                    $scope.tarifs = new aviaHelper.tarifs();
+                    $scope.showTarif = function ($event, aviaInfo) {
+                        console.log(aviaInfo);
+                        $scope.tarifs.fillInfo(aviaInfo);
+                        paymentService.getTarifs({
+                                variantTo: aviaInfo.VariantId1,
+                                varianBack: aviaInfo.VariantId2
+                            },
+                            function (data) {
+                                $scope.tarifs.tarifsData = data;
+                                $scope.tarifs.show($event);
+                            },
+                            function (data, status) {
+                                log('paymentService.getTarifs error');
+                            });
+                    };
+                    /**
+                     * end
+                     * попап с описание тарифа
+                     */
 
 
                     $scope.$on('$destroy', function () {
