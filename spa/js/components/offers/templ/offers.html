@@ -4,10 +4,21 @@
     <div class="offers-card-banner-container main" ng-controller="SliderCtrl" ng-show="slides.length > 0" app-slider>
 
 
-        <ul class="offers-card-banner-list Offer-card-banners">
-            <li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
+        <ul class="offers-card-banner-list Offer-card-banners header-banner">
+            <li class="offer-card-banner-item header-banner__item" ng-repeat="slide in slides track by $index">
                 <div class="img" style="background-image: url('{{slide.Image}}')"></div>
                 <div class="offer-card-banner-item__mask" ng-if="slide.NeedFilterBrightness"></div>
+
+                <div class="info-container">
+                    <div class="info">
+                        <h3 class="name">
+                            {{pageTitle}}
+                        </h3>
+                        <div>
+                            {{pageTitleSub}}
+                        </div>
+                    </div>
+                </div>
                 <!--
                 <div class="darken-container" ng-if="slide.NeedFilterBrightness"
                      ng-click="offerClickSlider(slide, $event, $index)"></div>

@@ -7,6 +7,9 @@ innaAppControllers.
         'innaApp.services.PageContentLoader',
         'innaApp.API.pageContent.DYNAMIC',
         function ($scope, $location, URLs, DynamicFormSubmitListener, PageContentLoader, sectionID) {
+            
+            $scope.pageTitle = "Поиск туров на регулярных рейсах";
+            $scope.pageTitleSub = "Поиск туров на регулярных рейсах";
 
             DynamicFormSubmitListener.listen();
 
