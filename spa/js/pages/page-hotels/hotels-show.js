@@ -51,6 +51,14 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     //     }
     // }, 500);
 
+    $scope.userIsAgency = null;
+    
+    $scope.$watch('user', function (User) {
+        if (User) {
+            $scope.userIsAgency = User.isAgency();
+            $scope.AgencyId = parseInt(User.getAgencyId());
+        }
+    });
 
     $scope.hotelLoaded = false;
     $scope.hotelsIndexPath = '/#' + HotelService.getHotelsIndexUrl($routeParams);
