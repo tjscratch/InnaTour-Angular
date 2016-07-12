@@ -1,13 +1,47 @@
-<div>
-    <ul>
-        <li class="partners-first">
-            <a class="color-white" href="/#/where-to-buy/">Где купить</a>
-        </li>
-        <li class="partners-hide">
-            <a class="color-white"
-               href="http://book.inna.ru/">Агентствам</a>
-        </li>
-    </ul>
+<div class="b-navbar">
+    <div class="b-navbar__container">
+
+        <div class="b-navbar__promo">
+            24 года / 24 часа
+        </div>
+
+        <ul class="b-navbar-menu">
+            <li class="b-navbar-menu__item partners-first">
+                <a class="b-navbar-menu__link" href="/#/where-to-buy/">
+                    Где купить
+                </a>
+            </li>
+            <li class="b-navbar-menu__item partners-hide">
+                <a class="b-navbar-menu__link" href="http://book.inna.ru/">
+                    Агентствам
+                </a>
+            </li>
+            <li class="b-navbar-menu__item partners-hide">
+                <a class="b-navbar-menu__link" href="//inna.ru/catalog/visa/">
+                    Визы
+                </a>
+            </li>
+            <li class="b-navbar-menu__item partners-hide">
+                <a class="b-navbar-menu__link"
+                   ng-class="{'b-navbar-menu__link-active':isActive('/transfers/')}"
+                   href="/#/transfers/">
+                    Трансферы
+                </a>
+            </li>
+            <li class="b-navbar-menu__item partners-hide">
+                <a class="b-navbar-menu__link"
+                   ng-class="{'b-navbar-menu__link-active':isActive('/individualtours/')}"
+                   href="/#/individualtours/">
+                    Программы
+                </a>
+            </li>
+            <li class="b-navbar-menu__item partners-hide">
+                <a class="b-navbar-menu__link" href="http://ntp.inna.ru/" target="_blank">
+                    Отдых в России
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <div class="header-info" ng-cloak>
@@ -69,24 +103,6 @@
                             Отели
                         </a>
                     </li>
-                    <!--
-                    <li class="header-nav__item partners-hide">
-                        <a class="header-nav__item-link"
-                           href="//inna.ru/catalog/visa/">Визы</a>
-                    </li>
-                    <li class="header-nav__item partners-hide">
-                        <a class="header-nav__item-link"
-                           href="/#/transfers/" ng-class="{'header-nav__item-link-active':isActive('/transfers/')}">Трансферы</a>
-                    </li>
-                    <li class="header-nav__item partners-hide">
-                        <a class="header-nav__item-link"
-                           href="/#/individualtours/" ng-class="{'header-nav__item-link-active':isActive('/individualtours/')}">Программы</a>
-                    </li>
-                    <li class="header-nav__item partners-hide">
-                        <a class="header-nav__item-link"
-                           href="http://ntp.inna.ru/" target="_blank">Отдых в России</a>
-                    </li>
-                    -->
                     <li class="header-nav__item partners-hide">
                         <a class="header-nav__item-link"
                            href="/#/bus/" ng-class="{'header-nav__item-link-active':isActive('/bus/')}">

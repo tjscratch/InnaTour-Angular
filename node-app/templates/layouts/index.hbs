@@ -42,7 +42,8 @@
     <![endif]-->
 
 
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700&subset=latin,cyrillic' rel='stylesheet'
+          type='text/css'>
 
     <link rel="stylesheet" href="/spa/css/common.css"/>
     <link rel="stylesheet" href="/spa/css/libs.css"/>
@@ -120,39 +121,53 @@
 
 </head>
 <body class="light-theme"
-      ng-class="{'ios': iOS, 'not-ios': !iOS, 'body-bg':isBodyBg(), 'search-form-expanded': FormExpand, 'transfer-bg':isTransferBg()}"
+      ng-class="{
+                 'ios': iOS,
+                 'not-ios': !iOS,
+                 'body-bg':isBodyBg(),
+                 'search-form-expanded': FormExpand,
+                 'search-form-expand': !FormExpand,
+                 'transfer-bg':isTransferBg()
+                 }"
       ng-click="bodyClick()"
       popup-form
       ng-style="BodyStyleGlobal">
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function (d, w, c) {
-        (w[c] = w[c] || []).push(function() {
+        (w[c] = w[c] || []).push(function () {
             try {
                 w.yaCounter37646180 = new Ya.Metrika({
-                    id:37646180,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true,
-                    webvisor:true,
-                    ecommerce:"dataLayer"
+                    id: 37646180,
+                    clickmap: true,
+                    trackLinks: true,
+                    accurateTrackBounce: true,
+                    webvisor: true,
+                    ecommerce: "dataLayer"
                 });
-            } catch(e) { }
+            } catch (e) {
+            }
         });
 
         var n = d.getElementsByTagName("script")[0],
                 s = d.createElement("script"),
-                f = function () { n.parentNode.insertBefore(s, n); };
+                f = function () {
+                    n.parentNode.insertBefore(s, n);
+                };
         s.type = "text/javascript";
         s.async = true;
         s.src = "https://mc.yandex.ru/metrika/watch.js";
 
         if (w.opera == "[object Opera]") {
             d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
+        } else {
+            f();
+        }
     })(document, window, "yandex_metrika_callbacks");
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/37646180" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/37646180" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
 <!-- /Yandex.Metrika counter -->
 <!-- Rating@Mail.ru counter -->
 <script type="text/javascript">
@@ -234,7 +249,7 @@
 <!--<script type="text/javascript"-->
 <!--src="https://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.13/src/infobox_packed.js"></script>-->
 <!--<script type="text/javascript"-->
-        <!--src="/bower_components/google-maps-utility-library-v3-infobox/dist/infobox.min.js"></script>-->
+<!--src="/bower_components/google-maps-utility-library-v3-infobox/dist/infobox.min.js"></script>-->
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
 
