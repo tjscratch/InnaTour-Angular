@@ -50,29 +50,49 @@ icon()
 }
 //END icons 
 //BEGIN form controll
+
+.red-border {
+    border 1px solid rgb(219, 68, 55)
+}
+.gray-border {
+    border 1px solid rgb(216, 216, 216)
+}
+.background-green {
+    background-color $green
+}
+.background-gray {
+    background-color rgba(117, 117, 117, 30)
+}
+.gray {
+    color rgb(216, 216, 216)
+}
 .form-label{
-    color $gray
+    color rgb(117, 117, 117)
 }
 .form-control{
     padding 5px
     background-color $white
-    border 1px solid #c0c0c2
     border-radius 2px
     font-family $ProximaNova
-    font-size 15px
+    font-size 18px
+    height 38px
     line-height 18px
 
     &::-webkit-input-placeholder{
-        font-size 12px
+        font-size 18px
+        color rgb(216, 216, 216)
     }
     &:-moz-placeholder{
-        font-size 12px
+        font-size 18px
+        color rgb(216, 216, 216)
     }
     &::-moz-placeholder{
-        font-size 12px
+        font-size 18px
+        color rgb(216, 216, 216)
     }
     &:-ms-input-placeholder{
-        font-size 12px
+        font-size 18px
+        color rgb(216, 216, 216)
     }
 }
 select{
@@ -121,15 +141,15 @@ select{
     }
     .form-checkbox-label{
         display table-cell
-        vertical-align top
+        vertical-align middle
+        font-size 15px
     }
 
 }
 .form-btn{
     display block
     width 100%
-    padding 5px 20px
-    background-color $green
+    padding 10px 20px
     border none
     font-size 20px
     line-height 30px
@@ -157,7 +177,7 @@ select{
 //END form controll
 
 .pay-form{
-    max-width 640px
+    max-width 960px
     margin 0 auto
     font-family $ProximaNova
     font-size 12px
@@ -165,53 +185,51 @@ select{
     color $black
 
     &__title{
-        padding 10px 0 4px
-        border-bottom 2px solid $green
-        font-size 15px
+        padding 40px 0 20px
+        border-bottom 3px solid $green
+        font-size 20px
         font-weight bold
     }
 }
 .pay-form__info{
-    margin 10px 0 0 0
-    min-width 320px
+    margin 50px 0 50px 0
+    min-width 300px
     white-space nowrap
+    overflow: hidden
 
-    .pay-form__price{
-        display inline-block
-        margin-right 15px
-        vertical-align top
+    .pay-form__info-dead-line {
+        height 50px
+        line-height 50px
+        float left
+
+        .dead-line__label {
+            font-size 15px
+            color rgb(117, 117, 117)
+        }
+
+        .dead-line__value {
+            font-size 28px
+            color rgb(0, 0, 0)
+        }
     }
-    .pay-form__price-label{
-        margin 0 0 3px
-        color $gray
-    }
-    .pay-form__price-value{
-        font-size 20px
-        font-weight bold
-    }
 
-    .ruble{
-        font-family Rouble
-    }
+    .pay-form__info-timer {
+        border 1px solid rgb(240, 189, 78)
+        border-radius 3px
+        box-sizing border-box
+        height 50px
+        line-height 50px
+        padding 0 15px
+        float right
 
-    .pay-form__data{
-        display: inline-block
-        vertical-align top
+        .timer__label {
+            font-size 15px
+            color rgb(117, 117, 117)
+        }
 
-        dl{
-            margin 0
-            white-space nowrap
-
-            dt,
-            dd{
-                display inline-block
-                margin 0 3px 0 0
-                padding 0
-            }
-
-            dt{
-                color $gray
-            }
+        .timer__value {
+            font-size 28px
+            color rgb(0, 0, 0)
         }
     }
 }
@@ -221,51 +239,76 @@ select{
 }
 .pay-form-fields{
     clearfix()
-    margin 0 0 25px
+    margin 0 0 30px
+    padding-bottom 70px
+    border-bottom 1px solid rgb(216, 216, 216)
+
+    .load {
+        font-size 22px
+        text-align center
+        padding 150px 0
+        line-height 22px
+    }
 
     &__cart-data,
     &__cart-cvs{
         position relative
-        width 300px
-        height: 200px
-        background-color $white
-        box-shadow 0 0 8px 0 #888
+        width 480px
+        height: 300px
         border-radius 10px
+        box-sizing border-box
     }
 
     //BEGIN cart data
     &__cart-data{
         z-index 2
         float left
+        background-color rgb(246, 246, 246)
+        border 1px solid rgb(227, 227, 277)
     }
     &__cart-data-container{
         padding 10px
     }
     &__cart-data-icons{
-        margin 0 0 20px
+        margin 15px 0 25px
     }
     &__cart-data-field{
-        margin 0 0 20px
+        margin 0 0 35px
 
         .form-control{
-            width 268px
+            width 445px
         }
+
+
 
         &.date{
             clearfix()
+            margin 0 0 20px
 
             .form-label{
-                float left
                 width 110px
                 padding 7px 0 0 0
             }
 
             .form-control{
-                float left
-                width 80px
-                margin 0 0 0 5px
+                width 85px
+                height 25px
+                font-size 15px
+                text-align center
             }
 
+            span {
+                color rgb(117, 117, 117)
+                padding 0 10px
+            }
+
+        }
+
+        &.fio {
+            .form-control {
+                height 25px
+                font-size 15px
+            }
         }
     }
     //END cart data
@@ -273,47 +316,129 @@ select{
     //BEGIN cart cvs
     &__cart-cvs{
         z-index 1
-        float right
+        margin-top 50px
+        margin-left 150px
+        background-color rgb(216, 216, 216)
     }
     &__cart-cvs-container{
-        padding 32px 0 0 0
+        padding 80px 0 0 0
+    }
+    &__cart-cvs-field_line {
+        background-color rgb(117, 117, 117)
+        height 72px
     }
     &__cart-cvs-field{
-        height 44px
-        padding 54px 10px 0
-        background url('../images/cart-bg.png') repeat-x left bottom
-        border-top 1px solid #b6b6b7
-        border-bottom 1px solid #fafafa
-        text-align right
+        height 72px
+        color rgb(117, 117, 117)
 
-        .form-label{
-            margin-right 5px
+        .wrap-cvc {
+            padding 8px
+            float right
+            text-align left
 
-            span{
-                vertical-align middle
+            .form-control{
+                width 118px
+                border-radius 3px
+                text-align center
+                margin 0 0 5px 0
+            }
+        }
+    }
+
+    &__service {
+        padding 15px 0
+        font-size 22px
+    }
+    &__service-description {
+        padding 10px 0
+    }
+    &__service-variant {
+        padding 15px 0
+
+        &.service-variant__value {
+            padding 10px 0
+        }
+    }
+    &__promo {
+        padding 10px 0
+
+        &-label {
+            display inline-block
+            font-size 15px
+            padding 0 10px 0 0
+        }
+        .form-control {
+            display inline-block
+            height 25px
+        }
+        &-btn {
+            display inline-block
+            width 102px
+            padding 0 0 0 10px
+
+            input {
+                width 100%
+                padding 10px 0
+                border none
+                font-size 15px
+                line-height 17px
+                font-family $ProximaNova
+                font-weight bold
+                color $white
+                text-align center
+                border-radius 3px
                 cursor pointer
 
-                &:hover{
-                    text-decoration none
-                    opacity .7
+                &:hover,
+                &:focus{
+                    background-color lighten($green, 15%)
+                }
+
+                &:active{
+                    background-color darken($green, 10%)
+                }
+
+                &:disabled{
+                    background-color lighten($green, 35%)
+                    cursor inherit
                 }
             }
-            > span{
-                text-decoration underline
-            }
         }
-
-        .form-control{
-            width 70px
-        }
+    }
+    &__check-doc {
+        padding 15px 0 0 0
     }
 }
 .pay-form-actions{
     clearfix()
 
+    text-align right
+    padding-bottom 15px
+
+    .pay-form__price{
+        display inline-block
+        height 50px
+        line-height 50px
+    }
+    .pay-form__price-label{
+        display inline-block
+        color rgb(117, 117, 117)
+        font-size 15px
+    }
+    .pay-form__price-value{
+        display inline-block
+        margin 0 0 0 10px
+        font-size 28px
+        font-weight bold
+    }
+
+    .ruble{
+        font-family Rouble
+    }
+
     &__checkbox,
     &__btn{
-        float left
+        float right
     }
 
     &__checkbox{
@@ -321,30 +446,133 @@ select{
     }
 
     &__btn{
-        width 170px
+        width 230px
         padding 0 0 0 30px
     }
 }
-.pay-form-branding{
-    height 27px
-    width 300px
-    margin 25px 0
-    background-image url("../images/promo.png")
-}
-@media (max-width 640px)
+//.pay-form-branding{
+//    height 27px
+//    width 300px
+//    margin 25px 0
+//    background-image url("../images/promo.png")
+//}
+@media (max-width 980px)
+
+    .form-control {
+        height 15px
+        line-height 15px
+
+        &::-webkit-input-placeholder{
+            font-size 12px
+        }
+        &:-moz-placeholder{
+            font-size 12px
+        }
+        &::-moz-placeholder{
+            font-size 12px
+        }
+        &:-ms-input-placeholder{
+            font-size 12px
+        }
+    }
+
     .pay-form{
         max-width 300px
 
+        .pay-form__info {
+            .pay-form__info-dead-line {
+
+                .dead-line__label {
+                    font-size 15px
+                }
+
+                .dead-line__value {
+                    font-size 25px
+                }
+            }
+        }
+
         .pay-form-fields{
+
+            .load {
+                padding 80px 0
+            }
+
+            &__cart-data,
             &__cart-cvs{
-                margin-top -140px
+                width 300px
+                height 180px
+                float none
+                border-radius 10px
+                box-sizing border-box
+            }
+
+            &__cart-data-icons{
+                margin 5px 0 10px
+            }
+
+            &__cart-data-field {
+
+                margin 0 0 5px
+
+                .form-control {
+                    width 265px
+                    font-size 12px
+                }
+
+                &.date {
+                    margin 0 0 10px
+
+                    .form-label{
+                        width 110px
+                        padding 7px 0 0 0
+                    }
+
+                    .form-control{
+                        width 35px
+                        height 15px
+                        font-size 12px
+                        text-align center
+                    }
+
+                    span {
+                        padding 0 5px
+                    }
+                }
+
+                &.fio {
+                    .form-control {
+                        height 15px
+                        font-size 12px
+                    }
+                }
+            }
+
+            &__cart-cvs{
+                margin-top -80px
+                margin-left 0px
             }
             &__cart-cvs-container{
-                padding 90px 0 0 0
+                padding 45px 0 0 0
+            }
+            &__cart-cvs-field_line{
+                height 50px
             }
             &__cart-cvs-field{
-                height 39px
-                padding-top 59px
+                height 50px
+
+                .wrap-cvc {
+                    padding 4px
+
+                    .form-control{
+                        font-size 12px
+                        width 55px
+                        border-radius 3px
+                        text-align center
+                        margin 0 0 3px 0
+                        border 1px solid rgb(216, 216, 216)
+                    }
+                }
             }
         }
         .pay-form-actions{

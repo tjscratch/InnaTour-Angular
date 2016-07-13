@@ -11,29 +11,19 @@
 
 <div class="pay-form" ng-controller="PayFormCtrl">
 	<div class="pay-form__title">
-		Оплата заказа №38569247 Москва — Торонто, с 18 авг на 8 дней
+		Заказ №38569247
 	</div>
 	<div class="pay-form__info">
-		<div class="pay-form__price">
-			<div class="pay-form__price-label">cумма к оплате</div>
-			<div class="pay-form__price-value">170 920 <span class="ruble">c</span></div>
+		<div class="pay-form__info-dead-line">
+			<span class="dead-line__label">Оплатить до:</span>
+			<span class="dead-line__value">19:00, 24 сен 2014</span>
 		</div>
-		<div class="pay-form__data">
-			<dl>
-				<dt>оплатить до:</dt>
-				<dd>19:00, 24 сен 2014</dd>
-			</dl>
-			<dl>
-				<dt>осталось:</dt>
-				<dd>
-					<timer interval="1000" countdown="1000">{{hours}}:{{minutes}}:{{seconds}}</timer>
-					сек
-				</dd>
-			</dl>
+		<div class="pay-form__info-timer">
+			<span class="timer__label">осталось:</span>
+			<span class="timer__value">
+				<timer interval="1000" countdown="1000">{{hours}}:{{minutes}}:{{seconds}}</timer>
+			</span>
 		</div>
-	</div>
-	<div class="pay-text">
-		Мы не храним ваши данные у себя, а сразу перенаправляем их в зашифрованном виде, используя платежный шлюз Промсвязьбанка
 	</div>
 	<form novalidate name="paymentForm">
 		<div class="pay-form-fields">
@@ -48,7 +38,7 @@
 						<input
 								type="text"
 								name="creditCard"
-								class="form-control"
+								class="form-control gray-border"
 								ng-model="ccinfo.number"
 								required
 								data-credit-card-type
@@ -58,19 +48,14 @@
 								placeholder="Номер карты"/>
 					</div>
 					<div class="pay-form-fields__cart-data-field date">
-						<label class="form-label" for="month">Действительна до</label>
-						<select id="month" class="form-control" ng-model="ccinfo.month" name="month" data-card-expiration required>
-							<option disabled selected value="">Месяц</option>
-							<option ng-repeat="month in months" ng-value="{{month}}">{{month}}</option>
-						</select>
-						<select class="form-control" ng-model="ccinfo.year" name="year" required>
-							<option disabled selected value="">Год</option>
-							<option ng-repeat="year in [] | range:currentYear:currentYear+13">{{year}}</option>
-						</select>
+						<label class="form-label" for="month">Действительна до</label><br/>
+						<input id="month" class="form-control gray-border" ng-model="ccinfo.month" name="month" data-card-expiration required placeholder="ММ"/>
+						<span>/</span>
+						<input id="year" class="form-control gray-border" ng-model="ccinfo.year" name="year" required placeholder="ГГ"/>
 					</div>
-					<div class="pay-form-fields__cart-data-field">
+					<div class="pay-form-fields__cart-data-field fio">
 						<input
-								class="form-control"
+								class="form-control gray-border"
 								type="text"
 								ng-model="ccinfo.username"
 								minlength="1"
@@ -81,37 +66,243 @@
 			</div>
 			<div class="pay-form-fields__cart-cvs">
 				<div class="pay-form-fields__cart-cvs-container">
+					<div class="pay-form-fields__cart-cvs-field_line">
+					</div>
 					<div class="pay-form-fields__cart-cvs-field">
-						<label for="cart-cvs" class="form-label">
-							<span>CVV/CVC</span>
-							<span class="icon-who"></span>
-						</label>
+						<div class="wrap-cvc">
 						<input id="cart-cvs"
 						       type="text"
-						       class="form-control"
+						       class="form-control gray-border"
 						       name="securityCode"
 						       ng-model="ccinfo.securityCode"
 						       required
 						       data-ng-pattern="/^[0-9]+$/"
 						       data-ng-minlength="3"
 						       maxlength="4"
-								/>
+							   placeholder="CVC"
+								/><br/>
+						<label for="cart-cvs" class="form-label">
+							Три цифры<br/>
+							с обртаной<br/>
+							стороны<br/>
+						</label>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="pay-form-actions">
 
-			<div class="pay-form-actions__checkbox">
+			<div class="pay-form__price">
+				<div class="pay-form__price-label">Сумма к оплате</div>
+				<div class="pay-form__price-value">170 920 <span class="ruble">c</span></div>
+			</div>
+
+			<div class="pay-form-actions__btn">
+				<input
+						type="submit"
+						class="form-btn background-green"
+						value="Оплатить"
+						>
+			</div>
+
+		</div>
+	</form>
+</div>
+
+<div class="pay-form" ng-controller="PayFormCtrl">
+	<div class="pay-form__title">
+		Заказ №38569247
+	</div>
+	<div class="pay-form__info">
+		<div class="pay-form__info-dead-line">
+			<span class="dead-line__label">Оплатить до:</span>
+			<span class="dead-line__value">19:00, 24 сен 2014</span>
+		</div>
+		<div class="pay-form__info-timer">
+			<span class="timer__label">осталось:</span>
+			<span class="timer__value">
+				<timer interval="1000" countdown="1000">{{hours}}:{{minutes}}:{{seconds}}</timer>
+			</span>
+		</div>
+	</div>
+	<form novalidate name="paymentForm">
+		<div class="pay-form-fields">
+			<div class="pay-form-fields__cart-data">
+				<div class="pay-form-fields__cart-data-container">
+					<div class="pay-form-fields__cart-data-icons">
+						<i class="icon-visa"></i>
+						<i class="icon-master"></i>
+					</div>
+					<div class="pay-form-fields__cart-data-field">
+
+						<input
+								type="text"
+								name="creditCard"
+								class="form-control red-border"
+								ng-model="ccinfo.number"
+								required
+								data-credit-card-type
+								data-ng-pattern="/^[0-9]+$/"
+								data-ng-minlength="16"
+								maxlength="16"
+								placeholder="Номер карты"/>
+					</div>
+					<div class="pay-form-fields__cart-data-field date">
+						<label class="form-label" for="month">Действительна до</label><br/>
+						<input id="month" class="form-control red-border" ng-model="ccinfo.month" name="month" data-card-expiration required placeholder="ММ"/>
+						<span>/</span>
+						<input id="year" class="form-control red-border" ng-model="ccinfo.year" name="year" required placeholder="ГГ"/>
+					</div>
+					<div class="pay-form-fields__cart-data-field fio">
+						<input
+								class="form-control red-border"
+								type="text"
+								ng-model="ccinfo.username"
+								minlength="1"
+								required=""
+								placeholder="Держатель карты"/>
+					</div>
+				</div>
+			</div>
+			<div class="pay-form-fields__cart-cvs">
+				<div class="pay-form-fields__cart-cvs-container">
+					<div class="pay-form-fields__cart-cvs-field_line">
+					</div>
+					<div class="pay-form-fields__cart-cvs-field">
+						<div class="wrap-cvc">
+							<input id="cart-cvs"
+								   type="text"
+								   class="form-control red-border"
+								   name="securityCode"
+								   ng-model="ccinfo.securityCode"
+								   required
+								   data-ng-pattern="/^[0-9]+$/"
+								   data-ng-minlength="3"
+								   maxlength="4"
+								   placeholder="CVC"
+							/><br/>
+							<label for="cart-cvs" class="form-label">
+								Три цифры<br/>
+								с обртаной<br/>
+								стороны<br/>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="pay-form-actions">
+
+			<div class="pay-form__price">
+				<div class="pay-form__price-label">Сумма к оплате</div>
+				<div class="pay-form__price-value">170 920 <span class="ruble">c</span></div>
+			</div>
+
+			<div class="pay-form-actions__btn">
+				<input
+						type="submit"
+						class="form-btn background-green"
+						value="Оплатить"
+				>
+			</div>
+
+		</div>
+	</form>
+</div>
+
+<div class="pay-form" ng-controller="PayFormCtrl">
+	<div class="pay-form__title">
+		Заказ №38569247
+	</div>
+	<form novalidate name="paymentForm">
+		<div class="pay-form-fields">
+			<div class="load">
+				Подождите, пожалуйста.<br/>
+				Идет авторизация Вашего платежа
+			</div>
+		</div>
+		<div class="pay-form-actions">
+
+			<div class="pay-form__price">
+				<div class="pay-form__price-label">Сумма к оплате</div>
+				<div class="pay-form__price-value gray">170 920 <span class="ruble">c</span></div>
+			</div>
+
+			<div class="pay-form-actions__btn">
+				<input
+						type="submit"
+						class="form-btn background-gray"
+						value="Оплатить"
+				>
+			</div>
+
+		</div>
+	</form>
+</div>
+
+<div class="pay-form" ng-controller="PayFormCtrl">
+	<div class="pay-form__title">
+		Заказ №38569247
+	</div>
+	<form novalidate name="paymentForm">
+		<div class="pay-form-fields">
+			<div class="pay-form-fields__service">Дополнитеьные услуги</div>
+			<div class="pay-form-fields__service-description">Данные услуги не включены в стоимость заказа, после оплаты заказа наш менеджер свяжется с Вами и предложит разные варианты</div>
+			<div class="pay-form-fields__service-variant">
+				<div class="service-variant__value">
+					<label class="form-checkbox">
+						<div class="form-checkbox-input">
+							<input type="checkbox"
+								   name="checked"
+								   ng-true-value="true"
+								   ng-false-value="false"
+								   ng-init="checked = false"
+							/>
+							<span></span>
+						</div>
+						<div class="form-checkbox-label">
+							Виза
+						</div>
+					</label>
+				</div>
+				<div class="service-variant__value">
+					<label class="form-checkbox">
+						<div class="form-checkbox-input">
+							<input type="checkbox"
+								   name="checked"
+								   ng-true-value="true"
+								   ng-false-value="false"
+								   ng-init="checked = false"
+							/>
+							<span></span>
+						</div>
+						<div class="form-checkbox-label">
+							Трансфер
+						</div>
+					</label>
+				</div>
+			</div>
+			<div class="pay-form-fields__promo">
+				<div class="pay-form-fields__promo-label">У меня есть промокод</div>
+				<input class="form-control gray-border"/>
+				<div class="pay-form-fields__promo-btn">
+					<input
+							type="submit"
+							class="background-green"
+							value="Применить"
+					>
+				</div>
+			</div>
+			<div class="pay-form-fields__check-doc">
 				<label class="form-checkbox">
 					<div class="form-checkbox-input">
 						<input type="checkbox"
-						       name="checked"
-						       ng-model="checked"
-						       ng-true-value="true"
-						       ng-false-value="false"
-						       ng-init="checked = false"
-								/>
+							   name="checked"
+							   ng-true-value="true"
+							   ng-false-value="false"
+							   ng-init="checked = false"
+						/>
 						<span></span>
 					</div>
 					<div class="form-checkbox-label">
@@ -122,19 +313,24 @@
 					</div>
 				</label>
 			</div>
+		</div>
+		<div class="pay-form-actions">
+
+			<div class="pay-form__price">
+				<div class="pay-form__price-label">Сумма к оплате</div>
+				<div class="pay-form__price-value">170 920 <span class="ruble">c</span></div>
+			</div>
 
 			<div class="pay-form-actions__btn">
 				<input
 						type="submit"
-						class="form-btn"
-						value="Оплатить"
-						ng-disabled="!(checked && paymentForm.$valid)"
-						>
+						class="form-btn background-green"
+						value="Забронировать"
+				>
 			</div>
 
 		</div>
 	</form>
-	<div class="pay-form-branding"></div>
 </div>
 
 
