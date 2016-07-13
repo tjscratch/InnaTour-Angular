@@ -1,5 +1,6 @@
 @import 'nib'
 $b-offer-offset = 1.5px;
+$b-offer-border-color = rgba(216, 216, 216, 1);
 offerSize(width, height) {
     width: width;
     padding-top: height;
@@ -12,7 +13,7 @@ offerSize(width, height) {
 .b-offers-container {
 }
 .b-offers {
-    max-width: $site-width;
+    max-width: $site-width-new;
     margin: 0 auto 40px;
 }
 /////////
@@ -24,7 +25,7 @@ offerSize(width, height) {
     background: #DFDFDF;
 }
 .b-offers-categories {
-    max-width: $site-width;
+    max-width: $site-width-new;
     margin: 0 auto;
     padding: 12px 0;
 }
@@ -65,7 +66,7 @@ offerSize(width, height) {
 
     &:hover {
         z-index: 3;
-        border-color: #b8b8b8;
+        border-color: $b-offer-border-color;
     }
     &.active {
         z-index: 2;
@@ -83,7 +84,7 @@ offerSize(width, height) {
     //background-image: linear-gradient(-180deg, #1b1b1b 0%, #2b2b2b 100%);
 }
 .b-offers-filters {
-    max-width: $site-width;
+    max-width: $site-width-new;
     margin: 0 auto;
     padding: 12px 0;
 
@@ -103,14 +104,26 @@ offerSize(width, height) {
 .b-offers-filter {
     z-index: 2000;
 
+    .selectize-dropdown {
+        &.single {
+            border: 1px solid $b-offer-border-color;
+        }
+    }
+
     &.selectize-control {
+
+        &.single {
+            .selectize-input {
+                border: 1px solid $b-offer-border-color;
+            }
+        }
 
         .selectize-input {
             padding: 4px 15px 4px 10px;
             border-radius: 0;
             background-color: $white !important;
             background-image: none !important;
-            border: 1px solid #F0BD4E;
+            border: 1px solid $b-offer-border-color;
 
             &:after {
                 content: "\f107" !important;
@@ -182,7 +195,7 @@ offerSize(width, height) {
     width: 100%;
     box-sizing: border-box;
     padding: 5px 5px 5px 10px;
-    border: 1px solid #b8b8b8;
+    border: 1px solid $b-offer-border-color;
     font-size: 14.4px;
     color #757575;
     font-family ProximaNova, Arial, sans-serif
@@ -206,7 +219,7 @@ offerSize(width, height) {
         display: flex;
         width 17px
         height 17px
-        border: 1px solid #b8b8b8;
+        border: 1px solid $b-offer-border-color;
         background-color: $white;
         font-size: 14.4px;
     }
@@ -440,3 +453,30 @@ $b-offer-row-size-2 = 33.3333%;
 .b-offer__price-currency {
     font-size: 25px;
 }
+//
+//
+// begin offer-text
+.offer-text {
+    position: absolute;
+    top: 180px;
+    z-index: 10;
+    width: 100%;
+    text-align: center;
+    color: $white;
+}
+.offer-text__title {
+    margin: 0 0 15px;
+    font-size: 36px;
+    line-height: 40px;
+    font-family: $font-family;
+    font-weight: normal;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .15);
+}
+.offer-text__subtitle {
+    font-size: 18px;
+    line-height: 24px;
+    text-transform: uppercase;
+}
+// end offer-text
+//
+//

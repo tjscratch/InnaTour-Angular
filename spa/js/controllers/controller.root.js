@@ -153,7 +153,7 @@ innaAppControllers.
                             $scope.SearchFormExpandPadding = {'padding-top': 0}
                         }else{
                             $scope.FormExpand = true;
-                            $scope.SearchFormExpandPadding = {'padding-top': 150};
+                            $scope.SearchFormExpandPadding = {'padding-top': 250};
                             document.addEventListener('scroll', onScroll, false);
                         }
                         break;
@@ -167,7 +167,7 @@ innaAppControllers.
 
             var onScroll = function () {
                 var scroll = utils.getScrollTop();
-                if (scroll > 150) {
+                if (scroll > 250) {
                     $scope.$apply(function ($scope) {
                         $scope.FormExpand = false;
                         $scope.SearchFormExpandPadding = {'padding-top': 0};
@@ -175,7 +175,7 @@ innaAppControllers.
                 } else {
                     $scope.$apply(function ($scope) {
                         $scope.FormExpand = true;
-                        $scope.SearchFormExpandPadding = {'padding-top': 150 - scroll};
+                        $scope.SearchFormExpandPadding = {'padding-top': 250 - scroll};
                     });
                 }
             };
