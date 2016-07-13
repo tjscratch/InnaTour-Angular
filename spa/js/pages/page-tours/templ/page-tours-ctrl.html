@@ -5,6 +5,21 @@
 			<li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
 				<!--<img class="img" ng-src="slide.Image" />-->
 				<div class="img" style="background-image: url('{{slide.Image}}')"></div>
+
+
+				<div class="offer-card-banner-item__mask" ng-if="slide.NeedFilterBrightness"></div>
+
+				<div class="offer-text">
+					<h1 class="offer-text__title">
+						{{pageTitle}}
+					</h1>
+					<div class="offer-text__subtitle">
+						{{pageTitleSub}}
+					</div>
+				</div>
+
+
+				<!--
 				<div class="darken-container" ng-if="slide.NeedFilterBrightness" ng-click="offerClickSlider(slide, $event, $index)"></div>
 				<div class="info-container" ng-click="offerClickSlider(slide, $event, $index)">
 					<div class="info">
@@ -26,6 +41,9 @@
 						</p>
 					</div>
 				</div>
+				-->
+
+
 			</li>
 		</ul>
 		<div class="banner-dots-container">

@@ -7,6 +7,7 @@
         <ul class="offers-card-banner-list Offer-card-banners header-banner">
             <li class="offer-card-banner-item header-banner__item" ng-repeat="slide in slides track by $index">
                 <div class="img" style="background-image: url('{{slide.Image}}')"></div>
+
                 <div class="offer-card-banner-item__mask" ng-if="slide.NeedFilterBrightness"></div>
 
                 <div class="offer-text">

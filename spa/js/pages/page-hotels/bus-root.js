@@ -1,4 +1,4 @@
-innaAppControllers.controller('HotelsRootController',[
+innaAppControllers.controller('BusRootController',[
     '$scope',
     '$location',
     'innaApp.Urls',
@@ -7,26 +7,8 @@ innaAppControllers.controller('HotelsRootController',[
     'innaApp.API.pageContent.DYNAMIC',
     function ($scope, $location, URLs, DynamicFormSubmitListener, PageContentLoader, sectionID) {
 
-    $scope.pageTitle = "Поиск и бронирование отелей по всему миру";
-    $scope.pageTitleSub = "Самые выгодные предложения и огромный выбор";
-
-
-    /**
-     * Отели у нас работают только для b2b клиентов
-     * поэтому если не b2b пользователь попал на страницу отелей
-     * редиректим его на главную
-     */
-    //$timeout(function () {
-    //    var isAgency = false;
-    //    if ($rootScope.$root.user) {
-    //        if (parseInt($rootScope.$root.user.getAgencyId()) == 20005 || parseInt($rootScope.$root.user.getAgencyId()) == 2) {
-    //            isAgency = true;
-    //        }
-    //    }
-    //    if (isAgency == false) {
-    //        $location.path('/#/');
-    //    }
-    //}, 500);
+    $scope.pageTitle = "Автобусные туры";
+    $scope.pageTitleSub = "Поиск лучших предложений";
 
 
     function getSectionId (path) {
