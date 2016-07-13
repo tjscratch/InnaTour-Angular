@@ -7,7 +7,7 @@ innaAppConponents.directive('btnTop', [function () {
         template: "<span ng-click='goToTop()' ng-show='goToTopShow' class='button button-scroll-to-top'><span class='icon-sprite-arrow-top'></span></span>",
         controller: function ($scope) {
             
-            //$scope.goToTopShow = true;
+            $scope.goToTopShow = false;
             /**
              * листаем страницу наверх
              */

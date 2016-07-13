@@ -13,6 +13,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                                                                   $injector,
                                                                   Balloon,
                                                                   HotelService,
+                                                                  dataService,
                                                                   ReservationService,
                                                                   aviaHelper,
                                                                   $interval,
@@ -43,15 +44,9 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
      * проверяем доступность выбранной комнаты
      */
     self.baloonHotelAvailable = new Balloon();
-    self.baloonHotelAvailable.updateView({
-        template: 'expireHotel.html',
-        balloonClose: false,
-        callback: function () {
-            redirectHotel();
-        }
-    });
 
     function redirectHotel () {
+        if(!self.baloonDateError) {
         $timeout(function () {
             if (self.typeProduct == 'bus') {
                 $location.path(self.busShowPath);
@@ -59,6 +54,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                 $location.path(self.hotelsShowPath);
             }
         }, 0);
+        }
         if (self.baloonHotelAvailable) {
             self.baloonHotelAvailable.teardown();
             self.baloonHotelAvailable = null;
@@ -70,6 +66,11 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         if (self.baloonHotelError) {
             self.baloonHotelError.teardown();
             self.baloonHotelError = null;
+        }
+        if (self.baloonDateError) {
+            self.baloonDateError.teardown();
+            self.baloonDateError = null;
+            $location.path('/#/hotels/');
         }
     };
 
@@ -103,27 +104,58 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         });
     }
 
+    function baloonErrorDate () {
+        self.baloonDateError = new Balloon();
+        self.baloonDateError.updateView({
+            template: 'err.html',
+            title: 'Дата заезда должна быть больше текущей даты!',
+            content: 'Попробуйте начать поиск заново',
+            callbackClose: function () {
+                redirectHotel();
+            },
+            callback: function () {
+                redirectHotel();
+            }
+        });
+    }
+
     /**
      * получение данных выбранной комнаты
      * и проверка доступности выбранной комнаты
      */
     //buyParams.Adult = buyParams.Adult;
-    buyParams.Children = null;
-    buyParams.typeProduct = null;
-    HotelService.getHotelBuy(buyParams)
-        .then(function (response) {
-            console.log(response)
-            if (response.status == 200 && response.data.Available) {
-                self.baloonHotelAvailable.teardown();
-                self.hotelInfo = response.data;
-            } else {
-                baloonError();
-            }
-        }, function (response) {
-            console.log(response)
-            baloonError();
-        });
+    //buyParams.Children = null;
 
+
+    var help = dateHelper;
+    var today = help.getTodayDate();
+    var startDate = dateHelper.apiDateToJsDate($routeParams.StartVoyageDate);
+    if(+today <= +startDate) {
+        buyParams.Children = null;
+        buyParams.typeProduct = null;
+        self.baloonHotelAvailable.updateView({
+            template: 'expireHotel.html',
+            balloonClose: false,
+            callback: function () {
+                redirectHotel();
+            }
+        });
+        HotelService.getHotelBuy(buyParams)
+            .then(function (response) {
+                console.log(response)
+                if (response.status == 200 && response.data.Available) {
+                    self.baloonHotelAvailable.teardown();
+                    self.hotelInfo = response.data;
+                } else {
+                    baloonError();
+                }
+            }, function (response) {
+                console.log(response)
+                baloonError();
+            });
+    } else {
+        baloonErrorDate();
+    }
 
     var $validationProvider = $injector.get('$validation');
     // если в url есть параметр ?test=1
@@ -156,6 +188,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
 
 
     function reservation () {
+        console.log('start reservation');
         baloonReservation();
         ReservationService.reservation(self.ReservationModel)
             .success(function (data) {
@@ -241,7 +274,21 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
 
     self.documentTypes = ReservationService.getDocumentTypes();
 
-
+    if ($routeParams.ArrivalId) {
+        dataService.getDPLocationById($routeParams.ArrivalId)
+            .then(function (data) {
+                $scope.CountryId = data.CountryId;
+                //массив с кодами стран СНГ
+                var arrayCountryIds = [189, 69829, 35, 124, 215, 115];
+                //если код выбранной страны не входит в массив стран СНГ то тип документа ставим 1 (Загранпаспорт)
+                var zagran = _.indexOf(arrayCountryIds, $scope.CountryId);
+                if(zagran == -1) {
+                    self.ReservationModel.Passengers.forEach(function (item, i , arr) {
+                        item.DocumentId = 1;
+                    })
+                }
+            });
+    }
 
     $scope.setOferta = function (isDp) {
         var url = app_main.staticHost + '/files/doc/offer.pdf';

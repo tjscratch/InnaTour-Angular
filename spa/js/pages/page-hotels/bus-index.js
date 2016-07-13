@@ -38,9 +38,17 @@ innaAppControllers.controller('BusIndexController', function ($scope, $routePara
 
     if ($routeParams) {
         var searchParams = angular.copy($routeParams);
-        self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
-        searchParams.Adult = self.passengerCount;
-        searchParams.ChildrenCount = null;
+        console.log('SEARCH_PARAMrr', $routeParams);
+
+        if(searchParams.Children){
+            searchParams.ChildrenAges = searchParams.Children.split('_');
+        }
+        searchParams.Adult = $routeParams.Adult;
+
+        $scope.getHotelUrl = function (hotelId, providerId) {
+            return '/#' + HotelService.getBusShowUrl(hotelId, providerId, searchParams);
+        };
+
         $scope.baloonHotelLoad.show();
         HotelService.getBusList(searchParams)
             .then(function (response) {
@@ -77,11 +85,11 @@ innaAppControllers.controller('BusIndexController', function ($scope, $routePara
             });
     }
 
-    if ($routeParams) {
-        $scope.getHotelUrl = function (hotelId, providerId) {
-            return '/#' + HotelService.getBusShowUrl(hotelId, providerId, $routeParams);
-        };
-    }
+    // if ($routeParams) {
+    //     $scope.getHotelUrl = function (hotelId, providerId) {
+    //         return '/#' + HotelService.getBusShowUrl(hotelId, providerId, $routeParams);
+    //     };
+    // }
 
 
     $scope.$on('$destroy', function () {
