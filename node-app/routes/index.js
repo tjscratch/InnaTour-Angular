@@ -50,7 +50,6 @@ router.get('/dev/lk/search-widget', function (req, res, next) {
 });
 
 router.get('/wl-test/:partner/', function(req, res, next){
-    console.log(33333333)
 
     var partner = req.params.partner;
     var urlRootGeneric = './spa/wl-test/_generic/';
@@ -61,12 +60,10 @@ router.get('/wl-test/:partner/', function(req, res, next){
         if (!fs.existsSync(urlRoot)) {
             urlRoot = urlRootGeneric;
         }
-    }
-    else {
+    } else {
         urlRoot = urlRootGeneric;
     }
 
-    console.log(urlRoot);
     res.sendFile('index.html', {root: urlRoot });
 });
 
