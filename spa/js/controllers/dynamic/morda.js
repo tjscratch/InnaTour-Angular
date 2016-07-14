@@ -9,7 +9,7 @@ innaAppControllers.
         function ($scope, $location, URLs, DynamicFormSubmitListener, PageContentLoader, sectionID) {
             
             $scope.pageTitle = "Поиск туров на регулярных рейсах";
-            $scope.pageTitleSub = "АВИАБИЛЕТ + ОТЕЛЬ = ВМЕСТЕ ВЫГОДНО";
+            $scope.pageTitleSub = "АВИАБИЛЕТ + ОТЕЛЬ = ВМЕСТЕ выгоднее";
 
             DynamicFormSubmitListener.listen();
 
