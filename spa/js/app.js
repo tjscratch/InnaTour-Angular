@@ -51,18 +51,18 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     Ractive.defaults.data.$filter = $filter;
     Ractive.defaults.data.$rootScope = $rootScope;
 
-    $rootScope.bodyClickListeners = [];
-
-    $rootScope.addBodyClickListner = function (key, eventDelegate) {
-        $rootScope.bodyClickListeners.push({key: key, eventDelegate: eventDelegate});
-    };
-
-    $rootScope.bodyClick = function () {
-        //console.log('root bodyClick');
-        _.each($rootScope.bodyClickListeners, function (listner) {
-            listner.eventDelegate();
-        });
-    };
+    //$rootScope.bodyClickListeners = [];
+    //
+    //$rootScope.addBodyClickListner = function (key, eventDelegate) {
+    //    $rootScope.bodyClickListeners.push({key: key, eventDelegate: eventDelegate});
+    //};
+    //
+    //$rootScope.bodyClick = function () {
+    //    console.log('root bodyClick');
+        //_.each($rootScope.bodyClickListeners, function (listner) {
+        //    listner.eventDelegate();
+        //});
+    //};
 
     $rootScope.$on('$routeChangeSuccess', function (event, newUrl, oldUrl) {
         //аналитика
