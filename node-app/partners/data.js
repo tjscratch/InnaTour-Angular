@@ -57,7 +57,7 @@ else if (conf.apiHost) {
 console.log('apiHost:', apiHost, 'port:', apiPort);
 
 var domainsList = ['lh.bookinna.ru', 'test.bookinna.ru', 'beta.bookinna.ru', 'bookinna.ru',
-    'lh.inna.ru', 'test.inna.ru', 'beta.inna.ru', 'inna.ru'];
+    'lh.inna.ru', 'localhost', 'test.inna.ru', 'beta.inna.ru', 'inna.ru'];
 
 function getPartnerFromHostName(text) {
     if (text) {

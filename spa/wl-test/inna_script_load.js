@@ -10,7 +10,7 @@ var reRelease = /\.inna\.ru/i;
 
 if (reLocal.test(hostName)){
     scriptHost = 'lh.';
-    scriptPath = 'inna.ru/spa/js/partners/module.js';
+    scriptPath = 'inna.ru/spa/js/partners/v1/module.js';
 }
 else if (reTest.test(hostName)){
     scriptHost = 'test.';
