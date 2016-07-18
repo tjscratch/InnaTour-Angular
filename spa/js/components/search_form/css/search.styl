@@ -5,11 +5,9 @@
   font-size 0
   line-height 0
   padding 7px
-  background-color: rgba(117, 117, 117, .8);
-  border-radius 0 2px 2px 2px
+  background-color: $header-nav__item-link-active-bg;
   color #242424
   position relative
-  font-family $ProximaNova
 
 .i-close
   position: absolute
@@ -26,7 +24,7 @@
 .search-button-block
 .search-people-block
 .search-button-block_small
-  margin 0 3px 0 0
+  margin 0 2px 0 0
   font-size 14px
   line-height normal
   letter-spacing normal
@@ -37,9 +35,6 @@
 .b-wrapp_type_inline
   position relative
   float left
-
-  &.date-picker-widget
-    width : 242px
 
 .search-field-block
   width 170px
@@ -145,7 +140,7 @@
   font-weight bold
   transition background-color 0.3s linear
 
-.search-form__submit
+.search-form__submit {
   border 0
   position absolute
   top: 7px;
@@ -155,7 +150,6 @@
   width 90px !important
   margin 0
   padding 7px 10px
-  border-radius 2px
   transition background-color 0.3s linear
   background-color: #89c13a;
   cursor pointer;
@@ -168,10 +162,10 @@
     position: absolute;
     transform: translate(-50%, -50%) scale(0.6);
     top: 50%;
-    left : 50%;
+    left: 50%;
     z-index: 1;
   }
-
+}
 
 
 .search-button-block:hover
@@ -194,7 +188,7 @@
   padding 0
 
 .search-people-block{
-  width 91px !important
+  width 97px !important
   height 36px
   z-index 2
   

@@ -140,8 +140,7 @@ var authController = angular.module('innaApp.controllers')
                 $scope.partnerSputnik = false;
             }
 
-            
-            $scope.authLinkTitile = 'Вход для агентств';
+            $scope.authLinkTitile = 'Вход';
 
 
             $scope.signInWith = function (method) {

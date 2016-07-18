@@ -42,6 +42,9 @@
     <![endif]-->
 
 
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700&subset=latin,cyrillic' rel='stylesheet'
+          type='text/css'>
+
     <link rel="stylesheet" href="/spa/css/common.css"/>
     <link rel="stylesheet" href="/spa/css/libs.css"/>
     <!--[if lt IE 9]>
@@ -118,7 +121,14 @@
 
 </head>
 <body class="light-theme"
-      ng-class="{'ios': iOS, 'not-ios': !iOS, 'body-bg':isBodyBg(), 'search-form-expanded': FormExpand, 'transfer-bg':isTransferBg()}"
+      ng-class="{
+                 'ios': iOS,
+                 'not-ios': !iOS,
+                 'body-bg':isBodyBg(),
+                 'search-form-expanded': FormExpand,
+                 'search-form-expand': !FormExpand,
+                 'transfer-bg':isTransferBg()
+                 }"
       popup-form
       ng-style="BodyStyleGlobal">
 <!-- Google Tag Manager -->
@@ -200,7 +210,7 @@
 <div id="main-content-div" class="main scroll-fix">
     <!-- HEADER -->
 
-    <div class="header Header" ng-controller="RegionHeader" ng-class="{'header_shadow' : shadow}">
+    <div class="header Header" ng-controller="RegionHeader">
         <ng:include src="headerTemplateSrc"></ng:include>
     </div>
     <!-- \\ HEADER -->
@@ -240,7 +250,7 @@
 <!--<script type="text/javascript"-->
 <!--src="https://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.13/src/infobox_packed.js"></script>-->
 <!--<script type="text/javascript"-->
-        <!--src="/bower_components/google-maps-utility-library-v3-infobox/dist/infobox.min.js"></script>-->
+<!--src="/bower_components/google-maps-utility-library-v3-infobox/dist/infobox.min.js"></script>-->
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
 

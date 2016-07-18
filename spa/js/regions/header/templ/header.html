@@ -1,58 +1,117 @@
-<div class="header-info">
-	<div class="scroll-fix">
-		<div class="header-info-container row">
+<div class="b-navbar">
+    <div class="b-navbar__container">
 
-			<div class="col-xs-4 col-no-padding">
-				<a href="/#/" class="header-info-logo">
-					<i class="icon icon-logo js-company-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
-					<i class="icon icon-logo-inna name partners-hide" alt="ИННА ТУР" title="ИННА ТУР"></i>
-				</a>
-				<span class="header-text"></span>
-			</div>
-			<div class="col-xs-8 header-info-container-right col-no-padding">
-				<ul class="header-info-menu">
-					<li class="header-info-menu-item js-company-phone-head" ng-if="!user.isAgency()">+7&nbsp;495 742-1212</li>
-					<!-- user comes from $rootScope -->
-					<li class="header-info-menu-item" ng-if="user.isAgency()" ng-cloak>{{user.raw.SupportPhone}}</li>
+        <div class="b-navbar__promo">
+            <!--24 года / 24 часа-->
+        </div>
 
-					<li class="header-info-menu-item partners-first">
-						<!--<a class="color-white js-company-about" href="/#/about/">О компании</a>-->
-						<a class="color-white" href="/#/where-to-buy/">Где купить</a>
-					</li>
-					<li class="header-info-menu-item partners-hide">
-						<a class="color-white"
-						   href="http://book.inna.ru/">Агентствам</a>
-					</li>
-					<li class="header-info-menu-item">
-						<ng:include src="'auth/header.html'"></ng:include>
-					</li>
-					<li class="header-info-menu-item header-info-menu-item__help">
-						<a href="/#/help" class="header-info-menu-item__help_block" title="Помощь">
-							<i class="header-info-menu-item__help_block_icon" title="Помощь" alt="Помощь"></i>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+        <ul class="b-navbar-menu">
+            <li class="b-navbar-menu__item partners-first">
+                <a class="b-navbar-menu__link" href="/#/where-to-buy/">
+                    Где купить
+                </a>
+            </li>
+            <li class="b-navbar-menu__item partners-hide">
+                <a class="b-navbar-menu__link" href="http://book.inna.ru/">
+                    Агентствам
+                </a>
+            </li>
+            <li class="b-navbar-menu__item partners-hide">
+                <a class="b-navbar-menu__link" href="//inna.ru/catalog/visa/">
+                    Визы
+                </a>
+            </li>
+            <li class="b-navbar-menu__item partners-hide">
+                <a class="b-navbar-menu__link"
+                   ng-class="{'b-navbar-menu__link-active':isActive('/transfers/')}"
+                   href="/#/transfers/">
+                    Трансферы
+                </a>
+            </li>
+            <li class="b-navbar-menu__item partners-hide">
+                <a class="b-navbar-menu__link"
+                   ng-class="{'b-navbar-menu__link-active':isActive('/individualtours/')}"
+                   href="/#/individualtours/">
+                    Программы
+                </a>
+            </li>
+            <li class="b-navbar-menu__item partners-hide">
+                <a class="b-navbar-menu__link" href="http://ntp.inna.ru/" target="_blank">
+                    Отдых в России
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 
-<div class="header-menu hide-while-loading" ng-show="isHeaderVisible" ng-style="SearchFormExpandPadding">
-	<div class="scroll-fix">
-		<div class="main__center">
-			<div class="header__container">
-				<ul class="header__nav">
-					<li><a href="/#/" ng-class="{active:isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">Онлайн туры</a></li>
-					<li class="partners-hide"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
-					<li class="partners-hide"><a href="/#/hotels/" ng-class="{active:isActive('/hotels/')}">Отели</a></li>
-					<li class="partners-hide"><a href="//inna.ru/catalog/visa/">Визы</a></li>
-					<li class="partners-hide"><a href="/#/transfers/" ng-class="{active:isActive('/transfers/')}">Трансферы</a></li>
-					<li class="partners-hide"><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
-					<li class="partners-hide"><a href="http://ntp.inna.ru/" target="_blank">Отдых в России</a></li>
-					<li class="partners-hide"><a href="/#/bus/" ng-class="{active:isActive('/bus/')}">Автобусные туры по России</a></li>
-				</ul>
-			</div>
-			<ng:include src="getHeadForm()"></ng:include>
-		</div>
-	</div>
+<div class="header-info" ng-cloak>
+    <div class="scroll-fix">
+        <div class="header-info__container">
+
+            <a href="/#/" class="header-info__logo">
+                <i class="icon-logo js-company-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
+                <i class="icon icon-logo-inna partners-hide" alt="ИННА ТУР" title="ИННА ТУР"></i>
+            </a>
+
+            <div class="header-info__right">
+
+                <div class="header-info__phone">
+                    <i class="fa fa-phone header-info__phone-icon"></i>
+                    <div>
+                        <div class="header-info__phone-number js-company-phone-head" ng-if="!user.isAgency()">
+                            +7 495 742-1212
+                        </div>
+                        <div class="header-info__phone-number" ng-if="user.isAgency()">
+                            {{user.raw.SupportPhone}}
+                        </div>
+                        <div class="header-info__phone-info">
+                            круглосуточно
+                        </div>
+                    </div>
+                </div>
+
+                <ng:include src="'auth/header.html'"></ng:include>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="header-menu"
+     ng-show="isHeaderVisible"
+     ng-style="SearchFormExpandPadding" ng-cloak>
+    <div class="scroll-fix">
+        <div class="wrapper">
+            <div class="header__container">
+                <ul class="header-nav">
+                    <li class="header-nav__item">
+                        <a class="header-nav__item-link"
+                           href="/#/"
+                           ng-class="{'header-nav__item-link-active':isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">
+                            Онлайн туры
+                        </a>
+                    </li>
+                    <li class="header-nav__item partners-hide">
+                        <a class="header-nav__item-link"
+                           href="/#/avia/" ng-class="{'header-nav__item-link-active':isActive('/avia/')}">
+                            Авиабилеты
+                        </a>
+                    </li>
+                    <li class="header-nav__item partners-hide">
+                        <a class="header-nav__item-link"
+                           href="/#/hotels/" ng-class="{'header-nav__item-link-active':isActive('/hotels/')}">
+                            Отели
+                        </a>
+                    </li>
+                    <li class="header-nav__item partners-hide">
+                        <a class="header-nav__item-link"
+                           href="/#/bus/" ng-class="{'header-nav__item-link-active':isActive('/bus/')}">
+                            Автобусные туры
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <ng:include src="getHeadForm()"></ng:include>
+        </div>
+    </div>
 </div>

@@ -1,100 +1,100 @@
-$banner-item-height = 440px;
-.light-theme .offers-black{
+$banner-item-height = 670px;
+.light-theme .offers-black {
     background: $gray-light;
 }
-.light-theme .offers-dark-grey{
+.light-theme .offers-dark-grey {
     background: #fff;
 }
 .light-theme .offers-title,
-.light-theme .offers-description{
+.light-theme .offers-description {
     color: #393939;
 }
-.landing-title{
+.landing-title {
     font-family: ProximaNova;
     font-weight: normal;
     font-size: 25px;
     text-align: center;
 }
-.landing-title-sub{
+.landing-title-sub {
     font-family: ProximaNova;
     font-size: 25px;
     text-align: center;
     font-weight: lighter;
     margin: 5px 0 15px 0;
 }
-.landing-cont{
-    &:after{
+.landing-cont {
+    &:after {
         content: '';
         display: inline-block;
         width: 100%;
         clear: both;
     }
 }
-.landing-col{
+.landing-col {
     float: left;
     width: 470px;
 
-    &.left{
+    &.left {
         margin-right: 10px;
     }
-    &.right{
+    &.right {
         margin-left: 10px;
 
     }
 }
-.landing-area{
-    .offers-description p{
+.landing-area {
+    .offers-description p {
         margin: 0 0 16px 0;
     }
 }
-.offers{
+.offers {
 
-    &-black, &-dark-grey, &-white, &-light-grey{
+    &-black, &-dark-grey, &-white, &-light-grey {
         padding-bottom: 50px;
     }
 
-    &-black{
+    &-black {
         background: #000;
     }
 
-    &-white{
+    &-white {
         background: #fff;
         padding-bottom: 20px;
     }
 
-    &-light-grey{
+    &-light-grey {
         background: #f6f6f6;
     }
 
-    &-dark-grey{
+    &-dark-grey {
         background: #242323;
     }
 
-    &-container{
+    &-container {
         @extend .main__center;
         padding-top: 40px;
     }
 
-    &-title{
+    &-title {
         color: #fff;
         font-family: ProximaNovaLight;
         font-size: 27px;
         text-align: center;
         font-weight: lighter;
 
-        &-sub{
+        &-sub {
             font-size: 22px;
         }
     }
 
-    &-description{
+    &-description {
         color: #b2b2b2;
         font-size: 16px;
         margin: 15px 0 30px;
     }
 
     &-white &-title,
-    &-light-grey &-title{
+    &-light-grey &-title {
         color: #333;
         font-family: ProximaNova;
         text-align: left;
@@ -102,18 +102,18 @@ $banner-item-height = 440px;
     }
 
     &-white &-description,
-    &-light-grey &-description{
+    &-light-grey &-description {
         color: #333;
         font-size: 18px;
         text-align: left;
 
     }
 
-    &-list{
+    &-list {
         text-align: justify;
         line-height: 0;
 
-        &:after{
+        &:after {
             content: '';
             display: inline-block;
             font-size: 0;
@@ -123,30 +123,30 @@ $banner-item-height = 440px;
         }
     }
 
-    &-list_new-landing{
+    &-list_new-landing {
         padding-bottom 0;
         position: relative;
         overflow: hidden;
         text-align: left;
         line-height: normal;
 
-        .landing-title{
+        .landing-title {
             padding-bottom: 40px;
         }
 
-        &__item{
+        &__item {
             position: relative;
             vertical-align: middle;
             padding: 8px 45px 13px 66px
             height: 55px;
             margin-bottom: 35px;
             font-size: 15px;
-            &:nth-child(even){
+            &:nth-child(even) {
                 padding-right: 0px;
             }
         }
 
-        &__img{
+        &__img {
             box-sizing: border-box;
             width: 54px;
             height: 54px;
@@ -158,36 +158,36 @@ $banner-item-height = 440px;
             left: 0;
         }
 
-        .row:last-child{
-            .offers-list_new-landing__item{
+        .row:last-child {
+            .offers-list_new-landing__item {
                 margin-bottom: 0;
             }
         }
     }
 
-    &-column{
+    &-column {
         display: inline-block;
 
-        .offer-small{
+        .offer-small {
             display: block;
         }
     }
 
-    &-card{
-        &-banner-container{
+    &-card {
+        &-banner-container {
             height: $banner-item-height;
             position: relative;
 
-            &.programm{
+            &.programm {
                 height: 300px;
             }
 
-            .banner-dots{
+            .banner-dots {
                 @extend .main__center;
                 position: static;
                 visibility: hidden;
 
-                &-container{
+                &-container {
                     bottom: 40px;
                     position: absolute;
                     visibility: hidden;
@@ -196,15 +196,15 @@ $banner-item-height = 440px;
                 }
             }
 
-            .dot{
+            .dot {
                 visibility: visible;
             }
 
-            .breadcrumbs{
+            .breadcrumbs {
                 color: #fff;
                 @extend .main__center;
 
-                &-container{
+                &-container {
                     position: absolute;
                     top: 16px;
                     width: 100%;
@@ -212,23 +212,23 @@ $banner-item-height = 440px;
                 }
             }
 
-            .info{
+            .info {
                 color: #fff;
                 @extend .main__center;
 
-                &-container{
+                &-container {
                     position: absolute;
                     top: 60px;
                     width: 100%;
                     z-index: 5;
                 }
 
-                .name{
+                .name {
                     font-size: 45px;
                     font-weight: normal;
                 }
 
-                .description{
+                .description {
                     font-family: ProximaNovaLight;
                     font-size: 18px;
                     line-height: 24px;
@@ -237,100 +237,110 @@ $banner-item-height = 440px;
                 }
             }
 
-            &.main{
-                .info-container{
-                    top: 280px;
+            &.main {
+                .info-container {
+                    top: 180px;
                     text-shadow: 0 0 24px rgba(0, 0, 0, .5);
 
-                    .name{
+                    .name {
                         font-family: ProximaNova;
                         font-weight: bold;
                         font-size: 32px;
                         line-height: 28px;
                     }
 
-                    .description{
+                    .description {
                         margin-top: 5px 0;
                         font-size: 20px;
                         line-height: 20px;
                     }
 
-                    .price{
+                    .price {
                         font-family: ProximaNova;
                         font-weight: bold;
                     }
                 }
 
-                .offer-card-banner-item{
+                .offer-card-banner-item {
                     cursor: pointer;
                 }
             }
         }
 
-        &-banner-list{
+        &-banner-list {
             height: 100%;
             position: relative;
             z-index: 1;
         }
     }
 
-    &-filter{
+    &-filter {
         @extend .main__center;
         font-size: 16px;
         height: 59px;
         line-height: 59px;
 
-        &-contacts{
+        &-contacts {
             font-size: 14px;
 
-            .phone{
+            .phone {
                 font-family: ProximaNova;
                 font-weight: bold;
                 padding-left: 33px;
             }
         }
 
-        &-container{
+        &-container {
             background: #fff;
             border-bottom: 1px solid #c8c8c8;
         }
 
-        .label-country{
+        .label-country {
             margin-left: 20px;
         }
 
-        &-programs, &-countries{
+        &-programs, &-countries {
             margin: 0 0 0 6px;
             vertical-align: middle;
             min-width: 206px;
         }
 
-        &-countries{
+        &-countries {
             margin: 0 0 0 5px;
         }
     }
 }
-.offers-layout__mod{
-    .offers-black{
+.offers-layout__mod {
+    .offers-black {
         padding-bottom 0
     }
-    .offers-container{
+    .offers-container {
         padding-top 0
         padding-bottom 50px
     }
 }
-.darken-container{
+.darken-container {
     background: #000;
     height: 100%;
     left: 0;
-    opacity: .25;
+    opacity: .54;
     position: absolute;
     top: 0;
     width: 100%;
     z-index: 4;
 }
-.offer{
-    &-small, &-middle, &-large, &-extra-large{
+.offer-card-banner-item__mask {
+    background: #066DA9;
+    height: 100%;
+    left: 0;
+    opacity: .54;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 4;
+}
+.offer {
+    &-small, &-middle, &-large, &-extra-large {
         cursor: pointer;
         display: inline-block;
         font-size: 16px;
@@ -339,7 +349,7 @@ $banner-item-height = 440px;
         line-height: normal;
         position: relative;
 
-        &:before{
+        &:before {
             background: #2f3646;
             content: '';
             height: 100%;
@@ -351,43 +361,43 @@ $banner-item-height = 440px;
         }
     }
 
-    &-animation:hover{
-        &:before{
+    &-animation:hover {
+        &:before {
             opacity: .7;
         }
-        .offer-img{
+        .offer-img {
             //filter: grayscale(100%);
         }
 
-        .offer-info{
+        .offer-info {
             display: none;
         }
-        .offer-info-hover{
+        .offer-info-hover {
             display: block;
         }
     }
 
-    &-small{
+    &-small {
         height: 209px;
         width: 313px;
     }
 
-    &-middle{
+    &-middle {
         height: 320px;
         width: 475px;
     }
 
-    &-large{
+    &-large {
         height: 428px;
         width: 637px;
     }
 
-    &-extra-large{
+    &-extra-large {
         height: 428px;
         width: $site-width;
     }
 
-    &-info, &-info-hover{
+    &-info, &-info-hover {
         height: 100%;
         display: block;
         position: absolute;
@@ -396,25 +406,25 @@ $banner-item-height = 440px;
         width: 100%;
         z-index: 5;
 
-        &:before{
+        &:before {
             content: '';
             height: 100%;
             display: inline-block;
             vertical-align: middle;
         }
 
-        &-container{
+        &-container {
             display: inline-block;
             vertical-align: middle;
             width: 95%;
         }
     }
 
-    &-info-hover{
+    &-info-hover {
         display: none;
     }
 
-    &-title{
+    &-title {
         color: #fff;
         font-family: ProximaNova;
         font-weight: bold;
@@ -422,89 +432,89 @@ $banner-item-height = 440px;
         white-space: nowrap;
     }
 
-    &-price{
+    &-price {
         color: #fff;
         font-family: ProximaNovaLight;
         overflow: hidden;
         white-space: nowrap;
 
-        &-number{
+        &-number {
             font-family: ProximaNova;
             font-weight: bold;
         }
     }
 
-    &-info-hover &-price{
+    &-info-hover &-price {
         font-family: ProximaNova;
         font-weight: bold;
         margin-top: 6%;
     }
 
-    &-date{
+    &-date {
         margin-top: 6%;
         color: #fff;
         overflow: hidden;
         white-space: nowrap;
     }
 
-    &-info-bold{
+    &-info-bold {
         font-family: ProximaNova;
         font-weight: bold;
     }
 
     /** large */
-    &-large &-title{
+    &-large &-title {
         font-size: 44px;
         line-height: 50px;
     }
     &-large &-price,
     &-large &-info-hover &-price,
-    &-large &-date{
+    &-large &-date {
         font-size: 24px;
         margin-top: 6px;
     }
 
     /** middle */
-    &-middle &-title{
+    &-middle &-title {
         font-size: 30px;
         line-height: 36px;
     }
     &-middle &-price,
     &-middle &-info-hover &-price,
-    &-middle &-date{
+    &-middle &-date {
         font-size: 20px;
     }
 
     /** small */
-    &-small &-title{
+    &-small &-title {
         font-size: 24px;
         line-height: 30px;
     }
     &-small &-price,
     &-small &-info-hover &-price,
-    &-small &-date{
+    &-small &-date {
         font-size: 18px;
         margin-top: 6px;
     }
 
     /** extra-large */
-    &-extra-large &-title{
+    &-extra-large &-title {
         font-size: 44px;
         line-height: 52px;
     }
     &-extra-large &-price,
     &-extra-large &-info-hover &-price,
-    &-extra-large &-date{
+    &-extra-large &-date {
         font-size: 24px;
     }
 
     // offer cards
-    &-card{
+    &-card {
         margin-top: 10px;
         line-height: 0;
         position: relative;
 
-        &-banner-item{
+        &-banner-item {
             background: #000;
             height: $banner-item-height;
             overflow: hidden;
@@ -513,11 +523,11 @@ $banner-item-height = 440px;
             width: 100%;
             z-index: 1;
 
-            &.programm{
+            &.programm {
                 height: 300px;
             }
 
-            .img{
+            .img {
                 background-color: #000;
                 background-position: center top;
                 background-size: cover;
@@ -529,7 +539,7 @@ $banner-item-height = 440px;
             }
         }
 
-        &-info{
+        &-info {
             background: #fff;
             border-bottom: 1px solid #c9c9c9;
             display: inline-block;
@@ -540,31 +550,31 @@ $banner-item-height = 440px;
             vertical-align: top;
             width: 647px;
 
-            .link{
+            .link {
                 color: $blue;
             }
 
-            .title{
+            .title {
                 font-size: 21px;
                 font-weight: normal;
                 margin: 16px 10px 0 20px;
             }
 
-            .description{
+            .description {
                 color: #474747;
                 font-size: 14px;
                 line-height: 21px;
                 margin: 12px 10px 0 20px;
             }
 
-            .presentation-link{
+            .presentation-link {
                 font-size: 13px;
                 position: absolute;
                 left: 20px;
                 bottom: 15px;
             }
 
-            .button{
+            .button {
                 border: 0;
                 bottom: 10px;
                 color: #fff;
@@ -579,27 +589,27 @@ $banner-item-height = 440px;
         }
     }
 
-    &-order-form{
+    &-order-form {
         margin: 20px 33px 100px;
         width: 775px;
 
         .field,
-        .field-text{
+        .field-text {
             width: 723px;
         }
 
-        .field-text{
+        .field-text {
             height: 154px;
         }
 
-        .offer-description{
+        .offer-description {
             position: absolute;
             bottom: 30px;
             height: 50px;
             width: 600px;
         }
 
-        .offer-submit{
+        .offer-submit {
             font-size: 18px;
             height: 50px;
             width: 155px;
@@ -609,7 +619,7 @@ $banner-item-height = 440px;
         }
     }
 }
-.pdf-link{
+.pdf-link {
     color: #7d7d7d;
     display: inline-block;
     height: 23px;
@@ -623,7 +633,7 @@ $banner-item-height = 440px;
         width 17px
     }
 }
-.doc-link{
+.doc-link {
     display: inline-block;
     height: 23px;
     margin-right: 10px;
@@ -631,31 +641,38 @@ $banner-item-height = 440px;
     top: 8px;
     width: 17px;
 
-    img{
+    img {
         height 23px
         width 17px
     }
 }
-@media screen and (orientation: portrait){
-    .offer{
-        &-small{
+@media screen and (orientation: portrait) {
+    .offer {
+        &-small {
             width 312px;
         }
 
-        &-middle{
+        &-middle {
             width 474px;
         }
 
-        &-large{
+        &-large {
             width 636px
         }
     }
 }
+.header-banner {
+
+}
+.header-banner__item {
+    cursor: inherit !important;
+}
 // скрываем у партнеров первый оффер, хак для задачи https://innatec.atlassian.net/browse/IN-5688
-.partner-wl{
-    .offers-list{
-        .offer-extra-large:nth-child(1){
+.partner-wl {
+    .offers-list {
+        .offer-extra-large:nth-child(1) {
             display none
         }
     }
 }
+
