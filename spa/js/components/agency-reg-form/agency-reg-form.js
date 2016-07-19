@@ -25,13 +25,14 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
 
         function successCallback(data) {
             $scope.agencyReg.City = data.Name;
-            console.log(data);
         }
         function errorCallback(data) {
 
         }
     };
-    
+
+    $scope.agencyReg.CountryId = null;
+
     $scope.$watchCollection('country', function (data) {
         $scope.agencyReg.CountryId = data.id;
     });
@@ -84,7 +85,7 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
     });
 
     $scope.agencySubmit = function (form) {
-        if (form.$valid) {
+        if (form.$valid && $scope.agencyReg.CountryId != null) {
             console.log('$scope.agencyReg', $scope.agencyReg);
             dataService.agencyCreate($scope.agencyReg)
                 .success(function (data) {

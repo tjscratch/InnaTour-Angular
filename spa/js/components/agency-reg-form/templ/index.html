@@ -101,27 +101,28 @@
 					<div class="b-field-block" style="width: 300px">
 						<label class="b-field-label" for="BossName">Страна</label>
 						<input
+								name="Country"
 								class="b-field-text"
 								type="text"
 								placeholder="Страна"
-								required=""
 								ng-model="country"
 								typeahead="state as state.name for state in getCountryListByTerm($viewValue) | filter:$viewValue"
 								typeahead-template-url="components/search-form-hotels/templ/typeaheadTemplateCustom.html"
 								typeahead-wait-ms="300"
-								ng-class="{'error': agency.$submitted && agency.Boss.$invalid || agency.Boss.$touched && agency.Boss.$invalid}"
+								ng-class="{'error': agencyReg.CountryId == null}"
 						/>
 					</div>
 					<div class="b-field-block" style="width: 260px">
 						<label class="b-field-label" for="Boss">Город</label>
 						<input
+								name="City"
 								class="b-field-text"
 								type="text"
 								placeholder="Город"
 								required=""
 								ng-model="agencyReg.City"
 								ng-init="setCurrentCityLocation()"
-								ng-class="{'error': agency.$submitted && agency.Boss.$invalid || agency.Boss.$touched && agency.Boss.$invalid}"
+								ng-class="{'error': agency.$submitted && agency.City.$invalid || agency.City.$touched && agency.City.$invalid}"
 						/>
 					</div>
 				</div>
