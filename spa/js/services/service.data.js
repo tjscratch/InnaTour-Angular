@@ -337,16 +337,16 @@
                     function prepareData (response) {
                         var data = [];
                         angular.forEach(response, function (item) {
-                            var fullName = item.Name + ", " + item.CountryName;
+                            var fullName = item.Name;
                             console.log('ITEM', item);
-                            var fullNameHtml = "<span class='b-search-form-hotels-typeahead-list-item__country'>" + item + "</span>";
+                            var fullNameHtml = "<span class='b-search-form-hotels-typeahead-list-item__country'>" + item.Name + "</span>";
                             data.push({ id: item.Id, nameHtml: fullNameHtml, name: fullName });
                         });
                         return data;
                     }
 
                     $http({
-                        url: apiUrls.GET_CURRENT_CITY_BY_IP,
+                        url: apiUrls.GET_COUNTRY_BY_TERM,
                         method: "GET",
                         params: {
                             term: text
