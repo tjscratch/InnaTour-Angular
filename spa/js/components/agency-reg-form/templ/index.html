@@ -98,6 +98,42 @@
 					</div>
 				</div>
 				<div class="b-field-group">
+					<div class="b-field-block" style="width: 300px">
+						<label class="b-field-label" for="BossName">Страна</label>
+						<!--<input id="BossName" class="b-field-text" type="text"-->
+							   <!--name="Country"-->
+							   <!--ng-model="agencyReg.BossName"-->
+							   <!--required=""-->
+							   <!--placeholder="Страна"-->
+						<!--&gt;-->
+						<input
+								class="b-field-text"
+								type="text"
+								placeholder="Страна"
+								ng-model="locationFrom"
+								typeahead="state as state.name for state in getCountryListByTerm($viewValue) | filter:$viewValue"
+								typeahead-template-url="components/search-form-hotels/templ/typeaheadTemplateCustom.html"
+								typeahead-wait-ms="300"
+						/>
+					</div>
+					<div class="b-field-block" style="width: 260px">
+						<label class="b-field-label" for="Boss">Город</label>
+						<!--<input id="Boss" class="b-field-text" type="text"-->
+							   <!--name="City"-->
+							   <!--ng-model="agencyReg.Boss"-->
+							   <!--required=""-->
+							   <!--placeholder="Город"-->
+						<!--&gt;-->
+						<input
+								class="b-field-text"
+								type="text"
+								placeholder="Город"
+								ng-model="currentLocation"
+								ng-init="setCurrentLocation()"
+						/>
+					</div>
+				</div>
+				<div class="b-field-group">
 					<div class="b-field-block" style="width: 450px">
 						<label class="b-field-label" for="RegistredAddress">Юридический адрес</label>
 						<input id="RegistredAddress" class="b-field-text" type="text"

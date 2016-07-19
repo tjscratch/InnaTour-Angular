@@ -4,6 +4,13 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
         'background-color': '#fff'
     }
 
+    $scope.getCountryListByTerm = function (text) {
+        return dataService.getCountryListByTerm(text)
+            .then(function (data) {
+                return data;
+            });
+    };
+
     $scope.agencyReg = {};
     //$scope.agencyReg = {
     //    Name: "Name",
