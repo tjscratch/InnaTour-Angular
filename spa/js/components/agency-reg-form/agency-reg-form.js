@@ -4,6 +4,8 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
         'background-color': '#fff'
     }
 
+    $scope.agencyReg = {};
+
     $scope.getCountryListByTerm = function (text) {
         return dataService.getCountryListByTerm(text)
             .then(function (data) {
@@ -11,7 +13,28 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
             });
     };
 
-    $scope.agencyReg = {};
+    $scope.country = {
+        id: null,
+        name: null
+    };
+
+    if($scope.country) {
+        $scope.agencyReg.CountryId = $scope.country.id;
+    }
+
+    $scope.agencyReg.City = null;
+
+    $scope.setCurrentCityLocation = function () {
+        dataService.getCityByIp(successCallback, errorCallback);
+
+        function successCallback(data) {
+            $scope.agencyReg.City = data;
+        }
+        function errorCallback(data) {
+
+        }
+    };
+
     //$scope.agencyReg = {
     //    Name: "Name",
     //    INN: "INN",

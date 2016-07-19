@@ -337,10 +337,9 @@
                     function prepareData (response) {
                         var data = [];
                         angular.forEach(response, function (item) {
-                            var fullName = item.Name;
                             console.log('ITEM', item);
-                            var fullNameHtml = "<span class='b-search-form-hotels-typeahead-list-item__country'>" + item.Name + "</span>";
-                            data.push({ id: item.Id, nameHtml: fullNameHtml, name: fullName });
+                            // var fullNameHtml = "<span class='b-search-form-hotels-typeahead-list-item__country'>" + item.Name + "</span>";
+                            data.push({ id: item.Id, name: item.Name });
                         });
                         return data;
                     }
