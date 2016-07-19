@@ -18,22 +18,23 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
         name: null
     };
 
-    if($scope.country) {
-        $scope.agencyReg.CountryId = $scope.country.id;
-    }
-
     $scope.agencyReg.City = null;
 
     $scope.setCurrentCityLocation = function () {
         dataService.getCityByIp(successCallback, errorCallback);
 
         function successCallback(data) {
-            $scope.agencyReg.City = data;
+            $scope.agencyReg.City = data.Name;
+            console.log(data);
         }
         function errorCallback(data) {
 
         }
     };
+    
+    $scope.$watchCollection('country', function (data) {
+        $scope.agencyReg.CountryId = data.id;
+    });
 
     //$scope.agencyReg = {
     //    Name: "Name",
