@@ -128,7 +128,7 @@
                 /*Watchers*/
 
                 $scope.$watch('currentCity', function (newValue) {
-                    if(newValue.length > 0) {
+                    if(newValue) {
                         $scope.isEnableClearIcon = true;
                     } else {
                         $scope.isEnableClearIcon = false;

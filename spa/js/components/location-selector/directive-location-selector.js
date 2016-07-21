@@ -149,7 +149,7 @@ innaAppDirectives.directive('locationSelector', [
                 });
 
                 $scope.$watch('currentCity', function (value) {
-                    if(value.length > 0) {
+                    if(value) {
                         $scope.isEnableClearIcon = true;
                     } else {
                         $scope.isEnableClearIcon = false;
