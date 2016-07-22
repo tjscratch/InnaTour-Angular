@@ -5,6 +5,8 @@
         '$controller',
         '$routeParams',
         '$location',
+        '$rootScope',
+        'serviceCache',
         'DynamicFormSubmitListener',
         'DynamicPackagesDataProvider',
         'aviaHelper',
@@ -19,7 +21,7 @@
         //components
         'Balloon',
         '$cookieStore',
-        function (RavenWrapper, $scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon, $cookieStore) {
+        function (RavenWrapper, $scope, $controller, $routeParams, $location, $rootScope, serviceCache,DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon, $cookieStore) {
 
             $scope.baloon.showExpireCheck();
 
@@ -77,6 +79,44 @@
 
             $scope.ticketsCount = aviaHelper.getTicketsCount($scope.AdultCount, $scope.ChildCount, $scope.InfantsCount);
             $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $routeParams.TicketClass);
+
+            $scope.cityFrom = null;
+            $scope.cityTo = null;
+            $scope.PackagePrice = null;
+            $scope.HotelName = null;
+            console.log('TTTTTTTTTTTTT', searchParams);
+
+            var resCheck = serviceCache.getObject('ResCheck');
+            var locationCityFrom = serviceCache.getObject('DP_from');
+            var locationCityTo = serviceCache.getObject('DP_to');
+            if (resCheck) {
+                $scope.cityFrom = locationCityFrom.CodeIata;
+                $scope.cityTo = locationCityTo.CodeIata;
+                $scope.PackagePrice = resCheck.PackagePrice;
+                $scope.HotelName = resCheck.HotelName;
+
+                        var dataLayerObj = {
+                            'event' : 'UI.PageView',
+                            'Data' : {
+                                'PageType' : 'PackagesReservationCheck',
+                                'CityFrom' : $scope.cityFrom,
+                                'CityTo' : $scope.cityTo,
+                                'DateFrom' : searchParams.StartVoyageDate,
+                                'DateTo' : searchParams.EndVoyageDate,
+                                'Travelers' : searchParams.Adult + '-' + ('Children' in searchParams ? searchParams.Children.split('_').length : '0'),
+                                'TotalTravelers' : 'Children' in searchParams ?
+                                parseInt(searchParams.Adult) + searchParams.Children.split('_').length
+                                    : searchParams.Adult,
+                                'ServiceClass' : searchParams.TicketClass == 0 ? 'Economy' : 'Business',
+                                'Price' : $scope.PackagePrice,
+                                'HotelName' : $scope.HotelName
+                            }
+                        }
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
+            }
 
             //:DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId
             $scope.getHotelInfoLink = function (ticketId, ticketBackId, hotelId, providerId) {
@@ -167,6 +207,28 @@
                     //дополняем полями
                     aviaHelper.addCustomFields(data.AviaInfo);
                     aviaHelper.addAggInfoFields(data.Hotel);
+
+                    var dataLayerObj = {
+                        'event' : 'UI.PageView',
+                        'Data' : {
+                            'PageType' : 'PackagesReservationLoad',
+                            'CityFrom' : $scope.cityFrom,
+                            'CityTo' : $scope.cityTo,
+                            'DateFrom' : searchParams.StartVoyageDate,
+                            'DateTo' : searchParams.EndVoyageDate,
+                            'Travelers' : searchParams.Adult + '-' + ('Children' in searchParams ? searchParams.Children.split('_').length : '0'),
+                            'TotalTravelers' : 'Children' in searchParams ?
+                            parseInt(searchParams.Adult) + searchParams.Children.split('_').length
+                                : searchParams.Adult,
+                            'ServiceClass' : searchParams.TicketClass == 0 ? 'Economy' : 'Business',
+                            'Price' : data.Price,
+                            'HotelName' : data.Hotel.HotelName
+                        }
+                    }
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
 
                     $scope.item = data.AviaInfo;
                     $scope.hotel = data.Hotel;

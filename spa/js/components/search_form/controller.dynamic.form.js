@@ -141,17 +141,10 @@ innaAppControllers
             /**
              * устанавливаем значение города вылета и города назначения
              */
-            $scope.$watch('fromCity', function (data) {
-                $scope.fromCity = data;
-            })
-
-            $scope.$watch('toCity', function (data) {
-                $scope.toCity = data;
-            })
 
             $scope.$watchGroup(['fromCity', 'toCity'], function (data) {
-                // $scope.fromCity = data[0];
-                // $scope.toCity = data[1];
+                $scope.fromCity = data[0];
+                $scope.toCity = data[1];
                 if (data && data[0] && data[1]) {
                     $rootScope.$broadcast('PackagesSearchLoading', {
                         CityFrom: data[0].CodeIata,

@@ -5,6 +5,7 @@ innaAppControllers
         '$window',
         '$scope',
         '$rootScope',
+        'serviceCache',
         '$timeout',
         'aviaHelper',
         'innaApp.Urls',
@@ -26,7 +27,7 @@ innaAppControllers
         'ModelTicket',
         'ModelHotel',
         'AppRouteUrls',
-        function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, $route, DynamicFormSubmitListener, $q, $anchorScroll, Balloon, $filter,
+        function (RavenWrapper, EventManager, $window, $scope, $rootScope, serviceCache, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, $route, DynamicFormSubmitListener, $q, $anchorScroll, Balloon, $filter,
                   ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel, AppRouteUrls) {
 
             DynamicFormSubmitListener.listen();
@@ -36,6 +37,37 @@ innaAppControllers
             var routParam = angular.copy($routeParams);
             $scope.OrderId = routParam.OrderId;
             $scope.userIsAgency = null;
+
+            $scope.cityFrom = null;
+            $scope.cityTo = null;
+            $scope.HotelName = null;
+
+            $scope.$on('PackagesSearchLoading', function (event, data) {
+                $timeout(function () {
+                    $scope.cityFrom = data.CityFrom;
+                    $scope.cityTo = data.CityTo;
+
+                    var dataLayerObj = {
+                        'event' : 'UI.PageView',
+                        'Data' : {
+                            'PageType' : 'PackagesDetailsLoading',
+                            'CityFrom' : $scope.cityFrom,
+                            'CityTo' : $scope.cityTo,
+                            'DateFrom' : routParam.StartVoyageDate,
+                            'DateTo' : routParam.EndVoyageDate,
+                            'Travelers' : routParam.Adult + '-' + ('Children' in routParam ? routParam.Children.split('_').length : '0'),
+                            'TotalTravelers' : 'Children' in routParam ?
+                            parseInt(routParam.Adult) + routParam.Children.split('_').length
+                                : routParam.Adult,
+                            'ServiceClass' : routParam.TicketClass == 0 ? 'Economy' : 'Business'
+                        }
+                    }
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }, 0)
+            });
 
             document.body.classList.add('bg_white');
             document.body.classList.remove('light-theme');
@@ -297,6 +329,31 @@ innaAppControllers
                     },
                     success: function (data) {
                         _balloonLoad.fire('hide');
+                        
+                        if(data) {
+                            $scope.HotelName = data.Hotel.HotelName;
+                            var dataLayerObj = {
+                                'event' : 'UI.PageView',
+                                'Data' : {
+                                    'PageType' : 'PackagesDetailsLoad',
+                                    'CityFrom' : $scope.cityFrom,
+                                    'CityTo' : $scope.cityTo,
+                                    'DateFrom' : routParam.StartVoyageDate,
+                                    'DateTo' : routParam.EndVoyageDate,
+                                    'Travelers' : routParam.Adult + '-' + ('Children' in routParam ? routParam.Children.split('_').length : '0'),
+                                    'TotalTravelers' : 'Children' in routParam ?
+                                    parseInt(routParam.Adult) + routParam.Children.split('_').length
+                                        : routParam.Adult,
+                                    'ServiceClass' : routParam.TicketClass == 0 ? 'Economy' : 'Business',
+                                    'Price' : data.Hotel.PackagePrice,
+                                    'HotelName' : $scope.HotelName
+                                }
+                            };
+                            console.table(dataLayerObj);
+                            if (window.dataLayer) {
+                                window.dataLayer.push(dataLayerObj);
+                            }
+                        }
 
                         setWlModel(data);
 
@@ -542,6 +599,14 @@ innaAppControllers
 
 
             $scope.goReservation = function (room) {
+                console.log("RESERVATION", room);
+
+                var resCheck = {
+                    PackagePrice: room.PackagePrice,
+                    HotelName: $scope.HotelName
+                }
+
+                serviceCache.createObj('ResCheck', resCheck);
 
                 $routeParams.TicketId = $scope.recommendedPair.ticket.data.VariantId1;
                 $routeParams.TicketBackId = $scope.recommendedPair.ticket.data.VariantId2;
