@@ -53,6 +53,41 @@ innaAppDirectives.directive('locationSelector', [
                 };
 
                 $scope.clearCityField = function () {
+
+                    if($scope.placeholder == 'Откуда') {
+                        var dataLayerObj = {
+                            'event': 'UM.Event',
+                            'Data': {
+                                'Category': 'Packages',
+                                'Action': 'RemoveCityFrom',
+                                'Label': $scope.selectedValue && $scope.selectedValue.CodeIata ? $scope.selectedValue.CodeIata : '[no data]',
+                                'Content': '[no data]',
+                                'Context': '[no data]',
+                                'Text': '[no data]'
+                            }
+                        }
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
+                    } else if ($scope.placeholder == 'Куда') {
+                        var dataLayerObj = {
+                            'event': 'UM.Event',
+                            'Data': {
+                                'Category': 'Packages',
+                                'Action': 'RemoveCityTo',
+                                'Label':  $scope.selectedValue && $scope.selectedValue.CodeIata ? $scope.selectedValue.CodeIata : '[no data]',
+                                'Content': '[no data]',
+                                'Context': '[no data]',
+                                'Text': '[no data]'
+                            }
+                        }
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
+                    }
+
                     $scope.currentCity = null;
                     $scope.selectedValue = null;
                     $scope.selectionControl.selectedIndex = null;

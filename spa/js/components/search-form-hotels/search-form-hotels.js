@@ -151,7 +151,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                 
                 var validateArrivalId = widgetValidators.required($scope.hotelsSearchForm.ArrivalId, 'ArrivalId', 'Введите город или страну, куда планируете поехать');
                 var validateStartVoyageDate = widgetValidators.required($scope.hotelsSearchForm.StartVoyageDate, 'StartVoyageDate', 'Выберите дату заезда');
-                
+
                 $q.all([validateArrivalId, validateStartVoyageDate])
                     .then(function (data) {
                         $location.path(searchUrl);

@@ -1,5 +1,5 @@
 innaAppControllers.controller('HotelsIndexController', function ($rootScope, $scope, $routeParams, $location, $timeout,
-                                                                 AppRouteUrls, Balloon, HotelService,
+                                                                 AppRouteUrls, Balloon, HotelService, dataService,
                                                                  EventManager, innaAppApiEvents) {
 
     // toDo хрень какая то, удалить надо бы
@@ -41,6 +41,8 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
         }
     });
 
+
+
     /**
      * клик на балуне, по кнопке закрыть или "прервать поиск"
      * редиректим на /hotels/
@@ -65,6 +67,7 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
         if (searchParams.Children) {
             searchParams.ChildrenAges = searchParams.Children.split('_');
         }
+
         var help = dateHelper;
         var today = help.getTodayDate();
         var startDate = dateHelper.apiDateToJsDate(searchParams.StartVoyageDate);
@@ -73,9 +76,6 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
             HotelService.getHotelsList(searchParams)
                 .then(function (response) {
                     if (response.status == 200 && response.data.Hotels.length > 0) {
-                        console.log('SEARCH PARAMS', searchParams);
-                        console.log('TODAY', today);
-                        console.log('START DATE', startDate);
                         $scope.hotels = response.data.Hotels;
                         $scope.baloonHotelLoad.teardown();
 

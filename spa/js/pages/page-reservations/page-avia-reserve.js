@@ -38,6 +38,26 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
         $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
         $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);
 
+        var dataLayerObj = {
+            'event': 'UI.PageView',
+            'Data': {
+                'PageType': 'AviaReservationCheck',
+                'CityFrom': $scope.criteria.FromUrl,
+                'CityTo': $scope.criteria.ToUrl,
+                'DateFrom': $scope.criteria.BeginDate,
+                'DateTo': $scope.criteria.EndDate,
+                'Travelers': $scope.criteria.AdultCount + '-' + $scope.criteria.ChildCount + '-' + $scope.criteria.InfantsCount,
+                'TotalTravelers': parseInt($scope.criteria.AdultCount) +
+                parseInt($scope.criteria.ChildCount) +
+                parseInt($scope.criteria.InfantsCount),
+                'ServiceClass': $scope.criteria.CabinClass == 0 ? 'Economy' : 'Business'
+            }
+        };
+        console.table(dataLayerObj);
+        if (window.dataLayer) {
+            window.dataLayer.push(dataLayerObj);
+        }
+
         //дата до - для проверки доков
         $scope.expireDateTo = null;
         if ($scope.criteria.EndDate) {
@@ -86,6 +106,7 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                 $scope.safeApply(function () {
                     //data = false;
                     if (data == true) {
+                        
                         //если проверка из кэша - то отменяем попап
                         //$timeout.cancel(availableChecktimeout);
 
@@ -202,6 +223,29 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                     },
                     function (data) {
                         if (data != null && data != 'null') {
+
+                            var dataLayerObj = {
+                                'event': 'UM.PageView',
+                                'Data': {
+                                    'PageType': 'AviaSearchLoad',
+                                    'CityFrom': $scope.criteria.FromUrl,
+                                    'CityTo': $scope.criteria.ToUrl,
+                                    'DateFrom': $scope.criteria.BeginDate,
+                                    'DateTo': $scope.criteria.EndDate,
+                                    'Travelers': $scope.criteria.AdultCount + '-' + $scope.criteria.ChildCount + '-' + $scope.criteria.InfantsCount,
+                                    'TotalTravelers': parseInt($scope.criteria.AdultCount) +
+                                    parseInt($scope.criteria.ChildCount) +
+                                    parseInt($scope.criteria.InfantsCount),
+                                    'ServiceClass': $scope.criteria.CabinClass == 0 ? 'Economy' : 'Business',
+                                    'Price': data.Price,
+                                    'AirLineName': data.EtapsTo[0].TransporterName
+                                }
+                            };
+                            console.table(dataLayerObj);
+                            if (window.dataLayer) {
+                                window.dataLayer.push(dataLayerObj);
+                            }
+
                             //дополняем полями
                             aviaHelper.addCustomFields(data);
                             //log('getSelectedVariant dataItem: ' + angular.toJson(data));
