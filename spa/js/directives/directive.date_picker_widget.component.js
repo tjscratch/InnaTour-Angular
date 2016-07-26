@@ -76,6 +76,7 @@
                 addButtons: '=',
                 data      : '=',
                 maxDate   : '=',
+                typePage  : '=',
                 tabIndexFrom: '=',
                 tabIndexTo: '='
             },
@@ -112,7 +113,6 @@
                     }
                 };
 
-
                 /**
                  * кусок говнокода для валидаторов на билетиксе
                  */
@@ -130,6 +130,46 @@
                         }
                     }
                     else {
+                        if(newValue) {
+                            switch ($scope.typePage) {
+                                case 'DP':
+                                    var dataLayerObj = {
+                                        'event': 'UM.Event',
+                                        'Data': {
+                                            'Category': 'Packages',
+                                            'Action': 'SelectDataFrom',
+                                            'Label': newValue,
+                                            'Content': '[no data]',
+                                            'Context': '[no data]',
+                                            'Text': '[no data]'
+                                        }
+                                    };
+                                    console.table(dataLayerObj);
+                                    if (window.dataLayer) {
+                                        window.dataLayer.push(dataLayerObj);
+                                    }
+                                    break;
+                                case 'AVIA':
+                                    var dataLayerObj = {
+                                        'event': 'UM.Event',
+                                        'Data': {
+                                            'Category': 'Avia',
+                                            'Action': 'SelectDataFrom',
+                                            'Label': newValue,
+                                            'Content': '[no data]',
+                                            'Context': '[no data]',
+                                            'Text': '[no data]'
+                                        }
+                                    };
+                                    console.table(dataLayerObj);
+                                    if (window.dataLayer) {
+                                        window.dataLayer.push(dataLayerObj);
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                         if ($scope.datePicker) {
                             updateThrottled();
                         }
@@ -146,6 +186,46 @@
                         }
                     }
                     else {
+                        if(newValue) {
+                            switch ($scope.typePage) {
+                                case 'DP':
+                                    var dataLayerObj = {
+                                        'event': 'UM.Event',
+                                        'Data': {
+                                            'Category': 'Packages',
+                                            'Action': 'SelectDataTo',
+                                            'Label': newValue,
+                                            'Content': '[no data]',
+                                            'Context': '[no data]',
+                                            'Text': '[no data]'
+                                        }
+                                    };
+                                    console.table(dataLayerObj);
+                                    if (window.dataLayer) {
+                                        window.dataLayer.push(dataLayerObj);
+                                    }
+                                    break;
+                                case 'AVIA':
+                                    var dataLayerObj = {
+                                        'event': 'UM.Event',
+                                        'Data': {
+                                            'Category': 'Avia',
+                                            'Action': 'SelectDataTo',
+                                            'Label': newValue,
+                                            'Content': '[no data]',
+                                            'Context': '[no data]',
+                                            'Text': '[no data]'
+                                        }
+                                    };
+                                    console.table(dataLayerObj);
+                                    if (window.dataLayer) {
+                                        window.dataLayer.push(dataLayerObj);
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                         if ($scope.datePicker) {
                             updateThrottled();
                         }
