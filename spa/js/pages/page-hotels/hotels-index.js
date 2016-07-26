@@ -59,16 +59,16 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
              * Трекаем события для GTM
              * https://innatec.atlassian.net/browse/IN-7071
              */
+            if (searchParams.Children) {
+                var Travelers = searchParams.Adult + "-" + searchParams.Children.length;
+                var TotalTravelers = Math.ceil(searchParams.Adult) + Math.ceil(searchParams.Children.length);
+            } else {
+                var Travelers = searchParams.Adult + "-" + 0;
+                var TotalTravelers = Math.ceil(searchParams.Adult);
+            }
             dataService.getLocationById($routeParams.ArrivalId)
                 .then(function (res) {
                     var CityCode = res.data.CountryName + "/" + res.data.Name;
-                    if (searchParams.Children) {
-                        var Travelers = searchParams.Adult + "-" + searchParams.Children.length;
-                        var TotalTravelers = Math.ceil(searchParams.Adult) + Math.ceil(searchParams.Children.length);
-                    } else {
-                        var Travelers = searchParams.Adult + "-" + 0;
-                        var TotalTravelers = Math.ceil(searchParams.Adult);
-                    }
                     var dataLayerObj = {
                         'event': 'UI.PageView',
                         'Data': {
@@ -99,6 +99,34 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                             filter_hotel: true,
                             filter_avia: false
                         };
+
+                        /**
+                         * Трекаем события для GTM
+                         * https://innatec.atlassian.net/browse/IN-7071
+                         */
+                        dataService.getLocationById($routeParams.ArrivalId)
+                            .then(function (res) {
+                                var CityCode = res.data.CountryName + "/" + res.data.Name;
+                                var dataLayerObj = {
+                                    'event': 'UI.PageView',
+                                    'Data': {
+                                        'PageType': 'HotelsSearchLoad',
+                                        'CityCode': CityCode,
+                                        'DateFrom': searchParams.StartVoyageDate,
+                                        'NightCount': searchParams.NightCount,
+                                        'Travelers': Travelers,
+                                        'TotalTravelers': TotalTravelers,
+                                        'HotelResultsQuantity': $scope.hotels.length,
+                                        'MinPrice': $scope.hotels[0].Price
+                                    }
+                                };
+                                console.table(dataLayerObj);
+                                if (window.dataLayer) {
+                                    window.dataLayer.push(dataLayerObj);
+                                }
+                            });
+
+
 
                     } else {
                         $scope.baloonHotelNotFound = new Balloon();
