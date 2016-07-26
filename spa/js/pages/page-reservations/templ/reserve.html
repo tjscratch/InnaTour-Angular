@@ -268,7 +268,7 @@
 					<!--<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededMedicalInsurance">-->
 					<!--<ins class="b-checkbox"></ins>-->
 					<!--Страховки</label></li>-->
-					<li>
+					<li ng-if="!TransferIncluded">
 						<label class="b-agreement">
 							<input type="checkbox" ng-model="addition.isNeededTransfer"/>
 							<ins class="b-checkbox"></ins>

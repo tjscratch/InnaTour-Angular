@@ -332,6 +332,7 @@ innaAppControllers
 
                         $scope.Additional = data.Additional;
                         $scope.Included = data.Included;
+                        $scope.TransferComment = data.TransferComment;
 
                         deferred.resolve();
                     },

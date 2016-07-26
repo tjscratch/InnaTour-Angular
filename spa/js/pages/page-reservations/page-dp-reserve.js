@@ -172,6 +172,9 @@
                     $scope.hotel = data.Hotel;
                     $scope.room = data.Hotel.Room;
                     $scope.price = data.Price;
+                    $scope.Included = data.Included;
+                    $scope.TransferIncluded = data.TransferIncluded;
+                    $scope.TransferComment = data.TransferComment;
                     $scope.NeedSmsValidation = data.NeedSmsValidation;
                     console.log('NeedSmsValidation - ' + $scope.NeedSmsValidation);
                     //$scope.NeedSmsValidation = true;
