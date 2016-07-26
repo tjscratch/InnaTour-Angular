@@ -8,24 +8,6 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
 
 
     /**
-     * Отели у нас работают только для b2b клиентов
-     * поэтому если не b2b пользователь попал на страницу отелей
-     * редиректим его на главную
-     */
-    //$timeout(function () {
-    //    var isAgency = false;
-    //    if ($rootScope.$root.user) {
-    //        if (parseInt($rootScope.$root.user.getAgencyId()) == 20005 || parseInt($rootScope.$root.user.getAgencyId()) == 2) {
-    //            isAgency = true;
-    //        }
-    //    }
-    //    if (isAgency == false) {
-    //        $location.path('/#/');
-    //    }
-    //}, 500);
-
-
-    /**
      * при переходе на данную страницу
      * показываем прелоадер на время
      * получения ответа с результатами поиска
@@ -42,7 +24,6 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
     });
 
 
-
     /**
      * клик на балуне, по кнопке закрыть или "прервать поиск"
      * редиректим на /hotels/
@@ -56,6 +37,7 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
     $scope.filtersSettingsHotels = null;
     $scope.asMap = false;
     $scope.activePanel = 'hotels';
+
 
     if ($routeParams) {
         var searchParams = angular.copy($routeParams);
@@ -71,8 +53,40 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
         var help = dateHelper;
         var today = help.getTodayDate();
         var startDate = dateHelper.apiDateToJsDate(searchParams.StartVoyageDate);
-        if(+today <= +startDate) {
+        if (+today <= +startDate) {
             $scope.baloonHotelLoad.show();
+            /**
+             * Трекаем события для GTM
+             * https://innatec.atlassian.net/browse/IN-7071
+             * рассылаем событие с названием города
+             */
+            dataService.getLocationById($routeParams.ArrivalId)
+                .then(function (res) {
+                    var CityCode = res.data.CountryName + "/" + res.data.Name;
+                    if (searchParams.Children) {
+                        var Travelers = searchParams.Adult + "-" + searchParams.Children.length;
+                        var TotalTravelers = Math.ceil(searchParams.Adult) + Math.ceil(searchParams.Children.length);
+                    } else {
+                        var Travelers = searchParams.Adult + "-" + 0;
+                        var TotalTravelers = Math.ceil(searchParams.Adult);
+                    }
+                    var dataLayerObj = {
+                        'event': 'UI.PageView',
+                        'Data': {
+                            'PageType': 'HotelsSearchLoading',
+                            'CityCode': CityCode,
+                            'DateFrom': searchParams.StartVoyageDate,
+                            'NightCount': searchParams.NightCount,
+                            'Travelers': Travelers,
+                            'TotalTravelers': TotalTravelers
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                });
+
             HotelService.getHotelsList(searchParams)
                 .then(function (response) {
                     if (response.status == 200 && response.data.Hotels.length > 0) {
@@ -130,8 +144,8 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
         }
     }
 
-    EventManager.on(innaAppApiEvents.FILTER_PANEL_CHANGE, function (data){
-        $scope.$apply(function (){
+    EventManager.on(innaAppApiEvents.FILTER_PANEL_CHANGE, function (data) {
+        $scope.$apply(function () {
             $scope.hotels = data;
         })
     });
@@ -152,9 +166,9 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
 
     if ($routeParams) {
         var searchParams = angular.copy($routeParams);
-        if(searchParams.Children){
+        if (searchParams.Children) {
             searchParams.Children = searchParams.Children.split('_').map(function (age) {
-                return { value: age };
+                return {value: age};
             });
         }
         $scope.getHotelUrl = function (hotelId, providerId) {
