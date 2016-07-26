@@ -58,7 +58,6 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
             /**
              * Трекаем события для GTM
              * https://innatec.atlassian.net/browse/IN-7071
-             * рассылаем событие с названием города
              */
             dataService.getLocationById($routeParams.ArrivalId)
                 .then(function (res) {
