@@ -521,7 +521,7 @@ innaAppControllers.controller('PageDynamicPackage', [
                                     parseInt(searchParams.Adult) + searchParams.Children.split('_').length
                                         : searchParams.Adult,
                                     'ServiceClass': searchParams.TicketClass == 0 ? 'Economy' : 'Business',
-                                    'MinPrice': data.RecommendedPair.Price,
+                                    'MinPrice': data.RecommendedPair.Hotel.PackagePrice,
                                     'AviaResultsQuantity': data.TicketCount,
                                     'HotelResultsQuantity': data.HotelCount
                                 }

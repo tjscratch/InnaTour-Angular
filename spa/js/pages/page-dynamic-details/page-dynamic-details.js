@@ -331,6 +331,7 @@ innaAppControllers
                         _balloonLoad.fire('hide');
                         
                         if(data) {
+                            console.log(data.Hotel);
                             $scope.HotelName = data.Hotel.HotelName;
                             var dataLayerObj = {
                                 'event' : 'UI.PageView',
