@@ -80,6 +80,10 @@
                     //console.log('$scope.setCurrent');
                     $timeout.cancel($scope.timeoutId);
 
+                    if(option.CodeIata) {
+                        $scope.cityCode = option.CodeIata;
+                    }
+
                     //запрещаем баблинг
                     $event && eventsHelper.preventBubbling($event);
 
@@ -136,10 +140,45 @@
                 });
 
                 $scope.clearCityField = function () {
+
+                    if($scope.placeholder == 'Откуда') {
+                        var dataLayerObj = {
+                            'event': 'UM.Event',
+                            'Data': {
+                                'Category': 'Avia',
+                                'Action': 'RemoveCityFrom',
+                                'Label': $scope.cityCode ? $scope.cityCode : '[no data]',
+                                'Content': '[no data]',
+                                'Context': '[no data]',
+                                'Text': '[no data]'
+                            }
+                        }
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
+                    } else if ($scope.placeholder == 'Куда') {
+                        var dataLayerObj = {
+                            'event': 'UM.Event',
+                            'Data': {
+                                'Category': 'Avia',
+                                'Action': 'RemoveCityTo',
+                                'Label':  $scope.cityCode ? $scope.cityCode : '[no data]',
+                                'Content': '[no data]',
+                                'Context': '[no data]',
+                                'Text': '[no data]'
+                            }
+                        }
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
+                    }
+
                     $scope.result = null;
                     $scope.selectionControl.selectedIndex = null;
-                    // $scope.input.val('');
                     $scope.currentCity = null;
+                    $scope.cityCode = null;
                     if($scope.isEnableClearIcon == true) {
                         $scope.isEnableClearIcon = false;
                     } else {
