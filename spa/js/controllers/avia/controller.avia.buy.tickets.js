@@ -44,8 +44,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         //критерии из урла
         //$scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
         //$scope.searchId = $scope.criteria.QueryId;
-        
-        
+
         //логика для оплаты у связного
         function svyaznoyPayControl () {
             var self = this;
@@ -787,7 +786,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                 }
                 
                 paymentService.getRepricing($scope.orderNum, function (data) {
-                        
+
                         switch (data.Type) {
                             case 1:
                             {
@@ -1028,6 +1027,26 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                     $scope.reservation.hotelInfo.Hotel = data.Hotel;
                                     $scope.reservation.hotelInfo.Room = data.Hotel.Room;
                                     $scope.reservation.hotelInfo.Room.Price = data.Price;
+
+                                    var dataLayerObj = {
+                                        'event': 'UI.PageView',
+                                        'Data': {
+                                            'PageType': 'HotelsPayLoad',
+                                            'CityCode': data.Hotel.HotelCountryName + "/" + data.Hotel.HotelCityName,
+                                            'DateFrom': moment(data.Hotel.CheckIn).format('YYYY-MM-DD'),
+                                            'NightCount': data.Hotel.NightCount,
+                                            //'Travelers': Travelers,
+                                            'TotalTravelers': data.Passengers.length,
+                                            'Price': data.Price,
+                                            'HotelName': data.Hotel.HotelName
+                                        }
+                                    };
+                                    console.table(dataLayerObj);
+                                    if (window.dataLayer) {
+                                        window.dataLayer.push(dataLayerObj);
+                                    }
+
+
                                 }
                                 
                                 var isDp = (data.Hotel != null && data.AviaInfo != null);
