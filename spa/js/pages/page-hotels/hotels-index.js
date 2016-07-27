@@ -130,10 +130,31 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
 
                     } else {
                         $scope.baloonHotelNotFound = new Balloon();
+                        var Label = 'Мы ничего не нашли';
+                        var Text = 'Попробуйте изменить условия поиска';
+    
+                        /**
+                         * Трекаем события для GTM
+                         * https://innatec.atlassian.net/browse/IN-7071
+                         */
+                        var dataLayerObj = {
+                            'event': 'UM.Event',
+                            'Data': {
+                                'Category': 'Hotels',
+                                'Action': 'Message',
+                                'Label': Label,
+                                'Text': Text
+                            }
+                        };
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
+                        
                         $scope.baloonHotelNotFound.updateView({
                             template: 'not-found.html',
-                            title: 'Мы ничего не нашли',
-                            content: "Попробуйте изменить условия поиска",
+                            title: Label,
+                            content: Text,
                             callbackClose: function () {
                                 $scope.redirectHotels();
                             },
@@ -143,11 +164,31 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                         });
                     }
                 }, function (response) {
-                    console.log(response)
+                    var Label = 'Что-то пошло не так';
+                    var Text = 'Попробуйте начать поиск заново';
+    
+                    /**
+                     * Трекаем события для GTM
+                     * https://innatec.atlassian.net/browse/IN-7071
+                     */
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Hotels',
+                            'Action': 'Message',
+                            'Label': Label,
+                            'Text': Text
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                    
                     $scope.baloonHotelLoad.updateView({
                         template: 'err.html',
-                        title: 'Что-то пошло не так',
-                        content: 'Попробуйте начать поиск заново',
+                        title: Label,
+                        content: Text,
                         callbackClose: function () {
                             $scope.redirectHotels();
                         },
@@ -157,10 +198,32 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                     });
                 });
         } else {
+    
+            var Label = 'Дата заезда должна быть больше текущей даты!';
+            var Text = 'Попробуйте начать поиск заново';
+    
+            /**
+             * Трекаем события для GTM
+             * https://innatec.atlassian.net/browse/IN-7071
+             */
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Hotels',
+                    'Action': 'Message',
+                    'Label': Label,
+                    'Text': Text
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+    
             $scope.baloonHotelLoad.updateView({
                 template: 'err.html',
-                title: 'Дата заезда должна быть больше текущей даты!',
-                content: 'Попробуйте начать поиск заново',
+                title: Label,
+                content: Text,
                 callbackClose: function () {
                     $scope.redirectHotels();
                 },
