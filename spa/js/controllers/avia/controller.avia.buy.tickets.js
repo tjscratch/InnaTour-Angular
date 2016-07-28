@@ -21,10 +21,11 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
     // components
     '$templateCache',
     'Balloon',
-    function AviaBuyTicketsCtrl (RavenWrapper, $log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Urls, $templateCache, Balloon) {
+    'gtm',
+    function AviaBuyTicketsCtrl(RavenWrapper, $log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Urls, $templateCache, Balloon, gtm) {
         
         
-        Raven.setExtraContext({ key: "__BUY_TICKETS_CONTEXT__" });
+        Raven.setExtraContext({key: "__BUY_TICKETS_CONTEXT__"});
         
         var self = this;
         
@@ -34,7 +35,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         var B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
         $scope.B2B_HOST_Order = B2B_HOST + '/Order/Edit/';
         
-        function log (msg) {
+        function log(msg) {
             $log.log(msg);
         }
         
@@ -44,9 +45,9 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         //критерии из урла
         //$scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
         //$scope.searchId = $scope.criteria.QueryId;
-
+        
         //логика для оплаты у связного
-        function svyaznoyPayControl () {
+        function svyaznoyPayControl() {
             var self = this;
             
             self.isSvyaznoyPay = true;
@@ -155,7 +156,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         $scope.svyaznoyPayControl = new svyaznoyPayControl();
         
         //qiwi ===========================================================================
-        function qiwiPayControl () {
+        function qiwiPayControl() {
             var self = this;
             self.payData = null;
             
@@ -263,11 +264,11 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         $scope.reservationModel = null;
         
         $scope.objectToReserveTemplate = 'pages/avia/variant_partial.html';
-        function setPackageTemplate () {
+        function setPackageTemplate() {
             $scope.objectToReserveTemplate = 'pages/page-reservations/templ/reserve-include.html';
         }
         
-        function setHotelTemplate () {
+        function setHotelTemplate() {
             $scope.objectToReserveTemplate = 'pages/page-reservations/templ/reservations-hotel-info.html';
         }
         
@@ -290,7 +291,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         };
         
         $scope.visaOrMastercard = null;
-        function trackVisaOrMC () {
+        function trackVisaOrMC() {
             if ($scope.payModel.num1 != null && $scope.payModel.num1.length > 0) {
                 $scope.visaOrMastercard = $scope.payModel.num1.startsWith('4');
             }
@@ -352,7 +353,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             $scope.indicator[key] = isFieldInvalid(key);
         };
         
-        function isFieldInvalid (key) {
+        function isFieldInvalid(key) {
             var itemValue = $scope.payModel[key];
             var isValid = $scope.isValid[key];
             
@@ -390,8 +391,8 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             }
         };
         
-        function validateNum () {
-            function setNums (isValid) {
+        function validateNum() {
+            function setNums(isValid) {
                 $scope.isValid.num1 = isValid;
                 $scope.isValid.num2 = isValid;
                 $scope.isValid.num3 = isValid;
@@ -407,8 +408,8 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             return false;
         }
         
-        function initValidateModel () {
-            function validateNumPart (value) {
+        function initValidateModel() {
+            function validateNumPart(value) {
                 return (value != null && value.length == 4);
             }
             
@@ -433,7 +434,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     $scope.isValid.num4 = v;
                     return v;
                 },
-                cardMonth: function validateCardMonth () {
+                cardMonth: function validateCardMonth() {
                     if ($scope.payModel.cardMonth.length > 0) {
                         var iMonth = parseInt($scope.payModel.cardMonth);
                         if (iMonth >= 1 && iMonth <= 12) {
@@ -444,7 +445,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     $scope.isValid.cardMonth = false;
                     return false;
                 },
-                cardYear: function validateCardYear () {
+                cardYear: function validateCardYear() {
                     if ($scope.payModel.cardYear.length > 0) {
                         var iYear = parseInt($scope.payModel.cardYear);
                         if (iYear >= 14) {
@@ -455,7 +456,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     $scope.isValid.cardYear = false;
                     return false;
                 },
-                cardHolder: function validateCardholder () {
+                cardHolder: function validateCardholder() {
                     if ($scope.payModel.cardHolder.length > 0) {
                         $scope.isValid.cardHolder = true;
                         return true;
@@ -463,7 +464,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     $scope.isValid.cardHolder = false;
                     return false;
                 },
-                cvc2: function validateCvv () {
+                cvc2: function validateCvv() {
                     if ($scope.payModel.cvc2.length == 3) {
                         $scope.isValid.cvc2 = true;
                         return true;
@@ -496,7 +497,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                 url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
             }
             
-            function normalizeUrl (url) {
+            function normalizeUrl(url) {
                 //если путь относительный
                 //"/Files/Doc/150715155346/150723141900/offer_premiertur76.pdf"
                 if (url && url.indexOf('/') == 0) {
@@ -545,12 +546,12 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             this.isValid = false;
         };
         
-        function showPopupErr (id) {
+        function showPopupErr(id) {
             var $to = $('#' + id);
             if ($to.attr('tt') != 'true') {
                 $to.attr('tt', 'true');
                 $to.tooltipX({
-                    autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' },
+                    autoShow: false, autoHide: false, position: {my: 'center top+22', at: 'center bottom'},
                     items: "[data-title]",
                     content: function () {
                         return $to.data("title");
@@ -560,7 +561,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             $to.tooltipX("open");
         }
         
-        function closeErrPopups () {
+        function closeErrPopups() {
             _.each(_.keys($scope.validate), function (key) {
                 var $to = $('#' + key);
                 if ($to.attr('tt') == 'true') {
@@ -582,7 +583,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             //validateKeys();
         }, true);
         
-        function validateKeys () {
+        function validateKeys() {
             //console.log('validateKeys');
             var keys = _.keys($scope.validate);
             for (var i = 0; i < keys.length; i++) {
@@ -593,7 +594,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             }
         }
         
-        function validateAll () {
+        function validateAll() {
             //console.log('validate');
             validateKeys();
             validateNum();
@@ -605,7 +606,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             //return isValid;
         }
         
-        function validateAndShowPopup () {
+        function validateAndShowPopup() {
             $scope.formPure = false;
             //console.log('validateAndShowPopup');
             validateAll();
@@ -626,7 +627,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         
         $scope.visaControl = new aviaHelper.visaControl();
         
-        function visaNeededCheck () {
+        function visaNeededCheck() {
             if ($scope.reservationModel != null && $scope.reservationModel.passengers != null && $scope.aviaInfo != null) {
                 //Id-шники гражданств пассажиров
                 var passengersCitizenshipIds = _.map($scope.reservationModel.passengers, function (pas) {
@@ -637,23 +638,23 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         }
         
         //focus
-        function focusControl () {
+        function focusControl() {
             var self = this;
             
             self.navList = [];
             self.navCurrent = null;
             
             self.cardNumCont = $('.js-cardnum-block');
-            self.num1 = { item: $('input:eq(0)', self.cardNumCont), key: 'num1' };
-            self.num2 = { item: $('input:eq(1)', self.cardNumCont), key: 'num2' };
-            self.num3 = { item: $('input:eq(2)', self.cardNumCont), key: 'num3' };
-            self.num4 = { item: $('input:eq(3)', self.cardNumCont), key: 'num4' };
+            self.num1 = {item: $('input:eq(0)', self.cardNumCont), key: 'num1'};
+            self.num2 = {item: $('input:eq(1)', self.cardNumCont), key: 'num2'};
+            self.num3 = {item: $('input:eq(2)', self.cardNumCont), key: 'num3'};
+            self.num4 = {item: $('input:eq(3)', self.cardNumCont), key: 'num4'};
             
             self.validCont = $('.js-card-valid');
-            self.month = { item: $('input:eq(0)', self.validCont), key: 'cardMonth' };
-            self.year = { item: $('input:eq(1)', self.validCont), key: 'cardYear' };
+            self.month = {item: $('input:eq(0)', self.validCont), key: 'cardMonth'};
+            self.year = {item: $('input:eq(1)', self.validCont), key: 'cardYear'};
             
-            self.holder = { item: $('input.js-card-holder:eq(0)'), key: 'cardHolder' };
+            self.holder = {item: $('input.js-card-holder:eq(0)'), key: 'cardHolder'};
             
             self.navList.push(self.num1);
             self.navList.push(self.num2);
@@ -695,7 +696,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         
         $scope.focusControl = new focusControl();
         
-        function scrollControl () {
+        function scrollControl() {
             var self = this;
             self.scrollToCards = function () {
                 //console.log('scroll to cards');
@@ -708,7 +709,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         $scope.scrollControl = new scrollControl();
         
         //data loading ===========================================================================
-        function initPayModel () {
+        function initPayModel() {
             var self = this;
             var reservationModel = null;//storageService.getReservationModel();
             //log('\nReservationModel: ' + angular.toJson(reservationModel));
@@ -728,7 +729,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                 $scope.newSearchUrl = null;
                 
                 //нужны данные для нового поиска
-                function getOrderDataForUrls () {
+                function getOrderDataForUrls() {
                     //если данные не загрузятся
                     if ($location.url().indexOf('packages') > -1) {//ДП
                         $scope.newSearchUrl = Urls.URL_DYNAMIC_PACKAGES_SEARCH;
@@ -786,7 +787,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                 }
                 
                 paymentService.getRepricing($scope.orderNum, function (data) {
-
+                        
                         switch (data.Type) {
                             case 1:
                             {
@@ -848,7 +849,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             }
         }
         
-        function getPaymentData () {
+        function getPaymentData() {
             //запрос в api
             paymentService.getPaymentData({
                     orderNum: $scope.orderNum
@@ -882,11 +883,11 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                         //console.log('getPaymentData:');
                         //console.log(data);
                         
-                        function cutZero (val) {
+                        function cutZero(val) {
                             return val.replace(' 0:00:00', '');
                         }
                         
-                        function getPassenger (data) {
+                        function getPassenger(data) {
                             var m = {};
                             m.sex = data.Sex;
                             m.name = data.I;
@@ -940,7 +941,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                             return "";
                         };
                         
-                        function bindApiModelToModel (data) {
+                        function bindApiModelToModel(data) {
                             var m = {};
                             var pasList = [];
                             _.each(data.Passengers, function (item) {
@@ -998,7 +999,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                     
                                     //ищем страховку
                                     $scope.isInsuranceIncluded = false;
-                                    (function getInsurance (included) {
+                                    (function getInsurance(included) {
                                         if (included) {
                                             var re = /Страховка/ig;
                                             for (var i = 0; i < included.length; i++) {
@@ -1028,25 +1029,32 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                     $scope.reservation.hotelInfo.Room = data.Hotel.Room;
                                     $scope.reservation.hotelInfo.Room.Price = data.Price;
 
-                                    var dataLayerObj = {
-                                        'event': 'UI.PageView',
-                                        'Data': {
-                                            'PageType': 'HotelsPayLoad',
-                                            'CityCode': data.Hotel.HotelCountryName + "/" + data.Hotel.HotelCityName,
+                                    /**
+                                     * Трекаем события для GTM
+                                     * https://innatec.atlassian.net/browse/IN-7071
+                                     */
+                                    gtm.Pay(
+                                        {
+                                            'PageType': 'HotelsPayLoad'
+                                        },
+                                        {
+                                            'CityCode': data.CityCode ? data.CityCode : null,
                                             'DateFrom': moment(data.Hotel.CheckIn).format('YYYY-MM-DD'),
                                             'NightCount': data.Hotel.NightCount,
-                                            //'Travelers': Travelers,
+                                            'Travelers': data.Travelers ? data.Travelers : null,
                                             'TotalTravelers': data.Passengers.length,
                                             'Price': data.Price,
                                             'HotelName': data.Hotel.HotelName
                                         }
-                                    };
-                                    console.table(dataLayerObj);
-                                    if (window.dataLayer) {
-                                        window.dataLayer.push(dataLayerObj);
-                                    }
+                                    );
 
-
+                                    /**
+                                     * Трекаем события для GTM
+                                     * https://innatec.atlassian.net/browse/IN-7071
+                                     */
+                                    gtm.Pay({
+                                        'PageType': 'HotelsPayProcessing'
+                                    });
                                 }
                                 
                                 var isDp = (data.Hotel != null && data.AviaInfo != null);
@@ -1059,8 +1067,8 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                     $scope.aviaInfo = data.AviaInfo;
                                     $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
                                     
-                                    function getIATACodes (info) {
-                                        var res = { codeFrom: '', codeTo: '' };
+                                    function getIATACodes(info) {
+                                        var res = {codeFrom: '', codeTo: ''};
                                         if (info.EtapsTo != null && info.EtapsTo.length > 0) {
                                             res.codeFrom = info.EtapsTo[0].OutCode;//первый
                                             res.codeTo = info.EtapsTo[info.EtapsTo.length - 1].InCode;//последний
@@ -1103,11 +1111,11 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         
         initPayModel();
         
-        function loadTarifs () {
+        function loadTarifs() {
             var self = this;
             getTarifs();
             
-            function getTarifs () {
+            function getTarifs() {
                 paymentService.getTarifs({
                         variantTo: $scope.aviaInfo.VariantId1,
                         varianBack: $scope.aviaInfo.VariantId2
@@ -1124,7 +1132,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         }
         
         
-        function init () {
+        function init() {
             if ($scope.reservationModel.IsService) {
             }
             else {
@@ -1154,7 +1162,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         
         //data loading ===========================================================================
         
-        function showPaymentProcessing () {
+        function showPaymentProcessing() {
             $scope.baloon.show('Оплата заказа', 'Пожалуйста, не закрывайте браузер');
         }
         
@@ -1195,9 +1203,14 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                         track.aviaPayBtnSubmitStart();
                         break;
                     }
+                    case actionTypeEnum.hotel:
+                    {
+                        
+                        break;
+                    }
                 }
                 
-                function trackError (pageType, err_code) {
+                function trackError(pageType, err_code) {
                     if (!err_code) {
                         err_code = 'err';
                     }
@@ -1215,7 +1228,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     }
                 }
                 
-                function trackContinueSuccess (pageType) {
+                function trackContinueSuccess(pageType) {
                     switch (pageType) {
                         case actionTypeEnum.dp:
                         {
@@ -1304,7 +1317,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             }
         };
         
-        function setSuccessBuyResult (resultType) {
+        function setSuccessBuyResult(resultType) {
             //пришел ответ - или оплачено или ошибка
             $scope.isOrderPaid = true;
             
@@ -1319,7 +1332,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             var pageType = getActionType();
             
             // возвращает cookie с именем name, если есть, если нет, то undefined
-            function getCookie (name) {
+            function getCookie(name) {
                 var matches = document.cookie.match(new RegExp(
                     "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
                 ));
@@ -1363,7 +1376,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                 {
                     var tmId;
                     
-                    function redirectToCabinet () {
+                    function redirectToCabinet() {
                         if (tmId) {
                             $timeout.cancel(tmId);
                         }
@@ -1410,7 +1423,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         }
         
         
-        function buyFrame () {
+        function buyFrame() {
             var self = this;
             self.iframeUrl = null;
             self.isOpened = false;
@@ -1478,7 +1491,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         $scope.buyFrame = new buyFrame();
         
         
-        function processPay3d (data, innaTermUrl) {
+        function processPay3d(data, innaTermUrl) {
             var params = '';
             var jData = angular.fromJson(data);
             if (jData) {
@@ -1551,7 +1564,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         //    }, 5000);
         //}
         
-        function writeAnalyticsError (code) {
+        function writeAnalyticsError(code) {
             var pageType = getActionType();
             
             //аналитика
@@ -1727,27 +1740,31 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         //    }
         //}
         
-        var actionTypeEnum = { avia: 'avia', dp: 'dp', service: 'service' };
+        var actionTypeEnum = {avia: 'avia', dp: 'dp', service: 'service', hotel: 'hotel'};
         
-        function getActionType () {
+        function getActionType() {
             //сервисный сбор
             if ($scope.reservationModel.IsService) {
                 return actionTypeEnum.service;
             }
             else {
                 //если ДП
-                if ($scope.hotel != null) {
+                if ($scope.aviaInfo != null && $scope.hotel != null) {
                     return actionTypeEnum.dp
                 }
-                else {
-                    //авиа
+                //авиа
+                if ($scope.aviaInfo != null && $scope.hotel == null) {
                     return actionTypeEnum.avia;
+                }
+                //hotel
+                if ($scope.aviaInfo == null && $scope.hotel != null) {
+                    return actionTypeEnum.hotel;
                 }
             }
         }
         
         //срок оплаты билета
-        function paymentDeadline () {
+        function paymentDeadline() {
             var self = this;
             self.id = null;
             self.setUpdate = function () {
@@ -1847,7 +1864,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         
         $scope.paymentDeadline = new paymentDeadline();
         
-        function destroyPopups () {
+        function destroyPopups() {
             _.each(_.keys($scope.validate), function (key) {
                 var $to = $('#' + key);
                 try {
@@ -1859,7 +1876,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         }
         
         
-        function redirectSuccessBuyPackage () {
+        function redirectSuccessBuyPackage() {
             $location.search({});
             $location.path('packages/buy/success/' + $scope.orderNum);
         }
@@ -1868,7 +1885,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         
         
         $scope.buyCommentsForm = new buyCommentsForm();
-        function buyCommentsForm () {
+        function buyCommentsForm() {
             var self = this;
             
             self.form = {};
@@ -1891,7 +1908,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                 
                 //поддержка работы внутри фрейма
                 if (window.partners && window.partners.parentScrollTop > 0) {
-                    self.style = { 'top': window.partners.parentScrollTop + 50 };
+                    self.style = {'top': window.partners.parentScrollTop + 50};
                 }
                 
                 self.isOpened = true;
@@ -1901,7 +1918,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                 $event.preventDefault();
                 self.form.$dirty = true;
                 
-                function showError () {
+                function showError() {
                     console.log('send buy comment error', status);
                     
                     $scope.baloon.show(null, null,
@@ -1919,7 +1936,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                 
                 if (self.form.$valid) {
                     console.log('form valid');
-                    paymentService.createBuyComment({ orderNum: $scope.orderNum, orderMessage: self.comments },
+                    paymentService.createBuyComment({orderNum: $scope.orderNum, orderMessage: self.comments},
                         function (data, status) {
                             if (data && data.Status == 1) {
                                 console.log('send buy comment success', data, status);

@@ -99,8 +99,8 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
             return {
                 Index: null,
                 Sex: 1,
-                I: 'ALEX',
-                F: 'GABRIELAN',
+                I: 'TEST',
+                F: 'BOOKING',
                 Birthday: '23.11.1984',
                 DocumentId: 0,
                 Number: 6646637234,
@@ -112,8 +112,8 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
             return {
                 Index: null,
                 Sex: 2,
-                I: 'MARI',
-                F: 'GABRIELAN',
+                I: 'TEST',
+                F: 'BOOKING',
                 Birthday: '05.04.1981',
                 DocumentId: 0,
                 Number: 6646672276,

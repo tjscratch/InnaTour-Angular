@@ -291,13 +291,13 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
 
 
         ReservationService.reservation(self.ReservationModel)
-            .then(function (data) {
-                console.log('reservation success', data);
+            .then(function (res) {
+                console.log('reservation success', res);
                 self.baloonHotelReservation.teardown();
-                if (data.RedirectUrl) {
-                    window.location.replace(data.RedirectUrl);
+                if (res.data.RedirectUrl) {
+                    window.location.replace(res.data.RedirectUrl);
                 }
-                if (data.HotelBooked == false) {
+                if (res.data.HotelBooked == false) {
                     baloonError();
                 }
             });
