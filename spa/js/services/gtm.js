@@ -5,7 +5,7 @@ innaAppServices.service('gtm', function () {
          * PayLoad
          * PayProcessing
          */
-        PayInfo: {},
+        TrackData: {},
         /**
          * здесь трекаются события
          * HotelsPayLoad
@@ -14,13 +14,12 @@ innaAppServices.service('gtm', function () {
          * @param shareObj - сюда данные общие для вызовов HotelsPayLoad и HotelsPayProcessing
          * @constructor
          */
-        Pay: function (thisData, shareObj) {
-            var data = shareObj ? shareObj : this.PayInfo;
+        GtmTrack: function (thisData, shareObj) {
+            this.TrackData = shareObj ? shareObj : this.TrackData;
             var dataLayerObj = {
                 'event': 'UI.PageView',
-                'Data': Object.assign({}, thisData, data)
+                'Data': Object.assign({}, thisData, this.TrackData)
             };
-            this.PayInfo = data;
             if (window.dataLayer) {
                 window.dataLayer.push(dataLayerObj);
             }

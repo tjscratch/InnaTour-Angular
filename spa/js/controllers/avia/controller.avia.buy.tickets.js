@@ -1033,7 +1033,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                      * Трекаем события для GTM
                                      * https://innatec.atlassian.net/browse/IN-7071
                                      */
-                                    gtm.Pay(
+                                    gtm.GtmTrack(
                                         {
                                             'PageType': 'HotelsPayLoad'
                                         },
@@ -1047,14 +1047,6 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                             'HotelName': data.Hotel.HotelName
                                         }
                                     );
-
-                                    /**
-                                     * Трекаем события для GTM
-                                     * https://innatec.atlassian.net/browse/IN-7071
-                                     */
-                                    gtm.Pay({
-                                        'PageType': 'HotelsPayProcessing'
-                                    });
                                 }
                                 
                                 var isDp = (data.Hotel != null && data.AviaInfo != null);
@@ -1205,7 +1197,14 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     }
                     case actionTypeEnum.hotel:
                     {
-                        
+                        /**
+                         * Трекаем события для GTM
+                         * https://innatec.atlassian.net/browse/IN-7071
+                         */
+                        gtm.GtmTrack({
+                            'PageType': 'HotelsPayProcessing',
+                            'PaymentMethod': $scope.svyaznoyPayControl.payType
+                        });
                         break;
                     }
                 }
@@ -1757,7 +1756,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     return actionTypeEnum.avia;
                 }
                 //hotel
-                if ($scope.aviaInfo == null && $scope.hotel != null) {
+                if ($scope.aviaInfo == null && $scope.hotel == null && $scope.reservation.hotelInfo != null) {
                     return actionTypeEnum.hotel;
                 }
             }
