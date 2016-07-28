@@ -168,7 +168,21 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                 
                 //аналитика - прерывание поиска
                 track.aviaSearchInterrupted();
-                
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Avia',
+                        'Action': 'AbortSearch',
+                        'Label': '[no data]',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
                 $location.path(Urls.URL_AVIA);
             });
 

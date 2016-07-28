@@ -788,6 +788,22 @@ innaAppControllers.controller('PageDynamicPackage', [
                     $location.search({});
                     $location.path(Urls.URL_DYNAMIC_PACKAGES);
                 });
+
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Packages',
+                        'Action': 'AbortSearch',
+                        'Label': '[no data]',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
             },
 
             balloonSearch: function () {

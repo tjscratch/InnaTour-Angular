@@ -77,6 +77,23 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 });
             
             $scope.setCategory = function (category) {
+
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Packages',
+                        'Action': 'PackagesTab',
+                        'Label': category.Text,
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+
                 var categories = [];
                 for (var i = 0; i < $scope.Categories.length; i++) {
                     var item = $scope.Categories[i];

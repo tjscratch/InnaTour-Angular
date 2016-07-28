@@ -90,9 +90,7 @@ innaAppControllers.
             });
 
             $scope.$watch('criteria.InfantsCount', function (newValue, oldValue) {
-                console.log('newInfants', newValue);
-                console.log('oldInfants', oldValue);
-                if(newValue || newValue == 0 && oldValue != undefined && newValue != oldValue) {
+                if((newValue || newValue == 0) && oldValue != undefined && newValue != oldValue) {
                     var dataLayerObj = {
                         'event': 'UM.Event',
                         'Data': {
@@ -112,9 +110,7 @@ innaAppControllers.
             });
 
             $scope.$watch('criteria.ChildCount', function (newValue, oldValue) {
-                console.log('newChild', newValue);
-                console.log('oldChild', oldValue);
-                if(newValue || newValue == 0 && oldValue != undefined && newValue != oldValue) {
+                if((newValue || newValue == 0) && oldValue != undefined && newValue != oldValue) {
                     var dataLayerObj = {
                         'event': 'UM.Event',
                         'Data': {
@@ -407,6 +403,23 @@ innaAppControllers.
 
                     validate();
                     //if ok
+
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Avia',
+                            'Action': 'AviaSearch',
+                            'Label': '[no data]',
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+
 
                     if ($scope.criteria.FromId > 0 && $scope.criteria.ToId > 0 &&
                         $scope.criteria.FromUrl.length > 0 && $scope.criteria.ToUrl.length > 0) {

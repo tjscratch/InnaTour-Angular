@@ -9,7 +9,8 @@ innaAppDirectives.directive('tripPreferences', ['$templateCache', function($temp
         replace: true,
         scope: {
             showBackTripOptions: '@',
-            klassModel: '='
+            klassModel: '=',
+            typePage: '='
         },
         controller: ['$scope', function($scope){
             /*Properties*/
@@ -19,6 +20,27 @@ innaAppDirectives.directive('tripPreferences', ['$templateCache', function($temp
             $scope.onChoose = function(option) {
                 $scope.klassModel = option;
             }
+
+            $scope.$watch('klassModel', function (newValue, oldValue) {
+
+                if(newValue != oldValue) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': $scope.typePage == 'DP' ? 'Packages' : 'Avia',
+                            'Action': 'ServiceClass',
+                            'Label': newValue.display && newValue.display == 'Эконом' ? 'Economy' : 'Business',
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+            });
         }],
         link: function(scope, element, attrs){
             $(document).click(function(event){

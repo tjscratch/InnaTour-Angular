@@ -308,6 +308,22 @@ innaAppControllers
                     validate();
                     //if ok
 
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Packages',
+                            'Action': 'PackagesSearch',
+                            'Label': '[no data]',
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+
                     var today = +(new Date());
                     var begin = Date.fromDDMMYY($scope.dateBegin);
                     var end = Date.fromDDMMYY($scope.dateEnd);

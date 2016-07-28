@@ -130,15 +130,13 @@
                         }
                     }
                     else {
-                        if(newValue) {
-                            switch ($scope.typePage) {
-                                case 'DP':
+                        if(newValue && newValue != oldValue) {
                                     var dataLayerObj = {
                                         'event': 'UM.Event',
                                         'Data': {
-                                            'Category': 'Packages',
+                                            'Category': $scope.typePage == 'DP' ? 'Packages' : 'Avia',
                                             'Action': 'SelectDataFrom',
-                                            'Label': newValue,
+                                            'Label': dateHelper.ddmmyyyy2yyyymmdd(newValue),
                                             'Content': '[no data]',
                                             'Context': '[no data]',
                                             'Text': '[no data]'
@@ -148,27 +146,6 @@
                                     if (window.dataLayer) {
                                         window.dataLayer.push(dataLayerObj);
                                     }
-                                    break;
-                                case 'AVIA':
-                                    var dataLayerObj = {
-                                        'event': 'UM.Event',
-                                        'Data': {
-                                            'Category': 'Avia',
-                                            'Action': 'SelectDataFrom',
-                                            'Label': newValue,
-                                            'Content': '[no data]',
-                                            'Context': '[no data]',
-                                            'Text': '[no data]'
-                                        }
-                                    };
-                                    console.table(dataLayerObj);
-                                    if (window.dataLayer) {
-                                        window.dataLayer.push(dataLayerObj);
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
                         }
                         if ($scope.datePicker) {
                             updateThrottled();
@@ -186,15 +163,13 @@
                         }
                     }
                     else {
-                        if(newValue) {
-                            switch ($scope.typePage) {
-                                case 'DP':
+                        if(newValue && newValue != oldValue) {
                                     var dataLayerObj = {
                                         'event': 'UM.Event',
                                         'Data': {
-                                            'Category': 'Packages',
+                                            'Category': $scope.typePage == 'DP' ? 'Packages' : 'Avia',
                                             'Action': 'SelectDataTo',
-                                            'Label': newValue,
+                                            'Label': dateHelper.ddmmyyyy2yyyymmdd(newValue),
                                             'Content': '[no data]',
                                             'Context': '[no data]',
                                             'Text': '[no data]'
@@ -204,27 +179,6 @@
                                     if (window.dataLayer) {
                                         window.dataLayer.push(dataLayerObj);
                                     }
-                                    break;
-                                case 'AVIA':
-                                    var dataLayerObj = {
-                                        'event': 'UM.Event',
-                                        'Data': {
-                                            'Category': 'Avia',
-                                            'Action': 'SelectDataTo',
-                                            'Label': newValue,
-                                            'Content': '[no data]',
-                                            'Context': '[no data]',
-                                            'Text': '[no data]'
-                                        }
-                                    };
-                                    console.table(dataLayerObj);
-                                    if (window.dataLayer) {
-                                        window.dataLayer.push(dataLayerObj);
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
                         }
                         if ($scope.datePicker) {
                             updateThrottled();
