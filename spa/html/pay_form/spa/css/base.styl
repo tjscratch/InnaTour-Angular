@@ -10,12 +10,12 @@ $white ?= #fff
 $blue ?= #1e88c1
 /*END vars*/
 
-a{
+a {
     color $blue
 
     &:active,
     &:focus,
-    &:hover{
+    &:hover {
         text-decoration underline
     }
 }
@@ -29,20 +29,20 @@ clearfix()
 icon()
     display inline-block
     vertical-align middle
-.icon-who{
+.icon-who {
     icon()
     height 18px
     width 17px
     background-image url("../images/who.png")
 }
-.icon-visa{
+.icon-visa {
     icon()
     height 18px
     width 55px
     margin-right 5px
     background-image url("../images/visa.png")
 }
-.icon-master{
+.icon-master {
     icon()
     height 25px
     width 41px
@@ -66,10 +66,10 @@ icon()
 .gray {
     color rgb(216, 216, 216)
 }
-.form-label{
+.form-label {
     color rgb(117, 117, 117)
 }
-.form-control{
+.form-control {
     padding 5px
     background-color $white
     border-radius 2px
@@ -78,41 +78,58 @@ icon()
     height 38px
     line-height 18px
 
-    &::-webkit-input-placeholder{
+    &::-webkit-input-placeholder {
         font-size 18px
         color rgb(216, 216, 216)
     }
-    &:-moz-placeholder{
+    &:-moz-placeholder {
         font-size 18px
         color rgb(216, 216, 216)
     }
-    &::-moz-placeholder{
+    &::-moz-placeholder {
         font-size 18px
         color rgb(216, 216, 216)
     }
-    &:-ms-input-placeholder{
+    &:-ms-input-placeholder {
         font-size 18px
         color rgb(216, 216, 216)
     }
 }
-select{
-    &.form-control{
+.form-control {
+    &.ng-invalid {
+        border 1px solid rgb(219, 68, 55)
+    }
+}
+.FieldError {
+    position absolute
+    padding 3px 0 0 0
+    font-size 13px
+    color rgb(219, 68, 55)
+}
+#messageFormYear {
+    left 137px
+}
+#messageFormCvc {
+
+}
+select {
+    &.form-control {
         padding 5px
         font-size 13px
     }
 }
-.form-checkbox{
+.form-checkbox {
     display table
 
-    .form-checkbox-input{
+    .form-checkbox-input {
         display table-cell
         padding 2px 8px 0 0
         vertical-align top
 
-        input{
+        input {
             display none
 
-            + span{
+            + span {
                 position relative
                 display inline-block
                 width 17px
@@ -122,9 +139,9 @@ select{
                 border-radius 2px
             }
 
-            &:checked{
-                + span{
-                    &:before{
+            &:checked {
+                + span {
+                    &:before {
                         content ''
                         position absolute
                         left 4px
@@ -139,14 +156,14 @@ select{
 
         }
     }
-    .form-checkbox-label{
+    .form-checkbox-label {
         display table-cell
         vertical-align middle
         font-size 15px
     }
 
 }
-.form-btn{
+.form-btn {
     display block
     width 100%
     padding 10px 20px
@@ -161,22 +178,22 @@ select{
     cursor pointer
 
     &:hover,
-    &:focus{
+    &:focus {
         background-color lighten($green, 15%)
     }
 
-    &:active{
+    &:active {
         background-color darken($green, 10%)
     }
 
-    &:disabled{
+    &:disabled {
         background-color lighten($green, 35%)
         cursor inherit
     }
 }
 //END form controll
 
-.pay-form{
+.pay-form {
     max-width 960px
     margin 0 auto
     font-family $ProximaNova
@@ -184,14 +201,14 @@ select{
     line-height 130%
     color $black
 
-    &__title{
+    &__title {
         padding 40px 0 20px
         border-bottom 3px solid $green
         font-size 20px
         font-weight bold
     }
 }
-.pay-form__info{
+.pay-form__info {
     margin 50px 0 50px 0
     min-width 300px
     white-space nowrap
@@ -233,11 +250,11 @@ select{
         }
     }
 }
-.pay-text{
+.pay-text {
     margin 25px 0 20px
     color $gray2
 }
-.pay-form-fields{
+.pay-form-fields {
     clearfix()
     margin 0 0 30px
     padding-bottom 70px
@@ -251,7 +268,7 @@ select{
     }
 
     &__cart-data,
-    &__cart-cvs{
+    &__cart-cvs {
         position relative
         width 480px
         height: 300px
@@ -260,37 +277,39 @@ select{
     }
 
     //BEGIN cart data
-    &__cart-data{
+    &__cart-data {
         z-index 2
         float left
         background-color rgb(246, 246, 246)
         border 1px solid rgb(227, 227, 277)
     }
-    &__cart-data-container{
+    &__cart-data-container {
         padding 10px
     }
-    &__cart-data-icons{
+    &__cart-data-icons {
         margin 15px 0 25px
     }
-    &__cart-data-field{
+    &__cart-data-field {
         margin 0 0 35px
 
-        .form-control{
+        .form-control {
             width 445px
         }
 
+        &.number {
+            margin 0 0 35px
+        }
 
-
-        &.date{
+        &.date {
             clearfix()
-            margin 0 0 20px
+            margin 0 0 25px
 
-            .form-label{
+            .form-label {
                 width 110px
                 padding 7px 0 0 0
             }
 
-            .form-control{
+            .form-control {
                 width 85px
                 height 25px
                 font-size 15px
@@ -314,20 +333,20 @@ select{
     //END cart data
 
     //BEGIN cart cvs
-    &__cart-cvs{
+    &__cart-cvs {
         z-index 1
         margin-top 50px
         margin-left 150px
         background-color rgb(216, 216, 216)
     }
-    &__cart-cvs-container{
+    &__cart-cvs-container {
         padding 80px 0 0 0
     }
     &__cart-cvs-field_line {
         background-color rgb(117, 117, 117)
         height 72px
     }
-    &__cart-cvs-field{
+    &__cart-cvs-field {
         height 72px
         color rgb(117, 117, 117)
 
@@ -336,11 +355,16 @@ select{
             float right
             text-align left
 
-            .form-control{
+            .form-control {
                 width 118px
                 border-radius 3px
                 text-align center
-                margin 0 0 5px 0
+            }
+            .FieldError {
+                position relative
+            }
+            .form-label {
+                margin-top 5px
             }
         }
     }
@@ -390,15 +414,15 @@ select{
                 cursor pointer
 
                 &:hover,
-                &:focus{
+                &:focus {
                     background-color lighten($green, 15%)
                 }
 
-                &:active{
+                &:active {
                     background-color darken($green, 10%)
                 }
 
-                &:disabled{
+                &:disabled {
                     background-color lighten($green, 35%)
                     cursor inherit
                 }
@@ -409,43 +433,43 @@ select{
         padding 15px 0 0 0
     }
 }
-.pay-form-actions{
+.pay-form-actions {
     clearfix()
 
     text-align right
     padding-bottom 15px
 
-    .pay-form__price{
+    .pay-form__price {
         display inline-block
         height 50px
         line-height 50px
     }
-    .pay-form__price-label{
+    .pay-form__price-label {
         display inline-block
         color rgb(117, 117, 117)
         font-size 15px
     }
-    .pay-form__price-value{
+    .pay-form__price-value {
         display inline-block
         margin 0 0 0 10px
         font-size 28px
         font-weight bold
     }
 
-    .ruble{
+    .ruble {
         font-family Rouble
     }
 
     &__checkbox,
-    &__btn{
+    &__btn {
         float right
     }
 
-    &__checkbox{
+    &__checkbox {
         width 440px
     }
 
-    &__btn{
+    &__btn {
         width 230px
         padding 0 0 0 30px
     }
@@ -462,21 +486,20 @@ select{
         height 15px
         line-height 15px
 
-        &::-webkit-input-placeholder{
+        &::-webkit-input-placeholder {
             font-size 12px
         }
-        &:-moz-placeholder{
+        &:-moz-placeholder {
             font-size 12px
         }
-        &::-moz-placeholder{
+        &::-moz-placeholder {
             font-size 12px
         }
-        &:-ms-input-placeholder{
+        &:-ms-input-placeholder {
             font-size 12px
         }
     }
-
-    .pay-form{
+    .pay-form {
         max-width 300px
 
         .pay-form__info {
@@ -492,14 +515,14 @@ select{
             }
         }
 
-        .pay-form-fields{
+        .pay-form-fields {
 
             .load {
                 padding 80px 0
             }
 
             &__cart-data,
-            &__cart-cvs{
+            &__cart-cvs {
                 width 300px
                 height 180px
                 float none
@@ -507,7 +530,7 @@ select{
                 box-sizing border-box
             }
 
-            &__cart-data-icons{
+            &__cart-data-icons {
                 margin 5px 0 10px
             }
 
@@ -523,12 +546,12 @@ select{
                 &.date {
                     margin 0 0 10px
 
-                    .form-label{
+                    .form-label {
                         width 110px
                         padding 7px 0 0 0
                     }
 
-                    .form-control{
+                    .form-control {
                         width 35px
                         height 15px
                         font-size 12px
@@ -548,23 +571,23 @@ select{
                 }
             }
 
-            &__cart-cvs{
+            &__cart-cvs {
                 margin-top -80px
                 margin-left 0px
             }
-            &__cart-cvs-container{
+            &__cart-cvs-container {
                 padding 45px 0 0 0
             }
-            &__cart-cvs-field_line{
+            &__cart-cvs-field_line {
                 height 50px
             }
-            &__cart-cvs-field{
+            &__cart-cvs-field {
                 height 50px
 
                 .wrap-cvc {
                     padding 4px
 
-                    .form-control{
+                    .form-control {
                         font-size 12px
                         width 55px
                         border-radius 3px
@@ -575,17 +598,17 @@ select{
                 }
             }
         }
-        .pay-form-actions{
+        .pay-form-actions {
             &__btn,
-            &__checkbox{
+            &__checkbox {
                 float none
                 width 100%
                 padding 0
             }
-            &__checkbox{
+            &__checkbox {
                 margin-bottom 25px
             }
-            .form-btn{
+            .form-btn {
                 width 100%
             }
         }

@@ -30,7 +30,13 @@ gulp.task('build-tpl', function () {
 
 gulp.task('build-libs', function () {
     return gulp.src([
-        conf.js + '/libs/angular.min.js',
+        './bower_components/angular/angular.min.js',
+        './bower_components/angular-ui-mask/dist/mask.min.js',
+    
+        //'./bower_components/angular-credit-cards/release/angular-credit-cards.js',
+        './bower_components/angular-validation/dist/angular-validation.min.js',
+        './bower_components/angular-validation/dist/angular-validation-rule.min.js',
+        
         conf.js + '/libs/angular-timer.min.js'
     ])
         .pipe(concat('libs.js', {insertSourceName: {open: '/*', close: '*/'}}))
