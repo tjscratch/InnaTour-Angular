@@ -25,3 +25,7 @@ gulp.task('copy-img', function () {
 gulp.task('copy-lk', function () {
     gulp.src(config.lk.src).pipe(gulp.dest(config.lk.distSrc));
 });
+
+gulp.task('copy-js-watch', function () {
+    gulp.watch('./spa/wl-test/**/*', ['copy-js']);
+});
