@@ -100,6 +100,22 @@ angular.module('innaApp.components').
                 setCurrent: function () {
                     this.set('hidden', true);
                     EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_TICKET, this.get('modelTicket'), this.get('ticket.VariantId1'));
+                    var ticket = this.get('modelTicket');
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Packages',
+                            'Action': 'PackagesAviaSelect',
+                            'Label': ticket.data.EtapsTo[0].data.TransporterName ? ticket.data.EtapsTo[0].data.TransporterName : '[no data]',
+                            'Content': 'Page',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
                 },
 
                 CHOOSE_TICKET: function (modelTicket, ticketId) {

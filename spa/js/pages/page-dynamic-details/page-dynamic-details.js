@@ -331,7 +331,6 @@ innaAppControllers
                         _balloonLoad.fire('hide');
                         
                         if(data) {
-                            console.log(data.Hotel);
                             $scope.HotelName = data.Hotel.HotelName;
                             var dataLayerObj = {
                                 'event' : 'UI.PageView',
@@ -602,6 +601,22 @@ innaAppControllers
             $scope.goReservation = function (room) {
                 console.log("RESERVATION", room);
 
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Packages',
+                        'Action': 'PackagesBuyDetails',
+                        'Label': room.RoomName,
+                        'Content': room.Description,
+                        'Context': room.PackagePrice,
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+
                 var resCheck = {
                     PackagePrice: room.PackagePrice,
                     HotelName: $scope.HotelName
@@ -703,6 +718,25 @@ innaAppControllers
 
             $scope.toggleRoom = function (room) {
                 //converts undefined into boolean on the fly
+
+                if(!room.isOpen) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Packages',
+                            'Action': 'RoomDetails',
+                            'Label': room.RoomName,
+                            'Content': room.Description,
+                            'Context': room.PackagePrice,
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+
                 room.isOpen = !!!room.isOpen;
 
                 //================analytics========================

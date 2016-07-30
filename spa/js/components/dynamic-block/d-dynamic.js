@@ -97,6 +97,22 @@ angular.module('innaApp.components').directive('dynamicBlock', [
 
 
 				$scope.bundleTicketDetails = function (evt) {
+					var dataLayerObj = {
+						'event': 'UM.Event',
+						'Data': {
+							'Category': 'Packages',
+							'Action': 'DetailsAviaInDetails',
+							'Label': '[no data]',
+							'Content': '[no data]',
+							'Context': '[no data]',
+							'Text': '[no data]'
+						}
+					};
+					console.table(dataLayerObj);
+					if (window.dataLayer) {
+						window.dataLayer.push(dataLayerObj);
+					}
+
 					evt.stopPropagation();
 					var ticket = $scope.recommendedPair.ticket;
 					$scope.$emit(innaAppApiEvents.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED,
@@ -119,6 +135,23 @@ angular.module('innaApp.components').directive('dynamicBlock', [
 			},
 			controller: function($scope){
 				$scope.replaceTicket = function () {
+
+					var dataLayerObj = {
+						'event': 'UM.Event',
+						'Data': {
+							'Category': 'Packages',
+							'Action': 'ChangeAvia',
+							'Label': '[no data]',
+							'Content': '[no data]',
+							'Context': '[no data]',
+							'Text': '[no data]'
+						}
+					};
+					console.table(dataLayerObj);
+					if (window.dataLayer) {
+						window.dataLayer.push(dataLayerObj);
+					}
+
 					var replaceTicketUrl = appURLs.URL_DYNAMIC_PACKAGES_SEARCH +
 						[
 							$routeParams.DepartureId,

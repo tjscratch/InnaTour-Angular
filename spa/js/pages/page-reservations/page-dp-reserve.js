@@ -21,7 +21,8 @@
         //components
         'Balloon',
         '$cookieStore',
-        function (RavenWrapper, $scope, $controller, $routeParams, $location, $rootScope, serviceCache,DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon, $cookieStore) {
+        'gtm',
+        function (RavenWrapper, $scope, $controller, $routeParams, $location, $rootScope, serviceCache,DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon, $cookieStore, gtm) {
 
             $scope.baloon.showExpireCheck();
 
@@ -79,12 +80,96 @@
 
             $scope.ticketsCount = aviaHelper.getTicketsCount($scope.AdultCount, $scope.ChildCount, $scope.InfantsCount);
             $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $routeParams.TicketClass);
+            
+            $scope.gtmDetailsAviaInReserv = function () {
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Packages',
+                        'Action': 'DetailsAviaInReserv',
+                        'Label': '[no data]',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+
+
+                // gtm.GtmTrack(
+                //     {
+                //         'event': 'UM.Event'
+                //     },
+                //     {
+                //         'Category': 'Packages',
+                //         'Action': 'DetailsAviaInReserv',
+                //         'Label': '[no data]',
+                //         'Content': '[no data]',
+                //         'Context': '[no data]',
+                //         'Text': '[no data]'
+                //     }
+                // );
+            };
+
+            $scope.gtmDetailsHotelsInReserv = function () {
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Packages',
+                        'Action': 'DetailsHotelsInReserv',
+                        'Label': '[no data]',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+
+                // gtm.GtmTrack(
+                //     {
+                //         'Action': 'DetailsHotelsInReserv',
+                //     }
+                // );
+            };
+            
+            $scope.gtmRules = function ($event, type) {
+                var label = '';
+                switch (type) {
+                    case 'avia':
+                        label = 'ConditionAvia';
+                        break;
+                    case 'hotel':
+                        label = 'ConditionHotels'
+                    default:
+                        break;
+                }
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Packages',
+                        'Action': 'ConditionAvia',
+                        'Label': $event.target.textContent,
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+            };
 
             $scope.cityFrom = null;
             $scope.cityTo = null;
             $scope.PackagePrice = null;
             $scope.HotelName = null;
-            console.log('TTTTTTTTTTTTT', searchParams);
 
             var resCheck = serviceCache.getObject('ResCheck');
             var locationCityFrom = serviceCache.getObject('DP_from');

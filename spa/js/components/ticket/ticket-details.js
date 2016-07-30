@@ -31,8 +31,23 @@ angular.module('innaApp.directives')
                         $scope.popupItemInfo.hide();
                     };
 
-                    $scope.setCurrent = function () {
+                    $scope.setCurrent = function (toTransporterName) {
                         EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_TICKET, $scope.ticket);
+                        var dataLayerObj = {
+                            'event': 'UM.Event',
+                            'Data': {
+                                'Category': 'Packages',
+                                'Action': 'PackagesAviaSelect',
+                                'Label': toTransporterName ? toTransporterName : '[no data]',
+                                'Content': 'Popup',
+                                'Context': '[no data]',
+                                'Text': '[no data]'
+                            }
+                        };
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
                         $scope.closePopup();
                     };
 
