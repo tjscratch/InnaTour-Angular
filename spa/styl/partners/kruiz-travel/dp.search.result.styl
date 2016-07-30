@@ -64,6 +64,9 @@ $slider-color-2 = #a3b4c0;
 //$border-radius-2
 
 .partner-wl {
+    .results-body{
+        background $res-bg
+    }
     .b-switch-filters {
         top: 79px;
     }
@@ -76,22 +79,24 @@ $slider-color-2 = #a3b4c0;
         display: block;
         position: absolute;
         top: 0px;
-        left: 50%;
-        margin-left -480px
-        width: 960px;
+        width 100%
+        //left: 50%;
+        //margin-left -480px
+        //width: 960px;
         height: 49px;
-        background-image url("/spa/img/partners/euroset/head.jpg")
+        //background-image url("/spa/img/partners/euroset/head.jpg")
+        background-color: #F0F1F5;
 
         .wl-center-cont {
             margin: 0 auto;
             width: 960px;
             height 49px
             position: relative;
-            background-color: rgba(0, 0, 0, 0.65);
+            background-color: #F0F1F5;
         }
 
         .wl-container {
-            color: white;
+            color: #333;
         }
 
         .wl-text {
@@ -106,18 +111,26 @@ $slider-color-2 = #a3b4c0;
         background: rgba(235, 238, 242, 0.8);
     }
 
+    .recommended-pair-component{
+        background: $rec-bg;
+    }
+
     .recommend-bundle-container {
         position: absolute;
         top: 0px;
-        left 50%
-        width 960px
-        margin-left -480px
+        //left 50%
+        width 100%
+        //margin-left -480px
+        background: $rec-bg;
     }
 
     .recommend-bundle-background {
         height 105px
-        background: url("/spa/img/partners/euroset/head.jpg") no-repeat 0 0;
+        background: $rec-bg;
 
+        &:after{
+            background none
+        }
     }
 
     .recommend-bundle-container.recommend-bundle-container_short {
@@ -133,13 +146,13 @@ $slider-color-2 = #a3b4c0;
     }
 
     .recommend-bundle {
-        background-color transparent
+        background: $rec-bg;
     }
 
     .recommend-bundle-title {
         background-color: transparent;
         line-height 23px
-        padding: 10px 25px;
+        padding: 10px 20px;
         margin-bottom: 0px;
         font-weight: normal;
         font-size 23px
@@ -154,12 +167,12 @@ $slider-color-2 = #a3b4c0;
     }
 
     .recommend-bundle-wrap .w-expand-collapse-link.w-expand-collapse-link_up {
-        right 20px
-        top: 75px;
+        right 0
+        top: 65px;
         background-color: #fff;
         padding: 5px 14px 7px;
         text-decoration: none;
-        border-radius 10px 10px 0 0
+        border-radius 0
     }
 
     .search__list_sort {
