@@ -46,7 +46,7 @@ innaAppDirectives.directive('locationSelector', [
 
                     if (!doNotUpdateText) {
                         $scope.currentCity = name.join(', ');
-                        EventManager.fire("locationSelectorChange", data);
+                        EventManager.fire("locationSelectorChange", $scope.typeSearch);
                     }
 
                     $scope.selectedValue = data;

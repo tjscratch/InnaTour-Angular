@@ -436,8 +436,7 @@ app.config(['$provide', function ($provide) {
                     }
                 });
             }
-            del(ex, cause);
-            
+            //del(ex, cause);
         };
     }]);
     

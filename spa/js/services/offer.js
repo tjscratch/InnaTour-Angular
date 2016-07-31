@@ -7,6 +7,13 @@ innaAppServices.service('Offer', function ($http, appApi) {
                 params: params
             })
         },
+        getOffersForLocation: function (params) {
+            return $http({
+                url: appApi.GET_OFFERS_FOR_LOCATION,
+                method: "GET",
+                params: params
+            })
+        },
         sortable: function (sortableType, offers) {
             var sortOffers;
             if (sortableType == 0) {

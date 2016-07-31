@@ -31,6 +31,7 @@ innaAppServices.factory('appApi', function () {
         GET_COUNTRIES: url('/Dictionary/Country'),
         
         GET_OFFERS: url('/BestOffer/GetOffers'),
+        GET_OFFERS_FOR_LOCATION: url('/BestOffer/GetOffersForLocation'),
 
         GET_MANAGER_STATUS: url('/TalkingHeadSupportApi/GetManagerStatus2'),
     }

@@ -3,9 +3,9 @@ innaAppDirectives.directive('offers', function ($templateCache) {
         replace: true,
         template: $templateCache.get("components/offers/templ/offers.html"),
         controller: function ($scope, RavenWrapper, serviceCache, Offer, $timeout, EventManager) {
-
+            
             $scope.price = null;
-
+            
             function setDefaultValue(res) {
                 
                 $scope.Categories = res.data.Categories;
@@ -31,8 +31,8 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 var cacheLocation = serviceCache.getObject('DP_from');
                 var cacheLocationId = cacheLocation ? cacheLocation.Id : 6733;
                 $scope.filter.Location = cacheLocationId;
-
-
+                
+                
                 var MonthObj = _.find($scope.Months, function (item) {
                     return item.Selected == true;
                 });
@@ -95,13 +95,21 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                  */
                 $scope.filterChange($scope.filter);
                 EventManager.on("locationSelectorChange", function (data) {
-                    $scope.filter.Location = data.Id;
-                    $scope.filterChange($scope.filter);
+                    var cacheLocationFrom = serviceCache.getObject('DP_from').Id;
+                    if (data == 'DP_to') {
+                        var cacheLocationTo = serviceCache.getObject('DP_to').Id;
+                        $scope.changeForLocation(cacheLocationTo, cacheLocationFrom);
+                    }
+                    if(data == 'DP_from'){
+                        $scope.filter.Location = cacheLocationFrom;
+                        $scope.filterChange($scope.filter);
+                    }
                 });
-
+                
             };
-
+            
             $scope.loadingOffers = false;
+            $scope.showFilters = true;
             $scope.filterChange = function (filter) {
                 $scope.loadingOffers = true;
                 $scope.showOffers = true;
@@ -126,18 +134,46 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 
             };
             
+            $scope.changeForLocation = function (ArrivalLocation, Location) {
+                $scope.loadingOffers = true;
+                $scope.showOffers = true;
+                Offer.getOffersForLocation(
+                    {ArrivalLocation: ArrivalLocation, Location: Location}
+                ).then(
+                    function (res) {
+                        if (res.data.Offers.length == 0 && $scope.filter.Location != 6733) {
+                            $scope.filter.Location = 6733;
+                            $scope.filterChange($scope.filter);
+                        } else {
+                            $timeout(function () {
+                                $scope.hideFilters = true;
+                            },0)
+                            $scope.offersServer = res.data.Offers;
+                            $scope.showFilters = false;
+                            $scope.loadingOffers = false;
+                            $scope.offersSort($scope.Sort, $scope.offersServer, false);
+                        }
+                    }, function (res) {
+                        RavenWrapper.raven({
+                            captureMessage: 'Offer.getOffers(filter): ERROR!',
+                            dataResponse: res,
+                            dataRequest: $scope.filter
+                        });
+                    });
+            };
+            
             // var offers = Offer.mock(12);
             $scope.offersSort = function (sortableType, offers, price) {
-                if(price >= 1000){
+                if (price >= 1000) {
                     var offers = _.filter(offers, function (item) {
                         return item.Price < price;
                     });
                     $scope.offers = Offer.sortable(sortableType, offers);
-                }else{
+                } else {
                     $scope.offers = Offer.sortable(sortableType, offers);
                 }
             };
-
+            
         }
     }
 });

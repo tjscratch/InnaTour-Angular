@@ -137,7 +137,7 @@
                                 </div>
                 -->
 
-                <div class="b-offers-filter__container">
+                <div class="b-offers-filter__container" ng-if="showFilters">
                     <div class="b-offers-filter-Price">
                         <input class="b-offers-filter-Price__input"
                                type="number"
@@ -151,7 +151,7 @@
                 </div>
 
 
-                <div class="b-offers-filter__container">
+                <div class="b-offers-filter__container" ng-if="showFilters">
                     <ui-select ng-model="filter.Period"
                                theme="selectize"
                                append-to-body="'true'"
@@ -165,7 +165,7 @@
                     </ui-select>
                 </div>
 
-                <div class="b-offers-filter__container">
+                <div class="b-offers-filter__container" ng-if="showFilters">
                     <ui-select ng-model="filter.Month"
                                theme="selectize"
                                append-to-body="'true'"
@@ -179,7 +179,7 @@
                     </ui-select>
                 </div>
 
-                <div class="b-offers-filter__container">
+                <div class="b-offers-filter__container" ng-if="showFilters">
                     <div class="b-offers-filter-WithoutVisa">
                         <label class="FieldCheckbox">
                             <input class="FieldCheckbox__input"
