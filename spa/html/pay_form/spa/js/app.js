@@ -11,6 +11,39 @@
     ]);
     
     app.config(['$validationProvider', function ($validationProvider) {
+        var expression = {
+            //passport: /^.*([a-zA-Z]).*([а-яА-ЯёЁ])(\D)*(\d{6})+$/,
+            month: function (value, scope, element, attrs, param) {
+                if (value >= 1 && value <= 12) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            year: function (value, scope, element, attrs, param) {
+                if (value >= 0 && value <= 99) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+        
+        var validMsg = {
+            month: {
+                error: 'Месяц от 1 до 12',
+                success: 'Ок'
+            },
+            year: {
+                error: 'Год от 0 до 99',
+                success: 'Ок'
+            }
+        };
+        
+        $validationProvider
+            .setExpression(expression)
+            .setDefaultMsg(validMsg);
+        
         $validationProvider.showSuccessMessage = false; // or true(default)
         //$validationProvider.showErrorMessage = false; // or true(default)
     }]);

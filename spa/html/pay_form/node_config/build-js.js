@@ -34,8 +34,8 @@ gulp.task('build-libs', function () {
         './bower_components/angular-ui-mask/dist/mask.min.js',
     
         //'./bower_components/angular-credit-cards/release/angular-credit-cards.js',
-        './bower_components/angular-validation/dist/angular-validation.min.js',
-        './bower_components/angular-validation/dist/angular-validation-rule.min.js',
+        './bower_components/angular-validation/dist/angular-validation.js',
+        './bower_components/angular-validation/dist/angular-validation-rule.js',
         
         conf.js + '/libs/angular-timer.min.js'
     ])

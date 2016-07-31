@@ -7,9 +7,7 @@
     var $validationProvider = $injector.get('$validation');
     var $q = $injector.get('$q');
     var $timeout = $injector.get('$timeout');
-    var $compile = $injector.get('$compile');
     var $parse = $injector.get('$parse');
-    var groups = {};
 
     /**
      * Do this function if validation valid
@@ -22,25 +20,23 @@
      */
     var validFunc = function(element, validMessage, validation, scope, ctrl, attrs) {
       var messageToShow = validMessage || $validationProvider.getDefaultMsg(validation).success;
-      var validCallback = $parse(attrs.validCallback);
-      var messageId = attrs.messageId;
-      var validationGroup = attrs.validationGroup;
+      var validCallback = $parse('success');
       var messageElem;
 
-      if (messageId || validationGroup) messageElem = angular.element(document.querySelector('#' + (messageId || validationGroup)));
-      else messageElem = $validationProvider.getMsgElement(element);
+      if (attrs.messageId) messageElem = angular.element(document.querySelector('#' + attrs.messageId));
+      else messageElem = element.next();
 
       if (element.attr('no-validation-message')) {
         messageElem.css('display', 'none');
       } else if ($validationProvider.showSuccessMessage && messageToShow) {
-        messageElem.html('').append($compile($validationProvider.getSuccessHTML(messageToShow, element, attrs))(scope));
+        messageElem.html($validationProvider.getSuccessHTML(messageToShow));
         messageElem.css('display', '');
       } else {
         messageElem.css('display', 'none');
       }
 
       ctrl.$setValidity(ctrl.$name, true);
-      validCallback(scope, {
+      if (validCallback) validCallback({
         message: messageToShow
       });
       if ($validationProvider.validCallback) $validationProvider.validCallback(element);
@@ -60,25 +56,23 @@
      */
     var invalidFunc = function(element, validMessage, validation, scope, ctrl, attrs) {
       var messageToShow = validMessage || $validationProvider.getDefaultMsg(validation).error;
-      var invalidCallback = $parse(attrs.invalidCallback);
-      var messageId = attrs.messageId;
-      var validationGroup = attrs.validationGroup;
+      var invalidCallback = $parse('error');
       var messageElem;
 
-      if (messageId || validationGroup) messageElem = angular.element(document.querySelector('#' + (messageId || validationGroup)));
-      else messageElem = $validationProvider.getMsgElement(element);
+      if (attrs.messageId) messageElem = angular.element(document.querySelector('#' + attrs.messageId));
+      else messageElem = element.next();
 
       if (element.attr('no-validation-message')) {
         messageElem.css('display', 'none');
       } else if ($validationProvider.showErrorMessage && messageToShow) {
-        messageElem.html('').append($compile($validationProvider.getErrorHTML(messageToShow, element, attrs))(scope));
+        messageElem.html($validationProvider.getErrorHTML(messageToShow));
         messageElem.css('display', '');
       } else {
         messageElem.css('display', 'none');
       }
 
       ctrl.$setValidity(ctrl.$name, false);
-      invalidCallback(scope, {
+      if (invalidCallback) invalidCallback({
         message: messageToShow
       });
       if ($validationProvider.invalidCallback) $validationProvider.invalidCallback(element);
@@ -86,39 +80,6 @@
       return false;
     };
 
-    /**
-     * Verify whether there is one of the elements inside the group valid.
-     * If so, it returns true, otherwise, it returns false
-     *
-     * @param validationGroup
-     * @return {boolean}
-     */
-    var checkValidationGroup = function(validationGroup) {
-      var group = groups[validationGroup];
-
-      return Object.keys(group).some(function(key) {
-        return group[key];
-      });
-    };
-
-    /**
-     * Set validity to all elements inside the given group
-     *
-     * @param scope
-     * @param groupName
-     * @param validity
-     */
-    function setValidationGroup(scope, validationGroup, validity) {
-      var validationGroupElems = document.querySelectorAll('*[validation-group=' + validationGroup + ']');
-
-      // Loop through all elements inside the group
-      for (var i = 0, len = validationGroupElems.length; i < len; i++) {
-        var elem = validationGroupElems[i];
-        var formName = elem.form.name;
-        var elemName = elem.name;
-        scope[formName][elemName].$setValidity(elemName, validity);
-      }
-    }
 
     /**
      * collect elements for focus
@@ -148,7 +109,6 @@
       var successMessage = validator + 'SuccessMessage';
       var errorMessage = validator + 'ErrorMessage';
       var expression = $validationProvider.getExpression(validator);
-      var validationGroup = attrs.validationGroup;
       var valid = {
         success: function() {
           validFunc(element, attrs[successMessage], validator, scope, ctrl, attrs);
@@ -172,24 +132,8 @@
       if (expression.constructor === Function) {
         return $q.all([$validationProvider.getExpression(validator)(value, scope, element, attrs, validatorParam)])
           .then(function(data) {
-            if (data && data.length > 0 && data[0]) {
-              if (validationGroup) {
-                groups[validationGroup][ctrl.$name] = true;
-                setValidationGroup(scope, validationGroup, true);
-              }
-              return valid.success();
-            } else if (validationGroup) {
-              groups[validationGroup][ctrl.$name] = false;
-
-              // Whenever the element is invalid, we'll check whether one of the elements inside the its group valid or not.
-              // If there is a valid element, its invalid message won't be shown, Otherwise, shows its invalid message.
-              if (checkValidationGroup(validationGroup)) {
-                setValidationGroup(scope, validationGroup, true);
-              } else {
-                setValidationGroup(scope, validationGroup, false);
-                return valid.error();
-              }
-            } else return valid.error();
+            if (data && data.length > 0 && data[0]) return valid.success();
+            else return valid.error();
           }, function() {
             return valid.error();
           });
@@ -198,28 +142,11 @@
       // Check with RegExp
       else if (expression.constructor === RegExp) {
         // Only apply the test if the value is neither undefined or null
-        if (value !== undefined && value !== null) {
-          if ($validationProvider.getExpression(validator).test(value)) {
-            if (validationGroup) {
-              groups[validationGroup][ctrl.$name] = true;
-              setValidationGroup(scope, validationGroup, true);
-            }
-            return valid.success();
-          } else if (validationGroup) {
-            groups[validationGroup][ctrl.$name] = false;
-
-            // Whenever the element is invalid, we'll check whether one of the elements inside the its group valid or not.
-            // If there is a valid element, its invalid message won't be shown, Otherwise, shows its invalid message.
-            if (checkValidationGroup(validationGroup)) {
-              setValidationGroup(scope, validationGroup, true);
-            } else {
-              setValidationGroup(scope, validationGroup, false);
-              return valid.error();
-            }
-          } else return valid.error();
-        }
+        if (value !== undefined && value !== null) return $validationProvider.getExpression(validator).test(value) ? valid.success() : valid.error();
+        else return valid.error();
       } else return valid.error();
     };
+
 
     /**
      * generate unique guid
@@ -237,15 +164,6 @@
       require: 'ngModel',
       link: function(scope, element, attrs, ctrl) {
         /**
-         * All attributes
-         */
-        var validator = attrs.validator;
-        var messageId = attrs.messageId;
-        var validationGroup = attrs.validationGroup;
-        var validMethod = attrs.validMethod;
-        var ngModel = attrs.ngModel;
-
-        /**
          * watch
          * @type {watch}
          *
@@ -261,17 +179,13 @@
          *
          * Convert user input String to Array
          */
-        var validation = validator.split(',');
+        var validation = attrs.validator.split(',');
 
         /**
          * guid use
          */
         var uid = ctrl.validationId = guid();
 
-        /**
-         * to have a value to rollback to
-         */
-        var originalViewValue = null;
 
         /**
          * Set initial validity to undefined if no boolean value is transmitted
@@ -282,17 +196,9 @@
         }
 
         /**
-         * Set up groups object in order to keep track validation of elements
-         */
-        if (validationGroup) {
-          if (!groups[validationGroup]) groups[validationGroup] = {};
-          groups[validationGroup][ctrl.$name] = false;
-        }
-
-        /**
          * Default Valid/Invalid Message
          */
-        if (!(messageId || validationGroup)) $validationProvider.addMsgElement(element);
+        if (!attrs.messageId) element.after('<span></span>');
 
         /**
          * Set custom initial validity
@@ -313,12 +219,12 @@
           watch();
 
           $timeout(function() {
-            ctrl.$setViewValue(originalViewValue);
+            ctrl.$setViewValue('');
             ctrl.$setPristine();
             ctrl.$setValidity(ctrl.$name, undefined);
             ctrl.$render();
-            if (messageId || validationGroup) angular.element(document.querySelector('#' + (messageId || validationGroup))).html('');
-            else $validationProvider.getMsgElement(element).html('');
+            if (attrs.messageId) angular.element(document.querySelector('#' + attrs.messageId)).html('');
+            else element.next().html('');
 
             if ($validationProvider.resetCallback) $validationProvider.resetCallback(element);
           });
@@ -327,7 +233,9 @@
         /**
          * Check validator
          */
-        validMethod = (angular.isUndefined(validMethod)) ? $validationProvider.getValidMethod() : validMethod;
+
+
+        var validMethod = (angular.isUndefined(attrs.validMethod)) ? $validationProvider.getValidMethod() : attrs.validMethod;
 
         /**
          * Click submit form, check the validity when submit
@@ -342,7 +250,7 @@
             // clear previous scope.$watch
             watch();
             watch = scope.$watch(function() {
-              return scope.$eval(ngModel);
+              return scope.$eval(attrs.ngModel);
             }, function(value, oldValue) {
               // don't watch when init
               if (value === oldValue) {
@@ -381,7 +289,7 @@
          */
         if (validMethod === 'blur') {
           element.bind('blur', function() {
-            var value = scope.$eval(ngModel);
+            var value = scope.$eval(attrs.ngModel);
             scope.$apply(function() {
               checkValidation(scope, element, attrs, ctrl, validation, value);
             });
@@ -402,19 +310,18 @@
          * This is the default method
          */
         scope.$watch(function() {
-          return scope.$eval(ngModel);
+          return scope.$eval(attrs.ngModel);
         }, function(value) {
           /**
            * dirty, pristine, viewValue control here
            */
           if (ctrl.$pristine && ctrl.$viewValue) {
             // has value when initial
-            originalViewValue = ctrl.$viewValue || '';
             ctrl.$setViewValue(ctrl.$viewValue);
           } else if (ctrl.$pristine) {
             // Don't validate form when the input is clean(pristine)
-            if (messageId || validationGroup) angular.element(document.querySelector('#' + (messageId || validationGroup))).html('');
-            else $validationProvider.getMsgElement(element).html('');
+            if (attrs.messageId) angular.element(document.querySelector('#' + attrs.messageId)).html('');
+            else element.next().html('');
             return;
           }
           checkValidation(scope, element, attrs, ctrl, validation, value);
@@ -426,8 +333,8 @@
            */
           attrs.$observe('noValidationMessage', function(value) {
             var el;
-            if (messageId || validationGroup) el = angular.element(document.querySelector('#' + (messageId || validationGroup)));
-            else el = $validationProvider.getMsgElement(element);
+            if (attrs.messageId) el = angular.element(document.querySelector('#' + attrs.messageId));
+            else el = element.next();
             if (value === 'true' || value === true) el.css('display', 'none');
             else if (value === 'false' || value === false) el.css('display', 'block');
           });

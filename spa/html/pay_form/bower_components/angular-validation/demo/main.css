@@ -1,15 +1,3 @@
-html, body {
-     max-width: 100%;
-    overflow-x: hidden;
-}
-
-body {
-    color: #626262;
-    font-family: "Segoe UI",Arial,sans-serif;
-    font-size: 14px;
-    font-weight: normal;
-    letter-spacing: 0.01em;
-}
 .validation-valid {
     color: #0074D9;
 }
@@ -22,7 +10,7 @@ body {
     width: 50px;
     position: fixed;
     right: 1.5em;
-    bottom: 3.5em;
+    bottom: 1.5em;
     opacity: 0.6;
     -o-transition:.5s;
     -ms-transition:.5s;
@@ -33,10 +21,6 @@ body {
 
 #github-link:hover {
     opacity: 1;
-}
-
-.m-l-10 {
-    margin-left: 10px;
 }
 
 pre, pre code {
@@ -65,8 +49,8 @@ pre {
     border-radius: 4px;
 }
 
-.container > nav {
-    margin: 0px 70px;
+.hljs {
+    background: none;
 }
 
 .navbar-default .navbar-brand {
@@ -98,18 +82,20 @@ pre {
     padding: 60px 15px 40px;
     color: #fff;
     text-align: center;
-    background-color: #36bc98;
-    background-image: linear-gradient(to bottom,rgba(6, 99, 179, 0.81) 0,#36bc98 100%);
+    background-color: #0A7C71;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#0A7C71),to(#10CFBD));
+    background-image: -webkit-linear-gradient(top,#0A7C71
+ 0,#10CFBD 100%);
+    background-image: -o-linear-gradient(top,#0A7C71
+ 0,#10CFBD 100%);
+    background-image: linear-gradient(to bottom,#0A7C71
+ 0,#10CFBD 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0A7C71', endColorstr='#10CFBD', GradientType=0);
     background-repeat: repeat-x;
 }
 
 .bs-docs-header .container {
     text-align: left;
-}
-
-.bs-docs-header .container > p {
-    color: #ccc;
-    letter-spacing: 1.5px;
 }
 
 .bs-docs-decs {
@@ -131,17 +117,4 @@ pre {
 
 blockquote > label {
     font-size: 13px;
-}
-
-.form-control {
-    width: 50%;
-}
-
-form > fieldset > legend {
-    border: none;
-}
-
-/* gitter */
-.gitter-chat-embed {
-  z-index: 99999;
 }

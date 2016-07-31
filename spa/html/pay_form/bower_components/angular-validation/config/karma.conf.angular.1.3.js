@@ -18,13 +18,13 @@ module.exports = function(config) {
     exclude: [],
 
     preprocessors: {
-      'dist/angular-validation.js': ['coverage']
+      'test/*.js': []
     },
 
     // use dots reporter, as travis terminal does not support escaping sequences
     // possible values: 'dots', 'progress'
     // CLI --reporters progress
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress'],
 
     // web server port
     // CLI --port 9876
@@ -68,16 +68,9 @@ module.exports = function(config) {
 
     plugins: [
       'karma-jasmine',
-      'karma-coverage',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
       'karma-phantomjs-launcher'
-    ],
-
-    // coverage settings
-    coverageReporter: {
-        type: "lcov",
-        dir: "coverage/"
-    }
+    ]
   });
 };

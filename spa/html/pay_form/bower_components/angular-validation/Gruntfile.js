@@ -16,10 +16,7 @@ module.exports = function(grunt) {
     },
     copy: {
       main: {
-        files: [{
-            src: './bundle.js',
-            dest: 'dist/'
-          }
+        files: [
           // {expand: true, cwd: 'demo', src: ['script.js'], dest: 'dist'} // partials html file
           // {expand: true, cwd: 'app', src: ['*.*'], dest: 'dist/'}
         ]
@@ -42,7 +39,7 @@ module.exports = function(grunt) {
       }
     },
     jsbeautifier: {
-      files: ['src/**/*.js', 'test/unit/*.js', 'demo/*.js'],
+      files: ['*.js', 'src/**/*.js', 'test/unit/*.js', 'demo/*.js'],
       options: {
         js: {
           indent_size: 2
@@ -88,18 +85,6 @@ module.exports = function(grunt) {
       // }
       angular1_3: {
         configFile: 'config/karma.conf.angular.1.3.js'
-      },
-      angular1_4: {
-        configFile: 'config/karma.conf.angular.1.4.js'
-      }
-    },
-    coveralls: {
-      options: {
-        debug: true,
-        coverageDir: 'coverage',
-        dryRun: false,
-        force: true,
-        recursive: true
       }
     }
   });
@@ -109,8 +94,6 @@ module.exports = function(grunt) {
   // Register Task
   grunt.registerTask('dev', ['browserSync', 'watch']);
   grunt.registerTask('check', ['jshint', 'jsbeautifier']); // use this before commit
-  grunt.registerTask('build', ['check', 'clean', 'concat', 'uglify', 'copy']);
+  grunt.registerTask('build', ['check', 'clean', 'concat', 'uglify']);
   grunt.registerTask('test', ['build', 'karma']);
-  grunt.registerTask('cov', ['coveralls']);
-  grunt.registerTask('default', ['build', 'test']);
 };

@@ -61,7 +61,7 @@ icon()
     background-color $green
 }
 .background-gray {
-    background-color rgba(117, 117, 117, 30)
+    background-color rgba(117, 117, 117, 30) !important
 }
 .gray {
     color rgb(216, 216, 216)
@@ -96,6 +96,7 @@ icon()
     }
 }
 .form-control {
+    &.error,
     &.ng-invalid {
         border 1px solid rgb(219, 68, 55)
     }
@@ -364,6 +365,7 @@ select {
                 position relative
             }
             .form-label {
+                display block
                 margin-top 5px
             }
         }

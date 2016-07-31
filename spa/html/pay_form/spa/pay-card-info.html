@@ -24,7 +24,7 @@
 			</span>
         </div>
     </div>
-    <form novalidate name="paymentForm">
+    <form id="paymentForm" name="PaymentForm" action="/">
         <div class="pay-form-fields">
             <div class="pay-form-fields__cart-data">
                 <div class="pay-form-fields__cart-data-container">
@@ -32,34 +32,86 @@
                         <i class="icon-visa"></i>
                         <i class="icon-master"></i>
                     </div>
-                    <div class="pay-form-fields__cart-data-field">
+                    <div class="pay-form-fields__cart-data-field number">
 
                         <input
+                                id="number"
                                 type="text"
-                                name="creditCard"
-                                class="form-control gray-border"
-                                ng-model="ccinfo.number"
-                                required
-                                data-credit-card-type
-                                data-ng-pattern="/^[0-9]+$/"
-                                data-ng-minlength="16"
-                                maxlength="16"
-                                placeholder="Номер карты"/>
+                                name="number"
+                                class="form-control gray-border error"
+                                ng-model="ccForm.number"
+                                placeholder="Номер карты"
+
+                                ui-mask="9999 9999 9999 9999"
+                                ui-mask-placeholder
+                                ui-mask-placeholder-char="space"
+
+                                message-id="messageFormNumber"
+                                validator="required"
+                                valid-method="submit"
+                                required-error-message="Укажите номер карты"
+                        />
+
+                        <div class="FieldError"
+                             id="messageFormNumber">Укажите номер карты</div>
                     </div>
+
                     <div class="pay-form-fields__cart-data-field date">
                         <label class="form-label" for="month">Действительна до</label><br/>
-                        <input id="month" class="form-control gray-border" ng-model="ccinfo.month" name="month" data-card-expiration required placeholder="ММ"/>
+                        <input
+                                id="monthInput"
+                                class="form-control gray-border error"
+                                ng-model="ccForm.month"
+                                name="month"
+                                placeholder="ММ"
+
+                                ui-mask="99"
+                                ui-mask-placeholder
+                                ui-mask-placeholder-char="space"
+
+                                message-id="messageFormMonth"
+                                validator="required, month"
+                                valid-method="submit"
+                                required-error-message="Укажите месяц"
+
+                        />
                         <span>/</span>
-                        <input id="year" class="form-control gray-border" ng-model="ccinfo.year" name="year" required placeholder="ГГ"/>
+                        <input
+                                id="yearInput"
+                                class="form-control gray-border error"
+                                ng-model="ccForm.year"
+                                name="year"
+                                required
+                                placeholder="ГГ"
+
+                                ui-mask="99"
+                                ui-mask-placeholder
+                                ui-mask-placeholder-char="space"
+
+                                message-id="messageFormYear"
+                                validator="required, year"
+                                valid-method="submit"
+                                required-error-message="Укажите год"
+                        />
+
+                        <div class="FieldError"
+                             id="messageFormMonth">Укажите месяц</div>
+
+                        <div class="FieldError"
+                             id="messageFormYear">Укажите год</div>
+
                     </div>
+
+
                     <div class="pay-form-fields__cart-data-field fio">
                         <input
+                                id="usernameInput"
                                 class="form-control gray-border"
                                 type="text"
-                                ng-model="ccinfo.username"
+                                ng-model="ccForm.username"
                                 minlength="1"
-                                required=""
-                                placeholder="Держатель карты"/>
+                                placeholder="Держатель карты"
+                        />
                     </div>
                 </div>
             </div>
@@ -69,18 +121,27 @@
                     </div>
                     <div class="pay-form-fields__cart-cvs-field">
                         <div class="wrap-cvc">
-                            <input id="cart-cvs"
-                                   type="text"
-                                   class="form-control gray-border"
-                                   name="securityCode"
-                                   ng-model="ccinfo.securityCode"
-                                   required
-                                   data-ng-pattern="/^[0-9]+$/"
-                                   data-ng-minlength="3"
-                                   maxlength="4"
-                                   placeholder="CVC"
-                            /><br/>
-                            <label for="cart-cvs" class="form-label">
+                            <input
+                                    id="cvsInput"
+                                    type="text"
+                                    class="form-control gray-border error"
+                                    name="cvc"
+                                    ng-model="ccForm.cvc"
+                                    placeholder="CVC"
+
+                                    ui-mask="999"
+                                    ui-mask-placeholder
+                                    ui-mask-placeholder-char="space"
+
+                                    message-id="messageFormCvc"
+                                    validator="required"
+                                    valid-method="submit"
+                                    required-error-message="Укажите cvc код"
+                            />
+
+                            <div class="FieldError"
+                                 id="messageFormCvc">Укажите cvc код</div>
+                            <label for="cvsInput" class="form-label form-label__cvsInput">
                                 Три цифры<br/>
                                 с обртаной<br/>
                                 стороны<br/>
@@ -102,6 +163,8 @@
                         type="submit"
                         class="form-btn background-green"
                         value="Оплатить"
+                        ng-disabled="PaymentForm.$invalid"
+                        ng-click="form.submit($event, PaymentForm)"
                 >
             </div>
 
