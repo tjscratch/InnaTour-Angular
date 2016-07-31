@@ -31,11 +31,11 @@
         
         var validMsg = {
             month: {
-                error: 'Месяц от 1 до 12',
+                error: 'Укажите месяц от 1 до 12',
                 success: 'Ок'
             },
             year: {
-                error: 'Год от 0 до 99',
+                error: 'Укажите год от 0 до 99',
                 success: 'Ок'
             }
         };
@@ -46,6 +46,12 @@
         
         $validationProvider.showSuccessMessage = false; // or true(default)
         //$validationProvider.showErrorMessage = false; // or true(default)
+        
+        $validationProvider.validCallback = function (element) {
+            //console.log(element)
+            //element.parents('.validator-container:first').removeClass('has-error').addClass('has-success-tick');
+        };
+        
     }]);
     
     var appControllers = angular.module('app.controllers', []);
@@ -61,23 +67,26 @@
         
         $scope.ccForm = {}
         
-        $scope.$watch('ccForm.number', function (data) {
-            if (data) {
-                monthInput.focus();
-            }
-        });
+        //$scope.$watch('ccForm.number', function (data) {
+        //    if (data) {
+        //        monthInput.focus();
+        //    }
+        //});
         
-        $scope.$watch('ccForm.month', function (data) {
-            if (data) {
-                yearInput.focus();
-            }
-        });
-        
-        $scope.$watch('ccForm.year', function (data) {
-            if (data) {
-                cvsInput.focus();
-            }
-        });
+        $scope.validationValidHandler = function (val, data) {
+            //console.log(val);
+            $timeout(function () {
+                if (val == 'number' && data.$valid) {
+                    monthInput.focus();
+                }
+                if (val == 'month' && data.$valid) {
+                    yearInput.focus();
+                }
+                if (val == 'year' && data.$valid) {
+                    cvsInput.focus();
+                }
+            }, 0);
+        };
         
         var $validationProvider = $injector.get('$validation');
         
@@ -91,17 +100,7 @@
         
         $scope.currentYear = parseInt($filter('date')(new Date(), "yy"));
         $scope.currentMonth = new Date().getMonth() + 1;
-        //$scope.months = $locale.DATETIME_FORMATS.MONTH
-        $scope.months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-        $scope.ccinfo = {type: undefined};
-        $scope.save = function (data) {
-            console.log(data)
-            if ($scope.paymentForm.$valid) {
-                console.log(data) // valid data saving stuff here
-            }
-        }
-        
-    })
+    });
     
     
     appDirectives.directive('validationNumber', function () {

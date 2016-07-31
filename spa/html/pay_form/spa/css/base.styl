@@ -100,6 +100,10 @@ icon()
     &.ng-invalid {
         border 1px solid rgb(219, 68, 55)
     }
+
+    &:-moz-ui-invalid:not(output) {
+        box-shadow none
+    }
 }
 .FieldError {
     position absolute
@@ -352,6 +356,7 @@ select {
         color rgb(117, 117, 117)
 
         .wrap-cvc {
+            width 130px;
             padding 8px
             float right
             text-align left
