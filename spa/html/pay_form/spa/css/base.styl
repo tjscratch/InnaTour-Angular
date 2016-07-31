@@ -506,6 +506,16 @@ select {
             font-size 12px
         }
     }
+    .FieldError {
+        position relative
+        font-size 11px
+    }
+    #messageFormCvc {
+        padding 0
+    }
+    #messageFormYear {
+        left auto
+    }
     .pay-form {
         max-width 300px
 
@@ -531,7 +541,7 @@ select {
             &__cart-data,
             &__cart-cvs {
                 width 300px
-                height 180px
+                height auto
                 float none
                 border-radius 10px
                 box-sizing border-box
@@ -589,10 +599,11 @@ select {
                 height 50px
             }
             &__cart-cvs-field {
-                height 50px
+                height auto
 
                 .wrap-cvc {
-                    padding 4px
+                    float none
+                    padding 4px 4px 4px 160px
 
                     .form-control {
                         font-size 12px
