@@ -40,10 +40,10 @@
                                 name="number"
                                 class="form-control gray-border error"
                                 ng-model="ccForm.number"
-                                ng-model-options="{ debounce: { 'default': 100, 'blur': 0 } }"
+                                ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
                                 placeholder="Номер карты"
 
-                                ui-mask="9999 9999 9999 9999"
+                                ui-mask="9999 9999 9999 9999?9?9"
                                 ui-mask-placeholder
                                 ui-mask-placeholder-char="space"
 
@@ -70,10 +70,13 @@
                                 placeholder="ММ"
 
                                 message-id="messageFormMonth"
-                                validator="required, number, month"
+                                validator="required, number, month, minlength=1, maxlength=2"
                                 valid-method="watch"
                                 required-error-message="Укажите месяц от 1 до 12"
                                 number-error-message="Укажите месяц от 1 до 12"
+                                minlength-error-message="Укажите месяц от 1 до 12"
+                                maxlength-error-message="Укажите месяц от 1 до 12"
+
 
                                 ng-change="validationValidHandler('month', PaymentForm.month)"
                         />
@@ -86,11 +89,15 @@
                                 name="year"
                                 placeholder="ГГ"
 
+                                ui-mask="99"
+                                ui-mask-placeholder
+                                ui-mask-placeholder-char="space"
+
                                 message-id="messageFormYear"
                                 validator="required, number, year"
                                 valid-method="watch"
-                                required-error-message="Укажите год от 0 до 99"
-                                number-error-message="Укажите год от 0 до 99"
+                                required-error-message="Укажите год от 01 до 99"
+                                number-error-message="Укажите год от 01 до 99"
 
                                 ng-change="validationValidHandler('year', PaymentForm.year)"
                         />
@@ -130,12 +137,12 @@
                                     placeholder="CVC"
 
                                     message-id="messageFormCvc"
-                                    validator="required, number, minlength=3, maxlength=3"
+                                    validator="required, number, minlength=3, maxlength=4"
                                     valid-method="watch"
                                     required-error-message="Укажите cvc код"
                                     number-error-message="Допустимо только число"
-                                    minlength-error-message="Число длинной 3 знака"
-                                    maxlength-error-message="Число длинной 3 знака"
+                                    minlength-error-message="Число длинной от 3 до 4 знаков"
+                                    maxlength-error-message="Число длинной от 3 до 4 знаков"
                             />
 
                             <div class="FieldError"

@@ -81,9 +81,13 @@
                 }
                 if (val == 'month' && data.$valid) {
                     yearInput.focus();
+                }else{
+                    $scope.ccForm.month = $scope.ccForm.month ? $scope.ccForm.month.substr(0, 2) : null;
                 }
                 if (val == 'year' && data.$valid) {
                     cvsInput.focus();
+                }else{
+                    $scope.ccForm.year = $scope.ccForm.year ? $scope.ccForm.year.substr(0, 2) : null;
                 }
             }, 0);
         };
