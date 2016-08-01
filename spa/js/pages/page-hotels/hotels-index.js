@@ -66,6 +66,10 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                 var Travelers = searchParams.Adult + "-" + 0;
                 var TotalTravelers = Math.ceil(searchParams.Adult);
             }
+            /**
+             * Трекаем события для GTM
+             * https://innatec.atlassian.net/browse/IN-7071
+             */
             dataService.getLocationById($routeParams.ArrivalId)
                 .then(function (res) {
                     gtm.GtmTrack(
