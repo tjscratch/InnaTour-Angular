@@ -41,7 +41,6 @@
                                 name="number"
                                 class="form-control gray-border"
                                 ng-model="ccForm.number"
-                                ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
                                 placeholder="Номер карты"
 
                                 ui-mask="9999 9999 9999 9999?9?9"
@@ -61,48 +60,59 @@
                     </div>
 
                     <div class="pay-form-fields__cart-data-field date">
-                        <label class="form-label" for="month">Действительна до</label><br/>
-                        <input
-                                id="monthInput"
-                                class="form-control gray-border"
-                                ng-model="ccForm.month"
-                                ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
-                                name="month"
-                                placeholder="ММ"
+                        <label class="form-label">Действительна до:</label>
+                        <div class="date-field__container">
+                            <div class="date-field__container-item">
+                                <label class="form-label date-field__container-item--label" for="monthInput">Месяц (1 - 12)</label>
+                                <input
+                                        id="monthInput"
+                                        class="form-control gray-border"
+                                        ng-model="ccForm.month"
+                                        ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
+                                        name="month"
+                                        placeholder="ММ"
 
-                                message-id="messageFormMonth"
-                                validator="required, number, month, minlength=1, maxlength=2"
-                                valid-method="watch"
-                                required-error-message="Укажите месяц от 1 до 12"
-                                number-error-message="Укажите месяц от 1 до 12"
-                                minlength-error-message="Укажите месяц от 1 до 12"
-                                maxlength-error-message="Укажите месяц от 1 до 12"
+                                        ui-mask="9?9"
+                                        ui-mask-placeholder
+                                        ui-mask-placeholder-char="space"
 
-                                ng-change="validationValidHandler('month', PaymentForm.month)"
+                                        message-id="messageFormMonth"
+                                        validator="required, number, month, minlength=1, maxlength=2"
+                                        valid-method="watch"
+                                        required-error-message="Укажите месяц от 1 до 12"
+                                        number-error-message="Укажите месяц от 1 до 12"
+                                        minlength-error-message="Укажите месяц от 1 до 12"
+                                        maxlength-error-message="Укажите месяц от 1 до 12"
 
-                        />
-                        <span>/</span>
-                        <input
-                                id="yearInput"
-                                class="form-control gray-border"
-                                ng-model="ccForm.year"
-                                ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
-                                name="year"
-                                placeholder="ГГ"
+                                        ng-change="validationValidHandler('month', PaymentForm.month)"
 
-                                ui-mask="99"
-                                ui-mask-placeholder
-                                ui-mask-placeholder-char="space"
+                                />
+                            </div>
+                            <span>/</span>
+                            <div class="date-field__container-item">
+                                <label class="form-label date-field__container-item--label" for="yearInput">Год (01 - 99)</label>
+                                <input
+                                        id="yearInput"
+                                        class="form-control gray-border"
+                                        ng-model="ccForm.year"
+                                        ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
+                                        name="year"
+                                        placeholder="ГГ"
 
-                                message-id="messageFormYear"
-                                validator="required, number, year"
-                                valid-method="watch"
-                                required-error-message="Укажите год от 01 до 99"
-                                number-error-message="Укажите год от 01 до 99"
+                                        ui-mask="99"
+                                        ui-mask-placeholder
+                                        ui-mask-placeholder-char="space"
 
-                                ng-change="validationValidHandler('year', PaymentForm.year)"
-                        />
+                                        message-id="messageFormYear"
+                                        validator="required, number, year"
+                                        valid-method="watch"
+                                        required-error-message="Укажите год от 01 до 99"
+                                        number-error-message="Укажите год от 01 до 99"
 
+                                        ng-change="validationValidHandler('year', PaymentForm.year)"
+                                />
+                            </div>
+                        </div>
                         <div class="FieldError"
                              id="messageFormMonth"></div>
 
@@ -138,6 +148,7 @@
                                     class="form-control gray-border"
                                     name="cvc"
                                     ng-model="ccForm.cvc"
+                                    ng-model-options="{ debounce: { 'default': 600, 'blur': 0 } }"
                                     placeholder="CVC"
 
                                     message-id="messageFormCvc"
@@ -147,7 +158,7 @@
                                     number-error-message="Допустимо только число"
                                     minlength-error-message="Число длинной от 3 до 4 знаков"
                                     maxlength-error-message="Число длинной от 3 до 4 знаков"
-
+                                    ng-change="validationValidHandler('cvc', PaymentForm.cvc)"
                             />
 
                             <div class="FieldError"
@@ -172,6 +183,7 @@
             <div class="pay-form-actions__btn">
                 <input
                         type="submit"
+                        id="formBtn"
                         class="form-btn background-green"
                         value="Оплатить"
                         ng-disabled="!form.checkValid(PaymentForm)"

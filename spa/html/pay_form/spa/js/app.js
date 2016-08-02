@@ -64,31 +64,52 @@
         var monthInput = document.getElementById('monthInput');
         var yearInput = document.getElementById('yearInput');
         var cvsInput = document.getElementById('cvsInput');
+        var formBtn = document.getElementById('formBtn');
         
         $scope.ccForm = {}
         
-        //$scope.$watch('ccForm.number', function (data) {
-        //    if (data) {
-        //        monthInput.focus();
-        //    }
-        //});
-        
         $scope.validationValidHandler = function (val, data) {
-            //console.log(val);
             $timeout(function () {
                 if (val == 'number' && data.$valid) {
-                    monthInput.focus();
+                    if ($scope.ccForm.number.length == 16) {
+                        if (/^2/.test($scope.ccForm.number)) {
+                            monthInput.focus();
+                        } else if (/^4/.test($scope.ccForm.number)) {
+                            monthInput.focus();
+                        } else if (/^5/.test($scope.ccForm.number)) {
+                            monthInput.focus();
+                        }
+                    } else if ($scope.ccForm.number.length == 18) {
+                        monthInput.focus();
+                    }
                 }
-                if (val == 'month' && data.$valid) {
-                    yearInput.focus();
-                }else{
-                    $scope.ccForm.month = $scope.ccForm.month ? $scope.ccForm.month.substr(0, 2) : null;
+                if (val == 'month') {
+                    if (data.$valid) {
+                        yearInput.focus();
+                    } else {
+                        $scope.ccForm.month = $scope.ccForm.month ? $scope.ccForm.month.substr(0, 2) : null;
+                    }
                 }
                 if (val == 'year' && data.$valid) {
                     cvsInput.focus();
-                }else{
+                } else {
                     $scope.ccForm.year = $scope.ccForm.year ? $scope.ccForm.year.substr(0, 2) : null;
                 }
+                
+                if (val == 'cvc') {
+                    var number = /^\d+$/;
+                    
+                    if (data.$valid) {
+                        formBtn.focus();
+                    } else {
+                        if (number.test($scope.ccForm.cvc)) {
+                            $scope.ccForm.cvc = $scope.ccForm.cvc ? $scope.ccForm.cvc.substr(0, 4) : null;
+                        } else {
+                            $scope.ccForm.cvc = null;
+                        }
+                    }
+                }
+                
             }, 0);
         };
         
