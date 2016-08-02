@@ -140,39 +140,27 @@
                 });
 
                 $scope.clearCityField = function () {
+                    var action = '';
 
                     if($scope.placeholder == 'Откуда') {
-                        var dataLayerObj = {
-                            'event': 'UM.Event',
-                            'Data': {
-                                'Category': 'Avia',
-                                'Action': 'RemoveCityFrom',
-                                'Label': $scope.cityCode ? $scope.cityCode : '[no data]',
-                                'Content': '[no data]',
-                                'Context': '[no data]',
-                                'Text': '[no data]'
-                            }
-                        }
-                        console.table(dataLayerObj);
-                        if (window.dataLayer) {
-                            window.dataLayer.push(dataLayerObj);
-                        }
+                        action = 'RemoveCityFrom';
                     } else if ($scope.placeholder == 'Куда') {
-                        var dataLayerObj = {
-                            'event': 'UM.Event',
-                            'Data': {
-                                'Category': 'Avia',
-                                'Action': 'RemoveCityTo',
-                                'Label':  $scope.cityCode ? $scope.cityCode : '[no data]',
-                                'Content': '[no data]',
-                                'Context': '[no data]',
-                                'Text': '[no data]'
-                            }
+                        action = 'RemoveCityTo';
+                    }
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Avia',
+                            'Action': action ? action : '[no data]',
+                            'Label':  $scope.cityCode ? $scope.cityCode : '[no data]',
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
                         }
-                        console.table(dataLayerObj);
-                        if (window.dataLayer) {
-                            window.dataLayer.push(dataLayerObj);
-                        }
+                    }
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
                     }
 
                     $scope.result = null;

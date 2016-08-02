@@ -109,6 +109,42 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
          * end
          * попап с описание тарифа
          */
+
+        $scope.gtmDetailsAviaInSearch = function () {
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Avia',
+                    'Action': 'DetailsAviaInSearch',
+                    'Label': '[no data]',
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        };
+
+        $scope.gtmAviaBuySearch = function (type) {
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Avia',
+                    'Action': type ? type : '[no data]',
+                    'Label': '[no data]',
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        };
         
         $scope.recommendedClick = function () {
             $location.url(Urls.URL_DYNAMIC_PACKAGES);
@@ -192,8 +228,8 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                     'PageType': 'AviaSearchLoading',
                     'CityFrom': $scope.criteria.FromUrl,
                     'CityTo': $scope.criteria.ToUrl,
-                    'DateFrom': $scope.criteria.BeginDate,
-                    'DateTo': $scope.criteria.EndDate,
+                    'DateFrom': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.BeginDate),
+                    'DateTo': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.EndDate),
                     'Travelers': $scope.criteria.AdultCount + '-' + $scope.criteria.ChildCount + '-' + $scope.criteria.InfantsCount,
                     'TotalTravelers': parseInt($scope.criteria.AdultCount) +
                     parseInt($scope.criteria.ChildCount) +

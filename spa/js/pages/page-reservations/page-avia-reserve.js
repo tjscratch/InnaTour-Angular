@@ -44,8 +44,8 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                 'PageType': 'AviaReservationCheck',
                 'CityFrom': $scope.criteria.FromUrl,
                 'CityTo': $scope.criteria.ToUrl,
-                'DateFrom': $scope.criteria.BeginDate,
-                'DateTo': $scope.criteria.EndDate,
+                'DateFrom': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.BeginDate),
+                'DateTo': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.EndDate),
                 'Travelers': $scope.criteria.AdultCount + '-' + $scope.criteria.ChildCount + '-' + $scope.criteria.InfantsCount,
                 'TotalTravelers': parseInt($scope.criteria.AdultCount) +
                 parseInt($scope.criteria.ChildCount) +
@@ -92,6 +92,104 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
         $scope.searchId = $scope.criteria.QueryId;
 
         $scope.objectToReserveTemplate = 'pages/avia/variant_partial.html';
+
+        $scope.gtmDetailsAviaInReserv = function () {
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Avia',
+                    'Action': 'DetailsAviaInReserv',
+                    'Label': '[no data]',
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        };
+
+        $scope.gtmRules = function ($event, type) {
+            var label = '';
+            switch (type) {
+                case 'avia':
+                    label = 'ConditionAvia';
+                    break;
+                case 'oferta':
+                    label = 'Oferta';
+                    break;
+                case 'iata':
+                    label = 'IATA';
+                    break;
+                case 'tkp':
+                    label = 'TKP';
+                    break;
+                case 'tariffs':
+                    label = 'Tariffs';
+                    break;
+                default:
+                    break;
+            }
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Avia',
+                    'Action': label,
+                    'Label': $event.target.textContent,
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        };
+
+        $scope.$watch('validationModel.wannaNewsletter.value', function (newValue, oldValue) {
+            if( newValue != undefined && oldValue!= undefined ) {
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Avia',
+                        'Action': 'WantEmails',
+                        'Label': newValue ? 'Select' : 'UnSelect',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+            }
+        });
+
+        $scope.$watch('agree', function (newValue, oldValue) {
+            // console.log('oV', oldValue);
+            // console.log('nV', newValue);
+            if( newValue != undefined) {
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Avia',
+                        'Action': 'AcceptConditions',
+                        'Label': newValue ? 'Select' : 'UnSelect',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+            }
+        });
 
         //для начала нужно проверить доступность билетов
         //var availableChecktimeout = $timeout(function () {
@@ -230,8 +328,8 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                                     'PageType': 'AviaSearchLoad',
                                     'CityFrom': $scope.criteria.FromUrl,
                                     'CityTo': $scope.criteria.ToUrl,
-                                    'DateFrom': $scope.criteria.BeginDate,
-                                    'DateTo': $scope.criteria.EndDate,
+                                    'DateFrom': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.BeginDate),
+                                    'DateTo': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.EndDate),
                                     'Travelers': $scope.criteria.AdultCount + '-' + $scope.criteria.ChildCount + '-' + $scope.criteria.InfantsCount,
                                     'TotalTravelers': parseInt($scope.criteria.AdultCount) +
                                     parseInt($scope.criteria.ChildCount) +
@@ -342,6 +440,22 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                     if ($scope.promoCodeStatus == 1) {
                         $scope.promoCodeSale = data.Details.PromoCode.rule_value;
                         $scope.price = data.Details.NewPrice;
+
+                        var dataLayerObj = {
+                            'event': 'UM.Event',
+                            'Data': {
+                                'Category': 'Avia',
+                                'Action': 'ApplyPromocode',
+                                'Label': '[no data]',
+                                'Content': '[no data]',
+                                'Context': '[no data]',
+                                'Text': '[no data]'
+                            }
+                        };
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
                     }
                 })
         }

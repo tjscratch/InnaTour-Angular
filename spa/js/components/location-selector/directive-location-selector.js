@@ -53,29 +53,18 @@ innaAppDirectives.directive('locationSelector', [
                 };
 
                 $scope.clearCityField = function () {
+                    var action = '';
 
-                    if($scope.placeholder == 'Откуда') {
+                    if($scope.typeSearch == 'DP_from') {
+                        action = 'RemoveCityFrom';
+                    } else if ($scope.typeSearch == 'DP_to') {
+                        action = 'RemoveCityTo';
+                    }
                         var dataLayerObj = {
                             'event': 'UM.Event',
                             'Data': {
                                 'Category': 'Packages',
-                                'Action': 'RemoveCityFrom',
-                                'Label': $scope.selectedValue && $scope.selectedValue.CodeIata ? $scope.selectedValue.CodeIata : '[no data]',
-                                'Content': '[no data]',
-                                'Context': '[no data]',
-                                'Text': '[no data]'
-                            }
-                        }
-                        console.table(dataLayerObj);
-                        if (window.dataLayer) {
-                            window.dataLayer.push(dataLayerObj);
-                        }
-                    } else if ($scope.placeholder == 'Куда') {
-                        var dataLayerObj = {
-                            'event': 'UM.Event',
-                            'Data': {
-                                'Category': 'Packages',
-                                'Action': 'RemoveCityTo',
+                                'Action': action ? action : '[na data]',
                                 'Label':  $scope.selectedValue && $scope.selectedValue.CodeIata ? $scope.selectedValue.CodeIata : '[no data]',
                                 'Content': '[no data]',
                                 'Context': '[no data]',
@@ -86,7 +75,6 @@ innaAppDirectives.directive('locationSelector', [
                         if (window.dataLayer) {
                             window.dataLayer.push(dataLayerObj);
                         }
-                    }
 
                     $scope.currentCity = null;
                     $scope.selectedValue = null;

@@ -1992,6 +1992,21 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                         function (data, status) {
                             if (data && data.Status == 1) {
                                 console.log('sendRequest success', data, status);
+                                var dataLayerObj = {
+                                    'event': 'UM.Event',
+                                    'Data': {
+                                        'Category': 'Packages',
+                                        'Action': 'SendRequest',
+                                        'Label': '[no data]',
+                                        'Content': '[no data]',
+                                        'Context': '[no data]',
+                                        'Text': '[no data]'
+                                    }
+                                };
+                                console.table(dataLayerObj);
+                                if (window.dataLayer) {
+                                    window.dataLayer.push(dataLayerObj);
+                                }
                                 //показываем попап
                                 $scope.baloon.show("Заявка отправлена", "В ближайшее время наш менеджер свяжется с Вами", aviaHelper.baloonType.success);
                             }

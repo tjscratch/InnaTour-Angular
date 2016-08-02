@@ -99,21 +99,6 @@
                 if (window.dataLayer) {
                     window.dataLayer.push(dataLayerObj);
                 }
-                
-                
-                // gtm.GtmTrack(
-                //     {
-                //         'event': 'UM.Event'
-                //     },
-                //     {
-                //         'Category': 'Packages',
-                //         'Action': 'DetailsAviaInReserv',
-                //         'Label': '[no data]',
-                //         'Content': '[no data]',
-                //         'Context': '[no data]',
-                //         'Text': '[no data]'
-                //     }
-                // );
             };
             
             $scope.gtmDetailsHotelsInReserv = function () {
@@ -132,12 +117,6 @@
                 if (window.dataLayer) {
                     window.dataLayer.push(dataLayerObj);
                 }
-                
-                // gtm.GtmTrack(
-                //     {
-                //         'Action': 'DetailsHotelsInReserv',
-                //     }
-                // );
             };
             
             $scope.gtmRules = function ($event, type) {
@@ -147,7 +126,23 @@
                         label = 'ConditionAvia';
                         break;
                     case 'hotel':
-                        label = 'ConditionHotels'
+                        label = 'ConditionHotels';
+                        break;
+                    case 'insurance':
+                        label = 'ConditionMedical';
+                        break;
+                    case 'oferta':
+                        label = 'Oferta';
+                        break;
+                    case 'iata':
+                        label = 'IATA';
+                        break;
+                    case 'tkp':
+                        label = 'TKP';
+                        break;
+                    case 'tariffs':
+                        label = 'Tariffs';
+                        break;
                     default:
                         break;
                 }
@@ -155,7 +150,7 @@
                     'event': 'UM.Event',
                     'Data': {
                         'Category': 'Packages',
-                        'Action': 'ConditionAvia',
+                        'Action': label,
                         'Label': $event.target.textContent,
                         'Content': '[no data]',
                         'Context': '[no data]',
@@ -167,6 +162,94 @@
                     window.dataLayer.push(dataLayerObj);
                 }
             };
+
+            $scope.$watch('validationModel.wannaNewsletter.value', function (newValue, oldValue) {
+                if( newValue != undefined && oldValue!= undefined ) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Packages',
+                            'Action': 'WantEmails',
+                            'Label': newValue ? 'Select' : 'UnSelect',
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+            });
+
+            $scope.$watch('agree', function (newValue, oldValue) {
+                // console.log('oV', oldValue);
+                // console.log('nV', newValue);
+                if( newValue != undefined) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Packages',
+                            'Action': 'AcceptConditions',
+                            'Label': newValue ? 'Select' : 'UnSelect',
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+            });
+
+            $scope.$watch('addition.isNeededVisa', function (newValue, oldValue) {
+                // console.log('oV', oldValue);
+                // console.log('nV', newValue);
+                if( newValue != undefined && oldValue!= undefined ) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Packages',
+                            'Action': 'Visa',
+                            'Label': newValue ? 'Select' : 'UnSelect',
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+            });
+
+            $scope.$watch('addition.isNeededTransfer', function (newValue, oldValue) {
+                // console.log('oV', oldValue);
+                // console.log('nV', newValue);
+                if( newValue != undefined && oldValue!= undefined ) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Packages',
+                            'Action': 'Transfer',
+                            'Label': newValue ? 'Select' : 'UnSelect',
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+            });
+
+
             
             $scope.cityFrom = null;
             $scope.cityTo = null;
@@ -597,6 +680,22 @@
                         if ($scope.promoCodeStatus == 1) {
                             $scope.promoCodeSale = data.Details.PromoCode.rule_value;
                             $scope.price = data.Details.NewPrice;
+
+                            var dataLayerObj = {
+                                'event': 'UM.Event',
+                                'Data': {
+                                    'Category': 'Packages',
+                                    'Action': 'ApplyPromocode',
+                                    'Label': '[no data]',
+                                    'Content': '[no data]',
+                                    'Context': '[no data]',
+                                    'Text': '[no data]'
+                                }
+                            };
+                            console.table(dataLayerObj);
+                            if (window.dataLayer) {
+                                window.dataLayer.push(dataLayerObj);
+                            }
                         }
                     })
             }
