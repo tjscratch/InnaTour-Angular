@@ -19,7 +19,9 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
     'Validators',
     'innaApp.Urls',
     '$cookieStore',
-    function ($log, $controller, $timeout, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, PromoCodes, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Urls, $cookieStore) {
+    'serviceCache',
+    'gtm',
+    function ($log, $controller, $timeout, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, PromoCodes, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Urls, $cookieStore, serviceCache, gtm) {
 
         // TODO : наследование контроллера
         $controller('ReserveTicketsCtrl', { $scope: $scope });
@@ -38,10 +40,11 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
         $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
         $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);
 
-        var dataLayerObj = {
-            'event': 'UI.PageView',
-            'Data': {
+        gtm.GtmTrack(
+            {
                 'PageType': 'AviaReservationCheck',
+            },
+            {
                 'CityFrom': $scope.criteria.FromUrl,
                 'CityTo': $scope.criteria.ToUrl,
                 'DateFrom': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.BeginDate),
@@ -52,12 +55,10 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                 parseInt($scope.criteria.InfantsCount),
                 'ServiceClass': $scope.criteria.CabinClass == 0 ? 'Economy' : 'Business'
             }
-        };
-        console.table(dataLayerObj);
-        if (window.dataLayer) {
-            window.dataLayer.push(dataLayerObj);
-        }
-
+        );
+    
+    
+    
         //дата до - для проверки доков
         $scope.expireDateTo = null;
         if ($scope.criteria.EndDate) {
@@ -321,28 +322,18 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                     },
                     function (data) {
                         if (data != null && data != 'null') {
-
-                            var dataLayerObj = {
-                                'event': 'UM.PageView',
-                                'Data': {
-                                    'PageType': 'AviaSearchLoad',
-                                    'CityFrom': $scope.criteria.FromUrl,
-                                    'CityTo': $scope.criteria.ToUrl,
-                                    'DateFrom': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.BeginDate),
-                                    'DateTo': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.EndDate),
-                                    'Travelers': $scope.criteria.AdultCount + '-' + $scope.criteria.ChildCount + '-' + $scope.criteria.InfantsCount,
-                                    'TotalTravelers': parseInt($scope.criteria.AdultCount) +
-                                    parseInt($scope.criteria.ChildCount) +
-                                    parseInt($scope.criteria.InfantsCount),
-                                    'ServiceClass': $scope.criteria.CabinClass == 0 ? 'Economy' : 'Business',
+    
+                            gtm.GtmTrack(
+                                {
+                                    'PageType': 'AviaReservationLoad',
                                     'Price': data.Price,
                                     'AirLineName': data.EtapsTo[0].TransporterName
                                 }
-                            };
-                            console.table(dataLayerObj);
-                            if (window.dataLayer) {
-                                window.dataLayer.push(dataLayerObj);
-                            }
+                            );
+    
+                            serviceCache.createObj('PageType', 'Avia');
+                            serviceCache.createObj('Price', data.Price);
+                            serviceCache.createObj('AirLineName', data.EtapsTo[0].TransporterName);
 
                             //дополняем полями
                             aviaHelper.addCustomFields(data);

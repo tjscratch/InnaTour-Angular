@@ -17,9 +17,12 @@ innaAppControllers.controller('ReserveTicketsCtrl',
               urlHelper,
               Validators,
               innaAppApiEvents,
+              serviceCache,
               gtm) {
         
         var self = this;
+        
+        var pageType = serviceCache.getObject('PageType');
         
         function log(msg) {
             $log.log(msg);
@@ -1618,11 +1621,23 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                      * Трекаем события для GTM
                      * https://innatec.atlassian.net/browse/IN-7071
                      */
-                    gtm.GtmTrack(
-                        {
-                            'PageType': 'PackagesConfirm'
-                        }
-                    );
+                    if (pageType == 'Avia') {
+                        gtm.GtmTrack(
+                            {
+                                'PageType': 'AviaConfirm',
+                                'Price': serviceCache.getObject('Price'),
+                                'AirLineName': serviceCache.getObject('AirLineName')
+                            }
+                        );
+                    } else {
+                        gtm.GtmTrack(
+                            {
+                                'PageType': 'PackagesConfirm',
+                                'Price': serviceCache.getObject('Price'),
+                                'HotelName': serviceCache.getObject('HotelName')
+                            }
+                        );
+                    }
                     
                 } else {
                     $scope.baloon.show("Бронирование авиабилетов", "Это займет не более 30 секунд");
@@ -1633,17 +1648,28 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                      * Трекаем события для GTM
                      * https://innatec.atlassian.net/browse/IN-7071
                      */
-                    gtm.GtmTrack(
-                        {
-                            'PageType': 'PackagesBooking'
-                        }
-                    );
+                    if (pageType == 'Avia') {
+                        gtm.GtmTrack(
+                            {
+                                'PageType': 'AviaBooking',
+                                'Price': serviceCache.getObject('Price'),
+                                'AirLineName': serviceCache.getObject('AirLineName')
+                            }
+                        );
+                    } else {
+                        gtm.GtmTrack(
+                            {
+                                'PageType': 'PackagesBooking',
+                                'Price': serviceCache.getObject('Price'),
+                                'HotelName': serviceCache.getObject('HotelName')
+                            }
+                        );
+                    }
                 }
             }
             
             
         };
-        
         
         $scope.goToB2bCabinet = function () {
             var locationHref = app_main.b2bHost;

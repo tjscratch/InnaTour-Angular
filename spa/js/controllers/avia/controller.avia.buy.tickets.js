@@ -981,8 +981,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                             if ($scope.reservationModel.IsService) {//сервисный сбор
                                 var isDp = (data.Hotel != null && data.AviaInfo != null);
                                 $scope.setOferta(isDp);
-                            }
-                            else {
+                            } else {
                                 if (data.Hotel != null && data.AviaInfo != null) {
                                     setPackageTemplate();
                                     aviaHelper.addAggInfoFields(data.Hotel);
@@ -1069,7 +1068,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                 var isDp = (data.Hotel != null && data.AviaInfo != null);
                                 $scope.setOferta(isDp);
                                 
-                                if (data.AviaInfo) {
+                                if (data.Hotel == null && data.AviaInfo != null) {
                                     
                                     
                                     aviaHelper.addCustomFields(data.AviaInfo);
@@ -1087,6 +1086,30 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                     
                                     //коды аэропортов
                                     $scope.ports = getIATACodes(data.AviaInfo);
+                                    
+                                    /**
+                                     * Трекаем события для GTM
+                                     * https://innatec.atlassian.net/browse/IN-7071
+                                     */
+                                    var Filter = JSON.parse(data.Filter);
+                                    gtm.GtmTrack(
+                                        {
+                                            'PageType': 'AviaPayLoad'
+                                        },
+                                        {
+                                            'CityFrom': $scope.ports.codeFrom,
+                                            'CityTo': $scope.ports.codeTo,
+                                            'DateFrom': moment($scope.aviaInfo.DepartureDate).format('YYYY-MM-DD'),
+                                            'DateTo': moment($scope.aviaInfo.BackDepartureDate).format('YYYY-MM-DD'),
+                                            'Travelers': data.AviaInfo.AdultCount + "-" + data.AviaInfo.ChildCount + "-" + data.AviaInfo.InfantCount,
+                                            'TotalTravelers': data.Passengers.length,
+                                            'Price': data.Price,
+                                            'ServiceClass': Filter.CabinClass == 0 ? 'Economy' : 'Business',
+                                            'AirlineName': $scope.aviaInfo.EtapsTo[0].TransporterName
+                                        }
+                                    );
+                                    
+                                    
                                 }
                                 //нужна ли виза
                                 visaNeededCheck();
@@ -1172,26 +1195,6 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         //data loading ===========================================================================
         function showPaymentProcessing() {
             $scope.baloon.show('Оплата заказа', 'Пожалуйста, не закрывайте браузер');
-            /**
-             * Трекаем события для GTM
-             * https://innatec.atlassian.net/browse/IN-7071
-             */
-            if ($scope.svyaznoyPayControl.payType == 1) {
-                var PaymentMethod = 'Card';
-            }
-            if ($scope.svyaznoyPayControl.payType == 2) {
-                var PaymentMethod = 'Svyaznoy';
-            }
-            if ($scope.svyaznoyPayControl.payType == 3) {
-                var PaymentMethod = 'QIWI';
-            }
-            gtm.GtmTrack(
-                {
-                    'PageType': 'PackagesPayProcessing',
-                    'PaymentMethod': PaymentMethod
-                }
-            );
-            
         }
         
         $scope.processToBuy = function ($event) {
@@ -1215,6 +1218,16 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                 showPaymentProcessing();
                 
                 //еще
+                if ($scope.svyaznoyPayControl.payType == 1) {
+                    var PaymentMethod = 'Card';
+                }
+                if ($scope.svyaznoyPayControl.payType == 2) {
+                    var PaymentMethod = 'Svyaznoy';
+                }
+                if ($scope.svyaznoyPayControl.payType == 3) {
+                    var PaymentMethod = 'QIWI';
+                }
+                
                 var pageType = getActionType();
                 switch (pageType) {
                     case actionTypeEnum.service: {
@@ -1222,10 +1235,30 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     }
                     case actionTypeEnum.dp: {
                         track.dpPayBtnSubmitStart();
+                        /**
+                         * Трекаем события для GTM
+                         * https://innatec.atlassian.net/browse/IN-7071
+                         */
+                        gtm.GtmTrack(
+                            {
+                                'PageType': 'PackagesPayProcessing',
+                                'PaymentMethod': PaymentMethod
+                            }
+                        );
                         break;
                     }
                     case actionTypeEnum.avia: {
                         track.aviaPayBtnSubmitStart();
+                        /**
+                         * Трекаем события для GTM
+                         * https://innatec.atlassian.net/browse/IN-7071
+                         */
+                        gtm.GtmTrack(
+                            {
+                                'PageType': 'AviaPayProcessing',
+                                'PaymentMethod': PaymentMethod
+                            }
+                        );
                         break;
                     }
                     case actionTypeEnum.hotel: {
@@ -1235,7 +1268,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                          */
                         gtm.GtmTrack({
                             'PageType': 'HotelsPayProcessing',
-                            'PaymentMethod': $scope.svyaznoyPayControl.payType
+                            'PaymentMethod': PaymentMethod
                         });
                         break;
                     }
@@ -1245,13 +1278,55 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     if (!err_code) {
                         err_code = 'err';
                     }
+                    var Label = 'Произошла ошибка';
+                    var Text = 'Пожалуйста, позвоните нам';
                     switch (pageType) {
                         case actionTypeEnum.dp: {
                             track.dpPayBtnSubmitContinueErr(err_code);
+                            gtm.GtmTrackEvent(
+                                {
+                                    'Label': Label,
+                                    'Text': Text
+                                },
+                                {
+                                    'Category': 'Packages',
+                                    'Action': 'PackagesPayProcessing',
+                                    'Content': '[no data]',
+                                    'Context': '[no data]'
+                                }
+                            );
                             break;
                         }
                         case actionTypeEnum.avia: {
                             track.aviaPayBtnSubmitContinueErr(err_code);
+                            gtm.GtmTrackEvent(
+                                {
+                                    'Label': Label,
+                                    'Text': Text
+                                },
+                                {
+                                    'Category': 'Avia',
+                                    'Action': 'AviaPayProcessing',
+                                    'Content': '[no data]',
+                                    'Context': '[no data]'
+                                }
+                            );
+                            break;
+                        }
+                        case actionTypeEnum.hotel: {
+                            track.aviaPayBtnSubmitContinueErr(err_code);
+                            gtm.GtmTrackEvent(
+                                {
+                                    'Label': Label,
+                                    'Text': Text
+                                },
+                                {
+                                    'Category': 'Hotels',
+                                    'Action': 'HotelsPayProcessing',
+                                    'Content': '[no data]',
+                                    'Context': '[no data]'
+                                }
+                            );
                             break;
                         }
                     }
@@ -1376,14 +1451,17 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
                     track.aviaPayBtnSubmit();
                 }
-            }
-            else if (pageType == actionTypeEnum.dp) {//аналитика - ДП - заказ выполнен
-                if ($scope.aviaInfo != null && $scope.hotel != null) {
+            } else if (pageType == actionTypeEnum.dp) {//аналитика - ДП - заказ выполнен
+                //if ($scope.aviaInfo != null && $scope.hotel != null) {
                     $scope.orderTitleGtm = 'PackagesDone';
                     $scope.admitadSuccess = true;
                     track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
                     track.dpPayBtnSubmit();
-                }
+                //}
+            } else if (pageType == actionTypeEnum.hotel) {
+                $scope.orderTitleGtm = 'HotelsDone';
+                $scope.admitadSuccess = true;
+                
             }
             
             switch (resultType) {
@@ -1438,7 +1516,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                             'PageType': $scope.orderTitleGtm,
                             'Status': 'Complete',
                             'Title': Title,
-                            'Text':Text
+                            'Text': Text
                         }
                     );
                     $scope.baloon.show(Title, Text,
@@ -1463,10 +1541,10 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                             'PageType': $scope.orderTitleGtm,
                             'Status': 'Complete',
                             'Title': Title,
-                            'Text':Text
+                            'Text': Text
                         }
                     );
-    
+                    
                     $scope.baloon.show(Title, Text,
                         aviaHelper.baloonType.email,
                         function () {
@@ -1583,15 +1661,41 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             
             $scope.is3dscheck = true;
             //checkPayment();
-    
+            
             var Title = 'Спасибо за покупку!';
             var Text = 'Оплата счета успешна';
-            gtm.GtmTrack(
-                {
-                    'PageType': 'PackagesPay3DS'
+            
+            var pageType = getActionType();
+            switch (pageType) {
+                case actionTypeEnum.service: {
+                    break;
                 }
-            );
-    
+                case actionTypeEnum.dp: {
+                    gtm.GtmTrack(
+                        {
+                            'PageType': 'PackagesPay3DS'
+                        }
+                    );
+                    break;
+                }
+                case actionTypeEnum.avia: {
+                    gtm.GtmTrack(
+                        {
+                            'PageType': 'AviaPay3DS'
+                        }
+                    );
+                    break;
+                }
+                case actionTypeEnum.hotel: {
+                    gtm.GtmTrack(
+                        {
+                            'PageType': 'HotelsPay3DS'
+                        }
+                    );
+                    break;
+                }
+            }
+            
         }
         
         //function testPayComplete() {

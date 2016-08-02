@@ -395,6 +395,11 @@
                                 'HotelName': data.Hotel.HotelName
                             }
                         );
+    
+                        serviceCache.createObj('PageType', 'Packages');
+                        serviceCache.createObj('Price', data.Price);
+                        serviceCache.createObj('HotelName', data.Hotel.HotelName);
+    
                     });
                     
                     
