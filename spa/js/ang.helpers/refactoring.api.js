@@ -33,5 +33,7 @@ innaAppServices.factory('appApi', function () {
         GET_OFFERS: url('/BestOffer/GetOffers'),
 
         GET_MANAGER_STATUS: url('/TalkingHeadSupportApi/GetManagerStatus2'),
+    
+        GET_PAYMENT: url('/Payment/Index')
     }
 });

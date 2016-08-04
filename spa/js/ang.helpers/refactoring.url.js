@@ -4,6 +4,8 @@ app.constant('AppRouteUrls', {
     URL_BUS: '/bus/',
     URL_RESERVATIONS: '/reservations/',
     
-    URL_PACKAGES_LANDING: '/packages/ppc/'
+    URL_PACKAGES_LANDING: '/packages/ppc/',
+    
+    URL_PAYMENT: '/payment/',
 
 })

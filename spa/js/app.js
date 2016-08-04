@@ -50,7 +50,7 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     //Ractive.defaults.debug = true;
     Ractive.defaults.data.$filter = $filter;
     Ractive.defaults.data.$rootScope = $rootScope;
-
+    
     //$rootScope.bodyClickListeners = [];
     //
     //$rootScope.addBodyClickListner = function (key, eventDelegate) {
@@ -63,7 +63,7 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     //        listner.eventDelegate();
     //    });
     //};
-
+    
     $rootScope.$on('$routeChangeSuccess', function (event, newUrl, oldUrl) {
         //аналитика
         //console.log('$window._gaq.push $location.path(): ' + $location.path());
@@ -114,7 +114,7 @@ app.config(['$validationProvider', function ($validationProvider) {
             return date.isAfter(nowDate);
         }
     };
-
+    
     var validMsg = {
         passport: {
             error: 'Неверный формат',
@@ -177,7 +177,7 @@ app.config([
                     }
                 }
             }
-
+            
             //default page
             return {
                 templateUrl: 'pages/page-index/templ/page.html',
@@ -269,11 +269,12 @@ app.config([
             templateUrl: 'pages/avia/tickets_buy.html',
             controller: 'AviaBuyTicketsCtrl',
             resolve: authController.resolve
-        }).when(url.URL_BUY_SUCCESS + ':OrderNum', {
-            templateUrl: 'pages/avia/tickets_buy.html',
-            controller: 'AviaBuyTicketsCtrl',
-            resolve: authController.resolve
-        }).when(url.URL_BUY_ERROR + ':OrderNum', {
+        })
+            .when(url.URL_BUY_SUCCESS + ':OrderNum', {
+                templateUrl: 'pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl',
+                resolve: authController.resolve
+            }).when(url.URL_BUY_ERROR + ':OrderNum', {
             templateUrl: 'pages/avia/tickets_buy.html',
             controller: 'AviaBuyTicketsCtrl',
             resolve: authController.resolve
@@ -345,7 +346,7 @@ app.config([
                 controller: 'TrasnfersPageCtrl',
                 resolve: authController.resolve
             })
-
+            
             /**
              * begin hotels
              */
@@ -393,6 +394,24 @@ app.config([
             })
             /**
              * end reservation
+             */
+            
+            
+            /**
+             * begin new buy page
+             */
+            //when(url.URL_BUY + ':OrderNum', {
+            //    templateUrl: 'pages/avia/tickets_buy.html',
+            //    controller: 'AviaBuyTicketsCtrl',
+            //    resolve: authController.resolve
+            //})
+            .when(AppRouteUrls.URL_PAYMENT + ':OrderNum', {
+                templateUrl: 'pages/payment/templ/payment.html',
+                controller: 'PaymentController as payment',
+                resolve: authController.resolve
+            })
+            /**
+             * end new buy page
              */
             
             
