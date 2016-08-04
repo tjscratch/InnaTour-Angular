@@ -1510,6 +1510,23 @@ innaAppControllers.controller('ReserveTicketsCtrl',
         $scope.timer = 60000;
         
         $scope.submitSms = function () {
+                if (pageType != 'Avia') {
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Packages',
+                        'Action': 'AskAgain',
+                        'Label': '[no data]',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+            }
             $scope.fight();
             $scope.timer = 60000;
             CheckSmsService.getSmsCode({Phone: $scope.validationModel.phone.value})
@@ -1526,6 +1543,23 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                     if (response.data == 0) {
                         $scope.sms_code_error = true;
                     } else {
+                        if(pageType != 'Avia') {
+                            var dataLayerObj = {
+                                'event': 'UM.Event',
+                                'Data': {
+                                    'Category': 'Packages',
+                                    'Action': 'SendConfirm',
+                                    'Label': '[no data]',
+                                    'Content': '[no data]',
+                                    'Context': '[no data]',
+                                    'Text': '[no data]'
+                                }
+                            };
+                            console.table(dataLayerObj);
+                            if (window.dataLayer) {
+                                window.dataLayer.push(dataLayerObj);
+                            }
+                        }
                         $scope.checkReserveSms.close($event);
                         $scope.baloon.show("Бронирование авиабилетов", "Это займет не более 30 секунд");
                         $scope.reserve();
@@ -1612,6 +1646,22 @@ innaAppControllers.controller('ReserveTicketsCtrl',
             
             //если модель валидна - бронируем
             if ($scope.validationModel.isModelValid() && $scope.agree) {
+                var category = pageType == 'Avia' ? 'Avia' : 'Packages';
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': category,
+                        'Action': category + 'GotoPay',
+                        'Label': '[no data]',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
                 if ($scope.NeedSmsValidation) {
                     //$scope.checkReserveSms();
                     $scope.submitSms();

@@ -610,7 +610,7 @@ innaAppControllers
                         'Category': 'Packages',
                         'Action': 'PackagesBuyDetails',
                         'Label': room.RoomName,
-                        'Content': room.Description,
+                        'Content': room.CancellationRule,
                         'Context': room.PackagePrice,
                         'Text': '[no data]'
                     }
@@ -729,7 +729,7 @@ innaAppControllers
                             'Category': 'Packages',
                             'Action': 'RoomDetails',
                             'Label': room.RoomName,
-                            'Content': room.Description,
+                            'Content': room.CancellationRule,
                             'Context': room.PackagePrice,
                             'Text': '[no data]'
                         }

@@ -225,43 +225,43 @@ innaAppControllers
             $scope.$watch('adultCount', function (newVal, oldVal) {
                 serviceCache.put('adultCount', newVal);
 
-                if(newVal && newVal != oldVal) {
-                    var dataLayerObj = {
-                        'event': 'UM.Event',
-                        'Data': {
-                            'Category': 'Packages',
-                            'Action': 'Adults',
-                            'Label': newVal,
-                            'Content': newVal + $scope.childrenCount,
-                            'Context': newVal > oldVal ? 'plus' : 'minus',
-                            'Text': '[no data]'
-                        }
-                    };
-                    console.table(dataLayerObj);
-                    if (window.dataLayer) {
-                        window.dataLayer.push(dataLayerObj);
-                    }
-                }
+                // if(newVal && newVal != oldVal) {
+                //     var dataLayerObj = {
+                //         'event': 'UM.Event',
+                //         'Data': {
+                //             'Category': 'Packages',
+                //             'Action': 'Adults',
+                //             'Label': newVal,
+                //             'Content': newVal + $scope.childrenCount,
+                //             'Context': newVal > oldVal ? 'plus' : 'minus',
+                //             'Text': '[no data]'
+                //         }
+                //     };
+                //     console.table(dataLayerObj);
+                //     if (window.dataLayer) {
+                //         window.dataLayer.push(dataLayerObj);
+                //     }
+                // }
             });
             $scope.$watch('childrenCount', function (newVal, oldVal) {
                 serviceCache.put('childrenCount', newVal);
-                if(newVal || newVal == 0 && newVal != oldVal) {
-                    var dataLayerObj = {
-                        'event': 'UM.Event',
-                        'Data': {
-                            'Category': 'Packages',
-                            'Action': 'Childrens',
-                            'Label': newVal,
-                            'Content': newVal + $scope.adultCount,
-                            'Context': newVal > oldVal ? 'plus' : 'minus',
-                            'Text': '[no data]'
-                        }
-                    };
-                    console.table(dataLayerObj);
-                    if (window.dataLayer) {
-                        window.dataLayer.push(dataLayerObj);
-                    }
-                }
+                // if(newVal || newVal == 0 && newVal != oldVal) {
+                //     var dataLayerObj = {
+                //         'event': 'UM.Event',
+                //         'Data': {
+                //             'Category': 'Packages',
+                //             'Action': 'Childrens',
+                //             'Label': newVal,
+                //             'Content': newVal + $scope.adultCount,
+                //             'Context': newVal > oldVal ? 'plus' : 'minus',
+                //             'Text': '[no data]'
+                //         }
+                //     };
+                //     console.table(dataLayerObj);
+                //     if (window.dataLayer) {
+                //         window.dataLayer.push(dataLayerObj);
+                //     }
+                // }
             });
             $scope.$watch('childrensAge', function (newVal) {
                 serviceCache.put('childrensAge', JSON.stringify(newVal));

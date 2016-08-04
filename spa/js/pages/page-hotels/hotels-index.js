@@ -17,6 +17,21 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
         template: 'search.html',
         callbackClose: function () {
             $scope.redirectHotels();
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Hotels',
+                    'Action': 'AbortSearch',
+                    'Label': '[no data]',
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
         },
         callback: function () {
             $scope.redirectHotels();

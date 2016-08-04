@@ -19,18 +19,18 @@
 			<ng:include src="'components/need-visa/templ/index.html'" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
 
 			<p class="buy__price-descr buy__alert" ng-if="(hotel != null)">Внимание! К компонентам пакета применяются разные
-			                                                               условия отмены бронирования.<br/>Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event)">правилами
+			                                                               условия отмены бронирования.<br/>Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event);gtmRules($event, 'avia');">правилами
 			                                                                                                                                                                     применения тарифа
 			                                                                                                                                                                     авиабилета</a> и
-				<a href="" ng-click="hotelRules.show($event)">условиями
+				<a href="" ng-click="hotelRules.show($event);gtmRules($event, 'hotel');">условиями
 				                                              бронирования отеля</a>
-			                                                               и <a href="" ng-click="insuranceRules.show($event)">правилами медицинского страхования</a>.
+			                                                               и <a href="" ng-click="insuranceRules.show($event);gtmRules($event, 'insurance');">правилами медицинского страхования</a>.
 			</p>
 			<br/>
 
 			<p class="buy__price-descr" ng-if="!(hotel != null) && aviaInfo">
 				Пожалуйста, ознакомьтесь с
-				<a href="" ng-click="tarifs.show($event)">правилами
+				<a href="" ng-click="tarifs.show($event);gtmRules($event, 'avia');">правилами
 				                                          применения тарифа авиабилета</a>.
 			</p>
 			<br/>
@@ -303,18 +303,18 @@
 
 				<p ng-if="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.all">
 					Вы можете оплатить этот заказ наличными в любом офисе Связного
-					<a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>
-					или Евросети <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
+					<a href="https://www.svyaznoy.ru/address_shops/" ng-click="gtmPartnerAddress()" target="_blank">адреса офисов</a>
+					или Евросети <a href="http://euroset.ru/shops/" ng-click="gtmPartnerAddress()" target="_blank">адреса офисов</a>.
 					<br/>Обратитесь к менеджеру и назовите номер заказа.
 				</p>
 				<p ng-if="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.svyaznoy">
 					Вы можете оплатить этот заказ наличными в любом офисе Связного
-					<a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>.
+					<a href="https://www.svyaznoy.ru/address_shops/" ng-click="gtmPartnerAddress()" target="_blank">адреса офисов</a>.
 					<br/>Обратитесь к менеджеру и назовите номер заказа.
 				</p>
 				<p ng-if="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.euroset">
 					Вы можете оплатить этот заказ наличными в любом офисе Евросети
-					<a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
+					<a href="http://euroset.ru/shops/" ng-click="gtmPartnerAddress()" target="_blank">адреса офисов</a>.
 					<br/>Обратитесь к менеджеру и назовите номер заказа.
 				</p>
 
@@ -323,7 +323,7 @@
 				</p>
 
 				<a href="/spa/print/?order={{svyaznoyPayControl.orderNum}}&viewType={{svyaznoyPayControl.blockViewType}}{{svyaznoyPayControl.time}}" target="_blank">
-					<div class="b-print-btn icon-sprite-btn-print">
+					<div class="b-print-btn icon-sprite-btn-print" ng-click="gtmPrint()">
 					</div>
 				</a>
 			</div>

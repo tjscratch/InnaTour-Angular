@@ -338,7 +338,23 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     /**
      * действия в комнате
      */
-    $scope.goReservation = function (roomId) {
+    $scope.goReservation = function (room) {
+        var dataLayerObj = {
+            'event': 'UM.Event',
+            'Data': {
+                'Category': 'Hotels',
+                'Action': 'HotelsBuyDetails',
+                'Label': room.RoomName,
+                'Content': room.CancellationRule,
+                'Context': room.Price,
+                'Text': '[no data]'
+            }
+        };
+        console.table(dataLayerObj);
+        if (window.dataLayer) {
+            window.dataLayer.push(dataLayerObj);
+        }
+
         var searchParams = angular.copy($routeParams);
         console.log(searchParams)
         if(searchParams.Children){
@@ -347,9 +363,9 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
             });
         }
         if(isActive('/bus/')){
-            var url = HotelService.getBusResevationUrl(searchParams.hotelId, searchParams.providerId, roomId, searchParams);
+            var url = HotelService.getBusResevationUrl(searchParams.hotelId, searchParams.providerId, room.RoomId, searchParams);
         }else{
-            var url = HotelService.getHotelsResevationUrl(searchParams.hotelId, searchParams.providerId, roomId, searchParams);
+            var url = HotelService.getHotelsResevationUrl(searchParams.hotelId, searchParams.providerId, room.RoomId, searchParams);
         }
         $location.url(url);
     };
@@ -357,6 +373,23 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
 
     $scope.toggleRoom = function (room) {
         //converts undefined into boolean on the fly
+        if (!room.isOpen) {
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Hotels',
+                    'Action': 'RoomDetails',
+                    'Label': room.RoomName,
+                    'Content': room.CancellationRule,
+                    'Context': room.Price,
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        }
         room.isOpen = !!!room.isOpen;
     };
 

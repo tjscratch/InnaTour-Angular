@@ -52,6 +52,44 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         var TotalTravelers = Math.ceil(buyParams.Adult);
     }
 
+    $scope.$watch('reservation.ReservationModel.Agree', function (newValue, oldValue) {
+        if(newValue != null) {
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Hotels',
+                    'Action': 'AcceptConditions',
+                    'Label': newValue ? 'Select' : 'UnSelect',
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        }
+    });
+    
+    $scope.gtmRules = function ($event, type) {
+        var dataLayerObj = {
+            'event': 'UM.Event',
+            'Data': {
+                'Category': 'Hotels',
+                'Action': type == 'oferta' ? 'Oferta' : '',
+                'Label': $event.target.textContent,
+                'Content': '[no data]',
+                'Context': '[no data]',
+                'Text': '[no data]'
+            }
+        };
+        console.table(dataLayerObj);
+        if (window.dataLayer) {
+            window.dataLayer.push(dataLayerObj);
+        }
+    };
+
     /**
      * проверяем доступность выбранной комнаты
      */
@@ -260,6 +298,22 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
     function reservation () {
         console.log('start reservation');
         baloonReservation();
+
+        var dataLayerObj = {
+            'event': 'UM.Event',
+            'Data': {
+                'Category': 'Hotels',
+                'Action': 'HotelsBook',
+                'Label': '[no data]',
+                'Content': '[no data]',
+                'Context': '[no data]',
+                'Text': '[no data]'
+            }
+        };
+        console.table(dataLayerObj);
+        if (window.dataLayer) {
+            window.dataLayer.push(dataLayerObj);
+        }
 
         /**
          * Трекаем события для GTM

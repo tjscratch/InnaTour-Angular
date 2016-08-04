@@ -350,8 +350,8 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                             'PageType': 'AviaSearchLoad',
                             'CityFrom': $scope.criteria.FromUrl,
                             'CityTo': $scope.criteria.ToUrl,
-                            'DateFrom': $scope.criteria.BeginDate,
-                            'DateTo': $scope.criteria.EndDate,
+                            'DateFrom': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.BeginDate),
+                            'DateTo': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.EndDate),
                             'Travelers': $scope.criteria.AdultCount + '-' + $scope.criteria.ChildCount + '-' + $scope.criteria.InfantsCount,
                             'TotalTravelers': parseInt($scope.criteria.AdultCount) +
                             parseInt($scope.criteria.ChildCount) +

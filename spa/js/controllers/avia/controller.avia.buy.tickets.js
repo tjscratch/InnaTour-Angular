@@ -38,7 +38,174 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         function log(msg) {
             $log.log(msg);
         }
-        
+
+        $scope.$watch('svyaznoyPayControl.payType', function (newValue, oldValue) {
+            // console.log('oldValuePayType', oldValue);
+            // console.log('newValuePayType', newValue);
+            if(newValue != oldValue) {
+                var PaymentMethod = '';
+                if ($scope.svyaznoyPayControl.payType == 1) {
+                    var PaymentMethod = 'Card';
+                }
+                if ($scope.svyaznoyPayControl.payType == 2) {
+                    var PaymentMethod = 'Svyaznoy';
+                }
+                if ($scope.svyaznoyPayControl.payType == 3) {
+                    var PaymentMethod = 'QIWI';
+                }
+                console.log('PaymentMethod', PaymentMethod);
+                var pageType = getActionType();
+                console.log('pageType', pageType);
+                var category = '';
+                switch (pageType) {
+                    case actionTypeEnum.hotel:
+                        category = 'Hotels';
+                        break;
+                    case actionTypeEnum.dp:
+                        category = 'Packages';
+                        break;
+                    case actionTypeEnum.avia:
+                        category = 'Avia';
+                }
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': category ? category : '[no data]',
+                        'Action': 'PaymentMethod',
+                        'Label': PaymentMethod,
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+            }
+        });
+
+        $scope.gtmPartnerAddress = function () {
+            var pageType = getActionType();
+            // console.log('pageType', pageType);
+            var category = '';
+            switch (pageType) {
+                case actionTypeEnum.hotel:
+                    category = 'Hotels';
+                    break;
+                case actionTypeEnum.dp:
+                    category = 'Packages';
+                    break;
+                case actionTypeEnum.avia:
+                    category = 'Avia';
+                    break;
+                default:
+                    break;
+            }
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': category ? category : '[no data]',
+                    'Action': 'PartnerAddress',
+                    'Label': '[no data]',
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        };
+
+        $scope.gtmRules = function ($event, type) {
+            var pageType = getActionType();
+            var category = '';
+            switch (pageType) {
+                case actionTypeEnum.hotel:
+                    category = 'Hotels';
+                    break;
+                case actionTypeEnum.dp:
+                    category = 'Packages';
+                    break;
+                case actionTypeEnum.avia:
+                    category = 'Avia';
+                    break;
+                default:
+                    break;
+            }
+            var label = '';
+            switch (type) {
+                case 'avia':
+                    label = 'ConditionAvia';
+                    break;
+                case 'hotel':
+                    label = 'ConditionHotels';
+                    break;
+                case 'insurance':
+                    label = 'ConditionMedical';
+                    break;
+                default:
+                    break;
+            }
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': category ? category : '[no data]',
+                    'Action': label,
+                    'Label': $event.target.textContent,
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        };
+
+        $scope.gtmPrint = function () {
+            var category = category();
+
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': category ? category : '[no data]',
+                    'Action': 'Print',
+                    'Label': '[no data]',
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        };
+
+        function category() {
+            var pageType = getActionType();
+            var category = '';
+            switch (pageType) {
+                case actionTypeEnum.hotel:
+                    category = 'Hotels';
+                    break;
+                case actionTypeEnum.avia:
+                    category = 'Avia';
+                    break;
+                default:
+                    category = 'Packages'
+                    break;
+            }
+            return category;
+        }
+
+        console.log('aviaInfo', $scope.aviaInfo);
+        console.log('hotel', $scope.hotel);
+        console.log('reservation.hotelInfo', $scope.reservation.hotelInfo);
         
         //$rootScope.$broadcast("avia.page.loaded", $routeParams);
         
@@ -1245,6 +1412,21 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                 'PaymentMethod': PaymentMethod
                             }
                         );
+                        var dataLayerObj = {
+                            'event': 'UM.Event',
+                            'Data': {
+                                'Category': 'Packages',
+                                'Action': 'PackagesPay',
+                                'Label': '[no data]',
+                                'Content': '[no data]',
+                                'Context': '[no data]',
+                                'Text': '[no data]'
+                            }
+                        };
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
                         break;
                     }
                     case actionTypeEnum.avia: {
@@ -1259,6 +1441,21 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                 'PaymentMethod': PaymentMethod
                             }
                         );
+                        var dataLayerObj = {
+                            'event': 'UM.Event',
+                            'Data': {
+                                'Category': 'Avia',
+                                'Action': 'AviaPay',
+                                'Label': '[no data]',
+                                'Content': '[no data]',
+                                'Context': '[no data]',
+                                'Text': '[no data]'
+                            }
+                        };
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
                         break;
                     }
                     case actionTypeEnum.hotel: {
@@ -1270,6 +1467,21 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                             'PageType': 'HotelsPayProcessing',
                             'PaymentMethod': PaymentMethod
                         });
+                        var dataLayerObj = {
+                            'event': 'UM.Event',
+                            'Data': {
+                                'Category': 'Hotels',
+                                'Action': 'HotelsPay',
+                                'Label': '[no data]',
+                                'Content': '[no data]',
+                                'Context': '[no data]',
+                                'Text': '[no data]'
+                            }
+                        };
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
                         break;
                     }
                 }
