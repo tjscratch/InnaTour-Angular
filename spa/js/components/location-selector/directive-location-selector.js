@@ -6,7 +6,7 @@ innaAppDirectives.directive('locationSelector', [
     'eventsHelper',
     'serviceCache',
     'dataService',
-    'DynamicPackagesDataProvider',
+    'EventManager',
     function ($templateCache) {
         return{
             replace: true,
@@ -27,7 +27,9 @@ innaAppDirectives.directive('locationSelector', [
                 useHorizontalForm: '=',
                 tabIndex: '='
             },
-            controller: function ($rootScope, $scope, $timeout, $routeParams, eventsHelper, serviceCache, dataService, DynamicPackagesDataProvider) {
+            controller: function ($rootScope, $scope, $timeout, $routeParams, eventsHelper, serviceCache, dataService, EventManager) {
+                
+                $scope.isEnableClearIcon = false;
 
                 
                 /**
@@ -44,9 +46,17 @@ innaAppDirectives.directive('locationSelector', [
 
                     if (!doNotUpdateText) {
                         $scope.currentCity = name.join(', ');
+                        EventManager.fire("locationSelectorChange", data);
                     }
 
                     $scope.selectedValue = data;
+                };
+
+                $scope.clearCityField = function () {
+                    $scope.currentCity = null;
+                    $scope.selectedValue = null;
+                    $scope.selectionControl.selectedIndex = null;
+                    $scope.isEnableClearIcon = false;
                 };
 
 
@@ -135,6 +145,14 @@ innaAppDirectives.directive('locationSelector', [
                     if (value instanceof Error) {
                         $scope.fieldError = value.error;
                         $scope.selectedValue = undefined;
+                    }
+                });
+
+                $scope.$watch('currentCity', function (value) {
+                    if(value.length > 0) {
+                        $scope.isEnableClearIcon = true;
+                    } else {
+                        $scope.isEnableClearIcon = false;
                     }
                 });
 
@@ -332,6 +350,7 @@ innaAppDirectives.directive('locationSelector', [
                         $scope.selectionControl.setSelected();
                         $scope.isOpened = false;
                     });
+                    $(document).off('click', clickHanlder);
                 }
 
                 $(document).click(clickHanlder);

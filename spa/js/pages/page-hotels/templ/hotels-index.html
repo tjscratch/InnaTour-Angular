@@ -28,6 +28,15 @@
 							hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
 					></hotel-card>
 				</div>
+
+				<btn-top></btn-top>
+			</div>
+			<div class="SearchHotelResultsList__item" ng-if="hotels.length < 1">
+				<div class="results-list__empty results-list__empty_type_hotels">
+					<p>Варианты не найдены.</p>
+
+					<p>Попробуйте изменить условия поиска или настройки фильтров.</p>
+				</div>
 			</div>
 		</div>
 

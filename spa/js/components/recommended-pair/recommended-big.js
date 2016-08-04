@@ -134,11 +134,8 @@ angular.module('innaApp.directives')
                             });
 
                             $scope.$on('loadDPHotels', function (event, data) {
-                                $scope.hotelCount = data.Hotels.length - 1;
-                            });
-
-                            $scope.$on('loadDPTickets', function (event, data) {
-                                $scope.ticketCount = data.AviaInfos.length - 1;
+                                $scope.hotelCount = data.HotelCount;
+                                $scope.ticketCount = data.TicketCount;
                             });
 
 
@@ -146,7 +143,7 @@ angular.module('innaApp.directives')
                              * IN-5387
                              * показ блока с ценой за человека
                              */
-                            $scope.CostPerPersonShow = true;
+                            $scope.CostPerPersonShow = false;
 
 
                             //destroy

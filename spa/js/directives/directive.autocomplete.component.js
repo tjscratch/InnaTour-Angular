@@ -122,7 +122,31 @@
                 if (window.partners && window.partners.getPartner()) {
                     var partner = window.partners.getPartner().name;
                 }
+
+                $scope.isEnableClearIcon = false;
+
                 /*Watchers*/
+
+                $scope.$watch('currentCity', function (newValue) {
+                    if(newValue.length > 0) {
+                        $scope.isEnableClearIcon = true;
+                    } else {
+                        $scope.isEnableClearIcon = false;
+                    }
+                });
+
+                $scope.clearCityField = function () {
+                    $scope.result = null;
+                    $scope.selectionControl.selectedIndex = null;
+                    // $scope.input.val('');
+                    $scope.currentCity = null;
+                    if($scope.isEnableClearIcon == true) {
+                        $scope.isEnableClearIcon = false;
+                    } else {
+                        $scope.isEnableClearIcon = true
+                    }
+                };
+
                 $scope.$watch('result', function (newValue, oldValue) {
                     if (newValue instanceof Error) {
                         $scope.result = oldValue;
@@ -144,6 +168,7 @@
                         if (newValue != null && newValue != 'null' && $scope.askForData) {
                             //console.log('askForDataByID', newValue);
                             askForDataByID(newValue);
+                            $scope.isEnableClearIcon = true;
                         }
                     }
                 });
@@ -159,6 +184,8 @@
 
             link: function ($scope, elem, attrs) {
                 $scope.input = $('input[type="text"]', elem);
+
+
 
                 function selectionControl() {
                     var self = this;
@@ -327,7 +354,6 @@
                     $scope.timeoutId = $timeout(function () {
                         $scope.$apply(function ($scope) {
                             $scope.selectionControl.setSelected();
-
                             $scope.isOpened = false;
                         });
 

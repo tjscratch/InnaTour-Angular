@@ -6,6 +6,10 @@ innaAppControllers.
     controller('AviaSearchMainCtrl', [
         '$scope', '$rootScope', '$routeParams', 'innaApp.services.PageContentLoader', 'innaApp.API.pageContent.AVIA',
         function ($scope, $rootScope, $routeParams, PageContentLoader, sectionID) {
+
+            $scope.pageTitle = "Поиск дешевых авиабилетов";
+            $scope.pageTitleSub = "Лучший способ купить авиабилеты онлайн";
+
             /*Data fetching*/
             //$('body').addClass('scrollVisible');
             PageContentLoader.getSectionById(sectionID, function (data) {

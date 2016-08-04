@@ -5,6 +5,61 @@
 			<li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
 				<!--<img class="img" ng-src="slide.Image" />-->
 				<div class="img" style="background-image: url('{{slide.Image}}')"></div>
+
+
+				<div class="offer-card-banner-item__mask" ng-if="slide.NeedFilterBrightness"></div>
+
+				<div class="offer-text">
+					<h1 class="offer-text__title">
+						{{pageTitle}}
+					</h1>
+					<div class="offer-text__subtitle">
+						{{pageTitleSub}}
+					</div>
+				</div>
+
+				<div class="home-page-slogan__container">
+					<div class="home-page-slogan">
+						<div class="home-page-slogan__item">
+							<h2 class="home-page-slogan__title">
+								Выгода
+							</h2>
+							<div class="home-page-slogan__text">
+								Экономия до 30 % за счет
+								<br>
+								специальных пакетных цен
+								<br>
+								Страховка в подарок
+							</div>
+						</div>
+						<div class="home-page-slogan__item">
+							<h2 class="home-page-slogan__title">
+								Свобода
+							</h2>
+							<div class="home-page-slogan__text">
+								200 стран 670 000 отелей 
+								<br>
+								500 авиакомпаний
+								<br>
+								Сам себе турагент
+							</div>
+						</div>
+						<div class="home-page-slogan__item">
+							<h2 class="home-page-slogan__title">
+								Надежность
+							</h2>
+							<div class="home-page-slogan__text">
+								Перелет на регулярных рейсах.
+								<br>
+								Моментальная оплата поставщикам
+								<br>
+								Гарантия поездки
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--
 				<div class="darken-container" ng-if="slide.NeedFilterBrightness" ng-click="offerClickSlider(slide, $event, $index)"></div>
 				<div class="info-container" ng-click="offerClickSlider(slide, $event, $index)">
 					<div class="info">
@@ -26,6 +81,9 @@
 						</p>
 					</div>
 				</div>
+				-->
+
+
 			</li>
 		</ul>
 		<div class="banner-dots-container">

@@ -12,7 +12,10 @@ gulp.task('copy-js', function () {
     gulp.src('./spa/*.css').pipe(gulp.dest('./dist/spa'));
     gulp.src('./spa/*.docx').pipe(gulp.dest('./dist/spa'));
     gulp.src('./spa/*.html').pipe(gulp.dest('./dist/spa'));
+    gulp.src('./spa/wl-test/**/*').pipe(gulp.dest('./dist/spa/wl-test'));
+
     gulp.src('./spa/templates/pages/**/*.html').pipe(gulp.dest('./dist/spa/templates/pages'));
+    gulp.src('./spa/google67180e948d7278f4.html').pipe(gulp.dest('./dist'));
 });
 
 gulp.task('copy-img', function () {
@@ -21,4 +24,8 @@ gulp.task('copy-img', function () {
 
 gulp.task('copy-lk', function () {
     gulp.src(config.lk.src).pipe(gulp.dest(config.lk.distSrc));
+});
+
+gulp.task('copy-js-watch', function () {
+    gulp.watch('./spa/wl-test/**/*', ['copy-js']);
 });

@@ -68,6 +68,7 @@ gulp.task('default', function (callback) {
         'replace',
         'build-css-watch',
         'build-app-watch',
+        'copy-js-watch',
         'server',
         callback
     )

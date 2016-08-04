@@ -10,7 +10,12 @@
 
 		<div class="HotelCardPhotos__Photo-empty"
 		     ng-if="!hotel.Photos">
-			<i class="fa fa-bus" aria-hidden="true"></i>
+			<i class="fa fa-bus"
+			   aria-hidden="true"
+			   ng-if="currentActive('/bus/')"></i>
+			<i class="fa fa-bed"
+			   aria-hidden="true"
+			   ng-if="currentActive('/hotels/')"></i>
 		</div>
 	</div>
 
@@ -31,6 +36,7 @@
 		</div>
 		<ng:include src="'components/hotel-card/templ/hotel-card-date.html'"></ng:include>
 		<ng:include src="'components/hotel-card/templ/hotel-card-meal.html'"></ng:include>
+		<ng:include ng-if="hotel.RoomCount < 4" src="'components/hotel-card/templ/hotel-card-rooms-count.html'"></ng:include>
 		<trip-advisor-directive ng-if="hotel.TaFactor" hotel-data="hotel"></trip-advisor-directive>
 	</div>
 

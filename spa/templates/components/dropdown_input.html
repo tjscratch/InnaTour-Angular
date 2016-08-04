@@ -1,7 +1,8 @@
 <div class="b-wrapp_type_inline {{theme}}" ng-class="{'error': Error}">
     <input type="text" click-on-focus tabindex="{{tabIndex}}"
            data-title="{{onError || 'Поле заполнено некорректно' }}" class="search-field"
-           placeholder="{{getPlaceholder()}}"/>
+           placeholder="{{getPlaceholder()}}"
+           ng-model="currentCity"/>
     <input type="hidden" ng-model="result"/>
     <ul class="search-autocomplete" ng-if="isOpened && suggest">
         <li ng-repeat="item in suggest" ng-click="setCurrent($event, item)">
@@ -23,4 +24,6 @@
 	<div class="ui-tooltip" ng-show="Error">
 		<div class="ui-tooltip-content">{{ Error }} {{ Errorsd }}</div>
 	</div>
+
+    <i class="fa fa-lg fa-times-circle i-close" ng-click="clearCityField()" ng-if="isEnableClearIcon"></i>
 </div>

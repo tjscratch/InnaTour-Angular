@@ -10,7 +10,7 @@
                 </span> 
                 <span class="search-people-baloon-field">
                     <span class="search-people-baloon-minus js-people-minus no-select" ng-click="minusClick($event, 'adultCount')">&minus;</span>
-                    <input type="text" maxlength="1" value="1" ng-model="adultCount" class="js-people-field" />
+                    <input type="text" maxlength="1" value="1" ng-model="adultCount" class="js-people-field" ng-readonly="true" />
                     <span class="search-people-baloon-plus js-people-plus no-select" ng-click="plusClick($event, 'adultCount')">+</span>
                 </span>
             </li>
@@ -21,7 +21,7 @@
                 </span>
                 <span class="search-people-baloon-field">
                     <span class="search-people-baloon-minus js-people-minus no-select" ng-click="minusClick($event, 'childCount')">&minus;</span>
-                    <input type="text" maxlength="1" value="0" ng-model="childCount" class="js-people-field" />
+                    <input type="text" maxlength="1" value="0" ng-model="childCount" class="js-people-field" ng-readonly="true" />
                     <span class="search-people-baloon-plus js-people-plus no-select" ng-click="plusClick($event, 'childCount')">+</span>
                 </span>
                                 
@@ -33,7 +33,7 @@
                 </span>
                 <span class="search-people-baloon-field">
                     <span class="search-people-baloon-minus js-people-minus no-select" ng-click="minusClick($event, 'infantsCount')">&minus;</span>
-                    <input type="text" maxlength="1" value="0" ng-model="infantsCount" class="js-people-field" />
+                    <input type="text" maxlength="1" value="0" ng-model="infantsCount" class="js-people-field" ng-readonly="true" />
                     <span class="search-people-baloon-plus js-people-plus no-select" ng-click="plusClick($event, 'infantsCount')">+</span>
                 </span>
             </li>

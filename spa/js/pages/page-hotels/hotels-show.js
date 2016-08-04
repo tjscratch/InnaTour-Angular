@@ -28,19 +28,19 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
      * поэтому если не b2b пользователь попал на страницу отелей
      * редиректим его на главную
      */
-    $timeout(function () {
-        var isAgency = false;
-        if ($rootScope.$root.user) {
-            if (parseInt($rootScope.$root.user.getAgencyId()) == 20005 || parseInt($rootScope.$root.user.getAgencyId()) == 2) {
-                isAgency = true;
-            }
-        }
-        if (isAgency == false) {
-            if (isActive('/hotels/')) {
-                $location.path('/#/');
-            }
-        }
-    }, 500);
+    //$timeout(function () {
+    //    var isAgency = false;
+    //    if ($rootScope.$root.user) {
+    //        if (parseInt($rootScope.$root.user.getAgencyId()) == 20005 || parseInt($rootScope.$root.user.getAgencyId()) == 2) {
+    //            isAgency = true;
+    //        }
+    //    }
+    //    if (isAgency == false) {
+    //        if (isActive('/hotels/')) {
+    //            $location.path('/#/');
+    //        }
+    //    }
+    //}, 500);
     // $timeout(function () {
     //     var isAgency = false;
     //     if ($rootScope.$root.user) {
@@ -51,6 +51,14 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     //     }
     // }, 500);
 
+    $scope.userIsAgency = null;
+    
+    $scope.$watch('user', function (User) {
+        if (User) {
+            $scope.userIsAgency = User.isAgency();
+            $scope.AgencyId = parseInt(User.getAgencyId());
+        }
+    });
 
     $scope.hotelLoaded = false;
     $scope.hotelsIndexPath = '/#' + HotelService.getHotelsIndexUrl($routeParams);
@@ -108,34 +116,65 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     };
 
 
+    //var searchParams = angular.copy($routeParams);
+    //self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
+    //searchParams.Adult = self.passengerCount;
+    //searchParams.ChildrenCount = null;
     var searchParams = angular.copy($routeParams);
-    self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
-    searchParams.Adult = self.passengerCount;
-    searchParams.ChildrenCount = null;
-    HotelService.getHotelsDetails(searchParams)
-        .then(function (response) {
-            console.log(response)
-            if (response.status == 200 && response.data.Success) {
-                $scope.hotel = response.data.Hotel;
-                $scope.hotelRooms = response.data.Rooms;
-                $scope.hotelLoaded = true;
-                parseAmenities($scope.hotel);
-                if ($scope.hotel.ProviderId == 4) {
-                    $scope.TAWidget = app_main.tripadvisorEx + $scope.hotel.HotelId;
-                } else if ($scope.hotel.ProviderId == 2) {
-                    $scope.TAWidget = app_main.tripadvisorOk + $scope.hotel.HotelId;
+    //self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
+    //searchParams.Adult = self.passengerCount;
+    searchParams.Adult = $routeParams.Adult;
+    //searchParams.ChildrenCount = null;
+
+
+    if(searchParams.Children){
+        searchParams.ChildrenAges = $routeParams.Children.split('_');
+        // searchParams.Children = searchParams.Children.split('_').map(function (age) {
+        //     return { value: age };
+        // });
+    }
+
+    var help = dateHelper;
+    var today = help.getTodayDate();
+    var startDate = dateHelper.apiDateToJsDate(searchParams.StartVoyageDate);
+    if(+today <= +startDate) {
+        HotelService.getHotelsDetails(searchParams)
+            .then(function (response) {
+                console.log(response)
+                if (response.status == 200 && response.data.Success) {
+                    $scope.hotel = response.data.Hotel;
+                    $scope.hotelRooms = response.data.Rooms;
+                    $scope.hotelLoaded = true;
+                    parseAmenities($scope.hotel);
+                    if ($scope.hotel.ProviderId == 4) {
+                        $scope.TAWidget = app_main.tripadvisorEx + $scope.hotel.HotelId;
+                    } else if ($scope.hotel.ProviderId == 2) {
+                        $scope.TAWidget = app_main.tripadvisorOk + $scope.hotel.HotelId;
+                    }
+                    if ($scope.hotel.Latitude && $scope.hotel.Longitude) {
+                        loadMap($scope.hotel.Latitude, $scope.hotel.Longitude, $scope.hotel.HotelName);
+                    }
+                    $scope.baloonHotelLoad.teardown();
+                } else {
+                    baloonError();
                 }
-                if ($scope.hotel.Latitude && $scope.hotel.Longitude) {
-                    loadMap($scope.hotel.Latitude, $scope.hotel.Longitude, $scope.hotel.HotelName);
-                }
-                $scope.baloonHotelLoad.teardown();
-            } else {
+            }, function (response) {
+                console.log(response)
                 baloonError();
+            });
+    } else {
+        $scope.baloonHotelLoad.updateView({
+            template: 'err.html',
+            title: 'Дата заезда должна быть больше текущей даты!',
+            content: 'Попробуйте начать поиск заново',
+            callbackClose: function () {
+                $scope.redirectHotels();
+            },
+            callback: function () {
+                $scope.redirectHotels();
             }
-        }, function (response) {
-            console.log(response)
-            baloonError();
         });
+    }
 
 
     /**
@@ -197,10 +236,17 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
      * действия в комнате
      */
     $scope.goReservation = function (roomId) {
+        var searchParams = angular.copy($routeParams);
+        console.log(searchParams)
+        if(searchParams.Children){
+            searchParams.Children = searchParams.Children.split('_').map(function (age) {
+                return { value: age };
+            });
+        }
         if(isActive('/bus/')){
-            var url = HotelService.getBusResevationUrl($routeParams.hotelId, $routeParams.providerId, roomId, $routeParams);
+            var url = HotelService.getBusResevationUrl(searchParams.hotelId, searchParams.providerId, roomId, searchParams);
         }else{
-            var url = HotelService.getHotelsResevationUrl($routeParams.hotelId, $routeParams.providerId, roomId, $routeParams);
+            var url = HotelService.getHotelsResevationUrl(searchParams.hotelId, searchParams.providerId, roomId, searchParams);
         }
         $location.url(url);
     };

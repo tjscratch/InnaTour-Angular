@@ -42,6 +42,16 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
         }
     });
 
+    $scope.SimplifiedTaxationSystem = false;
+    $scope.$watch('SimplifiedTaxationSystem', function (data) {
+        if (data) {
+            $scope.agencyReg.SimplifiedTaxationSystem = true;
+        }
+        else {
+            $scope.agencyReg.SimplifiedTaxationSystem = false;
+        }
+    });
+
     $scope.agencySubmit = function (form) {
         if (form.$valid) {
             console.log('$scope.agencyReg', $scope.agencyReg);

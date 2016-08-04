@@ -1,6 +1,7 @@
 <!-- Рекомендованный вариант пакета -->
 
 <div recommended-pair-component
+     class="recommended-pair-component"
      ng-if="recommendedPair.hotel && recommendedPair.ticket && !hotelToShowDetails"></div>
 
 
@@ -8,24 +9,25 @@
 <div class="results-body" id="top">
 
 
-	
-	<div class="results-container results-container_list"
-	     ng-class="{'results-container__short':!padding}"
-	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)"></div>
+    <div class="results-container results-container_list"
+         ng-class="{'results-container__short':!padding}"
+         ng-show="(!showLanding && !hotelToShowDetails && !asMap)"></div>
 
 
-	<div hotels-map
-	     hotels="hotels"
-	     map-hotels="hotelsForMap"
-	     as-map="asMap"
-	     recommended-pair="recommendedPair"
-	     airports="airports"
-	     ng-if="hotels.list.length && asMap"></div>
+    <div hotels-map
+         hotels="hotels"
+         map-hotels="hotelsForMap"
+         as-map="asMap"
+         recommended-pair="recommendedPair"
+         airports="airports"
+         ng-if="hotels.list.length && asMap"></div>
 
 
 </div>
 
-<btn-top ng-show="goToTopShow && !asMap"></btn-top>
+<div ng-show="!asMap">
+    <btn-top></btn-top>
+</div>
 
 <!-- Попап - подробнее о авиа-билете -->
 <div ticket-details></div>

@@ -28,22 +28,22 @@ var app = angular.module('innaApp', [
 moment.locale('ru');
 
 app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, $location, $window, $filter) {
-
-
+    
+    
     // устанавливаем куку от admitad на 100 дней на всяк случай
     var admitad_uid = $location.$$search.admitad_uid;
-    if(admitad_uid){
+    if (admitad_uid) {
         var date = new Date;
         date.setDate(date.getDate() + 100);
         document.cookie = "admitad_uid=" + admitad_uid + "; path=/; expires=" + date.toUTCString();
     }
     var b2b_operator = $location.$$search.b2b_operator;
-    if(b2b_operator){
+    if (b2b_operator) {
         var date_b2b_operator = new Date;
         date_b2b_operator.setDate(date_b2b_operator.getDate() + 1);
         document.cookie = "b2b_operator=" + b2b_operator + "; path=/; expires=" + date_b2b_operator.toUTCString();
     }
-
+    
     // Ractive.defaults
     Ractive.defaults.data.pluralize = utils.pluralize || null;
     Ractive.defaults.data.moment = moment || null;
@@ -51,35 +51,38 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     Ractive.defaults.data.$filter = $filter;
     Ractive.defaults.data.$rootScope = $rootScope;
 
-    $rootScope.bodyClickListeners = [];
+    //$rootScope.bodyClickListeners = [];
+    //
+    //$rootScope.addBodyClickListner = function (key, eventDelegate) {
+    //    $rootScope.bodyClickListeners.push({key: key, eventDelegate: eventDelegate});
+    //};
+    //
+    //$rootScope.bodyClick = function () {
+    //    console.log('root bodyClick');
+    //    _.each($rootScope.bodyClickListeners, function (listner) {
+    //        listner.eventDelegate();
+    //    });
+    //};
 
-    $rootScope.addBodyClickListner = function (key, eventDelegate) {
-        $rootScope.bodyClickListeners.push({key: key, eventDelegate: eventDelegate});
-    };
-
-    $rootScope.bodyClick = function () {
-        //console.log('root bodyClick');
-        _.each($rootScope.bodyClickListeners, function (listner) {
-            listner.eventDelegate();
-        });
-    };
-
-    $rootScope.$on('$routeChangeSuccess', function () {
+    $rootScope.$on('$routeChangeSuccess', function (event, newUrl, oldUrl) {
         //аналитика
         //console.log('$window._gaq.push $location.path(): ' + $location.path());
-        if ($window.ga != null)
+        if ($window.ga != null && newUrl.loadedTemplateUrl != undefined) {
+            console.log('$routeChangeSuccess write ga - pageview');
             $window.ga('send', 'pageview', $location.path());
-
+        }
+        
+        
         if (window.partners) {
             //WL показываем фрейм, когда приложение заинитилось
             //window.partners.showFrame();
         }
-
+        
         //console.log('$routeChangeSuccess');
         //скролим наверх
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
-
+    
     $rootScope.$on('$locationChangeSuccess', function () {
         //мониторим и проставляем url на странице, где размещен наш фрейм
         if (window.partners) {
@@ -94,6 +97,7 @@ app.config(['$validationProvider', function ($validationProvider) {
     // Setup `ip` validation
     var expression = {
         passport: /^.*([a-zA-Z]).*([а-яА-ЯёЁ])(\D)*(\d{6})+$/,
+        customemail: /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,10}|[0-9]{1,3})(\]?)$/,
         date_format: function (value, scope, element, attrs, param) {
             var date = moment(value, 'DD.MM.YYYY');
             return date.isValid();
@@ -129,7 +133,7 @@ app.config(['$validationProvider', function ($validationProvider) {
             success: 'Ок'
         }
     };
-
+    
     $validationProvider
         .setExpression(expression)
         .setDefaultMsg(validMsg);
@@ -145,7 +149,7 @@ app.config([
     'AppRouteUrls',
     '$sceProvider',
     function ($routeProvider, $locationProvider, $httpProvider, url, AppRouteUrls, $sceProvider, $filter) {
-
+        
         function dynamic() {
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.realType == window.partners.WLType.full) {
@@ -181,7 +185,7 @@ app.config([
                 resolve: authController.resolve
             }
         }
-
+        
         function avia() {
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.realType == window.partners.WLType.b2b) {
@@ -200,15 +204,15 @@ app.config([
                 resolve: authController.resolve
             }
         }
-
+        
         //чтобы работал кросдоменный post
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.transformRequest = function (data) {
             return angular.isObject(data) && String(data) !== '[object File]' ? angular.toParam(data) : data;
         };
-
+        
         $sceProvider.enabled(false);
-
+        
         $routeProvider.//Главная
         when(url.URL_ROOT, dynamic()).when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?-:DepartureId-:ArrivalId?', dynamic()).when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?-:DepartureId', dynamic()).when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?', dynamic()).when(url.URL_PACKAGES_LANDING + ':sectionId', dynamic()).when(url.URL_TOURS, {
             templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
@@ -349,50 +353,53 @@ app.config([
             .when(AppRouteUrls.URL_HOTELS, {
                 templateUrl: 'pages/page-hotels/templ/hotels-root.html',
                 controller: 'HotelsRootController',
-                resolve: authController.resolve
+                //resolve: authController.resolve
             })
-            .when(AppRouteUrls.URL_HOTELS + ':StartVoyageDate/' + ':ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+            .when(AppRouteUrls.URL_HOTELS + ':StartVoyageDate/:ArrivalId-:NightCount-:Adult-:Children?', {
                 templateUrl: 'pages/page-hotels/templ/hotels-index.html',
                 controller: 'HotelsIndexController',
-                resolve: authController.resolve
+                //resolve: authController.resolve
             })
-            .when(AppRouteUrls.URL_HOTELS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+            .when(AppRouteUrls.URL_HOTELS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:Children?', {
                 templateUrl: 'pages/page-hotels/templ/hotels-show.html',
                 controller: 'HotelsShowController',
-                resolve: authController.resolve
+                //resolve: authController.resolve
             })
             /**
              * begin bus tours
              */
-            .when(AppRouteUrls.URL_BUS, dynamic())
-            .when(AppRouteUrls.URL_BUS + ':StartVoyageDate/' + ':ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+            .when(AppRouteUrls.URL_BUS, {
+                templateUrl: 'pages/page-hotels/templ/bus-root.html',
+                controller: 'BusRootController'
+            })
+            .when(AppRouteUrls.URL_BUS + ':StartVoyageDate/:ArrivalId-:NightCount-:Adult-:Children?', {
                 templateUrl: 'pages/page-hotels/templ/bus-index.html',
                 controller: 'BusIndexController'
             })
-            .when(AppRouteUrls.URL_BUS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+            .when(AppRouteUrls.URL_BUS + ':hotelId/:providerId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:Children?', {
                 templateUrl: 'pages/page-hotels/templ/hotels-show.html',
                 controller: 'HotelsShowController'
             })
             /**
              * end bus tours
              */
-
+            
             /**
              * begin reservation
              */
-            .when(AppRouteUrls.URL_RESERVATIONS + ':typeProduct/:hotelId/:providerId/:roomId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:ChildrenCount', {
+            .when(AppRouteUrls.URL_RESERVATIONS + ':typeProduct/:hotelId/:providerId/:roomId/:StartVoyageDate/:ArrivalId-:NightCount-:Adult-:Children?', {
                 templateUrl: 'pages/page-reservations/templ/reservations.html',
                 controller: 'ReservationsController as reservation'
             })
             /**
              * end reservation
              */
-
-
+            
+            
             .otherwise({
                 redirectTo: url.URL_ROOT
             });
-
+        
         /*$locationProvider.html5Mode({
          enabled: true
          //requireBase: false
@@ -401,8 +408,8 @@ app.config([
 ]);
 
 app.config(['$provide', function ($provide) {
-
-
+    
+    
     $provide.decorator('$rootScope', ['$delegate', function ($delegate) {
         $delegate.safeApply = function (fn) {
             var phase = $delegate.$$phase;
@@ -417,7 +424,7 @@ app.config(['$provide', function ($provide) {
         return $delegate;
     }
     ]);
-
+    
     $provide.decorator("$exceptionHandler", ["$delegate", function (del) {
         return function (ex, cause) {
             if (Raven) {
@@ -430,10 +437,10 @@ app.config(['$provide', function ($provide) {
                 });
             }
             del(ex, cause);
-
+            
         };
     }]);
-
+    
     return $provide;
 }
 ]);
@@ -463,12 +470,12 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
 }]);
 
 (function () {
-
+    
     angular.extend(angular, {
         toParam: toParam
     });
-
-
+    
+    
     /**
      * Преобразует объект, массив или массив объектов в строку,
      * которая соответствует формату передачи данных через url
@@ -483,11 +490,11 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
         var stack = [];
         var value;
         var key;
-
+        
         for (key in object) {
             value = object[key];
             key = prefix ? prefix + '[' + key + ']' : key;
-
+            
             if (value === null) {
                 value = encodeURIComponent(key) + '=';
             } else if (typeof (value) !== 'object') {
@@ -495,13 +502,13 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
             } else {
                 value = toParam(value, key);
             }
-
+            
             stack.push(value);
         }
-
+        
         return stack.join('&');
     }
-
+    
 }());
 
 
@@ -511,23 +518,23 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
             autoShow: true,
             autoHide: true
         },
-
+        
         _create: function () {
             this._super();
             if (!this.options.autoShow) {
                 this._off(this.element, "mouseover focusin");
             }
         },
-
+        
         _open: function (event, target, content) {
             this._superApply(arguments);
-
+            
             if (!this.options.autoHide) {
                 this._off(target, "mouseleave focusout");
             }
         }
     });
-
+    
 }(jQuery));
 
 
@@ -545,17 +552,17 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
         }
         return newUrl;
     }
-
+    
     function processLinks() {
         //находим все ссылки
         var links = $('a[link-in-new-window-if-can=""]');
         //console.log('links', links.length);
-
+        
         links.each(function (ix, el) {
             processLink($(el));
         });
     }
-
+    
     function processLink(element) {
         //var isBlank = false;
         //удаляем этот аттрибут, чтобы не открывалось новое пустое окно
@@ -563,35 +570,35 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
             element.removeAttr('target');
             //isBlank = true;
         }
-
+        
         var dataEvent = element.attr('data-event');
         var dataLink = element.attr('data-link');
         var link = element.attr('href');
         //console.log('link', link);
-
+        
         //если изменилась ссылка
         if (link != 'javascript:void(0);') {
             //то сохраняем в data-link, а сам href - обнуляем, чтобы не кликалось
             element.attr('href', 'javascript:void(0);');
             element.attr('data-link', link);
         }
-
+        
         //если уже навешивали обработчики
         if (!dataEvent) {
             element.attr('data-event', 1);
-
+            
             element.on('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-
+                
                 var link = element.attr('data-link');
                 //на WL фо фрейме ссылки типа
                 //http://biletix.ru/packages/#/packages/details/6733-1735-08.06.2015-11.06.2015-0-2--358469-10000088563-10000088632-4?action=buy
                 //нужно отрезать все, что до #
                 var key = getHashFromUrl(link);
-
+                
                 //window.open(link, (isBlank ? '_blank' : ''));//похуй _blank или нет - новое окно
-
+                
                 //пробуем открыть новое окно
                 var winOpenRes = window.open(link);
                 if (winOpenRes) {
@@ -612,6 +619,6 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
             });
         }
     }
-
+    
     setInterval(processLinks, 300);
 }(jQuery));

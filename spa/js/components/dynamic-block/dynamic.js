@@ -76,7 +76,7 @@ innaAppConponents.
                      * IN-5387
                      * показ блока с ценой за человека
                      */
-                    CostPerPersonShow: true,
+                    CostPerPersonShow: false,
                     AgencyType: null
                 },
                 partials: {
