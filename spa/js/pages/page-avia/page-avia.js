@@ -133,9 +133,9 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                 'event': 'UM.Event',
                 'Data': {
                     'Category': 'Avia',
-                    'Action': type ? type : '[no data]',
+                    'Action': 'AviaBuySearch',
                     'Label': '[no data]',
-                    'Content': '[no data]',
+                    'Content': type ? type : '[no data]',
                     'Context': '[no data]',
                     'Text': '[no data]'
                 }

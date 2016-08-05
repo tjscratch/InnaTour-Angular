@@ -2,45 +2,57 @@
     <div class="footer-content main__center">
         <div class="footer-menu">
             <ul class="footer-menu-links-list">
-                <li class="footer-menu-links-list-item"><a class="js-company-about" href="/#/about/">О компании</a></li>
-                <li class="footer-menu-links-list-item"><a class="js-company-about" href="https://inna.ru/proxy/blog.inna.ru/">Новости</a></li>
-                <li class="footer-menu-links-list-item partners-hide"><a href="https://inna.ru/proxy/www.inna.ru/corporate/">Корпоративным
+                <li class="footer-menu-links-list-item"><a class="js-company-about" href="/#/about/" ng-click="gtmFooterButton($event)">О компании</a></li>
+                <li class="footer-menu-links-list-item"><a class="js-company-about" href="https://inna.ru/proxy/blog.inna.ru/" ng-click="gtmFooterButton($event)">Новости</a></li>
+                <li class="footer-menu-links-list-item partners-hide"><a href="https://inna.ru/proxy/www.inna.ru/corporate/" ng-click="gtmFooterButton($event)">Корпоративным
                     клиентам</a></li>
-                <li class="footer-menu-links-list-item"><a class="js-company-contacts" href="/#/contacts/">Контакты</a></li>
-                <li class="footer-menu-links-list-item partners-hide"><a href="https://inna.ru/proxy/book.inna.ru/">Агентствам</a></li>
-                <li class="footer-menu-links-list-item partners-hide"><a href="https://inna.ru/proxy/www.inna.ru/catalog/guide/">Каталог
+                <li class="footer-menu-links-list-item"><a class="js-company-contacts" href="/#/contacts/" ng-click="gtmFooterButton($event)">Контакты</a></li>
+                <li class="footer-menu-links-list-item partners-hide"><a href="https://inna.ru/proxy/book.inna.ru/" ng-click="gtmFooterButton($event)">Агентствам</a></li>
+                <li class="footer-menu-links-list-item partners-hide"><a href="https://inna.ru/proxy/www.inna.ru/catalog/guide/" ng-click="gtmFooterButton($event)">Каталог
                     стран</a>
                 </li>
-                <li class="footer-menu-links-list-item partners-hide"><a href="https://inna.ru/proxy/www.inna.ru/client/abc/">Полезная
+                <li class="footer-menu-links-list-item partners-hide"><a href="https://inna.ru/proxy/www.inna.ru/client/abc/" ng-click="gtmFooterButton($event)">Полезная
                     информация</a>
                 </li>
-                <li class="footer-menu-links-list-item partners-hide"><a href="https://inna.ru/proxy/www.inna.ru/catalog/guide/">Старый сайт</a>
+                <li class="footer-menu-links-list-item partners-hide"><a href="https://inna.ru/proxy/www.inna.ru/catalog/guide/" ng-click="gtmFooterButton($event)">Старый сайт</a>
                 </li>
             </ul>
             <div class="footer-menu-info">
                 <ul class="social-list partners-hide">
                     <li class="social-list-item">
-                        <a href="https://vk.com/innatour_official" target="_blank"><i
+                        <a href="https://vk.com/innatour_official"
+                           ng-click="gtmSocialButton('vkontakte')"
+                           target="_blank"><i
                                 class="icon icon-vkontakte"></i></a>
                     </li>
                     <li class="social-list-item">
-                        <a href="https://odnoklassniki.ru/innatour" target="_blank"><i
+                        <a href="https://odnoklassniki.ru/innatour"
+                           ng-click="gtmSocialButton('odnoklassniki')"
+                           target="_blank"><i
                                 class="icon icon-odnoklassniki"></i></a>
                     </li>
                     <li class="social-list-item">
-                        <a href="https://www.facebook.com/INNATOURCOMPANY" target="_blank"><i
+                        <a href="https://www.facebook.com/INNATOURCOMPANY"
+                           ng-click="gtmSocialButton('facebook')"
+                           target="_blank"><i
                                 class="icon icon-facebook"></i></a>
                     </li>
                     <li class="social-list-item">
-                        <a href="https://twitter.com/inna_tour" target="_blank"><i
+                        <a href="https://twitter.com/inna_tour"
+                           ng-click="gtmSocialButton('twitter')"
+                           target="_blank"><i
                                 class="icon icon-twitter"></i></a>
                     </li>
                     <li class="social-list-item">
-                        <a href="https://www.pinterest.com/innatour/" target="_blank"><i
+                        <a href="https://www.pinterest.com/innatour/"
+                           ng-click="gtmSocialButton('pinterest')"
+                           target="_blank"><i
                                 class="icon icon-pinterest"></i></a>
                     </li>
                     <li class="social-list-item">
-                        <a href="https://www.youtube.com/user/InnaTourMos/featured" target="_blank"><i
+                        <a href="https://www.youtube.com/user/InnaTourMos/featured"
+                           ng-click="gtmSocialButton('youtube')"
+                           target="_blank"><i
                                 class="icon icon-youtube"></i></a>
                     </li>
                 </ul>
