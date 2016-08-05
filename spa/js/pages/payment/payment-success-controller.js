@@ -11,7 +11,7 @@ innaAppControllers.controller('PaymentSuccessController', function ($routeParams
     $("body").removeClass("light-theme");
     EventManager.fire(innaAppApiEvents.FOOTER_HIDDEN);
     
-    
+    self.OrderNum = $routeParams.OrderNum;
     
     /**
      * получение от сервера данных для оплаты

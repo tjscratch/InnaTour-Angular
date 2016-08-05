@@ -1,17 +1,19 @@
 <div class="results-body">
-    <div class="Payment">
+    <div class="Payment__success">
         <div class="main__center">
-            <h2 class="buy__title">Оформление и оплата sdrf</h2>
 
-            <header class="buy__header">
-                <div class="buy__header-price">
-                    Стоимость пакета за {{payment.data.passengerCount | perPerson}}:
-                    <b>
-                        {{payment.data.Price| price}}
-                        <i class='fa fa-rub'></i>
-                    </b>
+            <div class="Payment__title">
+                Заказ {{payment.OrderNum}}
+            </div>
+
+            <div class="Payment__body">
+                <div>
+                    Благодарим Вас.
                 </div>
-            </header>
+                <div>
+                    Выш заказ оплачен.
+                </div>
+            </div>
         </div>
     </div>
 </div>
