@@ -379,6 +379,7 @@
                 var m = {};
                 m.I = data.name;
                 m.F = data.secondName;
+                m.O = data.oName;
                 m.Email = data.email;
                 m.Phone = data.phone;
                 m.IsSubscribe = data.wannaNewsletter;

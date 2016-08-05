@@ -1293,6 +1293,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                     sex: null,
                     secondName: '',
                     name: '',
+                    oName: '',
                     birthday: '',
                     citizenship: {//Гражданство
                         id: 189,
@@ -1371,6 +1372,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
             var userInfo = {
                 name: '',
                 secondName: '',
+                oName: '',
                 email: '',
                 phone: '',
                 phonePrefix: { id: '+7', name: 'Россия +7' },
@@ -1390,6 +1392,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                 price: $scope.item.Price,
                 name: userInfo.name,
                 secondName: userInfo.secondName,
+                oName: '',
                 email: userInfo.email,
                 phonePrefix: userInfo.phonePrefix,
                 phoneNum: userInfo.phoneNum,
@@ -1706,6 +1709,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
             m.Sex = data.sex;
             m.I = data.name;
             m.F = data.secondName;
+            m.O = data.oName;
             m.Birthday = data.birthday;
             m.DocumentId = $scope.getDocType(data.citizenship.id, doc_num);
             m.Number = doc_num;
