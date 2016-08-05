@@ -7,5 +7,6 @@ app.constant('AppRouteUrls', {
     URL_PACKAGES_LANDING: '/packages/ppc/',
     
     URL_PAYMENT: '/payment/',
+    URL_PAYMENT_SUCCESS: '/payment-success/',
 
 })

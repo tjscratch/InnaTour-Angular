@@ -400,15 +400,14 @@ app.config([
             /**
              * begin new buy page
              */
-            //when(url.URL_BUY + ':OrderNum', {
-            //    templateUrl: 'pages/avia/tickets_buy.html',
-            //    controller: 'AviaBuyTicketsCtrl',
-            //    resolve: authController.resolve
-            //})
             .when(AppRouteUrls.URL_PAYMENT + ':OrderNum', {
                 templateUrl: 'pages/payment/templ/payment.html',
                 controller: 'PaymentController as payment',
                 resolve: authController.resolve
+            })
+            .when(AppRouteUrls.URL_PAYMENT_SUCCESS + ':OrderNum', {
+                templateUrl: 'pages/payment/templ/payment-success.html',
+                controller: 'PaymentSuccessController as payment'
             })
             /**
              * end new buy page
