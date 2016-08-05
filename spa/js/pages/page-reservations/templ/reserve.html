@@ -138,6 +138,13 @@
 					       ng-class="{error:isFieldInvalid(passenger.name)}"
 					       type="text" placeholder="IVAN" class="b-field-text">
 				</div>
+				<div class="b-field-block b-field-block-oname">
+					<label class="b-field-label">Отчество</label>
+					<input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.oName.value"
+						   data-title="Укажите отчество пассажира"
+						   ng-validation-model="passenger.name" validate="validate(item, type)"
+						   type="text" placeholder="IVANOVICH" class="b-field-text">
+				</div>
 				<div class="b-field-block b-field-birth">
 					<label class="b-field-label">Дата рождения</label>
 
@@ -205,13 +212,6 @@
 					       ng-class="{error:isFieldInvalid(passenger.doc_expirationDate)}"
 					       ng-attr-data-title="{{passenger.doc_expirationDate.validationErrTitle }}"
 					       masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг" class="b-field-text">
-				</div>
-				<div class="b-field-block b-field-block-oname">
-					<label class="b-field-label">Отчество</label>
-					<input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.oName.value"
-						   data-title="Укажите отчество пассажира"
-						   ng-validation-model="passenger.name" validate="validate(item, type)"
-						   type="text" placeholder="IVANOVICH" class="b-field-text">
 				</div>
 			</div>
 			<div class="b-field-group b-field-group-passport">
