@@ -409,6 +409,10 @@ app.config([
                 templateUrl: 'pages/payment/templ/payment-success.html',
                 controller: 'PaymentSuccessController as payment'
             })
+            .when(AppRouteUrls.URL_PAYMENT_ERROR + ':OrderNum', {
+                templateUrl: 'pages/payment/templ/payment-error.html',
+                controller: 'PaymentSuccessController as payment'
+            })
             /**
              * end new buy page
              */
