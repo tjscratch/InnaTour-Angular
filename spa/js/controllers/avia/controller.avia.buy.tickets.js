@@ -53,24 +53,10 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                 if ($scope.svyaznoyPayControl.payType == 3) {
                     var PaymentMethod = 'QIWI';
                 }
-                console.log('PaymentMethod', PaymentMethod);
-                var pageType = getActionType();
-                console.log('pageType', pageType);
-                var category = '';
-                switch (pageType) {
-                    case actionTypeEnum.hotel:
-                        category = 'Hotels';
-                        break;
-                    case actionTypeEnum.dp:
-                        category = 'Packages';
-                        break;
-                    case actionTypeEnum.avia:
-                        category = 'Avia';
-                }
                 var dataLayerObj = {
                     'event': 'UM.Event',
                     'Data': {
-                        'Category': category ? category : '[no data]',
+                        'Category': category(),
                         'Action': 'PaymentMethod',
                         'Label': PaymentMethod,
                         'Content': '[no data]',
@@ -86,26 +72,10 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         });
 
         $scope.gtmPartnerAddress = function () {
-            var pageType = getActionType();
-            // console.log('pageType', pageType);
-            var category = '';
-            switch (pageType) {
-                case actionTypeEnum.hotel:
-                    category = 'Hotels';
-                    break;
-                case actionTypeEnum.dp:
-                    category = 'Packages';
-                    break;
-                case actionTypeEnum.avia:
-                    category = 'Avia';
-                    break;
-                default:
-                    break;
-            }
             var dataLayerObj = {
                 'event': 'UM.Event',
                 'Data': {
-                    'Category': category ? category : '[no data]',
+                    'Category': category(),
                     'Action': 'PartnerAddress',
                     'Label': '[no data]',
                     'Content': '[no data]',
@@ -120,21 +90,6 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         };
 
         $scope.gtmRules = function ($event, type) {
-            var pageType = getActionType();
-            var category = '';
-            switch (pageType) {
-                case actionTypeEnum.hotel:
-                    category = 'Hotels';
-                    break;
-                case actionTypeEnum.dp:
-                    category = 'Packages';
-                    break;
-                case actionTypeEnum.avia:
-                    category = 'Avia';
-                    break;
-                default:
-                    break;
-            }
             var label = '';
             switch (type) {
                 case 'avia':
@@ -152,7 +107,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             var dataLayerObj = {
                 'event': 'UM.Event',
                 'Data': {
-                    'Category': category ? category : '[no data]',
+                    'Category': category(),
                     'Action': label,
                     'Label': $event.target.textContent,
                     'Content': '[no data]',
@@ -167,12 +122,10 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         };
 
         $scope.gtmPrint = function () {
-            var category = category();
-
             var dataLayerObj = {
                 'event': 'UM.Event',
                 'Data': {
-                    'Category': category ? category : '[no data]',
+                    'Category': category(),
                     'Action': 'Print',
                     'Label': '[no data]',
                     'Content': '[no data]',
