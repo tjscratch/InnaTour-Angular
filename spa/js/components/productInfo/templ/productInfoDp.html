@@ -20,9 +20,23 @@
         по {{helper.moment(productData.Hotel.CheckOutDate).format("D MMMM")}}, {{productData.Hotel.NightCount}}
         {{helper.pluralForm(productData.Hotel.NightCount, 'ночь', 'ночи', 'ночей')}}<span ng-if="isInsuranceIncluded">, медицинская страховка</span>,
         топливный сбор.
-        Указана стоимость на {{productData.Passengers.length | perPerson | asQuantity:"человека":"человек":"человек"}}.
+        Указана стоимость на {{productData.Passengers.length | perPeople}}.
         Цена окончательная со всеми налогами и сборами.
     </div>
 
+    <p class="productInfo__Desc">
+        Внимание! К компонентам пакета применяются разные условия отмены бронирования.
+        <br/>
+        Пожалуйста, ознакомьтесь с
+        <a href="" ng-click="tarifs.show($event)">правилами применения тарифа авиабилета</a>
+        и
+        <a href="" ng-click="hotelRules.show($event)">условиями бронирования отеля</a><span ng-if="productData.AviaInfo.IsTripToRussia">.</span>
+        <span ng-if="!productData.AviaInfo.IsTripToRussia">
+		и
+            <a href="" ng-click="insuranceRules.show($event)">правилами медицинского страхования.</a>
+		</span>
+    </p>
 
 </div>
+
+<ng-include src="'components/productInfo/templ/baloons.html'"></ng-include>

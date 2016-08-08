@@ -1,15 +1,45 @@
 innaAppDirectives.directive('productInfo', function ($templateCache) {
     return {
         replace: true,
-        scope:{
+        scope: {
             productData: '=',
             productType: '='
         },
-        controller: function ($scope, aviaHelper) {
+        controller: function ($scope, aviaHelper, paymentService) {
             console.log($scope.productData);
+            
+            /**
+             * ToDo
+             * старый говнокод, отрефакторить
+             */
             $scope.helper = aviaHelper;
+            
+            $scope.tarifs = new $scope.helper.tarifs();
+            
+            function loadTarifs() {
+                paymentService.getTarifs({
+                        variantTo: $scope.productData.AviaInfo.VariantId1,
+                        varianBack: $scope.productData.AviaInfo.VariantId2
+                    },
+                    function (data) {
+                        $scope.tarifs.tarifsData = data;
+                    },
+                    function (data, status) {
+                        console.log('paymentService.getTarifs error');
+                    });
+            }
+            
+            $scope.tarifs.fillInfo($scope.productData.AviaInfo);
+            loadTarifs();
+            
+            
+            $scope.hotelRules = new $scope.helper.hotelRules();
+            //правила отмены отеля
+            $scope.hotelRules.fillData($scope.productData.Hotel);
+            
+            $scope.insuranceRules = new $scope.helper.insuranceRules();
         },
-        link: function(scope, element, attrs) {
+        link: function (scope, element, attrs) {
             
             // data.ProductType
             // Avia = 1
