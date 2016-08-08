@@ -192,11 +192,15 @@
                             data.weeks[indic].days[indic2].classname.push('datepickerSelected-start');
                         }
                         if(options.mode == 'range'){
+							var startDate = new Date(options.date[0]);
                             var endDate = new Date(options.date[1]);
                             endDate.setHours(0);
                             endDate.setMinutes(0);
                             endDate.setSeconds(0);
-                            if (options.initDateFromIsSet && +endDate == val) {
+							startDate.setHours(0);
+							startDate.setMinutes(0);
+							startDate.setSeconds(0);
+                            if (options.initDateFromIsSet && +endDate == val && +startDate != +endDate) {
                                 data.weeks[indic].days[indic2].classname.push('datepickerSelected-end');
                             }
                         }

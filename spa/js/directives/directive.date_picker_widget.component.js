@@ -77,7 +77,8 @@
                 data      : '=',
                 maxDate   : '=',
                 tabIndexFrom: '=',
-                tabIndexTo: '='
+                tabIndexTo: '=',
+                typePage: '='
             },
             controller: ['$scope', function ($scope) {
                 /*Properties*/
@@ -144,10 +145,16 @@
                         } else {
                             $scope.input2.tooltip(getPopupOptions($scope.input2)).tooltip('open');
                         }
-                    }
-                    else {
-                        if ($scope.datePicker) {
-                            updateThrottled();
+                    } else {
+                        if ($scope.datePicker && newValue != undefined) {
+                            if($scope.typePage == 'DP' && newValue == $scope.date1) {
+                                $scope.date2 = oldValue;
+                                $scope.isOpen = true;
+                                $scope.isFromSelecting = false;
+                                console.log('date2', $scope.date2);
+                            } else {
+                                updateThrottled();
+                            }
                         }
                     }
                 });
