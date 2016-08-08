@@ -7,6 +7,14 @@ innaAppServices.service('Payment', function ($http, appApi) {
                 params: params,
                 cache: false
             });
+        },
+        qiwiMakeBill: function (orderNum) {
+            return $http({
+                url: appApi.QIWI_MAKE_BILL,
+                method: 'POST',
+                data: {orderNum: orderNum},
+                cache: false
+            });
         }
     }
 });

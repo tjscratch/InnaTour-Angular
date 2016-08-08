@@ -21,7 +21,8 @@ var app = angular.module('innaApp', [
     'validation',
     'validation.rule',
     'ui.select',
-    "ngCookies"
+    "ngCookies",
+    'timer'
 ]);
 
 /* локализация дат moment */
