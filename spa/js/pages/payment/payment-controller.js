@@ -25,16 +25,13 @@ innaAppControllers.controller('PaymentController', function ($routeParams, Payme
         var data = response.data;
         self.data = data;
         self.data.passengerCount = self.data.Passengers.length;
-        
-        // хрень для определения типа продукта
-        // надо бы выпилить и заставить бэкенд присылать это в апи
-        if (data.Hotel != null && data.AviaInfo != null) {
-            self.productType = 'dp';
-        } else if (data.Hotel == null && data.AviaInfo != null) {
-            self.productType = 'avia';
-        } else if (data.Hotel != null && data.AviaInfo == null) {
-            self.productType = 'hotel';
-        }
+    
+        // data.ProductType
+        // Avia = 1
+        // Динамический пакет = 2
+        // Сервисный сбор = 3
+        // Отели = 4
+        // Не определен = 0
     }
     
     

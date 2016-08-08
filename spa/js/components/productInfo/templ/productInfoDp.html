@@ -1,0 +1,28 @@
+<div class="main__center">
+
+    <div class="productInfo__Head">
+        <div class="productInfo__Title">
+            Оформление и оплата
+        </div>
+        <div class="productInfo__Price">
+            Стоимость пакета за {{productData.Passengers.length | perPerson}}:
+            <b class="productInfo__Price-sum">
+                {{productData.Price| price}}
+                <i class='fa fa-rub'></i>
+            </b>
+        </div>
+    </div>
+
+    <div class="productInfo__Desc">
+        В цену включен ПЕРЕЛЕТ {{productData.AviaInfo.CityFrom}} –
+        {{productData.AviaInfo.CityTo}} – {{productData.AviaInfo.CityFrom}} и ОТЕЛЬ {{productData.Hotel.HotelName}}
+        с {{helper.moment(productData.Hotel.CheckInDate).format("D MMMM")}}
+        по {{helper.moment(productData.Hotel.CheckOutDate).format("D MMMM")}}, {{productData.Hotel.NightCount}}
+        {{helper.pluralForm(productData.Hotel.NightCount, 'ночь', 'ночи', 'ночей')}}<span ng-if="isInsuranceIncluded">, медицинская страховка</span>,
+        топливный сбор.
+        Указана стоимость на {{productData.Passengers.length | perPerson | asQuantity:"человека":"человек":"человек"}}.
+        Цена окончательная со всеми налогами и сборами.
+    </div>
+
+
+</div>
