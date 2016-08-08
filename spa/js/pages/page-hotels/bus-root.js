@@ -23,12 +23,12 @@ innaAppControllers.controller('BusRootController',[
         }
     }
 
-    var routeSectionID = getSectionId($location.path());//IN-2501 Лэндинги стран
-    if (routeSectionID != null) {
-        sectionID = routeSectionID;
-    }
+    // var routeSectionID = getSectionId($location.path());//IN-2501 Лэндинги стран
+    // if (routeSectionID != null) {
+    //     sectionID = routeSectionID;
+    // }
 
-
+    sectionID = 36;
 
     PageContentLoader.getSectionById(sectionID, function (data) {
 
@@ -38,9 +38,9 @@ innaAppControllers.controller('BusRootController',[
 
                 if (data.Landing != null) {
                     //включаем отображение доп. полей
-                    if (routeSectionID != null) {
-                        data.Landing.canDisplayDataForLandingPages = true;
-                    }
+                    // if (routeSectionID != null) {
+                    //     data.Landing.canDisplayDataForLandingPages = true;
+                    // }
 
                     //доп-обработка - добавляем текст в 2 колонки, если нужно
                     if (data.Landing.RenderTextType == 2) {//текст в 2 колонки

@@ -41,24 +41,23 @@ innaAppControllers.controller('HotelsRootController',[
         }
     }
 
-    var routeSectionID = getSectionId($location.path());//IN-2501 Лэндинги стран
-    if (routeSectionID != null) {
-        sectionID = routeSectionID;
-    }
-
-
+    // var routeSectionID = getSectionId($location.path());//IN-2501 Лэндинги стран
+        // if (routeSectionID != null) {
+        //     sectionID = routeSectionID;
+        // }
+        sectionID = 11;
 
     PageContentLoader.getSectionById(sectionID, function (data) {
-
+        console.log('ASJHDKASJDH', data);
         //обновляем данные
         if (data != null) {
             $scope.$apply(function ($scope) {
 
                 if (data.Landing != null) {
                     //включаем отображение доп. полей
-                    if (routeSectionID != null) {
-                        data.Landing.canDisplayDataForLandingPages = true;
-                    }
+                    // if (routeSectionID != null) {
+                    //     data.Landing.canDisplayDataForLandingPages = true;
+                    // }
 
                     //доп-обработка - добавляем текст в 2 колонки, если нужно
                     if (data.Landing.RenderTextType == 2) {//текст в 2 колонки
