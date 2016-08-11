@@ -7,27 +7,10 @@
 
 
     <div id="OrderInfo"
-         class="Payment__OrderInfo">
+         class="Payment__OrderInfo"
+         ng-if="payment.data.IsAvailable">
 
-        <div class="Payment__OrderInfoWrapper"
-             ng-if="!payment.isExpire">
-            <div class="Payment__OrderInfo-text Payment__OrderInfo-text_expire">
-                Приносим извинения.
-            </div>
-            <div class="Payment__OrderInfo-text Payment__OrderInfo-text_expire">
-                Срок оплаты вашего заказа истёк, заказ расформирован.
-            </div>
-            <div class="Payment__OrderInfo-text Payment__OrderInfo-text_expire">
-                Воспользуйтесь поиском, чтобы оформить новый заказ.
-            </div>
-            <div class="Payment__OrderInfo-action" ng-if="payment.searchUrl">
-                <a ng-href="/#{{payment.searchUrl}}"
-                   class="button balloon-button">Новый поиск</a>
-            </div>
-        </div>
-
-        <div class="Payment__OrderInfoWrapper"
-             ng-if="payment.isExpire">
+        <div class="Payment__OrderInfoWrapper">
 
 
             <div class="b-tickets-info-container__inner-wrap"

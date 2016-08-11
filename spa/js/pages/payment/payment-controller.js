@@ -9,12 +9,14 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
     
     /**
      * первым делом проверяем изменение цены заказа
+     * todo закоментил на этап тестирования/разработки
      */
-    Payment.getRepricing($routeParams.OrderNum)
-        .then(
-            getRepricingSuccess,
-            getRepricingError
-        );
+    // Payment.getRepricing($routeParams.OrderNum)
+    //     .then(
+    //         getRepricingSuccess,
+    //         getRepricingError
+    //     );
+    getOrderData();
     
     /**
      * getRepricingSuccess
@@ -83,6 +85,7 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
      * вызов идет после репрайсинга
      */
     function getOrderData() {
+        baloon.show('Подготовка к оплате', 'Это может занять несколько секунд');
         Payment.getPaymentData({orderNum: $routeParams.OrderNum})
             .then(
                 getPaymentDataSuccess,
@@ -110,10 +113,6 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
             
             self.ExperationDate = moment(data.ExperationDate).format('DD MMM YYYY, HH:mm');
             self.ExperationMinute = data.ExperationMinute * 60;
-            // если таймлимит равен нулю, вызываем коллбэк self.callbackTimer
-            if (self.ExperationMinute == 0) {
-                self.callbackTimer()
-            }
             
             // тип оплаты 1 - карта, 2 - связной, 3 - qiwi
             if ($location.search().payType) {
@@ -141,35 +140,49 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
                 self.isPayWithSvyaznoyAllowed = true;
             }
             
-            
+            // проверяем статус заказа
+            // todo отрефакторить это все потом и надо наверное избавиться от репрайсинга https://innatec.atlassian.net/browse/IN-7173
             if (data.IsPayed == true) {
                 //уже оплачен
-                baloon.showAlert('Заказ уже оплачен', '', function () {
-                    baloon.hide();
-                    $location.url(AppRouteUrls.URL_ROOT);
-                });
+                baloon.showAlert('Заказ уже оплачен', '',
+                    function () {
+                        baloon.hide();
+                        $location.url(AppRouteUrls.URL_ROOT);
+                    });
             } else if (data.OrderStatus == 2) {
                 //[Description("Аннулирован")]
-                baloon.showAlert('Заказ аннулирован', '', function () {
-                    baloon.hide();
-                    $location.url(AppRouteUrls.URL_ROOT);
-                });
-            } else{
+                baloon.showAlert('Заказ аннулирован', '',
+                    function () {
+                        baloon.hide();
+                        $location.url(self.searchUrl);
+                    });
+            } else if (data.IsAvailable) {
                 baloon.hide();
+                // если таймлимит равен нулю
+                if (self.ExperationMinute == 0) {
+                    self.callbackTimer();
+                }else{
+                    // скролим страницу до нужного места
+                    // todo
+                    // при добавлении хеша в url идет перезагрузка контроллера, надо починить
+                    // https://innatec.atlassian.net/browse/IN-7171
+                    $location.hash('OrderInfo');
+                    $anchorScroll.yOffset = 126;
+                    $anchorScroll();
+                    // var offsetTop = angular.element('.Payment__OrderInfo');
+                    // console.log(offsetTop.offsetTop)
+                    // $('html, body').animate({
+                    //     scrollTop: $("#OrderInfo").offset().top + 300
+                    // }, 200);
+                }
+            } else {
+                baloon.showNotFound("Заказ недоступен", "Воспользуйтесь поиском, чтобы оформить новый заказ.",
+                    function () {
+                        baloon.hide();
+                        $location.url(self.searchUrl);
+                    });
             }
             
-            // скролим страницу до нужного места
-            // todo
-            // при добавлении хеша в url идет перезагрузка контроллера, надо починить
-            // https://innatec.atlassian.net/browse/IN-7171
-            $location.hash('OrderInfo');
-            $anchorScroll.yOffset = 126;
-            $anchorScroll();
-            // var offsetTop = angular.element('.Payment__OrderInfo');
-            // console.log(offsetTop.offsetTop)
-            // $('html, body').animate({
-            //     scrollTop: $("#OrderInfo").offset().top + 300
-            // }, 200);
         } else {
             globalError();
         }
@@ -187,13 +200,13 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
     
     /**
      * колбэк при истечении времени
-     * колбэк устанавливает переменную self.isExpire
-     * self.isExpire == false то показываем сообщение что оплата не доступна истек таймлимит
-     * self.isExpire == true показываем все доступные способы оплаты
      */
-    self.isExpire = true;
     self.callbackTimer = function () {
-        self.isExpire = false;
+        baloon.showNotFound("Срок оплаты вашего заказа истёк, заказ недоступен", "Воспользуйтесь поиском, чтобы оформить новый заказ.",
+            function () {
+                baloon.hide();
+                $location.url(self.searchUrl);
+            });
     };
     
     
