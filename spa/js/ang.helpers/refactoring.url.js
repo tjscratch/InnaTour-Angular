@@ -1,5 +1,7 @@
 app.constant('AppRouteUrls', {
-
+    
+    URL_ROOT: '/',
+    
     URL_HOTELS: '/hotels/',
     URL_BUS: '/bus/',
     URL_RESERVATIONS: '/reservations/',
