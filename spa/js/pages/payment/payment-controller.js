@@ -2,9 +2,14 @@
  * во вьюхе используем как
  * ReservationsController as reservation
  */
-innaAppControllers.controller('PaymentController', function ($scope, $routeParams, $location, Payment, aviaHelper) {
+innaAppControllers.controller('PaymentController', function ($scope, $routeParams, $location, $anchorScroll, Payment, aviaHelper) {
     
     var self = this;
+    
+    // скролим страницу до нужного места
+    $location.hash('OrderInfo');
+    $anchorScroll.yOffset = 126;
+    $anchorScroll();
     
     /**
      * получение от сервера данных для оплаты
@@ -33,7 +38,10 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
     
         self.ExperationDate = moment(data.ExperationDate).format('DD MMM YYYY, HH:mm');
         self.ExperationMinute = data.ExperationMinute * 60;
-        setTimeout(data);
+        // если таймлимит равен нулю, вызываем коллбэк self.callbackTimer
+        if(self.ExperationMinute == 0){
+            self.callbackTimer()
+        }
         
         // тип оплаты 1 - карта, 2 - связной, 3 - qiwi
         if ($location.search().payType) {
@@ -61,6 +69,8 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
             self.isPayWithSvyaznoyAllowed = true;
         }
         
+        // url для нового поиска
+        self.searchUrl = Payment.getSearchUrl(self.data);
     }
     
     
@@ -75,9 +85,13 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
     
     /**
      * колбэк при истечении времени
+     * колбэк устанавливает переменную self.isExpire
+     * self.isExpire == false то показываем сообщение что оплата не доступна истек таймлимит
+     * self.isExpire == true показываем все доступные способы оплаты
      */
+    self.isExpire = true;
     self.callbackTimer = function () {
-        console.log('cancel timeout pay');
+        self.isExpire = false;
     };
     
     

@@ -35,6 +35,7 @@ innaAppServices.factory('appApi', function () {
         GET_MANAGER_STATUS: url('/TalkingHeadSupportApi/GetManagerStatus2'),
     
         GET_PAYMENT: url('/Payment/Index'),
+        GET_PAYMENT_REPRICING: url('/Payment/Repricing'),
         QIWI_MAKE_BILL: url('/qiwi/MakeBill'),
     }
 });

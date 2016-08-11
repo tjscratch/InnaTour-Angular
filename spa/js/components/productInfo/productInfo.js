@@ -6,8 +6,6 @@ innaAppDirectives.directive('productInfo', function ($templateCache) {
             productType: '='
         },
         controller: function ($scope, aviaHelper, paymentService) {
-            console.log($scope.productData);
-            
             /**
              * ToDo
              * старый говнокод, отрефакторить
