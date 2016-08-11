@@ -12,10 +12,13 @@
         <div class="Payment__OrderInfoWrapper"
              ng-if="!payment.isExpire">
             <div class="Payment__OrderInfo-text Payment__OrderInfo-text_expire">
-                Срок оплаты вашего заказа истек
+                Приносим извинения.
             </div>
             <div class="Payment__OrderInfo-text Payment__OrderInfo-text_expire">
-                Воспользуйтесь поиском для формирования нового заказа
+                Срок оплаты вашего заказа истёк, заказ расформирован.
+            </div>
+            <div class="Payment__OrderInfo-text Payment__OrderInfo-text_expire">
+                Воспользуйтесь поиском, чтобы оформить новый заказ.
             </div>
             <div class="Payment__OrderInfo-action" ng-if="payment.searchUrl">
                 <a ng-href="{{payment.searchUrl}}"
