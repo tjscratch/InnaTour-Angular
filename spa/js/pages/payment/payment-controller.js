@@ -156,12 +156,13 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
                         baloon.hide();
                         $location.url(self.searchUrl);
                     });
-            } else if (data.IsAvailable) {
+            } else {
                 baloon.hide();
                 // если таймлимит равен нулю
                 if (self.ExperationMinute == 0) {
                     self.callbackTimer();
                 }else{
+                    self.data.IsAvailable = true;
                     // скролим страницу до нужного места
                     // todo
                     // при добавлении хеша в url идет перезагрузка контроллера, надо починить
@@ -175,13 +176,21 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
                     //     scrollTop: $("#OrderInfo").offset().top + 300
                     // }, 200);
                 }
-            } else {
-                baloon.showNotFound("Заказ недоступен", "Воспользуйтесь поиском, чтобы оформить новый заказ.",
-                    function () {
-                        baloon.hide();
-                        $location.url(self.searchUrl);
-                    });
             }
+            // todo проверку IsAvailable убрал на время, сейчас постоянно приходит false
+            // } else if (data.IsAvailable) {
+            //     baloon.hide();
+            //     если таймлимит равен нулю
+                // if (self.ExperationMinute == 0) {
+                //     self.callbackTimer();
+                // }
+            // } else {
+            //     baloon.showNotFound("Заказ недоступен", "Воспользуйтесь поиском, чтобы оформить новый заказ.",
+            //         function () {
+            //             baloon.hide();
+            //             $location.url(self.searchUrl);
+            //         });
+            // }
             
         } else {
             globalError();
