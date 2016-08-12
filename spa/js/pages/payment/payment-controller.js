@@ -5,13 +5,14 @@
 innaAppControllers.controller('PaymentController', function ($scope, $routeParams, $location, $anchorScroll, $filter, AppRouteUrls, Payment, aviaHelper) {
     
     var self = this;
+    self.OrderNum = $routeParams.OrderNum;
     var baloon = aviaHelper.baloon;
     
     /**
      * первым делом проверяем изменение цены заказа
      * todo закоментил на этап тестирования/разработки
      */
-    // Payment.getRepricing($routeParams.OrderNum)
+    // Payment.getRepricing(self.OrderNum)
     //     .then(
     //         getRepricingSuccess,
     //         getRepricingError
@@ -86,7 +87,7 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
      */
     function getOrderData() {
         baloon.show('Подготовка к оплате', 'Это может занять несколько секунд');
-        Payment.getPaymentData({orderNum: $routeParams.OrderNum})
+        Payment.getPaymentData({orderNum: self.OrderNum})
             .then(
                 getPaymentDataSuccess,
                 getPaymentDataError
@@ -110,35 +111,10 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
         if (data != null) {
             self.data = data
             self.searchUrl = Payment.getSearchUrl(self.data); // url для нового поиска
-            
+    
+            self.SvyaznoyExperationDate = data.ExperationDate;
             self.ExperationDate = moment(data.ExperationDate).format('DD MMM YYYY, HH:mm');
             self.ExperationMinute = data.ExperationMinute * 60;
-            
-            // тип оплаты 1 - карта, 2 - связной, 3 - qiwi
-            if ($location.search().payType) {
-                self.payType = $location.search().payType;
-            } else {
-                self.payType = 1;
-            }
-            
-            // если агенство проверяем доступность способов оплаты картой и через связной
-            self.isB2bAgency = $scope.$root.user ? $scope.$root.user.getType() == 2 : null;
-            var isPayWithBankCardEnabled = $scope.$root.user ? $scope.$root.user.isPayWithBankCardEnabled() : false;
-            var isPayWithSvyaznoyEnabled = $scope.$root.user ? $scope.$root.user.isPayWithSvyaznoyEnabled() : false;
-            
-            // доступность оплаты банковской картой
-            if (self.isB2bAgency) {
-                self.isPayWithBankCardAllowed = isPayWithBankCardEnabled;
-            } else {
-                self.isPayWithBankCardAllowed = true;
-            }
-            
-            // доступность оплаты через связной
-            if (self.isB2bAgency) {
-                self.isPayWithSvyaznoyAllowed = isPayWithSvyaznoyEnabled;
-            } else {
-                self.isPayWithSvyaznoyAllowed = true;
-            }
             
             // проверяем статус заказа
             // todo отрефакторить это все потом и надо наверное избавиться от репрайсинга https://innatec.atlassian.net/browse/IN-7173
@@ -151,7 +127,7 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
                     });
             } else if (data.OrderStatus == 2) {
                 //[Description("Аннулирован")]
-                baloon.showAlert('Заказ аннулирован', '',
+                baloon.showNotFound("Заказ аннулирован", "Воспользуйтесь поиском, чтобы оформить новый заказ.",
                     function () {
                         baloon.hide();
                         $location.url(self.searchUrl);
@@ -161,8 +137,10 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
                 // если таймлимит равен нулю
                 if (self.ExperationMinute == 0) {
                     self.callbackTimer();
-                }else{
+                } else {
                     self.data.IsAvailable = true;
+                    
+                    svyaznoyPayment();
                     // скролим страницу до нужного места
                     // todo
                     // при добавлении хеша в url идет перезагрузка контроллера, надо починить
@@ -181,9 +159,9 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
             // } else if (data.IsAvailable) {
             //     baloon.hide();
             //     если таймлимит равен нулю
-                // if (self.ExperationMinute == 0) {
-                //     self.callbackTimer();
-                // }
+            // if (self.ExperationMinute == 0) {
+            //     self.callbackTimer();
+            // }
             // } else {
             //     baloon.showNotFound("Заказ недоступен", "Воспользуйтесь поиском, чтобы оформить новый заказ.",
             //         function () {
@@ -211,6 +189,7 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
      * колбэк при истечении времени
      */
     self.callbackTimer = function () {
+        self.data.IsAvailable = false;
         baloon.showNotFound("Срок оплаты вашего заказа истёк, заказ недоступен", "Воспользуйтесь поиском, чтобы оформить новый заказ.",
             function () {
                 baloon.hide();
@@ -225,6 +204,74 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
      */
     function globalError() {
         baloon.showGlobalAviaErr();
+    }
+    
+    /**
+     * оплата через связной
+     */
+    function svyaznoyPayment() {
+        var partner = window.partners ? window.partners.getPartner() : null;
+        // если агенство проверяем доступность способов оплаты картой и через связной
+        var isB2bAgency = $scope.$root.user ? $scope.$root.user.getType() == 2 : null;
+        var isPayWithBankCardEnabled = $scope.$root.user ? $scope.$root.user.isPayWithBankCardEnabled() : false;
+        var isPayWithSvyaznoyEnabled = $scope.$root.user ? $scope.$root.user.isPayWithSvyaznoyEnabled() : false;
+        
+        // тип оплаты 1 - карта, 2 - связной, 3 - qiwi
+        if ($location.search().payType) {
+            self.payType = $location.search().payType;
+        } else {
+            self.payType = 1;
+        }
+        
+        self.isPayWithBankCardAllowed = isB2bAgency ? isPayWithBankCardEnabled : true; // доступность оплаты банковской картой
+        self.isPayWithSvyaznoyAllowed = isB2bAgency ? isPayWithSvyaznoyEnabled : true; // доступность оплаты через связной
+        
+        self.SvyaznoyblockViewTypeEnum = {
+            all     : 'all',
+            svyaznoy: 'svyaznoy',
+            euroset : 'euroset'
+        };
+        
+        self.SvyaznoyOrderNum = null;
+        self.SvyaznoyOrderNum = 467 + '-' + self.OrderNum;
+        self.SvyaznoyCheckListTitle = 'наличными в Связном или Евросети'; //заголовок в чекбоксе выбора
+        self.SvyaznoyblockViewType = self.SvyaznoyblockViewTypeEnum.all; //тип блока в описании
+        
+        if (partner) {
+            //согласно задаче
+            //https://innatec.atlassian.net/browse/IN-4927
+            var pageType = window.partners.getSvyaznoyPageType();
+            switch (pageType) {
+                case window.partners.SvyaznoyPageType.OperatorPage: {
+                    self.SvyaznoyOrderNum = 466 + '-' + self.OrderNum;
+                    break;
+                }
+                case window.partners.SvyaznoyPageType.ToursPage: {
+                    self.SvyaznoyOrderNum = 468 + '-' + self.OrderNum;
+                    break;
+                }
+                case window.partners.SvyaznoyPageType.NotSvyaznoyPage: {
+                    self.SvyaznoyOrderNum = 467 + '-' + self.OrderNum;
+                    break;
+                }
+            }
+            
+            
+            if (partner.name == 'svyaznoy') {
+                self.SvyaznoyCheckListTitle = 'наличными в Связном';
+                self.SvyaznoyblockViewType = self.blockViewTypeEnum.svyaznoy;
+            }
+            else if (partner.name == 'euroset') {
+                self.SvyaznoyCheckListTitle = 'наличными в Евросети';
+                self.SvyaznoyblockViewType = self.blockViewTypeEnum.euroset;
+            }
+            
+        }
+    
+        if ($scope.reservationModel && $scope.reservationModel.expirationDate != null) {
+            self.time = '&time=' + +($scope.reservationModel.expirationDate);
+        }
+        
     }
     
     

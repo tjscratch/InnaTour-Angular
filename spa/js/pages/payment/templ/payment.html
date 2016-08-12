@@ -7,8 +7,7 @@
 
 
     <div id="OrderInfo"
-         class="Payment__OrderInfo"
-         ng-if="payment.data.IsAvailable">
+         class="Payment__OrderInfo">
 
         <div class="Payment__OrderInfoWrapper">
 
@@ -49,10 +48,10 @@
                                 <span>банковской картой</span>
                             </label>
                         </li>
-                        <li ng-if="isPayWithSvyaznoyAllowed">
+                        <li ng-if="payment.isPayWithSvyaznoyAllowed">
                             <span class="icon-img icon-sprite-pay_type_2"></span>
                             <input
-                                    ng-model="svyaznoyPayControl.payType"
+                                    ng-model="payment.payType"
                                     value="2"
                                     id="pay_type_cache"
                                     type="radio"
@@ -63,7 +62,7 @@
                                     {{payment.data.Price| price}}
                                     <i class='fa fa-rub'></i>
                                 </b>
-                                <span>{{svyaznoyPayControl.checkListTitle}}</span>
+                                <span>{{payment.SvyaznoyCheckListTitle}}</span>
                             </label>
                         </li>
                         <li ng-if="qiwiPayControl.isEnabled && !paymentDeadline.ifExpires()">
@@ -104,51 +103,56 @@
                 </div>
             </div>
 
-            <div class="Payment__iframe-container">
+            <div class="Payment__iframe-container"
+                 ng-if="payment.payType == 1">
                 <iframe class="Payment__iframe" ng-src="{{payment.data.IFrame}}"></iframe>
+            </div>
+
+            <div id="svyaznoy_print_block"
+                 class="main__center b-svyaznoy"
+                 ng-if="payment.payType == 2">
+
+                <div ng-hide="payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.euroset"
+                     class="icon-sprite-svyaznoy_logo"></div>
+                <div ng-hide="payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.svyaznoy"
+                     ng-class="{'b-euroset-logo':(payment.SvyaznoyblockViewType != payment.SvyaznoyblockViewTypeEnum.euroset)}"
+                     class="icon-sprite-euroset_logo"></div>
+
+                <p class="b-order-num"><b>Номер заказа {{payment.SvyaznoyOrderNum}}</b></p>
+
+                <p ng-if="payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.all">
+                    Вы можете оплатить этот заказ наличными в любом офисе Связного
+                    <a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>
+                    или Евросети <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
+                    <br/>Обратитесь к менеджеру и назовите номер заказа.
+                </p>
+                <p ng-if="payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.svyaznoy">
+                    Вы можете оплатить этот заказ наличными в любом офисе Связного
+                    <a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>.
+                    <br/>Обратитесь к менеджеру и назовите номер заказа.
+                </p>
+                <p ng-if="payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.euroset">
+                    Вы можете оплатить этот заказ наличными в любом офисе Евросети
+                    <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
+                    <br/>Обратитесь к менеджеру и назовите номер заказа.
+                </p>
+
+                <p>
+                    Рекомендуем оплачивать заказ в салоне в ближайшее время после бронирования, поскольку авиакомпании
+                    <br/>оставляют за собой право изменять время на оплату.
+                </p>
+
+                <a href="/print/paymnet/?order={{payment.SvyaznoyOrderNum}}&viewType={{payment.SvyaznoyblockViewType}}&time={{payment.SvyaznoyExperationDate}}"
+                   target="_blank">
+                    <div class="b-print-btn icon-sprite-btn-print">
+                    </div>
+                </a>
             </div>
 
         </div>
 
     </div>
 
-
-    <div id="svyaznoy_print_block" class="main__center b-svyaznoy" ng-if="svyaznoyPayControl.payType == 2">
-        <div ng-hide="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.euroset"
-             class="icon-sprite-svyaznoy_logo"></div>
-        <div ng-hide="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.svyaznoy"
-             ng-class="{'b-euroset-logo':(svyaznoyPayControl.blockViewType != svyaznoyPayControl.blockViewTypeEnum.euroset)}"
-             class="icon-sprite-euroset_logo"></div>
-
-        <p class="b-order-num"><b>Номер заказа {{svyaznoyPayControl.orderNum}}</b></p>
-
-        <p ng-if="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.all">
-            Вы можете оплатить этот заказ наличными в любом офисе Связного
-            <a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>
-            или Евросети <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
-            <br/>Обратитесь к менеджеру и назовите номер заказа.
-        </p>
-        <p ng-if="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.svyaznoy">
-            Вы можете оплатить этот заказ наличными в любом офисе Связного
-            <a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>.
-            <br/>Обратитесь к менеджеру и назовите номер заказа.
-        </p>
-        <p ng-if="svyaznoyPayControl.blockViewType == svyaznoyPayControl.blockViewTypeEnum.euroset">
-            Вы можете оплатить этот заказ наличными в любом офисе Евросети
-            <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
-            <br/>Обратитесь к менеджеру и назовите номер заказа.
-        </p>
-
-        <p>Рекомендуем оплачивать заказ в салоне в ближайшее время после бронирования, поскольку авиакомпании
-            <br/>оставляют за собой право изменять время на оплату.
-        </p>
-
-        <a href="/spa/print/?order={{svyaznoyPayControl.orderNum}}&viewType={{svyaznoyPayControl.blockViewType}}{{svyaznoyPayControl.time}}"
-           target="_blank">
-            <div class="b-print-btn icon-sprite-btn-print">
-            </div>
-        </a>
-    </div>
 
     <div class="qiwi-block__pay-info__wrap" ng-if="svyaznoyPayControl.payType == 3">
         <div class="main__center qiwi-block__pay-info__container">
