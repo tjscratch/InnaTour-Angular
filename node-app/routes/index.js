@@ -30,7 +30,7 @@ router.get('/', function (req, res, next) {
 });
 
 
-router.get('/print/paymnet', function (req, res, next) {
+router.get('/services/paymnet', function (req, res, next) {
     res.render('payment/print', {
         layout: 'blank'
     });
