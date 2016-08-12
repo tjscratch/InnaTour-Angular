@@ -1,0 +1,127 @@
+<div class='main__center'>
+
+    <header class='buy__header'>
+        <h2 class='buy__title'>Информация о покупателе</h2>
+    </header>
+
+    <div class='buy-passanger__block'>
+        <div class='b-field-group'>
+            <!--<div class="b-field-block b-field-block-auth" style="width: 388px;">-->
+            <div class='b-field-block b-field-email'>
+                <label class='b-field-label'>E-mail</label>
+                <input disabled='disabled'
+                       ng-model='reservationModel.Email'
+                       data-title='Неправильно введен email'
+                       type='text'
+                       placeholder='ivan.ivanov@gmail.com'
+                       class='b-field-text'>
+            </div>
+            <div class='b-field-block b-field-phone'>
+                <label class='b-field-label'>Мобильный телефон</label>
+                <input disabled='disabled'
+                       ng-model='reservationModel.Phone'
+                       data-title='Неправильно введен мобильный телефон'
+                       name='phone'
+                       type='text'
+                       class='b-field-text'>
+            </div>
+        </div>
+        <label class='b-agreement'>
+            <input disabled='disabled'
+                   ng-model='reservationModel.IsSubscribe'
+                   type='checkbox'>
+            <ins class='b-checkbox'></ins>
+            Я хочу получать рассылку спецпредложений
+        </label>
+    </div>
+
+
+    <header class='buy__header'>
+        <h2 class='buy__title'>Пассажиры</h2>
+    </header>
+    <fieldset class='buy__blocks'
+              ng-repeat='passenger in reservationModel.Passengers'>
+        <div class='b-field-group b-field-group-passport'>
+            <div class='b-field-block'>
+                <label class='b-field-label'>Пол</label>
+                <ul class='radio-list'
+                    ng-class='{error:passenger.Sex == null}'>
+                    <li>
+                        <label>
+                            <input disabled
+                                   type='checkbox'
+                                   name='male3'
+                                   ng-model='passenger.Sex'
+                                   ng-checked='passenger.Sex == 1'
+                                   ng-true-value='1'
+                                   ng-false-value='2'>
+                            <ins class='radio'>М</ins>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input disabled
+                                   type='checkbox'
+                                   name='male3'
+                                   ng-model='passenger.Sex'
+                                   ng-checked='passenger.Sex == 2'
+                                   ng-true-value='2'
+                                   ng-false-value='1'>
+                            <ins class='radio'>Ж</ins>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class='b-field-block b-field-second-name'>
+                <label class='b-field-label'>Фамилия</label>
+                <input disabled
+                       type='text'
+                       ng-model='passenger.F'
+                       placeholder='IVANOV'
+                       class='b-field-text'>
+            </div>
+            <div class='b-field-block b-field-name b-field-block-surname'>
+                <label class='b-field-label'>Имя</label>
+                <input disabled
+                       type='text'
+                       ng-model='passenger.I'
+                       placeholder='IVAN'
+                       class='b-field-text'>
+            </div>
+            <div class='b-field-block b-field-birth'>
+                <label class='b-field-label'>Дата рождения</label>
+                <input disabled
+                       type='text'
+                       ng-model='passenger.Birthday'
+                       placeholder='дд.мм.гггг'
+                       class='b-field-text'>
+            </div>
+            <div class='b-field-block b-field-sitizenship'>
+                <label class='b-field-label'>Гражданство</label>
+                <input disabled
+                       type='text'
+                       value='{{passenger.CitizenName}}'
+                       placeholder='Выберите'
+                       class='b-field-text b-field-select'>
+
+            </div>
+            <div class='b-field-block b-field-document'>
+                <label class='b-field-label b-field-label-docs'>Серия и номер док-та</label>
+                <input disabled
+                       type='text'
+                       ng-model='passenger.Number'
+                       class='b-field-text'>
+            </div>
+            <div class='b-field-block b-field-expires'>
+                <label class='b-field-label b-field-label-docs'>Действителен до</label>
+                <input disabled
+                       type='text'
+                       ng-model='passenger.ExpirationDate'
+                       placeholder='дд.мм.гггг'
+                       class='b-field-text'>
+            </div>
+        </div>
+    </fieldset>
+
+
+</div>
