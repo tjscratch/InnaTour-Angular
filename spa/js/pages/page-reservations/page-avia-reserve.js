@@ -250,7 +250,7 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
         $scope.afterCompleteCallback = function () {
             //переходим на страницу оплаты
             //var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria.OrderNum);
-            var url = AppRouteUrls.URL_PAYMENT + $scope.OrderNum;
+            var url = AppRouteUrls.URL_PAYMENT + $scope.criteria.OrderNum;
             //log('processToPayment, url: ' + url);
             $location.path(url);
         }
