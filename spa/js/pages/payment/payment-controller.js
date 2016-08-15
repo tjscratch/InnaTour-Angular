@@ -146,11 +146,14 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
                     
                     svyaznoyPayment();
                     
-                    $timeout(function () {
-                        $('html, body').animate({
-                            scrollTop: $('.Payment__OrderInfo').offset().top - 126
-                        }, 300);
-                    }, 1200);
+                    if(self.data.ProductType != 3){
+                        var topMinus = 126;
+                        $timeout(function () {
+                            $('html, body').animate({
+                                scrollTop: $('.Payment__OrderInfo').offset().top - topMinus
+                            }, 300);
+                        }, 1200);
+                    }
                 }
             }
             // todo проверку IsAvailable убрал на время, сейчас постоянно приходит false
