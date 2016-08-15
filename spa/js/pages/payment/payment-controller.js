@@ -2,7 +2,7 @@
  * во вьюхе используем как
  * ReservationsController as reservation
  */
-innaAppControllers.controller('PaymentController', function ($scope, $routeParams, $location, $anchorScroll, $filter, AppRouteUrls, Payment, aviaHelper) {
+innaAppControllers.controller('PaymentController', function ($scope, $routeParams, $location, $anchorScroll, $filter, $timeout, AppRouteUrls, Payment, aviaHelper) {
     
     var self = this;
     self.OrderNum = $routeParams.OrderNum;
@@ -35,7 +35,11 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
                 //цена изменилась
                 var oldPrice = data.OldPrice;
                 var newPrice = data.NewPrice;
-                var msg = 'Изменилась стоимость заказа c <b>' + $filter('price')(oldPrice) + '<span class="b-rub">q</span></b> на <b>' + $filter('price')(newPrice) + '<span class="b-rub">q</span></b>';
+                var msg = 'Изменилась стоимость заказа c <b>' + $filter('price')(oldPrice) + '<span class='
+                b - rub
+                '>q</span></b> на <b>' + $filter('price')(newPrice) + '<span class='
+                b - rub
+                '>q</span></b>';
                 baloon.showPriceChanged("Изменилась цена", msg, function () {
                     
                     setTimeout(function () {
@@ -111,7 +115,7 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
         if (data != null) {
             self.data = data
             self.searchUrl = Payment.getSearchUrl(self.data); // url для нового поиска
-    
+            
             self.SvyaznoyExperationDate = data.ExperationDate;
             self.ExperationDate = moment(data.ExperationDate).format('DD MMM YYYY, HH:mm');
             self.ExperationMinute = data.ExperationMinute * 60;
@@ -141,18 +145,12 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
                     self.data.IsAvailable = true;
                     
                     svyaznoyPayment();
-                    // скролим страницу до нужного места
-                    // todo
-                    // при добавлении хеша в url идет перезагрузка контроллера, надо починить
-                    // https://innatec.atlassian.net/browse/IN-7171
-                    $location.hash('OrderInfo');
-                    $anchorScroll.yOffset = 126;
-                    $anchorScroll();
-                    // var offsetTop = angular.element('.Payment__OrderInfo');
-                    // console.log(offsetTop.offsetTop)
-                    // $('html, body').animate({
-                    //     scrollTop: $("#OrderInfo").offset().top + 300
-                    // }, 200);
+                    
+                    $timeout(function () {
+                        $('html, body').animate({
+                            scrollTop: $('.Payment__OrderInfo').offset().top - 126
+                        }, 300);
+                    }, 1200);
                 }
             }
             // todo проверку IsAvailable убрал на время, сейчас постоянно приходит false
@@ -267,7 +265,7 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
             }
             
         }
-    
+        
         if ($scope.reservationModel && $scope.reservationModel.expirationDate != null) {
             self.time = '&time=' + +($scope.reservationModel.expirationDate);
         }
