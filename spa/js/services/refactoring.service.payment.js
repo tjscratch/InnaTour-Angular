@@ -36,7 +36,7 @@ innaAppServices.service('Payment', function ($http, appApi, AppRouteUrls) {
             // Не определен = 0
             switch (data.ProductType) {
                 case 1:
-                    url = Urls.URL_AVIA_SEARCH + [
+                    url = AppRouteUrls.URL_AVIA_SEARCH + [
                             filter.FromUrl,
                             filter.ToUrl,
                             filter.BeginDate,
