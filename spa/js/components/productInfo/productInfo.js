@@ -47,7 +47,7 @@ innaAppDirectives.directive('productInfo', function ($templateCache) {
                     $scope.templateUrl = 'components/productInfo/templ/productInfo.html';
                     break;
                 case 4:
-                    $scope.templateUrl = 'components/productInfo/templ/productInfo.html';
+                    $scope.templateUrl = 'components/productInfo/templ/productInfoHotel.html';
                     break;
                 default:
                     $scope.templateUrl = 'components/productInfo/templ/productInfo.html';
