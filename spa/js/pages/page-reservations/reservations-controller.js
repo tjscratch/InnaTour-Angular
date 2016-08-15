@@ -191,16 +191,22 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         console.log('start reservation');
         baloonReservation();
         ReservationService.reservation(self.ReservationModel)
-            .success(function (data) {
-                console.log('reservation success', data);
-                self.baloonHotelReservation.teardown();
-                if (data.RedirectUrl) {
-                    window.location.replace(data.RedirectUrl);
-                }
-                if (data.HotelBooked == false) {
+            .then(
+                function (res) {
+                    console.log('reservation success', res);
+                    self.baloonHotelReservation.teardown();
+                    if (res.data.OrderNum) {
+                        var url = AppRouteUrls.URL_PAYMENT + res.data.OrderNum;
+                        $location.url(url);
+                    }
+                    if (res.data.HotelBooked == false) {
+                        baloonError();
+                    }
+                },
+                function () {
                     baloonError();
                 }
-            });
+            );
     };
 
     /**
