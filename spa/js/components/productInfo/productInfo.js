@@ -13,6 +13,9 @@ innaAppDirectives.directive('productInfo', function ($templateCache) {
             $scope.helper = aviaHelper;
             
             $scope.tarifs = new $scope.helper.tarifs();
+    
+            aviaHelper.addCustomFields($scope.productData.AviaInfo);
+            aviaHelper.addAggInfoFields($scope.productData.Hotel);
             
             function loadTarifs() {
                 paymentService.getTarifs({
@@ -29,8 +32,24 @@ innaAppDirectives.directive('productInfo', function ($templateCache) {
             
             $scope.tarifs.fillInfo($scope.productData.AviaInfo);
             loadTarifs();
-            
-            
+    
+    
+            $scope.visaControl = new aviaHelper.visaControl();
+    
+            function visaNeededCheck () {
+                if ($scope.productData != null && $scope.productData.passengers != null && $scope.productData.AviaInfo != null) {
+                    //Id-шники гражданств пассажиров
+                    var passengersCitizenshipIds = _.map($scope.productData.passengers, function (pas) {
+                        return pas.citizenship.id;
+                    });
+                    $scope.visaControl.check(passengersCitizenshipIds, $scope.productData.AviaInfo);
+                }
+            }
+    
+            visaNeededCheck();
+    
+    
+    
             $scope.hotelRules = new $scope.helper.hotelRules();
             //правила отмены отеля
             $scope.hotelRules.fillData($scope.productData.Hotel);
