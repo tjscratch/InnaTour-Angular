@@ -9,21 +9,11 @@
 <body>
 
 <div class="pay-form" ng-controller="PayFormCtrl">
+
     <div class="pay-form__title">
         Заказ №38569247
     </div>
-    <div class="pay-form__info">
-        <div class="pay-form__info-dead-line">
-            <span class="dead-line__label">Оплатить до:</span>
-            <span class="dead-line__value">19:00, 24 сен 2014</span>
-        </div>
-        <div class="pay-form__info-timer">
-            <span class="timer__label">осталось:</span>
-			<span class="timer__value">
-				<timer interval="1000" countdown="1000">{{hours}}:{{minutes}}:{{seconds}}</timer>
-			</span>
-        </div>
-    </div>
+
     <form id="paymentForm" name="PaymentForm" action="/">
         <div class="pay-form-fields">
             <div class="pay-form-fields__cart-data">

@@ -19,6 +19,5 @@
   },
   "_source": "https://github.com/angular-ui/ui-mask.git",
   "_target": "^1.8.7",
-  "_originalSource": "angular-ui-mask",
-  "_direct": true
+  "_originalSource": "angular-ui-mask"
 }
