@@ -204,6 +204,20 @@
 
 
 		</div>
+
+		<div class="config-search-form" ng-controller="FormOfferWidgetCtrl">
+			<h1>Настройка виджета лучшего предложения</h1>
+
+			<div class="head">
+				Предпросмотр виджета
+			</div>
+
+			<div class="widget-preview">
+				<div class="b-inna-search-widget" ng-class="radioModel">
+					<inna-offers partner-site="{{ styleOffer.url }}" partner-name="{{ styleOffer.partner }}"></inna-offers>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 

@@ -1,0 +1,57 @@
+<div class="inna-dropdown js-inna-dropdown">
+	<div class="inna-dropdown-action js-inna-dropdown-action">
+		{{ adultCount + childrenCount| WidgetAsQuantity:"человек":"человека":"человек"}}
+		<span class="avia-tickets_class">{{ticketsClassHumanize}}</span>
+		<i class="inna-arrow-bottom"></i>
+	</div>
+	<div class="inna-dropdown-dialog js-inna-dropdown-dialog">
+
+		<div class="inna-dropdown-dialog_label">Взрослые</div>
+		<ul class="inna-dropdown-dialog-btns">
+			<li
+					class="inna-dropdown-dialog-btns_btn"
+					ng-repeat="count in [] | widgetRange:5"
+					ng-if="count > 0"
+					ng-class="{selected:adultCount == count}"
+					ng-click="onCounterClick('adultCount', count)"
+					>
+				{{ count }}
+			</li>
+		</ul>
+
+		<div class="inna-dropdown-dialog_label">Дети</div>
+		<ul class="inna-dropdown-dialog-btns">
+			<li
+					class="inna-dropdown-dialog-btns_btn"
+					ng-repeat="count in [] | widgetRange:4"
+					ng-class="{selected:childrenCount == count}"
+					ng-click="onCounterClick('childrenCount', count)"
+					>
+				{{ count }}
+			</li>
+		</ul>
+
+		<div class="inna-dropdown-dialog_label" ng-show="childrenCount > 0">
+			<ng-pluralize count="childrenCount" when="{'0': '','one': 'Возраст ребенка','other': 'Возраст детей'}"></ng-pluralize>
+			<!--{{ childrenCount | asQuantity:"человек":"человека":"человек"}}-->
+		</div>
+
+		<div class="inna-dropdown-age-row">
+			<div widget-counter-people-child-age-selector
+			     ng-repeat="selector in childrensAge"
+			     selector="selector"
+			     ng-class="{'inna-dropdown-age-col-2': childrensAge.length == 2, 'inna-dropdown-age-col-1': childrensAge.length == 1}"
+					></div>
+		</div>
+
+
+		<div class="inna-dropdown-dialog__checkboxes">
+			<label class="widget-checkboxes-label">
+				<input type="checkbox" name="roaming" ng-model="ticketsClassBussiness"/><i></i>
+				Бизнес-класс
+			</label>
+		</div>
+
+
+	</div>
+</div>
