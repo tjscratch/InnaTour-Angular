@@ -15,25 +15,25 @@
             for (var n = 0, i = e.length; n < i; ++n)if (!t(e[n]))return r;
             return 1
         }
-
+        
         function d(e, t) {
             p(e, function (e) {
                 return !t(e)
             })
         }
-
+        
         function v(e, t, n) {
             function g(e) {
                 return e.call ? e() : u[e]
             }
-
+            
             function y() {
                 if (!--h) {
                     u[o] = 1, s && s();
                     for (var e in f)p(e.split("|"), g) && !d(f[e], g) && (f[e] = [])
                 }
             }
-
+            
             e = e[i] ? e : [e];
             var r = t && t.call, s = r ? t : n, o = r ? e.join("") : t, h = e.length;
             return setTimeout(function () {
@@ -47,7 +47,7 @@
                 })
             }, 0), v
         }
-
+        
         function m(n, r) {
             var i = e.createElement("script"), u;
             i.charset = "utf-8";
@@ -56,7 +56,7 @@
                 i.onload = i[o] = null, u = 1, l[n] = 2, r()
             }, i.async = 1, i.src = h ? n + (n.indexOf("?") === -1 ? "?" : "&") + h : n, t.insertBefore(i, t.lastChild)
         }
-
+        
         var e = document, t = e.getElementsByTagName("head")[0], n = "string", r = !1, i = "push", s = "readyState", o = "onreadystatechange", u = {}, a = {}, f = {}, l = {}, c, h;
         return v.get = m, v.order = function (e, t, n) {
             (function r(i) {
@@ -84,18 +84,18 @@
      * END script.js
      * @type {string}
      */
-
-    var host = 'https://inna.ru';
+    
+    var host = 'http://localhost:3000';
     var widget = document.querySelector(".b-inna-search-widget");
     var sources = {
-        'css': host + '/spa/js/widgets/search/build/inna-search-widget.css',
-        'app': host + '/spa/js/widgets/search/build/inna-search-widget.js'
+        'css'   : host + '/spa/js/widgets/offer/widget-offer.css',
+        'jquery': host + '/spa/js/widgets/offer/jquery.min.js'
     };
-
+    
     function insertAfter(newNode, referenceNode) {
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
-
+    
     function insertCss() {
         var link = document.createElement("link");
         link.type = "text/css";
@@ -103,25 +103,23 @@
         link.href = sources.css;
         insertAfter(link, widget);
     };
-
+    
     insertCss();
-
-
+    
+    
     $script
-        .ready('app', function () {
+        .ready('jquery', function () {
             setTimeout(function () {
                 bootstrap()
             }, 150);
         })
-
-    $script(sources.app, 'app');
-
+    
+    $script(sources.jquery, 'jquery');
+    
     function bootstrap() {
-        if (window.$ && angular.bootstrap) {
-            $(function () {
-                angular.bootstrap($(".b-inna-search-widget"), ['innaSearchForm']);
-            });
-        }
+        console.log('widget init');
+        console.log(3333333)
+        $(".widget-inna-offer").append('<div>widget</div>');
     }
-
+    
 }());
