@@ -44,7 +44,7 @@ innaAppDirectives.directive('productInfo', function ($templateCache) {
                     $scope.insuranceRules = new $scope.helper.insuranceRules();
                     break;
                 case 3:
-                    $scope.templateUrl = 'components/productInfo/templ/productInfo.html';
+                    $scope.templateUrl = 'components/productInfo/templ/productInfoService.html';
                     break;
                 case 4:
                     $scope.templateUrl = 'components/productInfo/templ/productInfoHotel.html';

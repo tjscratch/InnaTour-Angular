@@ -5,7 +5,10 @@
             product-data="payment.data"
     ></product-info>
 
-    <user-info product-data="payment.data"></user-info>
+    <user-info
+            product-data="payment.data"
+            ng-if='payment.data.ProductType != 3'
+    ></user-info>
 
 
     <div id="OrderInfo"

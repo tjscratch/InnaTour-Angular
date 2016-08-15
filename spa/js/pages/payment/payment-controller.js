@@ -114,7 +114,7 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
         var data = response.data;
         if (data != null) {
             self.data = data
-            self.searchUrl = Payment.getSearchUrl(self.data); // url для нового поиска
+            self.searchUrl = self.data.Filter ? Payment.getSearchUrl(self.data) : null; // url для нового поиска
             
             self.SvyaznoyExperationDate = data.ExperationDate;
             self.ExperationDate = moment(data.ExperationDate).format('DD MMM YYYY, HH:mm');
