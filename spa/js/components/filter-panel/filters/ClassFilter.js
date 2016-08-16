@@ -55,12 +55,12 @@ angular.module('innaApp.components').
                         onHover: function (evt) {
                             clearTimeout(this.get('clearTimeHover'));
 
-                            if (!evt.hover) {
-                                var time = setTimeout(function () {
-                                    that.fire('hide')
-                                }, 500);
-                                this.set('clearTimeHover', time);
-                            }
+                            // if (!evt.hover) {
+                            //     var time = setTimeout(function () {
+                            //         that.fire('hide')
+                            //     }, 500);
+                            //     this.set('clearTimeHover', time);
+                            // }
                         },
                         filtersItemRemove: this.IndicatorFiltersItemRemove,
                         teardown: function (evt) {
