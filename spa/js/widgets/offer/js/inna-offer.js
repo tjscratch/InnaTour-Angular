@@ -118,8 +118,168 @@
     
     function bootstrap() {
         console.log('widget init');
-        console.log(3333333)
-        $(".widget-inna-offer").append('<div>widget</div>');
+        var dataLocation = $('.widget-inna-offer').attr('data-location');
+        console.log('widget init');
+        var countryIdLocation = '';
+        var countryIdTo = '';
+        $.when(
+            $.ajax('https://inna.ru/api/v1/Dictionary/GetCurrentLocation'),
+            $.ajax('https://inna.ru/api/v1/Dictionary/Hotel?term=' + dataLocation)
+        ).then(function (result1, result2) {
+            console.log('result1', result1);
+            console.log('result2', result2);
+            countryIdLocation = result1[0].Id;
+            console.log('FROM', countryIdLocation);
+            countryIdTo = result2[0][0].Id;
+            return $.ajax({
+                type: 'GET',
+                url: 'http://test.inna.ru/api/v1/bestoffer/GetOffersForLocation?ArrivalLocation=' + countryIdTo + '&Location=18820'
+            })
+        }).then(function (result) {
+            if(result.Offers.length) {
+                var peopleCount = '';
+                if(result.Offers[0].Adults == 1) {
+                    peopleCount = 'на одного';
+                } else if (result.Offers[0].Adults == 2) {
+                    peopleCount = 'на двоих';
+                } else if (result.Offers[0].Adults == 3) {
+                    peopleCount = 'на троих';
+                } else if (result.Offers[0].Adults == 4) {
+                    peopleCount = 'на четверых';
+                } else if (result.Offers[0].Adults == 5) {
+                    peopleCount = 'на пятерых';
+                }
+
+                var templ = '<div class="b-offer__container">' +
+                    '<div class="b-offer__bg" ' +
+                        'style="background-image: url(' + result.Offers[0].ImageL + ')"'+
+                    '></div>' +
+
+                    '<a class="b-offer__container-link"' +
+                    'href="' + result.Offers[0].Details + '"' +
+                    'target="_blank"></a>' +
+
+                    '<div class="b-offer__container-txt">' +
+                    '<h2 class="b-offer__title">' +
+                    '<div class="b-offer__title-sub">' +
+                    result.Offers[0].Country +
+                    '</div>' +
+                    '<div class="b-offer__title-main">' +
+                    result.Offers[0].Location +
+                    '</div>' +
+                    '<div class="b-offer__title-info">' +
+                    result.Offers[0].Nights + ',' +
+                    '<span >' + peopleCount + '</span>' +
+                    '</div>' +
+                    '</h2>' +
+                    '<div class="b-offer__price">' +
+                    '<div class="b-offer__price-txt">' +
+                    'от' +
+                    '</div>' +
+                    '<div class="b-offer__price-value">' +
+                    Math.round(result.Offers[0].Price) +
+                    '<i class="fa fa-rub b-offer__price-currency"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+                $(".widget-inna-offer").append(templ);
+            }
+        });
+
+        $('#btn-generate-offer').click(function () {
+                var code = '&lt;plaintext&gt;&lt;div class="widget-inna-offer" data-location="Франция"&gt;' +
+                    '&lt;/div&gt;' +
+                    '&lt;script charset="utf-8" src="/spa/js/widgets/offer/inna-offer.js"&ht;&lt;/script&gt;' +
+                    '&lt;style&gt;' +
+                        '.widget-inna-offer{' +
+                            'position: relative;' +
+                            'height: 340px;' +
+                            'width: 520px;' +
+                            'background-color: gray' +
+                        '}' +
+                        '.b-offer__bg {' +
+                            'position: relative;' +
+                            'width: 100%;' +
+                            'height: 100%;' +
+                            'z-index: 1;' +
+                            'vertical-align: top;' +
+                            'transform: translateZ(0) scale(1.05);' +
+                            'transition: all 1.2s cubic-bezier(0.18, 0.89, 0.32, 1.28) 0s;' +
+                            'background-position: center center;' +
+                            'background-size: cover;' +
+                        '}' +
+                        '.b-offer__container {' +
+                            'position: absolute;' +
+                            'left: 1,5px;' +
+                            'right: 1,5px;' +
+                            'top: 1,5px;' +
+                            'bottom: 1,5px;' +
+                            'overflow: hidden;' +
+                        '}' +
+                        '.b-offer__container:hover > .b-offer__bg {' +
+                            'transform: translateZ(0) scale(1.15);' +
+                        '}' +
+                        '.b-offer__container-txt {' +
+                            'position: absolute;' +
+                            'left: 0;' +
+                            'right: 0;' +
+                            'top: 0;' +
+                            'bottom: 0;' +
+                            'z-index: 2;' +
+                            'padding: 15px;' +
+                            'background-color: rgba(0, 0, 0, .3);' +
+                        '}'+
+                        '.b-offer__container-link {' +
+                            'position: absolute;' +
+                            'left: 0;' +
+                            'right: 0;' +
+                            'top: 0;' +
+                            'bottom: 0;' +
+                            'z-index: 3;' +
+                        '}' +
+                        '.b-offer__title {' +
+                            'position: absolute;' +
+                            'top: 15px;' +
+                            'font-weight: normal;' +
+                        '}' +
+                        '.b-offer__title-sub {' +
+                            'font-size: 15px;' +
+                            'color: #d6d6d6;' +
+                            'text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);' +
+                        '}' +
+                        '.b-offer__title-main {' +
+                            'font-size: 29px;' +
+                            'color: #fff;' +
+                            'text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);' +
+                        '}' +
+                        '.b-offer__title-info {' +
+                            'font-size: 14px;' +
+                            'color: #fff;' +
+                            'text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);' +
+                        '}' +
+                        '.b-offer__price {' +
+                            'position: absolute;' +
+                            'bottom: 15px;' +
+                        '}' +
+                        '.b-offer__price-txt {' +
+                            'font-size: 14px;' +
+                            'color: #fff;' +
+                            'text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);' +
+                        '}' +
+                        '.b-offer__price-value {' +
+                            'font-size: 29px;' +
+                            'color: #fff;' +
+                            'text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);' +
+                        '}' +
+                        '.b-offer__price-currency {' +
+                            'font-size: 25px;' +
+                        '}' +
+                    '&lt;/style&gt &lt;/plaintext>&gt;';
+                $('#textarea-code-offer').append(code);
+                $('#head-offer').show();
+                $('#generate-code-offer').show();
+        });
     }
     
 }());

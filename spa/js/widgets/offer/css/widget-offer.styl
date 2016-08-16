@@ -1,4 +1,87 @@
 .widget-inna-offer{
-    height 80px
-    background red
+    position relative
+    height 340px
+    width 520px
+    background-color gray
+}
+
+.b-offer__bg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    vertical-align: top;
+    transform: translateZ(0) scale(1.05);
+    transition: all 1.2s cubic-bezier(0.18, 0.89, 0.32, 1.28) 0s;
+    background-position: center center;
+    background-size: cover;
+}
+.b-offer__container {
+    position: absolute;
+    left: 1,5px;
+    right: 1,5px;
+    top: 1,5px;
+    bottom: 1,5px;
+    overflow: hidden;
+
+    &:hover {
+        .b-offer__bg {
+            transform: translateZ(0) scale(1.15);
+        }
+    }
+}
+.b-offer__container-txt {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, .3);
+}
+.b-offer__container-link {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+}
+.b-offer__title {
+    position: absolute;
+    top: 15px;
+    font-weight: normal;
+}
+.b-offer__title-sub {
+    font-size: 15px;
+    color: #d6d6d6;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
+}
+.b-offer__title-main {
+    font-size: 29px;
+    color: #fff;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
+}
+.b-offer__title-info {
+    font-size: 14px;
+    color: #fff;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
+}
+.b-offer__price {
+    position: absolute;
+    bottom: 15px;
+}
+.b-offer__price-txt {
+    font-size: 14px;
+    color: #fff;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
+}
+.b-offer__price-value {
+    font-size: 29px;
+    color: #fff;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
+}
+.b-offer__price-currency {
+    font-size: 25px;
 }

@@ -154,26 +154,5 @@
     /**
      * END Bootstrap form
      */
-    app.controller('FormOfferWidgetCtrl', [
-        '$scope',
-        '$sce',
-        function () {
-            $scope.styleOffer = {};
-            $scope.styleOffer.width = 960;
-            $scope.styleOffer.widthMax = 960;
-            $scope.styleOffer.widthMin = 300;
 
-            // $scope.style.formTypeActive = 1;
-
-            // $scope.radioModel = 'b-inna-search-widget-row-1';
-            $scope.styleOffer.formBg = '#212121';
-            $scope.styleOffer.formColorText = '#ffffff';
-            $scope.styleOffer.borderRadius = 2;
-
-
-            $scope.styleOffer.partner = 'biletix';
-            $scope.styleOffer.url = 'http://biletix.inna.ru';
-            $scope.styleOffer.defaultCityCountry = 'Москва';
-        }
-    ]);
 }());
