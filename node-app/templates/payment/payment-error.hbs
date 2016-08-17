@@ -12,3 +12,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    if (window.parent) {
+        window.parent.postMessage({payment: false}, '*');
+    }
+</script>

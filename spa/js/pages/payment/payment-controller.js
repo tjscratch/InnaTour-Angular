@@ -5,6 +5,7 @@
 innaAppControllers.controller('PaymentController', function ($scope, $routeParams, $location, $anchorScroll, $filter, $timeout, AppRouteUrls, Payment, aviaHelper) {
     
     var self = this;
+    self.paySuccess = true;
     self.OrderNum = $routeParams.OrderNum;
     var baloon = aviaHelper.baloon;
     
@@ -115,7 +116,7 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
         if (data != null) {
             self.data = data
             self.searchUrl = self.data.Filter ? Payment.getSearchUrl(self.data) : null; // url для нового поиска
-            
+            self.paySuccess = false;
             self.SvyaznoyExperationDate = data.ExperationDate;
             self.ExperationDate = moment(data.ExperationDate).format('DD MMM YYYY, HH:mm');
             self.ExperationMinute = data.ExperationMinute * 60;
@@ -146,7 +147,7 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
                     
                     svyaznoyPayment();
                     
-                    if(self.data.ProductType != 3){
+                    if (self.data.ProductType != 3) {
                         var topMinus = 126;
                         $timeout(function () {
                             $('html, body').animate({
@@ -273,6 +274,37 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
             self.time = '&time=' + +($scope.reservationModel.expirationDate);
         }
         
+    }
+    
+    self.iframe = "http://localhost:3000/services/payment-success/sfc";
+    
+    
+    /**
+     * сообщение после успешной/неуспешной оплаты
+     * @param event
+     */
+    function listener(event) {
+        if (event.data.payment) {
+            self.paySuccess = true;
+            $scope.baloon.show('Спасибо за покупку!', 'В ближайшие 10 минут ожидайте на <b>' + self.data.Email + '</b> письмо с подтверждением выполнения заказа и документами (билеты/ваучеры)',
+                aviaHelper.baloonType.email,
+                function () {
+                    $location.path(AppRouteUrls.URL_ROOT);
+                },
+                {
+                    buttonCaption: 'Ok', successFn: function () {
+                    $scope.baloon.hide();
+                    $location.path(AppRouteUrls.URL_ROOT);
+                }
+                });
+        }else{
+            globalError();
+        }
+    }
+    if (window.addEventListener) {
+        window.addEventListener("message", listener);
+    } else {
+        window.attachEvent("onmessage", listener);
     }
     
     
