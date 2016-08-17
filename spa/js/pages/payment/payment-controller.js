@@ -276,8 +276,6 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
         
     }
     
-    self.iframe = "http://localhost:3000/services/payment-success/sfc";
-    
     
     /**
      * сообщение после успешной/неуспешной оплаты

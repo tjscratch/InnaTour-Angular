@@ -110,15 +110,10 @@
                 </div>
             </div>
 
-            <div class='Payment__iframe-container'>
-                <iframe class='Payment__iframe'
-                        ng-src='{{payment.iframe}}'></iframe>
-            </div>
-
             <div class='Payment__iframe-container'
                  ng-if='payment.payType == 1'>
-                <!--<iframe class='Payment__iframe'-->
-                        <!--ng-src='{{payment.data.IFrame}}'></iframe>-->
+                <iframe class='Payment__iframe'
+                        ng-src='{{payment.data.IFrame}}'></iframe>
             </div>
 
             <div id='svyaznoy_print_block'
