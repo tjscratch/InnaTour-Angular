@@ -281,24 +281,29 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
      * сообщение после успешной/неуспешной оплаты
      * @param event
      */
+    
     function listener(event) {
         if (event.data.payment) {
             self.paySuccess = true;
-            $scope.baloon.show('Спасибо за покупку!', 'В ближайшие 10 минут ожидайте на <b>' + self.data.Email + '</b> письмо с подтверждением выполнения заказа и документами (билеты/ваучеры)',
-                aviaHelper.baloonType.email,
-                function () {
-                    $location.path(AppRouteUrls.URL_ROOT);
-                },
-                {
-                    buttonCaption: 'Ok', successFn: function () {
-                    $scope.baloon.hide();
-                    $location.path(AppRouteUrls.URL_ROOT);
-                }
-                });
-        }else{
+            $timeout(function () {
+                console.log('aviaHelper.baloon.show');
+                aviaHelper.baloon.show('Спасибо за покупку!', 'В ближайшие 10 минут ожидайте на <b>' + self.data.Email + '</b> письмо с подтверждением выполнения заказа и документами (билеты/ваучеры)',
+                    aviaHelper.baloonType.email,
+                    function () {
+                        $location.path(AppRouteUrls.URL_ROOT);
+                    },
+                    {
+                        buttonCaption: 'Ok', successFn: function () {
+                        aviaHelper.baloon.hide();
+                        $location.path(AppRouteUrls.URL_ROOT);
+                    }
+                    });
+            }, 0)
+        } else if (event.data.payment == false) {
             globalError();
         }
     }
+    
     if (window.addEventListener) {
         window.addEventListener("message", listener);
     } else {
