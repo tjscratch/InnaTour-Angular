@@ -137,6 +137,7 @@
             })
         }).then(function (result) {
             if(result.Offers.length) {
+                console.log('result', result);
                 var peopleCount = '';
                 if(result.Offers[0].Adults == 1) {
                     peopleCount = 'на одного';
@@ -148,6 +149,16 @@
                     peopleCount = 'на четверых';
                 } else if (result.Offers[0].Adults == 5) {
                     peopleCount = 'на пятерых';
+                }
+                var nights = '';
+                if(result.Offers[0].Nights == 1) {
+                    nights = 'ночь';
+                } else if (result.Offers[0].Nights == 2 ||
+                    result.Offers[0].Nights == 3 ||
+                    result.Offers[0].Nights == 4) {
+                    nights = 'ночи';
+                } else {
+                    nights = 'ночей';
                 }
 
                 var templ = '<div class="b-offer__container">' +
@@ -168,7 +179,7 @@
                     result.Offers[0].Location +
                     '</div>' +
                     '<div class="b-offer__title-info">' +
-                    result.Offers[0].Nights + ',' +
+                    result.Offers[0].Nights + ' ' + nights + ', ' +
                     '<span >' + peopleCount + '</span>' +
                     '</div>' +
                     '</h2>' +
@@ -183,103 +194,20 @@
                     '</div>' +
                     '</div>' +
                     '</div>';
+                console.log('TEMPL', templ);
                 $(".widget-inna-offer").append(templ);
             }
         });
 
         $('#btn-generate-offer').click(function () {
-                var code = '&lt;plaintext&gt;&lt;div class="widget-inna-offer" data-location="Франция"&gt;' +
+                var code = '&lt;div class="widget-inna-offer" data-location="Франция"&gt;' +
                     '&lt;/div&gt;' +
-                    '&lt;script charset="utf-8" src="/spa/js/widgets/offer/inna-offer.js"&ht;&lt;/script&gt;' +
-                    '&lt;style&gt;' +
-                        '.widget-inna-offer{' +
-                            'position: relative;' +
-                            'height: 340px;' +
-                            'width: 520px;' +
-                            'background-color: gray' +
-                        '}' +
-                        '.b-offer__bg {' +
-                            'position: relative;' +
-                            'width: 100%;' +
-                            'height: 100%;' +
-                            'z-index: 1;' +
-                            'vertical-align: top;' +
-                            'transform: translateZ(0) scale(1.05);' +
-                            'transition: all 1.2s cubic-bezier(0.18, 0.89, 0.32, 1.28) 0s;' +
-                            'background-position: center center;' +
-                            'background-size: cover;' +
-                        '}' +
-                        '.b-offer__container {' +
-                            'position: absolute;' +
-                            'left: 1,5px;' +
-                            'right: 1,5px;' +
-                            'top: 1,5px;' +
-                            'bottom: 1,5px;' +
-                            'overflow: hidden;' +
-                        '}' +
-                        '.b-offer__container:hover > .b-offer__bg {' +
-                            'transform: translateZ(0) scale(1.15);' +
-                        '}' +
-                        '.b-offer__container-txt {' +
-                            'position: absolute;' +
-                            'left: 0;' +
-                            'right: 0;' +
-                            'top: 0;' +
-                            'bottom: 0;' +
-                            'z-index: 2;' +
-                            'padding: 15px;' +
-                            'background-color: rgba(0, 0, 0, .3);' +
-                        '}'+
-                        '.b-offer__container-link {' +
-                            'position: absolute;' +
-                            'left: 0;' +
-                            'right: 0;' +
-                            'top: 0;' +
-                            'bottom: 0;' +
-                            'z-index: 3;' +
-                        '}' +
-                        '.b-offer__title {' +
-                            'position: absolute;' +
-                            'top: 15px;' +
-                            'font-weight: normal;' +
-                        '}' +
-                        '.b-offer__title-sub {' +
-                            'font-size: 15px;' +
-                            'color: #d6d6d6;' +
-                            'text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);' +
-                        '}' +
-                        '.b-offer__title-main {' +
-                            'font-size: 29px;' +
-                            'color: #fff;' +
-                            'text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);' +
-                        '}' +
-                        '.b-offer__title-info {' +
-                            'font-size: 14px;' +
-                            'color: #fff;' +
-                            'text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);' +
-                        '}' +
-                        '.b-offer__price {' +
-                            'position: absolute;' +
-                            'bottom: 15px;' +
-                        '}' +
-                        '.b-offer__price-txt {' +
-                            'font-size: 14px;' +
-                            'color: #fff;' +
-                            'text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);' +
-                        '}' +
-                        '.b-offer__price-value {' +
-                            'font-size: 29px;' +
-                            'color: #fff;' +
-                            'text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);' +
-                        '}' +
-                        '.b-offer__price-currency {' +
-                            'font-size: 25px;' +
-                        '}' +
-                    '&lt;/style&gt &lt;/plaintext>&gt;';
+                    '&lt;script charset="utf-8" src="/spa/js/widgets/offer/inna-offer.js"&gt;&lt;/script&gt;';
                 $('#textarea-code-offer').append(code);
                 $('#head-offer').show();
                 $('#generate-code-offer').show();
         });
+        console.log('WWW', $('#widget-inna-offer').css('width'));
     }
     
 }());
