@@ -8,6 +8,7 @@ $gray2 ?= #4d4d4d
 $green ?= #89c13a
 $white ?= #fff
 $blue ?= #1e88c1
+$red ?= rgb(219, 68, 55);
 /*END vars*/
 
 a {
@@ -122,7 +123,7 @@ icon()
     display flex
     align-items center
 }
-.date-field__container-item{
+.date-field__container-item {
     width 80px
 }
 .date-field__container-item--label {
@@ -280,8 +281,11 @@ select {
     .load {
         font-size 22px
         text-align center
-        padding 150px 0
-        line-height 22px
+        padding 135px 0
+        line-height 1.4
+    }
+    .load_error {
+        color $red
     }
 
     &__cart-data,
