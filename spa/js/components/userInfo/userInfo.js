@@ -9,6 +9,7 @@ innaAppDirectives.directive('userInfo', function ($templateCache) {
          
             $scope.reservationModel = $scope.productData;
     
+            $scope.helper = aviaHelper;
             // $scope.reservationModel.Email = $scope.productData;
             
         }

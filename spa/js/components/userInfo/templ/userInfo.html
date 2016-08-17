@@ -88,7 +88,8 @@
                        placeholder='IVAN'
                        class='b-field-text'>
             </div>
-            <div class='b-field-block b-field-birth'>
+            <div class='b-field-block b-field-birth'
+                 ng-init="passenger.Birthday = passenger.Birthday.replace('0:00:00', '')">
                 <label class='b-field-label'>Дата рождения</label>
                 <input disabled
                        type='text'
@@ -112,7 +113,8 @@
                        ng-model='passenger.Number'
                        class='b-field-text'>
             </div>
-            <div class='b-field-block b-field-expires'>
+            <div class='b-field-block b-field-expires'
+                 ng-init="passenger.ExpirationDate = passenger.ExpirationDate.replace('0:00:00', '')">
                 <label class='b-field-label b-field-label-docs'>Действителен до</label>
                 <input disabled
                        type='text'
