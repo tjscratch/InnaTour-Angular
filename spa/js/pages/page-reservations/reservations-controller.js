@@ -345,16 +345,22 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
 
 
         ReservationService.reservation(self.ReservationModel)
-            .then(function (res) {
-                console.log('reservation success', res);
-                self.baloonHotelReservation.teardown();
-                if (res.data.RedirectUrl) {
-                    window.location.replace(res.data.RedirectUrl);
-                }
-                if (res.data.HotelBooked == false) {
+            .then(
+                function (res) {
+                    console.log('reservation success', res);
+                    self.baloonHotelReservation.teardown();
+                    if (res.data.OrderNum) {
+                        var url = AppRouteUrls.URL_PAYMENT + res.data.OrderNum;
+                        $location.url(url);
+                    }
+                    if (res.data.HotelBooked == false) {
+                        baloonError();
+                    }
+                },
+                function () {
                     baloonError();
                 }
-            });
+            );
     };
 
     /**

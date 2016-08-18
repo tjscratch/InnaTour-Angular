@@ -24,7 +24,8 @@
         '$q',
         'gtm',
         'dataService',
-        function (RavenWrapper, $scope, $controller, $routeParams, $location, $rootScope, serviceCache, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon, $cookieStore, $q, gtm, dataService) {
+        'AppRouteUrls',
+        function (RavenWrapper, $scope, $controller, $routeParams, $location, $rootScope, serviceCache, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon, $cookieStore, $q, gtm, dataService, AppRouteUrls) {
             
             $scope.baloon.showExpireCheck();
             
@@ -606,7 +607,8 @@
             
             $scope.afterCompleteCallback = function () {
                 //переходим на страницу оплаты
-                var url = Urls.URL_DYNAMIC_PACKAGES_BUY + $scope.OrderNum;
+                //var url = Urls.URL_DYNAMIC_PACKAGES_BUY + $scope.OrderNum;
+                var url = AppRouteUrls.URL_PAYMENT + $scope.OrderNum;
                 $location.url(url);
             };
             

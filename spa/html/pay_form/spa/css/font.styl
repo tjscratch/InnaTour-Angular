@@ -1,0 +1,76 @@
+font-names = ('font-small' 'font-medium' 'font-large' 'font-big')
+font-values = ($small $medium $large $big)
+$ProximaNova = ProximaNova, Arial, sans-serif
+$ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
+
+for name, key in font-names {
+	.{name} {
+		font-size: font-values[key];
+	}
+}
+
+font-url(file) {
+	return '../images/fonts/' + file
+}
+
+
+@font-face {
+	font-family: ProximaNova;
+	font-weight: normal;
+	font-style: normal;
+	src: url(font-url('proximanova-reg-webfont.eot?')) format('eot'),
+	url(font-url('proximanova-reg-webfont.woff')) format('woff'),
+	url(font-url('proximanova-reg-webfont.ttf')) format('truetype'),
+	url(font-url('proximanova-reg-webfont.svg#svgFontName')) format('svg');
+}
+
+@font-face {
+	font-family: ProximaNova;
+	font-weight: bold;
+	font-style: normal;
+	src: url(font-url('proximanova-bold-webfont.eot?')) format('eot'),
+	url(font-url('proximanova-bold-webfont.woff')) format('woff'),
+	url(font-url('proximanova-bold-webfont.ttf')) format('truetype'),
+	url(font-url('proximanova-bold-webfont.svg#svgFontName')) format('svg');
+}
+
+@font-face {
+	font-family: 'ALSRubl-Arial';
+	font-weight: normal;
+	font-style: normal;
+	src: url(font-url('alsrubl-arial-regular.eot'));
+	src: url(font-url('alsrubl-arial-regular.eot?#iefix')) format('embedded-opentype'),
+	url(font-url('alsrubl-arial-regular.woff')) format('woff'),
+	url(font-url('alsrubl-arial-regular.ttf')) format('truetype'),
+	url(font-url('alsrubl-arial-regular.svg#ALSRublArialRegular')) format('svg');
+}
+
+@font-face {
+	font-family: 'ALSRubl-Arial';
+	font-weight: bold;
+	font-style: normal;
+	src: url(font-url('alsrubl-arial-bold.eot'));
+	src: url(font-url('alsrubl-arial-bold.eot?#iefix')) format('embedded-opentype'),
+	url(font-url('alsrubl-arial-bold.woff')) format('woff'),
+	url(font-url('alsrubl-arial-bold.ttf')) format('truetype'),
+	url(font-url('alsrubl-arial-bold.svg#ALSRublArialRegular')) format('svg');
+}
+
+
+@font-face {
+	font-family: Rouble;
+	src: url(font-url('rouble.eot?')) format('eot'),
+	url(font-url('rouble.woff')) format('woff'),
+	url(font-url('rouble.ttf'))  format('truetype'),
+	url(font-url('rouble.svg#ALSRubl')) format('svg');
+}
+
+@font-face {
+	font-family: 'ProximaNovaLight';
+	font-weight normal
+	font-style normal
+	src: url(font-url('proximanova-light-webfont.eot?')) format('eot'),
+	url(font-url('proximanova-light-webfont.woff')) format('woff'),
+	url(font-url('proximanova-light-webfont.ttf'))  format('truetype'),
+	url(font-url('proximanova-light-webfont.svg#svgFontName')) format('svg');
+}
