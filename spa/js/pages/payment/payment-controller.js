@@ -13,12 +13,12 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
      * первым делом проверяем изменение цены заказа
      * todo закоментил на этап тестирования/разработки
      */
-    // Payment.getRepricing(self.OrderNum)
-    //     .then(
-    //         getRepricingSuccess,
-    //         getRepricingError
-    //     );
-    getOrderData();
+    Payment.getRepricing(self.OrderNum)
+        .then(
+            getRepricingSuccess,
+            getRepricingError
+        );
+    // getOrderData();
     
     /**
      * getRepricingSuccess
@@ -137,7 +137,28 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
                         baloon.hide();
                         $location.url(self.searchUrl);
                     });
-            } else {
+                // } else {
+                //     baloon.hide();
+                //     // если таймлимит равен нулю
+                //     if (self.ExperationMinute == 0) {
+                //         self.callbackTimer();
+                //     } else {
+                //         self.data.IsAvailable = true;
+                //
+                //         svyaznoyPayment();
+                //
+                //         if (self.data.ProductType != 3) {
+                //             var topMinus = 126;
+                //             $timeout(function () {
+                //                 $('html, body').animate({
+                //                     scrollTop: $('.Payment__OrderInfo').offset().top - topMinus
+                //                 }, 300);
+                //             }, 1200);
+                //         }
+                //     }
+                // }
+                // todo проверку IsAvailable убрал на время, сейчас постоянно приходит false
+            } else if (data.IsAvailable) {
                 baloon.hide();
                 // если таймлимит равен нулю
                 if (self.ExperationMinute == 0) {
@@ -156,21 +177,13 @@ innaAppControllers.controller('PaymentController', function ($scope, $routeParam
                         }, 1200);
                     }
                 }
+            } else {
+                baloon.showNotFound("Заказ недоступен", "Воспользуйтесь поиском, чтобы оформить новый заказ.",
+                    function () {
+                        baloon.hide();
+                        $location.url(self.searchUrl);
+                    });
             }
-            // todo проверку IsAvailable убрал на время, сейчас постоянно приходит false
-            // } else if (data.IsAvailable) {
-            //     baloon.hide();
-            //     если таймлимит равен нулю
-            // if (self.ExperationMinute == 0) {
-            //     self.callbackTimer();
-            // }
-            // } else {
-            //     baloon.showNotFound("Заказ недоступен", "Воспользуйтесь поиском, чтобы оформить новый заказ.",
-            //         function () {
-            //             baloon.hide();
-            //             $location.url(self.searchUrl);
-            //         });
-            // }
             
         } else {
             globalError();
