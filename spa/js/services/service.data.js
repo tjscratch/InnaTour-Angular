@@ -322,6 +322,49 @@
                  */
                 agencyCreate: function (data) {
                     return $http.post(apiUrls.PARTNER_CREATE, data);
+                },
+
+                // getCountryListByTerm: function (term, callback) {
+                //     return AjaxHelper.getDebounced({
+                //         url: apiUrls.GET_COUNTRY_BY_TERM,
+                //         data: {term: term},
+                //         success: callback
+                //     });
+                // },
+
+                getCityByIp: function (callbackSuccess, callbackError) {
+                    return AjaxHelper.get({
+                        url: apiUrls.GET_CURRENT_CITY_BY_IP,
+                        data: null,
+                        success: callbackSuccess,
+                        error: callbackError
+                    });
+                },
+
+                getCountryListByTerm: function (text) {
+                    var deferred = $q.defer();
+
+                    function prepareData (response) {
+                        var data = [];
+                        angular.forEach(response, function (item) {
+                            console.log('ITEM', item);
+                            // var fullNameHtml = "<span class='b-search-form-hotels-typeahead-list-item__country'>" + item.Name + "</span>";
+                            data.push({ id: item.Id, name: item.Name, nameHtml: item.Name });
+                        });
+                        return data;
+                    }
+
+                    $http({
+                        url: apiUrls.GET_COUNTRY_BY_TERM,
+                        method: "GET",
+                        params: {
+                            term: text
+                        }
+                    }).success(function (data) {
+                        deferred.resolve(prepareData(data));
+                    });
+
+                    return deferred.promise;
                 }
 
             };

@@ -58,8 +58,8 @@ innaAppControllers.
             function preventBubbling($event) {
                 if ($event.stopPropagation) $event.stopPropagation();
                 if ($event.preventDefault) $event.preventDefault();
-                $event.cancelBubble = true;
-                $event.returnValue = false;
+                // $event.cancelBubble = true;
+                // $event.returnValue = false;
             }
 
             $scope.getHref = function (item) {
@@ -91,6 +91,7 @@ innaAppControllers.
 
                 track.offerClick(sectionName, blockType, item.Name, position, function () {
                     location.href = item.Url;
+                    console.log('ITEM URL', item.url);
                     $scope.lastClickedItem = null;
                 });
             };

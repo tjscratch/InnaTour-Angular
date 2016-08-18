@@ -10,9 +10,10 @@ innaAppControllers.
         '$rootScope',
         '$routeParams',
         '$location',
+        '$timeout',
         'dataService',
         'sharedProperties',
-        function ($log, $scope, $rootScope, $routeParams, $location, dataService, sharedProperties) {
+        function ($log, $scope, $rootScope, $routeParams, $location, $timeout, dataService, sharedProperties) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -41,10 +42,12 @@ innaAppControllers.
 
             var skipCloseType = { prog: 'prog', country: 'country' };
             function closeAllPopups(skipClose) {
-                if (skipClose != skipCloseType.prog)
-                    $scope.isProgrammOpened = false;
-                if (skipClose != skipCloseType.country)
-                    $scope.isCountryOpened = false;
+                $timeout(function () {
+                    if (skipClose != skipCloseType.prog)
+                        $scope.isProgrammOpened = false;
+                    if (skipClose != skipCloseType.country)
+                        $scope.isCountryOpened = false;
+                }, 0);
             };
 
             $scope.programmClick = function ($event) {
@@ -70,10 +73,14 @@ innaAppControllers.
             };
 
             //слушаем клик на body
-            $rootScope.addBodyClickListner('it_category_tours', function () {
-                //log('IndividualToursCategoryCtrl bodyClick');
+
+
+            $('body').on('click', function () {
                 closeAllPopups();
             });
+            //$rootScope.addBodyClickListner('it_category_tours', function () {
+                //closeAllPopups();
+            //});
 
             //получаем категорию
             var categoryId = $routeParams.id;
@@ -190,5 +197,11 @@ innaAppControllers.
                     $scope.selectedCategory = $scope.rootCategory;
                 }
             };
+
+            $scope.$on('$destroy', function () {
+                $('body').off('click', function () {
+                    closeAllPopups();
+                })
+            })
         }
     ]);

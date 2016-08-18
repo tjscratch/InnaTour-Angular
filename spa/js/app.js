@@ -59,9 +59,9 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     //
     //$rootScope.bodyClick = function () {
     //    console.log('root bodyClick');
-        //_.each($rootScope.bodyClickListeners, function (listner) {
-        //    listner.eventDelegate();
-        //});
+    //    _.each($rootScope.bodyClickListeners, function (listner) {
+    //        listner.eventDelegate();
+    //    });
     //};
 
     $rootScope.$on('$routeChangeSuccess', function (event, newUrl, oldUrl) {

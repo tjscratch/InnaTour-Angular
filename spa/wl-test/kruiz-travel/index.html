@@ -53,9 +53,6 @@
                     <a href="/wl-test/1001tur/">1001tur</a>
                 </li>
                 <li>
-                    <a href="/wl-test/kruiz-travel/">kruiz-travel</a>
-                </li>
-                <li>
                     <a href="/wl-test/demo/">Demo</a>
                 </li>
                 <li>
@@ -63,12 +60,12 @@
                 </li>
             </ul>
             <!--<ul class="nav navbar-nav navbar-right">-->
-                <!--<li>-->
-                    <!--<div class="goto-block">-->
-                        <!--Партнер <input id="inp_go" type="text">-->
-                        <!--<input class="btn btn-default" type="button" value="Перейти">-->
-                    <!--</div>-->
-                <!--</li>-->
+            <!--<li>-->
+            <!--<div class="goto-block">-->
+            <!--Партнер <input id="inp_go" type="text">-->
+            <!--<input class="btn btn-default" type="button" value="Перейти">-->
+            <!--</div>-->
+            <!--</li>-->
             <!--</ul>-->
         </nav>
     </div>
@@ -81,11 +78,11 @@
         <script type="text/javascript" src="/spa/wl-test/inna_script_load.js"></script>
 
         <script type="text/javascript">
-            var partner = location.pathname.replace(/\//g, '');
-            console.log('init partner:', partner);
-            innaModule.init(partner);
+            innaModule.init("kruiz-travel");
         </script>
-        <div id="inna-frame"></div>
+        <div class="wrapper">
+            <div id="inna-frame"></div>
+        </div>
         <!--======================================inna module=======================================-->
     </div>
 </div>

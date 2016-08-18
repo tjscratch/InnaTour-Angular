@@ -451,7 +451,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
             url = normalizeUrl(window.partners.getPartner().offertaContractLink);
         }
         else {
-            url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
+            url = app_main.staticHost + '/files/doc/innatour_offerta.pdf';
         }
 
         function normalizeUrl (url) {

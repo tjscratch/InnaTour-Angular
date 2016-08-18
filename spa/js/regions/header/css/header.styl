@@ -11,8 +11,24 @@
     font-size: 15px;
 }
 .header-nav__item {
+    position: relative;
     display: inline-block;
     margin: 0 2px 0 0;
+}
+.header-nav__item-promo {
+    position: absolute;
+    left: -16px;
+    top: -16px;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 16px;
+    background-color: $green;
+    color: $white;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .24);
 }
 .header-nav__item-link {
     display: block;
@@ -183,7 +199,7 @@
 }
 .search-form-expanded {
 
-    .header-info{
+    .header-info {
         background: $header-info-bg-expand;
     }
 
