@@ -200,14 +200,12 @@
         });
 
         $('#btn-generate-offer').click(function () {
-                var code = '&lt;div class="widget-inna-offer" data-location="Франция"&gt;' +
-                    '&lt;/div&gt;' +
-                    '&lt;script charset="utf-8" src="/spa/js/widgets/offer/inna-offer.js"&gt;&lt;/script&gt;';
-                $('#textarea-code-offer').append(code);
+                var code = '<div class="widget-inna-offer" data-location="Франция"></div>' + '\n' +
+                    '<script charset="utf-8" src="/spa/js/widgets/offer/inna-offer.js"></script>';
+                $('#textarea-code-offer').text(code);
                 $('#head-offer').show();
                 $('#generate-code-offer').show();
         });
-        console.log('WWW', $('#widget-inna-offer').css('width'));
     }
     
 }());
