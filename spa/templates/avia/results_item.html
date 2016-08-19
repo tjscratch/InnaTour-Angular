@@ -96,6 +96,11 @@
     <div class="b-result__cell result-choice">
         <span class="rl-rec" ng-if="isItemRecomended">мы рекомендуем</span>
         <span ng-if="!usePricePerPerson" class="rl-price" ng-class="{'rl-price_1way':item.EtapsBack.length == 0}">
+            <span class="rl-price-desc">
+                Стоимость перелета<br/>
+                за {{item.PassengerCount}}
+                {{item.PassengerCount | pluralize: ['человека', 'человек', 'человек']}}
+            </span>
             <span class="rl-price-item">{{item.Price | price}}</span><!--
             --><ng-include src="'components/ruble.html'"/>
         </span>

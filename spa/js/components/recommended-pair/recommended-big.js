@@ -39,7 +39,6 @@ angular.module('innaApp.directives')
                         function (EventManager, $scope, $rootScope, aviaHelper, Urls, $location, $element, $timeout, Events, $routeParams) {
 
                             //console.profile('Draw');
-
                             var searchParams = angular.copy($routeParams);
 
                             /**
