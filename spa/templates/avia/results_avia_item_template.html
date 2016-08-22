@@ -131,6 +131,11 @@
 
         {{#!usePricePerPerson}}
             <span class="rl-price {{this.EtapsBack.length == 0 ? 'rl-price_1way' : ''}}">
+                <span class="rl-price-desc">
+                    Стоимость перелета<br/>
+                    за {{passengerCount}}
+                    {{pluralize(passengerCount, ['человека', 'человек', 'человек'])}}
+                </span>
                 <span class="rl-price-item">{{priceFilter(this.Price)}}</span><!--
                 -->{{>ruble}}
             </span>

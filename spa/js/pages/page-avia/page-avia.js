@@ -1390,7 +1390,9 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                     
                     items: $scope.visibleFilteredTicketsList,
                     
-                    AgencyType: $scope.AgencyType
+                    AgencyType: $scope.AgencyType,
+                    
+                    passengerCount: $scope.personsCount
                 }
             });
             

@@ -77,6 +77,7 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                         console.log('TODAY', today);
                         console.log('START DATE', startDate);
                         $scope.hotels = response.data.Hotels;
+                        $scope.guestCount = response.data.GuestCount;
                         $scope.baloonHotelLoad.teardown();
 
                         /* данный для настроек панели фильтров */

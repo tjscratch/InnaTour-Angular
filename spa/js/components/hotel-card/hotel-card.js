@@ -4,7 +4,8 @@ innaAppDirectives.directive('hotelCard', function ($templateCache) {
         template: $templateCache.get("components/hotel-card/templ/hotel-card.html"),
         scope: {
             hotel: '=',
-            hotelUrl: '='
+            hotelUrl: '=',
+            guestCount: '='
         },
         link: function (scope, elem, attr) {
             var HotelGalleryComponent = null;

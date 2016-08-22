@@ -295,7 +295,12 @@
 
                 <div class="b-price-block" ng-class="{'b-price-block__margin-top':(recommendedPair.getProfit() < 1000)}">
                     <div class="b-price__desc">
-                        Стоимость пакета
+                        Стоимость пакета <br/>
+                        за {{recommendedPair.ticket.data.PassengerCount}}
+                        {{recommendedPair.ticket.data.PassengerCount | pluralize: [
+                        "человека",
+                        "человек"
+                        ]}}
                     </div>
                     <div class="b-price__value">
                         {{recommendedPair.getFullPackagePrice() | price}}
