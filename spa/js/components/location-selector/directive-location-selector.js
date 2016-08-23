@@ -376,7 +376,8 @@ innaAppDirectives.directive('locationSelector', [
                     $(document).off('click', clickHanlder);
                 }
 
-                $(document).click(clickHanlder);
+                // $(document).click(clickHanlder);
+                document.addEventListener('click', clickHanlder, false);
 
 
                 $scope.$on('$destroy', function () {
