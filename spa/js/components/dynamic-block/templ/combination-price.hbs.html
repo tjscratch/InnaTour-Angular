@@ -27,8 +27,10 @@
                 <i class="fa fa-rub b-price__rub"></i>
                 <!-- Показываем только для авторизованного пользователя b2b -->
                 {{#if PriceObject}}
+                {{#if isAgency}}
                 {{#if AgencyType != 1}}
                 <PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}"/>
+                {{/if}}
                 {{/if}}
                 {{/if}}
             </div>

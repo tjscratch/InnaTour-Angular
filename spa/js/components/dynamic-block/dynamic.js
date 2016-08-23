@@ -99,6 +99,7 @@ innaAppConponents.
 
                     if ($rootScope.$root.user){
                         this.set('AgencyType', $rootScope.$root.user.getAgencyType());
+                        this.set('isAgency', $rootScope.$root.user.isAgency());
                     }
 
                     this.set({
