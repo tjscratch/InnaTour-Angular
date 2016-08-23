@@ -99,11 +99,11 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
             return {
                 Index: null,
                 Sex: 1,
-                I: 'ALEX',
+                I: 'OKSANA',
                 F: 'GABRIELAN',
                 Birthday: '23.11.1984',
                 DocumentId: 0,
-                Number: 6646637234,
+                Number: 6646637534,
                 ExpirationDate: '10.10.2022',
                 Citizen: 189
             };
@@ -112,11 +112,11 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
             return {
                 Index: null,
                 Sex: 2,
-                I: 'MARI',
+                I: 'OKSAN',
                 F: 'GABRIELAN',
                 Birthday: '05.04.1981',
                 DocumentId: 0,
-                Number: 6646672276,
+                Number: 6646672376,
                 ExpirationDate: '10.10.2020',
                 Citizen: 189
             };
@@ -132,8 +132,8 @@ innaAppServices.service('ReservationService', function ($http, appApi) {
                         NewPassenger = this.PassengerFake1();
                     }
                     NewPassenger["Index"] = i;
-                    GenerateReservationModel.Email = "pasha_hotels@inna.ru";
-                    GenerateReservationModel.Phone = "+79099593106";
+                    GenerateReservationModel.Email = "maxstbn@gmail.com";
+                    GenerateReservationModel.Phone = "+79099693109";
                     GenerateReservationModel.Agree = true;
                     GenerateReservationModel.Passengers.push(NewPassenger);
                 }

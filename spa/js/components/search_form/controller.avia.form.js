@@ -69,6 +69,66 @@ innaAppControllers.
                 }
             }, true);
 
+            $scope.$watch('criteria.AdultCount', function (newValue, oldValue) {
+                if(newValue && oldValue && newValue != oldValue) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Avia',
+                            'Action': 'Adults',
+                            'Label': newValue,
+                            'Content': newValue + $scope.criteria.ChildCount + $scope.criteria.InfantsCount,
+                            'Context': newValue > oldValue ? 'plus' : 'minus',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+            });
+
+            $scope.$watch('criteria.InfantsCount', function (newValue, oldValue) {
+                if((newValue || newValue == 0) && oldValue != undefined && newValue != oldValue) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Avia',
+                            'Action': 'Baby',
+                            'Label': newValue,
+                            'Content': newValue + $scope.criteria.AdultCount + $scope.criteria.ChildCount,
+                            'Context': newValue > oldValue ? 'plus' : 'minus',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+            });
+
+            $scope.$watch('criteria.ChildCount', function (newValue, oldValue) {
+                if((newValue || newValue == 0) && oldValue != undefined && newValue != oldValue) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Avia',
+                            'Action': 'Childrens',
+                            'Label': newValue,
+                            'Content': newValue + $scope.criteria.AdultCount + $scope.criteria.InfantsCount,
+                            'Context': newValue > oldValue ? 'plus' : 'minus',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+            });
+
             function loadParamsFromRouteOrDefault(routeParams, validateDate) {
                 //console.log('loadParamsFromRouteOrDefault, routeParams:');
                 //console.log(routeParams);
@@ -343,6 +403,23 @@ innaAppControllers.
 
                     validate();
                     //if ok
+
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Avia',
+                            'Action': 'AviaSearch',
+                            'Label': '[no data]',
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+
 
                     if ($scope.criteria.FromId > 0 && $scope.criteria.ToId > 0 &&
                         $scope.criteria.FromUrl.length > 0 && $scope.criteria.ToUrl.length > 0) {

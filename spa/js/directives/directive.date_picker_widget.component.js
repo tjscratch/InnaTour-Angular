@@ -76,6 +76,7 @@
                 addButtons: '=',
                 data      : '=',
                 maxDate   : '=',
+                typePage  : '=',
                 tabIndexFrom: '=',
                 tabIndexTo: '='
             },
@@ -112,7 +113,6 @@
                     }
                 };
 
-
                 /**
                  * кусок говнокода для валидаторов на билетиксе
                  */
@@ -130,6 +130,23 @@
                         }
                     }
                     else {
+                        if(newValue && newValue != oldValue) {
+                                    var dataLayerObj = {
+                                        'event': 'UM.Event',
+                                        'Data': {
+                                            'Category': $scope.typePage == 'DP' ? 'Packages' : 'Avia',
+                                            'Action': 'SelectDataFrom',
+                                            'Label': dateHelper.ddmmyyyy2yyyymmdd(newValue),
+                                            'Content': '[no data]',
+                                            'Context': '[no data]',
+                                            'Text': '[no data]'
+                                        }
+                                    };
+                                    console.table(dataLayerObj);
+                                    if (window.dataLayer) {
+                                        window.dataLayer.push(dataLayerObj);
+                                    }
+                        }
                         if ($scope.datePicker) {
                             updateThrottled();
                         }
@@ -146,6 +163,23 @@
                         }
                     }
                     else {
+                        if(newValue && newValue != oldValue) {
+                                    var dataLayerObj = {
+                                        'event': 'UM.Event',
+                                        'Data': {
+                                            'Category': $scope.typePage == 'DP' ? 'Packages' : 'Avia',
+                                            'Action': 'SelectDataTo',
+                                            'Label': dateHelper.ddmmyyyy2yyyymmdd(newValue),
+                                            'Content': '[no data]',
+                                            'Context': '[no data]',
+                                            'Text': '[no data]'
+                                        }
+                                    };
+                                    console.table(dataLayerObj);
+                                    if (window.dataLayer) {
+                                        window.dataLayer.push(dataLayerObj);
+                                    }
+                        }
                         if ($scope.datePicker) {
                             updateThrottled();
                         }

@@ -41,6 +41,56 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
     }
 
     /**
+     * Трекаем события для GTM
+     * https://innatec.atlassian.net/browse/IN-7071
+     */
+    if (buyParams.Children) {
+        var Travelers = buyParams.Adult + "-" + buyParams.Children.length;
+        var TotalTravelers = Math.ceil(buyParams.Adult) + Math.ceil(buyParams.Children.length);
+    } else {
+        var Travelers = buyParams.Adult + "-" + 0;
+        var TotalTravelers = Math.ceil(buyParams.Adult);
+    }
+
+    $scope.$watch('reservation.ReservationModel.Agree', function (newValue, oldValue) {
+        if(newValue != null) {
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Hotels',
+                    'Action': 'AcceptConditions',
+                    'Label': newValue ? 'Select' : 'UnSelect',
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        }
+    });
+    
+    $scope.gtmRules = function ($event, type) {
+        var dataLayerObj = {
+            'event': 'UM.Event',
+            'Data': {
+                'Category': 'Hotels',
+                'Action': type == 'oferta' ? 'Oferta' : '',
+                'Label': $event.target.textContent,
+                'Content': '[no data]',
+                'Context': '[no data]',
+                'Text': '[no data]'
+            }
+        };
+        console.table(dataLayerObj);
+        if (window.dataLayer) {
+            window.dataLayer.push(dataLayerObj);
+        }
+    };
+
+    /**
      * проверяем доступность выбранной комнаты
      */
     self.baloonHotelAvailable = new Balloon();
@@ -140,12 +190,70 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                 redirectHotel();
             }
         });
+
+        /**
+         * Трекаем события для GTM
+         * https://innatec.atlassian.net/browse/IN-7071
+         */
+        dataService.getLocationById(buyParams.ArrivalId)
+            .then(function (res) {
+                var CityCode = res.data.CountryName + "/" + res.data.Name;
+                var dataLayerObj = {
+                    'event': 'UI.PageView',
+                    'Data': {
+                        'PageType': 'HotelsReservationCheck',
+                        'CityCode': CityCode,
+                        'DateFrom': buyParams.StartVoyageDate,
+                        'NightCount': buyParams.NightCount,
+                        'Travelers': Travelers,
+                        'TotalTravelers': TotalTravelers,
+                        'hotelId': buyParams.hotelId,
+                        'roomId': buyParams.roomId,
+                        //'Price': 10,
+                        //'HotelName': ''
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+            });
+
+
         HotelService.getHotelBuy(buyParams)
             .then(function (response) {
-                console.log(response)
                 if (response.status == 200 && response.data.Available) {
                     self.baloonHotelAvailable.teardown();
                     self.hotelInfo = response.data;
+
+                    /**
+                     * Трекаем события для GTM
+                     * https://innatec.atlassian.net/browse/IN-7071
+                     */
+                    dataService.getLocationById(buyParams.ArrivalId)
+                        .then(function (res) {
+                            var CityCode = res.data.CountryName + "/" + res.data.Name;
+                            var dataLayerObj = {
+                                'event': 'UI.PageView',
+                                'Data': {
+                                    'PageType': 'HotelsReservationLoad',
+                                    'CityCode': CityCode,
+                                    'DateFrom': buyParams.StartVoyageDate,
+                                    'NightCount': buyParams.NightCount,
+                                    'Travelers': Travelers,
+                                    'TotalTravelers': TotalTravelers,
+                                    'Price': self.hotelInfo.Room.Price,
+                                    'HotelName': self.hotelInfo.Hotel.HotelName,
+                                    'hotelId': buyParams.hotelId,
+                                    'roomId': buyParams.roomId
+                                }
+                            };
+                            console.table(dataLayerObj);
+                            if (window.dataLayer) {
+                                window.dataLayer.push(dataLayerObj);
+                            }
+                        });
+
                 } else {
                     baloonError();
                 }
@@ -190,6 +298,52 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
     function reservation () {
         console.log('start reservation');
         baloonReservation();
+
+        var dataLayerObj = {
+            'event': 'UM.Event',
+            'Data': {
+                'Category': 'Hotels',
+                'Action': 'HotelsBook',
+                'Label': '[no data]',
+                'Content': '[no data]',
+                'Context': '[no data]',
+                'Text': '[no data]'
+            }
+        };
+        console.table(dataLayerObj);
+        if (window.dataLayer) {
+            window.dataLayer.push(dataLayerObj);
+        }
+
+        /**
+         * Трекаем события для GTM
+         * https://innatec.atlassian.net/browse/IN-7071
+         */
+        dataService.getLocationById(buyParams.ArrivalId)
+            .then(function (res) {
+                var CityCode = res.data.CountryName + "/" + res.data.Name;
+                var dataLayerObj = {
+                    'event': 'UI.PageView',
+                    'Data': {
+                        'PageType': 'HotelsBooking',
+                        'CityCode': CityCode,
+                        'DateFrom': buyParams.StartVoyageDate,
+                        'NightCount': buyParams.NightCount,
+                        'Travelers': Travelers,
+                        'TotalTravelers': TotalTravelers,
+                        'Price': self.hotelInfo.Room.Price,
+                        'HotelName': self.hotelInfo.Hotel.HotelName,
+                        'hotelId': buyParams.hotelId,
+                        'roomId': buyParams.roomId
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+            });
+
+
         ReservationService.reservation(self.ReservationModel)
             .then(
                 function (res) {

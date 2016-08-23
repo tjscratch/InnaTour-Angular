@@ -2,7 +2,8 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
     return {
         replace: true,
         template: $templateCache.get("components/search-form-hotels/templ/form.html"),
-        controller: function ($element, $scope, $routeParams, $timeout, $location, AppRouteUrls, HotelService, dataService, widgetValidators, $q) {
+        controller: function ($element, $scope, $routeParams,
+                              $timeout, $location, AppRouteUrls, HotelService, dataService, widgetValidators, $q) {
             
             
             $scope.hotelsSearchForm = {};
@@ -61,11 +62,11 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
              * установка значения поля ArrivalId формы поиска из $routeParams
              */
             if ($routeParams.ArrivalId) {
-                dataService.getDPLocationById($routeParams.ArrivalId)
-                    .then(function (data) {
+                dataService.getLocationById($routeParams.ArrivalId)
+                    .then(function (res) {
                         $scope.locationFrom = {
-                            id: data.Id,
-                            name: data.Name + ", " + data.CountryName
+                            id: res.data.Id,
+                            name: res.data.Name + ", " + res.data.CountryName
                         }
                     });
             } else {
@@ -74,8 +75,27 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
             /**
              * END
              */
-            
-            
+
+            $scope.$watch('hotelsSearchForm.StartVoyageDate', function (newValue, oldValue) {
+                if(newValue) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Hotels',
+                            'Action': 'SelectDataTo',
+                            'Label': newValue,
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+            });
+
             /**
              * BEGIN datapicker
              *
@@ -139,7 +159,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                 event.preventDefault();
 
                 var isBus = $location.path().startsWith(AppRouteUrls.URL_BUS);
-                
+
                 $scope.hotelsSearchForm.ArrivalId = $scope.locationFrom ? $scope.locationFrom.id : null;
                 
                 var searchUrl;
@@ -151,9 +171,24 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                 
                 var validateArrivalId = widgetValidators.required($scope.hotelsSearchForm.ArrivalId, 'ArrivalId', 'Введите город или страну, куда планируете поехать');
                 var validateStartVoyageDate = widgetValidators.required($scope.hotelsSearchForm.StartVoyageDate, 'StartVoyageDate', 'Выберите дату заезда');
-                
+
                 $q.all([validateArrivalId, validateStartVoyageDate])
                     .then(function (data) {
+                            var dataLayerObj = {
+                                'event': 'UM.Event',
+                                'Data': {
+                                    'Category': 'Hotels',
+                                    'Action': 'HotelsSearch',
+                                    'Label': '[no data]',
+                                    'Content': '[no data]',
+                                    'Context': '[no data]',
+                                    'Text': '[no data]'
+                                }
+                            };
+                            console.table(dataLayerObj);
+                            if (window.dataLayer) {
+                                window.dataLayer.push(dataLayerObj);
+                            }
                         $location.path(searchUrl);
                     }, function (error) {
                         showError(error);

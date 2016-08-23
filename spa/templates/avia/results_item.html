@@ -2,7 +2,7 @@
         ng-class="{'b-result_middle-130 b-result_oneway_avia':!item.BackArrivalDate, 'b-result_middle-180':item.BackArrivalDate}">
 
     <div class="b-result__cell"
-         ng-click="popupItemInfo_show($event, item, criteria, searchId)">
+         ng-click="popupItemInfo_show($event, item, criteria, searchId); gtmDetailsAviaInSearch();">
 
         <span ng-if="item.transportersList.length <= 3" class="result-cell__airlines">
             <span ng-repeat="tr in item.transportersList" class="rl-airline__item">
@@ -81,7 +81,7 @@
                 <span class="warning">{{helper.getCharterAndNumSeatsText(item.NumSeats, ticketsCount, item.IsCharter, item.alertDifferentPorts, item)}}</span>
             </div>
             <div class="col-xs-2 col-no-padding align-right">
-                <a href="#" ng-click="popupItemInfo_show($event, item, criteria, searchId)">Подробнее</a>
+                <a href="#" ng-click="popupItemInfo_show($event, item, criteria, searchId);gtmDetailsAviaInSearch();">Подробнее</a>
             </div>
         </div>
 
@@ -123,6 +123,6 @@
         <!-- tooltip price -->
         <div class="js-price-generic-container" ng-if="isAgency() && AgencyType != 1"></div>
         
-        <span class="button" ng-click="goToPaymentClick($event, item)">Купить</span>
+        <span class="button" ng-click="goToPaymentClick($event, item);gtmAviaBuySearch('Page');">Купить</span>
     </div>
 </div>

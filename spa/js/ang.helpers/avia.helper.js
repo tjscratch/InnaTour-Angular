@@ -988,7 +988,6 @@
                     self.visaRulesNeeded = false;
 
                     self.check = function (passengersCitizenshipIds, currentItem) {
-                        console.log('$scope.item', currentItem);
                         function addUniq(array, name, link) {
                             var exists = _.find(array, function (it) {
                                 return it.name == name;
@@ -1010,7 +1009,7 @@
 
                         //console.log('passengersCitizenshipIds:');
                         //console.log(passengersCitizenshipIds);
-                        console.log('currentItem', currentItem);
+                        //console.log('currentItem', currentItem);
 
                         if (passengersCitizenshipIds != null && currentItem != null) {
 

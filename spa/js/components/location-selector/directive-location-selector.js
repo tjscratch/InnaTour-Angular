@@ -53,6 +53,29 @@ innaAppDirectives.directive('locationSelector', [
                 };
 
                 $scope.clearCityField = function () {
+                    var action = '';
+
+                    if($scope.typeSearch == 'DP_from') {
+                        action = 'RemoveCityFrom';
+                    } else if ($scope.typeSearch == 'DP_to') {
+                        action = 'RemoveCityTo';
+                    }
+                        var dataLayerObj = {
+                            'event': 'UM.Event',
+                            'Data': {
+                                'Category': 'Packages',
+                                'Action': action ? action : '[na data]',
+                                'Label':  $scope.selectedValue && $scope.selectedValue.CodeIata ? $scope.selectedValue.CodeIata : '[no data]',
+                                'Content': '[no data]',
+                                'Context': '[no data]',
+                                'Text': '[no data]'
+                            }
+                        }
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
+
                     $scope.currentCity = null;
                     $scope.selectedValue = null;
                     $scope.selectionControl.selectedIndex = null;
@@ -149,7 +172,7 @@ innaAppDirectives.directive('locationSelector', [
                 });
 
                 $scope.$watch('currentCity', function (value) {
-                    if(value.length > 0) {
+                    if(value) {
                         $scope.isEnableClearIcon = true;
                     } else {
                         $scope.isEnableClearIcon = false;

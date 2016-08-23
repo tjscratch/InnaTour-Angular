@@ -109,6 +109,42 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
          * end
          * попап с описание тарифа
          */
+
+        $scope.gtmDetailsAviaInSearch = function () {
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Avia',
+                    'Action': 'DetailsAviaInSearch',
+                    'Label': '[no data]',
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        };
+
+        $scope.gtmAviaBuySearch = function (type) {
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Avia',
+                    'Action': 'AviaBuySearch',
+                    'Label': '[no data]',
+                    'Content': type ? type : '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        };
         
         $scope.recommendedClick = function () {
             $location.url(Urls.URL_DYNAMIC_PACKAGES);
@@ -161,15 +197,50 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
         var loader = new utils.loader();
         //запрашиваем парамерты по их Url'ам
         function startLoadAndInit() {
+            
             //console.log('startLoadAndInit');
             $scope.baloon.showWithCancel('Ищем варианты', 'Поиск займет не более 30 секунд', function () {
                 dataService.cancelAviaSearch();
                 
                 //аналитика - прерывание поиска
                 track.aviaSearchInterrupted();
-                
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Avia',
+                        'Action': 'AbortSearch',
+                        'Label': '[no data]',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
                 $location.path(Urls.URL_AVIA);
             });
+
+            var dataLayerObj = {
+                'event': 'UI.PageView',
+                'Data': {
+                    'PageType': 'AviaSearchLoading',
+                    'CityFrom': $scope.criteria.FromUrl,
+                    'CityTo': $scope.criteria.ToUrl,
+                    'DateFrom': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.BeginDate),
+                    'DateTo': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.EndDate),
+                    'Travelers': $scope.criteria.AdultCount + '-' + $scope.criteria.ChildCount + '-' + $scope.criteria.InfantsCount,
+                    'TotalTravelers': parseInt($scope.criteria.AdultCount) +
+                    parseInt($scope.criteria.ChildCount) +
+                    parseInt($scope.criteria.InfantsCount),
+                    'ServiceClass': $scope.criteria.CabinClass == 0 ? 'Economy' : 'Business'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
             
             loader.init([setFromFieldsFromUrl, setToFieldsFromUrl], ifDataLoadedStartSearch).run();
         }
@@ -264,6 +335,37 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                         //обновляем данные
                         updateModel(data);
                     });
+
+                    var minPrice = Number.MAX_VALUE;
+
+                    data.Items.forEach(function (item) {
+                        if(item.Price < minPrice) {
+                            minPrice = item.Price;
+                        }
+                    });
+
+                    var dataLayerObj = {
+                        'event': 'UM.PageView',
+                        'Data': {
+                            'PageType': 'AviaSearchLoad',
+                            'CityFrom': $scope.criteria.FromUrl,
+                            'CityTo': $scope.criteria.ToUrl,
+                            'DateFrom': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.BeginDate),
+                            'DateTo': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.EndDate),
+                            'Travelers': $scope.criteria.AdultCount + '-' + $scope.criteria.ChildCount + '-' + $scope.criteria.InfantsCount,
+                            'TotalTravelers': parseInt($scope.criteria.AdultCount) +
+                            parseInt($scope.criteria.ChildCount) +
+                            parseInt($scope.criteria.InfantsCount),
+                            'ServiceClass': $scope.criteria.CabinClass == 0 ? 'Economy' : 'Business',
+                            'MinPrice': minPrice,
+                            'AviaResultsQuantity': data.Items.length - 1
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+
                 }, function (data, status) {
                     $scope.safeApply(function () {
                         //ошибка получения данных

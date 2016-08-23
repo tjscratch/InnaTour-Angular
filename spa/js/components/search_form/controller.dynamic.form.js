@@ -141,13 +141,17 @@ innaAppControllers
             /**
              * устанавливаем значение города вылета и города назначения
              */
-            $scope.$watch('fromCity', function (data) {
-                $scope.fromCity = data;
-            })
 
-            $scope.$watch('toCity', function (data) {
-                $scope.toCity = data;
-            })
+            $scope.$watchGroup(['fromCity', 'toCity'], function (data) {
+                $scope.fromCity = data[0];
+                $scope.toCity = data[1];
+                if (data && data[0] && data[1]) {
+                    $rootScope.$broadcast('PackagesSearchLoading', {
+                        CityFrom: data[0].CodeIata,
+                        CityTo: data[1].CodeIata
+                    });
+                }
+            });
 
             function validate() {
                 Validators.required($scope.fromCity, Error('fromCity'), "Введите город отправления");
@@ -218,11 +222,46 @@ innaAppControllers
                 $scope.adultCount = $scope.routeParams.Adult || 2;
             }
 
-            $scope.$watch('adultCount', function (newVal) {
+            $scope.$watch('adultCount', function (newVal, oldVal) {
                 serviceCache.put('adultCount', newVal);
+
+                // if(newVal && newVal != oldVal) {
+                //     var dataLayerObj = {
+                //         'event': 'UM.Event',
+                //         'Data': {
+                //             'Category': 'Packages',
+                //             'Action': 'Adults',
+                //             'Label': newVal,
+                //             'Content': newVal + $scope.childrenCount,
+                //             'Context': newVal > oldVal ? 'plus' : 'minus',
+                //             'Text': '[no data]'
+                //         }
+                //     };
+                //     console.table(dataLayerObj);
+                //     if (window.dataLayer) {
+                //         window.dataLayer.push(dataLayerObj);
+                //     }
+                // }
             });
-            $scope.$watch('childrenCount', function (newVal) {
+            $scope.$watch('childrenCount', function (newVal, oldVal) {
                 serviceCache.put('childrenCount', newVal);
+                // if(newVal || newVal == 0 && newVal != oldVal) {
+                //     var dataLayerObj = {
+                //         'event': 'UM.Event',
+                //         'Data': {
+                //             'Category': 'Packages',
+                //             'Action': 'Childrens',
+                //             'Label': newVal,
+                //             'Content': newVal + $scope.adultCount,
+                //             'Context': newVal > oldVal ? 'plus' : 'minus',
+                //             'Text': '[no data]'
+                //         }
+                //     };
+                //     console.table(dataLayerObj);
+                //     if (window.dataLayer) {
+                //         window.dataLayer.push(dataLayerObj);
+                //     }
+                // }
             });
             $scope.$watch('childrensAge', function (newVal) {
                 serviceCache.put('childrensAge', JSON.stringify(newVal));
@@ -268,6 +307,22 @@ innaAppControllers
                 try {
                     validate();
                     //if ok
+
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Packages',
+                            'Action': 'PackagesSearch',
+                            'Label': '[no data]',
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
 
                     var today = +(new Date());
                     var begin = Date.fromDDMMYY($scope.dateBegin);

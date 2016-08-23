@@ -123,8 +123,7 @@
     </div>
 
     <div class="b-result__cell b-result__cell_even"
-         ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}"
-    >
+         ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}">
 
         <div class="spinner spinner-hotel">
             <div class="rect rect1"></div>
@@ -185,6 +184,7 @@
                         <a class="hotel-info-name-link"
                            href="{{computedUrlDetails()}}"
                            link-in-new-window-if-can
+                           ng-click="bundleHotelDetails()"
                            target="_blank">
                             {{recommendedPair.hotel.data.HotelName}}
                         </a>
@@ -218,6 +218,7 @@
         <a class="hotel-details-link"
            href="{{computedUrlDetails()}}"
            link-in-new-window-if-can
+           ng-click="bundleHotelDetails()"
            ng-if="stateHotel"
            target="_blank"
         >
@@ -247,6 +248,7 @@
             <a class="bottom-actions__button bottom-actions__button_action_details"
                href="{{computedUrlDetails()}}"
                link-in-new-window-if-can
+               ng-click="bundleHotelDetails()"
                ng-if="stateHotel"
                target="_blank"
                style="top: -22px;right: 0; z-index: 20"
@@ -354,7 +356,8 @@
         <a link-in-new-window-if-can class="button"
            href="{{computedUrlDetails('buy')}}"
            target="_blank"
-           ng-if="withReservationButton">
+           ng-if="withReservationButton"
+           ng-click="packagesBuySearch()">
             Купить
         </a>
 

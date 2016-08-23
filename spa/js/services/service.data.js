@@ -307,6 +307,16 @@
                 },
 
 
+                getLocationById: function (id) {
+                    return $http({
+                            method: 'GET',
+                            url: apiUrls.DYNAMIC_GET_OBJECT_BY_ID,
+                            params: {id: id},
+                            cache: true
+                    });
+                },
+
+
                 /**
                  * Registration Agency
                  */

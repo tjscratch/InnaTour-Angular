@@ -80,6 +80,10 @@
                     //console.log('$scope.setCurrent');
                     $timeout.cancel($scope.timeoutId);
 
+                    if(option.CodeIata) {
+                        $scope.cityCode = option.CodeIata;
+                    }
+
                     //запрещаем баблинг
                     $event && eventsHelper.preventBubbling($event);
 
@@ -128,7 +132,7 @@
                 /*Watchers*/
 
                 $scope.$watch('currentCity', function (newValue) {
-                    if(newValue.length > 0) {
+                    if(newValue) {
                         $scope.isEnableClearIcon = true;
                     } else {
                         $scope.isEnableClearIcon = false;
@@ -136,10 +140,33 @@
                 });
 
                 $scope.clearCityField = function () {
+                    var action = '';
+
+                    if($scope.placeholder == 'Откуда') {
+                        action = 'RemoveCityFrom';
+                    } else if ($scope.placeholder == 'Куда') {
+                        action = 'RemoveCityTo';
+                    }
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Avia',
+                            'Action': action ? action : '[no data]',
+                            'Label':  $scope.cityCode ? $scope.cityCode : '[no data]',
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    }
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+
                     $scope.result = null;
                     $scope.selectionControl.selectedIndex = null;
-                    // $scope.input.val('');
                     $scope.currentCity = null;
+                    $scope.cityCode = null;
                     if($scope.isEnableClearIcon == true) {
                         $scope.isEnableClearIcon = false;
                     } else {

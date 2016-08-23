@@ -8,6 +8,28 @@ innaAppDirectives.directive('nightCount', function ($templateCache) {
         controller: function ($scope) {
             $scope.isOpen = false;
 
+            $scope.$watch('count', function (newValue, oldValue) {
+                console.log('oldValueCount', oldValue);
+                console.log('newValueCount', newValue);
+                if( newValue != oldValue ) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Hotels',
+                            'Action': 'NightsCount',
+                            'Label': newValue,
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+            });
+
             $scope.increment = function (inc) {
                 if (inc == 'input_change') {
                     incCount();

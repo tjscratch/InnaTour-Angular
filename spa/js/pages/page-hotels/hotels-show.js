@@ -1,4 +1,4 @@
-innaAppControllers.controller('HotelsShowController', function ($rootScope, $scope, $timeout, $location, $routeParams, Balloon, HotelService) {
+innaAppControllers.controller('HotelsShowController', function ($rootScope, $scope, $timeout, $location, $routeParams, Balloon, HotelService, dataService) {
 
     var self = this;
 
@@ -89,10 +89,13 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     });
 
     function baloonError () {
+        var Label = 'Что-то пошло не так';
+        var Text = 'Попробуйте начать поиск заново';
+
         $scope.baloonHotelLoad.updateView({
             template: 'err.html',
-            title: 'Что-то пошло не так',
-            content: 'Попробуйте начать поиск заново',
+            title: Label,
+            content: Text,
             callbackClose: function () {
                 $scope.redirectHotels();
             },
@@ -100,6 +103,26 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
                 $scope.redirectHotels();
             }
         });
+
+        /**
+         * Трекаем события для GTM
+         * https://innatec.atlassian.net/browse/IN-7071
+         */
+        var dataLayerObj = {
+            'event': 'UM.Event',
+            'Data': {
+                'Category': 'Hotels',
+                'Action': 'Message',
+                'Label': Label,
+                'Text': Text
+            }
+        };
+        console.table(dataLayerObj);
+        if (window.dataLayer) {
+            window.dataLayer.push(dataLayerObj);
+        }
+
+
     }
 
     /**
@@ -138,9 +161,41 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     var today = help.getTodayDate();
     var startDate = dateHelper.apiDateToJsDate(searchParams.StartVoyageDate);
     if(+today <= +startDate) {
+
+        /**
+         * Трекаем события для GTM
+         * https://innatec.atlassian.net/browse/IN-7071
+         */
+        if (searchParams.Children) {
+            var Travelers = searchParams.Adult + "-" + searchParams.Children.length;
+            var TotalTravelers = Math.ceil(searchParams.Adult) + Math.ceil(searchParams.Children.length);
+        } else {
+            var Travelers = searchParams.Adult + "-" + 0;
+            var TotalTravelers = Math.ceil(searchParams.Adult);
+        }
+        dataService.getLocationById($routeParams.ArrivalId)
+            .then(function (res) {
+                var CityCode = res.data.CountryName + "/" + res.data.Name;
+                var dataLayerObj = {
+                    'event': 'UI.PageView',
+                    'Data': {
+                        'PageType': 'HotelsDetailsLoading',
+                        'CityCode': CityCode,
+                        'DateFrom': searchParams.StartVoyageDate,
+                        'NightCount': searchParams.NightCount,
+                        'Travelers': Travelers,
+                        'TotalTravelers': TotalTravelers
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+            });
+
+
         HotelService.getHotelsDetails(searchParams)
             .then(function (response) {
-                console.log(response)
                 if (response.status == 200 && response.data.Success) {
                     $scope.hotel = response.data.Hotel;
                     $scope.hotelRooms = response.data.Rooms;
@@ -155,6 +210,33 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
                         loadMap($scope.hotel.Latitude, $scope.hotel.Longitude, $scope.hotel.HotelName);
                     }
                     $scope.baloonHotelLoad.teardown();
+
+                    /**
+                     * Трекаем события для GTM
+                     * https://innatec.atlassian.net/browse/IN-7071
+                     */
+                    dataService.getLocationById($routeParams.ArrivalId)
+                        .then(function (res) {
+                            var CityCode = res.data.CountryName + "/" + res.data.Name;
+                            var dataLayerObj = {
+                                'event': 'UI.PageView',
+                                'Data': {
+                                    'PageType': 'HotelsDetailsLoad',
+                                    'CityCode': CityCode,
+                                    'DateFrom': searchParams.StartVoyageDate,
+                                    'NightCount': searchParams.NightCount,
+                                    'Travelers': Travelers,
+                                    'TotalTravelers': TotalTravelers,
+                                    'Price': response.data.Rooms[0].Price,
+                                    'HotelName': response.data.Hotel.HotelName
+                                }
+                            };
+                            console.table(dataLayerObj);
+                            if (window.dataLayer) {
+                                window.dataLayer.push(dataLayerObj);
+                            }
+                        });
+
                 } else {
                     baloonError();
                 }
@@ -163,10 +245,31 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
                 baloonError();
             });
     } else {
+        var Label = 'Дата заезда должна быть больше текущей даты!';
+        var Title = 'Попробуйте начать поиск заново';
+
+        /**
+         * Трекаем события для GTM
+         * https://innatec.atlassian.net/browse/IN-7071
+         */
+        var dataLayerObj = {
+            'event': 'UM.Event',
+            'Data': {
+                'Category': 'Hotels',
+                'Action': 'Message',
+                'Label': Label,
+                'Text': Text
+            }
+        };
+        console.table(dataLayerObj);
+        if (window.dataLayer) {
+            window.dataLayer.push(dataLayerObj);
+        }
+
         $scope.baloonHotelLoad.updateView({
             template: 'err.html',
-            title: 'Дата заезда должна быть больше текущей даты!',
-            content: 'Попробуйте начать поиск заново',
+            title: Label,
+            content: Title,
             callbackClose: function () {
                 $scope.redirectHotels();
             },
@@ -235,7 +338,23 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
     /**
      * действия в комнате
      */
-    $scope.goReservation = function (roomId) {
+    $scope.goReservation = function (room) {
+        var dataLayerObj = {
+            'event': 'UM.Event',
+            'Data': {
+                'Category': 'Hotels',
+                'Action': 'HotelsBuyDetails',
+                'Label': room.RoomName,
+                'Content': room.CancellationRule,
+                'Context': room.Price,
+                'Text': '[no data]'
+            }
+        };
+        console.table(dataLayerObj);
+        if (window.dataLayer) {
+            window.dataLayer.push(dataLayerObj);
+        }
+
         var searchParams = angular.copy($routeParams);
         console.log(searchParams)
         if(searchParams.Children){
@@ -244,9 +363,9 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
             });
         }
         if(isActive('/bus/')){
-            var url = HotelService.getBusResevationUrl(searchParams.hotelId, searchParams.providerId, roomId, searchParams);
+            var url = HotelService.getBusResevationUrl(searchParams.hotelId, searchParams.providerId, room.RoomId, searchParams);
         }else{
-            var url = HotelService.getHotelsResevationUrl(searchParams.hotelId, searchParams.providerId, roomId, searchParams);
+            var url = HotelService.getHotelsResevationUrl(searchParams.hotelId, searchParams.providerId, room.RoomId, searchParams);
         }
         $location.url(url);
     };
@@ -254,6 +373,23 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
 
     $scope.toggleRoom = function (room) {
         //converts undefined into boolean on the fly
+        if (!room.isOpen) {
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Hotels',
+                    'Action': 'RoomDetails',
+                    'Label': room.RoomName,
+                    'Content': room.CancellationRule,
+                    'Context': room.Price,
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        }
         room.isOpen = !!!room.isOpen;
     };
 
