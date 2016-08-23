@@ -342,87 +342,90 @@ innaAppControllers.controller('PaymentController',
          * https://innatec.atlassian.net/browse/IN-7071
          */
         function gtmTrackLoadSuccess(data) {
-            var Filter = JSON.parse(data.Filter);
-            console.log(data);
-            console.log(Filter)
-            if(Filter.ChildrenAges){
-                var Travelers = Filter.Adult + "-" + Filter.ChildrenAges.length;
-            }
-            var GaCityTo = Filter.ArrivalId;
-    
-            //коды аэропортов
-            function getIATACodes(info) {
-                var res = {codeFrom: '', codeTo: ''};
-                if (info.EtapsTo != null && info.EtapsTo.length > 0) {
-                    res.codeFrom = info.EtapsTo[0].OutCode;//первый
-                    res.codeTo = info.EtapsTo[info.EtapsTo.length - 1].InCode;//последний
+            if (data.Filter) {
+                var Filter = JSON.parse(data.Filter);
+                console.log(data);
+                console.log(Filter)
+                if (Filter.ChildrenAges) {
+                    var Travelers = Filter.Adult + "-" + Filter.ChildrenAges.length;
                 }
-                return res;
-            }
-            var ports = getIATACodes(data.AviaInfo);
-            // data.ProductType
-            // Avia = 1
-            // Динамический пакет = 2
-            // Сервисный сбор = 3
-            // Отели = 4
-            // Не определен = 0
-            switch (data.ProductType) {
-                case 1:
-                    gtm.GtmTrack(
-                        {
-                            'PageType': 'AviaPayLoad'
-                        },
-                        {
-                            'CityFrom': ports.codeFrom,
-                            'CityTo': ports.codeTo,
-                            'DateFrom': moment(data.AviaInfo.DepartureDate).format('YYYY-MM-DD'),
-                            'DateTo': moment(data.AviaInfo.BackDepartureDate).format('YYYY-MM-DD'),
-                            'Travelers': data.AviaInfo.AdultCount + "-" + data.AviaInfo.ChildCount + "-" + data.AviaInfo.InfantCount,
-                            'TotalTravelers': data.Passengers.length,
-                            'Price': data.Price,
-                            'ServiceClass': Filter.CabinClass == 0 ? 'Economy' : 'Business',
-                            'AirlineName': data.AviaInfo.EtapsTo[0].TransporterName
-                        }
-                    );
-                    break;
-                case 2:
-                    gtm.GtmTrack(
-                        {
-                            'PageType': 'PackagesPayLoad'
-                        },
-                        {
-                            'CityFrom'      : data.GaCityFrom ? data.GaCityFrom : data.AviaInfo.CityFrom,
-                            'CityTo'        : data.GaCityTo ? data.GaCityTo : data.AviaInfo.CityTo,
-                            'DateFrom'      : moment(data.Hotel.CheckIn).format('YYYY-MM-DD'),
-                            'DateTo'        : moment(data.Hotel.CheckOut).format('YYYY-MM-DD'),
-                            'Travelers'     : data.AviaInfo.AdultCount + "-" + data.AviaInfo.ChildCount + "-" + data.AviaInfo.InfantCount,
-                            'TotalTravelers': data.Passengers.length,
-                            'Price'         : data.Price,
-                            'HotelName'     : data.Hotel.HotelName,
-                            'ServiceClass'  : Filter.TicketClass == 0 ? 'Economy' : 'Business'
-                        }
-                    );
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    gtm.GtmTrack(
-                        {
-                            'PageType': 'HotelsPayLoad'
-                        },
-                        {
-                            'CityCode': data.GaCityTo ? data.GaCityTo : GaCityTo,
-                            'DateFrom': moment(data.Hotel.CheckIn).format('YYYY-MM-DD'),
-                            'NightCount': data.Hotel.NightCount,
-                            'Travelers': data.Travelers ? data.Travelers : Travelers,
-                            'TotalTravelers': data.Passengers.length,
-                            'Price': data.Price,
-                            'HotelName': data.Hotel.HotelName
-                        }
-                    );
-                    break;
-                default:
-                    break;
+                var GaCityTo = Filter.ArrivalId;
+                
+                //коды аэропортов
+                function getIATACodes(info) {
+                    var res = {codeFrom: '', codeTo: ''};
+                    if (info.EtapsTo != null && info.EtapsTo.length > 0) {
+                        res.codeFrom = info.EtapsTo[0].OutCode;//первый
+                        res.codeTo = info.EtapsTo[info.EtapsTo.length - 1].InCode;//последний
+                    }
+                    return res;
+                }
+                
+                var ports = getIATACodes(data.AviaInfo);
+                // data.ProductType
+                // Avia = 1
+                // Динамический пакет = 2
+                // Сервисный сбор = 3
+                // Отели = 4
+                // Не определен = 0
+                switch (data.ProductType) {
+                    case 1:
+                        gtm.GtmTrack(
+                            {
+                                'PageType': 'AviaPayLoad'
+                            },
+                            {
+                                'CityFrom'      : ports.codeFrom,
+                                'CityTo'        : ports.codeTo,
+                                'DateFrom'      : moment(data.AviaInfo.DepartureDate).format('YYYY-MM-DD'),
+                                'DateTo'        : moment(data.AviaInfo.BackDepartureDate).format('YYYY-MM-DD'),
+                                'Travelers'     : data.AviaInfo.AdultCount + "-" + data.AviaInfo.ChildCount + "-" + data.AviaInfo.InfantCount,
+                                'TotalTravelers': data.Passengers.length,
+                                'Price'         : data.Price,
+                                'ServiceClass'  : Filter.CabinClass == 0 ? 'Economy' : 'Business',
+                                'AirlineName'   : data.AviaInfo.EtapsTo[0].TransporterName
+                            }
+                        );
+                        break;
+                    case 2:
+                        gtm.GtmTrack(
+                            {
+                                'PageType': 'PackagesPayLoad'
+                            },
+                            {
+                                'CityFrom'      : data.GaCityFrom ? data.GaCityFrom : data.AviaInfo.CityFrom,
+                                'CityTo'        : data.GaCityTo ? data.GaCityTo : data.AviaInfo.CityTo,
+                                'DateFrom'      : moment(data.Hotel.CheckIn).format('YYYY-MM-DD'),
+                                'DateTo'        : moment(data.Hotel.CheckOut).format('YYYY-MM-DD'),
+                                'Travelers'     : data.AviaInfo.AdultCount + "-" + data.AviaInfo.ChildCount + "-" + data.AviaInfo.InfantCount,
+                                'TotalTravelers': data.Passengers.length,
+                                'Price'         : data.Price,
+                                'HotelName'     : data.Hotel.HotelName,
+                                'ServiceClass'  : Filter.TicketClass == 0 ? 'Economy' : 'Business'
+                            }
+                        );
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        gtm.GtmTrack(
+                            {
+                                'PageType': 'HotelsPayLoad'
+                            },
+                            {
+                                'CityCode'      : data.GaCityTo ? data.GaCityTo : GaCityTo,
+                                'DateFrom'      : moment(data.Hotel.CheckIn).format('YYYY-MM-DD'),
+                                'NightCount'    : data.Hotel.NightCount,
+                                'Travelers'     : data.Travelers ? data.Travelers : Travelers,
+                                'TotalTravelers': data.Passengers.length,
+                                'Price'         : data.Price,
+                                'HotelName'     : data.Hotel.HotelName
+                            }
+                        );
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         
@@ -430,22 +433,22 @@ innaAppControllers.controller('PaymentController',
         function gtmTrackSuccessPay(data, status) {
             // self.payType тип оплаты 1 - карта, 2 - связной, 3 - qiwi
             var payType;
-            if(self.payType == 1){
+            if (self.payType == 1) {
                 payType = 'Card';
-            }else if(self.payType == 2){
+            } else if (self.payType == 2) {
                 payType = 'svyaznoy';
-            }else if(self.payType == 3){
+            } else if (self.payType == 3) {
                 payType = 'qiwi';
             }
-    
+            
             var Status;
             var Title;
             var Text;
-            if(status){
+            if (status) {
                 Status = 'Complete';
                 Title = 'Заказ успешно оплачее';
                 Text = '[no data]';
-            }else{
+            } else {
                 Status = 'Fail';
                 Title = 'Не удалось оплатать заказ';
                 Text = 'Проверьте наличие достаточной суммы на счете, данные вашей карты';
@@ -460,22 +463,22 @@ innaAppControllers.controller('PaymentController',
                 case 1:
                     gtm.GtmTrack(
                         {
-                            'PageType': 'AviaDone',
+                            'PageType'     : 'AviaDone',
                             'PaymentMethod': payType,
-                            'Status': Status,
-                            'Title' : Title,
-                            'Text':Text
+                            'Status'       : Status,
+                            'Title'        : Title,
+                            'Text'         : Text
                         }
                     );
                     break;
                 case 2:
                     gtm.GtmTrack(
                         {
-                            'PageType': 'PackagesDone',
+                            'PageType'     : 'PackagesDone',
                             'PaymentMethod': payType,
-                            'Status': Status,
-                            'Title' : Title,
-                            'Text':Text
+                            'Status'       : Status,
+                            'Title'        : Title,
+                            'Text'         : Text
                         }
                     );
                     break;
@@ -484,11 +487,11 @@ innaAppControllers.controller('PaymentController',
                 case 4:
                     gtm.GtmTrack(
                         {
-                            'PageType': 'HotelDone',
+                            'PageType'     : 'HotelDone',
                             'PaymentMethod': payType,
-                            'Status': Status,
-                            'Title' : Title,
-                            'Text':Text
+                            'Status'       : Status,
+                            'Title'        : Title,
+                            'Text'         : Text
                         }
                     );
                     break;
