@@ -19,7 +19,8 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
     'Validators',
     'innaApp.Urls',
     '$cookieStore',
-    function ($log, $controller, $timeout, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, PromoCodes, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Urls, $cookieStore) {
+    'AppRouteUrls',
+    function ($log, $controller, $timeout, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, PromoCodes, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Urls, $cookieStore, AppRouteUrls) {
 
         // TODO : наследование контроллера
         $controller('ReserveTicketsCtrl', { $scope: $scope });
@@ -248,7 +249,8 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
 
         $scope.afterCompleteCallback = function () {
             //переходим на страницу оплаты
-            var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria.OrderNum);
+            //var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria.OrderNum);
+            var url = AppRouteUrls.URL_PAYMENT + $scope.criteria.OrderNum;
             //log('processToPayment, url: ' + url);
             $location.path(url);
         }

@@ -85,7 +85,7 @@ bower_components/bower-components.js
 bower_components/bower-components.*.js
 !bower_components/**/build
 !bower_components/**/src
-!bower_components/**/dist
+#!bower_components/**/dist
 !bower_components/**/min
 
 
@@ -109,6 +109,7 @@ cache__api_v1_partner_getall.json
 
 sprite.png
 
-dist
+/dist
+!bower_components/**/dist
 cache__api_v1_partner_getall.json
 shipit_build_test

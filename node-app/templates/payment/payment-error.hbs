@@ -1,0 +1,20 @@
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'/>
+<link rel="stylesheet" href="/spa/css/common.css"/>
+
+<div class="results-body">
+    <div class="Payment__success">
+        <div class="main__center">
+            <div class="Payment__body Payment__body-error">
+                <div>
+                    При оплате возникла ошибка.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    if (window.parent) {
+        window.parent.postMessage({payment: false}, '*');
+    }
+</script>

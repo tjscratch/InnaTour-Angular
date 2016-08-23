@@ -1,0 +1,201 @@
+<div class="main__center">
+
+    <div class="productInfo__Head">
+        <div class="productInfo__Title">
+            Оформление и оплата
+        </div>
+        <div class="productInfo__Price">
+            Стоимость пакета за {{productData.Passengers.length | perPerson}}:
+            <b class="productInfo__Price-sum">
+                {{productData.Price| price}}
+                <i class='fa fa-rub'></i>
+            </b>
+        </div>
+    </div>
+
+    <div class="productInfo__Desc">
+        В цену включен ПЕРЕЛЕТ {{productData.AviaInfo.CityFrom}} –
+        {{productData.AviaInfo.CityTo}} – {{productData.AviaInfo.CityFrom}} и ОТЕЛЬ {{productData.Hotel.HotelName}}
+        с {{helper.moment(productData.Hotel.CheckInDate).format("D MMMM")}}
+        по {{helper.moment(productData.Hotel.CheckOutDate).format("D MMMM")}}, {{productData.Hotel.NightCount}}
+        {{helper.pluralForm(productData.Hotel.NightCount, 'ночь', 'ночи', 'ночей')}}<span ng-if="isInsuranceIncluded">, медицинская страховка</span>,
+        топливный сбор.
+        Указана стоимость на {{productData.Passengers.length | perPeople}}.
+        Цена окончательная со всеми налогами и сборами.
+    </div>
+
+
+    <div class='b-result b-result_col_two b-result_220 row buy__fly b-result-content'>
+
+        <div class='b-result__cell result-cell'>
+            <div class='rl-airline-cont'>
+                <span title='{{tr.name}}'
+                      ng-if='!(productData.AviaInfo.transportersList.length > 3)'
+                      class='rl-airline'
+                      ng-repeat='tr in productData.AviaInfo.transportersList'>
+                    <img ng-src='{{tr.logoUrl}}'>
+                    <span class='rl-airline-text'>{{tr.name}}</span>
+                </span>
+
+                <span ng-if='productData.AviaInfo.transportersList.length > 3'
+                      class='rl-airline'>
+                    <img ng-src='/spa/img/group.png'>
+                    <span class='rl-airline-text'>Несколько авиакомпаний</span>
+                </span>
+            </div>
+
+            <div class='b-ticket_2ways buy__tickets'>
+
+                <div class='rlf-fly'>
+
+
+                    <div class='row-fluid'>
+                        <div class='col-xs-5 col-no-padding row-fluid__cell'>
+                            <div class='rlf__flight-block'>
+                                <b>{{productData.AviaInfo.DepartureTimeFormatted}}</b> {{productData.AviaInfo.DepartureDateFormatted}}<br>
+                                <b title='{{productData.AviaInfo.AirportFrom}}'>{{productData.AviaInfo.AirportFrom | limitFilter:14}}</b>
+                                {{productData.AviaInfo.OutCode}}
+                            </div>
+                        </div>
+                        <div class='col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle'>
+                            <span class='rlf-fly-arrow rlf-fly-arrow_popup'></span>
+                        </div>
+                        <div class='col-xs-5 col-no-padding row-fluid__cell'>
+                            <div class='rlf__flight-block'>
+                                <b>{{productData.AviaInfo.ArrivalTimeFormatted}}</b> {{productData.AviaInfo.ArrivalDateFormatted}}<br>
+                                <b title='{{productData.AviaInfo.AirportTo}}'>{{productData.AviaInfo.AirportTo | limitFilter:14}}</b> {{productData.AviaInfo.InCode}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='rlf-full-travel-time-info'>в пути: {{productData.AviaInfo.TimeToFormatted}},
+                        <span ng-if='productData.AviaInfo.ToTransferCount > 0'>
+		                    {{productData.AviaInfo.ToTransferCount}}
+							{{productData.AviaInfo.ToTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
+	                    </span>
+                        <span ng-if='productData.AviaInfo.ToTransferCount == 0'>без пересадок</span>
+                    </div>
+                </div>
+                <div class='rlf-fly rlf-fly_back'>
+
+                    <div class='row-fluid'>
+                        <div class='col-xs-5 col-no-padding row-fluid__cell'>
+                            <div class='rlf__flight-block'>
+                                <b>{{productData.AviaInfo.BackDepartureTimeFormatted}}</b> {{productData.AviaInfo.BackDepartureDateFormatted}}<br>
+                                <b title='{{productData.AviaInfo.AirportFromBack}}'>{{productData.AviaInfo.AirportFromBack | limitFilter:14}}</b>
+                                {{productData.AviaInfo.OutCodeBack}}
+                            </div>
+                        </div>
+                        <div class='col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle'>
+                            <span class='rlf-fly-arrow rlf-fly-arrow_popup'></span>
+                        </div>
+                        <div class='col-xs-5 col-no-padding row-fluid__cell'>
+                            <div class='rlf__flight-block'>
+                                <b>{{productData.AviaInfo.BackArrivalTimeFormatted}}</b> {{productData.AviaInfo.BackArrivalDateFormatted}}<br>
+                                <b title='{{productData.AviaInfo.AirportToBack}}'>{{productData.AviaInfo.AirportToBack | limitFilter:14}}</b>
+                                {{productData.AviaInfo.InCodeBack}}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class='rlf-full-travel-time-info'>в пути: {{productData.AviaInfo.TimeBackFormatted}},
+                        <span ng-if='productData.AviaInfo.BackTransferCount > 0'>
+		                    {{productData.AviaInfo.BackTransferCount}}
+		                    {{productData.AviaInfo.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
+	                    </span>
+                        <span ng-if='productData.AviaInfo.BackTransferCount == 0'>без пересадок</span></div>
+                </div>
+
+            </div>
+
+            <!-- separator -->
+            <div class='b-result-cell__gap'>
+                <div class='b-result-cell__gap_wrap'></div>
+            </div>
+        </div>
+        <div class='b-result__cell result-cell'>
+
+            <div share-link-directive
+                 location='{{currentPageUrl}}'
+                 position='left'
+                 style='position:relative;z-index: 3000'></div>
+
+            <img ng-if='productData.Hotel.ProviderLogoUrl'
+                 ng-src='{{productData.Hotel.ProviderLogoUrl}}'
+                 alt=''
+                 class='logo'>
+
+            <div class='hotel-info'>
+                <div class='hotel-info__wrapper'>
+                    <img class='hotel-info__photo'
+                         ng-src='{{productData.Hotel.HotelPhoto70}}'
+                         alt=''><!--
+                        -->
+                    <div class='hotel-info-content'>
+                        <div class='star-container'>
+                            <span ng-repeat='star in productData.Hotel.starsList track by $index'
+                                  class='icon icon-star'></span>
+                        </div>
+                        <h3 class='hotel-info-name'
+                            style='width: 360px;'>{{productData.Hotel.HotelName}}</h3>
+
+                        <div class='hotel-info-date'>
+                            с {{helper.moment(productData.Hotel.CheckInDate).format("D MMMM")}}
+                            по {{helper.moment(productData.Hotel.CheckOutDate).format("D MMMM")}}, {{productData.Hotel.NightCount}}
+                            {{helper.pluralForm(productData.Hotel.NightCount, 'ночь', 'ночи', 'ночей')}}
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class='hotel-info-name'>{{productData.Hotel.Room.RoomName}}</h3>
+
+                <div class='hotel-info-date r__hotel-info'>
+                    <span ng-repeat='bed in productData.Hotel.Room.BedTypeList track by $index'>{{bed.Name}}<span ng-if='!$last'>,&nbsp;</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="buy__warning" ng-show="visaControl.visaNeeded || visaControl.visaRulesNeeded">
+
+        <span class="icon-sprite-visa-alert buy-warning-alert-img"></span>
+        <div class="buy-warning-alert-content">
+            <div class="buy-warning-alert"
+                 ng-show="visaControl.visaNeeded || visaControl.visaRulesNeeded">Обратите внимание
+            </div>
+            <span ng-show="visaControl.visaNeeded">Требуется виза.</span>
+            <span ng-show="visaControl.visaRulesNeeded">
+            <span ng-if="visaControl.cautionCountries.length > 0"> Рекомендуем ознакомиться с визовыми правилами для посещения стран:
+                <span ng-repeat="c in visaControl.cautionCountries">
+                    <a class="b-visa-country-link" ng-if="c.link" ng-href="{{c.link}}" target="_blank">{{c.name}}</a><!--
+                    --><span ng-if="!c.link">{{c.name}}</span><!--
+                    --><span ng-if="!($last)">,&nbsp;</span><!--
+                --></span><!--
+            --></span>.
+        </span>
+            <div>
+                <span ng-if="item.alertDifferentPorts">Разные аэропорты вылета и прилета. </span>
+                <span ng-if="item.IsLongTransfer">Долгая пересадка. </span>
+                <span ng-if="item.IsNightStop">Ночная стыковка. </span>
+                <span ng-if="item.baggageAlert">Платный багаж. </span>
+            </div>
+        </div>
+    </div>
+
+    <p class="productInfo__Desc">
+        Внимание! К компонентам пакета применяются разные условия отмены бронирования.
+        <br/>
+        Пожалуйста, ознакомьтесь с
+        <a href="" ng-click="tarifs.show($event)">правилами применения тарифа авиабилета</a>
+        и
+        <a href="" ng-click="hotelRules.show($event)">условиями бронирования отеля</a><span ng-if="productData.AviaInfo.IsTripToRussia">.</span>
+        <span ng-if="!productData.AviaInfo.IsTripToRussia">
+		и
+            <a href="" ng-click="insuranceRules.show($event)">правилами медицинского страхования.</a>
+		</span>
+    </p>
+
+</div>
+
+<ng-include src="'components/productInfo/templ/baloons.html'"></ng-include>
