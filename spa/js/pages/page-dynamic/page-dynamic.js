@@ -15,6 +15,8 @@ innaAppControllers.controller('PageDynamicPackage', [
     '$location',
     'innaApp.Urls',
     'aviaHelper',
+    '$q',
+    'gtm',
 
 
     // components
@@ -29,7 +31,7 @@ innaAppControllers.controller('PageDynamicPackage', [
     'ModelTicketsCollection',
     'ModelTicket',
     'ModelHotel',
-    function (RavenWrapper, EventManager, $scope, $timeout, $rootScope, DynamicFormSubmitListener, DynamicPackagesDataProvider, PackagesService, dataService, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, $filter,
+    function (RavenWrapper, EventManager, $scope, $timeout, $rootScope, DynamicFormSubmitListener, DynamicPackagesDataProvider, PackagesService, dataService, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, $q, gtm, $templateCache, Balloon, ListPanel, $filter,
               ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
         Raven.setExtraContext({key: "__SEARCH_DP_CONTEXT__"});
@@ -62,30 +64,26 @@ innaAppControllers.controller('PageDynamicPackage', [
         $scope.cityFrom = null;
         $scope.cityTo = null;
 
-        $scope.$on('PackagesSearchLoading', function (event, data) {
-            $timeout(function () {
-                $scope.cityFrom = data.CityFrom;
-                $scope.cityTo = data.CityTo;
-                var dataLayerObj = {
-                    'event': 'UI.PageView',
-                    'Data': {
-                        'PageType': 'PackagesSearchLoading',
-                        'CityFrom': $scope.cityFrom,
-                        'CityTo': $scope.cityTo,
-                        'DateFrom': searchParams.StartVoyageDate,
-                        'DateTo': searchParams.EndVoyageDate,
-                        'Travelers': searchParams.Adult + '-' + ('Children' in searchParams ? searchParams.Children.split('_').length : '0'),
-                        'TotalTravelers': 'Children' in searchParams ?
-                        parseInt(searchParams.Adult) + searchParams.Children.split('_').length
-                            : searchParams.Adult,
-                        'ServiceClass': searchParams.TicketClass == 0 ? 'Economy' : 'Business'
-                    }
+        $q.all([
+            dataService.getLocationById(searchParams.DepartureId),
+            dataService.getLocationById(searchParams.ArrivalId)]
+        ).then(function (results) {
+            gtm.GtmTrack(
+                {
+                    'PageType': 'PackagesSearchLoading',
+                },
+                {
+                    'CityFrom': results[0].data.CodeIata,
+                    'CityTo': results[1].data.CodeIata,
+                    'DateFrom': searchParams.StartVoyageDate,
+                    'DateTo': searchParams.EndVoyageDate,
+                    'Travelers': searchParams.Adult + '-' + ('Children' in searchParams ? searchParams.Children.split('_').length : '0'),
+                    'TotalTravelers': 'Children' in searchParams ?
+                    parseInt(searchParams.Adult) + searchParams.Children.split('_').length
+                        : searchParams.Adult,
+                    'ServiceClass': searchParams.TicketClass == 0 ? 'Economy' : 'Business'
                 }
-                console.table(dataLayerObj);
-                if (window.dataLayer) {
-                    window.dataLayer.push(dataLayerObj);
-                }
-            }, 0);
+            );
         });
         
 
@@ -508,28 +506,19 @@ innaAppControllers.controller('PageDynamicPackage', [
 
                         if (data) {
                             $scope.defaultRecommendedPair = data.DefaultRecommendedPair;
-                            var dataLayerObj = {
-                                'event': 'UM.PageView',
-                                'Data': {
-                                    'PageType': 'PackagesSearchLoad',
-                                    'CityFrom': $scope.cityFrom,
-                                    'CityTo': $scope.cityTo,
-                                    'DateFrom': searchParams.StartVoyageDate,
-                                    'DateTo': searchParams.EndVoyageDate,
-                                    'Travelers': searchParams.Adult + '-' + ('Children' in searchParams ? searchParams.Children.split('_').length : '0'),
-                                    'TotalTravelers': 'Children' in searchParams ?
-                                    parseInt(searchParams.Adult) + searchParams.Children.split('_').length
-                                        : searchParams.Adult,
-                                    'ServiceClass': searchParams.TicketClass == 0 ? 'Economy' : 'Business',
-                                    'MinPrice': data.RecommendedPair.Hotel.PackagePrice,
-                                    'AviaResultsQuantity': data.TicketCount,
-                                    'HotelResultsQuantity': data.HotelCount
-                                }
-                            }
-                            console.table(dataLayerObj);
-                            if (window.dataLayer) {
-                                window.dataLayer.push(dataLayerObj);
-                            }
+                            $q.all([
+                                dataService.getLocationById(searchParams.DepartureId),
+                                dataService.getLocationById(searchParams.ArrivalId)]
+                            ).then(function (results) {
+                                gtm.GtmTrack(
+                                    {
+                                        'PageType': 'PackagesSearchLoad',
+                                        'MinPrice': data.RecommendedPair.Hotel.PackagePrice,
+                                        'AviaResultsQuantity': data.TicketCount,
+                                        'HotelResultsQuantity': data.HotelCount
+                                    }
+                                );
+                            });
                         }
 
                         that.set('loadHotelsData', data);
@@ -663,7 +652,7 @@ innaAppControllers.controller('PageDynamicPackage', [
              * @returns {*}
              */
             getCombination: function (data) {
-
+                console.log('GET COMBINATION');
                 var RecommendedPair = data.RecommendedPair;
 
                 if (!data || !RecommendedPair) {

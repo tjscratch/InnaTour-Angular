@@ -119,8 +119,11 @@
                 if (window.partners && window.partners.isFullWL()) {
                     var partner = window.partners.getPartner().name;
                 }
+
                 /*Watchers*/
                 $scope.$watch('date1', function (newValue, oldValue) {
+                    console.log('newDate1Value', newValue);
+                    console.log('oldDate1Value', oldValue);
                     if (newValue instanceof Error) {
                         $scope.date1 = oldValue;
                         if (partner) {
@@ -135,7 +138,7 @@
                                         'event': 'UM.Event',
                                         'Data': {
                                             'Category': $scope.typePage == 'DP' ? 'Packages' : 'Avia',
-                                            'Action': 'SelectDataFrom',
+                                            'Action': 'SelectDateFrom',
                                             'Label': dateHelper.ddmmyyyy2yyyymmdd(newValue),
                                             'Content': '[no data]',
                                             'Context': '[no data]',
@@ -154,6 +157,8 @@
                 });
 
                 $scope.$watch('date2', function (newValue, oldValue) {
+                    console.log('newDate2Value', newValue);
+                    console.log('oldDate2Value', oldValue);
                     if (newValue instanceof Error) {
                         $scope.date2 = oldValue;
                         if (partner) {
@@ -168,7 +173,7 @@
                                         'event': 'UM.Event',
                                         'Data': {
                                             'Category': $scope.typePage == 'DP' ? 'Packages' : 'Avia',
-                                            'Action': 'SelectDataTo',
+                                            'Action': 'SelectDateTo',
                                             'Label': dateHelper.ddmmyyyy2yyyymmdd(newValue),
                                             'Content': '[no data]',
                                             'Context': '[no data]',

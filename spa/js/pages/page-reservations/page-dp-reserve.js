@@ -272,8 +272,8 @@
                 gtm.GtmTrack(
                     {
                         'PageType': 'PackagesReservationCheck',
-                        'Price': PackagePrice,
-                        'HotelName': HotelName
+                        'Price': PackagePrice ? PackagePrice : '[no data]',
+                        'HotelName': HotelName ? HotelName : '[no data]'
                     },
                     {
                         'CityFrom': results[0].data.CodeIata,

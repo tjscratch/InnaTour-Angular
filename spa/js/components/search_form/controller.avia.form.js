@@ -22,6 +22,8 @@ innaAppControllers.
                 //$log.log.apply($log, arguments);
             }
 
+            $scope.criteria = {};
+
             //console.log('AviaFormCtrl');
             //console.log($routeParams);
 
@@ -61,7 +63,17 @@ innaAppControllers.
                     }, true);
                 }
             }
-
+            // console.log('PARAMS', $routeParams);
+            // $scope.ggg = '';
+            // if($routeParams.BeginDate) {
+            //     $scope.ggg = $routeParams.BeginDate;
+            //     $scope.criteria.BeginDate = $routeParams.BeginDate;
+            // }
+            // if($routeParams.EndDate) {
+            //     $scope.criteria.EndDate = $routeParams.EndDate;
+            // }
+            // console.log('SSSSSSS', $scope.criteria.BeginDate);
+            // console.log('GGG', $scope.ggg);  
 
             $scope.$watch('datepickerButtons', function (newVal) {
                 if(newVal) {

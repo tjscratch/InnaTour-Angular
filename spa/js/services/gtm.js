@@ -17,7 +17,7 @@ innaAppServices.service('gtm', function () {
         GtmTrack: function (thisData, shareObj) {
             this.TrackData = shareObj ? shareObj : this.TrackData;
             var dataLayerObj = {
-                'event': 'UI.PageView',
+                'event': 'UM.PageView',
                 'Data': Object.assign({}, thisData, this.TrackData)
             };
             if (window.dataLayer) {

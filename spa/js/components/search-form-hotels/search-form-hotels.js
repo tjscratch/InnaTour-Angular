@@ -75,14 +75,17 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
             /**
              * END
              */
-
+            if ($routeParams.StartVoyageDate) {
+                $scope.hotelsSearchForm.StartVoyageDate = $routeParams.StartVoyageDate;
+            }
             $scope.$watch('hotelsSearchForm.StartVoyageDate', function (newValue, oldValue) {
-                if(newValue) {
+
+                if(newValue && newValue != oldValue) {
                     var dataLayerObj = {
                         'event': 'UM.Event',
                         'Data': {
                             'Category': 'Hotels',
-                            'Action': 'SelectDataTo',
+                            'Action': 'SelectDateTo',
                             'Label': newValue,
                             'Content': '[no data]',
                             'Context': '[no data]',
@@ -172,28 +175,46 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                 var validateArrivalId = widgetValidators.required($scope.hotelsSearchForm.ArrivalId, 'ArrivalId', 'Введите город или страну, куда планируете поехать');
                 var validateStartVoyageDate = widgetValidators.required($scope.hotelsSearchForm.StartVoyageDate, 'StartVoyageDate', 'Выберите дату заезда');
 
-                $q.all([validateArrivalId, validateStartVoyageDate])
-                    .then(function (data) {
-                            var dataLayerObj = {
-                                'event': 'UM.Event',
-                                'Data': {
-                                    'Category': 'Hotels',
-                                    'Action': 'HotelsSearch',
-                                    'Label': '[no data]',
-                                    'Content': '[no data]',
-                                    'Context': '[no data]',
-                                    'Text': '[no data]'
-                                }
-                            };
-                            console.table(dataLayerObj);
-                            if (window.dataLayer) {
-                                window.dataLayer.push(dataLayerObj);
-                            }
-                        $location.path(searchUrl);
-                    }, function (error) {
-                        showError(error);
-                    });
-                
+                // $q.all([validateArrivalId, validateStartVoyageDate])
+                //     .then(function (data) {
+                //             var dataLayerObj = {
+                //                 'event': 'UM.Event',
+                //                 'Data': {
+                //                     'Category': 'Hotels',
+                //                     'Action': 'HotelsSearch',
+                //                     'Label': '[no data]',
+                //                     'Content': '[no data]',
+                //                     'Context': '[no data]',
+                //                     'Text': '[no data]'
+                //                 }
+                //             };
+                //             console.table(dataLayerObj);
+                //             if (window.dataLayer) {
+                //                 window.dataLayer.push(dataLayerObj);
+                //             }
+                //         $location.path(searchUrl);
+                //     }, function (error) {
+                //         showError(error);
+                //     });
+
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Hotels',
+                        'Action': 'HotelsSearch',
+                        'Label': '[no data]',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+
+
+                $location.path(searchUrl);
             };
             
             function showError(error) {
