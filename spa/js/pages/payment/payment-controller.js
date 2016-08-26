@@ -361,7 +361,9 @@ innaAppControllers.controller('PaymentController',
                     return res;
                 }
                 
-                var ports = getIATACodes(data.AviaInfo);
+                if (data.AviaInfo){
+                    var ports = getIATACodes(data.AviaInfo);
+                }
                 // data.ProductType
                 // Avia = 1
                 // Динамический пакет = 2
