@@ -122,8 +122,6 @@
 
                 /*Watchers*/
                 $scope.$watch('date1', function (newValue, oldValue) {
-                    console.log('newDate1Value', newValue);
-                    console.log('oldDate1Value', oldValue);
                     if (newValue instanceof Error) {
                         $scope.date1 = oldValue;
                         if (partner) {
@@ -157,8 +155,6 @@
                 });
 
                 $scope.$watch('date2', function (newValue, oldValue) {
-                    console.log('newDate2Value', newValue);
-                    console.log('oldDate2Value', oldValue);
                     if (newValue instanceof Error) {
                         $scope.date2 = oldValue;
                         if (partner) {
@@ -311,12 +307,9 @@
                     format           : 'd.m.Y',
                     starts           : 1,
                     onShow           : function () {
-                        console.log('show  data Picker');
-
                         return true;
                     },
                     onHide           : function () {
-                        console.log('hide  data Picker');
                         return true;
                     },
                     onChange         : function (formated, dates, el, lastSel, initDateFromIsSet) {
