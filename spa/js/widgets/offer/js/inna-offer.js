@@ -85,8 +85,8 @@
      * @type {string}
      */
     
-    var host = 'http://localhost:3000';
-    var widget = document.querySelector(".b-inna-search-widget");
+    var host = location.origin;
+    var widget = document.querySelector(".widget-inna-offer");
     var sources = {
         'css'   : host + '/spa/js/widgets/offer/widget-offer.css',
         'jquery': host + '/spa/js/widgets/offer/jquery.min.js'
@@ -117,19 +117,14 @@
     $script(sources.jquery, 'jquery');
     
     function bootstrap() {
-        console.log('widget init');
         var dataLocation = $('.widget-inna-offer').attr('data-location');
-        console.log('widget init');
         var countryIdLocation = '';
         var countryIdTo = '';
         $.when(
             $.ajax('https://inna.ru/api/v1/Dictionary/GetCurrentLocation'),
             $.ajax('https://inna.ru/api/v1/Dictionary/Hotel?term=' + dataLocation)
         ).then(function (result1, result2) {
-            console.log('result1', result1);
-            console.log('result2', result2);
             countryIdLocation = result1[0].Id;
-            console.log('FROM', countryIdLocation);
             countryIdTo = result2[0][0].Id;
             return $.ajax({
                 type: 'GET',
@@ -137,7 +132,6 @@
             })
         }).then(function (result) {
             if(result.Offers.length) {
-                console.log('result', result);
                 var peopleCount = '';
                 if(result.Offers[0].Adults == 1) {
                     peopleCount = 'на одного';
@@ -194,14 +188,13 @@
                     '</div>' +
                     '</div>' +
                     '</div>';
-                console.log('TEMPL', templ);
                 $(".widget-inna-offer").append(templ);
             }
         });
-
+        var srcScript = host + '/spa/js/widgets/offer/inna-offer.js';
         $('#btn-generate-offer').click(function () {
                 var code = '<div class="widget-inna-offer" data-location="Франция"></div>' + '\n' +
-                    '<script charset="utf-8" src="/spa/js/widgets/offer/inna-offer.js"></script>';
+                    '<script charset="utf-8" src="' + srcScript + '"></script>';
                 $('#textarea-code-offer').text(code);
                 $('#head-offer').show();
                 $('#generate-code-offer').show();
