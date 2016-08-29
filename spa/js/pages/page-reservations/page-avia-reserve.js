@@ -49,7 +49,7 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                 'CityFrom': $scope.criteria.FromUrl,
                 'CityTo': $scope.criteria.ToUrl,
                 'DateFrom': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.BeginDate),
-                'DateTo': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.EndDate),
+                'DateTo': $scope.criteria.EndDate ? dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.EndDate) : null,
                 'Travelers': $scope.criteria.AdultCount + '-' + $scope.criteria.ChildCount + '-' + $scope.criteria.InfantsCount,
                 'TotalTravelers': parseInt($scope.criteria.AdultCount) +
                 parseInt($scope.criteria.ChildCount) +

@@ -76,15 +76,15 @@
 
                 $scope.$watch('adultCount', function (newValue, oldValue) {
                     if(newValue && oldValue) {
-                        console.log('new', newValue);
-                        console.log('old', oldValue);
+                        // console.log('new', newValue);
+                        // console.log('old', oldValue);
                     }
                 });
 
                 $scope.$watch('childCount', function (newValue, oldValue) {
                     if(newValue) {
-                        console.log('newChild', newValue);
-                        console.log('oldChild', oldValue);
+                        // console.log('newChild', newValue);
+                        // console.log('oldChild', oldValue);
                     }
                 });
             }],

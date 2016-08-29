@@ -1698,6 +1698,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                      * Трекаем события для GTM
                      * https://innatec.atlassian.net/browse/IN-7071
                      */
+                    console.log(pageType)
                     if (pageType == 'Avia') {
                         gtm.GtmTrack(
                             {
