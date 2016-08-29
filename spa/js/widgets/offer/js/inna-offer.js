@@ -85,7 +85,7 @@
      * @type {string}
      */
     
-    var host = location.origin;
+    var host = 'http://test.inna.ru';
     var widget = document.querySelector(".widget-inna-offer");
     var sources = {
         'css'   : host + '/spa/js/widgets/offer/widget-offer.css',
