@@ -318,7 +318,7 @@
     function insertCssAndAddParnterClass(partner) {
         var src = partner.src;
         //var src = '/svyaznoy/svyaznoy.base.css';
-        //var src = '/full_wl/full_wl.base.css';
+        //var src = '/full_wl/b2b-center.base.css';
         //var src = '/biletix/biletix.base.css';
 
         var link = d.createElement("link");
@@ -335,7 +335,7 @@
                 link.href = "/spa/css/partners" + src + '?' + uniqKey;
             }
             else {
-                link.href = "/spa/css/partners/full_wl/full_wl.base.css?" + uniqKey;
+                link.href = "/spa/css/partners/full_wl/b2b-center.base.css?" + uniqKey;
             }
         }
         else if (partner.realType == window.partners.WLType.lite) {
