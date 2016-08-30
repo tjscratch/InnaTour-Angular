@@ -276,8 +276,8 @@
                         'HotelName': HotelName ? HotelName : '[no data]'
                     },
                     {
-                        'CityFrom': results[0].data.CodeIata,
-                        'CityTo': results[1].data.CodeIata,
+                        'CityFrom': results[0].data.Location.City.Code,
+                        'CityTo': results[1].data.Location.City.Code,
                         'DateFrom': searchParams.StartVoyageDate,
                         'DateTo': searchParams.EndVoyageDate,
                         'Travelers': searchParams.Adult + '-' + ('Children' in searchParams ? searchParams.Children.split('_').length : '0'),

@@ -73,8 +73,8 @@ innaAppControllers.controller('PageDynamicPackage', [
                     'PageType': 'PackagesSearchLoading',
                 },
                 {
-                    'CityFrom': results[0].data.CodeIata,
-                    'CityTo': results[1].data.CodeIata,
+                    'CityFrom': results[0].data.Location.City.Code,
+                    'CityTo': results[1].data.Location.City.Code,
                     'DateFrom': searchParams.StartVoyageDate,
                     'DateTo': searchParams.EndVoyageDate,
                     'Travelers': searchParams.Adult + '-' + ('Children' in searchParams ? searchParams.Children.split('_').length : '0'),
@@ -652,7 +652,6 @@ innaAppControllers.controller('PageDynamicPackage', [
              * @returns {*}
              */
             getCombination: function (data) {
-                console.log('GET COMBINATION');
                 var RecommendedPair = data.RecommendedPair;
 
                 if (!data || !RecommendedPair) {
@@ -695,12 +694,9 @@ innaAppControllers.controller('PageDynamicPackage', [
                         that.balloonCloser();
                     },
                     callback: function (data) {
-                        //console.log('baloon send callback', data);
-
                         var params = JSON.parse(JSON.stringify(that.getIdCombination().params));
                         params.Email = data.email;
                         params.Phone = data.phone;
-                        console.log('sendEmptySearch, params', params);
 
                         PackagesService.sendEmptySearch(params)
                             .success(function (data) {
@@ -797,7 +793,6 @@ innaAppControllers.controller('PageDynamicPackage', [
 
             balloonSearch: function () {
                 var that = this;
-                //console.log('searching');
 
                 //if (window.partners) {
                 //    //if (window.partners.isFullWL()) {
@@ -883,7 +878,6 @@ innaAppControllers.controller('PageDynamicPackage', [
                 var trackKey = $location.url();
                 if (track.isTrackSuccessResultAllowed(track.dpKey, trackKey)) {
                     track.successResultsDp(track.dpKey);
-                    //console.log('analitics: dp success result');
                     track.denyTrackSuccessResult(track.dpKey, trackKey);
                 }
 

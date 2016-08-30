@@ -311,7 +311,6 @@ innaAppControllers.controller('PaymentController',
                 self.paySuccess = true;
                 gtmTrackSuccessPay(self.data, true);
                 $timeout(function () {
-                    console.log('aviaHelper.baloon.show');
                     aviaHelper.baloon.show('Спасибо за покупку!', 'В ближайшие 10 минут ожидайте на <b>' + self.data.Email + '</b> письмо с подтверждением выполнения заказа и документами (билеты/ваучеры)',
                         aviaHelper.baloonType.email,
                         function () {
@@ -344,8 +343,6 @@ innaAppControllers.controller('PaymentController',
         function gtmTrackLoadSuccess(data) {
             if (data.Filter) {
                 var Filter = JSON.parse(data.Filter);
-                console.log(data);
-                console.log(Filter)
                 if (Filter.ChildrenAges) {
                     var Travelers = Filter.Adult + "-" + Filter.ChildrenAges.length;
                 }
@@ -395,11 +392,11 @@ innaAppControllers.controller('PaymentController',
                                 'PageType': 'PackagesPayLoad'
                             },
                             {
-                                'CityFrom'      : data.GaCityFrom ? data.GaCityFrom : data.AviaInfo.CityFrom,
-                                'CityTo'        : data.GaCityTo ? data.GaCityTo : data.AviaInfo.CityTo,
+                                'CityFrom'      : data.LocationFrom.City.Code,
+                                'CityTo'        : data.LocationTo.City.Code,
                                 'DateFrom'      : moment(data.Hotel.CheckIn).format('YYYY-MM-DD'),
                                 'DateTo'        : moment(data.Hotel.CheckOut).format('YYYY-MM-DD'),
-                                'Travelers'     : data.AviaInfo.AdultCount + "-" + data.AviaInfo.ChildCount + "-" + data.AviaInfo.InfantCount,
+                                'Travelers'     : data.AviaInfo.AdultCount + "-" + (Math.ceil(data.AviaInfo.ChildCount) + Math.ceil(data.AviaInfo.InfantCount)),
                                 'TotalTravelers': data.Passengers.length,
                                 'Price'         : data.Price,
                                 'HotelName'     : data.Hotel.HotelName,

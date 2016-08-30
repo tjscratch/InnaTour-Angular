@@ -55,8 +55,8 @@ innaAppControllers
                         'PageType': 'PackagesDetailsLoading'
                     },
                     {
-                        'CityFrom': results[0].data.CodeIata,
-                        'CityTo': results[1].data.CodeIata,
+                        'CityFrom': results[0].data.Location.City.Code,
+                        'CityTo': results[1].data.Location.City.Code,
                         'DateFrom': routParam.StartVoyageDate,
                         'DateTo': routParam.EndVoyageDate,
                         'Travelers': routParam.Adult + '-' + ('Children' in routParam ? routParam.Children.split('_').length : '0'),
@@ -602,7 +602,6 @@ innaAppControllers
             
             
             $scope.goReservation = function (room) {
-                console.log("RESERVATION", room);
                 
                 var dataLayerObj = {
                     'event': 'UM.Event',
