@@ -92,7 +92,7 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                             'PageType': 'HotelsSearchLoading'
                         },
                         {
-                            'CityCode': res.data.GaCity ? res.data.GaCity : null,
+                            'CityCode': res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
                             'DateFrom': searchParams.StartVoyageDate,
                             'NightCount': searchParams.NightCount,
                             'Travelers': Travelers,

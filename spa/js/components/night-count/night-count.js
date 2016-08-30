@@ -9,8 +9,6 @@ innaAppDirectives.directive('nightCount', function ($templateCache) {
             $scope.isOpen = false;
 
             $scope.$watch('count', function (newValue, oldValue) {
-                console.log('oldValueCount', oldValue);
-                console.log('newValueCount', newValue);
                 if( newValue != oldValue ) {
                     var dataLayerObj = {
                         'event': 'UM.Event',

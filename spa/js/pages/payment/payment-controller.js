@@ -12,6 +12,7 @@ innaAppControllers.controller('PaymentController',
               AppRouteUrls,
               Payment,
               aviaHelper,
+              dataService,
               gtm) {
         
         var self = this;
@@ -348,6 +349,7 @@ innaAppControllers.controller('PaymentController',
                 }
                 var GaCityTo = Filter.ArrivalId;
                 
+                
                 //коды аэропортов
                 function getIATACodes(info) {
                     var res = {codeFrom: '', codeTo: ''};
@@ -358,7 +360,7 @@ innaAppControllers.controller('PaymentController',
                     return res;
                 }
                 
-                if (data.AviaInfo){
+                if (data.AviaInfo) {
                     var ports = getIATACodes(data.AviaInfo);
                 }
                 // data.ProductType
@@ -407,20 +409,28 @@ innaAppControllers.controller('PaymentController',
                     case 3:
                         break;
                     case 4:
-                        gtm.GtmTrack(
-                            {
-                                'PageType': 'HotelsPayLoad'
-                            },
-                            {
-                                'CityCode'      : data.GaCityTo ? data.GaCityTo : GaCityTo,
-                                'DateFrom'      : moment(data.Hotel.CheckIn).format('YYYY-MM-DD'),
-                                'NightCount'    : data.Hotel.NightCount,
-                                'Travelers'     : data.Travelers ? data.Travelers : Travelers,
-                                'TotalTravelers': data.Passengers.length,
-                                'Price'         : data.Price,
-                                'HotelName'     : data.Hotel.HotelName
-                            }
-                        );
+                        /**
+                         * Трекаем события для GTM
+                         * https://innatec.atlassian.net/browse/IN-7071
+                         */
+                        console.log(Filter);
+                        dataService.getLocationById(Filter.ArrivalId)
+                            .then(function (res) {
+                                gtm.GtmTrack(
+                                    {
+                                        'PageType': 'HotelsPayLoad'
+                                    },
+                                    {
+                                        'CityCode': res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
+                                        'DateFrom'      : moment(data.Hotel.CheckIn).format('YYYY-MM-DD'),
+                                        'NightCount'    : data.Hotel.NightCount,
+                                        'Travelers'     : Filter.Adult + "-" + Filter.ChildrenAges.length,
+                                        'TotalTravelers': data.Passengers.length,
+                                        'Price'         : data.Price,
+                                        'HotelName'     : data.Hotel.HotelName
+                                    }
+                                );
+                            });
                         break;
                     default:
                         break;

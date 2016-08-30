@@ -197,12 +197,11 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
          */
         dataService.getLocationById(buyParams.ArrivalId)
             .then(function (res) {
-                var CityCode = res.data.CountryName + "/" + res.data.Name;
                 var dataLayerObj = {
                     'event': 'UI.PageView',
                     'Data': {
                         'PageType': 'HotelsReservationCheck',
-                        'CityCode': CityCode,
+                        'CityCode': res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
                         'DateFrom': buyParams.StartVoyageDate,
                         'NightCount': buyParams.NightCount,
                         'Travelers': Travelers,
@@ -232,12 +231,11 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                      */
                     dataService.getLocationById(buyParams.ArrivalId)
                         .then(function (res) {
-                            var CityCode = res.data.CountryName + "/" + res.data.Name;
                             var dataLayerObj = {
                                 'event': 'UI.PageView',
                                 'Data': {
                                     'PageType': 'HotelsReservationLoad',
-                                    'CityCode': CityCode,
+                                    'CityCode': res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
                                     'DateFrom': buyParams.StartVoyageDate,
                                     'NightCount': buyParams.NightCount,
                                     'Travelers': Travelers,
@@ -321,12 +319,11 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
          */
         dataService.getLocationById(buyParams.ArrivalId)
             .then(function (res) {
-                var CityCode = res.data.CountryName + "/" + res.data.Name;
                 var dataLayerObj = {
                     'event': 'UI.PageView',
                     'Data': {
                         'PageType': 'HotelsBooking',
-                        'CityCode': CityCode,
+                        'CityCode': res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
                         'DateFrom': buyParams.StartVoyageDate,
                         'NightCount': buyParams.NightCount,
                         'Travelers': Travelers,
