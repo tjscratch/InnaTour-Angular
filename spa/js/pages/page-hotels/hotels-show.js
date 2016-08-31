@@ -175,11 +175,12 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
         }
         dataService.getLocationById($routeParams.ArrivalId)
             .then(function (res) {
+                var cityCode = res.data.Location.Location.NameEnglish + '/' + res.data.NameEn;
                 var dataLayerObj = {
                     'event': 'UI.PageView',
                     'Data': {
                         'PageType': 'HotelsDetailsLoading',
-                        'CityCode': res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
+                        'CityCode': cityCode ? cityCode : '[no data]',
                         'DateFrom': searchParams.StartVoyageDate,
                         'NightCount': searchParams.NightCount,
                         'Travelers': Travelers,
@@ -216,11 +217,12 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
                      */
                     dataService.getLocationById($routeParams.ArrivalId)
                         .then(function (res) {
+                            var cityCode = res.data.Location.Location.NameEnglish + '/' + res.data.NameEn;
                             var dataLayerObj = {
                                 'event': 'UI.PageView',
                                 'Data': {
                                     'PageType': 'HotelsDetailsLoad',
-                                    'CityCode': res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
+                                    'CityCode': cityCode ? cityCode : '[no data]',
                                     'DateFrom': searchParams.StartVoyageDate,
                                     'NightCount': searchParams.NightCount,
                                     'Travelers': Travelers,

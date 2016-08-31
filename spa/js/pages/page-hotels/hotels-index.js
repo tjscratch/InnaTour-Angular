@@ -87,12 +87,13 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
              */
             dataService.getLocationById($routeParams.ArrivalId)
                 .then(function (res) {
+                    var cityCode = res.data.Location.Location.NameEnglish + '/' + res.data.NameEn;
                     gtm.GtmTrack(
                         {
                             'PageType': 'HotelsSearchLoading'
                         },
                         {
-                            'CityCode': res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
+                            'CityCode': cityCode ? cityCode : '[no data]',
                             'DateFrom': searchParams.StartVoyageDate,
                             'NightCount': searchParams.NightCount,
                             'Travelers': Travelers,

@@ -197,11 +197,12 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
          */
         dataService.getLocationById(buyParams.ArrivalId)
             .then(function (res) {
+                var cityCode = res.data.Location.Location.NameEnglish + '/' + res.data.NameEn;
                 var dataLayerObj = {
                     'event': 'UI.PageView',
                     'Data': {
                         'PageType': 'HotelsReservationCheck',
-                        'CityCode': res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
+                        'CityCode': cityCode ? cityCode : '[no data]',
                         'DateFrom': buyParams.StartVoyageDate,
                         'NightCount': buyParams.NightCount,
                         'Travelers': Travelers,
@@ -231,11 +232,12 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                      */
                     dataService.getLocationById(buyParams.ArrivalId)
                         .then(function (res) {
+                            var cityCode = res.data.Location.Location.NameEnglish + '/' + res.data.NameEn;
                             var dataLayerObj = {
                                 'event': 'UI.PageView',
                                 'Data': {
                                     'PageType': 'HotelsReservationLoad',
-                                    'CityCode': res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
+                                    'CityCode': cityCode ? cityCode : '[no data]',
                                     'DateFrom': buyParams.StartVoyageDate,
                                     'NightCount': buyParams.NightCount,
                                     'Travelers': Travelers,
@@ -319,11 +321,12 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
          */
         dataService.getLocationById(buyParams.ArrivalId)
             .then(function (res) {
+                var cityCode = res.data.Location.Location.NameEnglish + '/' + res.data.NameEn;
                 var dataLayerObj = {
                     'event': 'UI.PageView',
                     'Data': {
                         'PageType': 'HotelsBooking',
-                        'CityCode': res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
+                        'CityCode': cityCode ? cityCode : '[no data]',
                         'DateFrom': buyParams.StartVoyageDate,
                         'NightCount': buyParams.NightCount,
                         'Travelers': Travelers,
