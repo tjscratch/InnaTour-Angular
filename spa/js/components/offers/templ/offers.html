@@ -16,12 +16,30 @@
                 <div class='offer-card-banner-item__mask'
                      ng-if='slide.NeedFilterBrightness'></div>
 
-                <div class='offer-text'>
+                <div class='offer-text' ng-if="typePage == 'Packages'">
                     <h1 class='offer-text__title'>
-                        {{pageTitle}}
+                        Поиск туров на регулярных рейсах
                     </h1>
                     <div class='offer-text__subtitle'>
-                        {{pageTitleSub}}
+                        АВИАБИЛЕТ + ОТЕЛЬ = ВМЕСТЕ выгоднее
+                    </div>
+                </div>
+
+                <div class='offer-text' ng-if="typePage == 'Hotels'">
+                    <h1 class='offer-text__title'>
+                        Поиск и бронирование отелей по всему миру
+                    </h1>
+                    <div class='offer-text__subtitle'>
+                        Самые выгодные предложения и огромный выбор
+                    </div>
+                </div>
+
+                <div class='offer-text' ng-if="typePage == 'Bus'">
+                    <h1 class='offer-text__title'>
+                        Автобусные туры
+                    </h1>
+                    <div class='offer-text__subtitle'>
+                        Поиск лучших предложений
                     </div>
                 </div>
 
@@ -30,7 +48,7 @@
                     <div class='home-page-slogan'>
                         <div class='home-page-slogan__item'>
                             <h2 class='home-page-slogan__title'>
-                                Выгода
+                                Выгода serf
                             </h2>
                             <div class='home-page-slogan__text'>
                                 Экономия до 30 % за счет
