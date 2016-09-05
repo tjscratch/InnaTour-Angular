@@ -131,21 +131,21 @@
                 <p ng-if='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.all'>
                     Вы можете оплатить этот заказ наличными в любом офисе Связного
                     <a href='https://www.svyaznoy.ru/address_shops/'
-                       target='_blank'>адреса офисов</a>
+                       target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>
                     или Евросети <a href='http://euroset.ru/shops/'
-                                    target='_blank'>адреса офисов</a>.
+                                    target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>.
                     <br/>Обратитесь к менеджеру и назовите номер заказа.
                 </p>
                 <p ng-if='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.svyaznoy'>
                     Вы можете оплатить этот заказ наличными в любом офисе Связного
                     <a href='https://www.svyaznoy.ru/address_shops/'
-                       target='_blank'>адреса офисов</a>.
+                       target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>.
                     <br/>Обратитесь к менеджеру и назовите номер заказа.
                 </p>
                 <p ng-if='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.euroset'>
                     Вы можете оплатить этот заказ наличными в любом офисе Евросети
                     <a href='http://euroset.ru/shops/'
-                       target='_blank'>адреса офисов</a>.
+                       target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>.
                     <br/>Обратитесь к менеджеру и назовите номер заказа.
                 </p>
 
@@ -155,7 +155,7 @@
                 </p>
 
                 <a href='/services/paymnet/?order={{payment.SvyaznoyOrderNum}}&viewType={{payment.SvyaznoyblockViewType}}&time={{payment.SvyaznoyExperationDate}}'
-                   target='_blank'>
+                   target='_blank' ng-click="gtmPrint()">
                     <div class='b-print-btn icon-sprite-btn-print'>
                     </div>
                 </a>

@@ -1,4 +1,4 @@
-innaAppDirectives.directive('productInfo', function ($templateCache) {
+innaAppDirectives.directive('productInfo', function ($templateCache, gtm) {
     return {
         replace: true,
         scope: {
@@ -6,7 +6,46 @@ innaAppDirectives.directive('productInfo', function ($templateCache) {
             productType: '='
         },
         controller: function ($scope, aviaHelper, paymentService) {
-    
+            $scope.gtmRules = function ($event, type) {
+                console.log('PRODUCT TYPE', $scope.productType);
+                var label = '';
+                switch (type) {
+                    case 'avia':
+                        label = 'ConditionAvia';
+                        break;
+                    case 'hotel':
+                        label = 'ConditionHotels';
+                        break;
+                    case 'insurance':
+                        label = 'ConditionMedical';
+                        break;
+                    default:
+                        break;
+                }
+                var category = '';
+                switch ($scope.productType) {
+                    case 1:
+                        category = 'Avia';
+                        break;
+                    case 2:
+                        category = 'Packages';
+                        break;
+                    case 4:
+                        category = 'Hotels';
+                        break;
+                    default:
+                        category = '[no data]'
+                        break;
+                }
+                gtm.GtmTrackEvent({
+                    'Category': category,
+                    'Action': label,
+                    'Label': $event.target.textContent,
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                });
+            };
             /**
              * ToDo
              * старый говнокод, отрефакторить
