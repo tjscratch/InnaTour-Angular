@@ -51,7 +51,6 @@ angular.module('innaApp.components').
                      * searchParams -  добавляется в каждую карточку отеля в компоненте list-panel:parse
                      */
                     computedUrlDetails: function () {
-                        console.log('OOOOOOOOO');
                         var searchParams = this.get('searchParams');
 
                         var DepartureId = searchParams.DepartureId;
@@ -87,7 +86,6 @@ angular.module('innaApp.components').
                         return urlDetails;
                     },
                     detailsHotelsInList: function() {
-                        console.log('askjdhasldjasd');
                     }
                 },
                 partials: {
