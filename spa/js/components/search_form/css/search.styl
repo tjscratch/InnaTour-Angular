@@ -4,14 +4,17 @@
 .b-search-form
   font-size 0
   line-height 0
-  padding 7px
-  background-color: $header-nav__item-link-active-bg;
+  padding 7px 0px
+  //background-color: $header-nav__item-link-active-bg;
   color #242424
   position relative
+  .search-field-block:first-child > .search-field {
+      border-radius 3px 0px 0px 3px
+  }
 
 .i-close
   position: absolute
-  top: 11px
+  top: 13px
   right 7px
   color #787777
   &:hover {
@@ -24,7 +27,7 @@
 .search-button-block
 .search-people-block
 .search-button-block_small
-  margin 0 2px 0 0
+  //margin 0 2px 0 0
   font-size 14px
   line-height normal
   letter-spacing normal
@@ -32,9 +35,12 @@
   vertical-align top
   position relative
 
+.b-wrapp_type_inline:first-child
+  margin-left 0px
 .b-wrapp_type_inline
   position relative
   float left
+  margin-left 1px
 
 .search-field-block
   width 170px
@@ -46,7 +52,7 @@
   border 0
   font 14px $ProximaNova
   box-sizing border-box
-  height 36px
+  height 40px
   color #000
   -webkit-appearance none;
   border-radius 0
@@ -99,12 +105,12 @@
   &__date {
     background : #fff;
     padding-left: 10px;
-    height: 36px;
-    line-height : 36px;
+    //height: 36px;
+    line-height : 38px;
     position:absolute;
-    top:0;
-    left:0;
-    bottom:0;
+    top: 1px;
+    left: 1px;
+    bottom: 1px;
     right:0;
 
     &_display_placeholder {
@@ -143,11 +149,11 @@
 .search-form__submit {
   border 0
   position absolute
-  top: 7px;
-  right: 7px;
+  //top: 7px;
+  //right: 7px;
   overflow hidden
-  height 36px
-  width 90px !important
+  height 40px
+  width 112px !important
   margin 0
   padding 7px 10px
   transition background-color 0.3s linear
@@ -157,6 +163,7 @@
   color: #fff;
   box-sizing: border-box;
   text-align: center;
+  border-radius: 0px 3px 3px 0px;
 
   .search-button__icon {
     position: absolute;
@@ -189,8 +196,9 @@
 
 .search-people-block{
   width 97px !important
-  height 36px
+  height 40px
   z-index 2
+  margin-left 1px
   
   &.search-people-choose{
     width 119px !important
@@ -202,7 +210,8 @@
 }
 .search-people
   background #fff
-  height 36px
+  height 40px
+  line-height 40px
   padding 0 10px
   font 14px / 36px $ProximaNova
   cursor pointer
