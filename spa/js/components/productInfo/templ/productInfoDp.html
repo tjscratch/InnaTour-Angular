@@ -187,12 +187,12 @@
         Внимание! К компонентам пакета применяются разные условия отмены бронирования.
         <br/>
         Пожалуйста, ознакомьтесь с
-        <a href="" ng-click="tarifs.show($event)">правилами применения тарифа авиабилета</a>
+        <a href="" ng-click="tarifs.show($event);gtmRules($event, 'avia');">правилами применения тарифа авиабилета</a>
         и
-        <a href="" ng-click="hotelRules.show($event)">условиями бронирования отеля</a><span ng-if="productData.AviaInfo.IsTripToRussia">.</span>
+        <a href="" ng-click="hotelRules.show($event);gtmRules($event, 'hotel');">условиями бронирования отеля</a><span ng-if="productData.AviaInfo.IsTripToRussia">.</span>
         <span ng-if="!productData.AviaInfo.IsTripToRussia">
 		и
-            <a href="" ng-click="insuranceRules.show($event)">правилами медицинского страхования.</a>
+            <a href="" ng-click="insuranceRules.show($event);gtmRules($event, 'insurance');">правилами медицинского страхования.</a>
 		</span>
     </p>
 

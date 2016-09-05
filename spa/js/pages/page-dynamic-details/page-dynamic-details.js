@@ -602,14 +602,21 @@ innaAppControllers
             
             
             $scope.goReservation = function (room) {
-                
+                var content = '';
+                if(room.IsRefundable && !room.IsReturnsWithFine) {
+                    content = 'Отмена бронирования без штрафа';
+                } else if(room.IsRefundable && room.IsReturnsWithFine) {
+                    content = 'Отмена бронирования со штрафом';
+                } else if(!room.IsRefundable && !room.IsReturnsWithFine) {
+                    content = 'Без возможности возврата';
+                }
                 var dataLayerObj = {
                     'event': 'UM.Event',
                     'Data': {
                         'Category': 'Packages',
                         'Action': 'PackagesBuyDetails',
                         'Label': room.RoomName,
-                        'Content': room.CancellationRule,
+                        'Content': room.IsReturnsWithFine ? 'Отмена бронирования со штрафом' : '[no data]',
                         'Context': room.PackagePrice,
                         'Text': '[no data]'
                     }
@@ -722,13 +729,21 @@ innaAppControllers
                 //converts undefined into boolean on the fly
                 
                 if (!room.isOpen) {
+                    var content = '';
+                    if(room.IsRefundable && !room.IsReturnsWithFine) {
+                        content = 'Отмена бронирования без штрафа';
+                    } else if(room.IsRefundable && room.IsReturnsWithFine) {
+                        content = 'Отмена бронирования со штрафом';
+                    } else if(!room.IsRefundable && !room.IsReturnsWithFine) {
+                        content = 'Без возможности возврата';
+                    }
                     var dataLayerObj = {
                         'event': 'UM.Event',
                         'Data': {
                             'Category': 'Packages',
                             'Action': 'RoomDetails',
                             'Label': room.RoomName,
-                            'Content': room.CancellationRule,
+                            'Content': content ? content : '[no data]',
                             'Context': room.PackagePrice,
                             'Text': '[no data]'
                         }
