@@ -2,7 +2,8 @@
 
 //b-filter-panel
 .filters__body{
-    min-height 41px
+    //min-height 41px
+    height 40px
     position relative;
     
     &.filters__body_dp{
@@ -88,10 +89,15 @@
     .filters__container{
         clearfix()
         //background: #fff;
-        background-color #f9c623
-        min-height: 41px;
-        box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
-        
+        //background-color #f9c623
+        background-color #ffffff
+        //min-height: 41px;
+        height 40px
+        //box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+        border-top 1px solid #DDE3E9
+        border-bottom 1px solid #DDE3E9
+        box-sizing border-box
+
         > li
         li.filter{
             float left
@@ -123,8 +129,10 @@
     .filters__link{
         transition all .3s
         display block
-        padding 14px 30px 13px 8px
-        color #000000
+        //padding 14px 30px 13px 8px
+        padding 11px 30px 12px 8px
+        //color #000000
+        color #0054B9
         font-size 14px
         line-height 1
         position relative
@@ -135,7 +143,8 @@
             display block
             position absolute
             right 17px
-            top 19px
+            //top 19px
+            top 17px
             width 12px
             height 12px
             background url("/spa/img/i.png") no-repeat right -195px

@@ -1,127 +1,4 @@
 <div class="b-result b-result_col_three row b-result-content b-recommended_big">
-    <div class="b-result__cell b-result__cell_ticket"
-         ng-click="bundleTicketDetails($event, recommendedPair.ticket)"
-         ng-style="{cursor: (stateTicket|defined) && !stateTicket ? 'pointer' : 'default'}">
-
-        <div ng-if="!isClosed && recommendedPairStatus == 5"
-             tooltip-directive-base
-             tooltip-klass="nocorner:fixed"
-             close="true"
-             position="top_right"
-             is-visible="isVisible"
-             width="300"
-             templ="popover.hbs.html">
-
-            <div class="b-tooltip__header">
-                <h3>Перелет был изменен</h3>
-            </div>
-
-            <div class="b-tooltip__body">
-                <span class="b-tooltip__body__text">
-                    К сожалению, выбранный вариант перелета уже
-                недоступен, в пакет будет включен рекомендованный перелет.
-                </span>
-            </div>
-        </div>
-
-
-        <div class="spinner spinner-ticket">
-            <div class="rect rect1"></div>
-            <div class="rect rect2"></div>
-            <div class="rect rect3"></div>
-            <div class="rect rect4"></div>
-            <div class="rect rect5"></div>
-        </div>
-
-
-        <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
-        <ng:any partials-collection
-                partial-name="logoAvia"
-                class="recommendedPairTicket recommendedPairTicketLogo"
-                ticket-model="recommendedPair.ticket"/>
-
-        <span class="icon-sprite-airplane"></span>
-
-        <div class="flight-info">
-            <span class="date">
-                <ng:any partials-collection
-                        partial-name="weekDateTimeCode"
-                        direction="OutCode"
-                        date="recommendedPair.ticket.data.DepartureDate"
-                        avia-info="recommendedPair.ticket.data"/>
-            </span>
-
-            <ng:any partials-collection
-                    partial-name="flightTimeArrow"
-                    direction="To"
-                    avia-info="recommendedPair.ticket.data"/>
-
-            <span class="date">
-                <ng:any partials-collection
-                        partial-name="weekDateTimeCode"
-                        direction="InCode"
-                        date="recommendedPair.ticket.data.ArrivalDate"
-                        avia-info="recommendedPair.ticket.data"/>
-            </span>
-        </div>
-
-        <div class="flight-info">
-
-            <span class="date">
-                <ng:any partials-collection
-                        partial-name="weekDateTimeCode"
-                        direction="OutCodeBack"
-                        date="recommendedPair.ticket.data.BackDepartureDate"
-                        avia-info="recommendedPair.ticket.data"/>
-            </span>
-
-            <ng:any partials-collection
-                    partial-name="flightTimeArrow"
-                    direction="Back"
-                    avia-info="recommendedPair.ticket.data"/>
-
-            <span class="date">
-                <ng:any partials-collection
-                        partial-name="weekDateTimeCode"
-                        direction="InCodeBack"
-                        date="recommendedPair.ticket.data.BackArrivalDate"
-                        avia-info="recommendedPair.ticket.data"/>
-            </span>
-
-        </div>
-
-        <div class="bottom-actions">
-            <a href="javascript:void(0);"
-               class="button button-middle button-orange button-replace"
-               ng-if="!stateTicket && !ticketCount"
-               ng-click="toggleTab('ticket', $event)">
-                Еще варианты перелета
-            </a>
-            <a href="javascript:void(0);"
-               class="button button-middle button-orange button-replace"
-               ng-if="!stateTicket && ticketCount"
-               ng-click="toggleTab('ticket', $event)">
-                Еще
-                {{ticketCount}}
-                {{ticketCount | pluralize: [
-                "вариант перелета",
-                "варианта перелета",
-                "вариантов перелета"
-                ]}}
-            </a>
-            <a href="javascript:void(0);"
-               style="right: 0;bottom: -10px"
-               class="bottom-actions__button bottom-actions__button_action_details"
-            <!--ng-if="stateTicket"-->
-            >Подробнее</a>
-        </div>
-
-        <!-- separator -->
-        <div class="b-result-cell__gap">
-            <div class="b-result-cell__gap_wrap"></div>
-        </div>
-    </div>
-
     <div class="b-result__cell b-result__cell_even"
          ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}">
 
@@ -163,13 +40,13 @@
             <div class="hotel-info__wrapper">
                 <!--{{bundle | console}}-->
 
-                <div class="hotel-info__photo"
-                     style="background-image: url({{recommendedPair.hotel.data.HotelPhoto180}})"
-                     ng-if="recommendedPair.hotel.data.HotelPhoto180"
-                ></div>
-                <div class="hotel-info__photo" style="background-image: url('/spa/img/hotels/no_photo70x70.png')"
-                     ng-if="!recommendedPair.hotel.data.HotelPhoto180"
-                ></div>
+                <!--<div class="hotel-info__photo"-->
+                     <!--style="background-image: url({{recommendedPair.hotel.data.HotelPhoto180}})"-->
+                     <!--ng-if="recommendedPair.hotel.data.HotelPhoto180"-->
+                <!--&gt;</div>-->
+                <!--<div class="hotel-info__photo" style="background-image: url('/spa/img/hotels/no_photo70x70.png')"-->
+                     <!--ng-if="!recommendedPair.hotel.data.HotelPhoto180"-->
+                <!--&gt;</div>-->
 
                 <!--<img class="hotel-info__photo" ng-src="{{recommendedPair.hotel.data.HotelPhoto180}}" ng-if="recommendedPair.hotel.data.HotelPhoto180" alt="">-->
                 <!--<img class="hotel-info__photo" src="/spa/img/hotels/no_photo70x70.png" ng-if="!recommendedPair.hotel.data.HotelPhoto180" alt="">-->
@@ -190,12 +67,12 @@
                         </a>
                     </h3>
 
-                    <div class="hotel-go-to-map">
-                        <span class="hotel-info-name-link"
-                              ng-click="recommendedHotelToMap()"
-                        >(на карте)</span>
-                        <!--EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));-->
-                    </div>
+                    <!--<div class="hotel-go-to-map">-->
+                        <!--<span class="hotel-info-name-link"-->
+                              <!--ng-click="recommendedHotelToMap()"-->
+                        <!--&gt;(на карте)</span>-->
+                        <!--&lt;!&ndash;EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));&ndash;&gt;-->
+                    <!--</div>-->
 
                     <div class="hotel-info-date">
                         <ng:any partials-collection
@@ -204,10 +81,10 @@
                     </div>
 
                     <!-- tripadvisor -->
-                    <div class="hotel-info__tripadvisor"
-                         ng-if="!stateHotel">
-                        <div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>
-                    </div>
+                    <!--<div class="hotel-info__tripadvisor"-->
+                         <!--ng-if="!stateHotel">-->
+                        <!--<div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>-->
+                    <!--</div>-->
 
                 </div>
             </div>
@@ -225,46 +102,184 @@
         </a>
 
         <div class="bottom-actions">
-            <a href="javascript:void(0);"
-               class="button button-middle button-orange button-replace"
-               ng-if="!(stateHotel && !asMap) && !hotelCount"
-               ng-click="toggleTab('hotel', $event)"
-            >
-                Еще варианты отелей {{asMap}}
-            </a>
-            <a href="javascript:void(0);"
-               class="button button-middle button-orange button-replace"
-               ng-if="!stateHotel && !asMap && hotelCount"
-               ng-click="toggleTab('hotel', $event)"
-            >
-                Еще
-                {{hotelCount}}
-                {{hotelCount | pluralize: [
-                "вариант отеля",
-                "варианта отелей",
-                "вариантов отелей"
-                ]}}
-            </a>
-            <a class="bottom-actions__button bottom-actions__button_action_details"
-               href="{{computedUrlDetails()}}"
-               link-in-new-window-if-can
-               ng-click="bundleHotelDetails()"
-               ng-if="stateHotel"
-               target="_blank"
-               style="top: -22px;right: 0; z-index: 20"
-            >Подробнее</a>
+            <!--<a href="javascript:void(0);"-->
+               <!--class="button button-middle button-orange button-replace"-->
+               <!--ng-if="!(stateHotel && !asMap) && !hotelCount"-->
+               <!--ng-click="toggleTab('hotel', $event)"-->
+            <!--&gt;-->
+                <!--Еще варианты отелей {{asMap}}-->
+            <!--</a>-->
+            <!--<a href="javascript:void(0);"-->
+               <!--class="button button-middle button-orange button-replace"-->
+               <!--ng-if="!stateHotel && !asMap && hotelCount"-->
+               <!--ng-click="toggleTab('hotel', $event)"-->
+            <!--&gt;-->
+                <!--Еще-->
+                <!--{{hotelCount}}-->
+                <!--{{hotelCount | pluralize: [-->
+                <!--"вариант отеля",-->
+                <!--"варианта отелей",-->
+                <!--"вариантов отелей"-->
+                <!--]}}-->
+            <!--</a>-->
+            <!--<a class="bottom-actions__button bottom-actions__button_action_details"-->
+               <!--href="{{computedUrlDetails()}}"-->
+               <!--link-in-new-window-if-can-->
+               <!--ng-click="bundleHotelDetails()"-->
+               <!--ng-if="stateHotel"-->
+               <!--target="_blank"-->
+               <!--style="top: -22px;right: 0; z-index: 20"-->
+            <!--&gt;Подробнее</a>-->
             <!-- tripadvisor -->
-            <div class="hotel-info__tripadvisor"
-                 ng-if="stateHotel">
+            <div class="hotel-info__tripadvisor">
                 <div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>
+            </div>
+            <div class="hotel-go-to-map">
+                        <span class="hotel-info-name-link"
+                              ng-click="recommendedHotelToMap()"
+                        >(на карте)</span>
+                <!--EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));-->
             </div>
         </div>
 
 
         <!-- separator -->
-        <div class="b-result-cell__gap">
-            <div class="b-result-cell__gap_wrap"></div>
+        <!--<div class="b-result-cell__gap">-->
+            <!--<div class="b-result-cell__gap_wrap"></div>-->
+        <!--</div>-->
+    </div>
+
+    <div class="b-result__cell b-result__cell_ticket"
+         ng-click="bundleTicketDetails($event, recommendedPair.ticket)"
+         ng-style="{cursor: (stateTicket|defined) && !stateTicket ? 'pointer' : 'default'}">
+
+        <div ng-if="!isClosed && recommendedPairStatus == 5"
+             tooltip-directive-base
+             tooltip-klass="nocorner:fixed"
+             close="true"
+             position="top_right"
+             is-visible="isVisible"
+             width="300"
+             templ="popover.hbs.html">
+
+            <div class="b-tooltip__header">
+                <h3>Перелет был изменен</h3>
+            </div>
+
+            <div class="b-tooltip__body">
+                <span class="b-tooltip__body__text">
+                    К сожалению, выбранный вариант перелета уже
+                недоступен, в пакет будет включен рекомендованный перелет.
+                </span>
+            </div>
         </div>
+
+
+        <div class="spinner spinner-ticket">
+            <div class="rect rect1"></div>
+            <div class="rect rect2"></div>
+            <div class="rect rect3"></div>
+            <div class="rect rect4"></div>
+            <div class="rect rect5"></div>
+        </div>
+
+
+        <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
+
+
+        <span class="icon-sprite-airplane"></span>
+
+        <div class="flight-info">
+            <ng:any partials-collection
+                    partial-name="logoAvia"
+                    class="recommendedPairTicket recommendedPairTicketLogo"
+                    ticket-model="recommendedPair.ticket"
+                    to-or-back="To"/>
+            <span class="date">
+                <ng:any partials-collection
+                        partial-name="weekDateTimeCode"
+                        direction="OutCode"
+                        date="recommendedPair.ticket.data.DepartureDate"
+                        avia-info="recommendedPair.ticket.data"/>
+                {{recommendedPair.ticket.data.EtapsTo[0].data.OutPort}}
+            </span>
+
+            <ng:any partials-collection
+                    partial-name="flightTimeArrow"
+                    direction="To"
+                    avia-info="recommendedPair.ticket.data"/>
+
+            <span class="date">
+                <ng:any partials-collection
+                        partial-name="weekDateTimeCode"
+                        direction="InCode"
+                        date="recommendedPair.ticket.data.ArrivalDate"
+                        avia-info="recommendedPair.ticket.data"/>
+                {{recommendedPair.ticket.data.EtapsTo[recommendedPair.ticket.data.EtapsTo.length - 1].data.InPort}}
+            </span>
+        </div>
+
+        <div class="flight-info">
+            <ng:any partials-collection
+                    partial-name="logoAvia"
+                    class="recommendedPairTicket recommendedPairTicketLogo"
+                    ticket-model="recommendedPair.ticket"
+                    to-or-back="Back"/>
+            <span class="date">
+                <ng:any partials-collection
+                        partial-name="weekDateTimeCode"
+                        direction="OutCodeBack"
+                        date="recommendedPair.ticket.data.BackDepartureDate"
+                        avia-info="recommendedPair.ticket.data"/>
+                {{recommendedPair.ticket.data.EtapsBack[0].data.OutPort}}
+            </span>
+
+            <ng:any partials-collection
+                    partial-name="flightTimeArrow"
+                    direction="Back"
+                    avia-info="recommendedPair.ticket.data"/>
+
+            <span class="date">
+                <ng:any partials-collection
+                        partial-name="weekDateTimeCode"
+                        direction="InCodeBack"
+                        date="recommendedPair.ticket.data.BackArrivalDate"
+                        avia-info="recommendedPair.ticket.data"/>
+                {{recommendedPair.ticket.data.EtapsBack[recommendedPair.ticket.data.EtapsBack.length - 1].data.InPort}}
+            </span>
+
+        </div>
+
+        <div class="bottom-actions">
+            <!--<a href="javascript:void(0);"-->
+               <!--class="button button-middle button-orange button-replace"-->
+               <!--ng-if="!stateTicket && !ticketCount"-->
+               <!--ng-click="toggleTab('ticket', $event)">-->
+                <!--Еще варианты перелета-->
+            <!--</a>-->
+            <!--<a href="javascript:void(0);"-->
+               <!--class="button button-middle button-orange button-replace"-->
+               <!--ng-if="!stateTicket && ticketCount"-->
+               <!--ng-click="toggleTab('ticket', $event)">-->
+                <!--Еще-->
+                <!--{{ticketCount}}-->
+                <!--{{ticketCount | pluralize: [-->
+                <!--"вариант перелета",-->
+                <!--"варианта перелета",-->
+                <!--"вариантов перелета"-->
+                <!--]}}-->
+            <!--</a>-->
+            <!--<a href="javascript:void(0);"-->
+               <!--style="right: 0;bottom: -10px"-->
+               <!--class="bottom-actions__button bottom-actions__button_action_details"-->
+            <!--&lt;!&ndash;ng-if="stateTicket"&ndash;&gt;-->
+            <!--&gt;Подробнее</a>-->
+        </div>
+
+        <!-- separator -->
+        <!--<div class="b-result-cell__gap">-->
+            <!--<div class="b-result-cell__gap_wrap"></div>-->
+        <!--</div>-->
     </div>
 
     <div class="b-result__cell result-buy">
@@ -296,15 +311,6 @@
                 </div>
 
                 <div class="b-price-block" ng-class="{'b-price-block__margin-top':(recommendedPair.getProfit() < 1000)}">
-                    <div class="b-price__desc">
-                        Стоимость пакета <br/>
-                        за {{recommendedPair.ticket.data.PassengerCount}}
-                        {{recommendedPair.ticket.data.PassengerCount | pluralize: [
-                        "человека",
-                        "человек",
-                        "человек"
-                        ]}}
-                    </div>
                     <div class="b-price__value">
                         {{recommendedPair.getFullPackagePrice() | price}}
                         <i class="fa fa-rub b-price__rub"></i>
@@ -313,7 +319,15 @@
                                 price-object="recommendedPair.hotel.data.PriceObject"
                                 tooltip-klass="bundle"></ng:any>
                     </div>
-
+                    <div class="b-price__desc">
+                        Стоимость пакета
+                        за {{recommendedPair.ticket.data.PassengerCount}}x
+                        <!--{{recommendedPair.ticket.data.PassengerCount | pluralize: [-->
+                        <!--"человека",-->
+                        <!--"человек",-->
+                        <!--"человек"-->
+                        <!--]}}-->
+                    </div>
                     <div class="b-price__desc b-price__desc--economy"
                          ng-if="recommendedPair.getProfit() > 1000">
                         экономия: {{recommendedPair.getProfit() | price}}
@@ -362,5 +376,35 @@
             Купить
         </a>
 
+    </div>
+</div>
+<!--<a href="javascript:void(0);"-->
+   <!--class="button button-middle button-orange button-replace"-->
+   <!--ng-if="!stateTicket && !ticketCount"-->
+   <!--ng-click="toggleTab('ticket', $event)">-->
+    <!--Еще варианты перелета-->
+<!--</a>-->
+<!--<a href="javascript:void(0);"-->
+   <!--class="button button-middle button-orange button-replace"-->
+   <!--ng-if="!stateTicket && ticketCount"-->
+   <!--ng-click="toggleTab('ticket', $event)">-->
+    <!--Еще-->
+    <!--{{ticketCount}}-->
+    <!--{{ticketCount | pluralize: [-->
+    <!--"вариант перелета",-->
+    <!--"варианта перелета",-->
+    <!--"вариантов перелета"-->
+    <!--]}}-->
+<!--</a>-->
+<div class="panel-tabs-dp">
+    <div class="panel-tabs-dp__tab panel-tabs-dp__tab_hotel"
+         ng-click="toggleTab('hotel', $event)"
+         ng-class="{'panel-tabs-dp__tab_item':(!stateTicket && ticketCount)}">
+        Выбрать отель
+    </div>
+    <div class="panel-tabs-dp__tab panel-tabs-dp__tab_avia"
+         ng-click="toggleTab('ticket', $event)"
+         ng-class="{'panel-tabs-dp__tab_item':(!stateHotel && !asMap && hotelCount)}">
+        Выбрать перелет
     </div>
 </div>

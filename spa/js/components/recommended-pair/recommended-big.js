@@ -40,7 +40,7 @@ angular.module('innaApp.directives')
 
                             //console.profile('Draw');
                             var searchParams = angular.copy($routeParams);
-
+                            console.log("RP", $scope.recommendedPair);
                             /**
                              * Строим URL для страницы подробнее об отеле
                              * :DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children-:HotelId-:TicketId-:ProviderId?

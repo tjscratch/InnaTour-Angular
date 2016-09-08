@@ -1,15 +1,15 @@
-<div class="recommend-bundle-container"
-     ng-class="{'recommend-bundle-container_short':!isVisible}">
+<div class="recommend-bundle-container">
+	<!--ng-class="{'recommend-bundle-container_short':!isVisible}"-->
 	<ng-include src="'components/wl-new-search/templ/index.hbs.html'"></ng-include>
 	<div class="recommend-bundle">
 
-		<div class="recommend-bundle-background"></div>
+		<!--<div class="recommend-bundle-background"></div>-->
 
 		<div class="scroll-fix ">
-			<div class="main__center recommend-bundle-wrap"
-			     ng-class="{'recommend-bundle-wrap_small': !isVisible}">
+			<div class="main__center recommend-bundle-wrap">
+				<!--ng-class="{'recommend-bundle-wrap_small': !isVisible}"-->
 
-				<h3 class="recommend-bundle-title" ng-if="isVisible && isChooseHotel">
+				<h3 class="recommend-bundle-title" ng-if="isChooseHotel">
 					Выбранный вариант
 
 					<div ng-if="!isClosed && recommendedPairStatus == 6"
@@ -35,21 +35,20 @@
 					</div>
 				</h3>
 
-				<h3 class="recommend-bundle-title" ng-if="isVisible && !isChooseHotel">
+				<h3 class="recommend-bundle-title" ng-if="!isChooseHotel">
 					<span ng-if="!defaultRecommendedPair.Cheapest">Рекомендуем</span>
-					<span ng-if="defaultRecommendedPair.Cheapest">Минимальная цена</span>
+					<span ng-if="defaultRecommendedPair.Cheapest">Базовый вариант по минимальной цене</span>
 				</h3>
 
-				<div class="expand-collapse-link w-expand-collapse-link_up w-expand-collapse-link" ng-if="isVisible">
-                    <i class="fa fa-caret-up"></i>
-                    <a href="javascript:void(0);" ng-click="display.toggle()">
-                        Свернуть
-                    </a>
-				</div>
+				<!--<div class="expand-collapse-link w-expand-collapse-link_up w-expand-collapse-link" ng-if="isVisible">-->
+                    <!--<i class="fa fa-caret-up"></i>-->
+                    <!--<a href="javascript:void(0);" ng-click="display.toggle()">-->
+                        <!--Свернуть-->
+                    <!--</a>-->
+				<!--</div>-->
 
 				<div recommended-pair-component-big
 				     class="recommended-pair"
-				     ng-show="isVisible"
 				     recommended-pair="recommendedPair"
 				     recommended-pair-status="recommendedPairStatus"
 				     is-closed="isClosed"
@@ -61,8 +60,7 @@
 				     as-map="asMap"
 				     inna-dynamic-bundle-with-reservation-button="true"></div>
 
-				<div recommended-pair-component-mini ng-if="!isVisible"></div>
-
+				<!--<div recommended-pair-component-mini ng-if="!isVisible"></div>-->
 
 			</div>
 		</div>

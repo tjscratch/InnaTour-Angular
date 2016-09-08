@@ -1,13 +1,16 @@
 .b-result{
     display: block;
-    //margin-bottom: 10px;
-    padding-bottom: 10px;
+    margin-bottom: 10px;
+    //padding-bottom: 10px;
     position: relative;
     text-align: left !important;
     right: 0 !important;
     //line-height: 0;
     background: none !important;
     box-shadow: none !important;
+    border: 1px solid #DDE3E9;
+    border-radius: 3px;
+    overflow: hidden;
 
     &:hover{
         .b-result__cell{
@@ -35,7 +38,7 @@
 
     &.b-result_middle{
         .b-result__cell{
-            height: 190px;
+            height: 136px;
         }
     }
 
@@ -79,7 +82,7 @@
         &.b-result_col_two_short{
             .b-result__cell{
                 &:nth-child(1){
-                    width: 72%;
+                    width: 74%;
                 }
                 &:nth-child(2){
                     width: 26%;
@@ -92,8 +95,9 @@
         &.b-result_col_3{
             .b-result__cell{
 
-                width: 39.5%;
-                calc('width', s("40% - %s", $separatorBlock/ 2), "100%");
+                width: 40%;
+                calc('width', s("40%", $separatorBlock/ 2), "100%");
+                border-right: 1px solid #C9D2DB;
 
                 /*&:nth-child(even){*/
                 /*width:38%;*/
@@ -102,13 +106,14 @@
 
                 &:last-child{
                     width: 20%;
-                    calc('width', s("20% - %s", $separatorBlock/ 2), "100%");
+                    calc('width', s("20%", $separatorBlock/ 2), "100%");
+                    border: none;
                 }
             }
 
             .b-result__cell_even{
                 width: 38%;
-                calc('width', s("40% - %s", $separatorBlock), "100%");
+                calc('width', s("40%", $separatorBlock), "100%");
             }
         }
 
@@ -124,18 +129,19 @@
 
             &:nth-child(even){
                 width: 45%;
-                calc('width', s("47% - %s", $separatorBlock), "100%");
+                //calc('width', s("47% - %s", $separatorBlock), "100%");
+                calc('width', s("47%", $separatorBlock), "100%");
             }
         }
     }
 
     .button{
-        font-size: 18px;
+        font-size: 16px;
         text-align: center;
         position: absolute;
         bottom: 10px;
-        left: 5px;
-        right: 10px;
+        left: 15px;
+        right: 15px;
     }
 }
 .b-result_flight-info{
@@ -146,10 +152,11 @@
 .b-result__cell{
     box-sizing: border-box;
     float: left;
-    height: 200px;
+    //height: 200px;
+    height: 144px;
     background: #fff;
     line-height: normal;
-    margin-right: 10px;
+    //margin-right: 10px;
     padding: 10px !important;
     position: relative;
     vertical-align: top;
@@ -158,6 +165,7 @@
     }
     &:last-child{
         margin-right: 0;
+        border-left: 1px solid #DDE3E9
     }
 
     &:after{
@@ -225,6 +233,9 @@
 }
     
 .b-list-panel{
+    .b-list-panel__list{
+        padding 15px
+    }
     .b-result__cell{
         &:after{
             box-shadow: none;
@@ -239,4 +250,34 @@
             }
         }
     }
+}
+
+.panel-tabs-dp{
+    margin-top 16px
+    height 40px
+    line-height 40px
+    text-align center
+}
+.panel-tabs-dp__tab{
+    height 100%
+    float left
+    color #778695
+    border-radius 3px 3px 0px 0px
+
+    &:hover {
+        cursor pointer
+        //text-decoration underline
+        color #0054B9
+    }
+}
+.panel-tabs-dp__tab_item{
+    color #0054B9
+    background-color #ffffff
+    //text-decoration underline
+}
+.panel-tabs-dp__tab_hotel{
+    width 40%
+}
+.panel-tabs-dp__tab_avia{
+    width 60%
 }

@@ -6,12 +6,12 @@
 	   class="b-hotel-data__details">
 	</a>
 
-	{{#if modelPrice.getProfit() > 1000}}
-	<div class="hotel-info__special-mark">
-		<span class="icon-crown icon-sprite-crown"></span>
-		Спецпредложение
-	</div>
-	{{/if}}
+	<!--{{#if modelPrice.getProfit() > 1000}}-->
+	<!--<div class="hotel-info__special-mark">-->
+		<!--<span class="icon-crown icon-sprite-crown"></span>-->
+		<!--Спецпредложение-->
+	<!--</div>-->
+	<!--{{/if}}-->
 
 
 	<Stars stars="{{hotel.Stars}}"/>
@@ -25,18 +25,22 @@
 		</a>
 	</h3>
 
-	<div class="b-hotel-data__text b-hotel-data__z-index">
-		{{hotel.HotelCityName}} {{hotel.Address}}
-		<span class="b-hotel-data__text-link" on-click="goToMap">(на карте)</span>
-	</div>
+	<!--<div class="b-hotel-data__text b-hotel-data__z-index">-->
+		<!--{{hotel.HotelCityName}} {{hotel.Address}}-->
+		<!--<span class="b-hotel-data__text-link" on-click="goToMap">(на карте)</span>-->
+	<!--</div>-->
 
 	<div class="b-hotel-data__text">
+		с {{moment(hotel.CheckIn).format("D MMM")}}
+		по {{moment(hotel.CheckOut).format("D MMM")}},
+		{{hotel.NightCount}}
+		{{pluralize(hotel.NightCount, ["ночь","ночи","ночей"])}},
 		{{#if hotel.MealCode == 'RO'}}Без питания (RO),{{/if}}
 		{{#if hotel.MealCode == 'BB'}}Завтрак (BB),{{/if}}
 		{{#if hotel.MealCode == 'HB'}}Полупансион (HB),{{/if}}
 		{{#if hotel.MealCode == 'FB'}}Полный пансион (FB),{{/if}}
 		{{#if hotel.MealCode == 'AI'}}Все включено (AI),{{/if}}
-		перелет включен
+		<!--перелет включен-->
 	</div>
 
 	{{#if hotel.RoomCount <= 3}}

@@ -17,7 +17,8 @@ angular.module('innaApp.components')
                     direction: '@',
                     aviaInfo: "=",
                     hotel: "=",
-                    ticketModel : "="
+                    ticketModel : "=",
+                    toOrBack: "="
                 },
                 link: function ($scope, $element, $attr) {
                     $scope.$log = $log;
