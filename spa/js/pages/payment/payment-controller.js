@@ -92,12 +92,15 @@ innaAppControllers.controller('PaymentController',
          * первым делом проверяем изменение цены заказа
          * todo закоментил на этап тестирования/разработки
          */
-        Payment.getRepricing(self.OrderNum)
-            .then(
-                getRepricingSuccess,
-                getRepricingError
-            );
-        // getOrderData();
+        function getRepricingSelf() {
+            baloon.show('Подготовка к оплате', 'Это может занять несколько секунд');
+            Payment.getRepricing(self.OrderNum)
+                .then(
+                    getRepricingSuccess,
+                    getRepricingError
+                );
+        }
+        getRepricingSelf();
         
         /**
          * getRepricingSuccess
