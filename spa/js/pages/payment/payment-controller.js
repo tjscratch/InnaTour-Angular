@@ -465,8 +465,8 @@ innaAppControllers.controller('PaymentController',
                                 'PageType': 'PackagesPayLoad'
                             },
                             {
-                                'CityFrom'      : data.LocationFrom.City.Code ? data.LocationFrom.City.Code : data.LocationFrom.Location.Code,
-                                'CityTo'        : data.LocationTo.City.Code ? data.LocationTo.City.Code : data.LocationTo.Location.Code,
+                                'CityFrom'      : data.LocationFrom.City ? data.LocationFrom.City.Code : data.LocationFrom.Location.Code,
+                                'CityTo'        : data.LocationTo.City ? data.LocationTo.City.Code : data.LocationTo.Location.Code,
                                 'DateFrom'      : moment(data.Hotel.CheckIn).format('YYYY-MM-DD'),
                                 'DateTo'        : moment(data.Hotel.CheckOut).format('YYYY-MM-DD'),
                                 'Travelers'     : data.AviaInfo.AdultCount + "-" + (Math.ceil(data.AviaInfo.ChildCount) + Math.ceil(data.AviaInfo.InfantCount)),
@@ -484,7 +484,6 @@ innaAppControllers.controller('PaymentController',
                          * Трекаем события для GTM
                          * https://innatec.atlassian.net/browse/IN-7071
                          */
-                        console.log(Filter);
                         dataService.getLocationById(Filter.ArrivalId)
                             .then(function (res) {
                                 gtm.GtmTrack(
