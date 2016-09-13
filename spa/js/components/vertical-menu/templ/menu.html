@@ -1,0 +1,41 @@
+<div class="icon-menu" ng-click="toggleVertMenu()" ng-class="{'icon-menu_white': etapMainPage,'icon-menu_green': !etapMainPage}">
+    <!--style="{{(FormExpand) ? 'background-image: url(/spa/img/Menu_W.png)' : 'background-image: url(/spa/img/Menu_G.png)'}}"-->
+    <div class="vertical-menu" ng-if="isOpen">
+        <ul class="menu__ul">
+            <a class="" ng-click="toggleVertMenu()" href="/#/where-to-buy/">
+                <li class="menu__ul-li">
+                    Где купить
+                </li>
+            </a>
+            <a class="" href="http://book.inna.ru/" ng-click="toggleVertMenu()">
+                <li class="menu__ul-li">
+                    Агентствам
+                </li>
+            </a>
+            <a class="" href="//inna.ru/catalog/visa/" ng-click="toggleVertMenu()">
+                <li class="menu__ul-li">
+                    Визы
+                </li>
+            </a>
+            <a class=""
+               ng-class="{'b-navbar-menu__link-active':isActive('/transfers/')}"
+               href="/#/transfers/" ng-click="toggleVertMenu()">
+                <li class="menu__ul-li">
+                    Трансферы
+                </li>
+            </a>
+            <a class=""
+               ng-class="{'b-navbar-menu__link-active':isActive('/individualtours/')}"
+               href="/#/individualtours/" ng-click="toggleVertMenu()">
+                <li class="menu__ul-li">
+                    Программы
+                </li>
+            </a>
+            <a class="" href="http://ntp.inna.ru/" target="_blank" ng-click="toggleVertMenu()">
+                <li class="menu__ul-li">
+                    Отдых в России
+                </li>
+            </a>
+        </ul>
+    </div>
+</div>

@@ -1,50 +1,50 @@
-<div class="b-navbar">
-    <div class="b-navbar__container">
+<!--<div class="b-navbar">-->
+    <!--<div class="b-navbar__container">-->
 
-        <div class="b-navbar__promo">
-            <!--24 года / 24 часа-->
-        </div>
+        <!--<div class="b-navbar__promo">-->
+            <!--&lt;!&ndash;24 года / 24 часа&ndash;&gt;-->
+        <!--</div>-->
 
-        <ul class="b-navbar-menu">
-            <li class="b-navbar-menu__item partners-first">
-                <a class="b-navbar-menu__link" href="/#/where-to-buy/">
-                    Где купить
-                </a>
-            </li>
-            <li class="b-navbar-menu__item partners-hide">
-                <a class="b-navbar-menu__link" href="http://book.inna.ru/">
-                    Агентствам
-                </a>
-            </li>
-            <li class="b-navbar-menu__item partners-hide">
-                <a class="b-navbar-menu__link" href="//inna.ru/catalog/visa/">
-                    Визы
-                </a>
-            </li>
-            <li class="b-navbar-menu__item partners-hide">
-                <a class="b-navbar-menu__link"
-                   ng-class="{'b-navbar-menu__link-active':isActive('/transfers/')}"
-                   href="/#/transfers/">
-                    Трансферы
-                </a>
-            </li>
-            <li class="b-navbar-menu__item partners-hide">
-                <a class="b-navbar-menu__link"
-                   ng-class="{'b-navbar-menu__link-active':isActive('/individualtours/')}"
-                   href="/#/individualtours/">
-                    Программы
-                </a>
-            </li>
-            <li class="b-navbar-menu__item partners-hide">
-                <a class="b-navbar-menu__link" href="http://ntp.inna.ru/" target="_blank">
-                    Отдых в России
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
+        <!--<ul class="b-navbar-menu">-->
+            <!--<li class="b-navbar-menu__item partners-first">-->
+                <!--<a class="b-navbar-menu__link" href="/#/where-to-buy/">-->
+                    <!--Где купить-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li class="b-navbar-menu__item partners-hide">-->
+                <!--<a class="b-navbar-menu__link" href="http://book.inna.ru/">-->
+                    <!--Агентствам-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li class="b-navbar-menu__item partners-hide">-->
+                <!--<a class="b-navbar-menu__link" href="//inna.ru/catalog/visa/">-->
+                    <!--Визы-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li class="b-navbar-menu__item partners-hide">-->
+                <!--<a class="b-navbar-menu__link"-->
+                   <!--ng-class="{'b-navbar-menu__link-active':isActive('/transfers/')}"-->
+                   <!--href="/#/transfers/">-->
+                    <!--Трансферы-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li class="b-navbar-menu__item partners-hide">-->
+                <!--<a class="b-navbar-menu__link"-->
+                   <!--ng-class="{'b-navbar-menu__link-active':isActive('/individualtours/')}"-->
+                   <!--href="/#/individualtours/">-->
+                    <!--Программы-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li class="b-navbar-menu__item partners-hide">-->
+                <!--<a class="b-navbar-menu__link" href="http://ntp.inna.ru/" target="_blank">-->
+                    <!--Отдых в России-->
+                <!--</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+<!--</div>-->
 
-<div class="header-info" ng-cloak>
+<div class="header-info" style="{{(FormExpand) ? 'display:block' : 'display:none'}}" ng-cloak>
     <div class="scroll-fix">
         <div class="header-info__container">
 
@@ -72,17 +72,18 @@
 
                 <ng:include src="'auth/header.html'"></ng:include>
 
+                <vertical-menu></vertical-menu>
             </div>
         </div>
     </div>
 </div>
 
 <div class="header-menu"
-     ng-show="isHeaderVisible"
      ng-style="SearchFormExpandPadding" ng-cloak>
+    <!--ng-show="isHeaderVisible"-->
     <div class="scroll-fix">
         <div class="wrapper">
-            <div class="header__container">
+            <div class="header__container" style="{{(FormExpand) ? 'display:block' : 'display:none'}}">
                 <ul class="header-nav">
                     <li class="header-nav__item">
                         <!--<span class="header-nav__item-promo">-30%</span>-->

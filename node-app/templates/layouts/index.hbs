@@ -215,7 +215,11 @@
 <div id="main-content-div" class="main scroll-fix">
     <!-- HEADER -->
 
-    <div class="header Header" ng-controller="RegionHeader">
+    <div class="Header"
+         ng-class="{
+                 'header-expanded': !FormExpand,
+                 'header-expand': FormExpand
+                 }"  ng-controller="RegionHeader">
         <ng:include src="headerTemplateSrc"></ng:include>
     </div>
     <!-- \\ HEADER -->

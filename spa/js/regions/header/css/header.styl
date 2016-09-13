@@ -1,9 +1,19 @@
-.header {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
+.header-expand {
+    //position: fixed;
+    position: absolute
+    //left: 0;
+    left 50%
+    //top: 0;
+    margin-left -480px
+    //width: 100%;
     z-index: 300;
+}
+.header-expanded{
+    position: fixed;
+    top 0px
+    width 100%
+    z-index: 300;
+    background-color #EFF2F5
 }
 .header__container {
 }
@@ -11,9 +21,21 @@
     font-size: 15px;
 }
 .header-nav__item {
+    &:first-child{
+        a{
+            border-radius 3px 0px 0px 3px
+        }
+    }
+    &:last-child{
+        a{
+            border-radius 0px 3px 3px 0px
+        }
+    }
+
     position: relative;
     display: inline-block;
-    margin: 0 2px 0 0;
+    //margin: 0 2px 0 0;
+    margin: 0 1px 0 0;
 }
 .header-nav__item-promo {
     position: absolute;
@@ -33,11 +55,13 @@
 .header-nav__item-link {
     display: block;
     padding: 4px 16px;
-    background-color: $header-nav__item-link-bg;
-    color: $header-white;
+    //background-color: $header-nav__item-link-bg;
+    //color: $header-white;
     font-size: 15px;
     line-height: 24px;
     font-weight: normal;
+    background-color #DDE3E9
+    color #778695
 
     &:hover {
         color $header-white
@@ -45,7 +69,8 @@
     }
 }
 .header-nav__item-link-active {
-    background-color: $header-nav__item-link-active-bg;
+    //background-color: $header-nav__item-link-active-bg;
+    background-color #ffffff
 }
 //
 //
@@ -126,7 +151,7 @@
 //
 // begin header-info
 .header-info {
-    background: $header-info-bg;
+    //background: $header-info-bg;
     padding: 10px 0;
 }
 .header-info-item {
@@ -194,13 +219,13 @@
 .header-menu {
     padding-top: 0px;
     padding-bottom: 1px;
-    background: $b-header-bg;
+    //background: $b-header-bg;
     font-size: 15px;
 }
 .search-form-expanded {
 
     .header-info {
-        background: $header-info-bg-expand;
+        //background: $header-info-bg-expand;
     }
 
     .b-search-form,
@@ -212,16 +237,19 @@
         background: transparent;
     }
     .header-nav__item-link {
-        background-color: $header-nav__item-bg;
-        color: $white;
+        //background-color: $header-nav__item-bg;
+        //color: $white;
+        background-color #DDE3E9
+        color #778695
 
         &:hover {
-            color $white
+            //color $white
             text-decoration none
         }
     }
     .header-nav__item-link-active {
-        background-color: $header-nav__item-bg-active;
+        //background-color: $header-nav__item-bg-active;
+        background-color #ffffff
     }
 }
 .search-form-expand {

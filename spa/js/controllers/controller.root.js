@@ -119,8 +119,7 @@ innaAppControllers.
 
                 if (route == '/') {
                     return ((abs.indexOf('/tours/?') > -1) || loc == route);
-                }
-                else {
+                } else {
                     if (loc.indexOf(route) > -1)
                         return true;
                     else
@@ -167,17 +166,17 @@ innaAppControllers.
 
             var onScroll = function () {
                 var scroll = utils.getScrollTop();
-                if (scroll > 250) {
-                    $scope.$apply(function ($scope) {
-                        $scope.FormExpand = false;
-                        $scope.SearchFormExpandPadding = {'padding-top': 0};
-                    });
-                } else {
-                    $scope.$apply(function ($scope) {
-                        $scope.FormExpand = true;
-                        $scope.SearchFormExpandPadding = {'padding-top': 250 - scroll};
-                    });
-                }
+                // if (scroll > 250) {
+                //     $scope.$apply(function ($scope) {
+                //         $scope.FormExpand = false;
+                //         $scope.SearchFormExpandPadding = {'padding-top': 0};
+                //     });
+                // } else {
+                //     $scope.$apply(function ($scope) {
+                //         $scope.FormExpand = true;
+                //         $scope.SearchFormExpandPadding = {'padding-top': 250 - scroll};
+                //     });
+                // }
             };
 
 

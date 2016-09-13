@@ -21,216 +21,298 @@
 				</li>
 			</ul>
 		</div>
+		<div recommended-pair-component-big
+			 class="recommended-pair"
+			 recommended-pair="recommendedPair"
+			 recommended-pair-status="recommendedPairStatus"
+			 inna-dynamic-bundle-with-reservation-button="true"></div>
 
-		<div class="hotel-details__section hotel-details__section_layout_context">
+		<div class="hotel-details__section_wrap">
+			<div class="hotel-details__section hotel-details__section_layout_context">
 
-			<div class="hotel-details__ta hotel-details-ta-info"
-			     ng-click="goToScroll('SectionReviews')" ng-if="hotel.TaFactor">
-
-				<!-- tripadvisor -->
-				<div trip-advisor-directive
-				     hotel-data="hotel"
-				     templ="ta.detail.html"></div>
-
-			</div>
-
-			<div class="hotel-details-name">
-				<!-- Stars -->
-                <span stars-directive
-                      hotel-data="hotel.Stars"
-                      class="hotel-details-stars"></span>
-
-                <span class="hotel-details-name__title">
-	                {{hotel.HotelName}}
-                </span>
-			</div>
-
-		</div>
-
-		<!-- Меню с якорями -->
-		<div class="hotel-details__section_menu">
-			<div class="btn-group btn-group-justified">
-
-				<div ng-repeat="menu in Menu"
-				     ng-click="goToScroll(menu, $event)"
-				     class="btn hotel-details__section_menu__item">
-					<!--ng-class="{'btn-active btn-green' : menu.active }"-->
-
-					<i class="{{menu.klass}} hotel-details__section_menu__icon"></i>
-					<!--ng-if="!menu.active"-->
-					<!--<i class="{{menu.klass}}-active hotel-details__section_menu__icon" ng-if="menu.active"></i>-->
-					<span>{{menu.name}}</span>
-				</div>
-			</div>
-		</div>
-
-		<div class="hotel-details__section hotel-details__section_gallery">
-			<div inna-gallery
-			     ng-if="(hotel.Photos && (hotel.Photos.LargePhotos.length || hotel.Photos.MediumPhotos.length))"
-			     photos="hotel.Photos"></div>
-		</div>
-
-		<div class="hotel-details__section" id="SectionDetail" ng-if="hotel.Description">
-			<div class="hotel-details__section-box">
-				<h2 class="hotel-details__section-title">Описание отеля</h2>
-
-				<div class="hotel-details__section-text">
-					<div class="hotel-details__section-text-viewport"
-					     ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
-
-						<div ng-repeat="section in hotel.Description track by $index">
-							<div ng-if="!showFullDescription && !OrderId" ng-bind-html="section.Content |
-							limitFilter:250"></div>
-							<div ng-if="showFullDescription || OrderId" ng-bind-html="section.Content"></div>
-						</div>
-						<p ng-if="showFullDescription || OrderId">
-							<b>Подробные сведения</b><br/><br/>
-							<b>Время прибытия:</b>&nbsp;{{hotel.CheckInTime}}
-							                      &nbsp;&nbsp;&nbsp;&nbsp;
-							<b>Выезд:</b>&nbsp;{{hotel.CheckOutTime}}
-						</p>
-					</div>
-
-					<p>
-						<span class="hotel-details__section-text-more"
-						      ng-if="showFullDescription && !OrderId"
-						      ng-click="toggleDescription()">Свернуть</span>
-
-						<span class="hotel-details__section-text-more"
-						      ng-if="!showFullDescription && !OrderId"
-						      ng-click="toggleDescription()">Развернуть</span>
-					</p>
-				</div>
-				<!--<ul class="hotel-details-extra" ng-if="hotel.Extra">
-					<li ng-repeat="(key, val) in hotel.Extra track by $index"
-					    class="hotel-details-extra__item">
-						&lt;!&ndash;hotel-details-extra__item_description hotel-details-extra__item_type_{{key | lowercase}}&ndash;&gt;
-						&lt;!&ndash;<i class="icon-type-extra icon-type-extra-{{key | lowercase}}"></i>&ndash;&gt;
-						{{val}}
-					</li>
-				</ul>-->
-			</div>
-		</div>
-
-		<div class="hotel-details__section" ng-if="!hotelOnly && !displayRoom">
-
-			<div class="hotel-details__section__header">
-				<span class="hotel-details__price">
-					Стоимость пакета за {{passengerCount | perPerson}} включая налоги и сборы:
-					<b>
-						{{recommendedPair.getFullPackagePrice() | price}}
-						<ng-include src="'components/ruble.html'"></ng-include>
-					</b>
-				</span>
-
-				<h2 class="hotel-details__section-title">
-					<span>Пакет с этим отелем</span>
-					<!--<span ng-if="!buyAction">Пакет с этим отелем</span>
-					<span ng-if="buyAction">Выбранный пакет</span>-->
-				</h2>
-
-
-				<div class="hotel-details__section-services">
-					В стоимость пакета включен перелет
-					{{recommendedPair.ticket.data.CityFrom}} – {{recommendedPair.ticket.data.CityTo}} – {{recommendedPair.ticket.data.CityFrom}},
-					проживание {{recommendedPair.hotel.data.HotelName}}
-					с {{recommendedPair.hotel.data.CheckIn | date:"dd MMMM"}}
-					по {{recommendedPair.hotel.data.CheckOut | date:"dd MMMM yyyy"}},
-					на {{ recommendedPair.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}},
-					<span ng-repeat="include in Included">
-						<span ng-if="include.Name == 'Страховка'">медицинская страховка,</span>
-						<span ng-if="include.Name == 'Топливный сбор'">топливный сбор.</span>
+				<div class="hotel-details-name">
+					<span class="hotel-details-name__title">
+						{{hotel.HotelName}}
 					</span>
-					Указана стоимость на {{passengerCount | perPerson | asQuantity:"человека":"человек":"человек"}}.
-					Стоимость окончательная со всеми налогами и сборами.
+
+					<!-- Stars -->
+					<span stars-directive
+						  hotel-data="hotel.Stars"
+						  class="hotel-details-stars"></span>
+				</div>
+
+				<div class="hotel-details__ta hotel-details-ta-info"
+					 ng-click="goToScroll('SectionReviews')" ng-if="hotel.TaFactor">
+
+					<!-- tripadvisor -->
+					<div trip-advisor-directive
+						 hotel-data="hotel"></div>
+
 				</div>
 			</div>
 
-			<!-- Динамический блок -->
-			<div dynamic-block
-			     recommended-pair="recommendedPair"
-			     recommended-pair-status="recommendedPairStatus"
-			     more-info="true"
-			     settings='{
-					"height": 220,
-					"countColumn": 2,
-					"classBlock": "buy__fly b-result_col_two b-result_middle"
-					}'
-			     partials='{
-			        "collOneContent" : "ticket2ways",
-			        "collTwoContent" : "hotel-info-bed-type",
-			     }'
-			     tripadvisor="false"></div>
-		</div>
+			<!-- Меню с якорями -->
+			<!--<div class="hotel-details__section_menu">-->
+				<!--<div class="btn-group btn-group-justified">-->
 
-		<div class="hotel-details__section" id="SectionRoom">
-			<h2 class="hotel-details__section-title" ng-if="!hotelOnly">Выбор номера</h2>
+					<!--<div ng-repeat="menu in Menu"-->
+						 <!--ng-click="goToScroll(menu, $event)"-->
+						 <!--class="btn hotel-details__section_menu__item">-->
+						<!--&lt;!&ndash;ng-class="{'btn-active btn-green' : menu.active }"&ndash;&gt;-->
 
-			<h2 class="hotel-details__section-title" ng-if="hotelOnly">Номер</h2>
+						<!--<i class="{{menu.klass}} hotel-details__section_menu__icon"></i>-->
+						<!--&lt;!&ndash;ng-if="!menu.active"&ndash;&gt;-->
+						<!--&lt;!&ndash;<i class="{{menu.klass}}-active hotel-details__section_menu__icon" ng-if="menu.active"></i>&ndash;&gt;-->
+						<!--<span>{{menu.name}}</span>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
 
-			<div class="spinner" ng-if="!dataFullyLoaded">
-				<div class="rect rect1"></div>
-				<div class="rect rect2"></div>
-				<div class="rect rect3"></div>
-				<div class="rect rect4"></div>
-				<div class="rect rect5"></div>
-				<img class="gif" src="/spa/img/spinner.gif">
+			<div class="hotel-details__section hotel-details__section_gallery-and-map">
+				<div class="hotel-details__section_gallery">
+					<!--<div inna-gallery-->
+						 <!--ng-if="(hotel.Photos && (hotel.Photos.LargePhotos.length || hotel.Photos.MediumPhotos.length))"-->
+						 <!--photos="hotel.Photos"></div>-->
+					<!--<hotel-gallery photo-hotel="hotel.Photos"/>-->
+					<hotel-gallery-directive
+							ng-if="hotel.Photos"
+							is-map="false"
+							photo-hotel="hotel.Photos"
+							width="500"
+							height="330"></hotel-gallery-directive>
+				</div>
+				<div class="hotel-details__section_map" id="SectionMap">
+					<!--<h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>-->
 
-				<div class="spinner__text">Секундочку, загружаем список номеров</div>
-			</div>
-
-			<div class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
-				<ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'"
-				            ng-repeat="room in (onlyRoom || hotelRooms) track by $index"></ng:include>
-			</div>
-		</div>
-
-		<div class="hotel-details__section" id="SectionServices">
-			<h2 class="hotel-details__section-title">Сервисы</h2>
-
-			<div class="hotel-details-resume">
-				<div class="hotel-details-resume__section hotel-details-resume__section_{{key}}"
-				     ng-repeat="Amenities in hotel.AmenitiesArray track by $index">
-					<h4 class="hotel-details-resume__section-title">{{Amenities.CategoryName}}</h4>
-
-
-					<!-- сделано в тупую : руками разбил массив на две части в методе parseAmenities -->
-					<div class="hotel-details-resume__wrapper">
-						<ul class="hotel-details-resume__list" ng-if="Amenities.part.part1.length">
-							<li class="hotel-details-resume__item"
-							    ng-repeat="item in Amenities.part.part1 track by $index">
-								{{item}}
-							</li>
-						</ul>
-
-						<ul class="hotel-details-resume__list" ng-if="Amenities.part.part2.length">
-							<li class="hotel-details-resume__item"
-							    ng-repeat="item in Amenities.part.part2 track by $index">
-								{{item}}
-							</li>
-						</ul>
+					<div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
+						<div id="hotel-details-map"></div>
 					</div>
 				</div>
 			</div>
+
+			<div class="hotel-details__section">
+			<tabs>
+				<pane title="Описание отеля">
+					<div class="hotel-details__section" id="SectionDetail" ng-if="hotel.Description">
+						<div class="hotel-details__section-box">
+							<!--<h2 class="hotel-details__section-title">Описание отеля</h2>-->
+
+							<div class="hotel-details__section-text">
+								<div class="hotel-details__section-text-viewport"
+									 ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
+
+									<div ng-repeat="section in hotel.Description track by $index">
+										<div ng-if="!showFullDescription && !OrderId" ng-bind-html="section.Content |
+								limitFilter:250"></div>
+										<div ng-if="showFullDescription || OrderId" ng-bind-html="section.Content"></div>
+									</div>
+									<p ng-if="showFullDescription || OrderId">
+										<b>Подробные сведения</b><br/><br/>
+										<b>Время прибытия:</b>&nbsp;{{hotel.CheckInTime}}
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										<b>Выезд:</b>&nbsp;{{hotel.CheckOutTime}}
+									</p>
+								</div>
+
+								<p>
+							<span class="hotel-details__section-text-more"
+								  ng-if="showFullDescription && !OrderId"
+								  ng-click="toggleDescription()">Свернуть</span>
+
+							<span class="hotel-details__section-text-more"
+								  ng-if="!showFullDescription && !OrderId"
+								  ng-click="toggleDescription()">Развернуть</span>
+								</p>
+							</div>
+							<!--<ul class="hotel-details-extra" ng-if="hotel.Extra">
+                                <li ng-repeat="(key, val) in hotel.Extra track by $index"
+                                    class="hotel-details-extra__item">
+                                    &lt;!&ndash;hotel-details-extra__item_description hotel-details-extra__item_type_{{key | lowercase}}&ndash;&gt;
+                                    &lt;!&ndash;<i class="icon-type-extra icon-type-extra-{{key | lowercase}}"></i>&ndash;&gt;
+                                    {{val}}
+                                </li>
+                            </ul>-->
+						</div>
+					</div>
+				</pane>
+				<pane title="Сервисы">
+					<div class="hotel-details__section_services" id="SectionServices">
+						<!--<h2 class="hotel-details__section-title">Сервисы</h2>-->
+
+						<!--<div class="hotel-details-resume">-->
+							<!--<div class="hotel-details-resume__section hotel-details-resume__section_{{key}}"-->
+								 <!--ng-repeat="Amenities in hotel.AmenitiesArray track by $index">-->
+								<!--<h4 class="hotel-details-resume__section-title">{{Amenities.CategoryName}}</h4>-->
+
+
+								<!--&lt;!&ndash; сделано в тупую : руками разбил массив на две части в методе parseAmenities &ndash;&gt;-->
+								<!--<div class="hotel-details-resume__wrapper">-->
+									<!--<ul class="hotel-details-resume__list" ng-if="Amenities.part.part1.length">-->
+										<!--<li class="hotel-details-resume__item"-->
+											<!--ng-repeat="item in Amenities.part.part1 track by $index">-->
+											<!--{{item}}-->
+										<!--</li>-->
+									<!--</ul>-->
+
+									<!--<ul class="hotel-details-resume__list" ng-if="Amenities.part.part2.length">-->
+										<!--<li class="hotel-details-resume__item"-->
+											<!--ng-repeat="item in Amenities.part.part2 track by $index">-->
+											<!--{{item}}-->
+										<!--</li>-->
+									<!--</ul>-->
+								<!--</div>-->
+							<!--</div>-->
+						<!--</div>-->
+						<table>
+							<tbody>
+								<tr ng-repeat="Amenities in hotel.Amenities track by $index">
+									<td class="title">{{ Amenities.CategoryName }}</td>
+									<td class="list">
+										<ul style="list-style: inside;">
+											<li ng-repeat="item in Amenities.List track by $index">{{item}}</li>
+										</ul>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</pane>
+				<pane title="Отзывы">
+					<div class="b-tripadvisor-widget-iframe" id="SectionReviews" ng-if="hotel.TaFactor && TAWidget">
+						<iframe
+								class="iframe_widget"
+								name="tripadvisor"
+								ng-src="{{TAWidget}}"
+								height="500"
+								width="100%"
+								frameborder="0"></iframe>
+					</div>
+				</pane>
+			</tabs>
+			</div>
+
+			<!--<div class="hotel-details__section" ng-if="!hotelOnly && !displayRoom">-->
+
+				<!--<div class="hotel-details__section__header">-->
+					<!--<span class="hotel-details__price">-->
+						<!--Стоимость пакета за {{passengerCount | perPerson}} включая налоги и сборы:-->
+						<!--<b>-->
+							<!--{{recommendedPair.getFullPackagePrice() | price}}-->
+							<!--<ng-include src="'components/ruble.html'"></ng-include>-->
+						<!--</b>-->
+					<!--</span>-->
+
+					<!--<h2 class="hotel-details__section-title">-->
+						<!--<span>Пакет с этим отелем</span>-->
+						<!--&lt;!&ndash;<span ng-if="!buyAction">Пакет с этим отелем</span>-->
+						<!--<span ng-if="buyAction">Выбранный пакет</span>&ndash;&gt;-->
+					<!--</h2>-->
+
+
+					<!--<div class="hotel-details__section-services">-->
+						<!--В стоимость пакета включен перелет-->
+						<!--{{recommendedPair.ticket.data.CityFrom}} – {{recommendedPair.ticket.data.CityTo}} – {{recommendedPair.ticket.data.CityFrom}},-->
+						<!--проживание {{recommendedPair.hotel.data.HotelName}}-->
+						<!--с {{recommendedPair.hotel.data.CheckIn | date:"dd MMMM"}}-->
+						<!--по {{recommendedPair.hotel.data.CheckOut | date:"dd MMMM yyyy"}},-->
+						<!--на {{ recommendedPair.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}},-->
+						<!--<span ng-repeat="include in Included">-->
+							<!--<span ng-if="include.Name == 'Страховка'">медицинская страховка,</span>-->
+							<!--<span ng-if="include.Name == 'Топливный сбор'">топливный сбор.</span>-->
+						<!--</span>-->
+						<!--Указана стоимость на {{passengerCount | perPerson | asQuantity:"человека":"человек":"человек"}}.-->
+						<!--Стоимость окончательная со всеми налогами и сборами.-->
+					<!--</div>-->
+				<!--</div>-->
+
+				<!-- Динамический блок -->
+				<!--<div dynamic-block-->
+					 <!--recommended-pair="recommendedPair"-->
+					 <!--recommended-pair-status="recommendedPairStatus"-->
+					 <!--more-info="true"-->
+					 <!--settings='{-->
+						<!--"height": 220,-->
+						<!--"countColumn": 2,-->
+						<!--"classBlock": "buy__fly b-result_col_two b-result_middle"-->
+						<!--}'-->
+					 <!--partials='{-->
+						<!--"collOneContent" : "ticket2ways",-->
+						<!--"collTwoContent" : "hotel-info-bed-type",-->
+					 <!--}'-->
+					 <!--tripadvisor="false"></div>-->
+			<!--</div>-->
 		</div>
 
-		<div class="hotel-details__section hotel-details__section_map" id="SectionMap">
-			<h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>
+		<div class="hotel-details__section_wrap">
+			<div class="hotel-details__section" id="SectionRoom">
+				<h2 class="hotel-details__section-title" ng-if="!hotelOnly">Выбор номера</h2>
 
-			<div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
-				<div id="hotel-details-map"></div>
+				<h2 class="hotel-details__section-title" ng-if="hotelOnly">Номер</h2>
+
+				<div class="spinner" ng-if="!dataFullyLoaded">
+					<div class="rect rect1"></div>
+					<div class="rect rect2"></div>
+					<div class="rect rect3"></div>
+					<div class="rect rect4"></div>
+					<div class="rect rect5"></div>
+					<img class="gif" src="/spa/img/spinner.gif">
+
+					<div class="spinner__text">Секундочку, загружаем список номеров</div>
+				</div>
+
+				<div class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
+					<ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'"
+								ng-repeat="room in (onlyRoom || hotelRooms) track by $index"></ng:include>
+				</div>
 			</div>
 		</div>
 
-		<div class="b-tripadvisor-widget-iframe" id="SectionReviews" ng-if="hotel.TaFactor && TAWidget">
-			<iframe
-					class="iframe_widget"
-					name="tripadvisor"
-					ng-src="{{TAWidget}}"
-					height="500"
-					width="100%"
-					frameborder="0"></iframe>
-		</div>
+		<!--<div class="hotel-details__section" id="SectionServices">-->
+			<!--<h2 class="hotel-details__section-title">Сервисы</h2>-->
+
+			<!--<div class="hotel-details-resume">-->
+				<!--<div class="hotel-details-resume__section hotel-details-resume__section_{{key}}"-->
+				     <!--ng-repeat="Amenities in hotel.AmenitiesArray track by $index">-->
+					<!--<h4 class="hotel-details-resume__section-title">{{Amenities.CategoryName}}</h4>-->
+
+
+					<!--&lt;!&ndash; сделано в тупую : руками разбил массив на две части в методе parseAmenities &ndash;&gt;-->
+					<!--<div class="hotel-details-resume__wrapper">-->
+						<!--<ul class="hotel-details-resume__list" ng-if="Amenities.part.part1.length">-->
+							<!--<li class="hotel-details-resume__item"-->
+							    <!--ng-repeat="item in Amenities.part.part1 track by $index">-->
+								<!--{{item}}-->
+							<!--</li>-->
+						<!--</ul>-->
+
+						<!--<ul class="hotel-details-resume__list" ng-if="Amenities.part.part2.length">-->
+							<!--<li class="hotel-details-resume__item"-->
+							    <!--ng-repeat="item in Amenities.part.part2 track by $index">-->
+								<!--{{item}}-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+
+		<!--<div class="hotel-details__section hotel-details__section_map" id="SectionMap">-->
+			<!--<h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>-->
+
+			<!--<div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">-->
+				<!--<div id="hotel-details-map"></div>-->
+			<!--</div>-->
+		<!--</div>-->
+
+		<!--<div class="b-tripadvisor-widget-iframe" id="SectionReviews" ng-if="hotel.TaFactor && TAWidget">-->
+			<!--<iframe-->
+					<!--class="iframe_widget"-->
+					<!--name="tripadvisor"-->
+					<!--ng-src="{{TAWidget}}"-->
+					<!--height="500"-->
+					<!--width="100%"-->
+					<!--frameborder="0"></iframe>-->
+		<!--</div>-->
 	</div>
 </div>
 

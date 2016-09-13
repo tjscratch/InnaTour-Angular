@@ -68,8 +68,8 @@ innaAppControllers
                 );
             });
             
-            document.body.classList.add('bg_white');
-            document.body.classList.remove('light-theme');
+            // document.body.classList.add('bg_white');
+            // document.body.classList.remove('light-theme');
             
             $scope.passengerCount = parseInt($routeParams.Adult) + ($routeParams.Children ? $routeParams.Children.split('_').length : 0);
             
