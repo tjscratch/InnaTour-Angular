@@ -131,9 +131,15 @@
                <!--style="top: -22px;right: 0; z-index: 20"-->
             <!--&gt;Подробнее</a>-->
             <!-- tripadvisor -->
-            <div class="hotel-info__tripadvisor">
+            <div ng-if="typeEtap == 'Search'" class="hotel-info__tripadvisor">
                 <div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>
             </div>
+            <span ng-if="typeEtap == 'Details'" class="room-title">{{recommendedPair.hotel.data.Room.RoomName}}<br/></span>
+            <span ng-if="typeEtap == 'Details'" class="room_bed-type-list">
+		                    <span ng-repeat="bed in recommendedPair.hotel.data.Room.BedTypeList">
+		                        {{bed.Name}}<span ng-if="!$last">,&nbsp;</span>
+		                    </span>
+            </span>
             <div class="hotel-go-to-map">
                         <span class="hotel-info-name-link"
                               ng-click="recommendedHotelToMap()"
@@ -371,8 +377,13 @@
         <a link-in-new-window-if-can class="button"
            href="{{computedUrlDetails('buy')}}"
            target="_blank"
-           ng-if="withReservationButton"
+           ng-if="(typeEtap == 'Search')"
            ng-click="packagesBuySearch()">
+            Купить
+        </a>
+        <a link-in-new-window-if-can class="button"
+           ng-if="typeEtap == 'Details' && recommendedPair.hotel.data.Room"
+           ng-click="goReservation(recommendedPair.hotel.data.Room)">
             Купить
         </a>
 

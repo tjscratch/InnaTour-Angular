@@ -137,6 +137,8 @@ innaAppControllers
                 hoverImageShow: false,
                 hoverImageStyle: {}
             };
+
+            console.log('RecPair', $scope.recommendedPair);
             
             //================analytics========================
             //Нажатие Подробнее на карточке отеля
@@ -599,10 +601,18 @@ innaAppControllers
                 return urlDetails;
             };
             $scope.goToSearchDynamic = goToSearchDynamic;
-            
+
+            $scope.goDefault = function (room) {
+                angular.forEach($scope.hotelRooms, function (item) {
+                    item.Default = false;
+                });
+                room.Default = true;
+                $scope.recommendedPair.setRoom(room);
+                $scope.recommendedPair.setFullPackagePrice(room);
+                console.log('RECPAIR', $scope.recommendedPair);
+            };
             
             $scope.goReservation = function (room) {
-                
                 var dataLayerObj = {
                     'event': 'UM.Event',
                     'Data': {

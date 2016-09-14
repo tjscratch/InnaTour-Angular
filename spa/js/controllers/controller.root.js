@@ -140,6 +140,8 @@ innaAppControllers.
              * Анимация формы поиска при скролле
              */
             $scope.FormExpand = false;
+            $scope.isEnableSearchForm = false;
+            
             $scope.$on('$routeChangeStart', function (next, current) {
                 switch ($location.$$path) {
                     case '/':
@@ -148,6 +150,7 @@ innaAppControllers.
                     case '/packages/':
                     case '/hotels/':
                     case '/bus/':
+                    case '/individualtours/':
                         if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
                             $scope.SearchFormExpandPadding = {'padding-top': 0}
                         }else{
@@ -160,6 +163,23 @@ innaAppControllers.
                         $scope.FormExpand = false;
                         $scope.SearchFormExpandPadding = {'padding-top': 0};
                         document.removeEventListener('scroll', onScroll, false);
+                        break;
+                }
+                switch ($location.$$path) {
+                    case '/':
+                    case '/avia/':
+                    case '/tours/':
+                    case '/packages/':
+                    case '/hotels/':
+                    case '/bus/':
+                        if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
+
+                        }else{
+                            $scope.isEnableSearchForm = true;
+                        }
+                        break;
+                    default:
+                        $scope.isEnableSearchForm = false;
                         break;
                 }
             });

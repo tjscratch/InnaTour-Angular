@@ -7,16 +7,21 @@ innaAppDirectives
                 restrict: 'E',
                 scope: {},
                 controller: function($scope, $element) {
-                    // angular.element('body').on('click', function (e) {
-                    //     e.stopPropagation();
-                    //     $scope.isOpen = false;
-                    // });
 
                     $scope.isOpen = false;
+
+                    // $('body').on('click', function (e) {
+                    //     e.stopPropagation();
+                    //     if($scope.isOpen) {
+                    //         $scope.isOpen = false;
+                    //     }
+                    // });
                     
                     $scope.toggleVertMenu = function () {
+                        console.log('isOpen', $scope.isOpen);
                         var isOpen = $scope.isOpen;
                         $scope.isOpen = !isOpen;
+                        console.log('isOpen', $scope.isOpen);
                     };
 
                     $scope.etapMainPage = '';
@@ -35,6 +40,7 @@ innaAppDirectives
                             case '/packages/':
                             case '/hotels/':
                             case '/bus/':
+                            case '/individualtours/':
                                 if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
 
                                 }else{

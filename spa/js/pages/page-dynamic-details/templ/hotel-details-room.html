@@ -206,10 +206,15 @@
 				К оплате: {{room.PackagePrice | price}}
 				<ng-include src="'components/ruble.html'"></ng-include>
 			</div>
-			<div class="hotel-details-rooms__room-actions">
+			<div ng-if="room.Default" class="hotel-details-rooms__room-actions">
 				<span class="btn btn-green btn-hotel-room-actions"
 					  ng-click="goReservation(room)"
 					  ng-if="!hotelOnly">Купить</span>
+			</div>
+			<div ng-if="!room.Default" class="hotel-details-rooms__room-actions">
+				<span class="btn btn-green btn-hotel-room-actions"
+					  ng-click="goDefault(room)"
+					  ng-if="!hotelOnly">Выбрать</span>
 			</div>
 		</div>
 	</div>

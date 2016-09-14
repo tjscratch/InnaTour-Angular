@@ -1,6 +1,41 @@
 <div class="icon-menu" ng-click="toggleVertMenu()" ng-class="{'icon-menu_white': etapMainPage,'icon-menu_green': !etapMainPage}">
     <!--style="{{(FormExpand) ? 'background-image: url(/spa/img/Menu_W.png)' : 'background-image: url(/spa/img/Menu_G.png)'}}"-->
     <div class="vertical-menu" ng-if="isOpen">
+        <ul class="menu__ul_main-tab" style="{{(etapMainPage) ? 'display:none' : ''}}">
+            <li>
+                <!--<span class="header-nav__item-promo">-30%</span>-->
+                <a
+                   href="/#/"
+                   ng-click="gtmMainTab($event)"
+                   ng-class="{'header-nav__item-link-active':isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">
+                    Онлайн туры
+                </a>
+            </li>
+            <li>
+                <a
+                   href="/#/avia/"
+                   ng-click="gtmMainTab($event)"
+                   ng-class="{'header-nav__item-link-active':isActive('/avia/')}">
+                    Авиабилеты
+                </a>
+            </li>
+            <li>
+                <a
+                   href="/#/hotels/"
+                   ng-click="gtmMainTab($event)"
+                   ng-class="{'header-nav__item-link-active':isActive('/hotels/')}">
+                    Отели
+                </a>
+            </li>
+            <li>
+                <a
+                   href="/#/bus/"
+                   ng-click="gtmMainTab($event)"
+                   ng-class="{'header-nav__item-link-active':isActive('/bus/')}">
+                    Автобусные туры
+                </a>
+            </li>
+        </ul>
         <ul class="menu__ul">
             <a class="" ng-click="toggleVertMenu()" href="/#/where-to-buy/">
                 <li class="menu__ul-li">
@@ -25,8 +60,9 @@
                 </li>
             </a>
             <a class=""
+               ng-click="toggleVertMenu()"
                ng-class="{'b-navbar-menu__link-active':isActive('/individualtours/')}"
-               href="/#/individualtours/" ng-click="toggleVertMenu()">
+               href="/#/individualtours/">
                 <li class="menu__ul-li">
                     Программы
                 </li>

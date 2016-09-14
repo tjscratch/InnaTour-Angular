@@ -3,8 +3,8 @@
 //innaDynamicBundle
 angular.module('innaApp.directives')
         .directive('recommendedPairComponentBig', [
-            '$templateCache',
-            function ($templateCache) {
+            '$templateCache', '$routeParams', '$location', 'serviceCache',
+            function ($templateCache, $routeParams, $location, serviceCache) {
                 return {
                     template  : function (el, attr) {
                         if (attr.templ) {
@@ -21,6 +21,7 @@ angular.module('innaApp.directives')
                         stateTicket          : "=stateTicket",
                         stateHotel           : "=stateHotel",
                         tabActive            : "=tabActive",
+                        typeEtap             : '=',
                         asMap                : "=asMap",
                         withReservationButton: '@innaDynamicBundleWithReservationButton',
                         close                : '=innaDynamicBundleClose'
@@ -40,7 +41,6 @@ angular.module('innaApp.directives')
 
                             //console.profile('Draw');
                             var searchParams = angular.copy($routeParams);
-                            console.log("RP", $scope.recommendedPair);
                             /**
                              * Строим URL для страницы подробнее об отеле
                              * :DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children-:HotelId-:TicketId-:ProviderId?
@@ -80,6 +80,65 @@ angular.module('innaApp.directives')
                                 }
 
                                 return (opt_param) ? urlDetails + '?action=buy' : urlDetails;
+                            };
+
+                            $scope.goReservation = function (room) {
+                                var dataLayerObj = {
+                                    'event': 'UM.Event',
+                                    'Data': {
+                                        'Category': 'Packages',
+                                        'Action': 'PackagesBuyDetails',
+                                        'Label': room.RoomName,
+                                        'Content': room.CancellationRule,
+                                        'Context': room.PackagePrice,
+                                        'Text': '[no data]'
+                                    }
+                                };
+                                console.table(dataLayerObj);
+                                if (window.dataLayer) {
+                                    window.dataLayer.push(dataLayerObj);
+                                }
+
+                                var resCheck = {
+                                    PackagePrice: room.PackagePrice,
+                                    HotelName: $scope.recommendedPair.hotel.data.HotelName
+                                }
+
+                                serviceCache.createObj('ResCheck', resCheck);
+
+                                $routeParams.TicketId = $scope.recommendedPair.ticket.data.VariantId1;
+                                $routeParams.TicketBackId = $scope.recommendedPair.ticket.data.VariantId2;
+
+                                var url = Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
+                                        $routeParams.DepartureId,
+                                        $routeParams.ArrivalId,
+                                        $routeParams.StartVoyageDate,
+                                        $routeParams.EndVoyageDate,
+                                        $routeParams.TicketClass,
+                                        $routeParams.Adult,
+                                        $routeParams.Children,
+                                        $routeParams.HotelId,
+                                        $routeParams.TicketId,
+                                        $routeParams.TicketBackId,
+                                        $scope.recommendedPair.hotel.data.ProviderId
+                                    ].join('-');
+
+                                $location.search({
+                                    room: room.RoomId,
+                                    hotel: $scope.recommendedPair.hotel.data.HotelId,
+                                    ticket: $scope.recommendedPair.ticket.data.VariantId1
+                                });
+
+                                //аналитика
+                                track.dpGoReserve();
+
+                                //чтобы на брони попапы были наверху страницы
+                                if (window.partners && window.partners.isFullWL()) {
+                                    window.partners.resetParentScrollTop();
+                                    window.partners.setScrollPage(20);
+                                }
+
+                                $location.path(url);
                             };
 
                             $scope.location = angular.copy(document.location.href);
