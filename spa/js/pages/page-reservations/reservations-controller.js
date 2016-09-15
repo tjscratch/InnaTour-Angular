@@ -124,11 +124,11 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         }
     };
 
-    function baloonError () {
+    function baloonError (message) {
         self.baloonHotelError = new Balloon();
         self.baloonHotelError.updateView({
             template: 'err.html',
-            title: 'Возникла ошибка при бронировании',
+            title: message ? message : 'Возникла ошибка при бронировании',
             content: 'Попробуйте начать поиск заново',
             callbackClose: function () {
                 redirectHotel();
@@ -255,7 +255,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                         });
 
                 } else {
-                    baloonError();
+                    baloonError(response.data.Message ? response.data.Message : null);
                 }
             }, function (response) {
                 console.log(response)
