@@ -77,6 +77,7 @@ var config = {
             "./bower_components/angular-timer/dist/angular-timer.min.js",
             "./bower_components/humanize-duration/humanize-duration.js",
             "./bower_components/google-maps-utility-library-v3-infobox/dist/infobox.min.js",
+            "./bower_components/mobile-detect/mobile-detect.min.js",
             "./spa/lib/moment-ru.js",
             "./spa/lib/polyfill/**/*.js",
             "./spa/lib/jquery.maskedinput.js",
