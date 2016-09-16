@@ -22,8 +22,8 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
     function ($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events, PriceGeneric) {
         
         var self = this;
-        var header = document.querySelector('.header');
-        var headerHeight = header.clientHeight;
+        // var header = document.querySelector('.header');
+        // var headerHeight = header.clientHeight;
         var filters__body = document.querySelector('.js-filter-scroll');
         $scope.location = document.location.href;
         

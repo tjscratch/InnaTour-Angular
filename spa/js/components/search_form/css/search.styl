@@ -4,18 +4,29 @@
 .b-search-form
   font-size 0
   line-height 0
-  padding 7px 0px
+  //padding 7px 0px
+  //padding 1px 0px
   //background-color: $header-nav__item-link-active-bg;
   color #242424
   position relative
   .search-field-block:first-child > .search-field {
       border-radius 3px 0px 0px 3px
   }
+  .b-wrapp_type_inline:first-child
+    .search-field
+      border-radius 3px 0px 0px 3px
 
   .header-info__logo{
     position absolute
     left -115px
   }
+
+.b-search-form_padding-1px{
+  padding 1px 0px
+}
+.b-search-form_padding-7px{
+  padding 7px 0px
+}
 
 .i-close
   position: absolute
@@ -60,7 +71,8 @@
   height 40px
   color #000
   -webkit-appearance none;
-  border-radius 0
+  //border-radius 0
+  border-radius none
 
 .search-field::-webkit-input-placeholder
   color #878787
@@ -119,7 +131,8 @@
     right:0;
 
     &_display_placeholder {
-        color: #666;
+        //color: #666;
+      color #778695
     }
   }
 
@@ -160,15 +173,18 @@
   height 40px
   width 112px !important
   margin 0
-  padding 7px 10px
+  //padding 7px 10px
+  padding 10px 10px
   transition background-color 0.3s linear
   background-color: #89c13a;
   cursor pointer;
-  font-size 18px;
+  //font-size 18px;
+  fint-size 16px
   color: #fff;
   box-sizing: border-box;
   text-align: center;
   border-radius: 0px 3px 3px 0px;
+  right 0px
 
   .search-button__icon {
     position: absolute;

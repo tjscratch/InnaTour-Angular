@@ -1,4 +1,4 @@
-<div class="recommend-bundle-container">
+<div class="recommend-bundle-container" ng-style="styleRecBundleContainer">
 	<!--ng-class="{'recommend-bundle-container_short':!isVisible}"-->
 	<ng-include src="'components/wl-new-search/templ/index.hbs.html'"></ng-include>
 	<div class="recommend-bundle">
@@ -36,8 +36,8 @@
 				</h3>
 
 				<h3 class="recommend-bundle-title" ng-if="!isChooseHotel">
-					<span ng-if="!defaultRecommendedPair.Cheapest">Рекомендуем</span>
-					<span ng-if="defaultRecommendedPair.Cheapest">Базовый вариант по минимальной цене</span>
+					<span ng-if="!defaultRecommendedPair.Cheapest && isVisible">Рекомендуем</span>
+					<span ng-if="defaultRecommendedPair.Cheapest && isVisible">Базовый вариант по минимальной цене</span>
 				</h3>
 
 				<!--<div class="expand-collapse-link w-expand-collapse-link_up w-expand-collapse-link" ng-if="isVisible">-->
@@ -62,7 +62,7 @@
 				     inna-dynamic-bundle-with-reservation-button="true"></div>
 
 				<!--<div recommended-pair-component-mini ng-if="!isVisible"></div>-->
-				<div class="panel-tabs-dp">
+				<div class="panel-tabs-dp" ng-if="isVisible">
 					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_hotel"
 						 ng-click="toggleTab('hotel', $event)"
 						 ng-class="{'panel-tabs-dp__tab_selected':(!stateTicket)}">
@@ -84,12 +84,12 @@
             as-map="asMap"
 	        type-panel="hotels"
 	        active-panel="activePanel"
-	        ng-show="filtersSettingsHotels"></ng:any>
+	        ng-show="filtersSettingsHotels && isVisible"></ng:any>
 
 	<!-- панель фильтрации билетов -->
 	<ng:any filter-panel-avia
 	        filters-settings="filtersSettingsTicket"
 	        type-panel="ticket"
 	        active-panel="activePanel"
-	        ng-show="filtersSettingsTicket"></ng:any>
+	        ng-show="filtersSettingsTicket && isVisible"></ng:any>
 </div>
