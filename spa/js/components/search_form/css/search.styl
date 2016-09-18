@@ -1,476 +1,434 @@
 .hidden
-  display none
-
+    display none
 .b-search-form
-  font-size 0
-  line-height 0
-  //padding 7px 0px
-  //padding 1px 0px
-  //background-color: $header-nav__item-link-active-bg;
-  color #242424
-  position relative
-  .search-field-block:first-child > .search-field {
-      border-radius 3px 0px 0px 3px
-  }
-  .b-wrapp_type_inline:first-child
-    .search-field
-      border-radius 3px 0px 0px 3px
+    font-size 0
+    line-height 0
+    //padding 7px 0px
+    //padding 1px 0px
+    //background-color: $header-nav__item-link-active-bg;
+    color #242424
+    position relative
 
-  .header-info__logo{
-    position absolute
-    left -115px
-  }
+    .search-field-block:first-child > .search-field {
+        border-radius 3px 0px 0px 3px
+    }
 
-.b-search-form_padding-1px{
-  padding 1px 0px
+    .b-wrapp_type_inline {
+        &:first-child {
+            .search-field {
+                border-radius 3px 0px 0px 3px
+            }
+        }
+    }
+
+    .b-location_selector {
+        &:nth-child(2) {
+            margin-left 0
+
+            .search-field {
+                border-radius 3px 0px 0px 3px
+            }
+        }
+    }
+
+    .header-info__logo {
+        position absolute
+        left -115px
+    }
+.b-search-form_padding-1px {
+    padding 1px 0px
 }
-.b-search-form_padding-7px{
-  padding 7px 0px
+.b-search-form_padding-7px {
+    padding 7px 0px
 }
-
 .i-close
-  position: absolute
-  top: 13px
-  right 7px
-  color #787777
-  &:hover {
-    cursor: pointer
-  }
-
-
+    position: absolute
+    top: 13px
+    right 7px
+    color #787777
+    &:hover {
+        cursor: pointer
+    }
 .search-field-block
 .search-date-block
 .search-button-block
 .search-people-block
 .search-button-block_small
-  //margin 0 2px 0 0
-  font-size 14px
-  line-height normal
-  letter-spacing normal
-  display inline-block
-  vertical-align top
-  position relative
-
+    //margin 0 2px 0 0
+    font-size 14px
+    line-height normal
+    letter-spacing normal
+    display inline-block
+    vertical-align top
+    position relative
 .b-wrapp_type_inline:first-child
-  margin-left 0px
+    margin-left 0px
 .b-wrapp_type_inline
-  position relative
-  float left
-  margin-left 1px
-
+    position relative
+    float left
+    margin-left 1px
 .search-field-block
-  width 170px
-
+    width 170px
 .search-field
 .search-date
-  background #fff
-  width 100%
-  border 0
-  font 14px $ProximaNova
-  box-sizing border-box
-  height 40px
-  color #000
-  -webkit-appearance none;
-  //border-radius 0
-  border-radius none
-
+    background #fff
+    width 100%
+    border 0
+    font 14px $ProximaNova
+    box-sizing border-box
+    height 40px
+    color #000
+    -webkit-appearance none;
+    //border-radius 0
+    border-radius none
 .search-field::-webkit-input-placeholder
-  color #878787
-  opacity 1
-  font-family $ProximaNovaLight
-
+    color #878787
+    opacity 1
+    font-family $ProximaNovaLight
 .search-field:-ms-input-placeholder
-  color #878787
-  opacity 1
-  font-family $ProximaNovaLight
-
+    color #878787
+    opacity 1
+    font-family $ProximaNovaLight
 .search-date::-webkit-input-placeholder
-  color #878787
-  opacity 1
-  font-family $ProximaNovaLight
-
+    color #878787
+    opacity 1
+    font-family $ProximaNovaLight
 .search-date:-ms-input-placeholder
-  color #878787
-  opacity 1
-  font-family $ProximaNovaLight
-
+    color #878787
+    opacity 1
+    font-family $ProximaNovaLight
 .search-people-baloon-field input::-webkit-input-placeholder
-  color #878787
-  opacity 1
-  font-family $ProximaNovaLight
-
+    color #878787
+    opacity 1
+    font-family $ProximaNovaLight
 .search-people-baloon-field input:-ms-input-placeholder
-  display none
-
-.search-field
-  padding 0 23px 0 10px
-
+    display none
+.search-field {
+    padding 0 23px 0 10px
+}
 .no-outline-on-focus {
-  &:focus {
-    outline: none;
-  }
-}
-
-.search-date-block
-  width 118px !important
-  position : relative;
-
-  &:focus {
-    outline: none;
-  }
-
-  &__date {
-    background : #fff;
-    padding-left: 10px;
-    //height: 36px;
-    line-height : 38px;
-    position:absolute;
-    top: 1px;
-    left: 1px;
-    bottom: 1px;
-    right:0;
-
-    &_display_placeholder {
-        //color: #666;
-      color #778695
+    &:focus {
+        outline: none;
     }
-  }
-
-
-  &:after {
-    @extend .icon-sprite-calendar;
-    content: '';
-    position absolute;
-    right : 5px;
-    top: 50%;
-    margin-top : -8px;
-  }
-
-.search-date
-  padding 0 28px 0 10px
-
-.search-button-block
-  border-left 1px solid #1c1c1c
-  border-right 0
-  background #89c13a
-  color #fff
-  font-family $ProximaNova
-  text-align center
-  position relative
-  overflow hidden
-  height 48px
-  line-height 48px
-  width 117px
-  font-weight bold
-  transition background-color 0.3s linear
-
-.search-form__submit {
-  border 0
-  position absolute
-  //top: 7px;
-  //right: 7px;
-  overflow hidden
-  height 40px
-  width 112px !important
-  margin 0
-  //padding 7px 10px
-  padding 10px 10px
-  transition background-color 0.3s linear
-  background-color: #89c13a;
-  cursor pointer;
-  //font-size 18px;
-  fint-size 16px
-  color: #fff;
-  box-sizing: border-box;
-  text-align: center;
-  border-radius: 0px 3px 3px 0px;
-  right 0px
-
-  .search-button__icon {
-    position: absolute;
-    transform: translate(-50%, -50%) scale(0.6);
-    top: 50%;
-    left: 50%;
-    z-index: 1;
-  }
 }
+.search-date-block
+    width 118px !important
+    position: relative;
 
+    &:focus {
+        outline: none;
+    }
 
+    &__date {
+        background: #fff;
+        padding-left: 10px;
+        //height: 36px;
+        line-height: 38px;
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        bottom: 1px;
+        right: 0;
+
+        &_display_placeholder {
+            //color: #666;
+            color #778695
+        }
+    }
+
+    &:after {
+        @extend .icon-sprite-calendar;
+        content: '';
+        position absolute;
+        right: 5px;
+        top: 50%;
+        margin-top: -8px;
+    }
+.search-date
+    padding 0 28px 0 10px
+.search-button-block
+    border-left 1px solid #1c1c1c
+    border-right 0
+    background #89c13a
+    color #fff
+    font-family $ProximaNova
+    text-align center
+    position relative
+    overflow hidden
+    height 48px
+    line-height 48px
+    width 117px
+    font-weight bold
+    transition background-color 0.3s linear
+.search-form__submit {
+    border 0
+    position absolute
+    //top: 7px;
+    //right: 7px;
+    overflow hidden
+    height 40px
+    width 112px !important
+    margin 0
+    //padding 7px 10px
+    padding 10px 10px
+    transition background-color 0.3s linear
+    background-color: #89c13a;
+    cursor pointer;
+    //font-size 18px;
+    fint-size 16px
+    color: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 0px 3px 3px 0px;
+    right 0px
+
+    .search-button__icon {
+        position: absolute;
+        transform: translate(-50%, -50%) scale(0.6);
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+    }
+}
 .search-button-block:hover
 .search-button-block_small:hover
-  background-color #95cd47
-
+    background-color #95cd47
 .search-button-block_small input
 .search-button-block input
-  position absolute
-  display block
-  left 0
-  top 0
-  bottom 0
-  right 0
-  width 100%
-  cursor pointer
-  border 0
-  opacity 0
-  margin 0
-  padding 0
+    position absolute
+    display block
+    left 0
+    top 0
+    bottom 0
+    right 0
+    width 100%
+    cursor pointer
+    border 0
+    opacity 0
+    margin 0
+    padding 0
+.search-people-block {
+    width 97px !important
+    height 40px
+    z-index 2
+    margin-left 1px
 
-.search-people-block{
-  width 97px !important
-  height 40px
-  z-index 2
-  margin-left 1px
-  
-  &.search-people-choose{
-    width 119px !important
+    &.search-people-choose {
+        width 119px !important
 
-    .search-people{
-      background: #fff url("/spa/img/i.png") no-repeat 55px -1879px;
+        .search-people {
+            background: #fff url("/spa/img/i.png") no-repeat 55px -1879px;
+        }
     }
-  }
 }
 .search-people
-  background #fff
-  height 40px
-  line-height 40px !important
-  padding 0 10px
-  font 14px / 36px $ProximaNova
-  cursor pointer
-  background: #fff url("/spa/img/i.png") no-repeat 27px -1879px;
-  /*background url(/spa/img/i.png) no-repeat #fff*/
-  /*background-position right 7px top -1879px*/
+    background #fff
+    height 40px
+    line-height 40px !important
+    padding 0 10px
+    font 14px / 36px $ProximaNova
+    cursor pointer
+    background: #fff url("/spa/img/i.png") no-repeat 27px -1879px;
+/*background url(/spa/img/i.png) no-repeat #fff*/
+/*background-position right 7px top -1879px*/
 
 .search-pref-block
-  position absolute
-  z-index 10
-  left 0
-  top 49px
-  margin 0 0 0 -1px
-  padding 0
-  white-space nowrap
-  background rgba(0, 0, 0, .4)
-  box-shadow 0 4px 8px 1px rgba(0, 0, 0, .4)
-
+    position absolute
+    z-index 10
+    left 0
+    top 49px
+    margin 0 0 0 -1px
+    padding 0
+    white-space nowrap
+    background rgba(0, 0, 0, .4)
+    box-shadow 0 4px 8px 1px rgba(0, 0, 0, .4)
 .search-pref
-  display inline-block
-  vertical-align top
-  font 14px $ProximaNova
-  line-height normal
-  letter-spacing normal
-  color #fff
-  margin 0 0 0 1px
-  padding 5px 12px
-  cursor pointer
-  background #393939
-  background: linear-gradient(to top, #4c4c4c 0%, #393939 50%)
-  position relative
-
+    display inline-block
+    vertical-align top
+    font 14px $ProximaNova
+    line-height normal
+    letter-spacing normal
+    color #fff
+    margin 0 0 0 1px
+    padding 5px 12px
+    cursor pointer
+    background #393939
+    background: linear-gradient(to top, #4c4c4c 0%, #393939 50%)
+    position relative
 .search-pref-comfort
-  padding-right 30px
-  background #89c13a
-  min-width 57px
-  background url(/spa/img/i.png) no-repeat right 12px top -233px, linear-gradient(to top, #95c74d 0%, #89c13a 50%)
-
-.search-pref.current
-  color #89c13a
-
-.search-pref-select
-  white-space normal
-  position absolute
-  left 0
-  right 0
-  top 27px
-  margin 0
-  padding 5px 12px
-  list-style none
-  background #89c13a
-  box-shadow 0 7px 8px 1px rgba(0, 0, 0, .3)
-
-.search-people-baloon
-  position absolute
-  left 0
-  padding 12px 12px 0
-  min-width 215px
-  background #fff
-  box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
-  z-index 10
-  margin-top 1px
-
-
-.search-people-baloon-title
-  font-size 14px
-  line-height 1
-  padding 0 0 14px
-
-.search-people-baloon-item
-  overflow hidden
-  padding 0 0 14px
-  font-size 14px
-
-.search-people-baloon-field
-  float left
-  position relative
-
-.search-people-baloon-field input
-  display block
-  padding 3px
-  margin 0 31px
-  font 14px $ProximaNova
-  text-align center
-  outline none
-  border 1px solid #ccd2d4
-  width 30px
-  height 30px
-  box-sizing border-box
-  border-radius 3px
-
-.search-people-baloon-minus
-.search-people-baloon-plus
-  color #878787
-  position absolute
-  top 0
-  bottom 0
-  width 30px
-  border-radius 3px
-  text-align center
-  line-height 30px
-  cursor pointer
-  height 30px
-  font-size 20px
-  user-select none
-  font-weight bold
-
-  &:hover
-    background #e6e7e9
-
-&.hover
-  background #89c13a
-  color #fff
-  &:hover
+    padding-right 30px
     background #89c13a
-
-.search-people-baloon-null input
-  color #ccc
-
+    min-width 57px
+    background url(/spa/img/i.png) no-repeat right 12px top -233px, linear-gradient(to top, #95c74d 0%, #89c13a 50%)
+.search-pref.current
+    color #89c13a
+.search-pref-select
+    white-space normal
+    position absolute
+    left 0
+    right 0
+    top 27px
+    margin 0
+    padding 5px 12px
+    list-style none
+    background #89c13a
+    box-shadow 0 7px 8px 1px rgba(0, 0, 0, .3)
+.search-people-baloon
+    position absolute
+    left 0
+    padding 12px 12px 0
+    min-width 215px
+    background #fff
+    box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+    z-index 10
+    margin-top 1px
+.search-people-baloon-title
+    font-size 14px
+    line-height 1
+    padding 0 0 14px
+.search-people-baloon-item
+    overflow hidden
+    padding 0 0 14px
+    font-size 14px
+.search-people-baloon-field
+    float left
+    position relative
+.search-people-baloon-field input
+    display block
+    padding 3px
+    margin 0 31px
+    font 14px $ProximaNova
+    text-align center
+    outline none
+    border 1px solid #ccd2d4
+    width 30px
+    height 30px
+    box-sizing border-box
+    border-radius 3px
 .search-people-baloon-minus
-  left 0
-
 .search-people-baloon-plus
-  right 0
+    color #878787
+    position absolute
+    top 0
+    bottom 0
+    width 30px
+    border-radius 3px
+    text-align center
+    line-height 30px
+    cursor pointer
+    height 30px
+    font-size 20px
+    user-select none
+    font-weight bold
 
+    &:hover
+        background #e6e7e9
+&.hover
+    background #89c13a
+    color #fff
+    &:hover
+        background #89c13a
+.search-people-baloon-null input
+    color #ccc
+.search-people-baloon-minus
+    left 0
+.search-people-baloon-plus
+    right 0
 .search-people-type
-  float left
-  width 110px
-  margin 0 10px 0 0
-  font-size 14px
-  color #999
-  letter-spacing -.025em
-
+    float left
+    width 110px
+    margin 0 10px 0 0
+    font-size 14px
+    color #999
+    letter-spacing -.025em
 .search-people-type b
-  font-weight normal
-  display block
-  color #333
-
+    font-weight normal
+    display block
+    color #333
 .search-autocomplete
-  width 340px
-  background #fff
-  overflow auto
-  overflow-x none
-  overflow-y auto
-  max-height 360px
-  position absolute
-  z-index 50
-  font-size 16px
-  letter-spacing -.025em
-  padding 5px 0
-  box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
-  margin-top 1px
-  
-  > li:last-child
-    > ul:after
-      border-bottom none
+    width 340px
+    background #fff
+    overflow auto
+    overflow-x none
+    overflow-y auto
+    max-height 360px
+    position absolute
+    z-index 50
+    font-size 16px
+    letter-spacing -.025em
+    padding 5px 0
+    box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+    margin-top 1px
 
+    > li:last-child
+        > ul:after
+            border-bottom none
 .search-autocomplete-block
-  padding 6px 8px 6px 15px
-  display block
-  font-size 14px
-  color #333
-  clearfix()
-  cursor pointer
+    padding 6px 8px 6px 15px
+    display block
+    font-size 14px
+    color #333
+    clearfix()
+    cursor pointer
 
-  &:hover
-    background #e6e7e9
+    &:hover
+        background #e6e7e9
 
-  &.selected
-    background #e6e7e9
-
+    &.selected
+        background #e6e7e9
 .search-autocomplete-city
-  float left
-  letter-spacing -.025em
-
+    float left
+    letter-spacing -.025em
 .search-autocomplete-city em
-  font-style normal
-  font-size 14px
-  color #878787
-
+    font-style normal
+    font-size 14px
+    color #878787
 .search-autocomplete-city b
-  color #878787
-  font-weight normal
-
+    color #878787
+    font-weight normal
 .search-autocomplete-abbr
-  float right
-  color #878787
-  font 14px $ProximaNovaLight
-  text-transform uppercase
-
+    float right
+    color #878787
+    font 14px $ProximaNovaLight
+    text-transform uppercase
 .search-autocomplete li li .search-autocomplete-block
-  padding-left 53px
-
+    padding-left 53px
 .search-autocomplete ul
-  position relative
-  margin 0 0 2px
-
+    position relative
+    margin 0 0 2px
 .search-autocomplete ul:after
-  content ''
-  display block
-  border-bottom 1px solid #c0c0c2
-  position absolute
-  left 0
-  right 0
-  bottom 0
-
+    content ''
+    display block
+    border-bottom 1px solid #c0c0c2
+    position absolute
+    left 0
+    right 0
+    bottom 0
 .ng-isolate-scope .search-pref-block
-  top 51px
-
+    top 51px
 .search-form-dialog-row {
-  .child-years-select-container {
-    margin-right : 3px;
+    .child-years-select-container {
+        margin-right: 3px;
 
-    &:last-child {
-      margin-right : 0px;
+        &:last-child {
+            margin-right: 0px;
+        }
     }
-  }
 
 }
-
-
 .search__city
-  width 196px
-
+    width 196px
 .search__120
-  width 120px
-
-
+    width 120px
 .tours-calendar-input {
-  position : absolute;
-  top:0;
-  left :0;
-  right :0;
-  bottom:0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
-
-.icon-vert-menu{
-  position absolute
-  right -40px
-  top 14px
+.icon-vert-menu {
+    position absolute
+    right -40px
+    top 14px
 }
