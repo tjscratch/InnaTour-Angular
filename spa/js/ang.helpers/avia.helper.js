@@ -151,7 +151,8 @@
                 payExpires: 'payExpires',
                 notFound: 'notFound',
                 priceChanged: 'priceChanged',
-	            agencyRegSuccess: 'agencyRegSuccess'
+	            agencyRegSuccess: 'agencyRegSuccess',
+                mobile: 'mobile'
             };
 
             var helper = {
@@ -498,6 +499,9 @@
                     },
 	                showAgencyRegSuccess: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.agencyRegSuccess, closeFn);
+                    },
+                    showMobile: function (caption, text, closeFn) {
+                        helper.baloon.show(caption, text, baloonType.mobile, closeFn);
                     },
                     show: function (caption, text, type, closeFn, data) {
                         //console.log('show', caption, text, type);

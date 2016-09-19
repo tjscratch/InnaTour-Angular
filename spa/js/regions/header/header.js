@@ -24,27 +24,27 @@ innaAppControllers
             else {
                 $scope.headerTemplateSrc = 'regions/header/templ/header.html';
             }
-    
+            
             $(window).on('unload beforeunload', function () {
                 serviceCache.drop('isMobile');
             });
             var md = new MobileDetect(window.navigator.userAgent);
-            if (serviceCache.getObject('isMobile') != 'hide') {
+            if (serviceCache.getObject('isMobile') != 'hide' && md.mobile()) {
                 serviceCache.createObj('isMobile', 'show');
-                $scope.isMobile = md.mobile();
-                document.body.classList.add('inject-toggle-mobile');
+                $scope.baloon.showMobile(
+                    '',
+                    '',
+                    function () {
+                        serviceCache.createObj('isMobile', 'hide');
+                    }
+                );
+                // document.body.classList.add('inject-toggle-mobile');
             }
-            // $scope.isMobile = md.mobile();
             $scope.isMobileClose = function () {
-                $scope.isMobile = false;
                 serviceCache.createObj('isMobile', 'hide');
-                document.body.classList.remove('inject-toggle-mobile');
+                // document.body.classList.remove('inject-toggle-mobile');
             };
-    
-            $scope.isMobile = true;
-            document.body.classList.add('inject-toggle-mobile');
-    
-    
+            
             /**
              * Отели у нас работают только для b2b клиентов
              * поэтому если не b2b пользователь попал на страницу отелей

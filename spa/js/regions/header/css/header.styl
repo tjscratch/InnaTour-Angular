@@ -54,31 +54,54 @@
     right 0
     top 0
     z-index 1000
-    height 30px
+    //height 40px
     background rgba(255, 255, 255, .9)
     text-align center
-    font-size 1rem
+    font-size 1em
 }
-.toggle-mobile__container{
+.toggle-mobile__container {
     position relative
     max-width $site-width
     margin 0 auto
 }
 .toggle-mobile__link {
     display inline-block
-    padding 5px
+    padding 2px 5px
     color #0054b9
 }
 .toggle-mobile__close {
     position absolute
     right 12px
-    top 8px
-    font-size 12px
+    top 5px
+    font-size 16px
     cursor pointer
 
     .fa {
         margin-left 3px
-        font-size 14px
+        font-size 18px
+    }
+}
+.balloonIsMobile {
+    width 800px
+    padding-top 40px
+    padding-bottom 40px
+
+    .balloon-close {
+        right 8px
+        font-size 35px
+    }
+    .balloon-title {
+        margin 0 0 20px
+        font-size 37px
+    }
+    .balloon-info {
+        font-size 40px
+
+        .toggle-mobile__link {
+            display inline-block
+            padding 0
+            color #0054b9
+        }
     }
 }
 // end toggle-mobile
