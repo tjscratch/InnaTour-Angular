@@ -47,6 +47,41 @@
 .header-nav__item-link-active {
     background-color: $header-nav__item-link-active-bg;
 }
+// begin toggle-mobile
+.toggle-mobile {
+    position fixed
+    left 0
+    right 0
+    top 0
+    z-index 1000
+    height 30px
+    background rgba(255, 255, 255, .9)
+    text-align center
+    font-size 1rem
+}
+.toggle-mobile__container{
+    position relative
+    max-width $site-width
+    margin 0 auto
+}
+.toggle-mobile__link {
+    display inline-block
+    padding 5px
+    color #0054b9
+}
+.toggle-mobile__close {
+    position absolute
+    right 12px
+    top 8px
+    font-size 12px
+    cursor pointer
+
+    .fa {
+        margin-left 3px
+        font-size 14px
+    }
+}
+// end toggle-mobile
 //
 //
 // begin b-navbar

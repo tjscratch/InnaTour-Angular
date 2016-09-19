@@ -158,7 +158,7 @@ var config = {
         },
         "api": {
             "test": "http://api.test.inna.ru",
-            "dev": "http://lh.inna.ru",
+            "dev": "http://test.inna.ru",
             "prod": "https://api.inna.ru",
             "beta": "http://api.beta.inna.ru"
         },
