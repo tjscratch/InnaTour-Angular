@@ -130,7 +130,8 @@
 
 	<!--<ng:include src="'pages/page-dynamic-details/templ/room-details.html'"></ng:include>-->
 <!--</div>-->
-<div class="hotel-details-rooms__room">
+<div class="hotel-details-rooms__room"
+	 ng-class="{'hotel-details-rooms__room_state_open': room.isOpen, 'hotel-details-rooms__room_position_last': $last}">
 	<div class="hotel-details-rooms__room__item">
 		<div class="hotel-details-rooms__room__gallery">
 			<hotel-gallery-directive
@@ -140,11 +141,11 @@
 					width="200"
 					height="130"></hotel-gallery-directive>
 			<div class="hotel-details-rooms__room_pic"
-				 ng-if="!room.Photos && !RoomsPhotosIsEmpty"
-				 style="background-image: url('spa/img/hotels/no_photo70x70.png')"></div>
+				 ng-if="!room.Photos"
+				 style="background-image: url('spa/img/hotels/no-photo-card-room204x136.jpg')"></div>
 		</div>
 		<div class="hotel-details-rooms__room__desc" ng-click="toggleRoom(room)">
-			<span class="hotel-details-rooms__room-title">{{room.RoomName}}</span>
+			<div class="hotel-details-rooms__room-title" title="{{room.RoomName}}">{{room.RoomName}}</div>
 			<span tooltip-directive-base
 				  ng-if="userIsAgency && (AgencyId == 20005)"
 				  templ="empty.hbs.html"
@@ -172,7 +173,7 @@
 				<span ng-if="!room.IsRefundable">Без возможности возврата</span>
 			</div>
 		</div>
-		<div class="hotel-details-rooms__room__price" ng-click="toggleRoom(room)">
+		<div class="hotel-details-rooms__room__price">
 			<!--<div ng-if="room.Default && NewPrice"-->
 				 <!--tooltip-directive-base-->
 				 <!--tooltip-klass="nocorner:tooltip-price"-->

@@ -1,7 +1,7 @@
 .hotel-details{
     color: #000;
     //padding: $short_padding 0 0px
-    padding-top 60px
+    padding-top 72px
     
     &.hotel-details_display-order{
         padding: 110px 0 0px;
@@ -20,13 +20,23 @@
         padding-bottom 20px
     }
     
-    &__ta{
+    &__ta-adress{
         //float right
+        overflow hidden
+
+        .hotel-details__ta{
+            float left
+        }
+        .hotel-details__adress{
+            float right
+            color #0054B9
+            font-size 16px
+        }
     }
 }
 .hotel-details__section_wrap{
     padding 16px
-    margin-bottom 16px
+    margin-top 16px
     border-radius 3px
     background-color #fff
     overflow: hidden
@@ -42,7 +52,7 @@
     }
     
     &__crumbs{
-        margin 0 0 15px
+        margin 0 0 1px
         
         .section__crumbs__list{
             
@@ -369,6 +379,10 @@
             padding 16px
             border-left 1px solid #C9D2DB
             box-sizing border-box
+
+            &:hover {
+                cursor pointer
+            }
         }
 
         &__price{
@@ -440,6 +454,9 @@
             word-wrap: break-word;
             //width: 290px;
             width 100%
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
             /*position relative*/
             
             .like-link{

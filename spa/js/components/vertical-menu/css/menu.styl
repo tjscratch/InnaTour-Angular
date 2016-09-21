@@ -7,21 +7,47 @@
     cursor pointer
   }
 }
+.icon-menu__line{
+    height 2px
+    width 24px
+    margin-top 4px
+    margin-bottom 4px
+    opacity 1
+    transform 50% 50%
+    transition all ease-in-out 0.3s
+}
+.icon-menu__line-one_open{
+  transform translate3d(0px, 6px, 0px) rotate(45deg)
+  transition transform ease-in-out 0.3s
+}
+.icon-menu__line-two_open{
+  opacity 0
+  transition opacity  ease-in-out 0.3s
+}
+.icon-menu__line-three_open{
+  transform translate3d(0px, -6px, 0px) rotate(-45deg)
+  transition transform ease-in-out 0.3s
+}
 .icon-menu_green{
-    background-image: url(/spa/img/Menu_G.png);
+    //background-image: url(/spa/img/Menu_G.png);
+    background-color #89c13a
 }
 .icon-menu_white{
-    background-image: url(/spa/img/Menu_W.png);
+    //background-image: url(/spa/img/Menu_W.png);
+    background-color #ffffff
 }
 .vertical-menu{
   z-index 100000
   background-color #ffffff
   width 180px
   position absolute
-  top 50px
+  //top 50px
+  //top -366px
   right 0px
   border-radius 3px
   border 1px solid #C9D2DB
+  transform translateY(-120%) translateX(-50%) rotate(90deg)
+  transition transform cubic-bezier(1,0,0,1.2) 0.3s
 
   .b-navbar-menu{
 
@@ -54,4 +80,8 @@
         font-size 15px
       }
   }
+}
+.vertical-menu_open{
+  transform translateY(10%) translateX(0%) rotate(0deg)
+  transition transform cubic-bezier(1,0,0,1.2) 0.3s
 }

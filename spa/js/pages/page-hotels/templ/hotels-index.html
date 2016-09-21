@@ -3,6 +3,13 @@
 	     ng-class="{'results-container__short':!padding}"
 	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)">
 
+		<div class="SearchHotelResultsSale" ng-if="hotels.length > 0">
+			Скидки до
+			<span class="SearchHotelResultsSale__value-sale">30%</span>
+			при покупке
+			<span class="SearchHotelResultsSale__logo-dp">Перелет + Отель</span>
+		</div>
+
 		<div class="SearchHotelResultsFilters">
 			<ng:any filter-panel-hotel
 			        filters-settings="filtersSettingsHotels"
@@ -13,13 +20,13 @@
 			></ng:any>
 		</div>
 
-		<div class="SearchHotelResultsCount" ng-if="hotels.length > 0">
-			Найдено
-			<b>{{hotels.length | asQuantity:"отель":"отеля":"отелей"}}</b>
-		</div>
+		<!--<div class="SearchHotelResultsCount" ng-if="hotels.length > 0">-->
+			<!--Найдено-->
+			<!--<b>{{hotels.length | asQuantity:"отель":"отеля":"отелей"}}</b>-->
+		<!--</div>-->
 
 		<div class="SearchHotelResults">
-			<div class="SearchHotelResults__promo-logo" ng-if="hotels.length > 0"></div>
+			<!--<div class="SearchHotelResults__promo-logo" ng-if="hotels.length > 0"></div>-->
 			<div class="SearchHotelResultsList" ng-if="hotels.length > 0">
 				<div class="SearchHotelResultsList__item"
 				     ng-repeat="hotel in hotels track by $index"

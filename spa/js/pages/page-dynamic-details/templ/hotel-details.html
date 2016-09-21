@@ -42,13 +42,13 @@
 						  class="hotel-details-stars"></span>
 				</div>
 
-				<div class="hotel-details__ta hotel-details-ta-info"
+				<div class="hotel-details__ta-adress hotel-details-ta-info"
 					 ng-click="goToScroll('SectionReviews')" ng-if="hotel.TaFactor">
 
 					<!-- tripadvisor -->
-					<div trip-advisor-directive
+					<div class="hotel-details__ta" trip-advisor-directive
 						 hotel-data="hotel"></div>
-
+					<div class="hotel-details__adress">{{hotel.Address}}, {{hotel.HotelCityName}}, {{hotel.HotelCountryName}}</div>
 				</div>
 			</div>
 

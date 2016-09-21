@@ -6,16 +6,16 @@
 				is-map="false"
 				photo-hotel="hotel.Photos"
 				width="200"
-				height="190"></hotel-gallery-directive>
+				height="136"></hotel-gallery-directive>
 
 		<div class="HotelCardPhotos__Photo-empty"
-		     ng-if="!hotel.Photos">
-			<i class="fa fa-bus"
-			   aria-hidden="true"
-			   ng-if="currentActive('/bus/')"></i>
-			<i class="fa fa-bed"
-			   aria-hidden="true"
-			   ng-if="currentActive('/hotels/')"></i>
+			 ng-if="!hotel.Photos">
+			<!--<i class="fa fa-bus"-->
+			   <!--aria-hidden="true"-->
+			   <!--ng-if="currentActive('/bus/')"></i>-->
+			<!--<i class="fa fa-bed"-->
+			   <!--aria-hidden="true"-->
+			   <!--ng-if="currentActive('/hotels/')"></i>-->
 		</div>
 	</div>
 
@@ -31,11 +31,11 @@
 			</a>
 		</h2>
 		<div class="HotelCardInfo__text">
-			{{ hotel.HotelCityName }}
-			{{ hotel.Address }}
+			<!--{{ hotel.HotelCityName }}-->
+			<!--{{ hotel.Address }}-->
 		</div>
 		<ng:include src="'components/hotel-card/templ/hotel-card-date.html'"></ng:include>
-		<ng:include src="'components/hotel-card/templ/hotel-card-meal.html'"></ng:include>
+		<!--<ng:include src="'components/hotel-card/templ/hotel-card-meal.html'"></ng:include>-->
 		<ng:include ng-if="hotel.RoomCount < 4" src="'components/hotel-card/templ/hotel-card-rooms-count.html'"></ng:include>
 		<trip-advisor-directive ng-if="hotel.TaFactor" hotel-data="hotel"></trip-advisor-directive>
 	</div>
@@ -45,19 +45,19 @@
 		<div class="CardPrice">
 			<div class="CardPrice__info">
 				<div class="CardPrice__price">
-					<div class="CardPrice__price-desc" ng-if="currentActive('/hotels/')">
-						Стоимость номера<br/>
-						за {{guestCount}}
-						{{guestCount | pluralize: ["человека", "человек", "человек"]}}
-					</div>
-					<div class="CardPrice__price-desc" ng-if="currentActive('/bus/')">
-						Стоимость тура<br/>
-						за {{guestCount}}
-						{{guestCount | pluralize: ["человека", "человек", "человек"]}}
-					</div>
 					<div class="CardPrice__price-value">
 						{{ hotel.Price | currency : "" : 0 }}
 						<i class='fa fa-rub CardPrice__icon-currency'></i>
+					</div>
+					<div class="CardPrice__price-desc" ng-if="currentActive('/hotels/')">
+						Стоимость номера
+						за {{guestCount}}x
+						<!--{{guestCount | pluralize: ["человека", "человек", "человек"]}}-->
+					</div>
+					<div class="CardPrice__price-desc" ng-if="currentActive('/bus/')">
+						Стоимость тура
+						за {{guestCount}}x
+						<!--{{guestCount | pluralize: ["человека", "человек", "человек"]}}-->
 					</div>
 				</div>
 			</div>

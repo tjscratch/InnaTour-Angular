@@ -62,7 +62,7 @@
 				     inna-dynamic-bundle-with-reservation-button="true"></div>
 
 				<!--<div recommended-pair-component-mini ng-if="!isVisible"></div>-->
-				<div class="panel-tabs-dp" ng-if="isVisible">
+				<div class="panel-tabs-dp" ng-if="isVisible && !asMap">
 					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_hotel"
 						 ng-click="toggleTab('hotel', $event)"
 						 ng-class="{'panel-tabs-dp__tab_selected':(!stateTicket)}">
@@ -84,12 +84,12 @@
             as-map="asMap"
 	        type-panel="hotels"
 	        active-panel="activePanel"
-	        ng-show="filtersSettingsHotels && isVisible"></ng:any>
+	        ng-show="(filtersSettingsHotels && isVisible) || (filtersSettingsHotels && asMap)"></ng:any>
 
 	<!-- панель фильтрации билетов -->
 	<ng:any filter-panel-avia
 	        filters-settings="filtersSettingsTicket"
 	        type-panel="ticket"
 	        active-panel="activePanel"
-	        ng-show="filtersSettingsTicket && isVisible"></ng:any>
+	        ng-show="(filtersSettingsTicket && isVisible) || (filtersSettingsTicket && asMap)"></ng:any>
 </div>

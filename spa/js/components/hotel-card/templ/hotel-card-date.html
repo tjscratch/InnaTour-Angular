@@ -3,5 +3,10 @@
 	{{hotel.CheckIn | date :"dd MMM"}}
 	по
 	{{hotel.CheckOut | date :"dd MMM"}},
-	{{hotel.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+	{{hotel.NightCount | asQuantity:"ночь":"ночи":"ночей"}},
+	<span ng-if="hotel.MealCode == 'RO'">Без питания (RO)</span>
+	<span ng-if="hotel.MealCode == 'BB'">Завтрак (BB)</span>
+	<span ng-if="hotel.MealCode == 'HB'">Полупансион (HB)</span>
+	<span ng-if="hotel.MealCode == 'FB'">Полный пансион (FB)</span>
+	<span ng-if="hotel.MealCode == 'AI'">Все включено (AI)</span>
 </div>

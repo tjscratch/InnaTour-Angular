@@ -10,18 +10,16 @@ innaAppDirectives
 
                     $scope.isOpen = false;
 
-                    // $('body').on('click', function (e) {
-                    //     e.stopPropagation();
+                    // $('body').on('click', function () {
+                    //     // e.stopPropagation();
                     //     if($scope.isOpen) {
                     //         $scope.isOpen = false;
                     //     }
                     // });
                     
                     $scope.toggleVertMenu = function () {
-                        console.log('isOpen', $scope.isOpen);
                         var isOpen = $scope.isOpen;
                         $scope.isOpen = !isOpen;
-                        console.log('isOpen', $scope.isOpen);
                     };
 
                     $scope.etapMainPage = '';
@@ -52,6 +50,32 @@ innaAppDirectives
                                 break;
                         }
                     }
+
+                    function clickHanlder (e) {
+                        $scope.$apply(function ($scope) {
+                            var $this = e.target;
+                            console.log('asdasdasd', e);
+                            if($this.classList) {
+                                console.log($this.classList);
+                                if($scope.isOpen == true) {
+                                    if ($this.classList[0] != 'menu__ul-li' &&
+                                        $this.classList[0] != 'icon-menu' &&
+                                        $this.classList[0] != 'icon-vert-menu' &&
+                                        $this.classList[0] != 'icon-menu__line') {
+                                        $scope.isOpen = false;
+                                        e.stopPropagation();
+                                        console.log('NOOOOOOOOOOOOOOOo');
+                                    }
+                                }
+                            }
+                        });
+                    };
+
+                    document.addEventListener('click', clickHanlder, false);
+
+                    // $scope.$on('$destroy', function () {
+                    //     document.removeEventListener('click', clickHanlder, false);
+                    // });
 
                 },
                 template: $templateCache.get('components/vertical-menu/templ/menu.html'),

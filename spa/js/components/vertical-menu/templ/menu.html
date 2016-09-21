@@ -1,6 +1,15 @@
-<div class="icon-menu" ng-click="toggleVertMenu()" ng-class="{'icon-menu_white': etapMainPage,'icon-menu_green': !etapMainPage}">
+<div class="icon-menu" ng-click="toggleVertMenu()">
     <!--style="{{(FormExpand) ? 'background-image: url(/spa/img/Menu_W.png)' : 'background-image: url(/spa/img/Menu_G.png)'}}"-->
-    <div class="vertical-menu" ng-if="isOpen">
+    <div class="icon-menu__line" ng-class="{'icon-menu__line-one_open': isOpen,
+                                            'icon-menu_white': etapMainPage,
+                                            'icon-menu_green': !etapMainPage}"></div>
+    <div class="icon-menu__line" ng-class="{'icon-menu__line-two_open': isOpen,
+                                            'icon-menu_white': etapMainPage,
+                                            'icon-menu_green': !etapMainPage}"></div>
+    <div class="icon-menu__line" ng-class="{'icon-menu__line-three_open': isOpen,
+                                            'icon-menu_white': etapMainPage,
+                                            'icon-menu_green': !etapMainPage}"></div>
+    <div class="vertical-menu" ng-class="{'vertical-menu_open': isOpen}">
         <ul class="menu__ul_main-tab" style="{{(etapMainPage) ? 'display:none' : ''}}">
             <li>
                 <!--<span class="header-nav__item-promo">-30%</span>-->
@@ -8,7 +17,7 @@
                    href="/#/"
                    ng-click="gtmMainTab($event)"
                    ng-class="{'header-nav__item-link-active':isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">
-                    Онлайн туры
+                    Перелет + Отель
                 </a>
             </li>
             <li>

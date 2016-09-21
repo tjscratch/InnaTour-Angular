@@ -1,6 +1,9 @@
 <form class="b-search-form b-search-form-hotels"
-	  ng-class="{'b-search-form_padding-1px': FormExpand, 'b-search-form_padding-7px': !FormExpand}">
+	  ng-class="{'b-search-form_padding-1px': FormExpand, 'b-search-form_padding-16px': !FormExpand}">
 
+	<a href="/#/" class="header-info__logo" style="{{(isEnableSearchForm) ? 'display:none' : ''}}">
+		<i class="icon-logo js-company-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
+	</a>
 
 	<div class="b-search-form-hotels__field b-hotels-typeahead"
 		ng-class="{'b-search-form-hotels__field-error' : ArrivalIdError}">
@@ -70,5 +73,7 @@
 	     ng-click="hotelsSearchStart($event)">
 		Найти
 	</div>
+
+	<vertical-menu class="icon-vert-menu" style="{{(!isEnableSearchForm) ? 'display:block' : 'display:none'}}"></vertical-menu>
 
 </form>
