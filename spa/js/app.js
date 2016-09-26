@@ -98,6 +98,7 @@ app.config(['$validationProvider', function ($validationProvider) {
     // Setup `ip` validation
     var expression = {
         passport: /^.*([a-zA-Z]).*([а-яА-ЯёЁ])(\D)*(\d{6})+$/,
+        child_passport: /^.*([a-zA-Z]{2})(\-).*([а-яА-ЯёЁ]{2})(\D)*(\d{6})+$/,
         customemail: /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,10}|[0-9]{1,3})(\]?)$/,
         date_format: function (value, scope, element, attrs, param) {
             var date = moment(value, 'DD.MM.YYYY');
@@ -118,6 +119,10 @@ app.config(['$validationProvider', function ($validationProvider) {
     
     var validMsg = {
         passport: {
+            error: 'Неверный формат',
+            success: 'Ок'
+        },
+        child_passport: {
             error: 'Неверный формат',
             success: 'Ок'
         },

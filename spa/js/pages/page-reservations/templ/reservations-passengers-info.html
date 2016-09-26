@@ -173,12 +173,10 @@
 			       placeholder="XIЮД324244"
 			       name="passengerNumber{{$index}}"
 			       message-id="passengerNumber{{$index}}"
-			       validator="required, passport, minlength=10, maxlength=10"
+			       validator="required, child_passport"
 			       valid-method="submit"
 			       required-error-message="Укажите серию и номер документа"
-			       passport-error-message="Неверный формат документа"
-			       minlength-error-message="Длинна серии и номера 10 цифр"
-			       maxlength-error-message="Длинна серии и номера 10 цифр"
+			       child_passport-error-message="Неверный формат документа"
 			/>
 
 			<!-- показываем если выбран Иностранный документ DocumentId == 3 -->
