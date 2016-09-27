@@ -315,6 +315,15 @@
                             cache: true
                     });
                 },
+                
+                
+                getOfferLink: function (params) {
+                    return $http({
+                        method: 'GET',
+                        url: apiUrls.GET_OFFER_LINK,
+                        params: params
+                    })
+                },
 
 
                 /**

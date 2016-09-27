@@ -416,6 +416,19 @@ app.config([
              */
             
             
+            /**
+             * begin offer link
+             * http://localhost:3000/#/select?departureId=departureId&arrivalId=3005&startDate=20.10.2016&NightsCount=13&MinPrice=2342&MinStart=3&hotelName=бла-бла-бла&hotelid=123
+             */
+            .when('/select?', {
+                template: null,
+                controller: 'OfferLinkController'
+            })
+            /**
+             * end offer link
+             */
+            
+            
             .otherwise({
                 redirectTo: url.URL_ROOT
             });

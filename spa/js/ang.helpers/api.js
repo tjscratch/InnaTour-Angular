@@ -16,6 +16,8 @@ angular.module('innaApp.API', [])
         }
 
         return {
+            GET_OFFER_LINK : url('/Tour/GetByCriteria'),
+            
             GET_SLETAT: url('/Dictionary/Sletat/Get'),
             GET_SLETAT_CITY: url('/Dictionary/SletatCity/Get'),
             GET_SLETAT_BY_ID: url('/Dictionary/SletatById/Get'),
