@@ -12,9 +12,10 @@ innaAppControllers
         'innaApp.Urls',
         'AppRouteUrls',
         'innaAppApiEvents',
+        'serviceCache',
         'aviaHelper',
         '$timeout',
-        function (EventManager, $rootScope, $scope, $element, $location, eventsHelper, urlHelper, appUrls, AppRouteUrls, Events, aviaHelper, $timeout) {
+        function (EventManager, $rootScope, $scope, $element, $location, eventsHelper, urlHelper, appUrls, AppRouteUrls, Events, serviceCache, aviaHelper, $timeout) {
             
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.name == 'sputnik') {
@@ -24,6 +25,25 @@ innaAppControllers
                 $scope.headerTemplateSrc = 'regions/header/templ/header.html';
             }
             
+            $(window).on('unload beforeunload', function () {
+                serviceCache.drop('isMobile');
+            });
+            var md = new MobileDetect(window.navigator.userAgent);
+            if (serviceCache.getObject('isMobile') != 'hide' && md.mobile()) {
+                serviceCache.createObj('isMobile', 'show');
+                $scope.baloon.showMobile(
+                    '',
+                    '',
+                    function () {
+                        serviceCache.createObj('isMobile', 'hide');
+                    }
+                );
+                // document.body.classList.add('inject-toggle-mobile');
+            }
+            $scope.isMobileClose = function () {
+                serviceCache.createObj('isMobile', 'hide');
+                // document.body.classList.remove('inject-toggle-mobile');
+            };
             
             /**
              * Отели у нас работают только для b2b клиентов
@@ -82,15 +102,15 @@ innaAppControllers
             });
             
             $scope.urls = appUrls;
-
+            
             $scope.gtmMainTab = function ($event) {
                 // console.log('$location.absUrl()', $location.absUrl());
                 // console.log('$location.path()', $location.path());
                 var loc = $location.path();
                 var abs = $location.absUrl();
-
+                
                 var category = '';
-
+                
                 var isDynamic = (
                         loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
                     ) || loc == appUrls.URL_ROOT;
@@ -109,16 +129,16 @@ innaAppControllers
                 else if (loc.startsWith(AppRouteUrls.URL_BUS)) {
                     category = 'Bus';
                 }
-
+                
                 var dataLayerObj = {
                     'event': 'UM.Event',
-                    'Data': {
+                    'Data' : {
                         'Category': category,
-                        'Action': 'MainTab',
-                        'Label': $event.target.textContent,
-                        'Content': '[no data]',
-                        'Context': '[no data]',
-                        'Text': '[no data]'
+                        'Action'  : 'MainTab',
+                        'Label'   : $event.target.textContent,
+                        'Content' : '[no data]',
+                        'Context' : '[no data]',
+                        'Text'    : '[no data]'
                     }
                 };
                 console.table(dataLayerObj);
