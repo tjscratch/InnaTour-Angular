@@ -30,15 +30,19 @@ innaAppControllers
             });
             var md = new MobileDetect(window.navigator.userAgent);
             if (serviceCache.getObject('isMobile') != 'hide' && md.mobile()) {
-                serviceCache.createObj('isMobile', 'show');
-                $scope.baloon.showMobile(
-                    '',
-                    '',
-                    function () {
-                        serviceCache.createObj('isMobile', 'hide');
-                    }
-                );
-                // document.body.classList.add('inject-toggle-mobile');
+                if (window.partners && window.partners.isFullWL()) {
+                    
+                } else {
+                    serviceCache.createObj('isMobile', 'show');
+                    $scope.baloon.showMobile(
+                        '',
+                        '',
+                        function () {
+                            serviceCache.createObj('isMobile', 'hide');
+                        }
+                    );
+                    // document.body.classList.add('inject-toggle-mobile');
+                }
             }
             $scope.isMobileClose = function () {
                 serviceCache.createObj('isMobile', 'hide');
