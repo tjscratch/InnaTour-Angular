@@ -6,39 +6,39 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
         return {
             getFromListByTerm: function (term, callback) {
                 AjaxHelper.getDebounced({
-                    url : api.DYNAMIC_FROM_SUGGEST,
-                    data : {term: term},
-                    success : callback
+                    url    : api.DYNAMIC_FROM_SUGGEST,
+                    data   : {term: term},
+                    success: callback
                 });
             },
-            getToListByTerm: function (term, callback) {
+            getToListByTerm  : function (term, callback) {
                 AjaxHelper.getDebounced({
-                    url : api.DYNAMIC_TO_SUGGEST,
-                    data : {term: term},
-                    success : callback
-                });
-            },
-            getObjectById: function (id, callback) {
-                AjaxHelper.get({
-                    url: api.DYNAMIC_GET_OBJECT_BY_ID,
-                    data: {id: id},
+                    url    : api.DYNAMIC_TO_SUGGEST,
+                    data   : {term: term},
                     success: callback
                 });
             },
-            getUserLocation: function (callback) {
+            getObjectById    : function (id, callback) {
                 AjaxHelper.get({
-                    url: api.DYNAMIC_GET_DIRECTORY_BY_IP,
-                    data: null,
+                    url    : api.DYNAMIC_GET_OBJECT_BY_ID,
+                    data   : {id: id},
                     success: callback
                 });
-
+            },
+            getUserLocation  : function (callback) {
+                AjaxHelper.get({
+                    url    : api.DYNAMIC_GET_DIRECTORY_BY_IP,
+                    data   : null,
+                    success: callback
+                });
+                
                 return null;
             },
-            search: function (params) {
+            search           : function (params) {
                 params.url = api.DYNAMIC_SEARCH;
                 AjaxHelper.getDebounced(params);
             },
-
+            
             /**
              * @param {params.data}
              *        HotelId: int
@@ -49,13 +49,13 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
              */
             getHotelsByCombination: function (params) {
                 AjaxHelper.getDebounced({
-                    url : api.DYNAMIC_SEARCH_HOTELS,
-                    data : params.data,
-                    success : params.success,
-                    error : params.error
+                    url    : api.DYNAMIC_SEARCH_HOTELS,
+                    data   : params.data,
+                    success: params.success,
+                    error  : params.error
                 });
             },
-
+            
             /**
              *
              * @param {params.data}
@@ -67,13 +67,13 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
              */
             getTicketsByCombination: function (params) {
                 AjaxHelper.getDebounced({
-                    url : api.DYNAMIC_SEARCH_TICKETS,
-                    data : params.data,
-                    success : params.success,
-                    error : params.error
+                    url    : api.DYNAMIC_SEARCH_TICKETS,
+                    data   : params.data,
+                    success: params.success,
+                    error  : params.error
                 });
             },
-
+            
             /**
              *
              * @param {Object} params
@@ -86,21 +86,30 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
              * error =
              */
             hotelDetails: function (params) {
-                return AjaxHelper.get({
-                    url: api.DYNAMIC_HOTEL_DETAILS,
-                    data: params.data,
-                    success: params.success,
-                    error: params.error
-                });
+                if (params.data.departureSlug && params.data.SearchDate) {
+                    return AjaxHelper.get({
+                        // url    : "http://localhost:3000/offers/" + params.data.departureSlug + "/" + params.data.SearchDate,
+                        url    : "http://pages.inna.ru/offers/" + params.data.departureSlug + "/" + params.data.SearchDate,
+                        success: params.success,
+                        error  : params.error
+                    });
+                } else {
+                    return AjaxHelper.get({
+                        url    : api.DYNAMIC_HOTEL_DETAILS,
+                        data   : params.data,
+                        success: params.success,
+                        error  : params.error
+                    });
+                }
             },
             displayOrder: function (params) {
                 return AjaxHelper.get({
-                    url: api.B2B_DISPLAY_ORDER,
-                    data: {
+                    url    : api.B2B_DISPLAY_ORDER,
+                    data   : {
                         orderNum: params.orderId
                     },
                     success: params.success,
-                    error: params.error
+                    error  : params.error
                 });
             }
         }

@@ -331,7 +331,9 @@ innaAppControllers
                         TicketToId: searchParams.TicketId,
                         TicketBackId: searchParams.TicketBackId,
                         Filter: searchParams,
-                        ihid: searchParams.ihid
+                        ihid: searchParams.ihid,
+                        departureSlug  : routParam.departureSlug,
+                        SearchDate     : routParam.SearchDate
                     },
                     success: function (data) {
                         _balloonLoad.fire('hide');

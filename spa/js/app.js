@@ -326,12 +326,6 @@ app.config([
                 resolve       : authController.resolve,
                 reloadOnSearch: false
             })
-            .when(url.URL_DYNAMIC_HOTEL_DETAILS + ':departureSlug/:SearchDate', {
-                templateUrl   : 'pages/page-dynamic-details/templ/hotel-details-cache.html',
-                controller    : 'PageHotelDetailsCache',
-                resolve       : authController.resolve,
-                reloadOnSearch: false
-            })
             .when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId', {
                 templateUrl: 'pages/page-reservations/templ/reserve.html',
                 controller : 'DynamicReserveTicketsCtrl',
