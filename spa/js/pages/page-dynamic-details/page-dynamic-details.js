@@ -50,13 +50,15 @@ innaAppControllers
                 dataService.getLocationById(routParam.DepartureId),
                 dataService.getLocationById(routParam.ArrivalId)]
             ).then(function (results) {
+                console.log(results[0].data.Location)
+                console.log(results[1].data.Location)
                 gtm.GtmTrack(
                     {
                         'PageType': 'PackagesDetailsLoading'
                     },
                     {
-                        'CityFrom': results[0].data.Location.City.Code,
-                        'CityTo': results[1].data.Location.City.Code,
+                        'CityFrom': results[0].data.Location.City ? results[0].data.Location.City.Code : results[0].data.Location.Location.Code,
+                        'CityTo': results[1].data.Location.City ? results[1].data.Location.City.Code : results[1].data.Location.Location.Code,
                         'DateFrom': routParam.StartVoyageDate,
                         'DateTo': routParam.EndVoyageDate,
                         'Travelers': routParam.Adult + '-' + ('Children' in routParam ? routParam.Children.split('_').length : '0'),
