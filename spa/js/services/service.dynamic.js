@@ -89,7 +89,7 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                 if (params.data.departureSlug && params.data.SearchDate) {
                     return AjaxHelper.get({
                         // url    : "http://localhost:3000/offers/" + params.data.departureSlug + "/" + params.data.SearchDate,
-                        url    : "http://pages.inna.ru/offers/" + params.data.departureSlug + "/" + params.data.SearchDate,
+                        url    : "https://pages.inna.ru/offers/" + params.data.departureSlug + "/" + params.data.SearchDate,
                         success: params.success,
                         error  : params.error
                     });
