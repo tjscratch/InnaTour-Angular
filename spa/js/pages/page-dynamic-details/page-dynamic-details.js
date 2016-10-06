@@ -396,7 +396,7 @@ innaAppControllers
                             $scope.Included = data.Included;
     
     
-                            if (data.Rooms.length && $scope.isLanding) {
+                            if (data.Rooms && $scope.isLanding) {
         
                                 $scope.hotelRooms = data.Rooms;
         
@@ -634,7 +634,7 @@ innaAppControllers
                         }, 0);
                     }
     
-                    if (!$scope.isLanding) {
+                    if (!$scope.hotelRooms) {
                         getHotelDetailsRooms();
                     }
                     
