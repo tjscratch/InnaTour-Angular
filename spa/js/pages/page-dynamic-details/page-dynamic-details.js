@@ -634,7 +634,7 @@ innaAppControllers
                         }, 0);
                     }
     
-                    if (!$scope.hotelRooms) {
+                    if (!$scope.isLanding) {
                         getHotelDetailsRooms();
                     }
                     
