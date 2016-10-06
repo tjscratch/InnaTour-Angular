@@ -40,6 +40,7 @@ innaAppControllers
             $scope.OrderId = routParam.OrderId;
             $scope.userIsAgency = null;
             
+            $scope.isLanding = (routParam.departureSlug && routParam.SearchDate) ? true : false;
 
             /**
              * Трекаем события для GTM
@@ -50,8 +51,6 @@ innaAppControllers
                 dataService.getLocationById(routParam.DepartureId),
                 dataService.getLocationById(routParam.ArrivalId)]
             ).then(function (results) {
-                console.log(results[0].data.Location)
-                console.log(results[1].data.Location)
                 gtm.GtmTrack(
                     {
                         'PageType': 'PackagesDetailsLoading'
@@ -354,50 +353,111 @@ innaAppControllers
                             ).then(function (results) {
                                 gtm.GtmTrack(
                                     {
-                                        'PageType': 'PackagesDetailsLoad',
-                                        'Price': data.Hotel.PackagePrice,
+                                        'PageType' : 'PackagesDetailsLoad',
+                                        'Price'    : data.Hotel.PackagePrice,
                                         'HotelName': $scope.HotelName
                                     }
                                 );
                             });
+    
+                            setWlModel(data);
+    
+                            parseAmenities(data.Hotel);
+    
+                            var hotel = new ModelHotel(data.Hotel);
+                            var ticket = new ModelTicket(data.AviaInfo);
+                            //ticket.modelTicket = ticket;
+                            $scope.recommendedPair.setTicket(ticket);
+                            $scope.recommendedPair.setHotel(hotel);
+                            $scope.recommendedPairStatus = data.Status;
+    
+                            $location.search('displayHotel', hotel.data.HotelId);
+    
+                            $scope.hotel = data.Hotel;
+                            $scope.hotelRooms = data.Rooms;
+    
+                            $scope.hotelLoaded = true;
+                            EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
+    
+                            $scope.dataFullyLoaded = false;
+                            if ($scope.hotel.ProviderId == 4) {
+                                $scope.TAWidget = app_main.tripadvisorEx + $scope.hotel.HotelId;
+                            } else if ($scope.hotel.ProviderId == 2) {
+                                $scope.TAWidget = app_main.tripadvisorOk + $scope.hotel.HotelId;
+                            }
+    
+                            $scope.$digest();
+    
+                            $timeout(function () {
+                                loadMap();
+                            }, 50);
+    
+                            $scope.Additional = data.Additional;
+                            $scope.Included = data.Included;
+    
+    
+                            if (data.Rooms.length && $scope.isLanding) {
+        
+                                $scope.hotelRooms = data.Rooms;
+        
+                                parseRooms(data.Rooms);
+        
+                                if ($scope.hotel.CheckInTime == undefined || $scope.hotel.CheckInTime == '00:00' && data.Hotel.CheckInTime) {
+                                    $scope.hotel.CheckInTime = data.Hotel.CheckInTime
+                                }
+        
+                                if ($scope.hotel.CheckOutTime == undefined || $scope.hotel.CheckOutTime == '00:00' && data.Hotel.CheckOutTime) {
+                                    $scope.hotel.CheckOutTime = data.Hotel.CheckOutTime
+                                }
+        
+                                $scope.OldPrice = $scope.recommendedPair.getFullPackagePrice();
+        
+                                // для теста новой цены
+                                //data.NewPrice = 70000;
+        
+                                if (data.NewPrice) {
+                                    $scope.NewPrice = data.NewPrice;
+                                    $scope.NewPricePackage = ($scope.NewPrice - $scope.OldPrice);
+                                    data.PackagePrice = data.NewPrice;
+                                    $scope.recommendedPair.setFullPackagePrice(data);
+                                }
+        
+        
+                                //================analytics========================
+                                //flags
+                                var RecommendedFindStatus = {
+                                    Found: 1,
+                                    HotelNotFound: 2,
+                                    AviaNotFound: 4
+                                }
+        
+                                if (data.Status & RecommendedFindStatus.HotelNotFound) {//NEW Страница отеля. Отель недоступен
+                                    track.dpHotelNotAvialable();
+                                }
+                                if (data.Status & RecommendedFindStatus.AviaNotFound) {//NEW Страница отеля. Авиабилет в пакете недоступен
+                                    track.dpAirticketNotAvialable();
+                                }
+                                if (data.NewPrice) {
+                                    //NEW Страница отеля. Замена номера.
+                                    track.dpSuiteChanged();
+                                }
+                                //================analytics========================
+        
+                                onload();
+        
+                            } else {
+                                RavenWrapper.raven({
+                                    captureMessage: 'PACKAGE DETAILS ROOMS NOT FOUND',
+                                    dataResponse: data,
+                                    dataRequest: searchParams
+                                });
+        
+                                showErrNotFound("К сожалению, свободных номеров в данный момент нет.");
+                            }
+                            
+                            
+                            deferred.resolve();
                         }
-                        
-                        setWlModel(data);
-                        
-                        parseAmenities(data.Hotel);
-                        
-                        var hotel = new ModelHotel(data.Hotel);
-                        var ticket = new ModelTicket(data.AviaInfo);
-                        //ticket.modelTicket = ticket;
-                        $scope.recommendedPair.setTicket(ticket);
-                        $scope.recommendedPair.setHotel(hotel);
-                        $scope.recommendedPairStatus = data.Status;
-                        
-                        $location.search('displayHotel', hotel.data.HotelId);
-                        
-                        $scope.hotel = data.Hotel;
-                        $scope.hotelRooms = data.Rooms;
-                        
-                        $scope.hotelLoaded = true;
-                        EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
-                        
-                        $scope.dataFullyLoaded = false;
-                        if ($scope.hotel.ProviderId == 4) {
-                            $scope.TAWidget = app_main.tripadvisorEx + $scope.hotel.HotelId;
-                        } else if ($scope.hotel.ProviderId == 2) {
-                            $scope.TAWidget = app_main.tripadvisorOk + $scope.hotel.HotelId;
-                        }
-                        
-                        $scope.$digest();
-                        
-                        $timeout(function () {
-                            loadMap();
-                        }, 50);
-                        
-                        $scope.Additional = data.Additional;
-                        $scope.Included = data.Included;
-                        
-                        deferred.resolve();
                     },
                     error: function (data) {
                         RavenWrapper.raven({
@@ -574,7 +634,9 @@ innaAppControllers
                         }, 0);
                     }
                     
-                    getHotelDetailsRooms();
+                    if(!$scope.isLanding){
+                        getHotelDetailsRooms();
+                    }
                     
                 });
             } else {
