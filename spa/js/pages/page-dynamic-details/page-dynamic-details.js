@@ -445,16 +445,7 @@ innaAppControllers
         
                                 onload();
         
-                            } else {
-                                RavenWrapper.raven({
-                                    captureMessage: 'PACKAGE DETAILS ROOMS NOT FOUND',
-                                    dataResponse: data,
-                                    dataRequest: searchParams
-                                });
-        
-                                showErrNotFound("К сожалению, свободных номеров в данный момент нет.");
                             }
-                            
                             
                             deferred.resolve();
                         }
