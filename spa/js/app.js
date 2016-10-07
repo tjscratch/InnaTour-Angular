@@ -1,5 +1,5 @@
 ﻿'use strict';
-console.log('Pavel');
+
 var app = angular.module('innaApp', [
     'ngRoute',
     'ngTouch',
