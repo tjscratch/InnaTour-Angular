@@ -27,6 +27,8 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
     self.busShowPath = HotelService.getBusShowUrl($routeParams.hotelId, $routeParams.providerId, $routeParams);
 
     self.typeProduct = $routeParams.typeProduct;
+    
+    self.hotelRules = new aviaHelper.hotelRules();
 
     var buyParams = angular.copy($routeParams);
     buyParams.test = null;
@@ -225,7 +227,11 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                 if (response.status == 200 && response.data.Available) {
                     self.baloonHotelAvailable.teardown();
                     self.hotelInfo = response.data;
-
+    
+    
+                    //правила отмены отеля
+                    self.hotelRules.fillData(response.data);
+    
                     /**
                      * Трекаем события для GTM
                      * https://innatec.atlassian.net/browse/IN-7071
