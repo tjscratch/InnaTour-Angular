@@ -1,29 +1,37 @@
 ﻿<div class="results-body results__body_mod results__body_mod_avia">
 	<!-- Search Results -->
-	<div class="results-container" style="padding-top: 25px;">
+	<div class="results-container" style="padding-top: 0px;">
+		<!--style="padding-top: 25px;"-->
+
+		<div class="SearchHotelResultsSale" ng-if="ticketsList.length > 0">
+			Скидки до
+			<span class="SearchHotelResultsSale__value-sale">30%</span>
+			при покупке
+			<span class="SearchHotelResultsSale__logo-dp">Перелет + Отель</span>
+		</div>
 
 	    <!-- Рекомендованный вариант -->
-	    <div class="results-list js-results-list-recomended results-list_720 pull-left" ng-if="recomendedItem != null">
-	        <ng:any ng-repeat="item in [recomendedItem] track by $index">
-	            <ng:include ng-init="isItemRecomended = true" src="'avia/results_item.html'"></ng:include>
-	        </ng:any>
-	    </div>
+	    <!--<div class="results-list js-results-list-recomended results-list_720 pull-left" ng-if="recomendedItem != null">-->
+	        <!--<ng:any ng-repeat="item in [recomendedItem] track by $index">-->
+	            <!--<ng:include ng-init="isItemRecomended = true" src="'avia/results_item.html'"></ng:include>-->
+	        <!--</ng:any>-->
+	    <!--</div>-->
 
 	    <!-- Results Aside -->
-	    <aside class="res-aside-avia" ng-if="recomendedItem != null" ng-click="recommendedClick()">
-	        <div class="res-aside-avia__img two-way" ng-if="recomendedItem.EtapsBack.length > 0">
+	    <!--<aside class="res-aside-avia" ng-if="recomendedItem != null" ng-click="recommendedClick()">-->
+	        <!--<div class="res-aside-avia__img two-way" ng-if="recomendedItem.EtapsBack.length > 0">-->
 
-	        </div>
-	        <div class="res-aside-avia__img one-way" ng-if="!(recomendedItem.EtapsBack.length > 0)">
+	        <!--</div>-->
+	        <!--<div class="res-aside-avia__img one-way" ng-if="!(recomendedItem.EtapsBack.length > 0)">-->
 
-	        </div>
+	        <!--</div>-->
 	        <!--<div class="ra-best-block">
 	            <div class="ra-best-title">Перелет + Отель ★★★</div>
 	            <div class="ra-best-price">30 200 <span class="rub">P</span></div>
 	            <p class="ra-best-descr">по отдельности: <span class="ra-best-descr-info">110 600 <span class="rub">P</span></span>экономия: 20 000 <span class="rub">P</span></p>
 	            <a href="#" class="ra-best-select">ВЫБРАТЬ</a>
 	        </div>-->
-	    </aside>
+	    <!--</aside>-->
 	    <!-- /Results Aside -->
 	</div>
 
@@ -52,13 +60,13 @@
 	<!-- /Filters -->
 
 
-	<div class="results-container results-container_top">
-	    <div class="b-switch-filters_buttons_right font-medium" ng-if="filteredTicketsList.length > 0">
-	        Другие <b>{{filteredTicketsList.length}}</b> {{filteredTicketsList.length | choosePlural:"вариант":"варианта":"вариантов"}} билетов
-	    </div>
+	<div class="results-container results-container_top" ng-cloak>
+	    <!--<div class="b-switch-filters_buttons_right font-medium" ng-if="filteredTicketsList.length > 0">-->
+	        <!--Другие <b>{{filteredTicketsList.length}}</b> {{filteredTicketsList.length | choosePlural:"вариант":"варианта":"вариантов"}} билетов-->
+	    <!--</div>-->
 
 	    <!-- Results List -->
-	    <div class="results-list results-list_720" style="float: left;">
+	    <div class="results-list results-list_752" style="float: left;">
 
 	        <ng:any id="avia_result_cont"></ng:any>
 
@@ -72,7 +80,7 @@
 	    <!-- Results Aside -->
 	    <aside class="results-aside results-aside_mod avia js-aside">
 
-	        <div class="ra-tags-container">
+	        <div class="ra-tags-container" style="position: absolute; top: 16px; right: 16px;">
 	            <!--<h4 class="ra-tags-title" ng-if="ticketsList.length > 0"><b>{{getFilteredLength()}}</b> из <b>{{getLength()}}</b> перелетов</h4>-->
 	            <div class="b-switch-filters__result">
 	                <ul class="b-switch-filters__list ra-tags-list">

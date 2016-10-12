@@ -1,5 +1,10 @@
 <form class="b-search-form search-ticket-form" ng-controller="AviaFormCtrl"
       ng-class="{'b-search-form_padding-1px': FormExpand, 'b-search-form_padding-16px': !FormExpand}">
+
+    <a href="/#/" class="header-info__logo" style="{{(isEnableSearchForm) ? 'display:none' : ''}}">
+        <i class="icon-logo js-company-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
+    </a>
+
     <div dropdown-input tab-index="1"
         theme="search-field-block search__city"
         provide-suggest-callback="provideSuggestToFromList"
@@ -36,16 +41,30 @@
         type-page="'AVIA'"
         class="b-wrapp_type_inline date-picker-widget"></span>
 
-    <div people-component click-on-focus tabindex="5"
-         adult-count="criteria.AdultCount" child-count="criteria.ChildCount" infants-count="criteria.InfantsCount"></div>
+    <!--<div people-component click-on-focus tabindex="5"-->
+         <!--adult-count="criteria.AdultCount" child-count="criteria.ChildCount" infants-count="criteria.InfantsCount"></div>-->
 
-	<div trip-preferences click-on-focus tabindex="6"
-        show-back-trip-options="false"
-        klass-model="klass"
-        type-page="'AVIA'"></div>
+	<!--<div trip-preferences click-on-focus tabindex="6"-->
+        <!--show-back-trip-options="false"-->
+        <!--klass-model="klass"-->
+        <!--type-page="'AVIA'"></div>-->
+
+    <people-trip-preferences tabindex="5"
+                             adult-count="criteria.AdultCount"
+                             children-count="criteria.ChildCount"
+                             infants-count="criteria.InfantsCount"
+                             klass-model="klass"
+                             childrens-age="[]"
+                             type-page="'Avia'"
+                             class="b-wrapp_type_inline no-outline-on-focus">
+    </people-trip-preferences>
+
     <div click-on-focus tabindex="7"
         class="search-form__submit search-button-block_small no-outline-on-focus" ng-click="searchStart($event)">
         Найти
 	    <!--<i class="icon-sprite-search search-button__icon"></i>-->
     </div>
+
+    <vertical-menu class="icon-vert-menu" style="{{(!isEnableSearchForm) ? 'display:block' : 'display:none'}}"></vertical-menu>
+
 </form>

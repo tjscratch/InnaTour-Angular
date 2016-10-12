@@ -3,7 +3,8 @@
 	  style="{{(!isOpenSearchForm) ? 'display:none' : 'display:block'}}">
 
 	<a href="/#/" class="header-info__logo" style="{{(isEnableSearchForm) ? 'display:none' : ''}}">
-		<i class="icon-logo js-company-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
+		<i class="logo_inna" alt="ИННА ТУР" title="ИННА ТУР"></i>
+		<!--icon-logo js-company-logo-->
 	</a>
 
 	<div location-selector tab-index="1"
@@ -55,17 +56,26 @@
 		 	type-page="'DP'"
             class="b-wrapp_type_inline date-picker-widget"></div>    
     
-	<div counter-people click-on-focus tabindex="5"
-	     adult-count="adultCount"
-	     children-count="childrenCount"
-	     childrens-age="childrensAge"
-		 type-page="'DP'"
-	     class="b-wrapp_type_inline no-outline-on-focus"></div>
+	<!--<div counter-people click-on-focus tabindex="5"-->
+	     <!--adult-count="adultCount"-->
+	     <!--children-count="childrenCount"-->
+	     <!--childrens-age="childrensAge"-->
+		 <!--type-page="'DP'"-->
+	     <!--class="b-wrapp_type_inline no-outline-on-focus"></div>-->
 
-	<div trip-preferences click-on-focus tabindex="6" class="no-outline-on-focus"
-	     show-back-trip-options="false"
-	     klass-model="klass"
-		 type-page="'DP'"></div>
+	<!--<div trip-preferences click-on-focus tabindex="6" class="no-outline-on-focus"-->
+	     <!--show-back-trip-options="false"-->
+	     <!--klass-model="klass"-->
+		 <!--type-page="'DP'"></div>-->
+
+	<people-trip-preferences tabindex="5"
+			adult-count="adultCount"
+			children-count="childrenCount"
+			childrens-age="childrensAge"
+			klass-model="klass"
+			type-page="'DP'"
+			class="b-wrapp_type_inline no-outline-on-focus">
+	</people-trip-preferences>
 
 	<div tabindex="7" click-on-focus class="search-form__submit search-button-block_small no-outline-on-focus"
 		 ng-click="searchStart($event)">

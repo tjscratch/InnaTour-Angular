@@ -54,9 +54,7 @@ innaAppDirectives
                     function clickHanlder (e) {
                         $scope.$apply(function ($scope) {
                             var $this = e.target;
-                            console.log('asdasdasd', e);
                             if($this.classList) {
-                                console.log($this.classList);
                                 if($scope.isOpen == true) {
                                     if ($this.classList[0] != 'menu__ul-li' &&
                                         $this.classList[0] != 'icon-menu' &&
@@ -64,7 +62,6 @@ innaAppDirectives
                                         $this.classList[0] != 'icon-menu__line') {
                                         $scope.isOpen = false;
                                         e.stopPropagation();
-                                        console.log('NOOOOOOOOOOOOOOOo');
                                     }
                                 }
                             }

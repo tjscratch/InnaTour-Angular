@@ -90,7 +90,7 @@
             </div>
 
         </div>
-        <span class="icon-sprite-hotel"></span>
+        <span class="icon-inform-blue" title="Подробнее об отеле"></span>
 
         <a class="hotel-details-link"
            href="{{computedUrlDetails()}}"
@@ -134,20 +134,19 @@
             <div ng-if="typeEtap == 'Search'" class="hotel-info__tripadvisor">
                 <div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>
             </div>
-            <span ng-if="typeEtap == 'Details'" class="room-title">{{recommendedPair.hotel.data.Room.RoomName}}<br/></span>
-            <span ng-if="typeEtap == 'Details'" class="room_bed-type-list">
+            <span ng-if="typeEtap != 'Search'" class="room-title">{{recommendedPair.hotel.data.Room.RoomName}}<br/></span>
+            <span ng-if="typeEtap != 'Search'" class="room_bed-type-list">
 		                    <span ng-repeat="bed in recommendedPair.hotel.data.Room.BedTypeList">
 		                        {{bed.Name}}<span ng-if="!$last">,&nbsp;</span>
 		                    </span>
             </span>
-            <div class="hotel-go-to-map">
-                        <span class="hotel-info-name-link"
-                              ng-click="recommendedHotelToMap()"
-                        >(на карте)</span>
+            <!--<div class="hotel-go-to-map">-->
                 <!--EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));-->
-            </div>
+            <!--</div>-->
         </div>
-
+        <i class="icon-location"
+           ng-click="recommendedHotelToMap()"
+        ></i>
 
         <!-- separator -->
         <!--<div class="b-result-cell__gap">-->
@@ -193,67 +192,73 @@
         <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
 
 
-        <span class="icon-sprite-airplane"></span>
+        <span class="icon-inform-blue" title="Подробнее о перелете"></span>
 
-        <div class="flight-info">
-            <ng:any partials-collection
-                    partial-name="logoAvia"
-                    class="recommendedPairTicket recommendedPairTicketLogo"
-                    ticket-model="recommendedPair.ticket"
-                    to-or-back="To"/>
-            <span class="date">
+        <div class="wrap__flight-info">
+            <div class="flight-info" style="border-bottom: 1px dashed #DDE3E9;">
                 <ng:any partials-collection
-                        partial-name="weekDateTimeCode"
-                        direction="OutCode"
-                        date="recommendedPair.ticket.data.DepartureDate"
-                        avia-info="recommendedPair.ticket.data"/>
-                {{recommendedPair.ticket.data.EtapsTo[0].data.OutPort}}
-            </span>
+                        partial-name="logoAvia"
+                        class="recommendedPairTicket recommendedPairTicketLogo"
+                        ticket-model="recommendedPair.ticket"
+                        to-or-back="To"/>
+                <span class="date">
+                    <ng:any partials-collection
+                            partial-name="weekDateTimeCode"
+                            direction="OutCode"
+                            date="recommendedPair.ticket.data.DepartureDate"
+                            avia-info="recommendedPair.ticket.data"/>
+                    {{recommendedPair.ticket.data.EtapsTo[0].data.OutPort ||
+                      recommendedPair.ticket.data.EtapsTo[0].OutPort}}
+                </span>
 
-            <ng:any partials-collection
-                    partial-name="flightTimeArrow"
-                    direction="To"
-                    avia-info="recommendedPair.ticket.data"/>
-
-            <span class="date">
                 <ng:any partials-collection
-                        partial-name="weekDateTimeCode"
-                        direction="InCode"
-                        date="recommendedPair.ticket.data.ArrivalDate"
+                        partial-name="flightTimeArrow"
+                        direction="To"
                         avia-info="recommendedPair.ticket.data"/>
-                {{recommendedPair.ticket.data.EtapsTo[recommendedPair.ticket.data.EtapsTo.length - 1].data.InPort}}
-            </span>
-        </div>
 
-        <div class="flight-info">
-            <ng:any partials-collection
-                    partial-name="logoAvia"
-                    class="recommendedPairTicket recommendedPairTicketLogo"
-                    ticket-model="recommendedPair.ticket"
-                    to-or-back="Back"/>
-            <span class="date">
+                <span class="date">
+                    <ng:any partials-collection
+                            partial-name="weekDateTimeCode"
+                            direction="InCode"
+                            date="recommendedPair.ticket.data.ArrivalDate"
+                            avia-info="recommendedPair.ticket.data"/>
+                    {{recommendedPair.ticket.data.EtapsTo[recommendedPair.ticket.data.EtapsTo.length - 1].data.InPort ||
+                      recommendedPair.ticket.data.EtapsTo[recommendedPair.ticket.data.EtapsTo.length - 1].InPort}}
+                </span>
+            </div>
+
+            <div class="flight-info">
                 <ng:any partials-collection
-                        partial-name="weekDateTimeCode"
-                        direction="OutCodeBack"
-                        date="recommendedPair.ticket.data.BackDepartureDate"
-                        avia-info="recommendedPair.ticket.data"/>
-                {{recommendedPair.ticket.data.EtapsBack[0].data.OutPort}}
-            </span>
+                        partial-name="logoAvia"
+                        class="recommendedPairTicket recommendedPairTicketLogo"
+                        ticket-model="recommendedPair.ticket"
+                        to-or-back="Back"/>
+                <span class="date">
+                    <ng:any partials-collection
+                            partial-name="weekDateTimeCode"
+                            direction="OutCodeBack"
+                            date="recommendedPair.ticket.data.BackDepartureDate"
+                            avia-info="recommendedPair.ticket.data"/>
+                    {{recommendedPair.ticket.data.EtapsBack[0].data.OutPort ||
+                      recommendedPair.ticket.data.EtapsBack[0].OutPort}}
+                </span>
 
-            <ng:any partials-collection
-                    partial-name="flightTimeArrow"
-                    direction="Back"
-                    avia-info="recommendedPair.ticket.data"/>
-
-            <span class="date">
                 <ng:any partials-collection
-                        partial-name="weekDateTimeCode"
-                        direction="InCodeBack"
-                        date="recommendedPair.ticket.data.BackArrivalDate"
+                        partial-name="flightTimeArrow"
+                        direction="Back"
                         avia-info="recommendedPair.ticket.data"/>
-                {{recommendedPair.ticket.data.EtapsBack[recommendedPair.ticket.data.EtapsBack.length - 1].data.InPort}}
-            </span>
 
+                <span class="date">
+                    <ng:any partials-collection
+                            partial-name="weekDateTimeCode"
+                            direction="InCodeBack"
+                            date="recommendedPair.ticket.data.BackArrivalDate"
+                            avia-info="recommendedPair.ticket.data"/>
+                    {{recommendedPair.ticket.data.EtapsBack[recommendedPair.ticket.data.EtapsBack.length - 1].data.InPort ||
+                      recommendedPair.ticket.data.EtapsBack[recommendedPair.ticket.data.EtapsBack.length - 1].InPort}}
+                </span>
+
+            </div>
         </div>
 
         <div class="bottom-actions">
@@ -317,8 +322,16 @@
                 </div>
 
                 <div class="b-price-block" ng-class="{'b-price-block__margin-top':(recommendedPair.getProfit() < 1000)}">
-                    <div class="b-price__value">
+                    <div ng-if="recommendedPair.getFullPackagePrice()" class="b-price__value">
                         {{recommendedPair.getFullPackagePrice() | price}}
+                        <i class="fa fa-rub b-price__rub"></i>
+                        <ng:any ng-if="recommendedPair.hotel.data.PriceObject && $root.user.getAgencyType() != 1 && $root.user.isAgency()"
+                                price-generic-directive
+                                price-object="recommendedPair.hotel.data.PriceObject"
+                                tooltip-klass="bundle"></ng:any>
+                    </div>
+                    <div ng-if="recommendedPair.priceReservation" class="b-price__value">
+                        {{recommendedPair.priceReservation | price}}
                         <i class="fa fa-rub b-price__rub"></i>
                         <ng:any ng-if="recommendedPair.hotel.data.PriceObject && $root.user.getAgencyType() != 1 && $root.user.isAgency()"
                                 price-generic-directive

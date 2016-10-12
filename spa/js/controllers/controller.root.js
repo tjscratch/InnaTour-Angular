@@ -128,9 +128,9 @@ innaAppControllers.
             };
 
 
-            $scope.isBodyBg = function () {
-                return $scope.isActive('/avia/reservation/') || $scope.isActive('/packages/reservation/') || $scope.isActive('/reservations/') || $scope.isActive('/buy/');
-            };
+            // $scope.isBodyBg = function () {
+            //     return $scope.isActive('/avia/reservation/') || $scope.isActive('/packages/reservation/') || $scope.isActive('/reservations/') || $scope.isActive('/buy/');
+            // };
 
             $scope.isTransferBg = function () {
                 return $scope.isActive(appUrls.URL_TRANSFERS);

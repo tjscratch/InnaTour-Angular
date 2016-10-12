@@ -9,10 +9,10 @@
 			<div class="main__center recommend-bundle-wrap">
 				<!--ng-class="{'recommend-bundle-wrap_small': !isVisible}"-->
 
-				<h3 class="recommend-bundle-title" ng-if="isChooseHotel">
+				<h3 class="recommend-bundle-title" ng-if="isChooseHotel && !isVisible">
 					Выбранный вариант
-
-					<div ng-if="!isClosed && recommendedPairStatus == 6"
+					<!--ng-if="!isClosed && recommendedPairStatus == 6"-->
+					<div
 					     tooltip-directive-base
 					     tooltip-klass="nocorner:fixed"
 					     close="true"
@@ -66,12 +66,18 @@
 					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_hotel"
 						 ng-click="toggleTab('hotel', $event)"
 						 ng-class="{'panel-tabs-dp__tab_selected':(!stateTicket)}">
+						<i ng-class="{'icon-hotel-blue':(!stateTicket), 'icon-hotel-gray': (stateTicket)}"></i>
 						Выбрать отель
 					</div>
 					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_avia"
 						 ng-click="toggleTab('ticket', $event)"
 						 ng-class="{'panel-tabs-dp__tab_selected':(!stateHotel)}">
+						<i ng-class="{'icon-aircraft-blue':(!stateHotel), 'icon-aircraft-gray': (stateHotel)}"></i>
 						Выбрать перелет
+					</div>
+					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_hotel-map"
+						 ng-class="{'panel-tabs-dp__tab_selected':(asMap)}">
+						Отели на карте
 					</div>
 				</div>
 			</div>

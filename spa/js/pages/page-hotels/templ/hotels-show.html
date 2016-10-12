@@ -203,13 +203,21 @@
 						  class="hotel-details-stars"></span>
 				</div>
 
-				<div class="hotel-details__ta hotel-details-ta-info"
+				<!--<div class="hotel-details__ta hotel-details-ta-info"-->
+					 <!--ng-click="goToScroll('SectionReviews')" ng-if="hotel.TaFactor">-->
+
+					<!--&lt;!&ndash; tripadvisor &ndash;&gt;-->
+					<!--<div trip-advisor-directive-->
+						 <!--hotel-data="hotel"></div>-->
+
+				<!--</div>-->
+				<div class="hotel-details__ta-adress hotel-details-ta-info"
 					 ng-click="goToScroll('SectionReviews')" ng-if="hotel.TaFactor">
 
 					<!-- tripadvisor -->
-					<div trip-advisor-directive
+					<div class="hotel-details__ta" trip-advisor-directive
 						 hotel-data="hotel"></div>
-
+					<div class="hotel-details__adress" ng-if="hotel.HotelFullAdress">{{hotel.HotelFullAdress}}</div>
 				</div>
 			</div>
 
@@ -309,19 +317,23 @@
 
 				<h2 class="hotel-details__section-title" ng-if="hotelOnly">Номер</h2>
 
-				<div class="spinner" ng-if="!dataFullyLoaded">
-					<div class="rect rect1"></div>
-					<div class="rect rect2"></div>
-					<div class="rect rect3"></div>
-					<div class="rect rect4"></div>
-					<div class="rect rect5"></div>
-					<img class="gif" src="/spa/img/spinner.gif">
+				<!--<div class="spinner" ng-if="!dataFullyLoaded">-->
+					<!--<div class="rect rect1"></div>-->
+					<!--<div class="rect rect2"></div>-->
+					<!--<div class="rect rect3"></div>-->
+					<!--<div class="rect rect4"></div>-->
+					<!--<div class="rect rect5"></div>-->
+					<!--<img class="gif" src="/spa/img/spinner.gif">-->
 
-					<div class="spinner__text">Секундочку, загружаем список номеров</div>
-				</div>
+					<!--<div class="spinner__text">Секундочку, загружаем список номеров</div>-->
+				<!--</div>-->
 
+				<!--<div class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">-->
+					<!--<ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'"-->
+								<!--ng-repeat="room in (onlyRoom || hotelRooms) track by $index"></ng:include>-->
+				<!--</div>-->
 				<div class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
-					<ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'"
+					<ng:include src="'pages/page-hotels/templ/hotels-show-room.html'"
 								ng-repeat="room in (onlyRoom || hotelRooms) track by $index"></ng:include>
 				</div>
 			</div>

@@ -48,7 +48,10 @@
 					<!-- tripadvisor -->
 					<div class="hotel-details__ta" trip-advisor-directive
 						 hotel-data="hotel"></div>
-					<div class="hotel-details__adress">{{hotel.Address}}, {{hotel.HotelCityName}}, {{hotel.HotelCountryName}}</div>
+					<div class="hotel-details__adress"
+						 ng-if="hotel.Address && hotel.HotelCityName && hotel.HotelCountryName">
+						{{hotel.Address}}, {{hotel.HotelCityName}}, {{hotel.HotelCountryName}}
+					</div>
 				</div>
 			</div>
 

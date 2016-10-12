@@ -1,10 +1,10 @@
 <div class="b-hotel-data">
 
-	<a data="1" link-in-new-window-if-can
-	   href="{{computedUrlDetails()}}"
-	   target="_blank"
-	   class="b-hotel-data__details">
-	</a>
+	<!--<a data="1" link-in-new-window-if-can-->
+	   <!--href="{{computedUrlDetails()}}"-->
+	   <!--target="_blank"-->
+	   <!--class="b-hotel-data__details">-->
+	<!--</a>-->
 
 	<!--{{#if modelPrice.getProfit() > 1000}}-->
 	<!--<div class="hotel-info__special-mark">-->
@@ -30,18 +30,22 @@
 		<!--<span class="b-hotel-data__text-link" on-click="goToMap">(на карте)</span>-->
 	<!--</div>-->
 
+
 	<div class="b-hotel-data__text">
-		с {{moment(hotel.CheckIn).format("D MMM")}}
-		по {{moment(hotel.CheckOut).format("D MMM")}},
-		{{hotel.NightCount}}
-		{{pluralize(hotel.NightCount, ["ночь","ночи","ночей"])}},
-		{{#if hotel.MealCode == 'RO'}}Без питания (RO),{{/if}}
-		{{#if hotel.MealCode == 'BB'}}Завтрак (BB),{{/if}}
-		{{#if hotel.MealCode == 'HB'}}Полупансион (HB),{{/if}}
-		{{#if hotel.MealCode == 'FB'}}Полный пансион (FB),{{/if}}
-		{{#if hotel.MealCode == 'AI'}}Все включено (AI),{{/if}}
-		<!--перелет включен-->
+	{{hotel.HotelCityName}} {{hotel.Address}}
 	</div>
+	<!--<div class="b-hotel-data__text">-->
+		<!--с {{moment(hotel.CheckIn).format("D MMM")}}-->
+		<!--по {{moment(hotel.CheckOut).format("D MMM")}},-->
+		<!--{{hotel.NightCount}}-->
+		<!--{{pluralize(hotel.NightCount, ["ночь","ночи","ночей"])}},-->
+		<!--{{#if hotel.MealCode == 'RO'}}Без питания (RO),{{/if}}-->
+		<!--{{#if hotel.MealCode == 'BB'}}Завтрак (BB),{{/if}}-->
+		<!--{{#if hotel.MealCode == 'HB'}}Полупансион (HB),{{/if}}-->
+		<!--{{#if hotel.MealCode == 'FB'}}Полный пансион (FB),{{/if}}-->
+		<!--{{#if hotel.MealCode == 'AI'}}Все включено (AI),{{/if}}-->
+		<!--&lt;!&ndash;перелет включен&ndash;&gt;-->
+	<!--</div>-->
 
 	{{#if hotel.RoomCount <= 3}}
 	<div class="b-hotel-data__text b-hotel-data__text-warning">
@@ -65,12 +69,20 @@
 				TaFactorCeiled="{{hotel.TaFactorCeiled}}"/>
 	</div>
 
-	<a data="3" link-in-new-window-if-can
-	   href="{{computedUrlDetails()}}"
-	   <!--ng-click="detailsHotelsInList()"-->
-	   target="_blank" 
-	   class="b-hotel-data__details-footer-link">
-		Подробнее
-	</a>
-	
+	<!--<a data="3" link-in-new-window-if-can-->
+	   <!--href="{{computedUrlDetails()}}"-->
+	   <!--&lt;!&ndash;ng-click="detailsHotelsInList()"&ndash;&gt;-->
+	   <!--target="_blank" -->
+	   <!--class="b-hotel-data__details-footer-link">-->
+		<!--Подробнее-->
+	<!--</a>-->
 </div>
+<a data="3" link-in-new-window-if-can
+   href="{{computedUrlDetails()}}"
+   title="Подробнее об отеле"
+   target="_blank"
+   class="icon-inform-blue">
+</a>
+<i class="icon-location"
+   title="Отель на карте"
+   on-click="goToMap"></i>

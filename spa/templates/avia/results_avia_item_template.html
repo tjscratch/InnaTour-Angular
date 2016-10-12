@@ -2,40 +2,46 @@
 <div class="b-result b-result_col_two_short b-result_flight-info row b-result-content
 {{ BackArrivalDate ? 'b-result_middle-180' : 'b-result_middle-130 b-result_oneway_avia' }}">
 
-    <div class="b-result__cell" on-click='popupItemInfo_show:{{this}}'>
+    <div class="b-result__cell" on-click='popupItemInfo_show:{{this}}' style="padding: 0px !important;">
 
-        {{#(this.transportersList.length <= 3)}}
-        <span class="rl-airline rl-airline__list" class="result-cell__airlines">
-            {{#this.transportersList}}
-            <span class="rl-airline__item">
-                <img src="{{this.logoUrl}}" alt="" class="logo">
-                <span class="rl-airline-text">{{this.name}}</span>
-            </span>
-            {{/}}
-        </span>
-        {{/}}
+        <!--{{#(this.transportersList.length <= 3)}}-->
+        <!--<span class="rl-airline rl-airline__list" class="result-cell__airlines">-->
+            <!--{{#this.transportersList}}-->
+            <!--<span class="rl-airline__item">-->
+                <!--<img src="{{this.logoUrl}}" alt="" class="logo">-->
+                <!--<span class="rl-airline-text">{{this.name}}</span>-->
+            <!--</span>-->
+            <!--{{/}}-->
+        <!--</span>-->
+        <!--{{/}}-->
 
-        {{#(this.transportersList.length > 3)}}
-        <span class="rl-airline">
-            <span class="rl-airline__item">
-                <img src="/spa/img/group.png" alt="">
-                <span class="rl-airline-text">Несколько авиакомпаний</span>
-            </span>
-        </span>
-        {{/}}
+        <!--{{#(this.transportersList.length > 3)}}-->
+        <!--<span class="rl-airline">-->
+            <!--<span class="rl-airline__item">-->
+                <!--<img src="/spa/img/group.png" alt="">-->
+                <!--<span class="rl-airline-text">Несколько авиакомпаний</span>-->
+            <!--</span>-->
+        <!--</span>-->
+        <!--{{/}}-->
 
-        <div class="row">
+        <div class="wrap__flight-info">
+            <div class="flight-info" style="border-bottom: 1px dashed #DDE3E9;">
+                <span class="result-cell__airlines">
+                    <!--{{#this.transportersList}}-->
+                    <!--{{this.logoUrl}}-->
+                            <img src="{{'http://s.test.inna.ru/Files/logo/' + this.EtapsTo[0].TransporterCode + '.png'}}" alt="" class="logo">
+                            <span class="rl-airline-text">{{this.EtapsTo[0].TransporterName}}</span>
+                    <!--{{this.name}}-->
+                    <!--{{/}}-->
+                </span>
 
-            <div class="rl-content row-fluid">
-
-                <div class="rl-fly ">
-                    <div class="rlf-flight-info">
-                        <b>{{this.DepartureTimeFormatted}}</b>, {{this.DepartureDateFormatted}}<br>
-                        <span title="{{this.AirportFrom}}">{{limitFilter(this.AirportFrom, 16)}} {{this.OutCode}}</span>
-                    </div>
+                <div class="date">
+                        {{this.DepartureDateFormatted}}<br>
+                        <b >{{this.DepartureTimeFormatted}} {{this.OutCode}}</b><br>
+                        <span class="red_span" title="{{this.AirportFrom}}">{{limitFilter(this.AirportFrom, 16)}}</span>
                 </div>
 
-                <div class="rl-travel-time ">
+                <div class="arrow">
                     в пути: {{this.TimeToFormatted}}<br>
                     {{#(this.ToTransferCount > 0)}}
                         <span>
@@ -48,25 +54,36 @@
                     {{/}}
                 </div>
 
-                <div class="rl-fly col-xs-push-1">
-                    <div class="rlf-flight-info">
-                        <b>{{this.ArrivalTimeFormatted}}</b>, {{this.ArrivalDateFormatted}}<br>
-                        <span title="{{this.AirportTo}}">{{limitFilter(this.AirportTo, 14)}} {{this.InCode}}</span>
-                    </div>
+                <div class="date">
+                        {{this.ArrivalDateFormatted}}<br>
+                        <b>{{this.ArrivalTimeFormatted}} {{this.InCode}}</b><br>
+                        <span class="red_span" title="{{this.AirportTo}}">{{limitFilter(this.AirportTo, 14)}}</span>
+                </div>
+
+                <div>
+                    {{#(helper.getCharterAndNumSeatsText(this).EtapsTo.isNightStop == true)}}
+                    <span>НС</span>
+                    {{/}}
+                    {{#(helper.getCharterAndNumSeatsText(this).EtapsTo.isLongChange)}}
+                    <span>ДП</span>
+                    {{/}}
                 </div>
             </div>
 
             {{#(this.EtapsBack.length > 0)}}
-            <div class="rl-content row">
+            <div class="flight-info">
+                <span class="result-cell__airlines">
+                            <img src="{{'http://s.test.inna.ru/Files/logo/' + this.EtapsBack[0].TransporterCode + '.png'}}" alt="" class="logo_avia">
+                            <span class="rl-airline-text">{{this.EtapsBack[0].TransporterName}}</span>
+                </span>
 
-                <div class="rl-fly ">
-                    <div class="rlf-flight-info">
-                        <b>{{this.BackDepartureTimeFormatted}}</b>, {{this.BackDepartureDateFormatted}}<br>
-                        <span title="{{this.AirportFromBack}}">{{limitFilter(this.AirportFromBack,16)}} {{this.OutCodeBack}}</span>
-                    </div>
+                <div class="date">
+                        {{this.BackDepartureDateFormatted}}<br>
+                        <b>{{this.BackDepartureTimeFormatted}} {{this.OutCodeBack}}</b><br>
+                        <span class="red_span" title="{{this.AirportFromBack}}">{{limitFilter(this.AirportFromBack,16)}}</span>
                 </div>
 
-                <div class="rl-travel-time ">
+                <div class="arrow">
                     в пути: {{this.TimeBackFormatted}}<br>
                     {{#(this.BackTransferCount > 0)}}
                         <span>
@@ -79,27 +96,42 @@
                     {{/}}
                 </div>
 
-                <div class="rl-fly col-xs-push-1">
-                    <div class="rlf-flight-info">
-                        <b>{{this.BackArrivalTimeFormatted}}</b>, {{this.BackArrivalDateFormatted}}<br>
-                        <span title="{{this.AirportToBack}}">{{limitFilter(this.AirportToBack, 14)}} {{this.InCodeBack}}</span>
-                    </div>
+                <div class="date">
+                        {{this.BackArrivalDateFormatted}}<br>
+                        <b>{{this.BackArrivalTimeFormatted}} {{this.InCodeBack}}</b><br>
+                        <span class="red_span" title="{{this.AirportToBack}}">{{limitFilter(this.AirportToBack, 14)}}</span>
                 </div>
 
+                <div>
+                    {{#helper.getCharterAndNumSeatsText(this).EtapsBack.isNightStop}}
+                    <span>НС</span>
+                    {{/}}
+                    {{#helper.getCharterAndNumSeatsText(this).EtapsBack.isLongChange}}
+                    <span>ДП</span>
+                    {{/}}
+                </div>
             </div>
             {{/}}
 
+            <!--<div class="row" style="font-size: 15px;">-->
+                <!--&lt;!&ndash;bottom-actions&ndash;&gt;-->
+                <!--<div class="col-xs-10 col-no-padding">-->
+                    <!--&lt;!&ndash;this.NumSeats, ticketsCount, this.IsCharter, this.alertDifferentPorts,&ndash;&gt;-->
+                    <!--<span class="warning">{{helper.getCharterAndNumSeatsText(this)}}</span>-->
+                <!--</div>-->
+            <!--</div>-->
+
         </div>
 
-        <div class="bottom-actions row">
-            <div class="col-xs-10 col-no-padding">
-                <span class="warning">{{helper.getCharterAndNumSeatsText(this.NumSeats, ticketsCount, this.IsCharter, this.alertDifferentPorts, this)}}</span>
-            </div>
-            <div class="col-xs-2 col-no-padding align-right">
-                <a href="#" on-click='popupItemInfo_show:{{this}}'>Подробнее</a>
-            </div>
-        </div>
-
+        <!--<div class="bottom-actions row">-->
+            <!--<div class="col-xs-10 col-no-padding">-->
+                <!--<span class="warning">{{helper.getCharterAndNumSeatsText(this.NumSeats, ticketsCount, this.IsCharter, this.alertDifferentPorts, this)}}</span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<div class="col-xs-2 col-no-padding align-right">&ndash;&gt;-->
+                <!--&lt;!&ndash;<a href="#" on-click='popupItemInfo_show:{{this}}'>Подробнее</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+        <i class="icon-inform-blue" title="Подробнее о перелете" on-click='popupItemInfo_show:{{this}}'></i>
         <!-- separator -->
         <div class="b-result-cell__gap">
             <div class="b-result-cell__gap_wrap"></div>
@@ -131,13 +163,12 @@
 
         {{#!usePricePerPerson}}
             <span class="rl-price {{this.EtapsBack.length == 0 ? 'rl-price_1way' : ''}}">
-                <span class="rl-price-desc">
-                    Стоимость перелета<br/>
-                    за {{passengerCount}}
-                    {{pluralize(passengerCount, ['человека', 'человек', 'человек'])}}
-                </span>
                 <span class="rl-price-item">{{priceFilter(this.Price)}}</span><!--
                 -->{{>ruble}}
+                <span class="rl-price-desc">
+                    Стоимость перелета за {{passengerCount}}x
+                    <!--{{pluralize(passengerCount, ['человека', 'человек', 'человек'])}}-->
+                </span>
             </span>
         {{/}}
 

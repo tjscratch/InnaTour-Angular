@@ -30,6 +30,7 @@ gulp.task('build', function (callback) {
     runSequence(
         'remove-dist',
         'build-sprite',
+        'svg-sprite',
         'build-css',
         'build-libs',
         'build-angular-templates',
@@ -56,6 +57,7 @@ gulp.task('default', function (callback) {
     runSequence(
         'remove-dist',
         'build-sprite',
+        'svg-sprite',
         'build-css',
         'build-libs',
         'build-angular-templates',

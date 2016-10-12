@@ -1,57 +1,57 @@
 {{#if show}}
-<!--<div class="b-dp-services">-->
-	<!--{{#if included.length}}-->
-	<!--<div class="b-dp-services__title">-->
-		<!--Включено в стоимость:-->
-	<!--</div>-->
-	<!--<ul class="b-dp-services__list">-->
-		<!--{{#included}}-->
-		<!--{{#if .Name == 'Авиаперелет'}}-->
-		<!--<li class="b-dp-services__list-item">-->
-			<!--<i class="b-dp-services__list-item-icon fa fa-plane"></i>-->
-			<!--Авиаперелет-->
-		<!--</li>-->
-		<!--{{/if}}-->
-		<!--{{#if .Name == 'Проживание'}}-->
-		<!--<li class="b-dp-services__list-item">-->
-			<!--<i class="b-dp-services__list-item-icon fa fa-bed"></i>-->
-			<!--Проживание-->
-		<!--</li>-->
-		<!--{{/if}}-->
-		<!--{{#if .Name == 'Страховка'}}-->
-		<!--<li class="b-dp-services__list-item">-->
-			<!--<i class="b-dp-services__list-item-icon fa fa-medkit"></i>-->
-			<!--Мед.страховка-->
-		<!--</li>-->
-		<!--{{/if}}-->
-		<!--{{#if .Name == 'Топливный сбор'}}-->
-		<!--<li class="b-dp-services__list-item">-->
-			<!--<i class="b-dp-services__list-item-icon icon-fuel"></i>-->
-			<!--Топливный сбор-->
-		<!--</li>-->
-		<!--{{/if}}-->
-		<!--{{/included}}-->
-	<!--</ul>-->
-	<!--{{/if}}-->
+<div class="b-dp-services">
+	{{#if included.length}}
+	<div class="b-dp-services__title">
+		Включено в стоимость:
+	</div>
+	<ul class="b-dp-services__list">
+		{{#included}}
+		{{#if .Name == 'Авиаперелет'}}
+		<li class="b-dp-services__list-item">
+			<i class="b-dp-services__list-item-icon icon-air-flight"></i>
+			Авиаперелет
+		</li>
+		{{/if}}
+		{{#if .Name == 'Проживание'}}
+		<li class="b-dp-services__list-item">
+			<i class="b-dp-services__list-item-icon icon-accommodation"></i>
+			Проживание
+		</li>
+		{{/if}}
+		{{#if .Name == 'Страховка'}}
+		<li class="b-dp-services__list-item">
+			<i class="b-dp-services__list-item-icon icon-med-insurance"></i>
+			Мед.страховка
+		</li>
+		{{/if}}
+		{{#if .Name == 'Топливный сбор'}}
+		<li class="b-dp-services__list-item">
+			<i class="b-dp-services__list-item-icon icon-fuel-collecting"></i>
+			Топливный сбор
+		</li>
+		{{/if}}
+		{{/included}}
+	</ul>
+	{{/if}}
 
 
-	<!--{{#if additional.length}}-->
-	<!--<div class="b-dp-services__title">-->
-		<!--Дополнительно:-->
-	<!--</div>-->
-	<!--<ul class="b-dp-services__list">-->
-		<!--{{#additional}}-->
-		<!--{{#if .Name == 'Трансфер'}}-->
-		<!--<li class="b-dp-services__list-item">-->
-			<!--<i class="b-dp-services__list-item-icon fa fa-bus"></i>-->
-			<!--Трансфер-->
-		<!--</li>-->
-		<!--{{/if}}-->
-		<!--{{/additional}}-->
-	<!--</ul>-->
-	<!--{{/if}}-->
-	<!---->
-<!--</div>-->
+	{{#if additional.length}}
+	<div class="b-dp-services__title">
+		Дополнительно:
+	</div>
+	<ul class="b-dp-services__list">
+		{{#additional}}
+		{{#if .Name == 'Трансфер'}}
+		<li class="b-dp-services__list-item">
+			<i class="b-dp-services__list-item-icon icon-transfer"></i>
+			Трансфер
+		</li>
+		{{/if}}
+		{{/additional}}
+	</ul>
+	{{/if}}
+
+</div>
 
 <!--{{#if banner_img}}-->
 <!--<div class="b-banner">-->
