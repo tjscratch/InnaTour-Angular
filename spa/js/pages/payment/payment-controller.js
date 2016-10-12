@@ -20,17 +20,87 @@ innaAppControllers.controller('PaymentController',
         self.OrderNum = $routeParams.OrderNum;
         var baloon = aviaHelper.baloon;
         
-        
+        /*watch для отправки событий в GTM, при выборе способа оплаты*/
+        $scope.$watch('payment.payType', function (newValue, oldValue) {
+            if(oldValue != undefined) {
+                var payType;
+                switch(newValue) {
+                    case '1':
+                        payType = 'Card';
+                        break;
+                    case '2':
+                        payType = 'SvyaznoyEuroset';
+                        break;
+                    case '3':
+                        payType = 'QIWI';
+                        break;
+                }
+                gtm.GtmTrackEvent({
+                    'Category': getCategory(),
+                    'Action': 'PaymentMethod',
+                    'Label': payType,
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                });
+            }
+        });
+
+        $scope.gtmPartnerAddress = function () {
+            gtm.GtmTrackEvent({
+                'Category': getCategory(),
+                'Action': 'PartnerAddress',
+                'Label': '[no data]',
+                'Content': '[no data]',
+                'Context': '[no data]',
+                'Text': '[no data]'
+            });
+        };
+
+        $scope.gtmPrint = function () {
+            gtm.GtmTrackEvent({
+                'Category': getCategory(),
+                'Action': 'Print',
+                'Label': '[no data]',
+                'Content': '[no data]',
+                'Context': '[no data]',
+                'Text': '[no data]'
+            });
+        };
+
+        function getCategory() {
+            var category;
+            switch(self.productType) {
+                case 1:
+                    category = 'Avia';
+                    break;
+                case 2:
+                    category = 'Packages';
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    category = 'Hotels';
+                    break;
+                default:
+                    break;
+            }
+            return category;
+        };
+
         /**
          * первым делом проверяем изменение цены заказа
          * todo закоментил на этап тестирования/разработки
          */
-        Payment.getRepricing(self.OrderNum)
-            .then(
-                getRepricingSuccess,
-                getRepricingError
-            );
-        // getOrderData();
+        function getRepricingSelf() {
+            baloon.show('Подготовка к оплате', 'Это может занять несколько секунд');
+            Payment.getRepricing(self.OrderNum)
+                .then(
+                    getRepricingSuccess,
+                    getRepricingError
+                );
+        }
+        getRepricingSelf();
         
         /**
          * getRepricingSuccess
@@ -129,6 +199,7 @@ innaAppControllers.controller('PaymentController',
                 self.data = data
                 self.searchUrl = self.data.Filter ? Payment.getSearchUrl(self.data) : null; // url для нового поиска
                 self.paySuccess = false;
+                self.productType = data.ProductType;
                 self.SvyaznoyExperationDate = data.ExperationDate;
                 self.ExperationDate = moment(data.ExperationDate).format('DD MMM YYYY, HH:mm');
                 self.ExperationMinute = data.ExperationMinute * 60;
@@ -394,8 +465,8 @@ innaAppControllers.controller('PaymentController',
                                 'PageType': 'PackagesPayLoad'
                             },
                             {
-                                'CityFrom'      : data.LocationFrom.City.Code,
-                                'CityTo'        : data.LocationTo.City.Code,
+                                'CityFrom'      : data.LocationFrom.City ? data.LocationFrom.City.Code : data.LocationFrom.Location.Code,
+                                'CityTo'        : data.LocationTo.City ? data.LocationTo.City.Code : data.LocationTo.Location.Code,
                                 'DateFrom'      : moment(data.Hotel.CheckIn).format('YYYY-MM-DD'),
                                 'DateTo'        : moment(data.Hotel.CheckOut).format('YYYY-MM-DD'),
                                 'Travelers'     : data.AviaInfo.AdultCount + "-" + (Math.ceil(data.AviaInfo.ChildCount) + Math.ceil(data.AviaInfo.InfantCount)),
@@ -413,7 +484,6 @@ innaAppControllers.controller('PaymentController',
                          * Трекаем события для GTM
                          * https://innatec.atlassian.net/browse/IN-7071
                          */
-                        console.log(Filter);
                         dataService.getLocationById(Filter.ArrivalId)
                             .then(function (res) {
                                 gtm.GtmTrack(
@@ -448,14 +518,14 @@ innaAppControllers.controller('PaymentController',
                 payType = 'svyaznoy';
             } else if (self.payType == 3) {
                 payType = 'qiwi';
-            }
+        }
             
             var Status;
             var Title;
             var Text;
             if (status) {
                 Status = 'Complete';
-                Title = 'Заказ успешно оплачее';
+                Title = 'Заказ успешно оплачен';
                 Text = '[no data]';
             } else {
                 Status = 'Fail';

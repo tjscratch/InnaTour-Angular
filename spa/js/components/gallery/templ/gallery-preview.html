@@ -1,7 +1,16 @@
+<!--
 <div ng-style="setStylePreview()"
      ng-mouseover="imageMouseOver($event)"
      ng-mouseleave="imageMouseLeave()"
      ng-mousemove="imageMouseMove($event)"
+     class="gallery__list-item__preview">
+          <span class="gallery__list-item__preview_fade"
+                ng-if="full && isHover">
+               <i class="icon-sprite-search search-button__icon"></i>
+          </span>
+</div>
+-->
+<div ng-style="setStylePreview()"
      class="gallery__list-item__preview">
           <span class="gallery__list-item__preview_fade"
                 ng-if="full && isHover">

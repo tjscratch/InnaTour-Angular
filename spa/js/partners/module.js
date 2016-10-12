@@ -96,7 +96,7 @@ var innaModule = {
             if (innaModule.host == ('@' + '@' + 'partnersHost')) {
                 innaModule.host = 'http://{0}.lh.inna.ru'
             }
-            var url = innaModule.host.replace("{0}", partner);
+            var url = innaModule.host.replace("{0}", partner) + '/?v=1';
             return url;
         }
 

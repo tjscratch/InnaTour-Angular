@@ -84,6 +84,8 @@ angular.module('innaApp.components').
                         }
 
                         return urlDetails;
+                    },
+                    detailsHotelsInList: function() {
                     }
                 },
                 partials: {
@@ -160,6 +162,7 @@ angular.module('innaApp.components').
                     this.set('hidden', true);
                     EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, this.get('modelHotel'), this.get('hotel.HotelId'));
                     var hotel = this.get('modelHotel');
+                    console.log('HOTELHOTEL', hotel);
                     var dataLayerObj = {
                         'event': 'UM.Event',
                         'Data': {

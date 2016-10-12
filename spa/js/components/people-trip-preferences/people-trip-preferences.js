@@ -98,12 +98,13 @@ innaAppDirectives.directive('peopleTripPreferences', ['$templateCache', function
                 var summ = parseInt($scope.adultCount, 10) + parseInt(getChildrenAndInfants().childCount, 10) + parseInt(getChildrenAndInfants().infantsCount, 10);
                 // console.log('===', summ);
                 if(summ == $scope.maxPlace) {
-                    console.log(age);
                     if(age < 2) {
                         $scope.childrensAge.push({value: age});
                     }
                 } else {
-                    $scope.childrensAge.push({value: age});
+                    if(summ < 7) {
+                        $scope.childrensAge.push({value: age});
+                    }
                 }
                 getChildrenAndInfants();
             };
@@ -122,7 +123,7 @@ innaAppDirectives.directive('peopleTripPreferences', ['$templateCache', function
                 });
                 if($scope.typePage == 'Avia') {
                     $scope.childrenCount = childCount;
-                    $scope.infantCount = infantsCount;
+                    $scope.infantsCount = infantsCount;
                 }
                 var data = {
                     childCount: childCount,
