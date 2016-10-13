@@ -36,9 +36,9 @@ angular.module('innaApp.directives')
                         '$timeout',
                         'innaAppApiEvents',
                         '$routeParams',
-                        function (EventManager, $scope, $rootScope, aviaHelper, Urls, $location, $element, $timeout, Events, $routeParams) {
-
-                            //console.profile('Draw');
+                        '$filter',
+                        function (EventManager, $scope, $rootScope, aviaHelper, Urls, $location, $element, $timeout, Events, $routeParams, $filter) {
+                            
                             var searchParams = angular.copy($routeParams);
 
                             /**
@@ -51,8 +51,13 @@ angular.module('innaApp.directives')
 
                                 var DepartureId = searchParams.DepartureId;
                                 var ArrivalId = searchParams.ArrivalId;
-                                var StartVoyageDate = searchParams.StartVoyageDate;
-                                var EndVoyageDate = searchParams.EndVoyageDate;
+                                // https://innatec.atlassian.net/browse/IN-7097
+                                // заменил даты заезда/выезда
+                                // даты на детализацию отеля берутся не $routeParams а из данных по отелю
+                                // var StartVoyageDate = searchParams.StartVoyageDate;
+                                // var EndVoyageDate = searchParams.EndVoyageDate;
+                                var StartVoyageDate = $filter('date')($scope.recommendedPair.hotel.data.CheckIn, 'dd.MM.yyyy');
+                                var EndVoyageDate = $filter('date')($scope.recommendedPair.hotel.data.CheckOut, 'dd.MM.yyyy');
                                 var TicketClass = searchParams.TicketClass;
                                 var Adult = searchParams.Adult || 0;
                                 var Children = searchParams.Children || '';
@@ -60,7 +65,7 @@ angular.module('innaApp.directives')
                                 var ticketId = $scope.recommendedPair.ticket.data.VariantId1;
                                 var ticketBackId = $scope.recommendedPair.ticket.data.VariantId2;
                                 var providerId = $scope.recommendedPair.hotel.data.ProviderId;
-
+                                
                                 var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
                                             DepartureId,
                                             ArrivalId,
@@ -78,7 +83,6 @@ angular.module('innaApp.directives')
                                 if (window.partners && window.partners.isFullWL()) {
                                     urlDetails = window.partners.getParentLocationWithUrl(urlDetails);
                                 }
-
                                 return (opt_param) ? urlDetails + '?action=buy' : urlDetails;
                             };
 
