@@ -1,0 +1,14 @@
+{
+  "libs": "./spa/libs",
+  "images": "./spa/images/**/*",
+  "css": "./spa/css/base.styl",
+  "js": "./spa/js",
+  "build": {
+    "build_path": "build",
+    "images": "./build/images",
+    "css": "./build/css",
+    "js": "./build/js",
+    "libs": "./build/libs"
+  },
+  "config_path": "./node_config/config.json"
+}

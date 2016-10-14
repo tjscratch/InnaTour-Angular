@@ -9,7 +9,8 @@ innaAppDirectives.directive('counterPeople', ['$templateCache', function($templa
         scope: {
             adultCount: '=',
             childrenCount: '=',
-            childrensAge: '='
+            childrensAge: '=',
+            typePage: '='
         },
         controller: ['$scope', '$location', function($scope, $location){
             /*Properties*/
@@ -70,6 +71,43 @@ innaAppDirectives.directive('counterPeople', ['$templateCache', function($templa
                         }
                     });
                     $scope.rootElement.tooltip('open');
+                }
+                if(newValue && newValue != oldValue) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': $scope.typePage == 'DP' ? 'Packages' : 'Hotels',
+                            'Action': 'Adults',
+                            'Label': newValue,
+                            'Content': newValue + $scope.childrenCount,
+                            'Context': newValue > oldValue ? 'plus' : 'minus',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+            });
+
+            $scope.$watch('childrenCount', function (newVal, oldVal) {
+                if(newVal || newVal == 0 && newVal != oldVal) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': $scope.typePage == 'DP' ? 'Packages' : 'Hotels',
+                            'Action': 'Childrens',
+                            'Label': newVal,
+                            'Content': newVal + $scope.adultCount,
+                            'Context': newVal > oldVal ? 'plus' : 'minus',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
                 }
             });
 

@@ -131,7 +131,11 @@
                  'transfer-bg':isTransferBg()
                  }"
       popup-form
+      ng-cloak
       ng-style="BodyStyleGlobal">
+<script>
+    var dataLayer = [];
+</script>
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WKRVG5"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -346,9 +350,6 @@
         document.getElementById('debug_api_host').innerText = 'api host: ' + debugApiHost;
     }
 </script>
-
-
-<div manager-widget=""></div>
 
 </body>
 </html>

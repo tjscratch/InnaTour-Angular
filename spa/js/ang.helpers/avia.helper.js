@@ -151,7 +151,8 @@
                 payExpires: 'payExpires',
                 notFound: 'notFound',
                 priceChanged: 'priceChanged',
-	            agencyRegSuccess: 'agencyRegSuccess'
+	            agencyRegSuccess: 'agencyRegSuccess',
+                mobile: 'mobile'
             };
 
             var helper = {
@@ -498,6 +499,9 @@
                     },
 	                showAgencyRegSuccess: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.agencyRegSuccess, closeFn);
+                    },
+                    showMobile: function (caption, text, closeFn) {
+                        helper.baloon.show(caption, text, baloonType.mobile, closeFn);
                     },
                     show: function (caption, text, type, closeFn, data) {
                         //console.log('show', caption, text, type);
@@ -988,7 +992,6 @@
                     self.visaRulesNeeded = false;
 
                     self.check = function (passengersCitizenshipIds, currentItem) {
-                        console.log('$scope.item', currentItem);
                         function addUniq(array, name, link) {
                             var exists = _.find(array, function (it) {
                                 return it.name == name;
@@ -1010,7 +1013,7 @@
 
                         //console.log('passengersCitizenshipIds:');
                         //console.log(passengersCitizenshipIds);
-                        console.log('currentItem', currentItem);
+                        //console.log('currentItem', currentItem);
 
                         if (passengersCitizenshipIds != null && currentItem != null) {
 

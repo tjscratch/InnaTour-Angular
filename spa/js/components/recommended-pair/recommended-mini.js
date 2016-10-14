@@ -15,7 +15,7 @@ angular.module('innaApp.directives')
                     '$element',
                     'innaAppApiEvents',
                     '$routeParams',
-                    function (EventManager, $scope, aviaHelper, $location, $element, Events, $routeParams) {
+                    function (EventManager, $scope, aviaHelper, $location, $element, Events, $routeParams, $rootScope) {
 
                         $scope.$on('$destroy', function () {
 

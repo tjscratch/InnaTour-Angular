@@ -6,7 +6,7 @@
 		<input
 				class="b-search-form-hotels__input b-search-form-hotels__input-typeahead"
 				type="text"
-				placeholder="Город/Название отеля"
+				placeholder="Город"
 				ng-model="locationFrom"
 				typeahead="state as state.name for state in getLocationFrom($viewValue) | filter:$viewValue"
 				typeahead-template-url="components/search-form-hotels/templ/typeaheadTemplateCustom.html"
@@ -60,6 +60,7 @@
 		     adult-count="hotelsSearchForm.Adult"
 		     children-count="hotelsSearchForm.ChildrenCount"
 		     childrens-age="hotelsSearchForm.Children"
+			 type-page="'Hotels'"
 		     class="b-wrapp_type_inline no-outline-on-focus"></div>
 	</div>
 

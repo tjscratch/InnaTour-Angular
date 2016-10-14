@@ -38,6 +38,7 @@ innaAppConponents.
         'EventManager',
         'innaAppApiEvents',
         '$templateCache',
+        '$routeParams',
         '$filter',
         '$location',
 
@@ -46,7 +47,7 @@ innaAppConponents.
         'Tripadvisor',
         'PriceGeneric',
         'DatePartialsCollection',
-        function ($rootScope, EventManager, Events, $templateCache, $filter, $location, Stars, Tripadvisor, PriceGeneric, DatePartialsCollection) {
+        function ($rootScope, EventManager, Events, $templateCache, $routeParams, $filter, $location, Stars, Tripadvisor, PriceGeneric, DatePartialsCollection) {
 
             /**
              * Компонент DynamicBlock
@@ -98,7 +99,12 @@ innaAppConponents.
 
                     if ($rootScope.$root.user){
                         this.set('AgencyType', $rootScope.$root.user.getAgencyType());
+                        this.set('isAgency', $rootScope.$root.user.isAgency());
                     }
+
+                    this.set({
+                        passengerCount: parseInt($routeParams.Adult) + ($routeParams.Children ? $routeParams.Children.split('_').length : 0)
+                    });
 
                     this.on({
                         bundleTicketDetails : function(evt){

@@ -1,0 +1,152 @@
+<div class='main__center'>
+
+    <div class='productInfo__Head'>
+        <div class='productInfo__Title'>
+            Оплата авиабилетов
+        </div>
+        <div class='productInfo__Price'>
+            Стоимость заказа за {{passengerCount | perPerson}}:
+            <b class='productInfo__Price-sum'>
+                {{productData.Price| price}}
+                <i class='fa fa-rub'></i>
+            </b>
+        </div>
+    </div>
+
+    <div class='buy__fly'>
+
+        <header class='rl-item-header'>
+            <span ng-if='!(productData.AviaInfo.transportersList.length > 3)'
+                  class='rl-airline'
+                  ng-repeat='tr in productData.AviaInfo.transportersList'><img ng-src='{{tr.logoUrl}}'
+                                                                               alt=''><span class='rl-airline-text'>{{tr.name}}</span></span>
+            <span ng-if='productData.AviaInfo.transportersList.length > 3'
+                  class='rl-airline'><img ng-src='/spa/img/group.png'
+                                          alt=''><span class='rl-airline-text'>Несколько авиакомпаний</span></span>
+        </header>
+
+        <div class='b-ticket_2ways'>
+
+            <div class='rlf-fly'>
+
+                <div class='row-fluid'>
+                    <div class='col-xs-5 col-no-padding row-fluid__cell'>
+                        <div class='rlf__flight-block'>
+                            <b>{{productData.AviaInfo.DepartureTimeFormatted}}</b>
+                            {{productData.AviaInfo.DepartureDateFormatted}}<br>
+                            <b>{{productData.AviaInfo.AirportFrom}}</b> {{productData.AviaInfo.OutCode}}
+                        </div>
+                    </div>
+                    <div class='col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle'>
+                        <span class='rlf-fly-arrow rlf-fly-arrow_popup'></span>
+                    </div>
+                    <div class='col-xs-5 col-no-padding row-fluid__cell'>
+                        <div class='rlf__flight-block'>
+                            <b>{{productData.AviaInfo.ArrivalTimeFormatted}}</b>
+                            {{productData.AviaInfo.ArrivalDateFormatted}}<br>
+                            <b>{{productData.AviaInfo.AirportTo}}</b> {{productData.AviaInfo.InCode}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class='rlf-full-travel-time-info'>
+                    в пути: {{productData.AviaInfo.TimeToFormatted}},
+                    <span ng-if='productData.AviaInfo.ToTransferCount > 0'>
+		            {{productData.AviaInfo.ToTransferCount}}
+		            {{productData.AviaInfo.ToTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
+	            </span>
+                    <span ng-if='productData.AviaInfo.ToTransferCount == 0'>без пересадок</span>
+                </div>
+            </div>
+
+            <div class='rlf-fly rlf-fly_back'
+                 ng-if='productData.AviaInfo.EtapsBack.length > 0'>
+
+                <div class='row-fluid'>
+                    <div class='col-xs-5 col-no-padding row-fluid__cell'>
+                        <div class='rlf__flight-block'>
+                            <b>{{productData.AviaInfo.BackDepartureTimeFormatted}}</b>
+                            {{productData.AviaInfo.BackDepartureDateFormatted}}<br>
+                            <b>{{productData.AviaInfo.AirportFromBack}}</b> {{productData.AviaInfo.OutCodeBack}}
+
+                        </div>
+                    </div>
+                    <div class='col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle'>
+                        <span class='rlf-fly-arrow rlf-fly-arrow_popup'></span>
+                    </div>
+                    <div class='col-xs-5 col-no-padding row-fluid__cell'>
+                        <div class='rlf__flight-block'>
+                            <b>{{productData.AviaInfo.BackArrivalTimeFormatted}}</b>
+                            {{productData.AviaInfo.BackArrivalDateFormatted}}<br>
+                            <b>{{productData.AviaInfo.AirportToBack}}</b> {{productData.AviaInfo.InCodeBack}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class='rlf-full-travel-time-info'>
+                    в пути: {{productData.AviaInfo.TimeBackFormatted}},
+                    <span ng-if='productData.AviaInfo.BackTransferCount > 0'>
+		            {{productData.AviaInfo.BackTransferCount}}
+		            {{productData.AviaInfo.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
+	            </span>
+                    <span ng-if='productData.AviaInfo.BackTransferCount == 0'>без пересадок</span>
+                </div>
+            </div>
+
+            <div class='rlf-fly rlf-fly_back rlf__oneway'
+                 ng-if='!(productData.AviaInfo.EtapsBack.length > 0)'>
+                БИЛЕТ В ОДНУ СТОРОНУ
+            </div>
+        </div>
+
+        <footer class='rl-footer'>
+            <span class='rl-tickets-number'>{{ticketsNumber}}</span>
+            <a ng-href='#'
+               ng-if='goBackUrl().length > 0'
+               class='rl-more-info'
+               ng-click='popupItemInfo.show($event, item, criteria, searchId, true)'>Подробнее</a>
+        </footer>
+    </div>
+
+    <div class='buy__warning'
+         ng-show='visaControl.visaNeeded || visaControl.visaRulesNeeded'>
+
+        <span class='icon-sprite-visa-alert buy-warning-alert-img'></span>
+        <div class='buy-warning-alert-content'>
+            <div class='buy-warning-alert'
+                 ng-show='visaControl.visaNeeded || visaControl.visaRulesNeeded'>Обратите внимание
+            </div>
+            <span ng-show='visaControl.visaNeeded'>Требуется виза.</span>
+            <span ng-show='visaControl.visaRulesNeeded'>
+            <span ng-if='visaControl.cautionCountries.length > 0'> Рекомендуем ознакомиться с визовыми правилами для посещения стран:
+                <span ng-repeat='c in visaControl.cautionCountries'>
+                    <a class='b-visa-country-link'
+                       ng-if='c.link'
+                       ng-href='{{c.link}}'
+                       target='_blank'>{{c.name}}</a><!--
+                    --><span ng-if='!c.link'>{{c.name}}</span><!--
+                    --><span ng-if='!($last)'>,&nbsp;</span><!--
+                --></span><!--
+            --></span>.
+        </span>
+            <div>
+                <span ng-if='productData.AviaInfo.alertDifferentPorts'>Разные аэропорты вылета и прилета. </span>
+                <span ng-if='productData.AviaInfo.IsLongTransfer'>Долгая пересадка. </span>
+                <span ng-if='productData.AviaInfo.IsNightStop'>Ночная стыковка. </span>
+                <span ng-if='productData.AviaInfo.baggageAlert'>Платный багаж. </span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class='productInfo__Desc'>
+        Пожалуйста, ознакомьтесь с
+        <a href=''
+           ng-click="tarifs.show($event);gtmRules($event,'avia');">
+            правилами применения тарифа авиабилета
+        </a>
+    </div>
+
+</div>
+
+<ng-include src="'components/productInfo/templ/baloons.html'"></ng-include>

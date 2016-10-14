@@ -2,6 +2,9 @@ innaAppDirectives.directive('offers', function ($templateCache) {
     return {
         replace: true,
         template: $templateCache.get("components/offers/templ/offers.html"),
+        scope: {
+            typePage : '='
+        },
         controller: function ($scope, RavenWrapper, serviceCache, Offer, $timeout, EventManager) {
 
             $scope.price = null;
@@ -77,6 +80,24 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 });
             
             $scope.setCategory = function (category) {
+                if($scope.typePage) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': $scope.typePage ? $scope.typePage : '[no data]',
+                            'Action':  $scope.typePage+'Tab',
+                            'Label': category.Text,
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+
                 var categories = [];
                 for (var i = 0; i < $scope.Categories.length; i++) {
                     var item = $scope.Categories[i];

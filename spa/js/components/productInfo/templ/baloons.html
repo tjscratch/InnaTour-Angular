@@ -1,0 +1,96 @@
+<!-- Buy ticket -->
+<ng:include src="'avia/baloon_info.html'"></ng:include>
+
+<!-- Baloon -->
+<div class="overlay js-overlay" ng-if="tarifs.isOpened">
+    <div class="scroll-fix" ng-style="tarifs.style">
+        <div class="balloon balloon_medium js-tarifs">
+            <div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)">
+                <i class="icon-sprite-remove-big"></i>
+            </div>
+            <div class="b__rules-container">
+                <div class="b__rules_attention">
+                    <h3>Обратите внимание!</h3>
+
+                    <p>При не использовании одного из сегментов маршрута, последующие сегменты могут быть автоматически
+                        аннулированы авиакомпанией.
+                    </p>
+
+                    <p>Если по перелёту используется несколько разных правил/тарифов, то при обмене/возврате применяются
+                        более строгие правила. При обмене/возврате к возможным штрафным санкциям авиакомпании по
+                        правилам
+                        тарифа, дополнительно взымается сервисный сбор за услугу оформления обмена/возврата билета.
+                    </p>
+                    <ul class="b__rules-flies">
+                        <li ng-class="{current:item === tarifs.setected}" ng-repeat="item in tarifs.list"><a ng-href="#"
+                                                                                                             ng-click="tarifs.tarifClick($event, item)"><span><b>{{item.from}}
+						                                                                                                                                         → {{item.to}},</b> {{item.num}}, {{tarifs.class}} ({{item.nameFirstLetter}})</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="b__rules-grey">
+                    <h3>{{tarifs.setected.from}} → {{tarifs.setected.to}}</h3>
+                    <h4>Полные правила применения тарифа</h4>
+                    <!--<p>Пожалуйста, ознакомьтесь детальнее с условиями <a href="#">обмена/возврата</a>.</p>-->
+                    <p ng-bind-html="tarifs.tarifItem.Text | breakFilter"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Baloon -->
+
+<!-- Baloon cancel hotel -->
+<div class="overlay js-overlay" ng-if="hotelRules.isOpened">
+    <div class="scroll-fix" ng-style="hotelRules.style">
+        <div class="balloon balloon_ticket">
+            <div title="Закрыть" class="balloon-close" ng-click="hotelRules.close($event)">
+                <i class="icon-sprite-remove-big"></i>
+            </div>
+            <h3 class="balloon__title">Условия и правила по отелю</h3>
+
+            <div class="balloon__text-block">
+                <h4 class="balloon__title-sec">Условия заселения</h4>
+                <ul class="balloon__list">
+                    <li>Заезд: до {{hotelRules.checkIn}}</li>
+                    <li>Выезд: до {{hotelRules.checkOut}}</li>
+                </ul>
+            </div>
+            <div class="balloon__text-block"
+                 ng-if="hotelRules.cancellationRules != null && hotelRules.cancellationRules.length > 0">
+                <h4 class="balloon__title-sec">Правила отмены</h4>
+                <!--<ul class="balloon__list">
+                    <li>В случае отмены или изменения бронирования в срок до 1 суток до даты заезда
+        штраф не взимается.</li>
+                    <li>В случае отмены или изменения бронирования позднее этого срока или в случае
+        незаезда взимается 100 процентов от стоимости первой ночи проживания.</li>
+                </ul>-->
+                <p ng-bind-html="hotelRules.cancellationRules | breakFilter"></p>
+            </div>
+            <div class="balloon__text-block" ng-if="hotelRules.extra.List.length > 0">
+                <h4 class="balloon__title-sec">Дополнительно</h4>
+                <ul class="balloon__list">
+                    <li ng-repeat="item in hotelRules.extra.List">{{item}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Baloon -->
+
+<!-- Baloon insurance -->
+<div class="overlay js-overlay" ng-if="insuranceRules.isOpened">
+    <div class="scroll-fix" ng-style="hotelRules.style">
+        <div class="balloon balloon_long">
+            <div title="Закрыть" class="balloon-close" ng-click="insuranceRules.close($event)">
+                <i class="icon-sprite-remove-big"></i>
+            </div>
+            <h3 class="balloon__title">Правила медицинского страхования</h3>
+
+            <div class="balloon__frame-block">
+                <iframe class="balloon__frame" ng-style="insuranceRules.style" src="/spa/insurance.html"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Baloon -->

@@ -76,6 +76,7 @@
                 addButtons: '=',
                 data      : '=',
                 maxDate   : '=',
+                typePage  : '=',
                 tabIndexFrom: '=',
                 tabIndexTo: '='
             },
@@ -112,13 +113,13 @@
                     }
                 };
 
-
                 /**
                  * кусок говнокода для валидаторов на билетиксе
                  */
                 if (window.partners && window.partners.isFullWL()) {
                     var partner = window.partners.getPartner().name;
                 }
+
                 /*Watchers*/
                 $scope.$watch('date1', function (newValue, oldValue) {
                     if (newValue instanceof Error) {
@@ -130,6 +131,23 @@
                         }
                     }
                     else {
+                        if(newValue && newValue != oldValue) {
+                                    var dataLayerObj = {
+                                        'event': 'UM.Event',
+                                        'Data': {
+                                            'Category': $scope.typePage == 'DP' ? 'Packages' : 'Avia',
+                                            'Action': 'SelectDateFrom',
+                                            'Label': dateHelper.ddmmyyyy2yyyymmdd(newValue),
+                                            'Content': '[no data]',
+                                            'Context': '[no data]',
+                                            'Text': '[no data]'
+                                        }
+                                    };
+                                    console.table(dataLayerObj);
+                                    if (window.dataLayer) {
+                                        window.dataLayer.push(dataLayerObj);
+                                    }
+                        }
                         if ($scope.datePicker) {
                             updateThrottled();
                         }
@@ -146,6 +164,23 @@
                         }
                     }
                     else {
+                        if(newValue && newValue != oldValue) {
+                                    var dataLayerObj = {
+                                        'event': 'UM.Event',
+                                        'Data': {
+                                            'Category': $scope.typePage == 'DP' ? 'Packages' : 'Avia',
+                                            'Action': 'SelectDateTo',
+                                            'Label': dateHelper.ddmmyyyy2yyyymmdd(newValue),
+                                            'Content': '[no data]',
+                                            'Context': '[no data]',
+                                            'Text': '[no data]'
+                                        }
+                                    };
+                                    console.table(dataLayerObj);
+                                    if (window.dataLayer) {
+                                        window.dataLayer.push(dataLayerObj);
+                                    }
+                        }
                         if ($scope.datePicker) {
                             updateThrottled();
                         }
@@ -272,12 +307,9 @@
                     format           : 'd.m.Y',
                     starts           : 1,
                     onShow           : function () {
-                        console.log('show  data Picker');
-
                         return true;
                     },
                     onHide           : function () {
-                        console.log('hide  data Picker');
                         return true;
                     },
                     onChange         : function (formated, dates, el, lastSel, initDateFromIsSet) {

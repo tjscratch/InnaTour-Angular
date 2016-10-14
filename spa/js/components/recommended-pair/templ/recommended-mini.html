@@ -59,7 +59,7 @@
                 Развернуть
             </a>
 
-            <div ng-if="recommendedPair.hotel.data.PriceObject"
+            <div ng-if="recommendedPair.hotel.data.PriceObject && $root.user.isAgency()"
                  class="price-generic-container"
                  price-generic-directive
                  icon-white="true"
@@ -77,7 +77,7 @@
                 </div>
                 <span><ng-include src="'components/ruble.html'"></ng-include>/чел</span>
 
-                <div ng-if="recommendedPair.hotel.data.PriceObject"
+                <div ng-if="recommendedPair.hotel.data.PriceObject  && $root.user.isAgency()"
                      class="b-cost-expand__price-generic"
                      price-generic-directive
                      icon-white="true"

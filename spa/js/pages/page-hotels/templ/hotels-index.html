@@ -19,6 +19,7 @@
 		</div>
 
 		<div class="SearchHotelResults">
+			<div class="SearchHotelResults__promo-logo" ng-if="hotels.length > 0"></div>
 			<div class="SearchHotelResultsList" ng-if="hotels.length > 0">
 				<div class="SearchHotelResultsList__item"
 				     ng-repeat="hotel in hotels track by $index"
@@ -26,6 +27,7 @@
 					<hotel-card
 							hotel="hotel"
 							hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
+							guest-count="guestCount"
 					></hotel-card>
 				</div>
 

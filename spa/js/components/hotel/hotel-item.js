@@ -84,6 +84,8 @@ angular.module('innaApp.components').
                         }
 
                         return urlDetails;
+                    },
+                    detailsHotelsInList: function() {
                     }
                 },
                 partials: {
@@ -159,8 +161,24 @@ angular.module('innaApp.components').
                 setCurrent: function () {
                     this.set('hidden', true);
                     EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, this.get('modelHotel'), this.get('hotel.HotelId'));
+                    var hotel = this.get('modelHotel');
+                    console.log('HOTELHOTEL', hotel);
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Packages',
+                            'Action': 'PackagesHotelsSelect',
+                            'Label': hotel.data.HotelName,
+                            'Content': 'Page',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
                 },
-
 
                 parse: function (end) {
 

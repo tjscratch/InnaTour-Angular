@@ -4,12 +4,31 @@ innaAppDirectives.directive('hotelCard', function ($templateCache) {
         template: $templateCache.get("components/hotel-card/templ/hotel-card.html"),
         scope: {
             hotel: '=',
-            hotelUrl: '='
+            hotelUrl: '=',
+            guestCount: '='
         },
         link: function (scope, elem, attr) {
             var HotelGalleryComponent = null;
         },
         controller: function ($scope, $location) {
+
+            $scope.gtmHotelsBuySearch = function () {
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Hotels',
+                        'Action': 'HotelsBuySearch',
+                        'Label': '[no data]',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+            };
             
             $scope.currentActive = function(route) {
                 var loc = $location.path();

@@ -16,12 +16,16 @@ angular.module('innaApp.API', [])
         }
 
         return {
+            GET_OFFER_LINK : url('/Tour/GetByCriteria'),
+            
             GET_SLETAT: url('/Dictionary/Sletat/Get'),
             GET_SLETAT_CITY: url('/Dictionary/SletatCity/Get'),
             GET_SLETAT_BY_ID: url('/Dictionary/SletatById/Get'),
 
             GET_LOCATION_BY_URLS: url('/Dictionary/LocationByUrl'),
             GET_CURRENT_LOCATION_BY_IP: url('/Dictionary/GetCurrentLocation'),
+            GET_CURRENT_CITY_BY_IP: url('/Dictionary/GetCurrentCity'),
+            GET_COUNTRY_BY_TERM: url('/Dictionary/Country'),
 
             BEGIN_SEARCH: url('/Search/BeginSearch/Get'),
             CHECK_SEARCH: url('/Search/CheckSearch/Get'),

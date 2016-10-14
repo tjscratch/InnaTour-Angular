@@ -26,6 +26,7 @@
                     var value = value + 1;
                     if (value > 6)
                         value = 6;
+
                     return value;
                 }
 
@@ -72,6 +73,20 @@
                         $scope[key] = countPlus($scope[key]);
                     }
                 }
+
+                $scope.$watch('adultCount', function (newValue, oldValue) {
+                    if(newValue && oldValue) {
+                        // console.log('new', newValue);
+                        // console.log('old', oldValue);
+                    }
+                });
+
+                $scope.$watch('childCount', function (newValue, oldValue) {
+                    if(newValue) {
+                        // console.log('newChild', newValue);
+                        // console.log('oldChild', oldValue);
+                    }
+                });
             }],
             link: function ($scope, element, attrs) {
                 $(document).click(function bodyClick(event) {

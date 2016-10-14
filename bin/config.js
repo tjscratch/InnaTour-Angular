@@ -74,7 +74,10 @@ var config = {
             "./bower_components/angular-validation/dist/angular-validation.min.js",
             "./bower_components/angular-validation/dist/angular-validation-rule.min.js",
             "./bower_components/angular-ui-select/dist/select.min.js",
+            "./bower_components/angular-timer/dist/angular-timer.min.js",
+            "./bower_components/humanize-duration/humanize-duration.js",
             "./bower_components/google-maps-utility-library-v3-infobox/dist/infobox.min.js",
+            "./bower_components/mobile-detect/mobile-detect.min.js",
             "./spa/lib/moment-ru.js",
             "./spa/lib/polyfill/**/*.js",
             "./spa/lib/jquery.maskedinput.js",
@@ -155,7 +158,7 @@ var config = {
         },
         "api": {
             "test": "http://api.test.inna.ru",
-            "dev": "http://test.inna.ru",
+            "dev": "http://beta.inna.ru",
             "prod": "https://api.inna.ru",
             "beta": "http://api.beta.inna.ru"
         },
