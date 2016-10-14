@@ -90,7 +90,8 @@
 		</header>
 
 		<fieldset class="buy__blocks" ng-repeat="passenger in validationModel.passengers">
-			<div class="b-field-group b-field-group-passport">
+			<div class="b-field-group b-field-group-passport"
+				ng-class="{'b-field-group-passport__IsTripToRussia' : item.IsTripToRussia}">
 				<div class="b-field-block"
 				     validate-events-dir ng-model="passenger.sex.value" ng-validation-model="passenger.sex"
 				     validate-type="validateType.sex" validate="validate(item, type)" data-title="Укажите пол пассажира">
@@ -138,7 +139,8 @@
 					       ng-class="{error:isFieldInvalid(passenger.name)}"
 					       type="text" placeholder="IVAN" class="b-field-text">
 				</div>
-				<div class="b-field-block b-field-block-oname">
+				<div class="b-field-block b-field-block-oname"
+				     ng-if='item.IsTripToRussia'>
 					<label class="b-field-label">Отчество</label>
 					<input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.oName.value"
 						   data-title="Укажите отчество пассажира"
@@ -173,7 +175,8 @@
 					     list="citizenshipList" result-set="passenger.citizenship.setValue(item)"
 					></div>
 				</div>
-				<div class="b-field-block b-field-document">
+				<div class="b-field-block b-field-document"
+				     ng-class="{'b-field-document__IsTripToRussia' : item.IsTripToRussia}">
 					<label class="b-field-label b-field-label-docs">Документ</label>
 					<div citizenship-select
 					     ng-validation-model="passenger.doc_type"
