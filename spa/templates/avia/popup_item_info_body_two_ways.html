@@ -6,8 +6,10 @@
                 <div class="rfl-column3">
                     <div class="rlf-aviacompany">
                         <img ng-src="{{etapAgg.etapTo.TransporterCodeUrl}}" alt="" width="42" height="42">
-                        {{etapAgg.etapTo.TransporterName}} <br>
-                        рейс {{etapAgg.etapTo.Number}} <br>
+                        {{etapAgg.etapTo.TransporterName}}
+                        <br>
+                        рейс {{etapAgg.etapTo.Number}}
+                        <br>
                         {{etapAgg.etapTo.VehicleName}}
                         <div ng-if="etapAgg.etapTo.baggage">
                             <a ng-class="{'baggage-alert':etapAgg.etapTo.baggageAlert}"
@@ -53,6 +55,19 @@
 
                 </div>
             </div>
+
+            <div class='avia_LuggageLimit'>
+                <div class='avia_LuggageLimit-label'>
+                    Норма бесплатного багажа:
+                </div>
+                <div ng-if='!etapAgg.etapTo.LuggageLimit' class='avia_LuggageLimit-text-red'>
+                    Информации нет. Просьба  уточнять  правила   провоза багажа у  оператора.
+                </div>
+                <div ng-if='etapAgg.etapTo.LuggageLimit'>
+                    {{etapAgg.etapTo.LuggageLimit}}
+                </div>
+            </div>
+
             <div class="b-company-info"
                  ng-if="etapAgg.etapTo.TransporterId != etapAgg.etapTo.OperatorId">
                 Рейс выполняет авиакомпания {{etapAgg.etapTo.OperatorName}}
@@ -109,6 +124,18 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class='avia_LuggageLimit'>
+                <div class='avia_LuggageLimit-label'>
+                    Норма бесплатного багажа:
+                </div>
+                <div ng-if='!etapAgg.etapBack.LuggageLimit' class='avia_LuggageLimit-text-red'>
+                    Информации нет. Просьба  уточнять  правила   провоза багажа у  оператора.
+                </div>
+                <div ng-if='etapAgg.etapBack.LuggageLimit'>
+                    {{etapAgg.etapBack.LuggageLimit}}
                 </div>
             </div>
 
