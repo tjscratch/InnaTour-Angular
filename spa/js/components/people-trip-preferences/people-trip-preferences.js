@@ -49,22 +49,28 @@ innaAppDirectives.directive('peopleTripPreferences', ['$templateCache', function
             }
 
             $scope.plusAdult = function ($event) {
-                console.log('adultCount', $scope.adultCount);
-                console.log('infantsCount', getChildrenAndInfants().infantsCount);
-                console.log('$scope.childrensAge.length', $scope.childrensAge.length);
-                if(($scope.adultCount == 3) && (getChildrenAndInfants().infantsCount == 0) && ($scope.childrensAge.length == 3)) {
-                    return;
-                } else {
-                    if($scope.typePage == 'Avia') {
-                        if($scope.adultCount + 1 <= $scope.maxAdultCountAvia) {
-                            $scope.adultCount += 1;
-                        }
-                    }else {
-                        if($scope.adultCount + 1 <= $scope.maxAdultCountNoAvia) {
-                            $scope.adultCount += 1;
-                        }
-                    }
-                }
+                // console.log('adultCount', $scope.adultCount);
+                // console.log('infantsCount', getChildrenAndInfants().infantsCount);
+                // console.log('$scope.childrensAge.length', $scope.childrensAge.length);
+                // if($scope.typePage == 'Avia') {
+                //     if(($scope.adultCount == 5) && (getChildrenAndInfants().infantsCount == 0) && ($scope.childrensAge.length == 1)) {
+                //         return;
+                //     } else {
+                //         if($scope.adultCount + 1 <= $scope.maxAdultCountAvia) {
+                //             $scope.adultCount += 1;
+                //             getChildrenAndInfants();
+                //         }
+                //     }
+                // } else {
+                //     if(($scope.adultCount == 3) && (getChildrenAndInfants().infantsCount == 0) && ($scope.childrensAge.length == 3)) {
+                //         return;
+                //     } else {
+                //         if($scope.adultCount + 1 <= $scope.maxAdultCountNoAvia) {
+                //             $scope.adultCount += 1;
+                //         }
+                //     }
+                // }
+                addPeoples();
             };
 
             $scope.minusAdult = function ($event) {
@@ -89,9 +95,19 @@ innaAppDirectives.directive('peopleTripPreferences', ['$templateCache', function
                 }
             };
 
+            function addPeoples(typePeoples, typeOperation, age) {
+                if(typePeoples == 'Adult' && (typeOperation == 'Plus' || typeOperation == 'Minus')) {
+                    if(typeOperation == 'Plus') {
+
+                    }
+                    if(typeOperation == 'Minus') {
+
+                    }
+                }
+            };
+
             $scope.onChoose = function (option) {
                 $scope.klassModel = option;
-                console.log('MODEL_KLASS', option);
             };
 
             function validationPeople(age) {

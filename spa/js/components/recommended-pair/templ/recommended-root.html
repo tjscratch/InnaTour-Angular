@@ -9,30 +9,30 @@
 			<div class="main__center recommend-bundle-wrap">
 				<!--ng-class="{'recommend-bundle-wrap_small': !isVisible}"-->
 
-				<h3 class="recommend-bundle-title" ng-if="isChooseHotel && !isVisible">
+				<h3 class="recommend-bundle-title" ng-if="isChooseHotel && isVisible">
 					Выбранный вариант
 					<!--ng-if="!isClosed && recommendedPairStatus == 6"-->
-					<div
-					     tooltip-directive-base
-					     tooltip-klass="nocorner:fixed"
-					     close="true"
-					     position="right_right"
-					     is-visible="isVisible"
-					     width="300"
-					     templ="popover.hbs.html" class="b-display-inline">
+					<!--<div-->
+					     <!--tooltip-directive-base-->
+					     <!--tooltip-klass="nocorner:fixed"-->
+					     <!--close="true"-->
+					     <!--position="right_right"-->
+					     <!--is-visible="isVisible"-->
+					     <!--width="300"-->
+					     <!--templ="popover.hbs.html" class="b-display-inline">-->
 
-						<div class="b-tooltip__header">
-							<h3>Пакет был изменен</h3>
-						</div>
+						<!--<div class="b-tooltip__header">-->
+							<!--<h3>Пакет был изменен</h3>-->
+						<!--</div>-->
 
-						<div class="b-tooltip__body">
-				            <span class="b-tooltip__body__text">
-				              К сожалению, выбранный пакет Перелет+Отель
-					            уже недоступен, будет предложен рекомендованный вариант.
-				            </span>
-						</div>
+						<!--<div class="b-tooltip__body">-->
+				            <!--<span class="b-tooltip__body__text">-->
+				              <!--К сожалению, выбранный пакет Перелет+Отель-->
+					            <!--уже недоступен, будет предложен рекомендованный вариант.-->
+				            <!--</span>-->
+						<!--</div>-->
 
-					</div>
+					<!--</div>-->
 				</h3>
 
 				<h3 class="recommend-bundle-title" ng-if="!isChooseHotel">
@@ -77,6 +77,7 @@
 					</div>
 					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_hotel-map"
 						 ng-class="{'panel-tabs-dp__tab_selected':(asMap)}">
+						<i ng-class="{'icon-hotel-map-blue':(asMap), 'icon-hotel-map-gray': (!asMap)}"></i>
 						Отели на карте
 					</div>
 				</div>

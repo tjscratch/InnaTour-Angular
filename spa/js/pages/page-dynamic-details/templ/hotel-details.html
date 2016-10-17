@@ -118,15 +118,22 @@
 									</p>
 								</div>
 
-								<p>
-							<span class="hotel-details__section-text-more"
-								  ng-if="showFullDescription && !OrderId"
-								  ng-click="toggleDescription()">Свернуть</span>
+								<p style="text-align: center;">
+									<span class="hotel-details__section-text-more"
+										  ng-if="showFullDescription && !OrderId"
+										  ng-click="toggleDescription()">
+										Свернуть
+										<span class="icon-expand-gray icon-expand-gray_open" style="position: absolute; top: 8px; right: -12px;"></span>
+									</span>
 
-							<span class="hotel-details__section-text-more"
-								  ng-if="!showFullDescription && !OrderId"
-								  ng-click="toggleDescription()">Развернуть</span>
+									<span class="hotel-details__section-text-more"
+										  ng-if="!showFullDescription && !OrderId"
+										  ng-click="toggleDescription()">
+										Развернуть
+										<span class="icon-expand-gray" style="position: absolute; top: 8px; right: -12px;"></span>
+									</span>
 								</p>
+
 							</div>
 							<!--<ul class="hotel-details-extra" ng-if="hotel.Extra">
                                 <li ng-repeat="(key, val) in hotel.Extra track by $index"

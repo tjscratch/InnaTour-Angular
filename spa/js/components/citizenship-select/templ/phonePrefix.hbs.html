@@ -6,7 +6,8 @@
            readonly
            value="{{selectionControl.selectedItem.Id}}"
            placeholder="+7"
-           class="b-field-text b-field-select b-phone-prefix">
+           class="b-field-text b-phone-prefix">
+    <i class="b-field-select icon-expand-gray" ng-class="{'icon-expand-gray_open': isOpen}" style="top: 15px;"></i>
     <div class="b-auth cit-cont" ng-class="{'b-phone-dropdown-cont':isPhoneControl}" ng-show="isOpen">
         <div class="cit-cont__inner">
             <ul>

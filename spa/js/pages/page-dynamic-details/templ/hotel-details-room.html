@@ -144,7 +144,7 @@
 				 ng-if="!room.Photos"
 				 style="background-image: url('spa/img/hotels/no-photo-card-room204x136.jpg')"></div>
 		</div>
-		<div class="hotel-details-rooms__room__desc" ng-click="toggleRoom(room)">
+		<div class="hotel-details-rooms__room__desc" ng-click="toggleRoom(room)" style="position: relative;">
 			<div class="hotel-details-rooms__room-title" title="{{room.RoomName}}">{{room.RoomName}}</div>
 			<span tooltip-directive-base
 				  ng-if="userIsAgency && (AgencyId == 20005)"
@@ -172,6 +172,7 @@
 				</span>
 				<span ng-if="!room.IsRefundable">Без возможности возврата</span>
 			</div>
+			<i class="icon-inform-blue" title="Подробнее о номере"></i>
 		</div>
 		<div class="hotel-details-rooms__room__price">
 			<!--<div ng-if="room.Default && NewPrice"-->

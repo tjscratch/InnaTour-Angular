@@ -60,14 +60,14 @@
                         <span class="red_span" title="{{this.AirportTo}}">{{limitFilter(this.AirportTo, 14)}}</span>
                 </div>
 
-                <div>
-                    {{#(helper.getCharterAndNumSeatsText(this).EtapsTo.isNightStop == true)}}
-                    <span>НС</span>
-                    {{/}}
-                    {{#(helper.getCharterAndNumSeatsText(this).EtapsTo.isLongChange)}}
-                    <span>ДП</span>
-                    {{/}}
-                </div>
+                <!--<div>-->
+                    <!--{{#(helper.getCharterAndNumSeatsText(this).EtapsTo.isNightStop == true)}}-->
+                    <!--<span>НС</span>-->
+                    <!--{{/}}-->
+                    <!--{{#(helper.getCharterAndNumSeatsText(this).EtapsTo.isLongChange)}}-->
+                    <!--<span>ДП</span>-->
+                    <!--{{/}}-->
+                <!--</div>-->
             </div>
 
             {{#(this.EtapsBack.length > 0)}}
@@ -102,14 +102,14 @@
                         <span class="red_span" title="{{this.AirportToBack}}">{{limitFilter(this.AirportToBack, 14)}}</span>
                 </div>
 
-                <div>
-                    {{#helper.getCharterAndNumSeatsText(this).EtapsBack.isNightStop}}
-                    <span>НС</span>
-                    {{/}}
-                    {{#helper.getCharterAndNumSeatsText(this).EtapsBack.isLongChange}}
-                    <span>ДП</span>
-                    {{/}}
-                </div>
+                <!--<div>-->
+                    <!--{{#helper.getCharterAndNumSeatsText(this).EtapsBack.isNightStop}}-->
+                    <!--<span>НС</span>-->
+                    <!--{{/}}-->
+                    <!--{{#helper.getCharterAndNumSeatsText(this).EtapsBack.isLongChange}}-->
+                    <!--<span>ДП</span>-->
+                    <!--{{/}}-->
+                <!--</div>-->
             </div>
             {{/}}
 

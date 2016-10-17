@@ -3,12 +3,12 @@
 	<div class="results-container" style="padding-top: 0px;">
 		<!--style="padding-top: 25px;"-->
 
-		<div class="SearchHotelResultsSale" ng-if="ticketsList.length > 0">
-			Скидки до
-			<span class="SearchHotelResultsSale__value-sale">30%</span>
-			при покупке
-			<span class="SearchHotelResultsSale__logo-dp">Перелет + Отель</span>
-		</div>
+		<!--<div class="SearchHotelResultsSale" ng-if="ticketsList.length > 0">-->
+			<!--Скидки до-->
+			<!--<span class="SearchHotelResultsSale__value-sale">30%</span>-->
+			<!--при покупке-->
+			<!--<span class="SearchHotelResultsSale__logo-dp">Перелет + Отель</span>-->
+		<!--</div>-->
 
 	    <!-- Рекомендованный вариант -->
 	    <!--<div class="results-list js-results-list-recomended results-list_720 pull-left" ng-if="recomendedItem != null">-->
@@ -80,7 +80,13 @@
 	    <!-- Results Aside -->
 	    <aside class="results-aside results-aside_mod avia js-aside">
 
-	        <div class="ra-tags-container" style="position: absolute; top: 16px; right: 16px;">
+			<div class="banner-sale-dp" ng-if="ticketsList.length > 0">
+				<div class="banner-sale-dp__value">30%</div>
+				<div class="banner-sale-dp__desc">скидка при покупке</div>
+				<div class="banner-sale-dp__btn">Перелет + Отель</div>
+			</div>
+
+	        <div class="ra-tags-container" style="width: 168px; position: absolute; top: 163px; right: 16px;">
 	            <!--<h4 class="ra-tags-title" ng-if="ticketsList.length > 0"><b>{{getFilteredLength()}}</b> из <b>{{getLength()}}</b> перелетов</h4>-->
 	            <div class="b-switch-filters__result">
 	                <ul class="b-switch-filters__list ra-tags-list">

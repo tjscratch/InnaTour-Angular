@@ -69,3 +69,39 @@
   @extend .svg-transfer;
   @extend .svg-transfer-dims;
 }
+.icon-expand {
+  @extend .svg-expand;
+  @extend .svg-expand-dims;
+  position absolute
+  top 17px
+  right 17px
+  transform rotate(0deg)
+  transition transform ease-in-out .3s
+}
+.icon-expand_open {
+  transform rotate(180deg)
+  transition transform ease-in-out .3s
+}
+.icon-expand-gray {
+  @extend .svg-expand-gray;
+  @extend .svg-expand-gray-dims;
+  //position absolute
+  //top 17px
+  //right 17px
+  transform rotate(0deg)
+  transition transform ease-in-out .3s
+}
+.icon-expand-gray_open {
+  transform rotate(180deg)
+  transition transform ease-in-out .3s
+}
+.icon-hotel-map-gray {
+  @extend .svg-hotel-map-gray;
+  @extend .svg-hotel-map-gray-dims;
+  margin-right 8px
+}
+.icon-hotel-map-blue {
+  @extend .svg-hotel-map-blue;
+  @extend .svg-hotel-map-blue-dims;
+  margin-right 8px
+}
