@@ -11,158 +11,159 @@
             ng-if='payment.data.ProductType != 3'
     ></user-info>
 
+    <div class="ReservationSection__wrap">
+        <div id='OrderInfo'
+             class='Payment__OrderInfo'>
 
-    <div id='OrderInfo'
-         class='Payment__OrderInfo'>
-
-        <div class='Payment__OrderInfoWrapper'>
-
-
-            <div class='b-tickets-info-container__inner-wrap'
-                 ng-if='payment.data.ExperationMinute > 0 && !payment.paySuccess'>
-
-                <div class='b-tickets-ok b-svyaznoy'
-                     ng-if='payment.data.ProductType != 3'>
-                    <i class='fa fa-check'></i>
-                    <span ng-if='payment.data.ProductType == 1'>
-                        Билеты забронированы
-                    </span>
-                    <span ng-if='payment.data.ProductType == 2'>
-                        Билеты забронированы, отель будет забронирован после оплаты
-                    </span>
-                    <span ng-if='payment.data.ProductType == 4'>
-                        Отель будет забронирован после оплаты
-                    </span>
-                </div>
+            <div class='Payment__OrderInfoWrapper'>
 
 
-                <div class='b-tickets-info-block b-svyaznoy'>
-                    <ul class='pay-type-select'>
-                        <li ng-if='payment.isPayWithBankCardAllowed'>
-                            <span class='icon-img icon-sprite-pay_type_1'></span>
-                            <input
-                                    ng-model='payment.payType'
-                                    value='1'
-                                    id='pay_type_card'
-                                    type='radio'
-                                    name='card-pay'
-                            />
-                            <label for='pay_type_card'>
-                                <b>&nbsp;
-                                    {{payment.data.Price| price}}
-                                    <i class='fa fa-rub'></i>
+                <div class='b-tickets-info-container__inner-wrap'
+                     ng-if='payment.data.ExperationMinute > 0 && !payment.paySuccess'>
+
+                    <div class='b-tickets-ok b-svyaznoy'
+                         ng-if='payment.data.ProductType != 3'>
+                        <!--<i class='fa fa-check'></i>-->
+                        <span ng-if='payment.data.ProductType == 1'>
+                            Билеты забронированы
+                        </span>
+                        <span ng-if='payment.data.ProductType == 2'>
+                            Билеты забронированы, отель будет забронирован после оплаты
+                        </span>
+                        <span ng-if='payment.data.ProductType == 4'>
+                            Отель будет забронирован после оплаты
+                        </span>
+                    </div>
+
+
+                    <div class='b-tickets-info-block b-svyaznoy'>
+                        <ul class='pay-type-select'>
+                            <li ng-if='payment.isPayWithBankCardAllowed'>
+                                <!--<span class='icon-img icon-sprite-pay_type_1'></span>-->
+                                <input
+                                        ng-model='payment.payType'
+                                        value='1'
+                                        id='pay_type_card'
+                                        type='radio'
+                                        name='card-pay'
+                                />
+                                <label for='pay_type_card'>
+                                    <b>&nbsp;
+                                        {{payment.data.Price| price}}
+                                        <i class='fa fa-rub'></i>
+                                    </b>
+                                    <span>банковской картой</span>
+                                </label>
+                            </li>
+                            <li ng-if='payment.isPayWithSvyaznoyAllowed'>
+                                <!--<span class='icon-img icon-sprite-pay_type_2'></span>-->
+                                <input
+                                        ng-model='payment.payType'
+                                        value='2'
+                                        id='pay_type_cache'
+                                        type='radio'
+                                        name='card-pay'
+                                />
+                                <label for='pay_type_cache'>
+                                    <b>&nbsp;
+                                        {{payment.data.Price| price}}
+                                        <i class='fa fa-rub'></i>
+                                    </b>
+                                    <span>{{payment.SvyaznoyCheckListTitle}}</span>
+                                </label>
+                            </li>
+                            <li ng-if='qiwiPayControl.isEnabled && !paymentDeadline.ifExpires()'>
+                                <!--<span class='icon-img icon-sprite-pay_type_3'></span>-->
+                                <input
+                                        ng-model='svyaznoyPayControl.payType'
+                                        value='3'
+                                        id='pay_type_qiwi'
+                                        type='radio'
+                                        name='card-pay'
+                                />
+                                <label for='pay_type_qiwi'>
+                                    <b>&nbsp;
+                                        {{payment.data.Price| price}}
+                                        <i class='fa fa-rub'></i>
+                                    </b>
+                                    <span>через QIWI Visa Wallet</span>
+                                </label>
+                            </li>
+                        </ul>
+
+                        <div class='b-tickets-info-svyaznoy'>
+                            Срок оплаты:
+                            <b>{{payment.ExperationDate}} (MSK)</b>
+                            <div class='br'></div>
+                            Осталось:
+                            <timer
+                                    interval='1000'
+                                    countdown='payment.ExperationMinute'
+                                    language='ru'
+                                    finish-callback='payment.callbackTimer()'
+                            >
+                                <b>
+                                    {{yearUnit}}
                                 </b>
-                                <span>банковской картой</span>
-                            </label>
-                        </li>
-                        <li ng-if='payment.isPayWithSvyaznoyAllowed'>
-                            <span class='icon-img icon-sprite-pay_type_2'></span>
-                            <input
-                                    ng-model='payment.payType'
-                                    value='2'
-                                    id='pay_type_cache'
-                                    type='radio'
-                                    name='card-pay'
-                            />
-                            <label for='pay_type_cache'>
-                                <b>&nbsp;
-                                    {{payment.data.Price| price}}
-                                    <i class='fa fa-rub'></i>
-                                </b>
-                                <span>{{payment.SvyaznoyCheckListTitle}}</span>
-                            </label>
-                        </li>
-                        <li ng-if='qiwiPayControl.isEnabled && !paymentDeadline.ifExpires()'>
-                            <span class='icon-img icon-sprite-pay_type_3'></span>
-                            <input
-                                    ng-model='svyaznoyPayControl.payType'
-                                    value='3'
-                                    id='pay_type_qiwi'
-                                    type='radio'
-                                    name='card-pay'
-                            />
-                            <label for='pay_type_qiwi'>
-                                <b>&nbsp;
-                                    {{payment.data.Price| price}}
-                                    <i class='fa fa-rub'></i>
-                                </b>
-                                <span>через QIWI Visa Wallet</span>
-                            </label>
-                        </li>
-                    </ul>
-
-                    <div class='b-tickets-info-svyaznoy'>
-                        Срок оплаты:
-                        <b>{{payment.ExperationDate}} (MSK)</b>
-                        <div class='br'></div>
-                        Осталось:
-                        <timer
-                                interval='1000'
-                                countdown='payment.ExperationMinute'
-                                language='ru'
-                                finish-callback='payment.callbackTimer()'
-                        >
-                            <b>
-                                {{yearUnit}}
-                            </b>
-                        </timer>
+                            </timer>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class='Payment__iframe-container'
-                 ng-if='payment.payType == 1'>
-                <iframe class='Payment__iframe'
-                        ng-src='{{payment.data.IFrame}}'></iframe>
-            </div>
+                <div class='Payment__iframe-container'
+                     ng-if='payment.payType == 1'>
+                    <iframe class='Payment__iframe'
+                            ng-src='{{payment.data.IFrame}}'></iframe>
+                </div>
 
-            <div id='svyaznoy_print_block'
-                 class='main__center b-svyaznoy'
-                 ng-if='payment.payType == 2'>
+                <div id='svyaznoy_print_block'
+                     class='main__center b-svyaznoy'
+                     ng-if='payment.payType == 2'>
 
-                <div ng-hide='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.euroset'
-                     class='icon-sprite-svyaznoy_logo'></div>
-                <div ng-hide='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.svyaznoy'
-                     ng-class="{'b-euroset-logo':(payment.SvyaznoyblockViewType != payment.SvyaznoyblockViewTypeEnum.euroset)}"
-                     class='icon-sprite-euroset_logo'></div>
+                    <div ng-hide='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.euroset'
+                         class='icon-sprite-svyaznoy_logo'></div>
+                    <div ng-hide='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.svyaznoy'
+                         ng-class="{'b-euroset-logo':(payment.SvyaznoyblockViewType != payment.SvyaznoyblockViewTypeEnum.euroset)}"
+                         class='icon-sprite-euroset_logo'></div>
 
-                <p class='b-order-num'><b>Номер заказа {{payment.SvyaznoyOrderNum}}</b></p>
+                    <p class='b-order-num'><b>Номер заказа {{payment.SvyaznoyOrderNum}}</b></p>
 
-                <p ng-if='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.all'>
-                    Вы можете оплатить этот заказ наличными в любом офисе Связного
-                    <a href='https://www.svyaznoy.ru/address_shops/'
-                       target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>
-                    или Евросети <a href='http://euroset.ru/shops/'
-                                    target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>.
-                    <br/>Обратитесь к менеджеру и назовите номер заказа.
-                </p>
-                <p ng-if='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.svyaznoy'>
-                    Вы можете оплатить этот заказ наличными в любом офисе Связного
-                    <a href='https://www.svyaznoy.ru/address_shops/'
-                       target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>.
-                    <br/>Обратитесь к менеджеру и назовите номер заказа.
-                </p>
-                <p ng-if='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.euroset'>
-                    Вы можете оплатить этот заказ наличными в любом офисе Евросети
-                    <a href='http://euroset.ru/shops/'
-                       target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>.
-                    <br/>Обратитесь к менеджеру и назовите номер заказа.
-                </p>
+                    <p ng-if='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.all'>
+                        Вы можете оплатить этот заказ наличными в любом офисе Связного
+                        <a href='https://www.svyaznoy.ru/address_shops/'
+                           target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>
+                        или Евросети <a href='http://euroset.ru/shops/'
+                                        target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>.
+                        <br/>Обратитесь к менеджеру и назовите номер заказа.
+                    </p>
+                    <p ng-if='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.svyaznoy'>
+                        Вы можете оплатить этот заказ наличными в любом офисе Связного
+                        <a href='https://www.svyaznoy.ru/address_shops/'
+                           target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>.
+                        <br/>Обратитесь к менеджеру и назовите номер заказа.
+                    </p>
+                    <p ng-if='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.euroset'>
+                        Вы можете оплатить этот заказ наличными в любом офисе Евросети
+                        <a href='http://euroset.ru/shops/'
+                           target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>.
+                        <br/>Обратитесь к менеджеру и назовите номер заказа.
+                    </p>
 
-                <p>
-                    Рекомендуем оплачивать заказ в салоне в ближайшее время после бронирования, поскольку авиакомпании
-                    <br/>оставляют за собой право изменять время на оплату.
-                </p>
+                    <p>
+                        Рекомендуем оплачивать заказ в салоне в ближайшее время после бронирования, поскольку авиакомпании
+                        <br/>оставляют за собой право изменять время на оплату.
+                    </p>
 
-                <a href='/services/paymnet/?order={{payment.SvyaznoyOrderNum}}&viewType={{payment.SvyaznoyblockViewType}}&time={{payment.SvyaznoyExperationDate}}'
-                   target='_blank' ng-click="gtmPrint()">
-                    <div class='b-print-btn icon-sprite-btn-print'>
-                    </div>
-                </a>
+                    <a href='/services/paymnet/?order={{payment.SvyaznoyOrderNum}}&viewType={{payment.SvyaznoyblockViewType}}&time={{payment.SvyaznoyExperationDate}}'
+                       target='_blank' ng-click="gtmPrint()">
+                        <div class='b-print-btn icon-sprite-btn-print'>
+                        </div>
+                    </a>
+                </div>
+
             </div>
 
         </div>
-
     </div>
 
 

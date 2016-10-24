@@ -226,7 +226,7 @@ angular.module('innaApp.directives')
                             $scope.$watchCollection('recommendedPair', function (value) {
 
                                 //  обновляем transportersList
-                                $scope.transportersList = $scope.recommendedPair.ticket.collectAirlines().airlines;
+                                // $scope.transportersList = $scope.recommendedPair.ticket.collectAirlines().airlines;
 
                                 $timeout(function () {
                                     $scope.location = window.location.href

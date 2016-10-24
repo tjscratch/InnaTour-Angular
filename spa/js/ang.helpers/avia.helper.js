@@ -579,48 +579,48 @@
                     //     sList.push('Платный багаж');
                     // }
 
-                    var EtapsTo = {
-                        isDifferentAirport: false,
-                        isLongChange: false,
-                        isNightStop: false,
-                        isPaidBaggage: false
-                    };
-                    var EtapsBack = {
-                        isDifferentAirport: false,
-                        isLongChange: false,
-                        isNightStop: false,
-                        isPaidBaggage: false
-                    };
-
-                    ticket.EtapsTo.forEach(function (item) {
-                        if(item.IsAirportChange) {
-                            EtapsTo.isDifferentAirport = true;
-                        }
-                        if(item.IsLongStop) {
-                            EtapsTo.isLongChange = true;
-                        }
-                        if(item.IsNightStop) {
-                            EtapsTo.isNightStop = true;
-                        }
-                    });
-
-                    ticket.EtapsBack.forEach(function (item) {
-                        if(item.IsAirportChange) {
-                            EtapsBack.isDifferentAirport = true;
-                        }
-                        if(item.IsLongStop) {
-                            EtapsBack.isLongChange = true;
-                        }
-                        if(item.IsNightStop) {
-                            EtapsBack.isNightStop = true;
-                        }
-                    });
-
-                    // return sList.join(', ');
-                    return {
-                        EtapsTo: EtapsTo,
-                        EtapsBack: EtapsBack
-                    };
+                    // var EtapsTo = {
+                    //     isDifferentAirport: false,
+                    //     isLongChange: false,
+                    //     isNightStop: false,
+                    //     isPaidBaggage: false
+                    // };
+                    // var EtapsBack = {
+                    //     isDifferentAirport: false,
+                    //     isLongChange: false,
+                    //     isNightStop: false,
+                    //     isPaidBaggage: false
+                    // };
+                    //
+                    // ticket.EtapsTo.forEach(function (item) {
+                    //     if(item.IsAirportChange) {
+                    //         EtapsTo.isDifferentAirport = true;
+                    //     }
+                    //     if(item.IsLongStop) {
+                    //         EtapsTo.isLongChange = true;
+                    //     }
+                    //     if(item.IsNightStop) {
+                    //         EtapsTo.isNightStop = true;
+                    //     }
+                    // });
+                    //
+                    // ticket.EtapsBack.forEach(function (item) {
+                    //     if(item.IsAirportChange) {
+                    //         EtapsBack.isDifferentAirport = true;
+                    //     }
+                    //     if(item.IsLongStop) {
+                    //         EtapsBack.isLongChange = true;
+                    //     }
+                    //     if(item.IsNightStop) {
+                    //         EtapsBack.isNightStop = true;
+                    //     }
+                    // });
+                    //
+                    // // return sList.join(', ');
+                    // return {
+                    //     EtapsTo: EtapsTo,
+                    //     EtapsBack: EtapsBack
+                    // };
                 },
 
                 getNumSeatsText: function (countLeft, ticketsCount) {

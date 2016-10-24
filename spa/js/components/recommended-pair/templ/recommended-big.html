@@ -67,6 +67,10 @@
                         </a>
                     </h3>
 
+                    <div class="hotel-info-date" ng-if="recommendedPair.hotel.data.HotelFullAdress">
+                        {{recommendedPair.hotel.data.HotelFullAdress}}
+                    </div>
+
                     <!--<div class="hotel-go-to-map">-->
                         <!--<span class="hotel-info-name-link"-->
                               <!--ng-click="recommendedHotelToMap()"-->
@@ -74,11 +78,11 @@
                         <!--&lt;!&ndash;EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));&ndash;&gt;-->
                     <!--</div>-->
 
-                    <div class="hotel-info-date">
-                        <ng:any partials-collection
-                                partial-name="rangeShort"
-                                hotel="recommendedPair.hotel.data"/>
-                    </div>
+                    <!--<div class="hotel-info-date">-->
+                        <!--<ng:any partials-collection-->
+                                <!--partial-name="rangeShort"-->
+                                <!--hotel="recommendedPair.hotel.data"/>-->
+                    <!--</div>-->
 
                     <!-- tripadvisor -->
                     <!--<div class="hotel-info__tripadvisor"-->
@@ -90,7 +94,7 @@
             </div>
 
         </div>
-        <span class="icon-inform-blue" title="Подробнее об отеле"></span>
+        <span ng-if="typeEtap != 'Reservation'" class="icon-inform-blue" title="Подробнее об отеле"></span>
 
         <a class="hotel-details-link"
            href="{{computedUrlDetails()}}"
@@ -144,7 +148,7 @@
                 <!--EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));-->
             <!--</div>-->
         </div>
-        <i class="icon-location"
+        <i ng-if="typeEtap != 'Reservation'" class="icon-location"
            ng-click="recommendedHotelToMap()"
         ></i>
 
@@ -192,7 +196,7 @@
         <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
 
 
-        <span class="icon-inform-blue" title="Подробнее о перелете"></span>
+        <span ng-if="typeEtap != 'Reservation'" class="icon-inform-blue" title="Подробнее о перелете"></span>
 
         <div class="wrap__flight-info">
             <div class="flight-info" style="border-bottom: 1px dashed #DDE3E9;">
@@ -200,7 +204,8 @@
                         partial-name="logoAvia"
                         class="recommendedPairTicket recommendedPairTicketLogo"
                         ticket-model="recommendedPair.ticket"
-                        to-or-back="To"/>
+                        to-or-back="To"
+                        ng-if="typeEtap != 'Reservation'"/>
                 <span class="date">
                     <ng:any partials-collection
                             partial-name="weekDateTimeCode"
@@ -232,7 +237,8 @@
                         partial-name="logoAvia"
                         class="recommendedPairTicket recommendedPairTicketLogo"
                         ticket-model="recommendedPair.ticket"
-                        to-or-back="Back"/>
+                        to-or-back="Back"
+                        ng-if="typeEtap != 'Reservation'"/>
                 <span class="date">
                     <ng:any partials-collection
                             partial-name="weekDateTimeCode"
@@ -321,7 +327,7 @@
                     <!--</div>-->
                 </div>
 
-                <div class="b-price-block" ng-class="{'b-price-block__margin-top':(recommendedPair.getProfit() < 1000)}">
+                <div class="b-price-block" ng-class="{'b-price-block__margin-top': ((recommendedPair.getProfit() < 1000) || typeEtap == 'Reservation')}">
                     <div ng-if="recommendedPair.getFullPackagePrice()" class="b-price__value">
                         {{recommendedPair.getFullPackagePrice() | price}}
                         <i class="fa fa-rub b-price__rub"></i>
@@ -399,7 +405,11 @@
            ng-click="goReservation(recommendedPair.hotel.data.Room)">
             Купить
         </a>
-
+        <a link-in-new-window-if-can class="button"
+           ng-if="(typeEtap == 'Reservation')"
+           style="background-color: #DDE3E9;">
+            Купить
+        </a>
     </div>
 </div>
 <!--<a href="javascript:void(0);"-->

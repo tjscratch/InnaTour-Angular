@@ -1,88 +1,233 @@
-<header class="buy__header">
-    <h2 class="buy__title">Оплата авиабилетов</h2>
-    <a ng-if="goBackUrl().length > 0" ng-href="{{goBackUrl()}}" class="buy__title-link">Выбрать другой билет</a>
-    <div class="buy__header-price">Стоимость заказа за {{passengerCount | perPerson}}: <b>{{price| price}} <ng-include src="'components/ruble.html'" /></b></div>
-</header>
+<!--<header class="buy__header">-->
+    <!--<h2 class="buy__title">Оплата авиабилетов</h2>-->
+    <!--<a ng-if="goBackUrl().length > 0" ng-href="{{goBackUrl()}}" class="buy__title-link">Выбрать другой билет</a>-->
+    <!--<div class="buy__header-price">Стоимость заказа за {{passengerCount | perPerson}}: <b>{{price| price}} <ng-include src="'components/ruble.html'" /></b></div>-->
+<!--</header>-->
 
-<div class="buy__fly">
+<!--<div class="buy__fly">-->
 
-    <header class="rl-item-header" ng-show="item != null">
-        <span ng-if="!(item.transportersList.length > 3)" class="rl-airline" ng-repeat="tr in item.transportersList"><img ng-src="{{tr.logoUrl}}" alt=""><span class="rl-airline-text">{{tr.name}}</span></span>
-        <span ng-if="item.transportersList.length > 3" class="rl-airline"><img ng-src="/spa/img/group.png" alt=""><span class="rl-airline-text">Несколько авиакомпаний</span></span>
-    </header>
+    <!--<header class="rl-item-header" ng-show="item != null">-->
+        <!--<span ng-if="!(item.transportersList.length > 3)" class="rl-airline" ng-repeat="tr in item.transportersList"><img ng-src="{{tr.logoUrl}}" alt=""><span class="rl-airline-text">{{tr.name}}</span></span>-->
+        <!--<span ng-if="item.transportersList.length > 3" class="rl-airline"><img ng-src="/spa/img/group.png" alt=""><span class="rl-airline-text">Несколько авиакомпаний</span></span>-->
+    <!--</header>-->
 
-    <div class="b-ticket_2ways" ng-show="item != null">
+    <!--<div class="b-ticket_2ways" ng-show="item != null">-->
 
 
 
-        <div class="rlf-fly">
+        <!--<div class="rlf-fly">-->
 
-            <div class="row-fluid">
-                <div class="col-xs-5 col-no-padding row-fluid__cell">
-                    <div class="rlf__flight-block">
-                        <b>{{item.DepartureTimeFormatted}}</b> {{item.DepartureDateFormatted}}<br>
-                        <b>{{item.AirportFrom}}</b> {{item.OutCode}}
-                    </div>
+            <!--<div class="row-fluid">-->
+                <!--<div class="col-xs-5 col-no-padding row-fluid__cell">-->
+                    <!--<div class="rlf__flight-block">-->
+                        <!--<b>{{item.DepartureTimeFormatted}}</b> {{item.DepartureDateFormatted}}<br>-->
+                        <!--<b>{{item.AirportFrom}}</b> {{item.OutCode}}-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">-->
+                    <!--<span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-5 col-no-padding row-fluid__cell">-->
+                    <!--<div class="rlf__flight-block">-->
+                        <!--<b>{{item.ArrivalTimeFormatted}}</b> {{item.ArrivalDateFormatted}}<br>-->
+                        <!--<b>{{item.AirportTo}}</b> {{item.InCode}}-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="rlf-full-travel-time-info">-->
+	            <!--в пути: {{item.TimeToFormatted}},-->
+	            <!--<span ng-if="item.ToTransferCount > 0">-->
+		            <!--{{item.ToTransferCount}}-->
+		            <!--{{item.ToTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}-->
+	            <!--</span>-->
+	            <!--<span ng-if="item.ToTransferCount == 0">без пересадок</span>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="rlf-fly rlf-fly_back" ng-if="item.EtapsBack.length > 0">-->
+
+            <!--<div class="row-fluid">-->
+                <!--<div class="col-xs-5 col-no-padding row-fluid__cell">-->
+                    <!--<div class="rlf__flight-block">-->
+                        <!--<b>{{item.BackDepartureTimeFormatted}}</b> {{item.BackDepartureDateFormatted}}<br>-->
+                        <!--<b>{{item.AirportFromBack}}</b> {{item.OutCodeBack}}-->
+
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">-->
+                    <!--<span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-5 col-no-padding row-fluid__cell">-->
+                    <!--<div class="rlf__flight-block">-->
+                        <!--<b>{{item.BackArrivalTimeFormatted}}</b> {{item.BackArrivalDateFormatted}}<br>-->
+                        <!--<b>{{item.AirportToBack}}</b> {{item.InCodeBack}}-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="rlf-full-travel-time-info">-->
+	            <!--в пути: {{item.TimeBackFormatted}},-->
+	            <!--<span ng-if="item.BackTransferCount > 0">-->
+		            <!--{{item.BackTransferCount}}-->
+		            <!--{{item.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}-->
+	            <!--</span>-->
+	            <!--<span ng-if="item.BackTransferCount == 0">без пересадок</span>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="rlf-fly rlf-fly_back rlf__oneway" ng-if="!(item.EtapsBack.length > 0)">-->
+            <!--БИЛЕТ В ОДНУ СТОРОНУ-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<footer class="rl-footer">-->
+        <!--<span class="rl-tickets-number">{{helper.getCharterAndNumSeatsText(item.NumSeats, ticketsCount, item.IsCharter, item.alertDifferentPorts, item)}}</span>-->
+        <!--<a ng-href="#" ng-if="goBackUrl().length > 0" class="rl-more-info" ng-click="popupItemInfo.show($event, item, criteria, searchId, true);gtmDetailsAviaInReserv();">Подробнее</a>-->
+    <!--</footer>-->
+<!--</div>-->
+
+<div class="b-result b-result_col_two_short b-result_flight-info row b-result-content" style="width: 752px;">
+    <!--{{ BackArrivalDate ? 'b-result_middle-180' : 'b-result_middle-130 b-result_oneway_avia' }}-->
+
+    <div class="b-result__cell" style="padding: 0px !important;">
+        <!--ng-click="popupItemInfo.show($event, item, criteria, searchId, true);gtmDetailsAviaInReserv();"-->
+
+        <!--{{#(this.transportersList.length <= 3)}}-->
+        <!--<span class="rl-airline rl-airline__list" class="result-cell__airlines">-->
+        <!--{{#this.transportersList}}-->
+        <!--<span class="rl-airline__item">-->
+        <!--<img src="{{this.logoUrl}}" alt="" class="logo">-->
+        <!--<span class="rl-airline-text">{{this.name}}</span>-->
+        <!--</span>-->
+        <!--{{/}}-->
+        <!--</span>-->
+        <!--{{/}}-->
+
+        <!--{{#(this.transportersList.length > 3)}}-->
+        <!--<span class="rl-airline">-->
+        <!--<span class="rl-airline__item">-->
+        <!--<img src="/spa/img/group.png" alt="">-->
+        <!--<span class="rl-airline-text">Несколько авиакомпаний</span>-->
+        <!--</span>-->
+        <!--</span>-->
+        <!--{{/}}-->
+
+        <div class="wrap__flight-info">
+            <div class="flight-info" style="border-bottom: 1px dashed #DDE3E9;">
+                <span class="result-cell__airlines">
+                    <!--{{#this.transportersList}}-->
+                    <!--{{this.logoUrl}}-->
+                            <img src="{{'http://s.test.inna.ru/Files/logo/' + item.EtapsTo[0].TransporterCode + '.png'}}" alt="" class="logo">
+                            <span class="rl-airline-text">{{item.EtapsTo[0].TransporterName}}</span>
+                    <!--{{this.name}}-->
+                    <!--{{/}}-->
+                </span>
+
+                <div class="date">
+                    {{item.DepartureDateFormatted}}<br>
+                    <b >{{item.DepartureTimeFormatted}} {{item.OutCode}}</b><br>
+                    <span class="red_span" title="{{item.AirportFrom}}">{{item.AirportFrom | limitFilter:16}}</span>
                 </div>
-                <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
-                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+
+                <div class="arrow">
+                    в пути: {{item.TimeToFormatted}}<br>
+                        <span ng-if="item.ToTransferCount > 0">
+                            {{item.ToTransferCount}}
+	                        {{item.ToTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
+                        </span>
+                    <span ng-if="item.ToTransferCount == 0">без пересадок</span>
                 </div>
-                <div class="col-xs-5 col-no-padding row-fluid__cell">
-                    <div class="rlf__flight-block">
-                        <b>{{item.ArrivalTimeFormatted}}</b> {{item.ArrivalDateFormatted}}<br>
-                        <b>{{item.AirportTo}}</b> {{item.InCode}}
-                    </div>
+
+                <div class="date">
+                    {{item.ArrivalDateFormatted}}<br>
+                    <b>{{item.ArrivalTimeFormatted}} {{item.InCode}}</b><br>
+                    <span class="red_span" title="{{item.AirportTo}}">{{item.AirportTo | limitFilter:14}}</span>
                 </div>
+
+                <!--<div>-->
+                <!--{{#(helper.getCharterAndNumSeatsText(this).EtapsTo.isNightStop == true)}}-->
+                <!--<span>НС</span>-->
+                <!--{{/}}-->
+                <!--{{#(helper.getCharterAndNumSeatsText(this).EtapsTo.isLongChange)}}-->
+                <!--<span>ДП</span>-->
+                <!--{{/}}-->
+                <!--</div>-->
             </div>
 
-            <div class="rlf-full-travel-time-info">
-	            в пути: {{item.TimeToFormatted}},
-	            <span ng-if="item.ToTransferCount > 0">
-		            {{item.ToTransferCount}}
-		            {{item.ToTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
-	            </span>
-	            <span ng-if="item.ToTransferCount == 0">без пересадок</span>
+            <!--{{#(this.EtapsBack.length > 0)}}-->
+            <div class="flight-info" ng-if="item.EtapsBack.length > 0">
+                <span class="result-cell__airlines">
+                            <img src="{{'http://s.test.inna.ru/Files/logo/' + item.EtapsBack[0].TransporterCode + '.png'}}" alt="" class="logo">
+                            <span class="rl-airline-text">{{item.EtapsBack[0].TransporterName}}</span>
+                </span>
+
+                <div class="date">
+                    {{item.BackDepartureDateFormatted}}<br>
+                    <b>{{item.BackDepartureTimeFormatted}} {{item.OutCodeBack}}</b><br>
+                    <span class="red_span" title="{{item.AirportFromBack}}">{{item.AirportFromBack | limitFilter:16}}</span>
+                </div>
+
+                <div class="arrow">
+                    в пути: {{item.TimeBackFormatted}}<br>
+                        <span ng-if="item.BackTransferCount > 0">
+                            {{item.BackTransferCount}}
+	                        {{item.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
+                        </span>
+                    <span ng-if="item.BackTransferCount == 0">без пересадок</span>
+                </div>
+
+                <div class="date">
+                    {{item.BackArrivalDateFormatted}}<br>
+                    <b>{{item.BackArrivalTimeFormatted}} {{item.InCodeBack}}</b><br>
+                    <span class="red_span" title="{{item.AirportToBack}}">{{item.AirportToBack | limitFilter:14}}</span>
+                </div>
             </div>
         </div>
 
-        <div class="rlf-fly rlf-fly_back" ng-if="item.EtapsBack.length > 0">
+        <!--<i class="icon-inform-blue" title="Подробнее о перелете" ng-click="popupItemInfo.show($event, item, criteria, searchId, true);gtmDetailsAviaInReserv();"></i>-->
 
-            <div class="row-fluid">
-                <div class="col-xs-5 col-no-padding row-fluid__cell">
-                    <div class="rlf__flight-block">
-                        <b>{{item.BackDepartureTimeFormatted}}</b> {{item.BackDepartureDateFormatted}}<br>
-                        <b>{{item.AirportFromBack}}</b> {{item.OutCodeBack}}
-
-                    </div>
-                </div>
-                <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
-                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                </div>
-                <div class="col-xs-5 col-no-padding row-fluid__cell">
-                    <div class="rlf__flight-block">
-                        <b>{{item.BackArrivalTimeFormatted}}</b> {{item.BackArrivalDateFormatted}}<br>
-                        <b>{{item.AirportToBack}}</b> {{item.InCodeBack}}
-                    </div>
-                </div>
-            </div>
-
-            <div class="rlf-full-travel-time-info">
-	            в пути: {{item.TimeBackFormatted}},
-	            <span ng-if="item.BackTransferCount > 0">
-		            {{item.BackTransferCount}}
-		            {{item.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
-	            </span>
-	            <span ng-if="item.BackTransferCount == 0">без пересадок</span>
-            </div>
-        </div>
-
-        <div class="rlf-fly rlf-fly_back rlf__oneway" ng-if="!(item.EtapsBack.length > 0)">
-            БИЛЕТ В ОДНУ СТОРОНУ
-        </div>
     </div>
 
-    <footer class="rl-footer">
-        <span class="rl-tickets-number">{{helper.getCharterAndNumSeatsText(item.NumSeats, ticketsCount, item.IsCharter, item.alertDifferentPorts, item)}}</span>
-        <a ng-href="#" ng-if="goBackUrl().length > 0" class="rl-more-info" ng-click="popupItemInfo.show($event, item, criteria, searchId, true);gtmDetailsAviaInReserv();">Подробнее</a>
-    </footer>
+    <!---->
+    <div class="b-result__cell result-choice">
+
+        <!--{{#usePricePerPerson}}-->
+        <!--<div class="b-cost b-cost_avia">-->
+            <!--<div class="b-cost__price">-->
+                <!--<div class="b-cost__price-value">-->
+                    <!--{{priceFilter(this.StandartCostPerPerson)}}-->
+                    <!--<i class="fa fa-rub"></i>-->
+                <!--</div>-->
+                <!--<div class="b-cost__price-desc">цена за человека</div>-->
+            <!--</div>-->
+            <!--<div class="b-cost__price-sum">-->
+                <!--К оплате:-->
+                <!--{{priceFilter(this.Price)}}-->
+                <!--<i class="fa fa-rub"></i>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--{{/}}-->
+
+        <!--{{#!usePricePerPerson}}-->
+            <span class="rl-price {{item.EtapsBack.length == 0 ? 'rl-price_1way' : ''}}">
+                <span class="rl-price-item">{{price| price}} <ng-include src="'components/ruble.html'" /></span>
+                <span class="rl-price-desc">
+                    Стоимость перелета за {{item.PassengerCount}}x
+                    <!--{{pluralize(passengerCount, ['человека', 'человек', 'человек'])}}-->
+                </span>
+            </span>
+        <!--{{/}}-->
+
+        <!-- tooltip price -->
+        <!--{{#isAgency()}}-->
+        <!--{{#if AgencyType != 1}}-->
+        <!--<PriceGeneric PriceDetailsTooltipData="{{PriceDetailsTooltipData}}"/>-->
+        <!--{{/if}}-->
+        <!--{{/}}-->
+
+        <!--<span class="button" on-click='goToPaymentClick:{{this}}'>Купить</span>-->
+
+        <span class="button" style="background-color: #DDE3E9 !important;">Купить</span>
+    </div>
 </div>

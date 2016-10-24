@@ -31,13 +31,13 @@
 			</a>
 		</h2>
 		<div class="HotelCardInfo__text">
-			<!--{{ hotel.HotelCityName }}-->
-			<!--{{ hotel.Address }}-->
+			{{ hotel.HotelCityName }}
+			{{ hotel.Address }}
 		</div>
-		<ng:include src="'components/hotel-card/templ/hotel-card-date.html'"></ng:include>
+		<!--<ng:include src="'components/hotel-card/templ/hotel-card-date.html'"></ng:include>-->
 		<!--<ng:include src="'components/hotel-card/templ/hotel-card-meal.html'"></ng:include>-->
 		<ng:include ng-if="hotel.RoomCount < 4" src="'components/hotel-card/templ/hotel-card-rooms-count.html'"></ng:include>
-		<trip-advisor-directive ng-if="hotel.TaFactor" hotel-data="hotel"></trip-advisor-directive>
+		<trip-advisor-directive ng-if="hotel.TaFactor && typeEtap != 'ReservationPay'" hotel-data="hotel"></trip-advisor-directive>
 	</div>
 
 	<div class="HotelCardPrice"
@@ -64,6 +64,11 @@
 			<a class="button CardPrice__active"
 			   ng-href="{{hotelUrl}}"
 			   ng-click="gtmHotelsBuySearch()"
+			   ng-if="typeEtap != 'ReservationPay'"
+			>Купить</a>
+			<a class="button CardPrice__active"
+			   ng-if="typeEtap == 'ReservationPay'"
+			   style="background-color: #DDE3E9;"
 			>Купить</a>
 		</div>
 	</div>

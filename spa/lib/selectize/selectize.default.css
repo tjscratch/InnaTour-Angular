@@ -125,6 +125,7 @@
 
 .selectize-control {
   position: relative;
+  margin: 3px 0px;
 }
 
 .selectize-dropdown,
@@ -149,7 +150,7 @@
   z-index: 1;
   display: block;
   /*width: 100%;*/
-  padding: 8px 5px;
+  padding: 6px 5px;
   overflow: hidden;
   /*border: 1px solid #d0d0d0;*/
   /*-webkit-border-radius: 3px;*/
@@ -328,15 +329,19 @@
 .selectize-control.single .selectize-input:after {
   position: absolute;
   top: 50%;
-  right: 6px;
+  right: 6px !important;
   display: block;
-  width: 0;
-  height: 0;
+  /*width: 0;*/
+  /*height: 0;*/
   margin-top: -2px;
-  border-color: #808080 transparent transparent transparent;
-  border-style: solid;
-  border-width: 5px 5px 0 5px;
+  /*border-color: #808080 transparent transparent transparent;*/
+  /*border-style: solid;*/
+  /*border-width: 5px 5px 0 5px;*/
   content: ' ';
+  background: url("../img/svg-icons/sprite.svg") no-repeat;
+  background-position: 94.39252336448598% 15.730337078651685%;
+  width: 8px !important;
+  height: 5px !important;
 }
 
 .selectize-control.single .selectize-input.dropdown-active:after {

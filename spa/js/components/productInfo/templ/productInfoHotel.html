@@ -1,23 +1,25 @@
 <div class='main__center'>
 
 
-    <div class="ReservationForm__head">
+    <!--<div class="ReservationForm__head">-->
 
-        <h3 class="ReservationForm__title ReservationForm__title-head">
-            Оформление и оплата
-        </h3>
+        <!--<h3 class="ReservationForm__title ReservationForm__title-head">-->
+            <!--Оформление и оплата-->
+        <!--</h3>-->
 
-        <div class="ReservationForm__head-price-info">
-            Стоимость за {{productData.Passengers.length | perPerson}}:
-            <div class="ReservationForm__head-price">
-                {{productData.Price| price}}<i class='fa fa-rub'></i>
-            </div>
-        </div>
-    </div>
+        <!--<div class="ReservationForm__head-price-info">-->
+            <!--Стоимость за {{productData.Passengers.length | perPerson}}:-->
+            <!--<div class="ReservationForm__head-price">-->
+                <!--{{productData.Price| price}}<i class='fa fa-rub'></i>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <hotel-card-info
             hotel="productData.Hotel"
-            hotel-room="productData.Hotel.Room"
+            room="productData.Hotel.Room"
+            price="productData.Price"
+            style="margin-bottom: 16px;"
     ></hotel-card-info>
 
 </div>

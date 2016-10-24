@@ -196,7 +196,20 @@ innaAppControllers.controller('PaymentController',
         function getPaymentDataSuccess(response) {
             var data = response.data;
             if (data != null) {
-                self.data = data
+                self.data = data;
+
+                //для рекомендованного варианта на оплате
+                self.data.recPair = {
+                    ticket: {
+                        data: data.AviaInfo
+                    },
+                    hotel: {
+                        data: data.Hotel
+                    },
+                    priceReservation: data.Price
+                };
+                console.log('AAAAAAAAA', self.data);
+                console.log('DDDDDDD', self.data.recPair);
                 self.searchUrl = self.data.Filter ? Payment.getSearchUrl(self.data) : null; // url для нового поиска
                 self.paySuccess = false;
                 self.productType = data.ProductType;

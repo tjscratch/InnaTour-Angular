@@ -82,6 +82,12 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                     EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, data);
                 };
 
+                $scope.goToMap = function () {
+                    EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, 'hotel');
+                    setActiveTab('hotel');
+                    EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP);
+                };
+
 
                 /**
                  * Выставляем активный таб

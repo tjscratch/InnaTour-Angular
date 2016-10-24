@@ -575,7 +575,7 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
             
             var list = [];
             var recommendedList = [];
-            var recomendedItem = null;
+            // var recomendedItem = null;
             
             if (data && data.Items && data.Items.length > 0) {
                 //аналитика - успешные результаты
@@ -685,17 +685,17 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                     return min.item;
                 }
                 
-                recomendedItem = getRecommended();
+                // recomendedItem = getRecommended();
                 //console.log('');
                 //console.log(recomendedItem);
                 
                 //добавляем к списку остальные рекомендованные
                 
-                recommendedList.forEach(function (item) {
-                    if (item != recomendedItem) {
-                        list.push(item);
-                    }
-                });
+                // recommendedList.forEach(function (item) {
+                //     if (item != recomendedItem) {
+                //         list.push(item);
+                //     }
+                // });
                 
                 //ToDo: debug
                 //размножаем данные для теста
@@ -708,17 +708,17 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                 
                 //добавляем список
                 $scope.ticketsList = list;
-                $scope.recomendedItem = recomendedItem;
+                // $scope.recomendedItem = recomendedItem;
                 
                 /* PriceGeneric */
-                $timeout(function () {
-                    $scope._priceGeneric = new PriceGeneric({
-                        el: $('.js-results-list-recomended .js-price-generic-container'),
-                        data: {
-                            PriceDetailsTooltipData: $scope.recomendedItem.PriceDetailsTooltipData
-                        }
-                    })
-                }, 0)
+                // $timeout(function () {
+                //     $scope._priceGeneric = new PriceGeneric({
+                //         el: $('.js-results-list-recomended .js-price-generic-container'),
+                //         data: {
+                //             PriceDetailsTooltipData: $scope.recomendedItem.PriceDetailsTooltipData
+                //         }
+                //     })
+                // }, 0)
                 
                 updateFilter(data.Items);
                 

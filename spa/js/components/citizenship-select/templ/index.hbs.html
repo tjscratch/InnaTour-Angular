@@ -1,5 +1,6 @@
 <div class="cit">
-    <input autocomplete="off" 
+    <input autocomplete="off"
+           onfocus="this.blur()"
            ng-click="showCitList($event)"
            ng-class="{error:!ngValidationModel.isValid}"
            type="text"

@@ -163,7 +163,7 @@ innaAppControllers
                 
                 var loc = $location.path();
                 var isDynamic = (
-                        loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) || loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
+                        loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) || loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) || loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
                     ) || loc == appUrls.URL_ROOT;
                 
                 var abs = $location.absUrl();

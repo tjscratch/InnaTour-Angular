@@ -18,7 +18,25 @@
 <!--</p>-->
 
 <div class="main__center">
-
+    <div class="hotel-details__section hotel-details__section__crumbs">
+        <ul class="section__crumbs__list">
+            <li class="section__crumbs__list__item">
+                <a href="/#/" class="section__crumbs__list__item__link">Главная</a>
+            </li>
+            /
+            <li class="section__crumbs__list__item">
+                <a ng-href="{{goBackUrl()}}" class="section__crumbs__list__item__link">Результаты поиска</a>
+            </li>
+            /
+            <li class="section__crumbs__list__item">
+                <a ng-href="{{getHotelInfoLink(item.VariantId1, item.VariantId2, hotel.HotelId, hotel.ProviderId)}}"     class="section__crumbs__list__item__link">Описание отеля и выбор номера</a>
+            </li>
+            /
+            <li class="section__crumbs__list__item">
+                Оформление и оплата
+            </li>
+        </ul>
+    </div>
     <div recommended-pair-component-big
          class="recommended-pair"
          recommended-pair="recommendedPair"

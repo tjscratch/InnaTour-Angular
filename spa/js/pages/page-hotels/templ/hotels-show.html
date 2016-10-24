@@ -174,9 +174,11 @@
 				<li class="section__crumbs__list__item">
 					<a href="/#/" class="section__crumbs__list__item__link">Главная</a>
 				</li>
+				/
 				<li class="section__crumbs__list__item">
 					<a href="{{goToSearchDynamic()}}" class="section__crumbs__list__item__link">Результаты поиска</a>
 				</li>
+				/
 				<li class="section__crumbs__list__item">
 					Описание отеля и выбор номера
 				</li>
@@ -267,14 +269,20 @@
 										</p>
 									</div>
 
-									<p>
-							<span class="hotel-details__section-text-more"
-								  ng-if="showFullDescription && !OrderId"
-								  ng-click="toggleDescription()">Свернуть</span>
+									<p style="text-align: center;">
+										<span class="hotel-details__section-text-more"
+											  ng-if="showFullDescription && !OrderId"
+											  ng-click="toggleDescription()">
+											<span class="icon-expand-gray icon-expand-gray_open" style="position: absolute; top: 8px; right: -12px;"></span>
+											Свернуть
+										</span>
 
-							<span class="hotel-details__section-text-more"
-								  ng-if="!showFullDescription && !OrderId"
-								  ng-click="toggleDescription()">Развернуть</span>
+										<span class="hotel-details__section-text-more"
+											  ng-if="!showFullDescription && !OrderId"
+											  ng-click="toggleDescription()">
+											<span class="icon-expand-gray" style="position: absolute; top: 8px; right: -12px;"></span>
+											Развернуть
+										</span>
 									</p>
 								</div>
 							</div>

@@ -7,7 +7,7 @@ innaAppDirectives.directive('productInfo', function ($templateCache, gtm) {
         },
         controller: function ($scope, aviaHelper, paymentService) {
             $scope.gtmRules = function ($event, type) {
-                console.log('PRODUCT TYPE', $scope.productType);
+                // console.log('PRODUCT TYPE', $scope.productType);
                 var label = '';
                 switch (type) {
                     case 'avia':
