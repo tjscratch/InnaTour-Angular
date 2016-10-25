@@ -19,7 +19,10 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
     'Validators',
     'innaApp.Urls',
     '$cookieStore',
-    function ($log, $controller, $timeout, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, PromoCodes, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Urls, $cookieStore) {
+    'serviceCache',
+    'gtm',
+    'AppRouteUrls',
+    function ($log, $controller, $timeout, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, PromoCodes, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Urls, $cookieStore, serviceCache, gtm, AppRouteUrls) {
 
         // TODO : наследование контроллера
         $controller('ReserveTicketsCtrl', { $scope: $scope });
@@ -38,6 +41,25 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
         $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
         $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);
 
+        gtm.GtmTrack(
+            {
+                'PageType': 'AviaReservationCheck',
+            },
+            {
+                'CityFrom': $scope.criteria.FromUrl,
+                'CityTo': $scope.criteria.ToUrl,
+                'DateFrom': dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.BeginDate),
+                'DateTo': $scope.criteria.EndDate ? dateHelper.ddmmyyyy2yyyymmdd($scope.criteria.EndDate) : null,
+                'Travelers': $scope.criteria.AdultCount + '-' + $scope.criteria.ChildCount + '-' + $scope.criteria.InfantsCount,
+                'TotalTravelers': parseInt($scope.criteria.AdultCount) +
+                parseInt($scope.criteria.ChildCount) +
+                parseInt($scope.criteria.InfantsCount),
+                'ServiceClass': $scope.criteria.CabinClass == 0 ? 'Economy' : 'Business'
+            }
+        );
+    
+    
+    
         //дата до - для проверки доков
         $scope.expireDateTo = null;
         if ($scope.criteria.EndDate) {
@@ -73,6 +95,104 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
 
         $scope.objectToReserveTemplate = 'pages/avia/variant_partial.html';
 
+        $scope.gtmDetailsAviaInReserv = function () {
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Avia',
+                    'Action': 'DetailsAviaInReserv',
+                    'Label': '[no data]',
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        };
+
+        $scope.gtmRules = function ($event, type) {
+            var label = '';
+            switch (type) {
+                case 'avia':
+                    label = 'ConditionAvia';
+                    break;
+                case 'oferta':
+                    label = 'Oferta';
+                    break;
+                case 'iata':
+                    label = 'IATA';
+                    break;
+                case 'tkp':
+                    label = 'TKP';
+                    break;
+                case 'tariffs':
+                    label = 'Tariffs';
+                    break;
+                default:
+                    break;
+            }
+            var dataLayerObj = {
+                'event': 'UM.Event',
+                'Data': {
+                    'Category': 'Avia',
+                    'Action': label,
+                    'Label': $event.target.textContent,
+                    'Content': '[no data]',
+                    'Context': '[no data]',
+                    'Text': '[no data]'
+                }
+            };
+            console.table(dataLayerObj);
+            if (window.dataLayer) {
+                window.dataLayer.push(dataLayerObj);
+            }
+        };
+
+        $scope.$watch('validationModel.wannaNewsletter.value', function (newValue, oldValue) {
+            if( newValue != undefined && oldValue!= undefined ) {
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Avia',
+                        'Action': 'WantEmails',
+                        'Label': newValue ? 'Select' : 'UnSelect',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+            }
+        });
+
+        $scope.$watch('agree', function (newValue, oldValue) {
+            // console.log('oV', oldValue);
+            // console.log('nV', newValue);
+            if( newValue != undefined) {
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Avia',
+                        'Action': 'AcceptConditions',
+                        'Label': newValue ? 'Select' : 'UnSelect',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
+            }
+        });
+
         //для начала нужно проверить доступность билетов
         //var availableChecktimeout = $timeout(function () {
         //    $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может занять несколько минут');
@@ -86,6 +206,7 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                 $scope.safeApply(function () {
                     //data = false;
                     if (data == true) {
+                        
                         //если проверка из кэша - то отменяем попап
                         //$timeout.cancel(availableChecktimeout);
 
@@ -202,6 +323,19 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                     },
                     function (data) {
                         if (data != null && data != 'null') {
+    
+                            gtm.GtmTrack(
+                                {
+                                    'PageType': 'AviaReservationLoad',
+                                    'Price': data.Price,
+                                    'AirLineName': data.EtapsTo[0].TransporterName
+                                }
+                            );
+    
+                            serviceCache.createObj('PageType', 'Avia');
+                            serviceCache.createObj('Price', data.Price);
+                            serviceCache.createObj('AirLineName', data.EtapsTo[0].TransporterName);
+
                             //дополняем полями
                             aviaHelper.addCustomFields(data);
                             //log('getSelectedVariant dataItem: ' + angular.toJson(data));
@@ -248,7 +382,8 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
 
         $scope.afterCompleteCallback = function () {
             //переходим на страницу оплаты
-            var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria.OrderNum);
+            //var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria.OrderNum);
+            var url = AppRouteUrls.URL_PAYMENT + $scope.criteria.OrderNum;
             //log('processToPayment, url: ' + url);
             $location.path(url);
         }
@@ -257,6 +392,7 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
             var m = {};
             m.I = '';//data.name;
             m.F = '';//data.secondName;
+            m.O = '';//data.oName;
             m.Email = data.email;
             m.Phone = data.phone;
             m.IsSubscribe = data.wannaNewsletter;
@@ -298,6 +434,22 @@ innaAppControllers.controller('AviaReserveTicketsCtrl', [
                     if ($scope.promoCodeStatus == 1) {
                         $scope.promoCodeSale = data.Details.PromoCode.rule_value;
                         $scope.price = data.Details.NewPrice;
+
+                        var dataLayerObj = {
+                            'event': 'UM.Event',
+                            'Data': {
+                                'Category': 'Avia',
+                                'Action': 'ApplyPromocode',
+                                'Label': '[no data]',
+                                'Content': '[no data]',
+                                'Context': '[no data]',
+                                'Text': '[no data]'
+                            }
+                        };
+                        console.table(dataLayerObj);
+                        if (window.dataLayer) {
+                            window.dataLayer.push(dataLayerObj);
+                        }
                     }
                 })
         }

@@ -54,6 +54,7 @@ innaAppControllers.controller('BusIndexController', function ($scope, $routePara
             .then(function (response) {
                 if (response.status == 200 && response.data.Hotels.length > 0) {
                     $scope.hotels = response.data.Hotels;
+                    $scope.guestCount = response.data.GuestCount;
                     $scope.baloonHotelLoad.teardown();
                 } else {
                     $scope.baloonHotelNotFound = new Balloon();

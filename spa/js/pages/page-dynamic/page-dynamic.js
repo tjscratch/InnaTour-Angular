@@ -8,12 +8,15 @@ innaAppControllers.controller('PageDynamicPackage', [
     'DynamicFormSubmitListener',
     'DynamicPackagesDataProvider',
     'PackagesService',
+    'dataService',
     '$routeParams',
     '$anchorScroll',
     'innaAppApiEvents',
     '$location',
     'innaApp.Urls',
     'aviaHelper',
+    '$q',
+    'gtm',
 
 
     // components
@@ -28,7 +31,7 @@ innaAppControllers.controller('PageDynamicPackage', [
     'ModelTicketsCollection',
     'ModelTicket',
     'ModelHotel',
-    function (RavenWrapper, EventManager, $scope, $timeout, $rootScope, DynamicFormSubmitListener, DynamicPackagesDataProvider, PackagesService, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, $filter,
+    function (RavenWrapper, EventManager, $scope, $timeout, $rootScope, DynamicFormSubmitListener, DynamicPackagesDataProvider, PackagesService, dataService, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, $q, gtm, $templateCache, Balloon, ListPanel, $filter,
               ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
         Raven.setExtraContext({key: "__SEARCH_DP_CONTEXT__"});
@@ -57,6 +60,32 @@ innaAppControllers.controller('PageDynamicPackage', [
         //    PackagesService.getCombinationHotels(searchParams);
         //    PackagesService.getCombinationTickets(searchParams);
         //});
+
+        $scope.cityFrom = null;
+        $scope.cityTo = null;
+
+        $q.all([
+            dataService.getLocationById(searchParams.DepartureId),
+            dataService.getLocationById(searchParams.ArrivalId)]
+        ).then(function (results) {
+            gtm.GtmTrack(
+                {
+                    'PageType': 'PackagesSearchLoading',
+                },
+                {
+                    'CityFrom': results[0].data.Location.City.Code,
+                    'CityTo': results[1].data.Location.City.Code,
+                    'DateFrom': searchParams.StartVoyageDate,
+                    'DateTo': searchParams.EndVoyageDate,
+                    'Travelers': searchParams.Adult + '-' + ('Children' in searchParams ? searchParams.Children.split('_').length : '0'),
+                    'TotalTravelers': 'Children' in searchParams ?
+                    parseInt(searchParams.Adult) + searchParams.Children.split('_').length
+                        : searchParams.Adult,
+                    'ServiceClass': searchParams.TicketClass == 0 ? 'Economy' : 'Business'
+                }
+            );
+        });
+        
 
         $scope.$on('update-recomented-pair', function () {
             var routeParams = angular.copy(searchParams);
@@ -277,10 +306,6 @@ innaAppControllers.controller('PageDynamicPackage', [
                 });
 
 
-                $scope.loadHotelDetails = function (ticket) {
-
-                };
-
                 /**
                  * Слушаем свойства loadHotelsData и loadTicketsData
                  * Устанавливаем их после успешной загрузки отелей или билетов
@@ -481,6 +506,19 @@ innaAppControllers.controller('PageDynamicPackage', [
 
                         if (data) {
                             $scope.defaultRecommendedPair = data.DefaultRecommendedPair;
+                            $q.all([
+                                dataService.getLocationById(searchParams.DepartureId),
+                                dataService.getLocationById(searchParams.ArrivalId)]
+                            ).then(function (results) {
+                                gtm.GtmTrack(
+                                    {
+                                        'PageType': 'PackagesSearchLoad',
+                                        'MinPrice': data.RecommendedPair.Hotel.PackagePrice,
+                                        'AviaResultsQuantity': data.TicketCount,
+                                        'HotelResultsQuantity': data.HotelCount
+                                    }
+                                );
+                            });
                         }
 
                         that.set('loadHotelsData', data);
@@ -614,7 +652,6 @@ innaAppControllers.controller('PageDynamicPackage', [
              * @returns {*}
              */
             getCombination: function (data) {
-
                 var RecommendedPair = data.RecommendedPair;
 
                 if (!data || !RecommendedPair) {
@@ -657,12 +694,9 @@ innaAppControllers.controller('PageDynamicPackage', [
                         that.balloonCloser();
                     },
                     callback: function (data) {
-                        //console.log('baloon send callback', data);
-
                         var params = JSON.parse(JSON.stringify(that.getIdCombination().params));
                         params.Email = data.email;
                         params.Phone = data.phone;
-                        console.log('sendEmptySearch, params', params);
 
                         PackagesService.sendEmptySearch(params)
                             .success(function (data) {
@@ -739,11 +773,26 @@ innaAppControllers.controller('PageDynamicPackage', [
                     $location.search({});
                     $location.path(Urls.URL_DYNAMIC_PACKAGES);
                 });
+
+                var dataLayerObj = {
+                    'event': 'UM.Event',
+                    'Data': {
+                        'Category': 'Packages',
+                        'Action': 'AbortSearch',
+                        'Label': '[no data]',
+                        'Content': '[no data]',
+                        'Context': '[no data]',
+                        'Text': '[no data]'
+                    }
+                };
+                console.table(dataLayerObj);
+                if (window.dataLayer) {
+                    window.dataLayer.push(dataLayerObj);
+                }
             },
 
             balloonSearch: function () {
                 var that = this;
-                //console.log('searching');
 
                 //if (window.partners) {
                 //    //if (window.partners.isFullWL()) {
@@ -829,7 +878,6 @@ innaAppControllers.controller('PageDynamicPackage', [
                 var trackKey = $location.url();
                 if (track.isTrackSuccessResultAllowed(track.dpKey, trackKey)) {
                     track.successResultsDp(track.dpKey);
-                    //console.log('analitics: dp success result');
                     track.denyTrackSuccessResult(track.dpKey, trackKey);
                 }
 

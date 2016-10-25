@@ -123,8 +123,7 @@
     </div>
 
     <div class="b-result__cell b-result__cell_even"
-         ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}"
-    >
+         ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}">
 
         <div class="spinner spinner-hotel">
             <div class="rect rect1"></div>
@@ -185,6 +184,7 @@
                         <a class="hotel-info-name-link"
                            href="{{computedUrlDetails()}}"
                            link-in-new-window-if-can
+                           ng-click="bundleHotelDetails()"
                            target="_blank">
                             {{recommendedPair.hotel.data.HotelName}}
                         </a>
@@ -218,6 +218,7 @@
         <a class="hotel-details-link"
            href="{{computedUrlDetails()}}"
            link-in-new-window-if-can
+           ng-click="bundleHotelDetails()"
            ng-if="stateHotel"
            target="_blank"
         >
@@ -247,6 +248,7 @@
             <a class="bottom-actions__button bottom-actions__button_action_details"
                href="{{computedUrlDetails()}}"
                link-in-new-window-if-can
+               ng-click="bundleHotelDetails()"
                ng-if="stateHotel"
                target="_blank"
                style="top: -22px;right: 0; z-index: 20"
@@ -295,12 +297,18 @@
 
                 <div class="b-price-block" ng-class="{'b-price-block__margin-top':(recommendedPair.getProfit() < 1000)}">
                     <div class="b-price__desc">
-                        Стоимость пакета
+                        Стоимость пакета <br/>
+                        за {{recommendedPair.ticket.data.PassengerCount}}
+                        {{recommendedPair.ticket.data.PassengerCount | pluralize: [
+                        "человека",
+                        "человек",
+                        "человек"
+                        ]}}
                     </div>
                     <div class="b-price__value">
                         {{recommendedPair.getFullPackagePrice() | price}}
                         <i class="fa fa-rub b-price__rub"></i>
-                        <ng:any ng-if="recommendedPair.hotel.data.PriceObject && $root.user.getAgencyType() != 1"
+                        <ng:any ng-if="recommendedPair.hotel.data.PriceObject && $root.user.getAgencyType() != 1 && $root.user.isAgency()"
                                 price-generic-directive
                                 price-object="recommendedPair.hotel.data.PriceObject"
                                 tooltip-klass="bundle"></ng:any>
@@ -330,7 +338,7 @@
                     <i class="fa fa-rub"></i>
 
                     <!-- tooltip price -->
-                    <ng:any ng-if="recommendedPair.hotel.data.PriceObject && $root.user.getAgencyType() != 1"
+                    <ng:any ng-if="recommendedPair.hotel.data.PriceObject && $root.user.getAgencyType() != 1 && $root.user.isAgency()"
                             price-generic-directive
                             price-object="recommendedPair.hotel.data.PriceObject"
                             tooltip-klass="bundle"></ng:any>
@@ -349,7 +357,8 @@
         <a link-in-new-window-if-can class="button"
            href="{{computedUrlDetails('buy')}}"
            target="_blank"
-           ng-if="withReservationButton">
+           ng-if="withReservationButton"
+           ng-click="packagesBuySearch()">
             Купить
         </a>
 

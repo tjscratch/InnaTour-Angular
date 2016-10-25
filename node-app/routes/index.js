@@ -30,6 +30,24 @@ router.get('/', function (req, res, next) {
 });
 
 
+router.get('/services/paymnet', function (req, res, next) {
+    res.render('payment/print', {
+        layout: 'blank'
+    });
+});
+
+router.get('/services/payment-success/:orderNum', function (req, res, next) {
+    res.render('payment/payment-success', {
+        layout: 'blank'
+    });
+});
+
+router.get('/services/payment-error/:orderNum', function (req, res, next) {
+    res.render('payment/payment-error', {
+        layout: 'blank'
+    });
+});
+
 /**
  * личный кабинет разработка
  */

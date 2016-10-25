@@ -1,0 +1,656 @@
+@import "_normalize"
+@import "font"
+
+/*BEGIN vars*/
+$black ?= #000
+$gray ?= #878787
+$gray2 ?= #4d4d4d
+$green ?= #89c13a
+$white ?= #fff
+$blue ?= #1e88c1
+$red ?= rgb(219, 68, 55);
+/*END vars*/
+
+a {
+    color $blue
+
+    &:active,
+    &:focus,
+    &:hover {
+        text-decoration underline
+    }
+}
+clearfix()
+    &:before, &:after
+        content ""
+        display table
+    &:after
+        clear both
+//BEGIN icons
+icon()
+    display inline-block
+    vertical-align middle
+.icon-who {
+    icon()
+    height 18px
+    width 17px
+    background-image url("../images/who.png")
+}
+.icon-visa {
+    icon()
+    height 18px
+    width 55px
+    margin-right 5px
+    background-image url("../images/visa.png")
+}
+.icon-master {
+    icon()
+    height 25px
+    width 41px
+    background-image url("../images/master.png")
+}
+//END icons 
+//BEGIN form controll
+
+.red-border {
+    border 1px solid rgb(219, 68, 55)
+}
+.gray-border {
+    border 1px solid rgb(216, 216, 216)
+}
+.background-green {
+    background-color $green
+}
+.background-gray {
+    background-color rgba(117, 117, 117, 30) !important
+}
+.gray {
+    color rgb(216, 216, 216)
+}
+.form-label {
+    display block
+    color rgb(117, 117, 117)
+}
+.form-control {
+    box-sizing border-box
+    padding 5px
+    background-color $white
+    border-radius 2px
+    font-family $ProximaNova
+    font-size 18px
+    height 48px
+    line-height 18px
+
+    &::-webkit-input-placeholder {
+        font-size 18px
+        color rgb(216, 216, 216)
+    }
+    &:-moz-placeholder {
+        font-size 18px
+        color rgb(216, 216, 216)
+    }
+    &::-moz-placeholder {
+        font-size 18px
+        color rgb(216, 216, 216)
+    }
+    &:-ms-input-placeholder {
+        font-size 18px
+        color rgb(216, 216, 216)
+    }
+}
+.form-control {
+    &.error,
+    &.ng-invalid {
+        border 1px solid rgb(219, 68, 55)
+    }
+
+    &:-moz-ui-invalid:not(output) {
+        box-shadow none
+    }
+}
+.FieldError {
+    padding 3px 0 0 0
+    font-size 13px
+    color rgb(219, 68, 55)
+}
+#messageFormYear {
+    //left 137px
+}
+#messageFormCvc {
+
+}
+.date-field__container {
+    display flex
+    align-items center
+}
+.date-field__container-item {
+    width 80px
+}
+.date-field__container-item--label {
+    width 100% !important
+    text-align center
+}
+select {
+    &.form-control {
+        padding 5px
+        font-size 13px
+    }
+}
+.form-checkbox {
+    display table
+
+    .form-checkbox-input {
+        display table-cell
+        padding 2px 8px 0 0
+        vertical-align top
+
+        input {
+            display none
+
+            + span {
+                position relative
+                display inline-block
+                width 17px
+                height 17px
+                background-color $white
+                border 2px solid $green
+                border-radius 2px
+            }
+
+            &:checked {
+                + span {
+                    &:before {
+                        content ''
+                        position absolute
+                        left 4px
+                        top 4px
+                        width 9px
+                        height 9px
+                        border-radius 2px
+                        background-color $green
+                    }
+                }
+            }
+
+        }
+    }
+    .form-checkbox-label {
+        display table-cell
+        vertical-align middle
+        font-size 15px
+    }
+
+}
+.form-btn {
+    display block
+    width 100%
+    padding 10px 20px
+    border none
+    font-size 20px
+    line-height 30px
+    font-family $ProximaNova
+    font-weight bold
+    color $white
+    text-align center
+    border-radius 3px
+    cursor pointer
+
+    &:hover,
+    &:focus {
+        background-color lighten($green, 15%)
+    }
+
+    &:active {
+        background-color darken($green, 10%)
+    }
+
+    &:disabled {
+        background-color lighten($green, 35%)
+        cursor inherit
+    }
+}
+//END form controll
+
+.pay-form {
+    max-width 960px
+    margin 0 auto
+    font-family $ProximaNova
+    font-size 12px
+    line-height 130%
+    color $black
+}
+.pay-form__title {
+    margin 0 0 40px
+    padding 20px 0
+    border-bottom 3px solid $green
+    font-size 20px
+    font-weight bold
+}
+.pay-form__error {
+    margin 0 0 25px
+    color $red
+    font-size 15px
+    line-height 1.3
+}
+.pay-form__info {
+    margin 50px 0 50px 0
+    min-width 300px
+    white-space nowrap
+    overflow: hidden
+
+    .pay-form__info-dead-line {
+        height 50px
+        line-height 50px
+        float left
+
+        .dead-line__label {
+            font-size 15px
+            color rgb(117, 117, 117)
+        }
+
+        .dead-line__value {
+            font-size 28px
+            color rgb(0, 0, 0)
+        }
+    }
+
+    .pay-form__info-timer {
+        border 1px solid rgb(240, 189, 78)
+        border-radius 3px
+        box-sizing border-box
+        height 50px
+        line-height 50px
+        padding 0 15px
+        float right
+
+        .timer__label {
+            font-size 15px
+            color rgb(117, 117, 117)
+        }
+
+        .timer__value {
+            font-size 28px
+            color rgb(0, 0, 0)
+        }
+    }
+}
+.pay-text {
+    margin 25px 0 20px
+    color $gray2
+}
+.pay-form-fields {
+    clearfix()
+    margin 0 0 30px
+    padding-bottom 40px
+    border-bottom 1px solid rgb(216, 216, 216)
+
+    .load {
+        font-size 22px
+        text-align center
+        padding 135px 0
+        line-height 1.4
+    }
+    .load_error {
+        color $red
+    }
+
+    &__cart-data,
+    &__cart-cvs {
+        position relative
+        width 480px
+        height: 280px
+        border-radius 10px
+        box-sizing border-box
+    }
+
+    //BEGIN cart data
+    &__cart-data {
+        z-index 2
+        float left
+        background-color rgb(246, 246, 246)
+        border 1px solid rgb(227, 227, 277)
+    }
+    &__cart-data-container {
+        padding 10px
+    }
+    &__cart-data-icons {
+        margin 15px 0 25px
+    }
+    &__cart-data-field {
+        margin 0 0 35px
+
+        .form-control {
+            width 445px
+        }
+
+        &.number {
+            margin 0 0 35px
+        }
+
+        &.date {
+            clearfix()
+            margin 0 0 25px
+
+            .form-label {
+                width 110px
+                padding 7px 0 0 0
+            }
+
+            .form-control {
+                width 100%
+                height 35px
+                font-size 15px
+                text-align center
+            }
+
+            span {
+                color rgb(117, 117, 117)
+                padding 20px 10px 0
+            }
+
+        }
+
+        &.fio {
+            .form-control {
+                height 25px
+                font-size 15px
+            }
+        }
+    }
+    //END cart data
+
+    //BEGIN cart cvs
+    &__cart-cvs {
+        z-index 1
+        margin-top 50px
+        margin-left 150px
+        background-color rgb(216, 216, 216)
+    }
+    &__cart-cvs-container {
+        padding 70px 0 0 0
+    }
+    &__cart-cvs-field_line {
+        background-color rgb(117, 117, 117)
+        height 72px
+    }
+    &__cart-cvs-field {
+        height 72px
+        color rgb(117, 117, 117)
+
+        .wrap-cvc {
+            width 130px;
+            padding 8px
+            float right
+            text-align left
+
+            .form-control {
+                width 118px
+                border-radius 3px
+                text-align center
+            }
+            .FieldError {
+                position relative
+            }
+            .form-label {
+                display block
+                margin-top 5px
+            }
+        }
+    }
+
+    &__service {
+        padding 15px 0
+        font-size 22px
+    }
+    &__service-description {
+        padding 10px 0
+    }
+    &__service-variant {
+        padding 15px 0
+
+        &.service-variant__value {
+            padding 10px 0
+        }
+    }
+    &__promo {
+        padding 10px 0
+
+        &-label {
+            display inline-block
+            font-size 15px
+            padding 0 10px 0 0
+        }
+        .form-control {
+            display inline-block
+            height 25px
+        }
+        &-btn {
+            display inline-block
+            width 102px
+            padding 0 0 0 10px
+
+            input {
+                width 100%
+                padding 10px 0
+                border none
+                font-size 15px
+                line-height 17px
+                font-family $ProximaNova
+                font-weight bold
+                color $white
+                text-align center
+                border-radius 3px
+                cursor pointer
+
+                &:hover,
+                &:focus {
+                    background-color lighten($green, 15%)
+                }
+
+                &:active {
+                    background-color darken($green, 10%)
+                }
+
+                &:disabled {
+                    background-color lighten($green, 35%)
+                    cursor inherit
+                }
+            }
+        }
+    }
+    &__check-doc {
+        padding 15px 0 0 0
+    }
+}
+.pay-form-actions {
+    clearfix()
+
+    text-align right
+    padding-bottom 15px
+
+    .pay-form__price {
+        display inline-block
+        height 50px
+        line-height 50px
+    }
+    .pay-form__price-label {
+        display inline-block
+        color rgb(117, 117, 117)
+        font-size 15px
+    }
+    .pay-form__price-value {
+        display inline-block
+        margin 0 0 0 10px
+        font-size 28px
+        font-weight bold
+    }
+
+    .ruble {
+        font-family Rouble
+    }
+
+    &__checkbox,
+    &__btn {
+        float right
+    }
+
+    &__checkbox {
+        width 440px
+    }
+
+    &__btn {
+        width 230px
+        padding 0 0 0 30px
+    }
+}
+//.pay-form-branding{
+//    height 27px
+//    width 300px
+//    margin 25px 0
+//    background-image url("../images/promo.png")
+//}
+@media (max-width 980px)
+
+    .form-control {
+        height 25px
+        line-height 15px
+
+        &::-webkit-input-placeholder {
+            font-size 12px
+        }
+        &:-moz-placeholder {
+            font-size 12px
+        }
+        &::-moz-placeholder {
+            font-size 12px
+        }
+        &:-ms-input-placeholder {
+            font-size 12px
+        }
+    }
+    .FieldError {
+        position relative
+        font-size 11px
+    }
+    #messageFormCvc {
+        padding 0
+    }
+    #messageFormYear {
+        left auto
+    }
+    .pay-form {
+        max-width 300px
+
+        .pay-form__info {
+            .pay-form__info-dead-line {
+
+                .dead-line__label {
+                    font-size 15px
+                }
+
+                .dead-line__value {
+                    font-size 25px
+                }
+            }
+        }
+
+        .pay-form-fields {
+
+            .load {
+                padding 80px 0
+            }
+
+            &__cart-data,
+            &__cart-cvs {
+                width 300px
+                height auto
+                float none
+                border-radius 10px
+                box-sizing border-box
+            }
+
+            &__cart-data-icons {
+                margin 5px 0 10px
+            }
+
+            &__cart-data-field {
+
+                margin 0 0 15px
+
+                .form-control {
+                    width 265px
+                    font-size 12px
+                }
+
+                &.date {
+                    margin 0 0 10px
+
+                    .form-label {
+                        //width 110px
+                        padding 7px 0 0 0
+                    }
+
+                    .form-control {
+                        width 100%
+                        height 25px
+                        font-size 12px
+                        text-align center
+                    }
+
+                    span {
+                        padding 22px 5px 0
+                    }
+                }
+
+                &.fio {
+                    .form-control {
+                        height 15px
+                        font-size 12px
+                    }
+                }
+            }
+
+            &__cart-cvs {
+                margin-top -80px
+                margin-left 0px
+            }
+            &__cart-cvs-container {
+                padding 45px 0 0 0
+            }
+            &__cart-cvs-field_line {
+                height 50px
+            }
+            &__cart-cvs-field {
+                height auto
+
+                .wrap-cvc {
+                    float none
+                    padding 4px 4px 4px 160px
+
+                    .form-control {
+                        font-size 12px
+                        width 55px
+                        border-radius 3px
+                        text-align center
+                        margin 0 0 3px 0
+                        border 1px solid rgb(216, 216, 216)
+                    }
+                }
+            }
+        }
+        .pay-form-actions {
+            &__btn,
+            &__checkbox {
+                float none
+                width 100%
+                padding 0
+            }
+            &__checkbox {
+                margin-bottom 25px
+            }
+            .form-btn {
+                width 100%
+            }
+        }
+    }
+    

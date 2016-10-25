@@ -17,15 +17,20 @@
 
         <div class="b-price-block" style="{{(modelPrice.getProfit() <= 1000) ? 'margin-top:47px;' : '' }}">
             <div class="b-price__desc">
-                Стоимость пакета
+                Стоимость пакета <br/>
+                за
+                {{passengerCount}}
+                {{pluralize(passengerCount, ['человека', 'человек', 'человек'])}}
             </div>
             <div class="b-price__value">
                 {{priceFilter(PackagePrice)}}
                 <i class="fa fa-rub b-price__rub"></i>
                 <!-- Показываем только для авторизованного пользователя b2b -->
                 {{#if PriceObject}}
+                {{#if isAgency}}
                 {{#if AgencyType != 1}}
                 <PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}"/>
+                {{/if}}
                 {{/if}}
                 {{/if}}
             </div>

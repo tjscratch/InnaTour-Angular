@@ -79,6 +79,10 @@ innaAppControllers.
             $scope.lastClickedItem = null;
 
             $scope.offerClick = function (item, $event, position, block, section) {
+                console.log('SECTION', section);
+                console.log('BLOCK', block);
+                console.log('POSITION', position);
+                console.log('ITEM', item);
                 $scope.offerClickInternal(item, $event, position, block.OfferLayoutType, section.Name);
             };
 

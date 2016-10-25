@@ -39,7 +39,6 @@ angular.module('innaApp.directives')
                         function (EventManager, $scope, $rootScope, aviaHelper, Urls, $location, $element, $timeout, Events, $routeParams) {
 
                             //console.profile('Draw');
-
                             var searchParams = angular.copy($routeParams);
 
                             /**
@@ -100,13 +99,43 @@ angular.module('innaApp.directives')
                             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
 
                             $scope.bundleTicketDetails = function ($event, ticket) {
+                                var dataLayerObj = {
+                                    'event': 'UM.Event',
+                                    'Data': {
+                                        'Category': 'Packages',
+                                        'Action': 'DetailsAviaInSearch',
+                                        'Label': '[no data]',
+                                        'Content': '[no data]',
+                                        'Context': '[no data]',
+                                        'Text': '[no data]'
+                                    }
+                                };
+                                console.table(dataLayerObj);
+                                if (window.dataLayer) {
+                                    window.dataLayer.push(dataLayerObj);
+                                }
                                 $event.stopPropagation();
                                 $scope.$emit(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, {ticket: ticket, noChoose: $location.search().displayHotel})
                             };
 
-                            $scope.bundleHotelDetails = function ($event, hotel, isBuyAction) {
-                                $event.stopPropagation();
-                                EventManager.fire(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL, hotel, isBuyAction);
+                            $scope.bundleHotelDetails = function () {
+                                var dataLayerObj = {
+                                    'event': 'UM.Event',
+                                    'Data': {
+                                        'Category': 'Packages',
+                                        'Action': 'DetailsHotelsInSearch',
+                                        'Label': '[no data]',
+                                        'Content': '[no data]',
+                                        'Context': '[no data]',
+                                        'Text': '[no data]'
+                                    }
+                                };
+                                console.table(dataLayerObj);
+                                if (window.dataLayer) {
+                                    window.dataLayer.push(dataLayerObj);
+                                }
+                                // $event.stopPropagation();
+                                // EventManager.fire(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL, hotel, isBuyAction);
                             };
 
 
@@ -114,6 +143,24 @@ angular.module('innaApp.directives')
                                 EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, 'hotel');
                                 EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, $scope.recommendedPair.hotel);
                             };
+
+                            $scope.packagesBuySearch = function () {
+                                var dataLayerObj = {
+                                    'event': 'UM.Event',
+                                    'Data': {
+                                        'Category': 'Packages',
+                                        'Action': 'PackagesBuySearch',
+                                        'Label': '[no data]',
+                                        'Content': '[no data]',
+                                        'Context': '[no data]',
+                                        'Text': '[no data]'
+                                    }
+                                };
+                                console.table(dataLayerObj);
+                                if (window.dataLayer) {
+                                    window.dataLayer.push(dataLayerObj);
+                                }
+                            }
 
 
                             // update components

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style type="text/css">
+        .grey {
+            background-color: #eeeeee;
+        }
+        .site-header {
+            margin-bottom: 0!important;
+        }
+        .site-content {
+            min-height: 2000px;
+        }
+        .goto-block {
+            margin-top: 11px;
+        }
+    </style>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!--<link href="https://code.jquery.com/jquery-1.11.3.min.js" rel="stylesheet" type="text/css">-->
+
+</head>
+<body>
+
+<header class="navbar navbar-static-top grey site-header">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar"
+                    aria-controls="bs-navbar" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="" class="navbar-brand">Проверка wl</a>
+        </div>
+        <nav id="bs-navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/wl-test/biletix/">Biletix</a>
+                </li>
+                <li>
+                    <a href="/wl-test/euroset/">Euroset</a>
+                </li>
+                <li>
+                    <a href="/wl-test/rusline/">Rusline</a>
+                </li>
+                <li>
+                    <a href="/wl-test/svyaznoy/">Svyaznoy</a>
+                </li>
+                <li>
+                    <a href="/wl-test/1001tur/">1001tur</a>
+                </li>
+                <li>
+                    <a href="/wl-test/demo/">Demo</a>
+                </li>
+                <li>
+                    <a href="/wl-test/demo-vertical/">Demo Vertical</a>
+                </li>
+            </ul>
+            <!--<ul class="nav navbar-nav navbar-right">-->
+            <!--<li>-->
+            <!--<div class="goto-block">-->
+            <!--Партнер <input id="inp_go" type="text">-->
+            <!--<input class="btn btn-default" type="button" value="Перейти">-->
+            <!--</div>-->
+            <!--</li>-->
+            <!--</ul>-->
+        </nav>
+    </div>
+</header>
+
+<div class="container site-content">
+    <div class="row">
+        <!--======================================inna module=======================================-->
+        <!--<script type="text/javascript" src="http://beta.inna.ru/spa/js/partners/v1/module.js"></script>-->
+        <script type="text/javascript" src="/spa/wl-test/inna_script_load.js"></script>
+
+        <script type="text/javascript">
+            innaModule.init("vokrugsveta");
+        </script>
+        <div class="wrapper">
+            <div id="inna-frame"></div>
+        </div>
+        <!--======================================inna module=======================================-->
+    </div>
+</div>
+
+<footer class="grey">
+    <div class="container">
+        <div class="row">
+            <h3>Это футер</h3>
+        </div>
+    </div>
+</footer>
+
+<!--<script type="text/javascript">-->
+
+<!--</script>-->
+
+</body>
+</html>
