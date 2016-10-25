@@ -5,10 +5,15 @@
     display flex
     justify-content space-between
 
-    margin 0 0 16px
+    margin 0
 }
 .b-transfer__title {
     margin 0
+}
+.b-transfer__title-caption {
+    font-size 16px;
+    font-weight normal;
+    color: #9CA6B0;
 }
 .b-transfer__include {
     .b-agreement {
@@ -22,7 +27,7 @@
     }
 }
 .b-transfer__body {
-
+    margin-top 16px
 }
 .b-transfer__routes {
     display flex
@@ -33,6 +38,7 @@
 }
 .b-transfer-item {
     width 752px
+    margin 8px 0
 }
 .b-transfer-item__row {
     display flex
@@ -62,7 +68,7 @@
     transform: rotate(45deg);
     cursor pointer
 
-    &:after{
+    &:after {
         content ''
         display block
         position absolute
@@ -73,7 +79,7 @@
         height 14px
         background #9CA6B0
     }
-    &:before{
+    &:before {
         content ''
         display block
         position absolute
@@ -96,17 +102,24 @@
     background: #EFF2F5;
     border-radius: 3px 0px 0px 3px;
 }
-.b-transfer-item__img-icon {
+.b-transfer-item__img-icon-1 {
+    width 115px
+    height 50px
+    background url('/spa/img/transfers/auto-1.svg') no-repeat 0 0
+}
+.b-transfer-item__img-icon-2 {
     width 100px
     height 34px
-    background url('/spa/img/transfers/auto-1.svg') no-repeat 0 0
+    background url('/spa/img/transfers/auto-2.svg') no-repeat 0 0
 }
 .b-transfer-item__img-label {
     margin 8px 0 0 0
+    padding 0 15px
     font-family: Roboto-Regular;
     font-size: 14px;
     color: #9CA6B0;
     letter-spacing: 0px;
+    text-align center
 }
 .b-transfer-item__desc {
     position relative
@@ -139,6 +152,17 @@
 .b-transfer-item__auto {
     font-size: 14px;
     color: #9CA6B0;
+}
+.b-transfer-item__peoples {
+    display flex
+
+    position absolute
+    bottom 16px
+    font-size: 14px;
+    color: #9CA6B0;
+}
+.b-transfer-item__people {
+    margin 0 12px 0 0
 }
 .b-transfer-item__price {
     display flex
@@ -176,6 +200,16 @@
     display block
     width 160px
     text-align center
+}
+.b-transfer__load {
+    padding 0 0 25px
+    .spinner {
+        width 320px
+    }
+    .spinner__text {
+        color #9ca6b0
+        font-size 14px
+    }
 }
 // f-radio
 .f-radio {

@@ -1,0 +1,59 @@
+{
+  "Transfers": [
+    {
+      "Key": "204749//1//TTXLBLN*71206*SHUT1-1",
+      "Id": "204749",
+      "ProviderId": "1",
+      "ProviderName": "A2BProvider",
+      "TransferId": "TTXLBLN*71206*SHUT1-1",
+      "TransferDescription": "Трансфер (в обе стороны)",
+      "Price": 63.64,
+      "Vehicle": {
+        "Type": 1,
+        "Description": "Автобус",
+        "Capacity": 1,
+        "NumberOfBags": 1
+      },
+      "Route": {
+        "OutboundOrigin": "Берлин-Тегель (Отто Лилиенталь) Аэропорт",
+        "OutboundDestination": "Berlin City Centre",
+        "OutboundJourneyTime": "",
+        "OutboundArrivalDateTime": "2016-11-14T13:50:00",
+        "ReturnOrigin": "Berlin City Centre",
+        "ReturnDestination": "Берлин-Тегель (Отто Лилиенталь) Аэропорт",
+        "ReturnJourneyTime": "",
+        "ReturnDepartureDateTime": "2016-11-20T14:40:00"
+      },
+      "CurrencyCode": "EUR",
+      "Distance": "12"
+    },
+    {
+      "Key": "204749//1//TTXLBLN*71205*PRI3",
+      "Id": "204749",
+      "ProviderId": "1",
+      "ProviderName": "A2BProvider",
+      "TransferId": "TTXLBLN*71205*PRI3",
+      "TransferDescription": "Трансфер (в обе стороны)",
+      "Price": 73.86,
+      "Vehicle": {
+        "Type": 2,
+        "Description": "Частный трансфер (1 -3 человека)",
+        "Capacity": 3,
+        "NumberOfBags": 1
+      },
+      "Route": {
+        "OutboundOrigin": "Берлин-Тегель (Отто Лилиенталь) Аэропорт",
+        "OutboundDestination": "Berlin City Centre",
+        "OutboundJourneyTime": "",
+        "OutboundArrivalDateTime": "2016-11-14T13:50:00",
+        "ReturnOrigin": "Berlin City Centre",
+        "ReturnDestination": "Берлин-Тегель (Отто Лилиенталь) Аэропорт",
+        "ReturnJourneyTime": "",
+        "ReturnDepartureDateTime": "2016-11-20T14:40:00",
+        "ReturnPickupDateTime": "2016-11-20T12:10:00"
+      },
+      "CurrencyCode": "EUR",
+      "Distance": "12"
+    }
+  ]
+}

@@ -25,7 +25,9 @@
         'gtm',
         'dataService',
         'AppRouteUrls',
-        function (RavenWrapper, $scope, $controller, $routeParams, $location, $rootScope, serviceCache, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon, $cookieStore, $q, gtm, dataService, AppRouteUrls) {
+        'Transfer',
+        '$filter',
+        function (RavenWrapper, $scope, $controller, $routeParams, $location, $rootScope, serviceCache, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, PromoCodes, $templateCache, Balloon, $cookieStore, $q, gtm, dataService, AppRouteUrls, Transfer, $filter) {
             
             $scope.baloon.showExpireCheck();
             
@@ -87,13 +89,13 @@
             $scope.gtmDetailsAviaInReserv = function () {
                 var dataLayerObj = {
                     'event': 'UM.Event',
-                    'Data': {
+                    'Data' : {
                         'Category': 'Packages',
-                        'Action': 'DetailsAviaInReserv',
-                        'Label': '[no data]',
-                        'Content': '[no data]',
-                        'Context': '[no data]',
-                        'Text': '[no data]'
+                        'Action'  : 'DetailsAviaInReserv',
+                        'Label'   : '[no data]',
+                        'Content' : '[no data]',
+                        'Context' : '[no data]',
+                        'Text'    : '[no data]'
                     }
                 };
                 console.table(dataLayerObj);
@@ -105,13 +107,13 @@
             $scope.gtmDetailsHotelsInReserv = function () {
                 var dataLayerObj = {
                     'event': 'UM.Event',
-                    'Data': {
+                    'Data' : {
                         'Category': 'Packages',
-                        'Action': 'DetailsHotelsInReserv',
-                        'Label': '[no data]',
-                        'Content': '[no data]',
-                        'Context': '[no data]',
-                        'Text': '[no data]'
+                        'Action'  : 'DetailsHotelsInReserv',
+                        'Label'   : '[no data]',
+                        'Content' : '[no data]',
+                        'Context' : '[no data]',
+                        'Text'    : '[no data]'
                     }
                 };
                 console.table(dataLayerObj);
@@ -149,13 +151,13 @@
                 }
                 var dataLayerObj = {
                     'event': 'UM.Event',
-                    'Data': {
+                    'Data' : {
                         'Category': 'Packages',
-                        'Action': label,
-                        'Label': $event.target.textContent,
-                        'Content': '[no data]',
-                        'Context': '[no data]',
-                        'Text': '[no data]'
+                        'Action'  : label,
+                        'Label'   : $event.target.textContent,
+                        'Content' : '[no data]',
+                        'Context' : '[no data]',
+                        'Text'    : '[no data]'
                     }
                 };
                 console.table(dataLayerObj);
@@ -163,18 +165,18 @@
                     window.dataLayer.push(dataLayerObj);
                 }
             };
-
+            
             $scope.$watch('validationModel.wannaNewsletter.value', function (newValue, oldValue) {
-                if( newValue != undefined && oldValue!= undefined ) {
+                if (newValue != undefined && oldValue != undefined) {
                     var dataLayerObj = {
                         'event': 'UM.Event',
-                        'Data': {
+                        'Data' : {
                             'Category': 'Packages',
-                            'Action': 'WantEmails',
-                            'Label': newValue ? 'Select' : 'UnSelect',
-                            'Content': '[no data]',
-                            'Context': '[no data]',
-                            'Text': '[no data]'
+                            'Action'  : 'WantEmails',
+                            'Label'   : newValue ? 'Select' : 'UnSelect',
+                            'Content' : '[no data]',
+                            'Context' : '[no data]',
+                            'Text'    : '[no data]'
                         }
                     };
                     console.table(dataLayerObj);
@@ -183,20 +185,20 @@
                     }
                 }
             });
-
+            
             $scope.$watch('agree', function (newValue, oldValue) {
                 // console.log('oV', oldValue);
                 // console.log('nV', newValue);
-                if( newValue != undefined) {
+                if (newValue != undefined) {
                     var dataLayerObj = {
                         'event': 'UM.Event',
-                        'Data': {
+                        'Data' : {
                             'Category': 'Packages',
-                            'Action': 'AcceptConditions',
-                            'Label': newValue ? 'Select' : 'UnSelect',
-                            'Content': '[no data]',
-                            'Context': '[no data]',
-                            'Text': '[no data]'
+                            'Action'  : 'AcceptConditions',
+                            'Label'   : newValue ? 'Select' : 'UnSelect',
+                            'Content' : '[no data]',
+                            'Context' : '[no data]',
+                            'Text'    : '[no data]'
                         }
                     };
                     console.table(dataLayerObj);
@@ -205,20 +207,20 @@
                     }
                 }
             });
-
+            
             $scope.$watch('addition.isNeededVisa', function (newValue, oldValue) {
                 // console.log('oV', oldValue);
                 // console.log('nV', newValue);
-                if( newValue != undefined && oldValue!= undefined ) {
+                if (newValue != undefined && oldValue != undefined) {
                     var dataLayerObj = {
                         'event': 'UM.Event',
-                        'Data': {
+                        'Data' : {
                             'Category': 'Packages',
-                            'Action': 'Visa',
-                            'Label': newValue ? 'Select' : 'UnSelect',
-                            'Content': '[no data]',
-                            'Context': '[no data]',
-                            'Text': '[no data]'
+                            'Action'  : 'Visa',
+                            'Label'   : newValue ? 'Select' : 'UnSelect',
+                            'Content' : '[no data]',
+                            'Context' : '[no data]',
+                            'Text'    : '[no data]'
                         }
                     };
                     console.table(dataLayerObj);
@@ -227,20 +229,20 @@
                     }
                 }
             });
-
+            
             $scope.$watch('addition.isNeededTransfer', function (newValue, oldValue) {
                 // console.log('oV', oldValue);
                 // console.log('nV', newValue);
-                if( newValue != undefined && oldValue!= undefined ) {
+                if (newValue != undefined && oldValue != undefined) {
                     var dataLayerObj = {
                         'event': 'UM.Event',
-                        'Data': {
+                        'Data' : {
                             'Category': 'Packages',
-                            'Action': 'Transfer',
-                            'Label': newValue ? 'Select' : 'UnSelect',
-                            'Content': '[no data]',
-                            'Context': '[no data]',
-                            'Text': '[no data]'
+                            'Action'  : 'Transfer',
+                            'Label'   : newValue ? 'Select' : 'UnSelect',
+                            'Content' : '[no data]',
+                            'Context' : '[no data]',
+                            'Text'    : '[no data]'
                         }
                     };
                     console.table(dataLayerObj);
@@ -249,8 +251,7 @@
                     }
                 }
             });
-
-
+            
             
             $scope.cityFrom = null;
             $scope.cityTo = null;
@@ -271,20 +272,20 @@
                 var HotelName = resCheck ? resCheck.HotelName : '';
                 gtm.GtmTrack(
                     {
-                        'PageType': 'PackagesReservationCheck',
-                        'Price': PackagePrice ? PackagePrice : '[no data]',
+                        'PageType' : 'PackagesReservationCheck',
+                        'Price'    : PackagePrice ? PackagePrice : '[no data]',
                         'HotelName': HotelName ? HotelName : '[no data]'
                     },
                     {
-                        'CityFrom': results[0].data.Location.City.Code,
-                        'CityTo': results[1].data.Location.City.Code,
-                        'DateFrom': searchParams.StartVoyageDate,
-                        'DateTo': searchParams.EndVoyageDate,
-                        'Travelers': searchParams.Adult + '-' + ('Children' in searchParams ? searchParams.Children.split('_').length : '0'),
+                        'CityFrom'      : results[0].data.Location.City.Code,
+                        'CityTo'        : results[1].data.Location.City.Code,
+                        'DateFrom'      : searchParams.StartVoyageDate,
+                        'DateTo'        : searchParams.EndVoyageDate,
+                        'Travelers'     : searchParams.Adult + '-' + ('Children' in searchParams ? searchParams.Children.split('_').length : '0'),
                         'TotalTravelers': 'Children' in searchParams ?
                         parseInt(searchParams.Adult) + searchParams.Children.split('_').length
                             : searchParams.Adult,
-                        'ServiceClass': searchParams.TicketClass == 0 ? 'Economy' : 'Business'
+                        'ServiceClass'  : searchParams.TicketClass == 0 ? 'Economy' : 'Business'
                     }
                 );
             });
@@ -346,18 +347,18 @@
             
             function getCheckParams() {
                 var qData = {
-                    HotelId: $scope.hotel.HotelId,
-                    HoteProviderId: $scope.hotel.ProviderId,
-                    Rooms: $location.search().room,
-                    TicketToId: $scope.item.VariantId1,
-                    TicketBackId: $scope.item.VariantId2,
-                    TicketClass: $routeParams.TicketClass,
-                    'Filter[DepartureId]': $routeParams.DepartureId,
-                    'Filter[ArrivalId]': $routeParams.ArrivalId,
+                    HotelId                  : $scope.hotel.HotelId,
+                    HoteProviderId           : $scope.hotel.ProviderId,
+                    Rooms                    : $location.search().room,
+                    TicketToId               : $scope.item.VariantId1,
+                    TicketBackId             : $scope.item.VariantId2,
+                    TicketClass              : $routeParams.TicketClass,
+                    'Filter[DepartureId]'    : $routeParams.DepartureId,
+                    'Filter[ArrivalId]'      : $routeParams.ArrivalId,
                     'Filter[StartVoyageDate]': searchParams.StartVoyageDate,
-                    'Filter[EndVoyageDate]': searchParams.EndVoyageDate,
-                    'Filter[TicketClass]': $routeParams.TicketClass,
-                    'Filter[Adult]': $routeParams.Adult
+                    'Filter[EndVoyageDate]'  : searchParams.EndVoyageDate,
+                    'Filter[TicketClass]'    : $routeParams.TicketClass,
+                    'Filter[Adult]'          : $routeParams.Adult
                 };
                 if ($routeParams.Children) {
                     var childs = $routeParams.Children.split('_');
@@ -391,16 +392,16 @@
                     ).then(function (results) {
                         gtm.GtmTrack(
                             {
-                                'PageType': 'PackagesReservationLoad',
-                                'Price': data.Price,
+                                'PageType' : 'PackagesReservationLoad',
+                                'Price'    : data.Price,
                                 'HotelName': data.Hotel.HotelName
                             }
                         );
-    
+                        
                         serviceCache.createObj('PageType', 'Packages');
                         serviceCache.createObj('Price', data.Price);
                         serviceCache.createObj('HotelName', data.Hotel.HotelName);
-    
+                        
                     });
                     
                     
@@ -526,7 +527,7 @@
             function packageCheckAvailability() {
                 var getCheckParamsRaven = getCheckParams();
                 paymentService.packageCheckAvailability({
-                    data: getCheckParamsRaven,
+                    data   : getCheckParamsRaven,
                     success: function (data) {
                         if ((data != null && data.IsTicketAvailable == true) &&
                             (data.Rooms != null && data.Rooms.length) &&
@@ -545,8 +546,8 @@
                         else {
                             RavenWrapper.raven({
                                 captureMessage: 'CHECK AVAILABILITY ROOMS: ERROR',
-                                dataResponse: data,
-                                dataRequest: getCheckParamsRaven
+                                dataResponse  : data,
+                                dataRequest   : getCheckParamsRaven
                             });
                             
                             //================analytics========================
@@ -558,11 +559,11 @@
                             noAvailability(data);
                         }
                     },
-                    error: function (data) {
+                    error  : function (data) {
                         RavenWrapper.raven({
                             captureMessage: 'CHECK AVAILABILITY ROOMS: SERVER ERROR',
-                            dataResponse: data.responseJSON,
-                            dataRequest: getCheckParamsRaven
+                            dataResponse  : data.responseJSON,
+                            dataRequest   : getCheckParamsRaven
                         });
                         
                         //================analytics========================
@@ -583,16 +584,16 @@
              * Получаем данные об отеле
              */
             DynamicPackagesDataProvider.hotelDetails({
-                data: {
-                    HotelId: searchParams.HotelId,
+                data   : {
+                    HotelId        : searchParams.HotelId,
                     HotelProviderId: searchParams.ProviderId,
-                    TicketToId: searchParams.TicketId,
-                    TicketBackId: searchParams.TicketBackId,
-                    Filter: searchParams,
-                    Rooms: true
+                    TicketToId     : searchParams.TicketId,
+                    TicketBackId   : searchParams.TicketBackId,
+                    Filter         : searchParams,
+                    Rooms          : true
                 },
                 success: successSearch,
-                error: errorSearch
+                error  : errorSearch
             }).done(function (data) {
                 if (data && !$scope.hotel) {
                     $scope.hotel = data.Hotel;
@@ -640,20 +641,20 @@
                     m.IsNeededMedicalInsurance = $scope.addition.isNeededMedicalInsurance,
                     
                     m.SearchParams = {
-                        HotelId: $scope.hotel.HotelId,
-                        HotelProviderId: $scope.hotel.ProviderId,
-                        TicketToId: $scope.item.VariantId1,
-                        TicketBackId: $scope.item.VariantId2,
-                        RoomId: $scope.roomId,
-                        Filter: {
-                            ProviderId: $scope.hotel.ProviderId,
-                            DepartureId: $routeParams.DepartureId,
-                            ArrivalId: $routeParams.ArrivalId,
+                        HotelId         : $scope.hotel.HotelId,
+                        HotelProviderId : $scope.hotel.ProviderId,
+                        TicketToId      : $scope.item.VariantId1,
+                        TicketBackId    : $scope.item.VariantId2,
+                        RoomId          : $scope.roomId,
+                        Filter          : {
+                            ProviderId     : $scope.hotel.ProviderId,
+                            DepartureId    : $routeParams.DepartureId,
+                            ArrivalId      : $routeParams.ArrivalId,
                             StartVoyageDate: $scope.searchParams.StartVoyageDate,
-                            EndVoyageDate: $scope.searchParams.EndVoyageDate,
-                            TicketClass: $routeParams.TicketClass,
-                            Adult: $routeParams.Adult,
-                            ChildrenAges: childAgers
+                            EndVoyageDate  : $scope.searchParams.EndVoyageDate,
+                            TicketClass    : $routeParams.TicketClass,
+                            Adult          : $routeParams.Adult,
+                            ChildrenAges   : childAgers
                         },
                         CustomerWishlist: $scope.addition.customerWishlist
                     };
@@ -668,6 +669,9 @@
                 if ($scope.promoCode) {
                     m.PromoCode = $scope.promoCode;
                     m.promoCodeString = m.PromoCode
+                }
+                if ($scope.TransferKey) {
+                    m.TransferKey = $scope.TransferKey;
                 }
                 return m;
             }
@@ -688,16 +692,16 @@
                         if ($scope.promoCodeStatus == 1) {
                             $scope.promoCodeSale = data.Details.PromoCode.rule_value;
                             $scope.price = data.Details.NewPrice;
-
+                            
                             var dataLayerObj = {
                                 'event': 'UM.Event',
-                                'Data': {
+                                'Data' : {
                                     'Category': 'Packages',
-                                    'Action': 'ApplyPromocode',
-                                    'Label': '[no data]',
-                                    'Content': '[no data]',
-                                    'Context': '[no data]',
-                                    'Text': '[no data]'
+                                    'Action'  : 'ApplyPromocode',
+                                    'Label'   : '[no data]',
+                                    'Content' : '[no data]',
+                                    'Context' : '[no data]',
+                                    'Text'    : '[no data]'
                                 }
                             };
                             console.table(dataLayerObj);
@@ -721,14 +725,14 @@
                 
                 
                 RavenWrapper.raven({
-                    level: 3,
+                    level         : 3,
                     captureMessage: 'START RESERVE PACKAGES',
-                    dataRequest: apiModel
+                    dataRequest   : apiModel
                 });
                 
                 
                 paymentService.packageReserve({
-                    data: apiModel,
+                    data   : apiModel,
                     success: function (data) {
                         $cookieStore.remove('b2b_operator');
                         $scope.safeApply(function () {
@@ -772,10 +776,10 @@
                             }
                             else {
                                 RavenWrapper.raven({
-                                    level: 2,
+                                    level         : 2,
                                     captureMessage: 'RESERVE PACKAGES: ERROR',
-                                    dataResponse: data,
-                                    dataRequest: apiModel
+                                    dataResponse  : data,
+                                    dataRequest   : apiModel
                                 });
                                 //аналитика
                                 track.dpReservationError();
@@ -785,13 +789,13 @@
                             }
                         });
                     },
-                    error: function (data) {
+                    error  : function (data) {
                         $cookieStore.remove('b2b_operator');
                         RavenWrapper.raven({
-                            level: 6,
+                            level         : 6,
                             captureMessage: 'RESERVE PACKAGES: SERVER ERROR',
-                            dataResponse: data.responseJSON,
-                            dataRequest: apiModel
+                            dataResponse  : data.responseJSON,
+                            dataRequest   : apiModel
                         });
                         //аналитика
                         track.dpReservationError();
@@ -810,13 +814,61 @@
                 
                 
                 new Balloon().updateView({
-                    template: 'server-error.html',
+                    template     : 'server-error.html',
                     callbackClose: function () {
                         //отправляем на поиск пакетов
                         goToSearch();
                     }
                 });
             };
+            
+            
+            /**
+             * begin transfers
+             */
+            $scope.includeTransfer = false;
+            $scope.transfersShow = false;
+            $scope.transferSingle = 0;
+            $scope.includeTransferChange = function (data, transferSingle) {
+                $scope.Transfers = null;
+                if (data) {
+                    Transfer.getTransfers(
+                        {
+                            HotelId           : $scope.hotel.InnaHotelId,
+                            DeparturePointCode: $scope.combination.Ticket.InCode,
+                            Adults            : $scope.combination.Ticket.AdultCount,
+                            Children          : $scope.combination.Ticket.ChildCount,
+                            Infants           : $scope.combination.Ticket.InfantCount,
+                            Single            : (transferSingle == 1) ? true : false,
+                            Arrival           : $filter('date')($scope.combination.Ticket.ArrivalDate, 'dd.MM.yyyy HH:mm'),
+                            Departure         : $filter('date')($scope.combination.Ticket.BackDepartureDate, 'dd.MM.yyyy HH:mm'),
+                        }
+                    )
+                        .then(
+                            function (res) {
+                                if (res.data.Transfers) {
+                                    $scope.transfersShow = true;
+                                    $scope.Transfers = res.data.Transfers;
+                                }
+                            },
+                            function (res) {
+                                console.log('err')
+                                console.log(res)
+                            }
+                        );
+                }
+            };
+            $scope.TransferSelected = function (transfer) {
+                $scope.TransferKey = transfer.Key;
+                $scope.transfer = transfer;
+                $scope.priceInTransfer = $scope.price + transfer.Price;
+                $scope.transfersShow = false;
+                $scope.includeTransfer = true;
+            };
+            /**
+             * end transfers
+             */
+            
             
             
             $scope.$on('$destroy', function () {
