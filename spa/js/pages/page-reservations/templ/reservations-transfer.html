@@ -15,12 +15,59 @@
     </div>
 
     <div class='b-transfer__body'>
-        <label>
-            Из аэропорта в отель
-        </label>
-        <label>
-            Туда и обратно
-        </label>
+
+        <div class='b-transfer__routes'>
+            <div class='b-transfer__routes-item'>
+                <label class='f-radio'>
+                    <input class='f-radio__input'
+                           type='radio'
+                           value='0'
+                           ng-model='transferRoute'>
+                    <ins class='f-radio__indicator'></ins>
+                    <span class='f-radio__label'>Из аэропорта в отель</span>
+                </label>
+            </div>
+            <div class='b-transfer__routes-item'>
+                <label class='f-radio'>
+                    <input class='f-radio__input'
+                           type='radio'
+                           value='1'
+                           ng-model='transferRoute'>
+                    <ins class='f-radio__indicator'></ins>
+                    <span class='f-radio__label'>Туда и обратно</span>
+                </label>
+            </div>
+        </div>
+
+        <div class='b-transfer__items'>
+
+            <div class='b-transfer-item'>
+                <div class='b-transfer-item__img'>
+                    <div class='b-transfer-item__img-icon'></div>
+                    <div class='b-transfer-item__img-label'>
+                        Легковой автомобиль
+                    </div>
+                </div>
+                <div class='b-transfer-item__desc'>
+                    Эконом (до 4 чел.)
+                    <br>
+                    VW Golf, Ford Focus, Opel, Audi A3, BMW 3
+                </div>
+                <div class='b-transfer-item__price'>
+                    <div class='b-transfer-item__price-val'>
+                        5 050
+                        <i class='fa fa-rub'></i>
+                    </div>
+                    <div class='b-transfer-item__price-full'>
+                        К оплате: 69 665
+                        <i class='fa fa-rub'></i>
+                    </div>
+                    <span class='button b-transfer-item__price-button'>Выбрать</span>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
 </div>

@@ -1,11 +1,11 @@
 .b-transfer {
-    padding 0
+    padding 16px
 }
 .b-transfer__head {
     display flex
     justify-content space-between
 
-    padding 15px 10px
+    margin 0 0 16px
 }
 .b-transfer__title {
     margin 0
@@ -21,7 +21,122 @@
         }
     }
 }
-// b-transfer__body
-.b-transfer__body{
+.b-transfer__body {
 
+}
+.b-transfer__routes {
+    display flex
+    margin 0 0 16px
+}
+.b-transfer__routes-item {
+    margin-right 34px
+}
+.b-transfer-item {
+    display flex
+    justify-content space-between
+    width 752px
+
+    background-color #fff
+    border 1px solid #DDE3E9
+    border-radius 3px
+}
+.b-transfer-item__img {
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+
+    width 204px
+    height 136px
+    background: #EFF2F5;
+    border-radius: 3px 0px 0px 3px;
+}
+.b-transfer-item__img-icon {
+    width 100px
+    height 34px
+    background url('/spa/img/transfers/auto-1.svg') no-repeat 0 0
+}
+.b-transfer-item__img-label {
+    margin 8px 0 0 0
+    font-family: Roboto-Regular;
+    font-size: 14px;
+    color: #9CA6B0;
+    letter-spacing: 0px;
+}
+.b-transfer-item__price {
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+
+    width 191px
+    border-left 1px solid #DDE3E9
+}
+.b-transfer-item__price-val {
+    margin 8px 0 4px
+    font-size: 20px;
+    color: #313C48;
+    line-height: 28px;
+    font-weight bold
+
+    .fa {
+        margin-left 3px
+        font-size 18px
+    }
+}
+.b-transfer-item__price-full {
+    margin 0 0 8px
+    font-size: 12px;
+    color: #778695;
+
+    .fa {
+        margin-left 2px
+        font-size 11px
+    }
+}
+.b-transfer-item__price-button {
+    box-sizing border-box
+    display block
+    width 160px
+    text-align center
+}
+// f-radio
+.f-radio {
+
+}
+.f-radio__input {
+    display none
+
+    &:checked {
+        & + .f-radio__indicator {
+            &:before {
+                content ''
+                display block
+                position absolute
+                left 50%
+                top 50%
+                margin-left -5px
+                margin-top -5px
+                width 10px
+                height 10px
+                border-radius 50%
+                background-color #7CB621
+            }
+        }
+    }
+}
+.f-radio__indicator {
+    position relative
+    box-sizing border-box
+    display inline-block
+    width 20px
+    height 20px
+    border-radius 50%
+    border 2px solid #7CB621
+    vertical-align middle
+}
+.f-radio__label {
+    display inline-block
+    margin-left 3px
+    vertical-align middle
 }
