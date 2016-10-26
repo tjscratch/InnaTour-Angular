@@ -22,9 +22,9 @@ innaAppControllers.controller('PaymentController',
         
         /*watch для отправки событий в GTM, при выборе способа оплаты*/
         $scope.$watch('payment.payType', function (newValue, oldValue) {
-            if(oldValue != undefined) {
+            if (oldValue != undefined) {
                 var payType;
-                switch(newValue) {
+                switch (newValue) {
                     case '1':
                         payType = 'Card';
                         break;
@@ -37,40 +37,40 @@ innaAppControllers.controller('PaymentController',
                 }
                 gtm.GtmTrackEvent({
                     'Category': getCategory(),
-                    'Action': 'PaymentMethod',
-                    'Label': payType,
-                    'Content': '[no data]',
-                    'Context': '[no data]',
-                    'Text': '[no data]'
+                    'Action'  : 'PaymentMethod',
+                    'Label'   : payType,
+                    'Content' : '[no data]',
+                    'Context' : '[no data]',
+                    'Text'    : '[no data]'
                 });
             }
         });
-
+        
         $scope.gtmPartnerAddress = function () {
             gtm.GtmTrackEvent({
                 'Category': getCategory(),
-                'Action': 'PartnerAddress',
-                'Label': '[no data]',
-                'Content': '[no data]',
-                'Context': '[no data]',
-                'Text': '[no data]'
+                'Action'  : 'PartnerAddress',
+                'Label'   : '[no data]',
+                'Content' : '[no data]',
+                'Context' : '[no data]',
+                'Text'    : '[no data]'
             });
         };
-
+        
         $scope.gtmPrint = function () {
             gtm.GtmTrackEvent({
                 'Category': getCategory(),
-                'Action': 'Print',
-                'Label': '[no data]',
-                'Content': '[no data]',
-                'Context': '[no data]',
-                'Text': '[no data]'
+                'Action'  : 'Print',
+                'Label'   : '[no data]',
+                'Content' : '[no data]',
+                'Context' : '[no data]',
+                'Text'    : '[no data]'
             });
         };
-
+        
         function getCategory() {
             var category;
-            switch(self.productType) {
+            switch (self.productType) {
                 case 1:
                     category = 'Avia';
                     break;
@@ -87,7 +87,7 @@ innaAppControllers.controller('PaymentController',
             }
             return category;
         };
-
+        
         /**
          * первым делом проверяем изменение цены заказа
          * todo закоментил на этап тестирования/разработки
@@ -100,6 +100,7 @@ innaAppControllers.controller('PaymentController',
                     getRepricingError
                 );
         }
+        
         getRepricingSelf();
         
         /**
@@ -118,11 +119,7 @@ innaAppControllers.controller('PaymentController',
                     //цена изменилась
                     var oldPrice = data.OldPrice;
                     var newPrice = data.NewPrice;
-                    var msg = 'Изменилась стоимость заказа c <b>' + $filter('price')(oldPrice) + '<span class='
-                    b - rub
-                    '>q</span></b> на <b>' + $filter('price')(newPrice) + '<span class='
-                    b - rub
-                    '>q</span></b>';
+                    var msg = "Изменилась стоимость заказа c <b>" + $filter('price')(oldPrice) + "<span class='b-rub'>q</span></b> на <b>" + $filter('price')(newPrice) + "<span class='b-rub'>q</span></b>";
                     baloon.showPriceChanged("Изменилась цена", msg, function () {
                         
                         setTimeout(function () {
@@ -491,7 +488,7 @@ innaAppControllers.controller('PaymentController',
                                         'PageType': 'HotelsPayLoad'
                                     },
                                     {
-                                        'CityCode': res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
+                                        'CityCode'      : res.data.Location.Location.Code ? res.data.Location.Location.Code : null,
                                         'DateFrom'      : moment(data.Hotel.CheckIn).format('YYYY-MM-DD'),
                                         'NightCount'    : data.Hotel.NightCount,
                                         'Travelers'     : Filter.Adult + "-" + Filter.ChildrenAges.length,
@@ -518,7 +515,7 @@ innaAppControllers.controller('PaymentController',
                 payType = 'svyaznoy';
             } else if (self.payType == 3) {
                 payType = 'qiwi';
-        }
+            }
             
             var Status;
             var Title;
