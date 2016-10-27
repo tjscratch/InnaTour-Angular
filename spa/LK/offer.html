@@ -1,0 +1,64 @@
+<div class="row offset-bottom-2">
+    <div class="col-xs-2 form-item">
+        <h4>Локация</h4>
+        <input class="form-control" type="text" placeholder="Город/Страна" ng-model="location">
+        <input class="form-control" type="button">
+    </div>
+</div>
+<!--ng-click="getOffer()"-->
+<!--<div class="widget-preview">-->
+    <!--<div class='widget-inna-offer'>-->
+        <!--<div class="b-offer__container" ng-if="offer">-->
+            <!--<div class="b-offer__bg"-->
+                 <!--style="background-image: url('{{ offer.ImageL ? offer.ImageL : offer.ImageS }}')">-->
+            <!--</div>-->
+
+            <!--<a class="b-offer__container-link"-->
+               <!--href="{{ offer.Details }}"-->
+               <!--target="_blank"></a>-->
+
+            <!--<div class="b-offer__container-txt">-->
+
+                <!--<h2 class="b-offer__title">-->
+                    <!--<div class="b-offer__title-sub">-->
+                        <!--{{ offer.Country }}-->
+                    <!--</div>-->
+                    <!--<div class="b-offer__title-main">-->
+                        <!--{{ offer.Location }}-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;<div class="b-offer__title-info">&ndash;&gt;-->
+                        <!--&lt;!&ndash;{{ offer.Nights | asQuantity:"ночь":"ночи":"ночей"}},&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span ng-if="offer.Adults == 1">на одного</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span ng-if="offer.Adults == 2">на двоих</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span ng-if="offer.Adults == 3">на троих</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span ng-if="offer.Adults == 4">на четверых</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span ng-if="offer.Adults == 5">на пятерых</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--</h2>-->
+
+                <!--<div class="b-offer__price">-->
+                    <!--<div class="b-offer__price-txt">-->
+                        <!--от-->
+                    <!--</div>-->
+                    <!--<div class="b-offer__price-value">-->
+                        <!--{{ offer.Price | currency : "" : 0 }}-->
+                        <!--<i class="fa fa-rub b-offer__price-currency"></i>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--<div class="offset-bottom-2 text-center">-->
+    <!--<span id="btn-generate-offer" class="btn btn-lg" ng-click="getCode()">Сгенерировать код</span>-->
+<!--</div>-->
+<!--<div id="head-offer" class="head" ng-if="isGetCode">-->
+    <!--Код для вставки на сайт:-->
+<!--</div>-->
+<!--<div id="generate-code-offer" ng-if="isGetCode">-->
+    <!--<textarea id="textarea-code-offer" class="form-control">-->
+        <!--&lt;!&ndash;<div class="widget-inna-offer" data-location="{{location}}"></div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<script charset="utf-8" src=""></script>&ndash;&gt;-->
+    <!--</textarea>-->
+<!--</div>-->

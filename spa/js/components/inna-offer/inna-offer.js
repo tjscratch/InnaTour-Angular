@@ -1,9 +1,7 @@
-innaAppDirectives.directive('innaOffer', ['$templateCache', function ($templateCache) {
+innaAppDirectives.directive('innaOffer', function ($templateCache) {
     return {
         restrict: 'E',
-        template: function () {
-            return $templateCache.get('LK/offer.html');
-        },
+        template: $templateCache.get("components/inna-offer/templ/offer.html"),
         scope: {
             // partnerSite: "@",
             // partnerName: "@",
@@ -12,7 +10,7 @@ innaAppDirectives.directive('innaOffer', ['$templateCache', function ($templateC
             // $scope.partnerDefaultLocation = 'Россия';
             $scope.isGetCode = false;
             $scope.offer = null;
-            
+
             $scope.getOffer = function () {
                 $q.all([
                     $http({
@@ -40,10 +38,10 @@ innaAppDirectives.directive('innaOffer', ['$templateCache', function ($templateC
                     $scope.offer = result.Offers[0];
                 });
             };
-            
+
             $scope.getCode = function () {
                 $scope.isGetCode = true;
             }
         }
     }
-}]);
+});

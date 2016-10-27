@@ -85,13 +85,15 @@
      * @type {string}
      */
     
-    var host = 'http://test.inna.ru';
+    // var host = 'http://test.inna.ru';
+    var host = 'localhost:3000';
     var widget = document.querySelector(".widget-inna-offer");
     var sources = {
-        'css'   : host + '/spa/js/widgets/offer/widget-offer.css',
-        'jquery': host + '/spa/js/widgets/offer/jquery.min.js'
+        'css'   : '/spa/js/widgets/offer/widget-offer.css',
+        'jquery': '/spa/js/widgets/offer/jquery.min.js'
     };
-    
+    // host +
+
     function insertAfter(newNode, referenceNode) {
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
@@ -128,7 +130,7 @@
             countryIdTo = result2[0][0].Id;
             return $.ajax({
                 type: 'GET',
-                url: 'http://test.inna.ru/api/v1/bestoffer/GetOffersForLocation?ArrivalLocation=' + countryIdTo + '&Location=18820'
+                url: 'https://inna.ru/api/v1/bestoffer/GetOffersForLocation?ArrivalLocation=' + countryIdTo + '&Location=18820'
             })
         }).then(function (result) {
             if(result.Offers.length) {
@@ -191,14 +193,14 @@
                 $(".widget-inna-offer").append(templ);
             }
         });
-        var srcScript = host + '/spa/js/widgets/offer/inna-offer.js';
-        $('#btn-generate-offer').click(function () {
-                var code = '<div class="widget-inna-offer" data-location="Франция"></div>' + '\n' +
-                    '<script charset="utf-8" src="' + srcScript + '"></script>';
-                $('#textarea-code-offer').text(code);
-                $('#head-offer').show();
-                $('#generate-code-offer').show();
-        });
+        // var srcScript = host + '/spa/js/widgets/offer/inna-offer.js';
+        // $('#btn-generate-offer').click(function () {
+        //         var code = '<div class="widget-inna-offer" data-location="Франция"></div>' + '\n' +
+        //             '<script charset="utf-8" src="' + srcScript + '"></script>';
+        //         $('#textarea-code-offer').text(code);
+        //         $('#head-offer').show();
+        //         $('#generate-code-offer').show();
+        // });
     }
     
 }());
