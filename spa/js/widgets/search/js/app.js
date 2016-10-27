@@ -5,7 +5,7 @@ angular.module("innaSearchForm", [
     "innaApp.templates",
     "widgetsInnaValidation",
     "widgetsInnaFilters",
-    "widgetsInnaWidgetServices"
+    "widgetsInnaWidgetServices",
 ]);
 
 
