@@ -84,16 +84,16 @@
      * END script.js
      * @type {string}
      */
-    
-    // var host = 'http://test.inna.ru';
-    var host = 'localhost:3000';
+        
+    var host = 'https://inna.ru';
+    // var host = 'http://localhost:3000';
     var widget = document.querySelector(".widget-inna-offer");
     var sources = {
-        'css'   : '/spa/js/widgets/offer/widget-offer.css',
-        'jquery': '/spa/js/widgets/offer/jquery.min.js'
+        'css'   : host + '/spa/js/widgets/offer/widget-offer.css',
+        'jquery': host + '/spa/js/widgets/offer/jquery.min.js'
     };
     // host +
-
+    
     function insertAfter(newNode, referenceNode) {
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
@@ -103,6 +103,8 @@
         link.type = "text/css";
         link.rel = "stylesheet";
         link.href = sources.css;
+        // insertAfter(link);
+        // widget.parentNode.insertBefore(link, widget.nextSibling);
         insertAfter(link, widget);
     };
     
@@ -130,12 +132,12 @@
             countryIdTo = result2[0][0].Id;
             return $.ajax({
                 type: 'GET',
-                url: 'https://inna.ru/api/v1/bestoffer/GetOffersForLocation?ArrivalLocation=' + countryIdTo + '&Location=18820'
+                url : 'https://inna.ru/api/v1/bestoffer/GetOffersForLocation?ArrivalLocation=' + countryIdTo + '&Location=18820'
             })
         }).then(function (result) {
-            if(result.Offers.length) {
+            if (result.Offers.length) {
                 var peopleCount = '';
-                if(result.Offers[0].Adults == 1) {
+                if (result.Offers[0].Adults == 1) {
                     peopleCount = 'на одного';
                 } else if (result.Offers[0].Adults == 2) {
                     peopleCount = 'на двоих';
@@ -147,7 +149,7 @@
                     peopleCount = 'на пятерых';
                 }
                 var nights = '';
-                if(result.Offers[0].Nights == 1) {
+                if (result.Offers[0].Nights == 1) {
                     nights = 'ночь';
                 } else if (result.Offers[0].Nights == 2 ||
                     result.Offers[0].Nights == 3 ||
@@ -156,51 +158,45 @@
                 } else {
                     nights = 'ночей';
                 }
-
-                var templ = '<div class="b-offer__container">' +
-                    '<div class="b-offer__bg" ' +
-                        'style="background-image: url(' + result.Offers[0].ImageL + ')"'+
-                    '></div>' +
-
-                    '<a class="b-offer__container-link"' +
-                    'href="' + result.Offers[0].Details + '"' +
-                    'target="_blank"></a>' +
-
-                    '<div class="b-offer__container-txt">' +
-                    '<h2 class="b-offer__title">' +
-                    '<div class="b-offer__title-sub">' +
+                
+                var templ = "<div class='b-offer__container'>" +
+                    "<div class='b-offer__bg' " +
+                    "style='background-image: url(" + result.Offers[0].ImageL + ")'" +
+                    "></div>" +
+                    
+                    "<a class='b-offer__container-link'" +
+                    "href=" + result.Offers[0].Details + " " +
+                    "target='_blank'></a>" +
+                    
+                    "<div class='b-offer__container-txt'>" +
+                    "<h2 class='b-offer__title'>" +
+                    "<div class='b-offer__title-sub'>" +
                     result.Offers[0].Country +
-                    '</div>' +
-                    '<div class="b-offer__title-main">' +
+                    "</div>" +
+                    "<div class='b-offer__title-main'>" +
                     result.Offers[0].Location +
-                    '</div>' +
-                    '<div class="b-offer__title-info">' +
-                    result.Offers[0].Nights + ' ' + nights + ', ' +
-                    '<span >' + peopleCount + '</span>' +
-                    '</div>' +
-                    '</h2>' +
-                    '<div class="b-offer__price">' +
-                    '<div class="b-offer__price-txt">' +
-                    'от' +
-                    '</div>' +
-                    '<div class="b-offer__price-value">' +
+                    "</div>" +
+                    "<div class='b-offer__title-info'>" +
+                    result.Offers[0].Nights + " " + nights + ", " +
+                    "<span >" + peopleCount + "</span>" +
+                    "</div>" +
+                    "</h2>" +
+                    "<div class='b-offer__price'>" +
+                    "<div class='b-offer__price-txt'>" +
+                    "от" +
+                    "</div>" +
+                    "<div class='b-offer__price-value'>" +
                     Math.round(result.Offers[0].Price) +
-                    '<i class="fa fa-rub b-offer__price-currency"></i>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>';
+                    "<i class='fa fa-rub b-offer__price-currency'></i>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>";
+                $(".widget-inna-offer").append(templ);
+            }else{
+                var templ = "<div class='widget-inna-no-offer'>Предложений для данной локации нет</div>";
                 $(".widget-inna-offer").append(templ);
             }
         });
-        // var srcScript = host + '/spa/js/widgets/offer/inna-offer.js';
-        // $('#btn-generate-offer').click(function () {
-        //         var code = '<div class="widget-inna-offer" data-location="Франция"></div>' + '\n' +
-        //             '<script charset="utf-8" src="' + srcScript + '"></script>';
-        //         $('#textarea-code-offer').text(code);
-        //         $('#head-offer').show();
-        //         $('#generate-code-offer').show();
-        // });
     }
-    
 }());

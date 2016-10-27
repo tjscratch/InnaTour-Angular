@@ -30,6 +30,14 @@ gulp.task('widget-offer-stylus', function () {
         .pipe(gulp.dest('./dist/spa/js/widgets/offer'));
 });
 
+gulp.task('lk-stylus', function () {
+    return gulp.src('./spa/LK/css/lk.styl')
+        .pipe(stylus({
+            compress: (_ENV_ === 'production' || _ENV_ === 'beta') ? true : false,
+        }))
+        .pipe(gulp.dest('./dist/spa/LK/css'));
+});
+
 
 /**
  * ANGULAR TEMPLATE CACHE
@@ -108,6 +116,17 @@ gulp.task('widget-offer-watch', function () {
     gulp.watch([
         './spa/js/widgets/offer/js/*.js',
     ], ['widget-offer-config']);
+    gulp.watch([
+        './spa/js/widgets/offer/js/*.js',
+    ], ['widget-offer-config']);
+});
+
+
+gulp.task('lk-stylus-watch', function () {
+    gulp.watch('./spa/LK/css/*.styl', ['lk-stylus'])
+        .on('change', function (file) {
+            
+        });
 });
 
 
@@ -118,5 +137,6 @@ gulp.task('widget-search', [
     'widget-search-stylus',
     'widget-search-js',
     'widget-offer-stylus',
-    'widget-offer-config'
+    'widget-offer-config',
+    'lk-stylus'
 ]);
