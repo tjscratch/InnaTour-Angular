@@ -124,7 +124,7 @@ var innaModule = {
 
 innaModule.host = '@@partnersHost';
 
-innaModule.host = 'http://finam.lh.inna.ru/';
+// innaModule.host = 'http://finam.lh.inna.ru/';
 
 function FrameManager() {
     var self = this;

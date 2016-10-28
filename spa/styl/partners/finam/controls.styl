@@ -36,6 +36,25 @@ btx-button-color2() {
     }
 }
 
+btx-button-color3() {
+    padding 6px 16px
+    border: none;
+    background: $btn-yellow-bg;
+    border-radius: $btn-red-border-radius;
+    color #000000
+    font-size 16px
+    font-weight bold
+
+    &:hover{
+        background: $btn-yellow-bg-hover
+        text-decoration: none;
+    }
+    &:active{
+        background: $btn-yellow-bg-active
+        text-decoration: none;
+    }
+}
+
 btx-button1() {
     padding: 5px 16px;
     btx-button-color1()
@@ -44,6 +63,10 @@ btx-button1() {
 btx-button2() {
     padding: 5px 16px;
     btx-button-color2()
+}
+
+btx-button3() {
+    btx-button-color3()
 }
 
 btx-checkbox-bg() {
