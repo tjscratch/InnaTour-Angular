@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Распечатать</title>
 
-    <link rel="shortcut icon" href="/spa/print/favicon.ico"/>
+    <link rel="shortcut icon"
+          href="/spa/print/favicon.ico"/>
 
     <style type="text/css">
         .b-order-num {
@@ -18,27 +19,42 @@
 
 <p id="default-block">
     Вы можете оплатить этот заказ наличными в любом офисе Связного
-    <a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>
-    или Евросети <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
+    <a href="https://www.svyaznoy.ru/address_shops/"
+       target="_blank">адреса офисов</a>
+    или Евросети <a href="http://euroset.ru/shops/"
+                    target="_blank">адреса офисов</a>.
     <br/>Обратитесь к менеджеру и назовите номер заказа.
 </p>
 
-<p id="svyaznoy-block" style="display: none;">
+<p id="svyaznoy-block"
+   style="display: none;">
     Вы можете оплатить этот заказ наличными в любом офисе Связного
-    <a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>.
+    <a href="https://www.svyaznoy.ru/address_shops/"
+       target="_blank">адреса офисов</a>.
     <br/>Обратитесь к менеджеру и назовите номер заказа.
 </p>
 
-<p id="euroset-block" style="display: none;">Вы можете оплатить этот заказ наличными в любом офисе Евросети
-    <a href="http://euroset.ru/shops/" target="_blank">адреса офисов</a>.
+<p id="euroset-block"
+   style="display: none;">Вы можете оплатить этот заказ наличными в любом офисе Евросети
+    <a href="http://euroset.ru/shops/"
+       target="_blank">адреса офисов</a>.
     <br/>Обратитесь к менеджеру и назовите номер заказа.
 </p>
 
-<p>Рекомендуем оплачивать заказ в салоне в ближайшее время после бронирования, поскольку авиакомпании оставляют за собой
-    право изменять время на оплату.
+<p id="PayTravel-block"
+   style="display: none;">Вы можете оплатить этот заказ наличными в любом терминале PAY TRAVEL
+    <a href="http://pay.travel/site_controller_terminal/map/"
+       target="_blank">адреса терминалов</a>.
 </p>
 
-<p id="time" style="display: none; font-weight: bold;">
+<p>
+    Рекомендуем оплачивать заказ в ближайшее время после бронирования, поскольку авиакомпании
+    <br/>
+    оставляют за собой право изменять время на оплату
+</p>
+
+<p id="time"
+   style="display: none; font-weight: bold;">
 </p>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
@@ -68,6 +84,13 @@
     if (viewType == 'svyaznoy') {
         document.getElementById('default-block').style.display = 'none';
         document.getElementById('svyaznoy-block').style.display = '';
+    }
+
+    if (viewType == 'PayTravel') {
+        document.getElementById('default-block').style.display = 'none';
+        document.getElementById('euroset-block').style.display = 'none';
+        document.getElementById('svyaznoy-block').style.display = 'none';
+        document.getElementById('PayTravel-block').style.display = '';
     }
 
     if (time) {
