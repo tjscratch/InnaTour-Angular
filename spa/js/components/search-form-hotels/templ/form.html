@@ -1,7 +1,7 @@
 <form class="b-search-form b-search-form-hotels"
 	  ng-class="{'b-search-form_padding-1px': FormExpand, 'b-search-form_padding-16px': !FormExpand}">
 
-	<a href="/#/" class="header-info__logo" style="{{(isEnableSearchForm) ? 'display:none' : ''}}">
+	<a href="/#/" class="header-info__logo" ng-class="{'block_close': isEnableSearchForm}">
 		<i class="icon-logo js-company-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
 	</a>
 
@@ -82,6 +82,6 @@
 		Найти
 	</div>
 
-	<vertical-menu class="icon-vert-menu" style="{{(!isEnableSearchForm) ? 'display:block' : 'display:none'}}"></vertical-menu>
+	<vertical-menu class="icon-vert-menu" ng-class="{'block_close': isEnableSearchForm}"></vertical-menu>
 
 </form>

@@ -127,7 +127,7 @@
                 <div class="date">
                     {{item.DepartureDateFormatted}}<br>
                     <b >{{item.DepartureTimeFormatted}} {{item.OutCode}}</b><br>
-                    <span class="red_span" title="{{item.AirportFrom}}">{{item.AirportFrom | limitFilter:16}}</span>
+                    <span title="{{item.AirportFrom}}">{{item.AirportFrom | limitFilter:16}}</span>
                 </div>
 
                 <div class="arrow">
@@ -136,13 +136,13 @@
                             {{item.ToTransferCount}}
 	                        {{item.ToTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
                         </span>
-                    <span ng-if="item.ToTransferCount == 0">без пересадок</span>
+                    <span class="red_span" ng-if="item.ToTransferCount == 0">без пересадок</span>
                 </div>
 
                 <div class="date">
                     {{item.ArrivalDateFormatted}}<br>
                     <b>{{item.ArrivalTimeFormatted}} {{item.InCode}}</b><br>
-                    <span class="red_span" title="{{item.AirportTo}}">{{item.AirportTo | limitFilter:14}}</span>
+                    <span title="{{item.AirportTo}}">{{item.AirportTo | limitFilter:14}}</span>
                 </div>
 
                 <!--<div>-->
@@ -165,7 +165,7 @@
                 <div class="date">
                     {{item.BackDepartureDateFormatted}}<br>
                     <b>{{item.BackDepartureTimeFormatted}} {{item.OutCodeBack}}</b><br>
-                    <span class="red_span" title="{{item.AirportFromBack}}">{{item.AirportFromBack | limitFilter:16}}</span>
+                    <span title="{{item.AirportFromBack}}">{{item.AirportFromBack | limitFilter:16}}</span>
                 </div>
 
                 <div class="arrow">
@@ -174,13 +174,13 @@
                             {{item.BackTransferCount}}
 	                        {{item.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
                         </span>
-                    <span ng-if="item.BackTransferCount == 0">без пересадок</span>
+                    <span class="red_span" ng-if="item.BackTransferCount == 0">без пересадок</span>
                 </div>
 
                 <div class="date">
                     {{item.BackArrivalDateFormatted}}<br>
                     <b>{{item.BackArrivalTimeFormatted}} {{item.InCodeBack}}</b><br>
-                    <span class="red_span" title="{{item.AirportToBack}}">{{item.AirportToBack | limitFilter:14}}</span>
+                    <span title="{{item.AirportToBack}}">{{item.AirportToBack | limitFilter:14}}</span>
                 </div>
             </div>
         </div>

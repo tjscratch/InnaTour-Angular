@@ -44,7 +44,7 @@
     <!--</div>-->
 <!--</div>-->
 
-<div class="header-info" style="{{(FormExpand) ? 'display:block' : 'display:none'}}" ng-cloak>
+<div class="header-info" ng-class="{'block_close': !FormExpand}" ng-cloak>
     <div class="scroll-fix">
         <div class="header-info__container">
 
@@ -56,7 +56,8 @@
             <div class="header-info__right">
 
                 <div class="header-info__phone">
-                    <i class="fa fa-phone header-info__phone-icon"></i>
+                    <!--<i class="fa fa-phone header-info__phone-icon"></i>-->
+                    <i class="icon-phone"></i>
                     <div>
                         <div class="header-info__phone-number js-company-phone-head" ng-if="!user.isAgency()">
                             +7 495 742-1212
@@ -83,7 +84,7 @@
     <!--ng-show="isHeaderVisible"-->
     <div class="scroll-fix">
         <div class="wrapper">
-            <div class="header__container" style="{{(isEnableSearchForm) ? 'display:block' : 'display:none'}}">
+            <div class="header__container" ng-class="{'block_close': !isEnableSearchForm}">
                 <ul class="header-nav">
                     <li class="header-nav__item">
                         <!--<span class="header-nav__item-promo">-30%</span>-->

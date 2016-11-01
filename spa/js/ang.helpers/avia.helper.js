@@ -366,6 +366,28 @@
                             etap.NextOutCountryName = etapNext.OutCountryName;
                         }
 
+                        var alerts = [];
+                        if (etap.InPortId != etap.NextOutPortId) {
+                            alerts.push("Смена аэропорта");
+                        }
+                        if (etap.TransferWaitTime > 240) {//>4 часов - Долгая пересадка
+                            alerts.push("Долгая пересадка");
+                        }
+                        if (etapNext != null) {//Ночная стыковка
+                            //различаются дни
+                            var sameDay = getDateFormat(etap.InDate) == getDateFormat(etapNext.OutDate);
+                            //час прилета в этап
+                            var inHour = parseInt(getTimeFormat(etap.InTime).split(':')[0]);
+                            //час отлета из этапа
+                            var outHour = parseInt(getTimeFormat(etapNext.OutTime).split(':')[0]);
+                            //интервалы прилетов и вылетов пересакаются с интервалом 0-6 часов - ночная стыковка
+                            if (!(inHour > 6 && outHour > 6 && sameDay)) {
+                                alerts.push("Ночная стыковка");
+                            }
+                        }
+
+                        etap.alert = alerts.join(', ');
+
                         addBaggageFields(etap, itemBaggageStatus);
                     }
 

@@ -2,7 +2,7 @@
 	  ng-class="{'b-search-form_padding-1px': FormExpand, 'b-search-form_padding-16px': !FormExpand}"
 	  style="{{(!isOpenSearchForm) ? 'display:none' : 'display:block'}}">
 
-	<a href="/#/" class="header-info__logo" style="{{(isEnableSearchForm) ? 'display:none' : ''}}">
+	<a href="/#/" class="header-info__logo" ng-class="{'block_close': isEnableSearchForm}">
 		<i class="logo_inna" alt="ИННА ТУР" title="ИННА ТУР"></i>
 		<!--icon-logo js-company-logo-->
 	</a>
@@ -83,6 +83,6 @@
 		<!--<i class="icon-sprite-search search-button__icon"></i>-->
 	</div>
 
-	<vertical-menu class="icon-vert-menu" style="{{(!isEnableSearchForm) ? 'display:block' : 'display:none'}}"></vertical-menu>
+	<vertical-menu class="icon-vert-menu" ng-class="{'block_close': isEnableSearchForm}"></vertical-menu>
 
 </form>
