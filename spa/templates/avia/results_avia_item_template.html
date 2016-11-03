@@ -185,78 +185,146 @@
         <span class="button" on-click='goToPaymentClick:{{this}}'>Купить</span>
     </div>
 </div>
-<!--{{#isOpen}}-->
-<!--<div class="about-fly">-->
-    <!--<div class="about-fly__title">Подробная информация по перелету</div>-->
-    <!--&lt;!&ndash;this.EtapsTo&ndash;&gt;-->
-    <!--<div class="about-fly__way">Туда</div>-->
-    <!--<div class="about-fly__etap-wrap">-->
-        <!--{{#each this.EtapsTo}}-->
-            <!--<div class="about-fly__etap">-->
-                <!--<div class="about-fly-etap__row about-fly-etap__row_logo-time">-->
-                    <!--<div class="about-fly-etap__row-group">-->
-                        <!--<img src="{{this.TransporterCodeUrl}}" class="about-fly-etap__row-icon" alt="">-->
-                        <!--<span>-->
-                            <!--{{this.TransporterName}} - Рейс {{this.Number}}-->
-                        <!--</span>-->
-                    <!--</div>-->
-                    <!--<div><span class="about-fly__gray-text">в пути : </span> {{this.WayTimeFormatted}}</div>-->
-                <!--</div>-->
-                <!--<div class="about-fly-etap__row about-fly-etap__des">-->
-                    <!--<i class="icon-takeoff"></i>-->
-                    <!--<div class="about-fly-etap__des-item"><b>{{ this.OutTimeFormatted }}</b></div>-->
-                    <!--<div class="about-fly-etap__des-item">{{ this.OutDateFormatted }}</div>-->
-                    <!--<div class="about-fly-etap__des-item">-->
-                        <!--{{ this.OutCode }}-->
-                        <!--{{#if(this.OutCity != this.OutPort)}}-->
-                            <!--<span>{{ this.OutCity }}, {{ this.OutPort }}</span>-->
-                        <!--{{/if}}-->
-                        <!--{{#if(this.OutCity == this.OutPort)}}-->
-                            <!--<span>{{ this.OutCity }}</span>-->
-                        <!--{{/if}}-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="about-fly-etap__row about-fly-etap__des">-->
-                    <!--<i class="icon-landing"></i>-->
-                    <!--<div class="about-fly-etap__des-item"><b>{{ this.InTimeFormatted }}</b></div>-->
-                    <!--<div class="about-fly-etap__des-item">{{ this.InDateFormatted }}</div>-->
-                    <!--<div class="about-fly-etap__des-item">-->
-                        <!--{{ this.InCode }}-->
-                        <!--{{#if(this.InCity != this.InPort)}}-->
-                        <!--<span>{{ this.InCity }}, {{ this.InPort }}</span>-->
-                        <!--{{/if}}-->
-                        <!--{{#if(this.InCity == this.InPort)}}-->
-                        <!--<span>{{ this.InCity }}</span>-->
-                        <!--{{/if}}-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="about-fly-etap__row about-fly-etap__des">-->
-                    <!--<div class="about-fly-etap__des-aircraft-name">{{ this.VehicleName }}</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--{{#if(this.TransferWaitTime > 0)}}-->
-                <!--<div class="about-fly-etap__transfer">-->
-                    <!--<i class="icon-air-transfer"></i>-->
-                    <!--<div class="about-fly-etap__transfer-item">-->
-                        <!--{{#if(this.NextOutCity != this.NextOutPort)}}-->
-                            <!--{{this.NextOutCode}} {{this.NextOutCity}}, {{this.NextOutPort}}-->
-                        <!--{{/if}}-->
-                        <!--{{#if(this.NextOutCity == this.NextOutPort)}}-->
-                            <!--{{this.NextOutCode}} {{this.NextOutPort}}-->
-                        <!--{{/if}}-->
-                    <!--</div>-->
-                    <!--<div class="about-fly-etap__transfer-item_alert">{{ this.alert }}</div>-->
-                    <!--<div class="about-fly-etap__transfer-item" style="margin-right: 16px;">-->
-                        <!--<span class="about-fly__gray-text">пересадка : </span> {{ this.WaitTimeFormatted }}-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--{{/if}}-->
-        <!--{{/each}}-->
-    <!--</div>-->
+<!--{{#if(this.isOpenDetailed)}}-->
+<div class="about-fly" ng-if="this.isOpenDetailed" style="{{ (this.isOpenDetailed) ? 'display:block' : 'display:none'}}">
+    <div class="about-fly__title">Подробная информация по перелету</div>
+    <!--this.EtapsTo-->
+    <div class="about-fly__way">Туда</div>
+    <div class="about-fly__etap-wrap">
+        {{#each this.EtapsTo}}
+            <div class="about-fly__etap">
+                <div class="about-fly-etap__row about-fly-etap__row_logo-time">
+                    <div class="about-fly-etap__row-group">
+                        <img src="{{this.TransporterCodeUrl}}" class="about-fly-etap__row-icon" alt="">
+                        <span>
+                            {{this.TransporterName}} - Рейс {{this.Number}}
+                        </span>
+                    </div>
+                    <div><span class="about-fly__gray-text">в пути : </span> {{this.WayTimeFormatted}}</div>
+                </div>
+                <div class="about-fly-etap__row about-fly-etap__des">
+                    <i class="icon-takeoff"></i>
+                    <div class="about-fly-etap__des-item"><b>{{ this.OutTimeFormatted }}</b></div>
+                    <div class="about-fly-etap__des-item">{{ this.OutDateFormatted }}</div>
+                    <div class="about-fly-etap__des-item">
+                        {{ this.OutCode }}
+                        {{#if(this.OutCity != this.OutPort)}}
+                            <span>{{ this.OutCity }}, {{ this.OutPort }}</span>
+                        {{/if}}
+                        {{#if(this.OutCity == this.OutPort)}}
+                            <span>{{ this.OutCity }}</span>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="about-fly-etap__row about-fly-etap__des">
+                    <i class="icon-landing"></i>
+                    <div class="about-fly-etap__des-item"><b>{{ this.InTimeFormatted }}</b></div>
+                    <div class="about-fly-etap__des-item">{{ this.InDateFormatted }}</div>
+                    <div class="about-fly-etap__des-item">
+                        {{ this.InCode }}
+                        {{#if(this.InCity != this.InPort)}}
+                        <span>{{ this.InCity }}, {{ this.InPort }}</span>
+                        {{/if}}
+                        {{#if(this.InCity == this.InPort)}}
+                        <span>{{ this.InCity }}</span>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="about-fly-etap__row about-fly-etap__des">
+                    <div class="about-fly-etap__des-aircraft-name">{{ this.VehicleName }}</div>
+                </div>
+            </div>
+            {{#if(this.TransferWaitTime > 0)}}
+                <div class="about-fly-etap__transfer">
+                    <i class="icon-air-transfer"></i>
+                    <div class="about-fly-etap__transfer-group">
+                        <div class="about-fly-etap__transfer-item">
+                            {{#if(this.NextOutCity != this.NextOutPort)}}
+                                {{this.NextOutCode}} {{this.NextOutCity}}, {{this.NextOutPort}}
+                            {{/if}}
+                            {{#if(this.NextOutCity == this.NextOutPort)}}
+                                {{this.NextOutCode}} {{this.NextOutPort}}
+                            {{/if}}
+                        </div>
+                        <div class="about-fly-etap__transfer-item_alert">{{ this.alert }}</div>
+                        <div class="about-fly-etap__transfer-item" style="margin-right: 16px;">
+                            <span class="about-fly__gray-text">пересадка : </span> {{ this.WaitTimeFormatted }}
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+        {{/each}}
+    </div>
 
-    <!--&lt;!&ndash;this.EtapsBack&ndash;&gt;-->
-    <!--<div class="about-fly__etap">-->
-    <!--</div>-->
-<!--</div>-->
-<!--{{/}}-->
+    <!--this.EtapsBack-->
+    {{#if(this.EtapsBack)}}
+    <div class="about-fly__way">Обратно</div>
+    <div class="about-fly__etap-wrap">
+        {{#each this.EtapsBack}}
+        <div class="about-fly__etap">
+            <div class="about-fly-etap__row about-fly-etap__row_logo-time">
+                <div class="about-fly-etap__row-group">
+                    <img src="{{this.TransporterCodeUrl}}" class="about-fly-etap__row-icon" alt="">
+                    <span>
+                        {{this.TransporterName}} - Рейс {{this.Number}}
+                    </span>
+                </div>
+                <div><span class="about-fly__gray-text">в пути : </span> {{this.WayTimeFormatted}}</div>
+            </div>
+            <div class="about-fly-etap__row about-fly-etap__des">
+                <i class="icon-takeoff"></i>
+                <div class="about-fly-etap__des-item"><b>{{ this.OutTimeFormatted }}</b></div>
+                <div class="about-fly-etap__des-item">{{ this.OutDateFormatted }}</div>
+                <div class="about-fly-etap__des-item">
+                    {{ this.OutCode }}
+                    {{#if(this.OutCity != this.OutPort)}}
+                    <span>{{ this.OutCity }}, {{ this.OutPort }}</span>
+                    {{/if}}
+                    {{#if(this.OutCity == this.OutPort)}}
+                    <span>{{ this.OutCity }}</span>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="about-fly-etap__row about-fly-etap__des">
+                <i class="icon-landing"></i>
+                <div class="about-fly-etap__des-item"><b>{{ this.InTimeFormatted }}</b></div>
+                <div class="about-fly-etap__des-item">{{ this.InDateFormatted }}</div>
+                <div class="about-fly-etap__des-item">
+                    {{ this.InCode }}
+                    {{#if(this.InCity != this.InPort)}}
+                    <span>{{ this.InCity }}, {{ this.InPort }}</span>
+                    {{/if}}
+                    {{#if(this.InCity == this.InPort)}}
+                    <span>{{ this.InCity }}</span>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="about-fly-etap__row about-fly-etap__des">
+                <div class="about-fly-etap__des-aircraft-name">{{ this.VehicleName }}</div>
+            </div>
+        </div>
+        {{#if(this.TransferWaitTime > 0)}}
+        <div class="about-fly-etap__transfer">
+            <i class="icon-air-transfer"></i>
+            <div class="about-fly-etap__transfer-group">
+                <div class="about-fly-etap__transfer-item">
+                    {{#if(this.NextOutCity != this.NextOutPort)}}
+                    {{this.NextOutCode}} {{this.NextOutCity}}, {{this.NextOutPort}}
+                    {{/if}}
+                    {{#if(this.NextOutCity == this.NextOutPort)}}
+                    {{this.NextOutCode}} {{this.NextOutPort}}
+                    {{/if}}
+                </div>
+                <div class="about-fly-etap__transfer-item_alert">{{ this.alert }}</div>
+                <div class="about-fly-etap__transfer-item" style="margin-right: 16px;">
+                    <span class="about-fly__gray-text">пересадка : </span> {{ this.WaitTimeFormatted }}
+                </div>
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+    {{/if}}
+</div>
+<!--{{/if}}-->
 {{/each}}

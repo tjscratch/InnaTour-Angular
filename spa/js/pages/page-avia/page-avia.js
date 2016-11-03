@@ -595,7 +595,9 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                     
                     //нужно добавить служебные поля для сортировки по датам и т.д.
                     aviaHelper.addCustomFields(item);
-                    
+
+                    item.isOpenDetailed = false;
+
                     function addTooltipData(item) {
                         item.PriceDetailsTooltipData = [];
                         //console.log(item.PriceDetails);
@@ -1433,10 +1435,11 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
         }, true);
         
         $scope.popupItemInfo_show = function ($event, item, criteria, searchId) {
-            $scope.popupItemInfo.show($event, item, criteria, searchId);
-            //console.log('item', item.VariantId1, item.VariantId2);
-            
-            updateShareLink(item);
+            // $scope.popupItemInfo.show($event, item, criteria, searchId);
+            // //console.log('item', item.VariantId1, item.VariantId2);
+            //
+            // updateShareLink(item);
+            item.isOpenDetailed = true;
         };
         
         function updateShareLink(item) {
@@ -1500,8 +1503,10 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                     $scope.safeApply(function () {
                         $scope.popupItemInfo.show(event.original, item, $scope.criteria, $scope.searchId);
                     });
-                    
-                    updateShareLink(item);
+
+                    // item.isOpenDetailed = true;
+
+                    // updateShareLink(item);
                 },
                 goToPaymentClick: function (event, item) {
                     $scope.safeApply(function () {

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>Иконка - Facebook</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Подвал" transform="translate(-1314.000000, -33.000000)" fill="#778695">
+            <g id="Соц-сети">
+                <g transform="translate(1286.000000, 31.000000)">
+                    <g id="Иконка---Facebook" transform="translate(26.000000, 0.000000)">
+                        <g id="icon" transform="translate(2.000000, 2.000000)">
+                            <path d="M0,2.99420208 C0,1.34054993 1.34331197,0 2.99420208,0 L17.0057979,0 C18.6594501,0 20,1.34331197 20,2.99420208 L20,17.0057979 C20,18.6594501 18.656688,20 17.0057979,20 L2.99420208,20 C1.34054993,20 0,18.656688 0,17.0057979 L0,2.99420208 Z M17.0266667,4.26 C17.0266667,4.26 14.1666667,3.21333333 14.1666667,5.33866667 L14.1666667,6.948 L16.9586667,6.948 L16.708,9.59866667 L14.1666667,9.59866667 L14.1666667,18.6453333 L10.7453333,18.6453333 L10.7453333,9.59866667 L9.068,9.59866667 L9.068,6.948 L10.7453333,6.948 L10.7453333,4.156 C10.7453333,4.156 10.708,2 13.5213333,1.38 C15.4946667,0.942666667 17.412,1.572 17.412,1.572 L17.0266667,4.26 Z" id="Combined-Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
