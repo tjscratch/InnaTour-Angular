@@ -356,8 +356,8 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                     console.log('reservation success', res);
                     self.baloonHotelReservation.teardown();
                     if (res.data.OrderNum) {
-                        var url = AppRouteUrls.URL_PAYMENT + res.data.OrderNum;
-                        $location.url(url);
+                        var url = res.data.RedirectUrl;
+                        window.location = url;
                     }
                     if (res.data.HotelBooked == false) {
                         baloonError();
