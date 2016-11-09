@@ -132,7 +132,8 @@
         //}
 
         var suffix = '\/#\/';
-        var parent = document.referrer;
+        // var parent = document.referrer;
+        var parent = self.parentLocation.replace('/#/', '');
         if (url != null && url.length > 0 && url.indexOf(suffix) == 0) {//начинается с '/#/'
             url = url.replace('/#/', '#/');
         }
