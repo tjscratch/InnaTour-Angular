@@ -39,7 +39,7 @@
                 <div class='b-tickets-info-block b-svyaznoy'>
                     <ul class='pay-type-select'>
                         <li ng-if='payment.isPayWithBankCardAllowed'>
-                            <span class='icon-img icon-sprite-pay_type_1'></span>
+                            <!--<span class='icon-img icon-sprite-pay_type_1'></span>-->
                             <input
                                     ng-model='payment.payType'
                                     value='1'
@@ -56,7 +56,7 @@
                             </label>
                         </li>
                         <li ng-if='payment.isPayWithSvyaznoyAllowed'>
-                            <span class='icon-img icon-sprite-pay_type_2'></span>
+                            <!--<span class='icon-img icon-sprite-pay_type_2'></span>-->
                             <input
                                     ng-model='payment.payType'
                                     value='2'
@@ -73,7 +73,7 @@
                             </label>
                         </li>
                         <li ng-if='qiwiPayControl.isEnabled && !paymentDeadline.ifExpires()'>
-                            <span class='icon-img icon-sprite-pay_type_3'></span>
+                            <!--<span class='icon-img icon-sprite-pay_type_3'></span>-->
                             <input
                                     ng-model='svyaznoyPayControl.payType'
                                     value='3'
@@ -87,6 +87,25 @@
                                     <i class='fa fa-rub'></i>
                                 </b>
                                 <span>через QIWI Visa Wallet</span>
+                            </label>
+                        </li>
+                        <li ng-if='payment.data.PayTravelHelpDoc'>
+                            <!--<span class='icon-img icon-sprite-pay_type_2'></span>-->
+                            <input
+                                    ng-model='payment.payType'
+                                    value='4'
+                                    id='pay_type_PayTravel'
+                                    type='radio'
+                                    name='card-pay'
+                            />
+                            <label for='pay_type_PayTravel'>
+                                <b>&nbsp;
+                                    {{payment.data.Price| price}}
+                                    <i class='fa fa-rub'></i>
+                                </b>
+                                <span>
+                                    Наличными через терминал PAY TRAVEL
+                                </span>
                             </label>
                         </li>
                     </ul>
@@ -131,21 +150,25 @@
                 <p ng-if='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.all'>
                     Вы можете оплатить этот заказ наличными в любом офисе Связного
                     <a href='https://www.svyaznoy.ru/address_shops/'
-                       target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>
+                       target='_blank'
+                       ng-click='gtmPartnerAddress()'>адреса офисов</a>
                     или Евросети <a href='http://euroset.ru/shops/'
-                                    target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>.
+                                    target='_blank'
+                                    ng-click='gtmPartnerAddress()'>адреса офисов</a>.
                     <br/>Обратитесь к менеджеру и назовите номер заказа.
                 </p>
                 <p ng-if='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.svyaznoy'>
                     Вы можете оплатить этот заказ наличными в любом офисе Связного
                     <a href='https://www.svyaznoy.ru/address_shops/'
-                       target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>.
+                       target='_blank'
+                       ng-click='gtmPartnerAddress()'>адреса офисов</a>.
                     <br/>Обратитесь к менеджеру и назовите номер заказа.
                 </p>
                 <p ng-if='payment.SvyaznoyblockViewType == payment.SvyaznoyblockViewTypeEnum.euroset'>
                     Вы можете оплатить этот заказ наличными в любом офисе Евросети
                     <a href='http://euroset.ru/shops/'
-                       target='_blank' ng-click="gtmPartnerAddress()">адреса офисов</a>.
+                       target='_blank'
+                       ng-click='gtmPartnerAddress()'>адреса офисов</a>.
                     <br/>Обратитесь к менеджеру и назовите номер заказа.
                 </p>
 
@@ -155,7 +178,32 @@
                 </p>
 
                 <a href='/services/paymnet/?order={{payment.SvyaznoyOrderNum}}&viewType={{payment.SvyaznoyblockViewType}}&time={{payment.SvyaznoyExperationDate}}'
-                   target='_blank' ng-click="gtmPrint()">
+                   target='_blank'
+                   ng-click='gtmPrint()'>
+                    <div class='b-print-btn icon-sprite-btn-print'>
+                    </div>
+                </a>
+            </div>
+
+            <div class='main__center b-svyaznoy'
+                 ng-if='payment.payType == 4'>
+
+                <p class='b-order-num'><b>Номер заказа {{payment.data.PayTravelNumber}}</b></p>
+
+                <p>
+                    При оплате в терминалах PAY TRAVEL используйте уникальный номер заказа, указанный ниже.
+                    {{payment.data.PayTravelNumber}}
+                </p>
+
+                <p>
+                    Рекомендуем оплачивать заказ в ближайшее время после бронирования, поскольку авиакомпании
+                    <br/>
+                    оставляют за собой право изменять время на оплату
+                </p>
+
+                <a href='/services/paymnet/?order={{payment.data.PayTravelNumber}}&viewType=PayTravel&time={{payment.SvyaznoyExperationDate}}'
+                   target='_blank'
+                   ng-click='gtmPrint()'>
                     <div class='b-print-btn icon-sprite-btn-print'>
                     </div>
                 </a>

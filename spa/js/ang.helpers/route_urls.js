@@ -22,6 +22,7 @@ app.constant('innaApp.Urls', {
     URL_ABOUT: '/about/',
     URL_CONTACTS: '/contacts/',
     URL_CERTIFICATES: '/certificates/',
+    URL_CERTIFICATES_KIT: '/certificates_kit/',
 
     URL_AUTH_RESTORE: '/account/restore-password/',
     URL_AUTH_SIGNUP: '/account/signup/',

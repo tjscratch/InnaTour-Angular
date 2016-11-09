@@ -1,0 +1,34 @@
+<div class="offer-widget-container">
+    <div class="row offset-bottom-2">
+        <div class="col-xs-2 form-item">
+            <h4>Локация</h4>
+            <div class="b-inna-search-form-field">
+                <input
+                        class="b-inna-search-form-field-input offer-widget-form-suggest"
+                        type="text"
+                        placeholder="Локация"
+                        ng-model="offerLocation"
+                        typeahead="state as state.name for state in getSuggest($viewValue) | filter:$viewValue"
+                        typeahead-template-url="/spa/LK/typeaheadTemplateCustom.html"
+                        typeahead-wait-ms="300"
+                        ng-change="ArrivalIdError = null"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="row"
+         ng-if="offerLocation">
+        <div class="offset-bottom-2 text-center">
+            <span id="btn-generate-offer"
+                  class="btn btn-lg"
+                  ng-click="getOfferCode()">Сгенерировать код</span>
+        </div>
+    </div>
+    <div class="head"
+         ng-if="widgetShow">
+        Предпросмотр виджета
+    </div>
+    <div class="widget-preview"></div>
+    <textarea class="form-control"
+              ng-if="widgetShow">{{widgetCode}}</textarea>
+</div>

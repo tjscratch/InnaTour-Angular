@@ -204,6 +204,32 @@
 
 
 		</div>
+
+		<div class="config-search-form" ng-controller="FormOfferWidgetCtrl">
+			<h1>Настройка виджета лучшего предложения</h1>
+
+			<div class="head">
+				Предпросмотр виджета фывыфвфыв
+			</div>
+
+			<div class="form-group">
+				<dl class="dl-horizontal">
+					<dt><strong></strong></dt>
+					<dd class="offset-left-1">
+						<input class="form-control" type="text" style="width: 60px" ng-model="style.width">
+					</dd>
+					<dd>
+						px
+					</dd>
+				</dl>
+			</div>
+
+			<div class="widget-preview">
+				<div class="widget-inna-offer" ng-class="radioModel">
+					<inna-offer partnerDefaultLocation="{{ styleOffer.defaultLocation }}" partner-site="{{ styleOffer.url }}" partner-name="{{ styleOffer.partner }}"></inna-offer>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 

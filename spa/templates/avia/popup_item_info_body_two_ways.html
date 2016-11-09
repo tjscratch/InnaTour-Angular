@@ -58,14 +58,14 @@
                 <div ng-if='!etapAgg.etapTo.LuggageLimit' class='avia_LuggageLimit-text-red'>
                     Информации нет. Просьба  уточнять  правила   провоза багажа у  оператора.
                 </div>
+                <!--<div ng-if='etapAgg.etapTo.LuggageLimit'>-->
+                    <!--{{etapAgg.etapTo.LuggageLimit}}-->
+                <!--</div>-->
                 <div ng-if="etapAgg.etapTo.baggage">
                     <a ng-class="{'baggage-alert':etapAgg.etapTo.baggageAlert}"
                        href="https://bags.amadeus.com/Display.aspx?a={{etapAgg.etapTo.TransporterCode}}"
-                       target="_blank">{{etapAgg.etapTo.LuggageLimit}}</a>
+                       target="_blank">{{etapAgg.etapTo.baggage}}</a>
                 </div>
-                <!--<div ng-if='etapAgg.etapTo.LuggageLimit && etapAgg.etapTo.LuggageLimit != 0'>-->
-                <!--{{etapAgg.etapTo.LuggageLimit}}-->
-                <!--</div>-->
             </div>
 
             <div class="b-company-info"
@@ -129,14 +129,14 @@
                 <div ng-if='!etapAgg.etapBack.LuggageLimit' class='avia_LuggageLimit-text-red'>
                     Информации нет. Просьба  уточнять  правила   провоза багажа у  оператора.
                 </div>
+                <!--<div ng-if='etapAgg.etapBack.LuggageLimit'>-->
+                    <!--{{etapAgg.etapBack.LuggageLimit}}-->
+                <!--</div>-->
                 <div ng-if="etapAgg.etapBack.baggage">
                     <a ng-class="{'baggage-alert':etapAgg.etapBack.baggageAlert}"
                        href="https://bags.amadeus.com/Display.aspx?a={{etapAgg.etapBack.TransporterCode}}"
                        target="_blank">{{etapAgg.etapBack.baggage}}</a>
                 </div>
-                <!--<div ng-if='etapAgg.etapBack.LuggageLimit && etapAgg.etapBack.LuggageLimit != 0'>-->
-                <!--{{etapAgg.etapBack.LuggageLimit}}-->
-                <!--</div>-->
             </div>
 
             <div class="b-company-info"

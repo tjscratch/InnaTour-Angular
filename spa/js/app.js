@@ -244,6 +244,10 @@ app.config([
             templateUrl: 'pages/certificates_page.html',
             controller : 'ContactsCtrl',
             resolve    : authController.resolve
+        }).when(url.URL_CERTIFICATES_KIT, {
+            templateUrl: 'pages/certificates_kit_page.html',
+            controller : 'ContactsCtrl',
+            resolve    : authController.resolve
         }).when(url.URL_AVIA + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
             templateUrl: 'pages/avia/search_form.html',
             controller : 'AviaSearchMainCtrl',
