@@ -1,14 +1,14 @@
 innaAppDirectives.directive('offers', function ($templateCache) {
     return {
-        replace: true,
-        template: $templateCache.get("components/offers/templ/offers.html"),
-        scope: {
-            typePage : '='
+        replace   : true,
+        template  : $templateCache.get("components/offers/templ/offers.html"),
+        scope     : {
+            typePage: '='
         },
         controller: function ($scope, RavenWrapper, serviceCache, Offer, $timeout, EventManager) {
-
+            
             $scope.price = null;
-
+            
             function setDefaultValue(res) {
                 
                 $scope.Categories = res.data.Categories;
@@ -34,8 +34,8 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 var cacheLocation = serviceCache.getObject('DP_from');
                 var cacheLocationId = cacheLocation ? cacheLocation.Id : 6733;
                 $scope.filter.Location = cacheLocationId;
-
-
+                
+                
                 var MonthObj = _.find($scope.Months, function (item) {
                     return item.Selected == true;
                 });
@@ -61,10 +61,10 @@ innaAppDirectives.directive('offers', function ($templateCache) {
             $scope.showOffers = false;
             
             $scope.filter = {
-                Category: null,
-                Location: null,
-                Month: null,
-                Period: null,
+                Category   : null,
+                Location   : null,
+                Month      : null,
+                Period     : null,
                 WithoutVisa: null
             };
             
@@ -74,22 +74,22 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 }, function (res) {
                     RavenWrapper.raven({
                         captureMessage: 'Offer.getOffers(): ERROR!',
-                        dataResponse: res,
-                        dataRequest: null
+                        dataResponse  : res,
+                        dataRequest   : null
                     });
                 });
             
             $scope.setCategory = function (category) {
-                if($scope.typePage) {
+                if ($scope.typePage) {
                     var dataLayerObj = {
                         'event': 'UM.Event',
-                        'Data': {
+                        'Data' : {
                             'Category': $scope.typePage ? $scope.typePage : '[no data]',
-                            'Action':  $scope.typePage+'Tab',
-                            'Label': category.Text,
-                            'Content': '[no data]',
-                            'Context': '[no data]',
-                            'Text': '[no data]'
+                            'Action'  : $scope.typePage + 'Tab',
+                            'Label'   : category.Text,
+                            'Content' : '[no data]',
+                            'Context' : '[no data]',
+                            'Text'    : '[no data]'
                         }
                     };
                     console.table(dataLayerObj);
@@ -97,7 +97,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                         window.dataLayer.push(dataLayerObj);
                     }
                 }
-
+                
                 var categories = [];
                 for (var i = 0; i < $scope.Categories.length; i++) {
                     var item = $scope.Categories[i];
@@ -119,9 +119,9 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                     $scope.filter.Location = data.Id;
                     $scope.filterChange($scope.filter);
                 });
-
+                
             };
-
+            
             $scope.loadingOffers = false;
             $scope.filterChange = function (filter) {
                 $scope.loadingOffers = true;
@@ -140,25 +140,35 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                     }, function (res) {
                         RavenWrapper.raven({
                             captureMessage: 'Offer.getOffers(filter): ERROR!',
-                            dataResponse: res,
-                            dataRequest: $scope.filter
+                            dataResponse  : res,
+                            dataRequest   : $scope.filter
                         });
                     });
                 
             };
             
+            $scope.computedUrlDetails = function (relative_url) {
+                var urlDetails;
+                if (window.partners && window.partners.isFullWL()) {
+                    urlDetails = window.partners.getParentLocationWithUrl(relative_url);
+                } else {
+                    urlDetails = relative_url;
+                }
+                return urlDetails;
+            };
+            
             // var offers = Offer.mock(12);
             $scope.offersSort = function (sortableType, offers, price) {
-                if(price >= 1000){
+                if (price >= 1000) {
                     var offers = _.filter(offers, function (item) {
                         return item.Price < price;
                     });
                     $scope.offers = Offer.sortable(sortableType, offers);
-                }else{
+                } else {
                     $scope.offers = Offer.sortable(sortableType, offers);
                 }
             };
-
+            
         }
     }
 });
