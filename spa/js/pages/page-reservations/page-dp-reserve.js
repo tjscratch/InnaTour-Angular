@@ -636,28 +636,28 @@
                     });
                 }
                 
-                m.IsNeededVisa = $scope.addition.isNeededVisa,
-                    m.IsNeededTransfer = $scope.addition.isNeededTransfer,
-                    m.IsNeededMedicalInsurance = $scope.addition.isNeededMedicalInsurance,
-                    
-                    m.SearchParams = {
-                        HotelId         : $scope.hotel.HotelId,
-                        HotelProviderId : $scope.hotel.ProviderId,
-                        TicketToId      : $scope.item.VariantId1,
-                        TicketBackId    : $scope.item.VariantId2,
-                        RoomId          : $scope.roomId,
-                        Filter          : {
-                            ProviderId     : $scope.hotel.ProviderId,
-                            DepartureId    : $routeParams.DepartureId,
-                            ArrivalId      : $routeParams.ArrivalId,
-                            StartVoyageDate: $scope.searchParams.StartVoyageDate,
-                            EndVoyageDate  : $scope.searchParams.EndVoyageDate,
-                            TicketClass    : $routeParams.TicketClass,
-                            Adult          : $routeParams.Adult,
-                            ChildrenAges   : childAgers
-                        },
-                        CustomerWishlist: $scope.addition.customerWishlist
-                    };
+                m.IsNeededVisa = $scope.addition.isNeededVisa;
+                m.IsNeededTransfer = $scope.addition.isNeededTransfer;
+                m.IsNeededMedicalInsurance = $scope.addition.isNeededMedicalInsurance;
+                
+                m.SearchParams = {
+                    HotelId         : $scope.hotel.HotelId,
+                    HotelProviderId : $scope.hotel.ProviderId,
+                    TicketToId      : $scope.item.VariantId1,
+                    TicketBackId    : $scope.item.VariantId2,
+                    RoomId          : $scope.roomId,
+                    Filter          : {
+                        ProviderId     : $scope.hotel.ProviderId,
+                        DepartureId    : $routeParams.DepartureId,
+                        ArrivalId      : $routeParams.ArrivalId,
+                        StartVoyageDate: $scope.searchParams.StartVoyageDate,
+                        EndVoyageDate  : $scope.searchParams.EndVoyageDate,
+                        TicketClass    : $routeParams.TicketClass,
+                        Adult          : $routeParams.Adult,
+                        ChildrenAges   : childAgers
+                    },
+                    CustomerWishlist: $scope.addition.customerWishlist
+                };
                 
                 m.PartnerMarker = (window.partners && window.partners.partnerMarker) ? window.partners.partnerMarker : null;
                 
@@ -856,13 +856,21 @@
                                 console.log(res)
                             }
                         );
+                }else{
+                    $scope.addition.isNeededTransfer = false;
+                    $scope.TransferKey = null;
+                    $scope.transfer = null;
+                    $scope.transfersShow = false;
+                    $scope.includeTransfer = false;
+                    $scope.priceInTransfer = null;
                 }
             };
             $scope.TransferSelected = function (transfer) {
+                $scope.addition.isNeededTransfer = true;
                 $scope.TransferKey = transfer.Key;
                 $scope.transfer = transfer;
                 $scope.priceInTransfer = $scope.price + transfer.Price;
-                $scope.transfersShow = false;
+                $scope.transfersShow = true;
                 $scope.includeTransfer = true;
             };
             /**
