@@ -151,14 +151,13 @@ innaAppControllers.
                     case '/hotels/':
                     case '/bus/':
                     case '/individualtours/':
-                    case '/contacts/':
-                        if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
-                            $scope.SearchFormExpandPadding = {'padding-top': 0}
-                        }else{
+                        // if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
+                        //     $scope.SearchFormExpandPadding = {'padding-top': 0}
+                        // }else{
                             $scope.FormExpand = true;
                             $scope.SearchFormExpandPadding = {'padding-top': 250};
                             document.addEventListener('scroll', onScroll, false);
-                        }
+                        // }
                         break;
                     default:
                         $scope.FormExpand = false;
@@ -173,14 +172,21 @@ innaAppControllers.
                     case '/packages/':
                     case '/hotels/':
                     case '/bus/':
-                        if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
-
-                        }else{
                             $scope.isEnableSearchForm = true;
-                        }
                         break;
                     default:
                         $scope.isEnableSearchForm = false;
+                        break;
+                }
+                switch ($location.$$path) {
+                    case '/contacts/':
+                    case '/about/':
+                    case '/where-to-buy/':
+                    case '/certificates/':
+                        $scope.FormExpand = true;
+                        $scope.SearchFormExpandPadding = {'padding-top': 0};
+                        break;
+                    default:
                         break;
                 }
             });
