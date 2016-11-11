@@ -119,8 +119,7 @@ innaAppControllers.
 
                 if (route == '/') {
                     return ((abs.indexOf('/tours/?') > -1) || loc == route);
-                }
-                else {
+                } else {
                     if (loc.indexOf(route) > -1)
                         return true;
                     else
@@ -129,9 +128,9 @@ innaAppControllers.
             };
 
 
-            $scope.isBodyBg = function () {
-                return $scope.isActive('/avia/reservation/') || $scope.isActive('/packages/reservation/') || $scope.isActive('/reservations/') || $scope.isActive('/buy/');
-            };
+            // $scope.isBodyBg = function () {
+            //     return $scope.isActive('/avia/reservation/') || $scope.isActive('/packages/reservation/') || $scope.isActive('/reservations/') || $scope.isActive('/buy/');
+            // };
 
             $scope.isTransferBg = function () {
                 return $scope.isActive(appUrls.URL_TRANSFERS);
@@ -141,6 +140,8 @@ innaAppControllers.
              * Анимация формы поиска при скролле
              */
             $scope.FormExpand = false;
+            $scope.isEnableSearchForm = false;
+            
             $scope.$on('$routeChangeStart', function (next, current) {
                 switch ($location.$$path) {
                     case '/':
@@ -149,13 +150,14 @@ innaAppControllers.
                     case '/packages/':
                     case '/hotels/':
                     case '/bus/':
-                        if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
-                            $scope.SearchFormExpandPadding = {'padding-top': 0}
-                        }else{
+                    case '/individualtours/':
+                        // if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
+                        //     $scope.SearchFormExpandPadding = {'padding-top': 0}
+                        // }else{
                             $scope.FormExpand = true;
                             $scope.SearchFormExpandPadding = {'padding-top': 250};
                             document.addEventListener('scroll', onScroll, false);
-                        }
+                        // }
                         break;
                     default:
                         $scope.FormExpand = false;
@@ -163,21 +165,46 @@ innaAppControllers.
                         document.removeEventListener('scroll', onScroll, false);
                         break;
                 }
+                switch ($location.$$path) {
+                    case '/':
+                    case '/avia/':
+                    case '/tours/':
+                    case '/packages/':
+                    case '/hotels/':
+                    case '/bus/':
+                            $scope.isEnableSearchForm = true;
+                        break;
+                    default:
+                        $scope.isEnableSearchForm = false;
+                        break;
+                }
+                switch ($location.$$path) {
+                    case '/contacts/':
+                    case '/about/':
+                    case '/where-to-buy/':
+                    case '/certificates/':
+                    case '/certificates_kit/':
+                        $scope.FormExpand = true;
+                        $scope.SearchFormExpandPadding = {'padding-top': 0};
+                        break;
+                    default:
+                        break;
+                }
             });
 
             var onScroll = function () {
                 var scroll = utils.getScrollTop();
-                if (scroll > 250) {
-                    $scope.$apply(function ($scope) {
-                        $scope.FormExpand = false;
-                        $scope.SearchFormExpandPadding = {'padding-top': 0};
-                    });
-                } else {
-                    $scope.$apply(function ($scope) {
-                        $scope.FormExpand = true;
-                        $scope.SearchFormExpandPadding = {'padding-top': 250 - scroll};
-                    });
-                }
+                // if (scroll > 250) {
+                //     $scope.$apply(function ($scope) {
+                //         $scope.FormExpand = false;
+                //         $scope.SearchFormExpandPadding = {'padding-top': 0};
+                //     });
+                // } else {
+                //     $scope.$apply(function ($scope) {
+                //         $scope.FormExpand = true;
+                //         $scope.SearchFormExpandPadding = {'padding-top': 250 - scroll};
+                //     });
+                // }
             };
 
 

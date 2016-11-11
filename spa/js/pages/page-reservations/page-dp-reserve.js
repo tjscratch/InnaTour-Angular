@@ -406,6 +406,15 @@
                     
                     $scope.item = data.AviaInfo;
                     $scope.hotel = data.Hotel;
+                    $scope.recommendedPair = {
+                        hotel: {
+                            data: data.Hotel
+                        },
+                        ticket: {
+                            data: data.AviaInfo
+                        },
+                        priceReservation: data.Price
+                    };
                     $scope.room = data.Hotel.Room;
                     $scope.price = data.Price;
                     $scope.NeedSmsValidation = data.NeedSmsValidation;

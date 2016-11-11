@@ -1,11 +1,13 @@
 <div class="cit">
-    <input autocomplete="off" 
+    <input autocomplete="off"
+           onfocus="this.blur()"
            ng-click="showCitList($event)"
            ng-class="{error:!ngValidationModel.isValid}"
            type="text"
            readonly
            value="{{selectionControl.selectedItem.Name}}" placeholder="Выберите"
-           class="b-field-text b-field-select">
+           class="b-field-text">
+    <i class="b-field-select icon-expand-gray" ng-class="{'icon-expand-gray_open': isOpen}"></i>
     <div class="b-auth cit-cont" ng-show="isOpen">
         <div class="cit-cont__inner">
             <ul>

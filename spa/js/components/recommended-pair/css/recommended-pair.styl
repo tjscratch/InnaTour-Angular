@@ -3,9 +3,11 @@
 }
 .recommend-bundle-container{
     position fixed
-    top $padding_over_search
+    //top $padding_over_search
+    //top 50px
     width 100%
     z-index 5
+    background-color #EFF2F5
 
     &.recommend-bundle-container_short{
         top $padding_over_head
@@ -29,16 +31,18 @@
     }
 }
 .recommend-bundle{
-    background #000
+    //background #000
     position relative
     width 100%
 }
 .recommend-bundle-title{
-    color: #fff;
-    font-size: 18px;
+    //color: #fff;
+    color: #313C48;
+    //font-size: 18px;
+    font-size: 15px;
     font-weight: normal;
-    margin-bottom: 10px;
-    margin-top: -18px;
+    margin-bottom: 1px;
+    //margin-top: -18px;
 
     .icon-crown{
         position: relative;
@@ -65,7 +69,8 @@
     }
 }
 .recommend-bundle-wrap{
-    padding 30px 0 24px
+    //padding 30px 0 24px
+    //padding 30px 0 0px
     position: relative;
     z-index: 2
 
@@ -103,10 +108,18 @@
     }
 }
 .recommended-pair{
+    //border 1px solid #C9D2DB
+    //border-radius 3px
+    //overflow: hidden
+
+    .b-result {
+        padding: 0px;
+    }
+
     .spinner{
         display none
         width auto
-        padding 35px 0 0 0;
+        padding 15px 0 0 0;
     }
         
         
@@ -118,7 +131,7 @@
     .recommendedPairTicket,
     .icon-sprite-airplane,
     .flight-info{
-        display block
+        //display block
         opacity 1
         -webkit-transition: opacity linear .2s;
         transition: opacity linear .2s;
@@ -161,6 +174,17 @@
             &.spinner-hotel{
                 display none
             }
+        }
+    }
+
+    .bottom-actions{
+        .room-title{
+            color #778695
+            font-size 12px
+        }
+        .room_bed-type-list{
+            color #778695
+            font-size 12px
         }
     }
 }

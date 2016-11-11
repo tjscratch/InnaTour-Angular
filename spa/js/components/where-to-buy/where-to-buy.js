@@ -1,7 +1,7 @@
 innaAppConponents.controller("WhereToBuyCtrl", function ($rootScope, $scope, $timeout, innaAppApiEvents, EventManager, whereToBuyService) {
 
     //EventManager.fire(innaAppApiEvents.FOOTER_HIDDEN);
-    $rootScope.BodyStyleGlobal = {'background-color': '#fff'};
+    // $rootScope.BodyStyleGlobal = {'background-color': '#fff'};
 
 
     /**

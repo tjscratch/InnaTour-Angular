@@ -3,14 +3,16 @@
     <div class="header-user__items" ng-if="user">
 
         <div class="header-user__item" ng-click="showProfile($event)">
-            <i class="fa fa-user header-user__item-icon"></i>
+            <!--<i class="fa fa-user header-user__item-icon"></i>-->
+            <i class="icon-login"></i>
             <div class="header-user__item-text">
                 {{user.displayName()}}
             </div>
         </div>
 
         <div class="header-user__item" ng-if="user.raw.MessagesCount > 0">
-            <i class="fa fa-envelope header-user__item-icon"></i>
+            <!--<i class="fa fa-envelope header-user__item-icon"></i>-->
+            <i class="icon-login"></i>
             <a class="header-user__item-text" href="{{B2B_HOST}}/Message">
                 {{+user.raw.MessagesCount}}
             </a>
@@ -24,7 +26,8 @@
 
     <div class="header-user__items" ng-if="!user">
         <div class="header-user__item">
-            <i class="fa fa-user header-user__item-icon"></i>
+            <!--<i class="fa fa-user header-user__item-icon"></i>-->
+            <i class="icon-login"></i>
             <div class="header-user__item-text" ng-click="regOpenClick()">
                 {{ authLinkTitile }}
             </div>

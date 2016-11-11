@@ -1,45 +1,120 @@
-<div class="HotelCard HotelCard__info">
+<!--<div class="HotelCard HotelCard__info">-->
+
+	<!--<div class="HotelCardPhotos">-->
+		<!--<div class="HotelCardPhotos__Photo"-->
+		     <!--ng-if="hotel.HotelPhoto200"-->
+		     <!--style="background-image: url('{{ ::hotel.HotelPhoto200 }}')"-->
+		<!--&gt;</div>-->
+		<!--<div class="HotelCardPhotos__Photo-empty"-->
+		     <!--ng-if="!hotel.HotelPhoto200">-->
+			<!--<i class="fa fa-bus"-->
+			   <!--aria-hidden="true"-->
+			   <!--ng-if="currentActive('/bus/')"></i>-->
+			<!--<i class="fa fa-bed"-->
+			   <!--aria-hidden="true"-->
+			   <!--ng-if="currentActive('/hotels/')"></i>-->
+		<!--</div>-->
+	<!--</div>-->
+
+	<!--<div class="HotelCardInfo">-->
+		<!--<stars-directive hotel-data="::hotel.Stars"-->
+		                 <!--ng-if="::hotel.Stars"-->
+		<!--&gt;</stars-directive>-->
+		<!--<h2 class="HotelCardInfo__title">-->
+			<!--{{ ::hotel.HotelName }}-->
+		<!--</h2>-->
+		<!--<div class="HotelCardInfo__text">-->
+			<!--{{ ::hotel.HotelFullAdress }}-->
+		<!--</div>-->
+		<!--<ng:include src="'components/hotel-card/templ/hotel-card-date.html'"></ng:include>-->
+		<!--<ng:include src="'components/hotel-card/templ/hotel-card-info-meal.html'"></ng:include>-->
+		<!--<ng:include src="'components/hotel-card/templ/hotel-card-rooms-count.html'"></ng:include>-->
+		<!--<trip-advisor-directive ng-if="hotel.TaFactor" hotel-data="hotel"></trip-advisor-directive>-->
+	<!--</div>-->
+
+	<!--<div class="HotelCardRoomInfo">-->
+
+		<!--<div class="HotelCardRoomInfo__RoomName">{{ ::hotelRoom.RoomName }}</div>-->
+
+		<!--<div class="HotelCardRoomInfo__RoomInfo">-->
+			<!--<span ng-repeat="bed in hotelRoom.BedTypeList track by $index">-->
+				<!--{{bed.Name}}<span ng-if="!$last">,&nbsp;</span>-->
+			<!--</span>-->
+		<!--</div>-->
+	<!--</div>-->
+
+<!--</div>-->
+
+<div class="HotelCard">
 
 	<div class="HotelCardPhotos">
-		<div class="HotelCardPhotos__Photo"
-		     ng-if="hotel.HotelPhoto200"
-		     style="background-image: url('{{ ::hotel.HotelPhoto200 }}')"
-		></div>
+		<hotel-gallery-directive
+				ng-if="hotel.Photos"
+				is-map="false"
+				photo-hotel="hotel.Photos"
+				width="200"
+				height="136"></hotel-gallery-directive>
+
 		<div class="HotelCardPhotos__Photo-empty"
-		     ng-if="!hotel.HotelPhoto200">
-			<i class="fa fa-bus"
-			   aria-hidden="true"
-			   ng-if="currentActive('/bus/')"></i>
-			<i class="fa fa-bed"
-			   aria-hidden="true"
-			   ng-if="currentActive('/hotels/')"></i>
+			 ng-if="!hotel.Photos">
+			<!--<i class="fa fa-bus"-->
+			<!--aria-hidden="true"-->
+			<!--ng-if="currentActive('/bus/')"></i>-->
+			<!--<i class="fa fa-bed"-->
+			<!--aria-hidden="true"-->
+			<!--ng-if="currentActive('/hotels/')"></i>-->
 		</div>
 	</div>
 
-	<div class="HotelCardInfo">
-		<stars-directive hotel-data="::hotel.Stars"
-		                 ng-if="::hotel.Stars"
+	<div class="HotelCardInfo" style="position: relative;">
+		<stars-directive hotel-data="hotel.Stars"
+						 ng-if="hotel.Stars"
 		></stars-directive>
-		<h2 class="HotelCardInfo__title">
-			{{ ::hotel.HotelName }}
+		<h2 class="HotelCardInfo__title" style="color: #0054b9 !important;">
+			<!--<a class="HotelCardInfo__link"-->
+			   <!--ng-href="{{hotelUrl}}"-->
+			<!--&gt;-->
+				{{ hotel.HotelName }}
+			<!--</a>-->
 		</h2>
 		<div class="HotelCardInfo__text">
-			{{ ::hotel.HotelFullAdress }}
+			{{ hotel.HotelCityName }}
+			{{ hotel.Address }}
 		</div>
-		<ng:include src="'components/hotel-card/templ/hotel-card-date.html'"></ng:include>
-		<ng:include src="'components/hotel-card/templ/hotel-card-info-meal.html'"></ng:include>
-		<ng:include src="'components/hotel-card/templ/hotel-card-rooms-count.html'"></ng:include>
-		<trip-advisor-directive ng-if="hotel.TaFactor" hotel-data="hotel"></trip-advisor-directive>
+		<div class="HotelCardInfo__text" style="color: #313C48 !important; position: absolute; bottom: 10px;">
+			{{ room.RoomName }}
+		</div>
+		<!--<ng:include src="'components/hotel-card/templ/hotel-card-date.html'"></ng:include>-->
+		<!--<ng:include src="'components/hotel-card/templ/hotel-card-meal.html'"></ng:include>-->
+		<!--<ng:include ng-if="hotel.RoomCount < 4" src="'components/hotel-card/templ/hotel-card-rooms-count.html'"></ng:include>-->
+		<!--<trip-advisor-directive ng-if="hotel.TaFactor && typeEtap != 'ReservationPay'" hotel-data="hotel"></trip-advisor-directive>-->
 	</div>
 
-	<div class="HotelCardRoomInfo">
+	<div class="HotelCardPrice"
+		 ng-if="!hotelInfo">
+		<div class="CardPrice">
+			<div class="CardPrice__info">
+				<div class="CardPrice__price">
+					<div class="CardPrice__price-value">
+						{{ (price ? price : room.Price) | currency : "" : 0 }}
+						<i class='fa fa-rub CardPrice__icon-currency'></i>
+					</div>
 
-		<div class="HotelCardRoomInfo__RoomName">{{ ::hotelRoom.RoomName }}</div>
-
-		<div class="HotelCardRoomInfo__RoomInfo">
-			<span ng-repeat="bed in hotelRoom.BedTypeList track by $index">
-				{{bed.Name}}<span ng-if="!$last">,&nbsp;</span>
-			</span>
+					<div class="CardPrice__price-desc" ng-if="currentActive('/hotels/')">
+						Стоимость номера
+						за {{guestCount}}x
+						<!--{{guestCount | pluralize: ["человека", "человек", "человек"]}}-->
+					</div>
+					<div class="CardPrice__price-desc" ng-if="currentActive('/bus/')">
+						Стоимость тура
+						за {{guestCount}}x
+						<!--{{guestCount | pluralize: ["человека", "человек", "человек"]}}-->
+					</div>
+				</div>
+			</div>
+			<a class="button CardPrice__active"
+			   style="background-color: #DDE3E9;"
+			>Купить</a>
 		</div>
 	</div>
 

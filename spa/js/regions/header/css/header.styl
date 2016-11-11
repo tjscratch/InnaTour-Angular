@@ -1,9 +1,24 @@
-.header {
+.wrap_Header {
+    position absolute
+    width 100%
+    z-index 300
+}
+.header-expand {
+    //position: fixed;
+    //position: absolute
+    //left: 0;
+    //left 50%
+    //top: 0;
+    //margin-left -480px
+    //width: 100%;
+    //z-index: 300;
+}
+.header-expanded{
     position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
+    top 0px
+    width 100%
     z-index: 300;
+    background-color #EFF2F5
 }
 .header__container {
 }
@@ -11,9 +26,21 @@
     font-size: 15px;
 }
 .header-nav__item {
+    &:first-child{
+        a{
+            border-radius 3px 0px 0px 3px
+        }
+    }
+    &:last-child{
+        a{
+            border-radius 0px 3px 3px 0px
+        }
+    }
+
     position: relative;
     display: inline-block;
-    margin: 0 2px 0 0;
+    //margin: 0 2px 0 0;
+    margin: 0 1px 0 0;
 }
 .header-nav__item-promo {
     position: absolute;
@@ -33,11 +60,13 @@
 .header-nav__item-link {
     display: block;
     padding: 4px 16px;
-    background-color: $header-nav__item-link-bg;
-    color: $header-white;
+    //background-color: $header-nav__item-link-bg;
+    //color: $header-white;
     font-size: 15px;
     line-height: 24px;
     font-weight: normal;
+    background-color #DDE3E9
+    color #778695
 
     &:hover {
         color $header-white
@@ -45,7 +74,8 @@
     }
 }
 .header-nav__item-link-active {
-    background-color: $header-nav__item-link-active-bg;
+    //background-color: $header-nav__item-link-active-bg;
+    background-color #ffffff
 }
 // begin toggle-mobile
 .toggle-mobile {
@@ -157,6 +187,8 @@
     border-left: 1px solid $header-user__item-border-color;
     white-space: nowrap;
     cursor: pointer;
+    display flex
+    align-items center
 
     &:first-child {
         padding-left: 0;
@@ -184,7 +216,7 @@
 //
 // begin header-info
 .header-info {
-    background: $header-info-bg;
+    //background: $header-info-bg;
     padding: 10px 0;
 }
 .header-info-item {
@@ -199,6 +231,9 @@
     &:hover {
         text-decoration: none;
     }
+}
+.block_close {
+    display none
 }
 .icon-logo {
     height: 39px;
@@ -243,7 +278,7 @@
 }
 .header-info__phone-info {
     font-size: .7rem;
-    color: $header-info__phone-info-color;
+    color: $header-white;
     text-align: center;
 }
 // end header-info
@@ -252,34 +287,37 @@
 .header-menu {
     padding-top: 0px;
     padding-bottom: 1px;
-    background: $b-header-bg;
+    //background: $b-header-bg;
     font-size: 15px;
 }
 .search-form-expanded {
 
     .header-info {
-        background: $header-info-bg-expand;
+        //background: $header-info-bg-expand;
     }
 
     .b-search-form,
     .search-form {
-        background: $header-menu-bg;
+        //background: $header-menu-bg;
     }
     .header-menu {
         padding-top: 150px;
         background: transparent;
     }
     .header-nav__item-link {
-        background-color: $header-nav__item-bg;
-        color: $white;
+        //background-color: $header-nav__item-bg;
+        //color: $white;
+        background-color #DDE3E9
+        color #778695
 
         &:hover {
-            color $white
+            //color $white
             text-decoration none
         }
     }
     .header-nav__item-link-active {
-        background-color: $header-nav__item-bg-active;
+        //background-color: $header-nav__item-bg-active;
+        background-color #ffffff
     }
 }
 .search-form-expand {

@@ -8,7 +8,8 @@ innaAppConponents.
         // components
         'IndicatorFiltersItem',
         'DpServices',
-        function (EventManager, Events, $templateCache, FilterSettings, IndicatorFiltersItem, DpServices) {
+        '$location',
+        function (EventManager, Events, $templateCache, FilterSettings, IndicatorFiltersItem, DpServices, $location) {
 
             /**
              * Выводим выбранные значения фильтров
@@ -20,7 +21,8 @@ innaAppConponents.
                     asMap : false,
                     filters: [],
                     isArray: angular.isArray,
-                    atLeastOne: false
+                    atLeastOne: false,
+                    isActiveHotels: false
                 },
                 components: {
                     IndicatorFiltersItem: IndicatorFiltersItem,
@@ -30,6 +32,14 @@ innaAppConponents.
                     var that = this;
 
                     utils.bindAll(this);
+
+                    var loc = $location.path();
+
+                    if (loc.indexOf('/hotels/') > -1) {
+                        this.set('isActiveHotels', true);
+                    } else {
+                        this.set('isActiveHotels', false);
+                    }
                     
                     this.on({
                         action: this.action,
@@ -43,7 +53,7 @@ innaAppConponents.
                             EventManager.off(Events.DYNAMIC_SERP_MAP_LOAD, this.mapLoad);
                             EventManager.off(Events.DYNAMIC_SERP_MAP_DESTROY, this.mapLoad);
                             this.set('filters', []);
-                        }
+                        },
                     });
 
                     EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, this.mapShow);

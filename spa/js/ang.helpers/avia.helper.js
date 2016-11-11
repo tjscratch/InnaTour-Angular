@@ -243,7 +243,7 @@
 
 
                 setEtapsTransporterCodeUrl: function (logo) {
-                    //return "http://adioso.com/media/i/airlines/" + logo + ".png";
+                    return "http://adioso.com/media/i/airlines/" + logo + ".png";
                     if (logo == null || logo.length == 0) {
                         logo = emptyCode;
                     }
@@ -254,6 +254,7 @@
                     else {
                         return app_main.staticHost + "/Files/logo/" + logo + ".png";
                     }
+                    return app_main.staticHost + "/Files/logo/" + logo + ".png";
                 },
 
                 getLuggageLimitFromValue: function (luggageLimit) {
@@ -364,6 +365,28 @@
                             etap.NextOutCode = etapNext.OutCode;
                             etap.NextOutCountryName = etapNext.OutCountryName;
                         }
+
+                        var alerts = [];
+                        if (etap.InPortId != etap.NextOutPortId) {
+                            alerts.push("Смена аэропорта");
+                        }
+                        if (etap.TransferWaitTime > 240) {//>4 часов - Долгая пересадка
+                            alerts.push("Долгая пересадка");
+                        }
+                        if (etapNext != null) {//Ночная стыковка
+                            //различаются дни
+                            var sameDay = getDateFormat(etap.InDate) == getDateFormat(etapNext.OutDate);
+                            //час прилета в этап
+                            var inHour = parseInt(getTimeFormat(etap.InTime).split(':')[0]);
+                            //час отлета из этапа
+                            var outHour = parseInt(getTimeFormat(etapNext.OutTime).split(':')[0]);
+                            //интервалы прилетов и вылетов пересакаются с интервалом 0-6 часов - ночная стыковка
+                            if (!(inHour > 6 && outHour > 6 && sameDay)) {
+                                alerts.push("Ночная стыковка");
+                            }
+                        }
+
+                        etap.alert = alerts.join(', ');
 
                         addBaggageFields(etap, itemBaggageStatus);
                     }
@@ -537,46 +560,89 @@
                     return pluralForm(i, str1, str2, str3);
                 },
 
-                getCharterAndNumSeatsText: function (countLeft, ticketsCount, isCharter, isDifferentPorts, ticket) {
+                getCharterAndNumSeatsText: function (ticket) {
+                    // countLeft, ticketsCount, isCharter, isDifferentPorts,
+                    
                     //console.log('getCharterAndNumSeatsText: countLeft: %d, ticketsCount: %d, isCharter: %s', countLeft, ticketsCount, isCharter);
-                    var sList = [];
-                    var seatsText = helper.getNumSeatsText(countLeft, ticketsCount);
-                    if (seatsText != null && seatsText.length > 0) {
-                        sList.push(seatsText);
-                    }
-                    if (isCharter) {
-                        if (sList.length == 0) {
-                            sList.push('Чартер');
-                        }
-                        else {
-                            sList.push('чартер');
-                        }
-                    }
-                    if (isDifferentPorts) {
-                        if (sList.length == 0) {
-                            sList.push('Разные аэропорты отлета и прилета');
-                        }
-                        else if (sList.length == 2 || seatsText.length > 0) {//сокращенная запись, когда не хватает места в строчке
-                            sList.push('разные а/п отлета и прилета');
-                        }
-                        else {
-                            sList.push('разные аэропорты отлета и прилета');
-                        }
-                    }
+                    // var sList = [];
+                    // var seatsText = helper.getNumSeatsText(countLeft, ticketsCount);
+                    // if (seatsText != null && seatsText.length > 0) {
+                    //     sList.push(seatsText);
+                    // }
+                    // if (isCharter) {
+                    //     if (sList.length == 0) {
+                    //         sList.push('Чартер');
+                    //     }
+                    //     else {
+                    //         sList.push('чартер');
+                    //     }
+                    // }
+                    // if (isDifferentPorts) {
+                    //     if (sList.length == 0) {
+                    //         sList.push('Разные аэропорты отлета и прилета');
+                    //     }
+                    //     else if (sList.length == 2 || seatsText.length > 0) {//сокращенная запись, когда не хватает места в строчке
+                    //         sList.push('разные а/п отлета и прилета');
+                    //     }
+                    //     else {
+                    //         sList.push('разные аэропорты отлета и прилета');
+                    //     }
+                    // }
+                    //
+                    // if (ticket && ticket.IsLongTransfer) {
+                    //     sList.push('Долгая пересадка');
+                    // }
+                    //
+                    // if (ticket && ticket.IsNightStop) {
+                    //     sList.push('Ночная стыковка');
+                    // }
+                    //
+                    // if (ticket && ticket.baggageAlert) {
+                    //     sList.push('Платный багаж');
+                    // }
 
-                    if (ticket && ticket.IsLongTransfer) {
-                        sList.push('Долгая пересадка');
-                    }
-
-                    if (ticket && ticket.IsNightStop) {
-                        sList.push('Ночная стыковка');
-                    }
-
-                    if (ticket && ticket.baggageAlert) {
-                        sList.push('Платный багаж');
-                    }
-
-                    return sList.join(', ');
+                    // var EtapsTo = {
+                    //     isDifferentAirport: false,
+                    //     isLongChange: false,
+                    //     isNightStop: false,
+                    //     isPaidBaggage: false
+                    // };
+                    // var EtapsBack = {
+                    //     isDifferentAirport: false,
+                    //     isLongChange: false,
+                    //     isNightStop: false,
+                    //     isPaidBaggage: false
+                    // };
+                    //
+                    // ticket.EtapsTo.forEach(function (item) {
+                    //     if(item.IsAirportChange) {
+                    //         EtapsTo.isDifferentAirport = true;
+                    //     }
+                    //     if(item.IsLongStop) {
+                    //         EtapsTo.isLongChange = true;
+                    //     }
+                    //     if(item.IsNightStop) {
+                    //         EtapsTo.isNightStop = true;
+                    //     }
+                    // });
+                    //
+                    // ticket.EtapsBack.forEach(function (item) {
+                    //     if(item.IsAirportChange) {
+                    //         EtapsBack.isDifferentAirport = true;
+                    //     }
+                    //     if(item.IsLongStop) {
+                    //         EtapsBack.isLongChange = true;
+                    //     }
+                    //     if(item.IsNightStop) {
+                    //         EtapsBack.isNightStop = true;
+                    //     }
+                    // });
+                    //
+                    // // return sList.join(', ');
+                    // return {
+                    //     EtapsTo: EtapsTo,
+                    //     EtapsBack: EtapsBack
+                    // };
                 },
 
                 getNumSeatsText: function (countLeft, ticketsCount) {

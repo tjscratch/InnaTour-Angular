@@ -36,7 +36,8 @@ angular.module('innaApp.components').
                     partialName: '@',
                     aviaInfo: "=",
                     hotel: "=",
-                    ticketModel : "="
+                    ticketModel : "=",
+                    toOrBack: "="
                 },
                 link: function ($scope, $element, $attr) {
 

@@ -23,8 +23,8 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
     function ($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events, gtm, PriceGeneric) {
         
         var self = this;
-        var header = document.querySelector('.header');
-        var headerHeight = header.clientHeight;
+        // var header = document.querySelector('.header');
+        // var headerHeight = header.clientHeight;
         var filters__body = document.querySelector('.js-filter-scroll');
         $scope.location = document.location.href;
         
@@ -575,7 +575,7 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
             
             var list = [];
             var recommendedList = [];
-            var recomendedItem = null;
+            // var recomendedItem = null;
             
             if (data && data.Items && data.Items.length > 0) {
                 //аналитика - успешные результаты
@@ -595,7 +595,9 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                     
                     //нужно добавить служебные поля для сортировки по датам и т.д.
                     aviaHelper.addCustomFields(item);
-                    
+
+                    item.isOpenDetailed = false;
+
                     function addTooltipData(item) {
                         item.PriceDetailsTooltipData = [];
                         //console.log(item.PriceDetails);
@@ -657,14 +659,16 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                         item.ToTransferCount = 0;
                     if (item.BackTransferCount < 0)
                         item.BackTransferCount = 0;
-                    
-                    if (item.IsRecomendation) {
-                        //recomendedItem = item;
-                        recommendedList.push(item);
-                    }
-                    else {
+
+
+                    //закомменчено для того чтобы рек вариант не показывался, а этот вариант добавился в простую выдачу
+                    // if (item.IsRecomendation) {
+                    //     //recomendedItem = item;
+                    //     recommendedList.push(item);
+                    // }
+                    // else {
                         list.push(item);
-                    }
+                    // }
                 });
                 
                 function getRecommended() {
@@ -683,17 +687,17 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                     return min.item;
                 }
                 
-                recomendedItem = getRecommended();
+                // recomendedItem = getRecommended();
                 //console.log('');
                 //console.log(recomendedItem);
                 
                 //добавляем к списку остальные рекомендованные
                 
-                recommendedList.forEach(function (item) {
-                    if (item != recomendedItem) {
-                        list.push(item);
-                    }
-                });
+                // recommendedList.forEach(function (item) {
+                //     if (item != recomendedItem) {
+                //         list.push(item);
+                //     }
+                // });
                 
                 //ToDo: debug
                 //размножаем данные для теста
@@ -706,17 +710,17 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                 
                 //добавляем список
                 $scope.ticketsList = list;
-                $scope.recomendedItem = recomendedItem;
+                // $scope.recomendedItem = recomendedItem;
                 
                 /* PriceGeneric */
-                $timeout(function () {
-                    $scope._priceGeneric = new PriceGeneric({
-                        el: $('.js-results-list-recomended .js-price-generic-container'),
-                        data: {
-                            PriceDetailsTooltipData: $scope.recomendedItem.PriceDetailsTooltipData
-                        }
-                    })
-                }, 0)
+                // $timeout(function () {
+                //     $scope._priceGeneric = new PriceGeneric({
+                //         el: $('.js-results-list-recomended .js-price-generic-container'),
+                //         data: {
+                //             PriceDetailsTooltipData: $scope.recomendedItem.PriceDetailsTooltipData
+                //         }
+                //     })
+                // }, 0)
                 
                 updateFilter(data.Items);
                 
@@ -1431,10 +1435,11 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
         }, true);
         
         $scope.popupItemInfo_show = function ($event, item, criteria, searchId) {
-            $scope.popupItemInfo.show($event, item, criteria, searchId);
-            //console.log('item', item.VariantId1, item.VariantId2);
-            
-            updateShareLink(item);
+            // $scope.popupItemInfo.show($event, item, criteria, searchId);
+            // //console.log('item', item.VariantId1, item.VariantId2);
+            //
+            // updateShareLink(item);
+            item.isOpenDetailed = true;
         };
         
         function updateShareLink(item) {
@@ -1498,8 +1503,10 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                     $scope.safeApply(function () {
                         $scope.popupItemInfo.show(event.original, item, $scope.criteria, $scope.searchId);
                     });
-                    
-                    updateShareLink(item);
+
+                    // item.isOpenDetailed = true;
+
+                    // updateShareLink(item);
                 },
                 goToPaymentClick: function (event, item) {
                     $scope.safeApply(function () {
@@ -1530,18 +1537,18 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
             }
             
             //var scrollTop = utils.getScrollTop();
-            var filters = $('.filters__body');
-            var aside = $('.js-aside');
-            var FIXED_CLASS = 'filters__body_position_fixed';
-            var FIXED_ASIDE_CLASS = 'results-aside_mod-fixed';
-            
-            if (scrollTop > 206) {
-                filters.addClass(FIXED_CLASS);
-                aside.addClass(FIXED_ASIDE_CLASS);
-            } else {
-                filters.removeClass(FIXED_CLASS);
-                aside.removeClass(FIXED_ASIDE_CLASS);
-            }
+            // var filters = $('.filters__body');
+            // var aside = $('.js-aside');
+            // var FIXED_CLASS = 'filters__body_position_fixed';
+            // var FIXED_ASIDE_CLASS = 'results-aside_mod-fixed';
+            //
+            // if (scrollTop > 206) {
+            //     filters.addClass(FIXED_CLASS);
+            //     aside.addClass(FIXED_ASIDE_CLASS);
+            // } else {
+            //     filters.removeClass(FIXED_CLASS);
+            //     aside.removeClass(FIXED_ASIDE_CLASS);
+            // }
         }
         
         function scrollControl() {

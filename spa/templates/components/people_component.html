@@ -1,4 +1,7 @@
 <div class="search-people-block search-people-choose search__120 no-outline-on-focus">
+    <i class="icon-expand-gray"
+       style="position: absolute; top: 18px; right: 9px;"
+       ng-class="{'icon-expand-gray_open': isOpen}"></i>
     <div class="search-people">{{getPeopleCount()}} {{aviaHelper.pluralForm(getPeopleCount(), 'человек', 'человека', 'человек')}}</div>
     <div class="search-people-baloon" ng-show="isOpen" ng-click="preventBubbling($event)">
         <h3 class="search-people-baloon-title">Пассажиры</h3>

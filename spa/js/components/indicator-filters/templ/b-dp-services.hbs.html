@@ -8,25 +8,25 @@
 		{{#included}}
 		{{#if .Name == 'Авиаперелет'}}
 		<li class="b-dp-services__list-item">
-			<i class="b-dp-services__list-item-icon fa fa-plane"></i>
+			<i class="b-dp-services__list-item-icon icon-air-flight"></i>
 			Авиаперелет
 		</li>
 		{{/if}}
 		{{#if .Name == 'Проживание'}}
 		<li class="b-dp-services__list-item">
-			<i class="b-dp-services__list-item-icon fa fa-bed"></i>
+			<i class="b-dp-services__list-item-icon icon-accommodation"></i>
 			Проживание
 		</li>
 		{{/if}}
 		{{#if .Name == 'Страховка'}}
 		<li class="b-dp-services__list-item">
-			<i class="b-dp-services__list-item-icon fa fa-medkit"></i>
+			<i class="b-dp-services__list-item-icon icon-med-insurance"></i>
 			Мед.страховка
 		</li>
 		{{/if}}
 		{{#if .Name == 'Топливный сбор'}}
 		<li class="b-dp-services__list-item">
-			<i class="b-dp-services__list-item-icon icon-fuel"></i>
+			<i class="b-dp-services__list-item-icon icon-fuel-collecting"></i>
 			Топливный сбор
 		</li>
 		{{/if}}
@@ -43,22 +43,22 @@
 		{{#additional}}
 		{{#if .Name == 'Трансфер'}}
 		<li class="b-dp-services__list-item">
-			<i class="b-dp-services__list-item-icon fa fa-bus"></i>
+			<i class="b-dp-services__list-item-icon icon-transfer"></i>
 			Трансфер
 		</li>
 		{{/if}}
 		{{/additional}}
 	</ul>
 	{{/if}}
-	
+
 </div>
 
-{{#if banner_img}}
-<div class="b-banner">
-	<a class="b-banner__link" href="{{ banner_link }}">
-		<img class="b-banner__img" src="{{ banner_img }}">
-	</a>
-</div>
-{{/if}}
+<!--{{#if banner_img}}-->
+<!--<div class="b-banner">-->
+	<!--<a class="b-banner__link" href="{{ banner_link }}">-->
+		<!--<img class="b-banner__img" src="{{ banner_img }}">-->
+	<!--</a>-->
+<!--</div>-->
+<!--{{/if}}-->
 
 {{/if}}

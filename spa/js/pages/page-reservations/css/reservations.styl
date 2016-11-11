@@ -1,11 +1,14 @@
 .ReservationForm {
     width $site-width
     margin 0 auto
-    padding 130px 20px 30px
-    background $white
+    //padding 130px 20px 30px
+    padding 72px 0px 30px
+    box-sizing border-bpx
+    //background $white
 }
 .ReservationForm__breadcrumbs {
-    margin 0 0 25px
+    //margin 0 0 25px
+    margin 0 0 1px
 
     .section__crumbs__list__item {
         &:first-child {
@@ -17,7 +20,7 @@
     font-size: 21px;
     line-height 1
     font-weight: bold;
-    margin: $ReservationForm__title-margin-top 0 $ReservationForm__title-margin-bottom;
+    margin: 0 0 16px;
 }
 .ReservationForm__title-head {
     margin-top: 0;
@@ -40,56 +43,107 @@
 .ReservationFormBlock {
     margin $ReservationFormBlock-margin-vertical 0
     padding $ReservationFormBlock-padding-vertical $ReservationFormBlock-padding-horizontal
-    background $ReservationFormBlock-bg
+    //background $ReservationFormBlock-bg
+    background-color #EFF2F5
     border none
 }
 .ReservationFormBlock__FieldGroup {
-    flex-direction row
-    justify-content flex-start
+    &:before{
+        content ''
+        display table
+    }
+    &:after{
+        content ''
+        display table
+    }
+    //flex-direction row
+    //justify-content flex-start
 }
 .FieldBlock__email {
     width 380px
+    .FieldText {
+        border-radius 3px
+    }
 }
 .FieldBlock__phone {
     width 150px
     margin-left 20px
+    .FieldText {
+        border-radius 3px
+    }
 }
 .FieldBlock__sex {
     margin-right 5px
 }
 .FieldBlock__second-name {
-    width 150px
+    //width 150px
+    width 235px
     margin-right 0
+    .FieldText {
+        border-radius 3px 0px 0px 3px
+    }
 }
 .FieldBlock__surname {
     position relative
-    width 110px
+    //width 110px
+    width 205px
     margin-left -1px
     margin-right 5px
+    .FieldText {
+        border-radius 0px 3px 3px 0px
+    }
 }
 .FieldBlock__birthday {
-    width 90px
+    //width 90px
+    width 150px
     margin-right 5px
+    .FieldText {
+        border-radius 3px
+    }
 }
 .FieldBlock__citizen {
-    width 140px
+    //width 140px
+    width 146px
     margin-right 5px
+    .FieldText {
+        border-radius 3px
+    }
 }
 .FieldBlock__DocumentId {
-    width 130px
+    //width 130px
+    width 150px
+    .FieldText {
+        border-radius 3px
+    }
 }
 .FieldBlock__Number {
-    width 100px
+    //width 100px
+    width 150px
     margin-left 2px
     margin-right 5px
+    .FieldText {
+        border-radius 3px
+    }
 }
 .FieldBlock__ExpirationDate {
-    width 100px
+    //width 100px
+    width 150px
+    .FieldText {
+        border-radius 3px
+    }
 }
 .FieldBlock {
+    float: left
+
+    .selectize-control {
+        margin 3px 0
+    }
     .selectize-input {
         //padding: 5px;
-        border-radius: $FieldText-border-radius;
+        //border-radius: $FieldText-border-radius;
+        border 1px solid #C9D2DB
+        border-radius 3px
+        padding 6px 5px
     }
     .selectize-input > * {
         vertical-align: top;
@@ -107,9 +161,10 @@
     margin 30px 0
 
     display flex
-    justify-content center
+    justify-content flex-end
     align-items center
 }
+
 .ReservationFormSum {
     margin 0 30px 0 0
 
@@ -118,9 +173,11 @@
 }
 .ReservationFormSum__price-label {
     margin-right 10px
-    font-size 1.2rem
+    //font-size 1.2rem
+    font-size 16px
 }
 .ReservationFormSum__price {
-    font-size 34px
+    //font-size 34px
+    font-size 24px
     font-weight bold
 }

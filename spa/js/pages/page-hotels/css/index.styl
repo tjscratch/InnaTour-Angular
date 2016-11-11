@@ -6,6 +6,7 @@
 // BEGIN SearchHotelResults
 .SearchHotelResults{
     display flex
+    position relative
 }
 .SearchHotelResults__promo-logo {
     height 190px
@@ -20,12 +21,33 @@
     margin-bottom 10px
 }
 .SearchHotelResultsList{
-    width $search-results-list-width
-    padding: 0 0 50px 0;
+    //width $search-results-list-width
+    width 752px
+    //padding: 0 0 50px 0;
+    padding 16px
+    min-height 300px
+}
+.SearchHotelResultsSale{
+    height 35px
+    line-height 32px
+    font-size 15px
+    color #313C48
+    background-color #eff2f5
+    padding-bottom 16px
+}
+.SearchHotelResultsSale__value-sale{
+    font-size 20px
+    font-weight bold
+}
+.SearchHotelResultsSale__logo-dp{
+    padding 7px 16px
+    background-color #F0BD4E
+    border-radius 3px
+    font-weight bold
 }
 .SearchHotelResultsFilters{
-    margin-top -2px
-    margin-bottom 10px
+    //margin-top -2px
+    //margin-bottom 10px
 }
 .SearchHotelResultsList__item{
     margin 0 0 10px

@@ -1,55 +1,54 @@
-<div class="recommend-bundle-container"
-     ng-class="{'recommend-bundle-container_short':!isVisible}">
+<div class="recommend-bundle-container" ng-style="styleRecBundleContainer">
+	<!--ng-class="{'recommend-bundle-container_short':!isVisible}"-->
 	<ng-include src="'components/wl-new-search/templ/index.hbs.html'"></ng-include>
 	<div class="recommend-bundle">
 
-		<div class="recommend-bundle-background"></div>
+		<!--<div class="recommend-bundle-background"></div>-->
 
 		<div class="scroll-fix ">
-			<div class="main__center recommend-bundle-wrap"
-			     ng-class="{'recommend-bundle-wrap_small': !isVisible}">
+			<div class="main__center recommend-bundle-wrap">
+				<!--ng-class="{'recommend-bundle-wrap_small': !isVisible}"-->
 
-				<h3 class="recommend-bundle-title" ng-if="isVisible && isChooseHotel">
+				<h3 class="recommend-bundle-title" ng-if="isChooseHotel && isVisible || isChooseHotel && asMap">
 					Выбранный вариант
+					<!--ng-if="!isClosed && recommendedPairStatus == 6"-->
+					<!--<div-->
+					     <!--tooltip-directive-base-->
+					     <!--tooltip-klass="nocorner:fixed"-->
+					     <!--close="true"-->
+					     <!--position="right_right"-->
+					     <!--is-visible="isVisible"-->
+					     <!--width="300"-->
+					     <!--templ="popover.hbs.html" class="b-display-inline">-->
 
-					<div ng-if="!isClosed && recommendedPairStatus == 6"
-					     tooltip-directive-base
-					     tooltip-klass="nocorner:fixed"
-					     close="true"
-					     position="right_right"
-					     is-visible="isVisible"
-					     width="300"
-					     templ="popover.hbs.html" class="b-display-inline">
+						<!--<div class="b-tooltip__header">-->
+							<!--<h3>Пакет был изменен</h3>-->
+						<!--</div>-->
 
-						<div class="b-tooltip__header">
-							<h3>Пакет был изменен</h3>
-						</div>
+						<!--<div class="b-tooltip__body">-->
+				            <!--<span class="b-tooltip__body__text">-->
+				              <!--К сожалению, выбранный пакет Перелет+Отель-->
+					            <!--уже недоступен, будет предложен рекомендованный вариант.-->
+				            <!--</span>-->
+						<!--</div>-->
 
-						<div class="b-tooltip__body">
-				            <span class="b-tooltip__body__text">
-				              К сожалению, выбранный пакет Перелет+Отель
-					            уже недоступен, будет предложен рекомендованный вариант.
-				            </span>
-						</div>
-
-					</div>
+					<!--</div>-->
 				</h3>
 
-				<h3 class="recommend-bundle-title" ng-if="isVisible && !isChooseHotel">
+				<h3 class="recommend-bundle-title" ng-if="!isChooseHotel && isVisible || !isChooseHotel && asMap">
 					<span ng-if="!defaultRecommendedPair.Cheapest">Рекомендуем</span>
-					<span ng-if="defaultRecommendedPair.Cheapest">Минимальная цена</span>
+					<span ng-if="defaultRecommendedPair.Cheapest">Базовый вариант по минимальной цене</span>
 				</h3>
 
-				<div class="expand-collapse-link w-expand-collapse-link_up w-expand-collapse-link" ng-if="isVisible">
-                    <i class="fa fa-caret-up"></i>
-                    <a href="javascript:void(0);" ng-click="display.toggle()">
-                        Свернуть
-                    </a>
-				</div>
+				<!--<div class="expand-collapse-link w-expand-collapse-link_up w-expand-collapse-link" ng-if="isVisible">-->
+                    <!--<i class="fa fa-caret-up"></i>-->
+                    <!--<a href="javascript:void(0);" ng-click="display.toggle()">-->
+                        <!--Свернуть-->
+                    <!--</a>-->
+				<!--</div>-->
 
 				<div recommended-pair-component-big
 				     class="recommended-pair"
-				     ng-show="isVisible"
 				     recommended-pair="recommendedPair"
 				     recommended-pair-status="recommendedPairStatus"
 				     is-closed="isClosed"
@@ -59,11 +58,34 @@
 				     state-hotel="stateHotel"
 				     tab-active="tabActive"
 				     as-map="asMap"
+					 type-etap="'Search'"
 				     inna-dynamic-bundle-with-reservation-button="true"></div>
 
-				<div recommended-pair-component-mini ng-if="!isVisible"></div>
+				<!--<div recommended-pair-component-mini ng-if="!isVisible"></div>-->
+				<div class="panel-tabs-dp" ng-if="isVisible && !asMap">
+					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_hotel"
+						 ng-click="toggleTab('hotel', $event)"
+						 ng-class="{'panel-tabs-dp__tab_selected':(!stateTicket)}">
+						<i ng-class="{'icon-hotel-blue':(!stateTicket), 'icon-hotel-gray': (stateTicket)}"></i>
+						Выбрать отель
+					</div>
+					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_avia"
+						 ng-click="toggleTab('ticket', $event)"
+						 ng-class="{'panel-tabs-dp__tab_selected':(!stateHotel)}">
+						<!--'panel-tabs-dp__tab_selected panel-tabs-dp__tab_avia-long':(!stateHotel)-->
+						<!--'panel-tabs-dp__tab_avia': stateHotel-->
+						<i ng-class="{'icon-aircraft-blue':(!stateHotel), 'icon-aircraft-gray': (stateHotel)}"></i>
+						Выбрать перелет
+					</div>
+					<!--ng-if="stateHotel"-->
+					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_hotel-map"
+						 ng-class="{'panel-tabs-dp__tab_selected':(asMap)}"
+						 ng-click="goToMap()">
 
-
+						<i ng-class="{'icon-hotel-map-blue':(asMap), 'icon-hotel-map-gray': (!asMap)}"></i>
+						Отели на карте
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -74,12 +96,12 @@
             as-map="asMap"
 	        type-panel="hotels"
 	        active-panel="activePanel"
-	        ng-show="filtersSettingsHotels"></ng:any>
+	        ng-show="(filtersSettingsHotels && isVisible) || (filtersSettingsHotels && asMap)"></ng:any>
 
 	<!-- панель фильтрации билетов -->
 	<ng:any filter-panel-avia
 	        filters-settings="filtersSettingsTicket"
 	        type-panel="ticket"
 	        active-panel="activePanel"
-	        ng-show="filtersSettingsTicket"></ng:any>
+	        ng-show="(filtersSettingsTicket && isVisible) || (filtersSettingsTicket && asMap)"></ng:any>
 </div>

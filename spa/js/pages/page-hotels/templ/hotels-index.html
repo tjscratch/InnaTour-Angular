@@ -3,6 +3,13 @@
 	     ng-class="{'results-container__short':!padding}"
 	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)">
 
+		<!--<div class="SearchHotelResultsSale" ng-if="hotels.length > 0">-->
+			<!--Скидки до-->
+			<!--<span class="SearchHotelResultsSale__value-sale">30%</span>-->
+			<!--при покупке-->
+			<!--<span class="SearchHotelResultsSale__logo-dp">Перелет + Отель</span>-->
+		<!--</div>-->
+
 		<div class="SearchHotelResultsFilters">
 			<ng:any filter-panel-hotel
 			        filters-settings="filtersSettingsHotels"
@@ -13,21 +20,21 @@
 			></ng:any>
 		</div>
 
-		<div class="SearchHotelResultsCount" ng-if="hotels.length > 0">
-			Найдено
-			<b>{{hotels.length | asQuantity:"отель":"отеля":"отелей"}}</b>
-		</div>
+		<!--<div class="SearchHotelResultsCount" ng-if="hotels.length > 0">-->
+			<!--Найдено-->
+			<!--<b>{{hotels.length | asQuantity:"отель":"отеля":"отелей"}}</b>-->
+		<!--</div>-->
 
 		<div class="SearchHotelResults">
-			<div class="SearchHotelResults__promo-logo" ng-if="hotels.length > 0"></div>
+			<!--<div class="SearchHotelResults__promo-logo" ng-if="hotels.length > 0"></div>-->
 			<div class="SearchHotelResultsList" ng-if="hotels.length > 0">
 				<div class="SearchHotelResultsList__item"
-				     ng-repeat="hotel in hotels track by $index"
-				>
+					 ng-repeat="hotel in hotels track by $index">
 					<hotel-card
 							hotel="hotel"
 							hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
 							guest-count="guestCount"
+							type-etap="'Search'"
 					></hotel-card>
 				</div>
 
@@ -39,6 +46,11 @@
 
 					<p>Попробуйте изменить условия поиска или настройки фильтров.</p>
 				</div>
+			</div>
+			<div class="banner-sale-dp" ng-if="hotels.length > 0">
+				<div class="banner-sale-dp__value">30%</div>
+				<div class="banner-sale-dp__desc">скидка при покупке</div>
+				<div class="banner-sale-dp__btn">Перелет + Отель</div>
 			</div>
 		</div>
 

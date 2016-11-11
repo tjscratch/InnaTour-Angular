@@ -1,5 +1,6 @@
 .HotelCard{
-    width $search-results-list-width;
+    //width $search-results-list-width;
+    width 752px
     margin 0
     padding 0
     background #fff
@@ -8,6 +9,8 @@
 
     display flex
     justify-content space-between
+    border-radius 3px
+    overflow hidden
 }
 // BEGIN PHOTOS
 .HotelCardPhotos{
@@ -26,6 +29,8 @@
     padding 10px 12px
     border-right 1px solid $HotelCardBorderColor
     flex-grow 300
+    color #9CA6B0
+    height 136px
 }
 .HotelCardInfo__title{
     font-size: 18px;
@@ -65,16 +70,18 @@
 }
 .CardPrice__price-desc{
     margin: 4px 0;
-    font-weight: bold;
-    font-size: 15px;
+    //font-weight: bold;
+    //font-size: 15px;
+    font-size: 12px;
     text-align: center;
+    color #9CA6B0
 }
 .CardPrice__price-value{
     margin: 4px 0;
     line-height: 1;
     font-size: 24px;
     font-weight: bold;
-    color: #000;
+    color: #313C48;
     position: relative;
     text-align center
 }
@@ -84,11 +91,13 @@
 .CardPrice__active{
     box-sizing border-box
     display block
-    height $CardPrice__active-height
-    line-height $CardPrice__active-line-height
+    //height $CardPrice__active-height
+    //line-height $CardPrice__active-line-height
+    height 32px
     width 100%
-    padding $CardPrice__active-vertical-padding 15px
-    font-size $CardPrice__active-font-size
+    //padding $CardPrice__active-vertical-padding 15px
+    //font-size $CardPrice__active-font-size
+    font-size 16px
     text-align center
 }
 // END PRICE
@@ -115,22 +124,27 @@
     }
 }
 .HotelCardPhotos__Photo{
-    width 130px
-    height 130px
+    //width 130px
+    //height 130px
+    width 200px
+    height 136px
     background-position center center
     background-size cover
     background-repeat no-repeat
 }
 .HotelCardPhotos__Photo-empty{
-    width $HotelCardPhotos-width
-    height $HotelCard-height
+    //width $HotelCardPhotos-width
+    //height $HotelCard-height
+    width 200px
+    height 136px
     background-position center center
     background-size cover
     background-repeat no-repeat
-    background-color $color-gray-light2
+    //background-color $color-gray-light2
 
-    background-image: radial-gradient(50% 100%, #f8f8f8 0%, #e7e7e7 100%);
-    border: 1px solid #e7e7e7;
+    //background-image: radial-gradient(50% 100%, #f8f8f8 0%, #e7e7e7 100%);
+    background-image url('/spa/img/hotels/no-photo-card-room204x136.jpg')
+    //border: 1px solid #e7e7e7;
     font-size: 46px;
     color: #d7d7d7;
     letter-spacing: 0px;

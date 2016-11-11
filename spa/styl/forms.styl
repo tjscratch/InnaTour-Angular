@@ -212,24 +212,26 @@ button[type=submit] {
 }
 // begin form
 .FieldGroup {
-    display flex
+    //display flex
 }
 .FieldText {
     display block
     box-sizing border-box
     width 100%
     margin $FieldText-vertical-margin 0
-    border 1px solid $FieldText-border-color
-    padding $FieldText-vertical-padding $FieldText-horizontal-padding
+    //border 1px solid $FieldText-border-color
+    border 1px solid #C9D2DB
+    //padding $FieldText-vertical-padding $FieldText-horizontal-padding
+    padding 6px 5px
     font-size $FieldText-font-size
     font-family $FieldText-font-family
     border-radius $FieldText-border-radius
     outline none
     vertical-align top
 
-    &:focus {
-        border-color $FieldText-focus-border-color
-    }
+    //&:focus {
+    //    border-color $FieldText-focus-border-color
+    //}
 
     &.ng-invalid {
         border-color $FieldText-invalid-border-color
@@ -266,10 +268,13 @@ button[type=submit] {
     border-radius $FieldText-border-radius
     vertical-align top
     overflow hidden
+    border-radius 3px
 }
 .FieldSex__label {
-    height 34px
-    width 32px
+    //height 34px
+    //width 32px
+    height 29px
+    width 30px
     display flex
     color $green
     background $white
