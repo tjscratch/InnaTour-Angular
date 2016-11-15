@@ -846,6 +846,7 @@
                     )
                         .then(
                             function (res) {
+                                console.log(res.data)
                                 if (res.data.Transfers) {
                                     $scope.transfersShow = true;
                                     $scope.Transfers = res.data.Transfers;

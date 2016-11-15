@@ -40,7 +40,7 @@
                            type="radio"
                            value="1"
                            ng-model="transferSingle"
-                           ng-change="includeTransferChange(includeTransfer, transferSingle)">
+                           ng-change="includeTransferChange(true, transferSingle)">
                     <ins class="f-radio__indicator"></ins>
                     <span class="f-radio__label">Из аэропорта в отель</span>
                 </label>
@@ -51,7 +51,7 @@
                            type="radio"
                            value="0"
                            ng-model="transferSingle"
-                           ng-change="includeTransferChange(includeTransfer, transferSingle)">
+                           ng-change="includeTransferChange(true, transferSingle)">
                     <ins class="f-radio__indicator"></ins>
                     <span class="f-radio__label">Туда и обратно</span>
                 </label>
@@ -154,7 +154,7 @@
                         <li>Любые изменения: принимаются или по email или сообщением в заказе из Личного кабинета.</li>
                     </ul>
                     <p>
-                        <b>ВНИМАНИЕ!!</b> В случае не оплаты заказа за 48 часов и менее до времени прилета трансфер
+                        <b>ВНИМАНИЕ!</b> В случае не оплаты заказа за 48 часов и менее до времени прилета трансфер
                         аннулируется
                         автоматически
                     </p>
