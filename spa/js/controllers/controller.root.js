@@ -141,6 +141,7 @@ innaAppControllers.
              */
             $scope.FormExpand = false;
             $scope.isEnableSearchForm = false;
+            $scope.StaticPage = false;
             
             $scope.$on('$routeChangeStart', function (next, current) {
                 switch ($location.$$path) {
@@ -150,7 +151,6 @@ innaAppControllers.
                     case '/packages/':
                     case '/hotels/':
                     case '/bus/':
-                    case '/individualtours/':
                         // if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
                         //     $scope.SearchFormExpandPadding = {'padding-top': 0}
                         // }else{
@@ -184,10 +184,14 @@ innaAppControllers.
                     case '/where-to-buy/':
                     case '/certificates/':
                     case '/certificates_kit/':
+                    case '/individualtours/':
+                    case '/transfers/':
                         $scope.FormExpand = true;
+                        $scope.StaticPage = true;
                         $scope.SearchFormExpandPadding = {'padding-top': 0};
                         break;
                     default:
+                        $scope.StaticPage = false;
                         break;
                 }
             });

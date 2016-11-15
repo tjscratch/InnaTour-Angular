@@ -38,12 +38,7 @@ innaAppDirectives
                             case '/packages/':
                             case '/hotels/':
                             case '/bus/':
-                            case '/individualtours/':
-                                if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
-
-                                }else{
                                     $scope.etapMainPage = true;
-                                }
                                 break;
                             default:
                                 $scope.etapMainPage = false;
@@ -59,7 +54,8 @@ innaAppDirectives
                                     if ($this.classList[0] != 'menu__ul-li' &&
                                         $this.classList[0] != 'icon-menu' &&
                                         $this.classList[0] != 'icon-vert-menu' &&
-                                        $this.classList[0] != 'icon-menu__line') {
+                                        $this.classList[0] != 'icon-menu__line' &&
+                                        $this.classList[0] != 'icon-hamb') {
                                         $scope.isOpen = false;
                                         e.stopPropagation();
                                     }

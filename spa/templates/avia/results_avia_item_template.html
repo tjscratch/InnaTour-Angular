@@ -166,20 +166,20 @@
 
         {{#!usePricePerPerson}}
             <span class="rl-price {{this.EtapsBack.length == 0 ? 'rl-price_1way' : ''}}">
-                <span class="rl-price-item">{{priceFilter(this.Price)}}</span><!--
+                <div class="rl-price-item">{{priceFilter(this.Price)}}<!--
                 -->{{>ruble}}
-                <span class="rl-price-desc">
+                <!-- tooltip price -->
+                <!--{{#isAgency()}}-->
+                <!--{{#if AgencyType != 1}}-->
+                <PriceGeneric PriceDetailsTooltipData="{{PriceDetailsTooltipData}}"/>
+                <!--{{/if}}-->
+                <!--{{/}}-->
+                </div>
+                <div class="rl-price-desc">
                     Стоимость перелета за {{passengerCount}}x
                     <!--{{pluralize(passengerCount, ['человека', 'человек', 'человек'])}}-->
-                </span>
+                </div>
             </span>
-        {{/}}
-
-        <!-- tooltip price -->
-        {{#isAgency()}}
-            {{#if AgencyType != 1}}
-                <PriceGeneric PriceDetailsTooltipData="{{PriceDetailsTooltipData}}"/>
-            {{/if}}
         {{/}}
 
         <span class="button" on-click='goToPaymentClick:{{this}}'>Купить</span>

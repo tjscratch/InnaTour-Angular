@@ -1,7 +1,9 @@
 font-names = ('font-small' 'font-medium' 'font-large' 'font-big')
 font-values = ($small $medium $large $big)
-$ProximaNova = ProximaNova, Arial, sans-serif
-$ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
+//$ProximaNova = ProximaNova, Arial, sans-serif
+//$ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
+$ProximaNova = Roboto-Medium, Arial, sans-serif
+$ProximaNovaLight = Roboto-Regular, Arial, sans-serif
 
 for name, key in font-names {
 	.{name} {
@@ -13,6 +15,22 @@ font-url(file) {
 	return '/spa/fonts/' + file
 }
 
+@font-face {
+	font-family: Roboto-Regular;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: Roboto-Medium;
+	font-weight: 500;
+	src: url('https://fonts.googleapis.com/css?family=Roboto:500&subset=latin,cyrillic');
+}
+
+@font-face {
+	font-family: Roboto-Bold;
+	font-weight: 700;
+	src: url('https://fonts.googleapis.com/css?family=Roboto:700&subset=latin,cyrillic');
+}
 
 @font-face {
 	font-family: ProximaNova;

@@ -233,15 +233,15 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                 var onScroll = function () {
                     scroll = true;
                     var currentScrollTop = utils.getScrollTop();
-                    // if (currentScrollTop >= 200) {
+                    if (currentScrollTop >= 200) {
                         if(currentScrollTop > $scope.scrollTop) {
                             $scope.display.shortDisplay(true);
                         } else if (currentScrollTop < $scope.scrollTop) {
                             $scope.display.fullDisplay(true);
                         }
-                    // } else {
-                    //     $scope.display.fullDisplay(true);
-                    // }
+                    } else {
+                        $scope.display.fullDisplay(true);
+                    }
                     $scope.scrollTop = currentScrollTop;
                 };
 

@@ -326,7 +326,7 @@
   cursor: text;
 }
 
-.selectize-control.single .selectize-input:after {
+.selectize-control.single .selectize-input:after  {
   position: absolute;
   top: 50%;
   right: 6px !important;
@@ -339,7 +339,7 @@
   /*border-width: 5px 5px 0 5px;*/
   content: ' ';
   background: url("../img/svg-icons/sprite.svg") no-repeat;
-  background-position: 71.12676056338029% 19.37984496124031%;
+  background-position: 82.23140495867769% 29.197080291970803%;
   width: 8px !important;
   height: 5px !important;
   overflow: hidden;

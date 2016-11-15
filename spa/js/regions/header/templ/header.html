@@ -49,23 +49,26 @@
         <div class="header-info__container">
 
             <a href="/#/" class="header-info__logo">
-                <i class="logo_inna js-company-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
-                <i class="icon icon-logo-inna partners-hide" alt="ИННА ТУР" title="ИННА ТУР"></i>
+                <i class="big-logo_inna js-company-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
+                <!--<i class="icon icon-logo-inna partners-hide" alt="ИННА ТУР" title="ИННА ТУР"></i>-->
             </a>
 
             <div class="header-info__right">
 
                 <div class="header-info__phone">
                     <!--<i class="fa fa-phone header-info__phone-icon"></i>-->
-                    <i class="icon-phone"></i>
+                    <i class="icon-phone-white" ng-if="!StaticPage"></i>
+                    <i class="icon-phone-black" ng-if="StaticPage"></i>
                     <div>
-                        <div class="header-info__phone-number js-company-phone-head" ng-if="!user.isAgency()">
+                        <div class="header-info__phone-number js-company-phone-head"
+                             ng-class="{'header-info_black': StaticPage}"
+                             ng-if="!user.isAgency()">
                             +7 495 742-1212
                         </div>
-                        <div class="header-info__phone-number" ng-if="user.isAgency()">
+                        <div class="header-info__phone-number" ng-if="user.isAgency()" ng-class="{'header-info_black': StaticPage}">
                             {{user.raw.SupportPhone}}
                         </div>
-                        <div class="header-info__phone-info">
+                        <div class="header-info__phone-info" ng-class="{'header-info_black': StaticPage}">
                             круглосуточно
                         </div>
                     </div>
