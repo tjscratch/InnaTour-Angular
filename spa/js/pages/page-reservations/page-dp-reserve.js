@@ -873,6 +873,10 @@
                 $scope.transfersShow = true;
                 $scope.includeTransfer = true;
             };
+            $scope.transferInfo = [];
+            $scope.openTransferInfo = function (index) {
+                $scope.transferInfo[index] = !$scope.transferInfo[index];
+            };
             /**
              * end transfers
              */
