@@ -556,12 +556,14 @@
 									        options.initDateToIsSet = true;
 									        options.initDateFromIsSet = true;
 									        //если дата до < даты от
-									        if ((options.date[1] < options.date[0]) && (+todayDate != options.date[1])) {
+									        if ((options.date[1] < options.date[0]) ) {
+											// && (+todayDate != options.date[1])
 									            //меняем даты местами
 									            var tValue = options.date[0];
 									            options.date[0] = options.date[1];
 									            options.date[1] = tValue;
-									        } else if ((options.date[1] < options.date[0]) && (+todayDate == options.date[1])) {
+									        } else if ((options.date[1] < options.date[0])) {
+											// && (+todayDate == options.date[1])
 												options.date[1] = null;
 											}
 									    }
@@ -574,14 +576,14 @@
 								break;
 						}
 
-						if(+todayDate == options.date[0]) {
-							options.lastSel = !options.lastSel;
-							fillIt = false;
-							changed = false;
-						} else {
+						// if(+todayDate == options.date[0]) {
+						// 	options.lastSel = !options.lastSel;
+						// 	fillIt = false;
+						// 	changed = false;
+						// } else {
 							fillIt = true;
 							changed = true;
-						}
+						// }
 
 					}
 					if (fillIt) {
