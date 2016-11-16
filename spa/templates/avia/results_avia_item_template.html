@@ -169,11 +169,11 @@
                 <div class="rl-price-item">{{priceFilter(this.Price)}}<!--
                 -->{{>ruble}}
                 <!-- tooltip price -->
-                <!--{{#isAgency()}}-->
-                <!--{{#if AgencyType != 1}}-->
+                {{#isAgency()}}
+                {{#if AgencyType != 1}}
                 <PriceGeneric PriceDetailsTooltipData="{{PriceDetailsTooltipData}}"/>
-                <!--{{/if}}-->
-                <!--{{/}}-->
+                {{/if}}
+                {{/}}
                 </div>
                 <div class="rl-price-desc">
                     Стоимость перелета за {{passengerCount}}x
