@@ -13,8 +13,8 @@
 
         <div class="header-user__item" ng-if="user.raw.MessagesCount > 0">
             <!--<i class="fa fa-envelope header-user__item-icon"></i>-->
-            <i class="icon-login-white" ng-if="!StaticPage"></i>
-            <i class="icon-login-black" ng-if="StaticPage"></i>
+            <i class="icon-mail-white" ng-if="!StaticPage"></i>
+            <i class="icon-mail-black" ng-if="StaticPage"></i>
             <a class="header-user__item-text" ng-class="{'header-user__item-text_black': StaticPage}" href="{{B2B_HOST}}/Message">
                 {{+user.raw.MessagesCount}}
             </a>
