@@ -165,8 +165,13 @@ app.config([
                         controller : 'FullWLMainCtrl',
                         resolve    : authController.resolve
                     }
-                }
-                else {
+                } else if (partner.name == 'finam') {
+                    return {
+                        templateUrl: 'pages/partners/finam.html',
+                        controller : 'FullWLMainCtrl',
+                        resolve    : authController.resolve
+                    }
+                } else {
                     return {
                         templateUrl: 'pages/partners/page.html',
                         controller : 'FullWLMainCtrl',
