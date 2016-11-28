@@ -7,8 +7,8 @@ innaAppControllers.
         '$scope', '$rootScope', '$routeParams', 'innaApp.services.PageContentLoader', 'innaApp.API.pageContent.AVIA',
         function ($scope, $rootScope, $routeParams, PageContentLoader, sectionID) {
 
-            $scope.pageTitle = "Поиск дешевых авиабилетов";
-            $scope.pageTitleSub = "Лучший способ купить авиабилеты онлайн";
+            $scope.pageTitle = "Поиск не дешевых авиабилетов";
+            $scope.pageTitleSub = "пшЛучший способ не купить авиабилеты онлайн";
 
             /*Data fetching*/
             //$('body').addClass('scrollVisible');
