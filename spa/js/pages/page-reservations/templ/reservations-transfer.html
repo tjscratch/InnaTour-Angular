@@ -1,0 +1,176 @@
+<div class="b-transfer buy__blocks">
+
+    <div class="b-transfer__head">
+        <h2 class="b-transfer__title buy__title">
+            Трансфер
+            <span class="b-transfer__title-caption"
+                  ng-if="transfer">{{transfer.TransferDescription}}</span>
+        </h2>
+        <div class="b-transfer__include"
+             ng-if="!transfer">
+            <label class="b-agreement">
+                <input type="checkbox"
+                       ng-model="includeTransfer"
+                       ng-change="includeTransferChange(includeTransfer, transferSingle)"
+                >
+                <ins class="b-checkbox"></ins>
+                Добавить трансфер в этот отель
+            </label>
+        </div>
+        <div class="b-transfer__include"
+             ng-if="transfer">
+            <label class="b-agreement">
+                <input type="checkbox"
+                       ng-model="includeTransfer"
+                       ng-change="includeTransferChange(includeTransfer, transferSingle)"
+                >
+                <ins class="b-checkbox"></ins>
+                Трансфер в этот отель
+            </label>
+        </div>
+    </div>
+
+    <div class="b-transfer__body"
+         ng-if="transfersShow">
+
+        <div class="b-transfer__routes">
+            <div class="b-transfer__routes-item">
+                <label class="f-radio">
+                    <input class="f-radio__input"
+                           type="radio"
+                           value="1"
+                           ng-model="transferSingle"
+                           ng-change="includeTransferChange(true, transferSingle)">
+                    <ins class="f-radio__indicator"></ins>
+                    <span class="f-radio__label">Из аэропорта в отель</span>
+                </label>
+            </div>
+            <div class="b-transfer__routes-item">
+                <label class="f-radio">
+                    <input class="f-radio__input"
+                           type="radio"
+                           value="0"
+                           ng-model="transferSingle"
+                           ng-change="includeTransferChange(true, transferSingle)">
+                    <ins class="f-radio__indicator"></ins>
+                    <span class="f-radio__label">Туда и обратно</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="b-transfer__load"
+             ng-if="!Transfers.length">
+            <div class="spinner"
+                 ng-if="!dataFullyLoaded">
+                <div class="rect rect1"></div>
+                <div class="rect rect2"></div>
+                <div class="rect rect3"></div>
+                <div class="rect rect4"></div>
+                <div class="rect rect5"></div>
+                <img class="gif"
+                     src="/spa/img/spinner.gif">
+
+                <div class="spinner__text">Секундочку, загружаем список трансферов</div>
+            </div>
+        </div>
+
+        <div class="b-transfer__items"
+             ng-if="Transfers.length">
+
+            <div class="b-transfer-item"
+                 ng-repeat="transfer in Transfers track by $index">
+                <div class="b-transfer-item__row"
+                     ng-class="{'b-transfer-item__row-selected' : (transfer.Key == TransferKey)}">
+                    <div class="b-transfer-item__img">
+                        <div class="b-transfer-item__img-icon-1"
+                             ng-if="transfer.Vehicle.Type == 1"></div>
+                        <div class="b-transfer-item__img-icon-2"
+                             ng-if="transfer.Vehicle.Type == 2"></div>
+                        <div class="b-transfer-item__img-label">
+                            {{transfer.Vehicle.Description}}
+                        </div>
+                    </div>
+                    <div class="b-transfer-item__desc">
+
+                        <div class="b-transfer-item__info"
+                             ng-init="transferInfo[$index] = false"
+                             ng-click="openTransferInfo($index)">i</div>
+
+                        <div class="b-transfer-item__title">
+                            {{transfer.TransferDescription}}
+                        </div>
+                        <div class="b-transfer-item__auto"
+                             ng-if="false">
+                            VW Golf, Ford Focus, Opel, Audi A3, BMW 3
+                        </div>
+                        <div class="b-transfer-item__peoples">
+                            <div class="b-transfer-item__people"
+                                 ng-if="transfer.Vehicle.NumberOfBags">
+                                <i class="fa fa-user"
+                                   aria-hidden="true"></i>
+                                x
+                                {{transfer.Vehicle.Capacity}}
+                            </div>
+                            <div class="b-transfer-item__baggage"
+                                 ng-if="transfer.Vehicle.NumberOfBags">
+                                <i class="fa fa-suitcase"
+                                   aria-hidden="true"></i>
+                                x
+                                {{transfer.Vehicle.NumberOfBags}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b-transfer-item__price">
+                        <div class="b-transfer-item__price-val">
+                            {{transfer.Price | price}}
+                            <i class="fa fa-rub"></i>
+                        </div>
+                        <div class="b-transfer-item__price-full">
+                            К оплате: {{(price + transfer.Price)| price}}
+                            <i class="fa fa-rub"></i>
+                        </div>
+                        <span class="button b-transfer-item__price-button"
+                              ng-if="transfer.Key != TransferKey"
+                              ng-click="TransferSelected(transfer)">Выбрать</span>
+                        <span class="button disabled b-transfer-item__price-button"
+                              ng-if="transfer.Key == TransferKey"
+                        >Выбрано</span>
+                    </div>
+                </div>
+                <div class="b-transfer-item__more"
+                     ng-if="transferInfo[$index]">
+                    <div class="b-transfer-item__more-close"
+                         ng-click="openTransferInfo($index)"></div>
+
+                    <b>Правила отмены:</b>
+                    <br>
+                    <ul>
+                        <li>При заказе более, чем за 48 часов до времени прилета: бронирование возможно в онлайн на
+                            сайте
+                        </li>
+                        <li>При заказе менее, чем за 48 часов до времени прилета: бронирование возможно только по
+                            email.
+                        </li>
+                        <li>Любые изменения: принимаются или по email или сообщением в заказе из Личного кабинета.</li>
+                    </ul>
+                    <p>
+                        <b>ВНИМАНИЕ!</b> В случае не оплаты заказа за 48 часов и менее до времени прилета трансфер
+                        аннулируется
+                        автоматически
+                    </p>
+                    <b>Условия бронирования:</b>
+                    <ul>
+                        <li>за 48 часов (GMT+01:00) и более до времени прилета: без удержания</li>
+                        <li>менее, чем за 48 часов (GMT+01:00) до времени прилета: удержание полной стоимости
+                            трансфера
+                        </li>
+                        <li>в случае неявки туриста: удержание полной стоимости трансфера.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
