@@ -229,9 +229,9 @@
     };
 
     self.afterBodyLoad = function () {
-        if (self.isFullWL()) {
-            addCssToBody();
-        }
+        // if (self.isFullWL()) {
+        //     addCssToBody();
+        // }
 
         self.liteWLControl.changePageData();
 
@@ -281,11 +281,11 @@
         }
     };
 
-    function addCssToBody() {
-        var cn = document.body.className;
-        cn += ' partner-body-noscroll';
-        document.body.className = cn;
-    }
+    // function addCssToBody() {
+    //     var cn = document.body.className;
+    //     cn += ' partner-body-noscroll';
+    //     document.body.className = cn;
+    // }
 
     function liteWLControl(partner) {
         var self = this;
