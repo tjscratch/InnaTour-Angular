@@ -1,0 +1,256 @@
+.b-transfer {
+    //padding 16px
+}
+.b-transfer__head {
+    display flex
+    justify-content space-between
+
+    margin 0
+}
+.b-transfer__title {
+    margin 0
+}
+.b-transfer__title-caption {
+    font-size 16px;
+    font-weight normal;
+    color: #9CA6B0;
+}
+.b-transfer__include {
+    .b-agreement {
+        margin 0
+        padding-right 30px
+
+        .b-checkbox {
+            left auto
+            right 0
+        }
+    }
+}
+.b-transfer__body {
+    margin-top 16px
+}
+.b-transfer__routes {
+    display flex
+    margin 0 0 16px
+}
+.b-transfer__routes-item {
+    margin-right 34px
+}
+.b-transfer-item {
+    width 752px
+    margin 8px 0
+}
+.b-transfer-item__row {
+    display flex
+    justify-content space-between
+    background-color #fff
+    border 1px solid #DDE3E9
+    border-radius 3px
+}
+.b-transfer-item__row-selected {
+    background-color #f6f6f6
+}
+.b-transfer-item__more {
+    position relative
+    padding 20px 16px
+    font-size: 14px;
+    color: #313C48;
+    line-height: 17px;
+    border-color #DDE3E9
+    border-style solid
+    border-width 0 1px 1px
+    border-radius 0 0 3px 3px
+    background: #EFF2F5;
+}
+.b-transfer-item__more-close {
+    position absolute
+    right 5px
+    top 5px
+    width 14px
+    height 14px
+    transform: rotate(45deg);
+    cursor pointer
+
+    &:after {
+        content ''
+        display block
+        position absolute
+        left 50%
+        top 0
+        margin-left -1px
+        width 2px
+        height 14px
+        background #9CA6B0
+    }
+    &:before {
+        content ''
+        display block
+        position absolute
+        left 0
+        top 50%
+        margin-top -1px
+        width 14px
+        height 2px
+        background #9CA6B0
+    }
+}
+.b-transfer-item__img {
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+
+    width 204px
+    height 136px
+    background: #EFF2F5;
+    border-radius: 3px 0px 0px 3px;
+}
+.b-transfer-item__img-icon-1 {
+    width 115px
+    height 50px
+    background url('/spa/img/transfers/auto-1.svg') no-repeat 0 0
+}
+.b-transfer-item__img-icon-2 {
+    width 100px
+    height 34px
+    background url('/spa/img/transfers/auto-2.svg') no-repeat 0 0
+}
+.b-transfer-item__img-label {
+    margin 8px 0 0 0
+    padding 0 15px
+    font-family: Roboto-Regular;
+    font-size: 14px;
+    color: #9CA6B0;
+    letter-spacing: 0px;
+    text-align center
+}
+.b-transfer-item__desc {
+    position relative
+    flex 3
+
+    padding 12px 16px
+}
+.b-transfer-item__info {
+    position absolute
+    box-sizing border-box
+    right 6px
+    top 5px
+    width 14px
+    height 14px
+
+    border: 1px solid #0054B9;
+    border-radius 50%
+    color #0054B9
+    font-size 12px
+    line-height 12px
+    text-align center
+    cursor pointer
+}
+.b-transfer-item__title {
+    margin 0 0 3px
+    font-size: 18px;
+    color: #0054B9;
+    cursor pointer
+}
+.b-transfer-item__auto {
+    font-size: 14px;
+    color: #9CA6B0;
+}
+.b-transfer-item__peoples {
+    display flex
+
+    position absolute
+    bottom 16px
+    font-size: 14px;
+    color: #9CA6B0;
+}
+.b-transfer-item__people {
+    margin 0 12px 0 0
+}
+.b-transfer-item__price {
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+
+    width 191px
+    border-left 1px solid #DDE3E9
+}
+.b-transfer-item__price-val {
+    margin 8px 0 4px
+    font-size: 20px;
+    color: #313C48;
+    line-height: 28px;
+    font-weight bold
+
+    .fa {
+        margin-left 3px
+        font-size 18px
+    }
+}
+.b-transfer-item__price-full {
+    margin 0 0 8px
+    font-size: 12px;
+    color: #778695;
+
+    .fa {
+        margin-left 2px
+        font-size 11px
+    }
+}
+.b-transfer-item__price-button {
+    box-sizing border-box
+    display block
+    width 160px
+    text-align center
+}
+.b-transfer__load {
+    padding 0 0 25px
+    .spinner {
+        width 320px
+    }
+    .spinner__text {
+        color #9ca6b0
+        font-size 14px
+    }
+}
+// f-radio
+.f-radio {
+
+}
+.f-radio__input {
+    display none
+
+    &:checked {
+        & + .f-radio__indicator {
+            &:before {
+                content ''
+                display block
+                position absolute
+                left 50%
+                top 50%
+                margin-left -5px
+                margin-top -5px
+                width 10px
+                height 10px
+                border-radius 50%
+                background-color #7CB621
+            }
+        }
+    }
+}
+.f-radio__indicator {
+    position relative
+    box-sizing border-box
+    display inline-block
+    width 20px
+    height 20px
+    border-radius 50%
+    border 2px solid #7CB621
+    vertical-align middle
+}
+.f-radio__label {
+    display inline-block
+    margin-left 3px
+    vertical-align middle
+}
