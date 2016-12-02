@@ -205,17 +205,17 @@ innaAppControllers.
 
             var onScroll = function () {
                 var scroll = utils.getScrollTop();
-                // if (scroll > 250) {
-                //     $scope.$apply(function ($scope) {
-                //         $scope.FormExpand = false;
-                //         $scope.SearchFormExpandPadding = {'padding-top': 0};
-                //     });
-                // } else {
-                //     $scope.$apply(function ($scope) {
-                //         $scope.FormExpand = true;
-                //         $scope.SearchFormExpandPadding = {'padding-top': 250 - scroll};
-                //     });
-                // }
+                if (scroll > 155) {
+                    $scope.$apply(function ($scope) {
+                        $scope.FormExpand = false;
+                        $scope.SearchFormExpandPadding = {'padding-top': 0};
+                    });
+                } else {
+                    $scope.$apply(function ($scope) {
+                        $scope.FormExpand = true;
+                        $scope.SearchFormExpandPadding = {'padding-top': 250 - scroll};
+                    });
+                }
             };
 
             (function __INITIAL__() {
