@@ -142,6 +142,7 @@ innaAppControllers.
             $scope.FormExpand = false;
             $scope.isEnableSearchForm = false;
             $scope.StaticPage = false;
+            $scope.isVisibleNotifNewDesign = true;
             
             $scope.$on('$routeChangeStart', function (next, current) {
                 switch ($location.$$path) {
@@ -154,12 +155,14 @@ innaAppControllers.
                         // if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
                         //     $scope.SearchFormExpandPadding = {'padding-top': 0}
                         // }else{
-                            $scope.FormExpand = true;
-                            $scope.SearchFormExpandPadding = {'padding-top': 250};
-                            document.addEventListener('scroll', onScroll, false);
+                        $scope.isVisibleNotifNewDesign = true;
+                        $scope.FormExpand = true;
+                        $scope.SearchFormExpandPadding = {'padding-top': 250};
+                        document.addEventListener('scroll', onScroll, false);
                         // }
                         break;
                     default:
+                        $scope.isVisibleNotifNewDesign = false;
                         $scope.FormExpand = false;
                         $scope.SearchFormExpandPadding = {'padding-top': 0};
                         document.removeEventListener('scroll', onScroll, false);
@@ -196,6 +199,10 @@ innaAppControllers.
                 }
             });
 
+            $scope.closeNotifNewDesign = function () {
+                $scope.isVisibleNotifNewDesign = false;
+            };
+
             var onScroll = function () {
                 var scroll = utils.getScrollTop();
                 // if (scroll > 250) {
@@ -210,7 +217,6 @@ innaAppControllers.
                 //     });
                 // }
             };
-
 
             (function __INITIAL__() {
 

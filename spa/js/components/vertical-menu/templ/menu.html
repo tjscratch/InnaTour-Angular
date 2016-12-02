@@ -11,7 +11,7 @@
                                                 'icon-menu_white': etapMainPage,
                                                 'icon-menu_green': !etapMainPage}"></div>
     </div>
-    <div class="vertical-menu" ng-class="{'vertical-menu_open': isOpen}">
+    <div class="vertical-menu" ng-class="{'vertical-menu_open': isOpen}" ng-if="isOpen">
         <ul class="menu__ul_main-tab" style="{{(etapMainPage) ? 'display:none' : ''}}">
             <li>
                 <!--<span class="header-nav__item-promo">-30%</span>-->
