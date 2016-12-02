@@ -63,7 +63,6 @@ innaAppControllers
                 }
             });
             
-            
             $scope.$on('$routeChangeStart', function (next, current) {
                 $scope.safeApply(function () {
                     $scope.isHeaderVisible = true;

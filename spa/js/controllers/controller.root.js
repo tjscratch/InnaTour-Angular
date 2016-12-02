@@ -211,6 +211,11 @@ innaAppControllers.
                 // }
             };
 
+            $scope.isVisibleNotifNewDesign = true;
+
+            $scope.closeNotifNewDesign = function () {
+                $scope.isVisibleNotifNewDesign = false;
+            };
 
             (function __INITIAL__() {
 
