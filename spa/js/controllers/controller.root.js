@@ -15,7 +15,8 @@ innaAppControllers.
         'innaApp.Urls',
         'innaAppApiEvents',
         'aviaHelper',
-        function (EventManager, $log, $scope, $location, dataService, AuthDataProvider, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
+        '$timeout',
+        function (EventManager, $log, $scope, $location, dataService, AuthDataProvider, eventsHelper, urlHelper, appUrls, Events, aviaHelper, $timeout) {
 
             //js загрузился - показываем все спрятанные элементы
             setTimeout(function () {
@@ -142,7 +143,7 @@ innaAppControllers.
             $scope.FormExpand = false;
             $scope.isEnableSearchForm = false;
             $scope.StaticPage = false;
-            $scope.isVisibleNotifNewDesign = true;
+            $scope.isVisibleNotifNewDesign = false;
             
             $scope.$on('$routeChangeStart', function (next, current) {
                 switch ($location.$$path) {
@@ -155,7 +156,10 @@ innaAppControllers.
                         // if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
                         //     $scope.SearchFormExpandPadding = {'padding-top': 0}
                         // }else{
-                        $scope.isVisibleNotifNewDesign = true;
+                        $timeout(function () {
+                            $scope.isVisibleNotifNewDesign = true;
+
+                        }, 3000);
                         $scope.FormExpand = true;
                         $scope.SearchFormExpandPadding = {'padding-top': 250};
                         document.addEventListener('scroll', onScroll, false);
@@ -205,17 +209,17 @@ innaAppControllers.
 
             var onScroll = function () {
                 var scroll = utils.getScrollTop();
-                if (scroll > 155) {
-                    $scope.$apply(function ($scope) {
-                        $scope.FormExpand = false;
-                        $scope.SearchFormExpandPadding = {'padding-top': 0};
-                    });
-                } else {
-                    $scope.$apply(function ($scope) {
-                        $scope.FormExpand = true;
-                        $scope.SearchFormExpandPadding = {'padding-top': 250 - scroll};
-                    });
-                }
+                //if (scroll > 155) {
+                //    $scope.$apply(function ($scope) {
+                //        $scope.FormExpand = false;
+                //        $scope.SearchFormExpandPadding = {'padding-top': 0};
+                //    });
+                // } else {
+                //    $scope.$apply(function ($scope) {
+                //        $scope.FormExpand = true;
+                //        $scope.SearchFormExpandPadding = {'padding-top': 250 - scroll};
+                //    });
+                //}
             };
 
             (function __INITIAL__() {
