@@ -1,23 +1,56 @@
 btx-button-color1() {
-    border-top: 1px solid #f199dc;
-    border-bottom: 1px solid #a60070;
-    background: linear-gradient(top, #dc00a4, #cf0071);
-    border-radius: 0px;
+    padding 8px 15px
+    border: none;
+    background: $btn-red-bg;
+    border-radius: $btn-red-border-radius;
+    color $btn-red-color
+    font-size 20px
+    font-weight bold
     
     &:hover {
-        background: linear-gradient(top, rgba(220,0,164,0.8), rgba(207,0,113,0.8));
+        background: $btn-red-bg-hover
+        text-decoration: none;
+    }
+    &:active {
+        background: $btn-red-bg-active
         text-decoration: none;
     }
 }
 
 btx-button-color2() {
+    padding 6px 15px
     border: none;
-    border-top: 1px solid #f7dc7f;
-    border-bottom: 1px solid #f3ca3f;
-    background: linear-gradient(top, #f1c300, #eba200);
-    
-    &:hover {
-        background: linear-gradient(top, rgba(241,195,0,0.8), rgba(235,162,0,0.8));
+    background: $btn-red-bg;
+    border-radius: $btn-red-border-radius;
+    color $btn-red-color
+    font-size 16px
+    font-weight bold
+
+    &:hover{
+        background: $btn-red-bg-hover
+        text-decoration: none;
+    }
+    &:active{
+        background: $btn-red-bg-active
+        text-decoration: none;
+    }
+}
+
+btx-button-color3() {
+    padding 6px 16px
+    border: none;
+    background: $btn-yellow-bg;
+    border-radius: $btn-red-border-radius;
+    color #000000
+    font-size 16px
+    font-weight bold
+
+    &:hover{
+        background: $btn-yellow-bg-hover
+        text-decoration: none;
+    }
+    &:active{
+        background: $btn-yellow-bg-active
         text-decoration: none;
     }
 }
@@ -32,12 +65,16 @@ btx-button2() {
     btx-button-color2()
 }
 
+btx-button3() {
+    btx-button-color3()
+}
+
 btx-checkbox-bg() {
-    background: url("/spa/img/i.png") no-repeat 2px -590px #61a8e1;
+    background: url("/spa/img/i.png") no-repeat 2px -590px $green;
 }
 
 btx-checkbox-border() {
-    border: 2px solid #3fa9f5;
+    border: 2px solid $green;
 }
 
 .balloon-button {
