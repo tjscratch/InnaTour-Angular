@@ -1,10 +1,13 @@
-.header, .footer {
+.header, .footer, .wrap-notif-new-design {
     display: none;
 }
 
 .wrpr{
   padding-bottom: 1px !important;
 }
+//.b-search-form{
+//    top: 150px;
+//}
   
 .page-buy-success{
   padding-top 20px;
@@ -23,24 +26,23 @@
     .partner-body-noscroll {
         overflow: hidden;
     }
-
-    /*#content .container {*/
-      /*background: #fff;*/
-      /*background-color: #fff;*/
-    /*}*/
     
     .light-theme {
-        background-color: #fff;
+        //background-color: #fff;
         
         &.partner-body-class {
-            background-color: transparent;
+            background: transparent;
         }
         .offers-black {
-            background-color: transparent;
+            background: transparent;
         }
         .offers-dark-grey {
-            background-color: transparent;
+            background: transparent;
         }
+
+        //.buy-passanger__block{
+        //    background none
+        //}
     }
 
     .main .wrpr {
@@ -48,9 +50,18 @@
     }
 
     .pic-cont {
-        height: 470px;
+        height: 350px;
         width: 100%;
-        text-align: center;
-        background: url("/spa/img/partners-form-back.jpg") no-repeat top center;
+        /*text-align: center;*/
+        background url('/spa/img/partners/rusline/rusline_dp-02.png') 100% 100% no-repeat
+        background-size cover
+
+        .wrapper {
+            padding-top 150px
+        }
+
+        .search-form__submit {
+            background-color $green
+        }
     }
 }
