@@ -1,0 +1,44 @@
+<div class="search-form-item" ng-click="openBlock($event)" ng-style="isLongStyle">
+    <div class="search-form-item-current" ng-if="typePage == 'DP' || typePage == 'Avia'" style="display:block; text-align: center">
+        {{getPeopleCount() | asQuantity:"человек":"человека":"человек"}}, {{klassModel.display}}
+    </div>
+    <div class="search-form-item-current" ng-if="typePage == 'Hotel' || typePage == 'Bus'" style="display:block; text-align: center">
+        {{getPeopleCount() | asQuantity:"человек":"человека":"человек"}}
+    </div>
+    <div class="search-form-human-dialog" style="display:block;" ng-style="isLongStyleOpenBlock"
+         ng-show="isOpen" ng-mouseleave="closeBlock()">
+        <!--<h3>Пассажиры</h3>-->
+        <div class="search-form-dialog-row row">
+            <div class="minusAdult" ng-click="minusAdult($event)">
+                <div class="horizontal-line"></div>
+            </div>
+            <div class="countAdult">{{adultCount | asQuantity:"взрослый":"взрослых":"взрослых"}}</div>
+            <div class="plusAdult" ng-click="plusAdult($event)">
+                <div class="horizontal-line"></div>
+                <div class="vertical-line"></div>
+            </div>
+        </div>
+        <div class="search-form-dialog-row row">
+            <div class="childrens" ng-repeat="child in childrensAge track by $index">
+                {{child.value}} {{yearString(child.value)}}
+                <div class="delete-children" ng-click="deleteChildren($index)">
+                    <div class="delete-children__item-one"></div>
+                    <div class="delete-children__item-two"></div>
+                </div>
+            </div>
+            <div class="add-children" ng-if="isEnableAddChildren" ng-click="isOpenChildren()">
+                <div class="div">Добавить ребенка</div>
+                <div class="icon-open-list" ng-class="{'icon-open-list_open' : isOpenChildrenList}"></div>
+            </div>
+            <ul class="list-childrens" ng-if="isOpenChildrenList && isEnableAddChildren">
+                <li class="list-childrens__item" ng-repeat="count in range(0, 17)" ng-click="addChildren(count)">{{count}} {{yearString(count)}}</li>
+            </ul>
+        </div>
+        <div class="search-form-dialog-row row" ng-if="typePage == 'DP' || typePage == 'Avia'" style="text-align: center;">
+            <span ng-repeat="option in klassModel.getOptions()" style="margin-right: 3px;">
+                <input type="radio" id="{{option.display}}" name="trip-preferences" ng-click="onChoose(option)">
+                <label for="{{option.display}}" ng-click="onChoose(option)">{{option.display}}</label>
+            </span>
+        </div>
+    </div>
+</div>

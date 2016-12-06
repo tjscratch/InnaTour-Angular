@@ -40,7 +40,6 @@ innaAppControllers
             $scope.OrderId = routParam.OrderId;
             $scope.userIsAgency = null;
             
-            $scope.isLanding = (routParam.departureSlug && routParam.SearchDate) ? true : false;
 
             /**
              * Трекаем события для GTM
@@ -69,8 +68,8 @@ innaAppControllers
                 );
             });
             
-            document.body.classList.add('bg_white');
-            document.body.classList.remove('light-theme');
+            // document.body.classList.add('bg_white');
+            // document.body.classList.remove('light-theme');
             
             $scope.passengerCount = parseInt($routeParams.Adult) + ($routeParams.Children ? $routeParams.Children.split('_').length : 0);
             
@@ -656,7 +655,16 @@ innaAppControllers
                 return urlDetails;
             };
             $scope.goToSearchDynamic = goToSearchDynamic;
-            
+
+            $scope.goDefault = function (room) {
+                angular.forEach($scope.hotelRooms, function (item) {
+                    item.Default = false;
+                });
+                room.Default = true;
+                $scope.recommendedPair.setRoom(room);
+                $scope.recommendedPair.setFullPackagePrice(room);
+                console.log('RECPAIR', $scope.recommendedPair);
+            };
             
             $scope.goReservation = function (room) {
                 var content = '';
@@ -673,7 +681,7 @@ innaAppControllers
                         'Category': 'Packages',
                         'Action': 'PackagesBuyDetails',
                         'Label': room.RoomName,
-                        'Content': room.IsReturnsWithFine ? 'Отмена бронирования со штрафом' : '[no data]',
+                        'Content': content ? content : '[no data]',
                         'Context': room.PackagePrice,
                         'Text': '[no data]'
                     }

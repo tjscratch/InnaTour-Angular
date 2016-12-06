@@ -151,7 +151,7 @@
 					<div class="b-tickets-info-block b-svyaznoy" ng-if="reservationModel.experationMinute > 0">
 						<ul class="pay-type-select">
 							<li ng-if="isPayWithBankCardAllowed">
-								<span class="icon-img icon-sprite-pay_type_1"></span>
+								<!--<span class="icon-img icon-sprite-pay_type_1"></span>-->
 								<input ng-model="svyaznoyPayControl.payType" value="1" id="pay_type_card" type="radio" name="card-pay">
 								<label for="pay_type_card">
 									<b>&nbsp;{{price| price}}
@@ -160,7 +160,7 @@
 									<span>банковской картой</span></label>
 							</li>
 							<li ng-if="isPayWithSvyaznoyAllowed">
-								<span class="icon-img icon-sprite-pay_type_2"></span>
+								<!--<span class="icon-img icon-sprite-pay_type_2"></span>-->
 								<input ng-model="svyaznoyPayControl.payType" value="2" id="pay_type_cache" type="radio" name="card-pay">
 								<label for="pay_type_cache"><b>&nbsp;{{price| price}}
 									<ng-include src="'components/ruble.html'"/>
@@ -168,7 +168,7 @@
 									<span>{{svyaznoyPayControl.checkListTitle}}</span></label>
 							</li>
 							<li ng-if="qiwiPayControl.isEnabled && !paymentDeadline.ifExpires()">
-								<span class="icon-img icon-sprite-pay_type_3"></span>
+								<!--<span class="icon-img icon-sprite-pay_type_3"></span>-->
 								<input ng-model="svyaznoyPayControl.payType" value="3" id="pay_type_qiwi" type="radio" name="card-pay">
 								<label for="pay_type_qiwi"><b>&nbsp;{{price| price}}
 									<ng-include src="'components/ruble.html'"/>

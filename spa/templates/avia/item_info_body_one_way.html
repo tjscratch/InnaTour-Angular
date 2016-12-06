@@ -1,0 +1,55 @@
+<div class="rlf-part" style="min-height: 84px;">
+    <div class="rfl-column3">
+        <div class="rlf-aviacompany">
+            <img ng-src="{{etap.TransporterCodeUrl}}" alt="" style="max-height: 25px; margin-bottom:5px !important;">
+            {{etap.TransporterName}} <br>
+            рейс {{etap.Number}} <br>
+            {{etap.VehicleName}}
+            <div ng-if="etap.baggage">
+                <a ng-class="{'baggage-alert':etap.baggageAlert}"
+                   href="https://bags.amadeus.com/Display.aspx?a={{etap.TransporterCode}}"
+                   target="_blank">{{etap.baggage}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="b-tickets__container">
+        <div class="row b-tickets__block">
+            <div class="col-xs-4 col-no-padding" style="padding: 5% 0;">
+                <div class="rlf-airport">{{etap.OutCode}}</div>
+            </div>
+            <div class="col-xs-7 col-no-padding">
+                <div class="rlf-flight-info">
+                    <b>вылет {{etap.OutTimeFormatted}}</b>, {{etap.OutDateFormatted}} <br>
+                    <span ng-if="etap.InCity != etap.InPort">{{etap.OutCity}}, {{etap.OutPort}}</span>
+                    <span ng-if="etap.InCity == etap.InPort">{{etap.OutCity}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="rlf-travel-time" ng-if="etap.WayTime > 0">{{etap.WayTimeFormatted}}</div>
+        <div class="rlf-travel-time" ng-if="!(etap.WayTime > 0)">&nbsp;</div>
+        <div class="row b-tickets__block">
+            <div class="col-xs-4 col-no-padding" style="padding: 5% 0;">
+                <div class="rlf-airport"><br>{{etap.InCode}}</div>
+            </div>
+            <div class="col-xs-7 col-no-padding">
+                <div class="rlf-flight-info">
+                    <b>прилет {{etap.InTimeFormatted}}</b>, {{etap.InDateFormatted}} <br>
+                    <span ng-if="etap.InCity != etap.InPort">{{etap.InCity}}, {{etap.InPort}}</span>
+                    <span ng-if="etap.InCity == etap.InPort">{{etap.InCity}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="rlf-part rlf-part_transfer" ng-if="!$last">
+    <div class="rlf-column1">
+        <div class="rlf-airport">Пересадка</div>
+        <div class="rlf-travel-time" ng-if="etap.TransferWaitTime > 0">{{etap.WaitTimeFormatted}}</div>
+        <div class="rlf-travel-time" ng-if="!(etap.TransferWaitTime > 0)">&nbsp;</div>
+    </div>
+    <div class="rlf-colum4">
+        <span ng-if="etap.NextOutCity != etap.NextOutPort">{{etap.NextOutCity}}, {{etap.NextOutPort}} ({{etap.NextOutCode}}), {{etap.NextOutCountryName}}</span>
+        <span ng-if="etap.NextOutCity == etap.NextOutPort">{{etap.NextOutPort}} ({{etap.NextOutCode}}), {{etap.NextOutCountryName}}</span>
+        <div class="rlf-transfer" ng-if="etap.alert">{{etap.alert}}</div>
+    </div>
+</div>

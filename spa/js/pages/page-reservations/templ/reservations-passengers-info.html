@@ -1,226 +1,228 @@
-<h3 class="ReservationForm__title">
-	Пассажиры
-</h3>
+<div class="ReservationSection__wrap">
+	<h3 class="ReservationForm__title">
+		Пассажиры
+	</h3>
 
-<fieldset class="ReservationFormBlock" ng-repeat="passenger in reservation.ReservationModel.Passengers">
-	<div class="FieldGroup ReservationFormBlock__FieldGroup">
+	<fieldset class="ReservationFormBlock" ng-repeat="passenger in reservation.ReservationModel.Passengers">
+		<div class="FieldGroup ReservationFormBlock__FieldGroup">
 
-		<div class="FieldBlock FieldBlock__sex">
-			<label class="FieldLabel">Пол</label>
-			<div class="FieldSex">
-				<label class="FieldSex__label"
-				       ng-class="{'FieldSex__label-active' : passenger.Sex == 1}">
-					<input class="FieldSex__input"
-					       type="radio"
-					       name="passengerSex"
-					       value="1"
-					       ng-model="passenger.Sex"/>
-					<div class="FieldSex__icon">М</div>
-				</label>
-				<label class="FieldSex__label"
-				       ng-class="{'FieldSex__label-active' : passenger.Sex == 2}">
-					<input class="FieldSex__input"
-					       type="radio"
-					       name="passengerSex"
-					       value="2"
-					       ng-model="passenger.Sex"/>
-					<div class="FieldSex__icon">Ж</div>
-				</label>
+			<div class="FieldBlock FieldBlock__sex">
+				<label class="FieldLabel">Пол</label>
+				<div class="FieldSex">
+					<label class="FieldSex__label"
+						ng-class="{'FieldSex__label-active' : passenger.Sex == 1}">
+						<input class="FieldSex__input"
+							type="radio"
+							name="passengerSex"
+							value="1"
+							ng-model="passenger.Sex"/>
+						<div class="FieldSex__icon">М</div>
+					</label>
+					<label class="FieldSex__label"
+						ng-class="{'FieldSex__label-active' : passenger.Sex == 2}">
+						<input class="FieldSex__input"
+							type="radio"
+							name="passengerSex"
+							value="2"
+							ng-model="passenger.Sex"/>
+						<div class="FieldSex__icon">Ж</div>
+					</label>
+				</div>
 			</div>
-		</div>
 
-		<div class="FieldBlock FieldBlock__second-name">
-			<label for="passenger.F{{$index}}"
-			       class="FieldLabel">Фамилия</label>
-			<input id="passenger.F{{$index}}"
-			       class="FieldText"
-			       ng-model="passenger.F"
-			       upper-latin
-			       type="text"
-			       placeholder="Фамилия"
-			       name="passengerF{{$index}}"
-			       message-id="passengerF{{$index}}"
-			       validator="required"
-			       valid-method="submit"
-			       required-error-message="Введите фамилию"
-			/>
-			<div class="FieldError"
-			     id="passengerF{{$index}}"></div>
-		</div>
+			<div class="FieldBlock FieldBlock__second-name">
+				<label for="passenger.F{{$index}}"
+					class="FieldLabel">Фамилия</label>
+				<input id="passenger.F{{$index}}"
+					class="FieldText FieldText_lastname"
+					ng-model="passenger.F"
+					upper-latin
+					type="text"
+					placeholder="Фамилия"
+					name="passengerF{{$index}}"
+					message-id="passengerF{{$index}}"
+					validator="required"
+					valid-method="submit"
+					required-error-message="Введите фамилию"
+				/>
+				<div class="FieldError"
+					id="passengerF{{$index}}"></div>
+			</div>
 
-		<div class="FieldBlock FieldBlock__surname">
-			<label for="passenger.I{{$index}}"
-			       class="FieldLabel">Имя</label>
-			<input id="passenger.I{{$index}}"
-			       class="FieldText"
-			       ng-model="passenger.I"
-			       upper-latin
-			       type="text"
-			       placeholder="Имя"
-			       name="passengerI{{$index}}"
-			       message-id="passengerI{{$index}}"
-			       validator="required"
-			       valid-method="submit"
-			       required-error-message="Введите имя"
-			/>
-			<div class="FieldError"
-			     id="passengerI{{$index}}"></div>
-		</div>
+			<div class="FieldBlock FieldBlock__surname">
+				<label for="passenger.I{{$index}}"
+					class="FieldLabel">Имя</label>
+				<input id="passenger.I{{$index}}"
+					class="FieldText FieldText_firstname"
+					ng-model="passenger.I"
+					upper-latin
+					type="text"
+					placeholder="Имя"
+					name="passengerI{{$index}}"
+					message-id="passengerI{{$index}}"
+					validator="required"
+					valid-method="submit"
+					required-error-message="Введите имя"
+				/>
+				<div class="FieldError"
+					id="passengerI{{$index}}"></div>
+			</div>
 
-		<div class="FieldBlock FieldBlock__birthday">
-			<label for="passenger.Birthday{{$index}}"
-			       class="FieldLabel">Дата рождения</label>
+			<div class="FieldBlock FieldBlock__birthday">
+				<label for="passenger.Birthday{{$index}}"
+					class="FieldLabel">Дата рождения</label>
 
-			<input id="passenger.Birthday{{$index}}"
-			       class="FieldText"
-			       ng-model="passenger.Birthday"
-			       type="text"
-			       masked-input
-			       mask="99.99.9999"
-			       placeholder="дд.мм.гггг"
-			       name="passengerBirthday{{$index}}"
-			       message-id="passengerBirthday{{$index}}"
-			       validator="required, date_format, birthday"
-			       valid-method="submit"
-			       required-error-message="Введите дату рождения"
+				<input id="passenger.Birthday{{$index}}"
+					class="FieldText FieldText_birthday"
+					ng-model="passenger.Birthday"
+					type="text"
+					masked-input
+					mask="99.99.9999"
+					placeholder="дд.мм.гггг"
+					name="passengerBirthday{{$index}}"
+					message-id="passengerBirthday{{$index}}"
+					validator="required, date_format, birthday"
+					valid-method="submit"
+					required-error-message="Введите дату рождения"
+				>
+				<div class="FieldError"
+					id="passengerBirthday{{$index}}"></div>
+			</div>
+
+			<div class="FieldBlock FieldBlock__citizen">
+				<label class="FieldLabel">Гражданство</label>
+
+				<ui-select ng-model="passenger.Citizen"
+						theme="selectize"
+
+						name="passengerCitizen{{ $index }}"
+						message-id="passengerCitizen{{ $index }}"
+						validator="required"
+						valid-method="submit"
+						required-error-message="Укажите гражданство"
+				>
+					<ui-select-match placeholder="Гражданство">{{$select.selected.Name}}</ui-select-match>
+					<ui-select-choices repeat="country.Id as country in reservation.countries | filter: $select.search"
+									refresh-delay="0">
+						<span ng-bind-html="country.Name | highlight: $select.search"></span>
+					</ui-select-choices>
+				</ui-select>
+
+				<div id="passengerCitizen{{ $index }}" class="FieldError"></div>
+			</div>
+
+
+			<div class="FieldBlock FieldBlock__DocumentId">
+				<label class="FieldLabel">Тип документа</label>
+
+				<ui-select ng-model="passenger.DocumentId"
+						theme="selectize"
+						name="passengerDocumentId{{ $index }}"
+				>
+					<ui-select-match placeholder="Тип документа">{{$select.selected.Name}}</ui-select-match>
+					<ui-select-choices repeat="document.Id as document in reservation.documentTypes | filter: $select.search"
+									refresh-delay="0">
+						<span ng-bind-html="document.Name | highlight: $select.search"></span>
+					</ui-select-choices>
+				</ui-select>
+			</div>
+
+
+			<div class="FieldBlock FieldBlock__Number">
+				<label for="passenger.Number{{$index}}"
+					class="FieldLabel">Серия и номер</label>
+
+				<!-- если в документа выбран Паспорт РФ DocumentId == 0-->
+				<input ng-if="passenger.DocumentId == 0"
+					id="passenger.Number{{$index}}"
+					class="FieldText FieldText_doc-num"
+					ng-model="passenger.Number"
+					digits-input
+					type="text"
+					name="passengerNumber{{$index}}"
+					message-id="passengerNumber{{$index}}"
+					validator="required, number, minlength=10, maxlength=10"
+					valid-method="submit"
+					required-error-message="Укажите номер документа"
+					number-error-message="Допустимы только цифры"
+					minlength-error-message="Длинна серии и номера паспорта 10 цифр"
+					maxlength-error-message="Длинна серии и номера паспорта 10 цифр"
+				/>
+				<!-- если в документа выбран Загранпаспорт DocumentId == 1 -->
+				<input ng-if="passenger.DocumentId == 1"
+					id="passenger.Number{{$index}}"
+					class="FieldText FieldText_expires"
+					ng-model="passenger.Number"
+					digits-input
+					type="text"
+					name="passengerNumber{{$index}}"
+					message-id="passengerNumber{{$index}}"
+					validator="required, number, minlength=7, maxlength=9"
+					valid-method="submit"
+					required-error-message="Укажите номер документа"
+					number-error-message="Допустимы только цифры"
+					minlength-error-message="Длинна серии и номера паспорта от 7 до 9 цифр"
+					maxlength-error-message="Длинна серии и номера паспорта от 7 до 9 цифр"
+				/>
+
+				<!-- показываем если выбрано Свидетельство о рождении DocumentId == 2 -->
+				<input ng-if="passenger.DocumentId == 2"
+					id="passenger.Number{{$index}}"
+					class="FieldText FieldText_expires"
+					ng-model="passenger.Number"
+					type="text"
+					placeholder="XIЮД324244"
+					name="passengerNumber{{$index}}"
+					message-id="passengerNumber{{$index}}"
+					validator="required, child_passport"
+					valid-method="submit"
+					required-error-message="Укажите серию и номер документа"
+					child_passport-error-message="Неверный формат документа"
+				/>
+
+				<!-- показываем если выбран Иностранный документ DocumentId == 3 -->
+				<input ng-if="passenger.DocumentId == 3"
+					id="passenger.Number{{$index}}"
+					class="FieldText FieldText_expires"
+					ng-model="passenger.Number"
+					type="text"
+					name="passengerNumber{{$index}}"
+					message-id="passengerNumber{{$index}}"
+					validator="required, minlength=5, maxlength=15"
+					valid-method="submit"
+					required-error-message="Укажите серию и номер документа"
+					minlength-error-message="Длинна серии и номера паспорта от 5 до 15 цифр"
+					maxlength-error-message="Длинна серии и номера паспорта от 5 до 15 цифр"
+				/>
+
+				<div class="FieldError" id="passengerNumber{{$index}}"></div>
+			</div>
+
+
+			<!-- срок действия указываем только для загранпаспорта-->
+			<div class="FieldBlock FieldBlock__ExpirationDate"
+				ng-if="passenger.DocumentId == 1"
 			>
-			<div class="FieldError"
-			     id="passengerBirthday{{$index}}"></div>
+				<label for="passenger.ExpirationDate{{$index}}"
+					class="FieldLabel">Действителен до</label>
+
+				<input id="passenger.ExpirationDate{{$index}}"
+					class="FieldText"
+					ng-model="passenger.ExpirationDate"
+					type="text"
+					masked-input
+					mask="99.99.9999"
+					placeholder="дд.мм.гггг"
+					name="passengerExpirationDate{{$index}}"
+					message-id="passengerExpirationDate{{$index}}"
+					validator="required, date_format, document_expired"
+					valid-method="submit"
+					required-error-message="Введите срок действия документа"
+				>
+				<div class="FieldError" id="passengerExpirationDate{{$index}}"></div>
+			</div>
+
+
 		</div>
-
-		<div class="FieldBlock FieldBlock__citizen">
-			<label class="FieldLabel">Гражданство</label>
-
-			<ui-select ng-model="passenger.Citizen"
-			           theme="selectize"
-
-			           name="passengerCitizen{{ $index }}"
-			           message-id="passengerCitizen{{ $index }}"
-			           validator="required"
-			           valid-method="submit"
-			           required-error-message="Укажите гражданство"
-			>
-				<ui-select-match placeholder="Гражданство">{{$select.selected.Name}}</ui-select-match>
-				<ui-select-choices repeat="country.Id as country in reservation.countries | filter: $select.search"
-				                   refresh-delay="0">
-					<span ng-bind-html="country.Name | highlight: $select.search"></span>
-				</ui-select-choices>
-			</ui-select>
-
-			<div id="passengerCitizen{{ $index }}" class="FieldError"></div>
-		</div>
-
-
-		<div class="FieldBlock FieldBlock__DocumentId">
-			<label class="FieldLabel">Тип документа</label>
-
-			<ui-select ng-model="passenger.DocumentId"
-			           theme="selectize"
-			           name="passengerDocumentId{{ $index }}"
-			>
-				<ui-select-match placeholder="Тип документа">{{$select.selected.Name}}</ui-select-match>
-				<ui-select-choices repeat="document.Id as document in reservation.documentTypes | filter: $select.search"
-				                   refresh-delay="0">
-					<span ng-bind-html="document.Name | highlight: $select.search"></span>
-				</ui-select-choices>
-			</ui-select>
-		</div>
-
-
-		<div class="FieldBlock FieldBlock__Number">
-			<label for="passenger.Number{{$index}}"
-			       class="FieldLabel">Серия и номер</label>
-
-			<!-- если в документа выбран Паспорт РФ DocumentId == 0-->
-			<input ng-if="passenger.DocumentId == 0"
-			       id="passenger.Number{{$index}}"
-			       class="FieldText"
-			       ng-model="passenger.Number"
-				   digits-input
-			       type="text"
-			       name="passengerNumber{{$index}}"
-			       message-id="passengerNumber{{$index}}"
-			       validator="required, number, minlength=10, maxlength=10"
-			       valid-method="submit"
-			       required-error-message="Укажите номер документа"
-			       number-error-message="Допустимы только цифры"
-			       minlength-error-message="Длинна серии и номера паспорта 10 цифр"
-			       maxlength-error-message="Длинна серии и номера паспорта 10 цифр"
-			/>
-			<!-- если в документа выбран Загранпаспорт DocumentId == 1 -->
-			<input ng-if="passenger.DocumentId == 1"
-			       id="passenger.Number{{$index}}"
-			       class="FieldText"
-			       ng-model="passenger.Number"
-				   digits-input
-			       type="text"
-			       name="passengerNumber{{$index}}"
-			       message-id="passengerNumber{{$index}}"
-			       validator="required, number, minlength=7, maxlength=9"
-			       valid-method="submit"
-			       required-error-message="Укажите номер документа"
-			       number-error-message="Допустимы только цифры"
-			       minlength-error-message="Длинна серии и номера паспорта от 7 до 9 цифр"
-			       maxlength-error-message="Длинна серии и номера паспорта от 7 до 9 цифр"
-			/>
-
-			<!-- показываем если выбрано Свидетельство о рождении DocumentId == 2 -->
-			<input ng-if="passenger.DocumentId == 2"
-			       id="passenger.Number{{$index}}"
-			       class="FieldText"
-			       ng-model="passenger.Number"
-			       type="text"
-			       placeholder="XIЮД324244"
-			       name="passengerNumber{{$index}}"
-			       message-id="passengerNumber{{$index}}"
-			       validator="required, child_passport"
-			       valid-method="submit"
-			       required-error-message="Укажите серию и номер документа"
-			       child_passport-error-message="Неверный формат документа"
-			/>
-
-			<!-- показываем если выбран Иностранный документ DocumentId == 3 -->
-			<input ng-if="passenger.DocumentId == 3"
-			       id="passenger.Number{{$index}}"
-			       class="FieldText"
-			       ng-model="passenger.Number"
-			       type="text"
-			       name="passengerNumber{{$index}}"
-			       message-id="passengerNumber{{$index}}"
-			       validator="required, minlength=5, maxlength=15"
-			       valid-method="submit"
-			       required-error-message="Укажите серию и номер документа"
-			       minlength-error-message="Длинна серии и номера паспорта от 5 до 15 цифр"
-			       maxlength-error-message="Длинна серии и номера паспорта от 5 до 15 цифр"
-			/>
-
-			<div class="FieldError" id="passengerNumber{{$index}}"></div>
-		</div>
-
-
-		<!-- срок действия указываем только для загранпаспорта-->
-		<div class="FieldBlock FieldBlock__ExpirationDate"
-		     ng-if="passenger.DocumentId == 1"
-		>
-			<label for="passenger.ExpirationDate{{$index}}"
-			       class="FieldLabel">Действителен до</label>
-
-			<input id="passenger.ExpirationDate{{$index}}"
-			       class="FieldText"
-			       ng-model="passenger.ExpirationDate"
-			       type="text"
-			       masked-input
-			       mask="99.99.9999"
-			       placeholder="дд.мм.гггг"
-			       name="passengerExpirationDate{{$index}}"
-			       message-id="passengerExpirationDate{{$index}}"
-			       validator="required, date_format, document_expired"
-			       valid-method="submit"
-			       required-error-message="Введите срок действия документа"
-			>
-			<div class="FieldError" id="passengerExpirationDate{{$index}}"></div>
-		</div>
-
-
-	</div>
-</fieldset>
+	</fieldset>
+</div>

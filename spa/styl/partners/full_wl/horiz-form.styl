@@ -5,262 +5,240 @@
 }
 
 .partner-form-wrap.horizontal-form {
-  z-index: 1000;
-  margin: 0 auto;
-  max-width: 974px;
+    z-index: 1000;
+    margin: 0 auto;
+    max-width: 974px;
 }
 
-.horizontal-form
-  .b-tour-form
-    position absolute
-    top 50px
-    padding-left 0px/*������*/
+.horizontal-form {
+    //padding 50px 0 10px
 
-    &-wrapper
-      background transparent
-      padding 0 0 21px!important
-      width 960px
-
-    .main-label
-      color-bg-lbl-wl()
-      font-size 27px
-      font-weight bold
-      color #fff
-      display inline-block
-      line-height 44px
-      padding 0 20px
-
-    .b-search-field
-      border 1px solid #bfbfc1
-      display inline-block
-      height 49px
-      margin 0px 0 4px
-      vertical-align top
-
-      .search-people{
-        background-image: none;
-      }
-
-      .search__list{
-        margin-top: 1px;
-      }
-
-      .search-form-dialog-row .button-group .button.active{
-        color-bg-btn-wl();
-      }
-
-      &__from,
-      &__to {
-        border-right: 0px;
-      }
-
-      &__long
-        width 198px
-
-      &__half {
-        width 120px
-
-        &.b_people {
-          border-right: 0px;
-          background-color: #fff;
-        }
-      }
-
-      &__class
-        width 119px
-        /*margin-left 20px
-        margin-right 10px*/
-
-      &__calendar {
-        border-right: 0px;
-
-        &.pull-right {
-          float: none;
-        }
-      }
-
-      &__calendar,
-      &__list
-        position relative
-
-        &:after
-          background url("/spa/img/i.png") no-repeat
-          content ''
-          display block
-          position absolute
-          top 50%;
-          right 9px
-
-      &__list
-        &:after
-          background-position -45px -194px
-          width 11px
-          height 6px
-          margin-top -3px
-
-      &__calendar
-        width 129px
-        &:after
-          background-position -39px -1830px
-          width 17px
-          height 16px
-          margin-top -8px
-
-        background-position 0 -171px
-
-      &-hor
-        display: inline-block;
-        text-align justify
-        font-size 0
-
-        &:after
-          width 100%
-          content: ''
-          display inline-block
-          height 0
-
-      &-value,
-      input
+    .b-tour-form {
+        padding-left 0
+        position: absolute
+        top 60px
+    }
+    .main-label {
+        display inline-block
+        font-size $form-label-font-size
+        color $form-input-bg
+        padding 8px 20px
+        background-color $form-bg
+        border-radius $form-border-radius $form-border-radius 0 0
+    }
+    .b-tour-form-wrapper {
+        width 960px
+        padding 7px
+        background-color $form-bg
+    }
+    .search-field {
         box-sizing border-box
         border 0
-        height 100%
+        /*height 100*/
         width 100%
         padding 0 10px
-        font-size 16px
+        font-size $form-font-size
+        border-radius $form-border-radius
+    }
+    .b-search-field {
+        border none
+        display inline-block
+        height $form-input-height
+        margin 0 3px
+        vertical-align top
+        border-radius $form-border-radius
+    }
+    .b-search-field__from {
+        width $form-input-from-width
+        margin-left 0
+    }
+    .b-search-field__to {
+        width $form-input-to-width
+    }
+    .b-search-field__long {
+        .ui-tooltip {
+            position: absolute;
+            margin-top -15px
 
-      &-value
-        line-height 49px
+            .ui-tooltip-content {
+                white-space nowrap;
+            }
+        }
+    }
+    .b-search-field-hor {
+        display: inline-block;
+        text-align justify
+        vertical-align top
+        font-size 0
 
-        .description
-          color #868685
+        &:after {
+            width 100%
+            content: ''
+            display inline-block
+            height 0
+        }
+    }
+    .b-search-field__calendar,
+    .b-search-field__list {
+        position relative
 
-        .iata
-          position absolute
-          color #868685
-          right 30px
+        &:after {
+            background url("/spa/img/i.png") no-repeat
+            content ''
+            display block
+            position absolute
+            top 50%;
+            right 9px
+        }
+    }
+    .b-search-field__calendar {
+        width $form-calendar-input-widht
 
-    .b-search-button
-      position: relative;
-      color-bg-btn-wl()
-      display inline-block
-      height 51px
-      width 58px
-      margin-top 0px
-      cursor: pointer;
+        &:after {
+            background-position -39px -1830px
+            width 17px
+            height 16px
+            margin-top -8px
+        }
+    }
+    .b-search-field__list {
+        width $form-list-input-widht
 
-      &:after
-        @extend .icon-sprite-search;
-        content: '';
-        display: block;
-        position: absolute;
-        right: 13px;
-        margin-top: 11px;
-        z-index: 1;
-      
+        &:after {
+            background-position -45px -194px
+            width 11px
+            height 6px
+            margin-top -3px
+        }
+    }
+    .b_people {
+        background-color: $form-input-bg;
+    }
+    .search-people {
+        border-radius $form-border-radius
+        background-image none
+        background-color $form-input-bg
+    }
+    .search-autocomplete {
+        padding: 0;
+        margin-left: 0;
+    }
+    .search-date-block__date {
+        font-size 13px
+        border-radius $form-border-radius
+        background-color $form-input-bg
+    }
+    .ui-tooltip {
+        background-color $form-input-error-color
+
+        &:before {
+            border-color: transparent transparent $form-input-error-color;
+        }
+    }
+    .b-search-button {
+        position: relative;
+        display inline-block
+        height $form-input-height
+        width $form-btn-width
+        line-height 1.3
+        margin-left 3px
+        padding 7px 10px
+        font-size $form-btn-font-size
+        color $form-btn-color
+        background-color $form-btn-bg
+        box-sizing border-box
+        border-radius $form-btn-border-radius
+        text-align center
+        cursor: pointer;
+
+        &:after {
+            content: 'Найти';
+            display: block;
+        }
+
+        &:hover {
+            background-color lighten($form-btn-bg, 15%)
+        }
+        &:active {
+            background-color darken($form-btn-bg, 15%)
+        }
+    }
+    .search-form-dialog-row {
+        .button-group {
+            .button {
+                &.active {
+                    background-color: $form-datapicker-bg
+                    color white
+                }
+            }
+        }
+    }
+
+    .search__list .current {
+        background-color: $form-datapicker-bg
+        color white
+    }
+}
 
 .dtpk-checkbox {
-  border-color #3fa9f5
-  border-radius 0
+    border-color $btn-green-bg
+    border-radius 0
 }
 
 .dtpk-checkbox-label input:checked + .dtpk-checkbox {
-  background-color #3fa9f5
+    background-color $btn-green-bg
 }
 
 .ui-datepicker td a.ui-state-active,
 .ui-datepicker td a.ui-state-hover {
-  background-color #3fa9f5
-}
-
-.search-form-human-dialog{
-  width: 189px;
-}
-
-.search-date-block__date{
-  font-size: 16px;
-}
-
-.search-date-block__date,
-.search-people,
-.search-form-item-current{
-  height: 49px;
-  line-height: 49px;
+    background-color $btn-green-bg
 }
 
 .datepickerSelected-start a
 .datepickerSelected-end a {
-  color-datepicker-background-wl()
+    background: $form-datapicker-bg !important
 }
 
-.datepickerSelected a{
-  color-datepicker-bg();
+.datepickerSelected a {
+    background: $form-datapicker-bg-lighten
 }
 
-.datePicker-today a{
-  color-border-wl()
+.datePicker-today a {
+    border-color: $form-datapicker-border-color;
 }
 
 .datepickerDays a {
-  &:hover {
-    color-datepicker-background-wl()
-  }
+    &:hover {
+        background: $form-datapicker-bg
+    }
 }
 
 .datepickerGoPrev a
 .datepickerGoNext a {
-  &:hover {
-    color-datepicker-background-wl()
-  }
-}  
-
-.search-autocomplete{
-  width: 401px;
-  padding: 0;
-  margin-left: -1px;
-}
-
-.horizontal-form{
-  .b-search-field__long{
-    &.b-search-field__from{
-      z-index: 31;
+    &:hover {
+        background: $form-datapicker-bg
     }
-    &.b-search-field__to{
-      z-index: 30;
-    }
-
-    .ui-tooltip{
-      position: absolute;
-      left initial!important;
-      top initial!important;
-      bottom -45px
-
-      &:before{
-        display none
-      }
-
-      .ui-tooltip-content{
-        white-space nowrap;
-      }
-    }
-  }
 }
 
 .horizontal-form {
-  .datepicker-field {
-    position: relative;
+    .datepicker-field {
+        position: relative;
 
-    .ui-tooltip {
-      position absolute;
-      left 0px
-      bottom -40px
+        .ui-tooltip {
+            position absolute;
+            bottom -40px
 
-      &:before {
-        display none
-      }
+            &.ui-tooltip-date-to {
+                left: -45px
+            }
 
-      .ui-tooltip-content {
-        white-space nowrap;
-      }
+            &.ui-tooltip-date-back {
+                left: 75px
+            }
+
+            .ui-tooltip-content {
+                white-space nowrap;
+            }
+        }
     }
-  }
 }

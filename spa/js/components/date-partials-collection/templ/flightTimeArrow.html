@@ -4,8 +4,10 @@
 	<br>
 
 	{{#if AviaInfo['Etaps' + direction].length - 1}}
-		{{AviaInfo['Etaps' + direction].length - 1}}
-		{{pluralize(AviaInfo['Etaps' + direction].length - 1, ["пересадка","пересадки","пересадок"])}}
+		<span class="red_span">
+			{{AviaInfo['Etaps' + direction].length - 1}}
+			{{pluralize(AviaInfo['Etaps' + direction].length - 1, ["пересадка","пересадки","пересадок"])}}
+		</span>
 	{{/if}}
 
 	{{#if !(AviaInfo['Etaps' + direction].length - 1)}}

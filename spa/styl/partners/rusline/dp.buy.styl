@@ -1,29 +1,23 @@
 .partner-wl {
     .reserve-form {
-        padding-top:10px;
+        padding-top: 20px;
     }
 
     .buy-form {
-        padding-top:20px;
-    }
-
-    .buy__title {
-      font-size 24px;
+        padding-top: 20px;
     }
 
     .buy__header .buy__title {
-        background-color: transparent;
-        padding: 0px 15px 10px;
-        color: #000;
+        
     }
 
     .b__rules-flies .current {
-        background: #777893;
+        background $green
     }
 
     .b-agreement {
         .b-checkbox {
-          border: 2px solid #afc0cd;
+            btx-checkbox-border()
         }
 
         input:checked + .b-checkbox {
@@ -32,27 +26,9 @@
     }
 
     .buy__blocks {
-        .radio-list {
-          margin-top: 2px;
-
-          input:checked + .radio {
+        .radio-list input:checked + .radio {
             color-bg-lbl-wl();
-          }
         }
-
-        .radio{
-          height: 29px;
-          background: #fff;
-          border: 1px #afc0cd solid;
-        }
-    }
-
-    .radio-list li {
-      border: none;
-
-      &:first-child .radio {
-        border-right: 0;
-      }
     }
 
     .b-sum-container {
@@ -60,25 +36,14 @@
         border-bottom: 1px solid #fff;
     }
 
-    .b-tickets-info-container {
-        border-top: 4px solid #99cf00;
-        border-bottom: 1px solid #fff;
-        background: #fff;
-
-        &:before {
-            border-top: 1px solid #fff;
-        }
-    }
-
     .page-root {
         padding-top: 5px;
     }
-
-    .buy__result-sum {
-        border-bottom: 5px solid #61a8e1;
+    .b-tickets-info-container {
+        border-top-color $green
     }
-}
+    .b-tickets-ok .fa {
+        color $green
+    }
 
-.b-field-group-passport .b-field-block {
-  margin: 0 0 0 15px;
 }

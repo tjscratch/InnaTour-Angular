@@ -1,4 +1,5 @@
 <li ng-show="list.length > 1">
+    <i class="icon-expand" ng-class="{'icon-expand_open': isOpen}"></i>
     <a href="javascript:void(0)" class="filters__link" ng-class="{'filters__link_selected':anyChecked()}" ng-click="toggle($event)">Авиакомпания</a>
     <div class="filters__baloon" ng-show="isOpen" style="z-index:101;">
         <header class="ra-header">

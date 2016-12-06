@@ -55,14 +55,19 @@
 							<b>Выезд:</b>&nbsp;{{hotel.CheckOut | date:'dd MMM yyyy HH:mm'}}
 						</p>
 					</div>
-					<p>
+					<p style="text-align: center;">
 						<span class="hotel-details__section-text-more"
 						      ng-if="showFullDescription"
-						      ng-click="toggleDescription()">Свернуть</span>
-
+						      ng-click="toggleDescription()">
+							<span class="icon-expand-gray icon-expand-gray_open" style="position: absolute; top: 8px; right: -12px;"></span>
+							Свернуть
+						</span>
 						<span class="hotel-details__section-text-more"
 						      ng-if="!showFullDescription"
-						      ng-click="toggleDescription()">Развернуть</span>
+						      ng-click="toggleDescription()">
+							<span class="icon-expand-gray" style="position: absolute; top: 8px; right: -12px;"></span>
+							Развернуть
+						</span>
 					</p>
 				</div>
 			</div>

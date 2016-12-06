@@ -125,6 +125,7 @@
 
 .selectize-control {
   position: relative;
+  /*margin: 3px 0px;*/
 }
 
 .selectize-dropdown,
@@ -148,18 +149,18 @@
   position: relative;
   z-index: 1;
   display: block;
-  width: 100%;
-  padding: 8px 5px;
+  /*width: 100%;*/
+  padding: 6px 5px;
   overflow: hidden;
-  border: 1px solid #d0d0d0;
-  -webkit-border-radius: 3px;
-     -moz-border-radius: 3px;
-          border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  /*border: 1px solid #d0d0d0;*/
+  /*-webkit-border-radius: 3px;*/
+     /*-moz-border-radius: 3px;*/
+          /*border-radius: 3px;*/
+  /*-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);*/
+          /*box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);*/
+  /*-webkit-box-sizing: border-box;*/
+     /*-moz-box-sizing: border-box;*/
+          /*box-sizing: border-box;*/
 }
 
 .selectize-control.multi .selectize-input.has-items {
@@ -176,8 +177,8 @@
 }
 
 .selectize-input.focus {
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
-          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+  /*-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);*/
+          /*box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);*/
 }
 
 .selectize-input.dropdown-active {
@@ -232,7 +233,7 @@
 }
 
 .selectize-input > input:focus {
-  outline: none !important;
+  /*outline: none !important;*/
 }
 
 .selectize-input::after {
@@ -257,16 +258,16 @@
   z-index: 10;
   margin: -1px 0 0 0;
   background: #ffffff;
-  border: 1px solid #d0d0d0;
-  border-top: 0 none;
-  -webkit-border-radius: 0 0 3px 3px;
-     -moz-border-radius: 0 0 3px 3px;
-          border-radius: 0 0 3px 3px;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  /*border: 1px solid #d0d0d0;*/
+  /*border-top: 0 none;*/
+  /*-webkit-border-radius: 0 0 3px 3px;*/
+     /*-moz-border-radius: 0 0 3px 3px;*/
+          /*border-radius: 0 0 3px 3px;*/
+  /*-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);*/
+          /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);*/
+  /*-webkit-box-sizing: border-box;*/
+     /*-moz-box-sizing: border-box;*/
+          /*box-sizing: border-box;*/
 }
 
 .selectize-dropdown [data-selectable] {
@@ -325,18 +326,23 @@
   cursor: text;
 }
 
-.selectize-control.single .selectize-input:after {
+.selectize-control.single .selectize-input:after  {
   position: absolute;
   top: 50%;
-  right: 6px;
+  right: 6px !important;
   display: block;
-  width: 0;
-  height: 0;
-  margin-top: -2px;
-  border-color: #808080 transparent transparent transparent;
-  border-style: solid;
-  border-width: 5px 5px 0 5px;
+  /*width: 0;*/
+  /*height: 0;*/
+  margin-top: -2px !important;
+  /*border-color: #808080 transparent transparent transparent;*/
+  /*border-style: solid;*/
+  /*border-width: 5px 5px 0 5px;*/
   content: ' ';
+  background: url("../img/svg-icons/sprite.svg") no-repeat;
+  background-position: 82.23140495867769% 29.197080291970803%;
+  width: 8px !important;
+  height: 5px !important;
+  overflow: hidden;
 }
 
 .selectize-control.single .selectize-input.dropdown-active:after {
@@ -410,21 +416,21 @@
 }
 
 .selectize-control.single .selectize-input {
-  background-color: #f9f9f9;
-  background-image: -moz-linear-gradient(top, #fefefe, #f2f2f2);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fefefe), to(#f2f2f2));
-  background-image: -webkit-linear-gradient(top, #fefefe, #f2f2f2);
-  background-image: -o-linear-gradient(top, #fefefe, #f2f2f2);
-  background-image: linear-gradient(to bottom, #fefefe, #f2f2f2);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffefefe', endColorstr='#fff2f2f2', GradientType=0);
-  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-          box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  /*background-color: #f9f9f9;*/
+  /*background-image: -moz-linear-gradient(top, #fefefe, #f2f2f2);*/
+  /*background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fefefe), to(#f2f2f2));*/
+  /*background-image: -webkit-linear-gradient(top, #fefefe, #f2f2f2);*/
+  /*background-image: -o-linear-gradient(top, #fefefe, #f2f2f2);*/
+  /*background-image: linear-gradient(to bottom, #fefefe, #f2f2f2);*/
+  /*background-repeat: repeat-x;*/
+  /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffefefe', endColorstr='#fff2f2f2', GradientType=0);*/
+  /*-webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);*/
+          /*box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);*/
 }
 
 .selectize-control.single .selectize-input,
 .selectize-dropdown.single {
-  border-color: #b8b8b8;
+  /*border-color: #b8b8b8;*/
 }
 
 .selectize-dropdown .optgroup-header {

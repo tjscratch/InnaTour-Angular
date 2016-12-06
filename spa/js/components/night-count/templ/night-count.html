@@ -1,5 +1,8 @@
 <div class="NightCount no-outline-on-focus">
 
+	<i class="icon-expand-gray"
+	   style="position: absolute; top: 18px; right: 9px;"
+	   ng-class="{'icon-expand-gray_open': isOpen}"></i>
 
 	<div class="NightCount__label">
 		{{count | asQuantity:"ночь":"ночи":"ночей"}}

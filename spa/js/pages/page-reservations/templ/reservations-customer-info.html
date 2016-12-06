@@ -1,51 +1,53 @@
-<h3 class="ReservationForm__title">
-	Информация о покупателе
-</h3>
+<div class="ReservationSection__wrap">
+	<h3 class="ReservationForm__title">
+		Информация о покупателе
+	</h3>
 
-<fieldset class="ReservationFormBlock">
-	<div class="FieldGroup">
+	<fieldset class="ReservationFormBlock">
+		<div class="FieldGroup">
 
-		<div class="FieldBlock FieldBlock__email">
-			<label for="ReservationModel.Email"
-			       class="FieldLabel">E-mail</label>
-			<input id="ReservationModel.Email"
-			       class="FieldText"
-			       ng-model="reservation.ReservationModel.Email"
-			       name="ReservationModelEmail"
-			       type="text"
-			       placeholder="ivan.ivanov@gmail.com"
-			       message-id="ReservationModelEmail"
-			       validator="required, customemail"
-			       valid-method="submit"
-			       required-error-message="Введите E-mail"
-				   customemail-error-message="Неправильно введен E-mail"
-			/>
-			<div class="FieldError"
-			     id="ReservationModelEmail"></div>
+			<div class="FieldBlock FieldBlock__email">
+				<label for="ReservationModel.Email"
+					class="FieldLabel">E-mail</label>
+				<input id="ReservationModel.Email"
+					class="FieldText"
+					ng-model="reservation.ReservationModel.Email"
+					name="ReservationModelEmail"
+					type="text"
+					placeholder="ivan.ivanov@gmail.com"
+					message-id="ReservationModelEmail"
+					validator="required, customemail"
+					valid-method="submit"
+					required-error-message="Введите E-mail"
+					customemail-error-message="Неправильно введен E-mail"
+				/>
+				<div class="FieldError"
+					id="ReservationModelEmail"></div>
+			</div>
+
+			<div class="FieldBlock FieldBlock__phone">
+				<label for="ReservationModel.Phone"
+					class="FieldLabel">Мобильный телефон</label>
+				<input id="ReservationModel.Phone"
+					class="FieldText"
+					ng-model="reservation.ReservationModel.Phone"
+					name="ReservationModelPhone"
+					type="text"
+
+					message-id="ReservationModelPhone"
+					validator="required"
+					valid-method="submit"
+					required-error-message="Введите номер телефона"
+
+					masked-input
+					phone-input
+					mask="+7 (999) 999-99-99"
+					placeholder="+7 (999) 999-99-99"
+				/>
+				<div class="FieldError"
+					id="ReservationModelPhone"></div>
+			</div>
+
 		</div>
-
-		<div class="FieldBlock FieldBlock__phone">
-			<label for="ReservationModel.Phone"
-			       class="FieldLabel">Мобильный телефон</label>
-			<input id="ReservationModel.Phone"
-			       class="FieldText"
-			       ng-model="reservation.ReservationModel.Phone"
-			       name="ReservationModelPhone"
-			       type="text"
-
-			       message-id="ReservationModelPhone"
-			       validator="required"
-			       valid-method="submit"
-			       required-error-message="Введите номер телефона"
-
-			       masked-input
-			       phone-input
-			       mask="+7 (999) 999-99-99"
-			       placeholder="+7 (999) 999-99-99"
-			/>
-			<div class="FieldError"
-			     id="ReservationModelPhone"></div>
-		</div>
-
-	</div>
-</fieldset>
+	</fieldset>
+</div>

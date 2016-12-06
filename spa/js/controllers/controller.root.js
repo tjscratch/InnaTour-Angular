@@ -15,7 +15,8 @@ innaAppControllers.
         'innaApp.Urls',
         'innaAppApiEvents',
         'aviaHelper',
-        function (EventManager, $log, $scope, $location, dataService, AuthDataProvider, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
+        '$timeout',
+        function (EventManager, $log, $scope, $location, dataService, AuthDataProvider, eventsHelper, urlHelper, appUrls, Events, aviaHelper, $timeout) {
 
             //js загрузился - показываем все спрятанные элементы
             setTimeout(function () {
@@ -119,8 +120,7 @@ innaAppControllers.
 
                 if (route == '/') {
                     return ((abs.indexOf('/tours/?') > -1) || loc == route);
-                }
-                else {
+                } else {
                     if (loc.indexOf(route) > -1)
                         return true;
                     else
@@ -129,9 +129,9 @@ innaAppControllers.
             };
 
 
-            $scope.isBodyBg = function () {
-                return $scope.isActive('/avia/reservation/') || $scope.isActive('/packages/reservation/') || $scope.isActive('/reservations/') || $scope.isActive('/buy/');
-            };
+            // $scope.isBodyBg = function () {
+            //     return $scope.isActive('/avia/reservation/') || $scope.isActive('/packages/reservation/') || $scope.isActive('/reservations/') || $scope.isActive('/buy/');
+            // };
 
             $scope.isTransferBg = function () {
                 return $scope.isActive(appUrls.URL_TRANSFERS);
@@ -141,6 +141,10 @@ innaAppControllers.
              * Анимация формы поиска при скролле
              */
             $scope.FormExpand = false;
+            $scope.isEnableSearchForm = false;
+            $scope.StaticPage = false;
+            $scope.isVisibleNotifNewDesign = false;
+            
             $scope.$on('$routeChangeStart', function (next, current) {
                 switch ($location.$$path) {
                     case '/':
@@ -149,37 +153,74 @@ innaAppControllers.
                     case '/packages/':
                     case '/hotels/':
                     case '/bus/':
-                        if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
-                            $scope.SearchFormExpandPadding = {'padding-top': 0}
-                        }else{
-                            $scope.FormExpand = true;
-                            $scope.SearchFormExpandPadding = {'padding-top': 250};
-                            document.addEventListener('scroll', onScroll, false);
-                        }
+                        // if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
+                        //     $scope.SearchFormExpandPadding = {'padding-top': 0}
+                        // }else{
+                        $timeout(function () {
+                            $scope.isVisibleNotifNewDesign = true;
+
+                        }, 3000);
+                        $scope.FormExpand = true;
+                        $scope.SearchFormExpandPadding = {'padding-top': 250};
+                        document.addEventListener('scroll', onScroll, false);
+                        // }
                         break;
                     default:
+                        $scope.isVisibleNotifNewDesign = false;
                         $scope.FormExpand = false;
                         $scope.SearchFormExpandPadding = {'padding-top': 0};
                         document.removeEventListener('scroll', onScroll, false);
                         break;
                 }
+                switch ($location.$$path) {
+                    case '/':
+                    case '/avia/':
+                    case '/tours/':
+                    case '/packages/':
+                    case '/hotels/':
+                    case '/bus/':
+                            $scope.isEnableSearchForm = true;
+                        break;
+                    default:
+                        $scope.isEnableSearchForm = false;
+                        break;
+                }
+                switch ($location.$$path) {
+                    case '/contacts/':
+                    case '/about/':
+                    case '/where-to-buy/':
+                    case '/certificates/':
+                    case '/certificates_kit/':
+                    case '/individualtours/':
+                    case '/transfers/':
+                        $scope.FormExpand = true;
+                        $scope.StaticPage = true;
+                        $scope.SearchFormExpandPadding = {'padding-top': 0};
+                        break;
+                    default:
+                        $scope.StaticPage = false;
+                        break;
+                }
             });
+
+            $scope.closeNotifNewDesign = function () {
+                $scope.isVisibleNotifNewDesign = false;
+            };
 
             var onScroll = function () {
                 var scroll = utils.getScrollTop();
-                if (scroll > 250) {
-                    $scope.$apply(function ($scope) {
-                        $scope.FormExpand = false;
-                        $scope.SearchFormExpandPadding = {'padding-top': 0};
-                    });
-                } else {
-                    $scope.$apply(function ($scope) {
-                        $scope.FormExpand = true;
-                        $scope.SearchFormExpandPadding = {'padding-top': 250 - scroll};
-                    });
-                }
+                //if (scroll > 155) {
+                //    $scope.$apply(function ($scope) {
+                //        $scope.FormExpand = false;
+                //        $scope.SearchFormExpandPadding = {'padding-top': 0};
+                //    });
+                // } else {
+                //    $scope.$apply(function ($scope) {
+                //        $scope.FormExpand = true;
+                //        $scope.SearchFormExpandPadding = {'padding-top': 250 - scroll};
+                //    });
+                //}
             };
-
 
             (function __INITIAL__() {
 

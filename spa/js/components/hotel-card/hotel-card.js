@@ -5,7 +5,8 @@ innaAppDirectives.directive('hotelCard', function ($templateCache) {
         scope: {
             hotel: '=',
             hotelUrl: '=',
-            guestCount: '='
+            guestCount: '=',
+            typeEtap: '='
         },
         link: function (scope, elem, attr) {
             var HotelGalleryComponent = null;
@@ -53,10 +54,14 @@ innaAppDirectives.directive('hotelCardInfo', function ($templateCache) {
         template: $templateCache.get("components/hotel-card/templ/hotel-card-info.html"),
         scope: {
             hotel: '=',
-            hotelRoom: '=',
-            hotelUrl: '='
+            room: '=',
+            price: '=',
+            guestCount: '='
         },
         controller: function ($scope, $location) {
+
+            console.log('DADSDASD', $scope.hotelRoom);
+            console.log('DADSDASD', $scope.hotel);
 
             $scope.currentActive = function(route) {
                 var loc = $location.path();

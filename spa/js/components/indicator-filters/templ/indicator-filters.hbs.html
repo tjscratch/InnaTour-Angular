@@ -1,6 +1,7 @@
-<div class="b-switch-filters {{asMap ? 'b-switch-filters_map' : ''}}">
+<div class="b-switch-filters {{asMap ? 'b-switch-filters_map' : ''}}{{ isActiveHotels ? 'b-switch-filters_hotels' : ''}}">
 
-    <div class="ra-tags-container">
+    {{#if filters.length}}
+    <div class="ra-tags-container" style="margin-bottom: 10px;">
         <div class="b-switch-filters__result">
 			{{#each filters}}
                 <IndicatorFiltersItem filterItem="{{.}}" />
@@ -13,7 +14,7 @@
 			{{/if}}
         </div>
     </div>
-    
+    {{/if}}
     
     <DpServices/>
 

@@ -40,8 +40,6 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
         }
 
         $scope.$watch('svyaznoyPayControl.payType', function (newValue, oldValue) {
-            // console.log('oldValuePayType', oldValue);
-            // console.log('newValuePayType', newValue);
             if(newValue != oldValue) {
                 var PaymentMethod = '';
                 if ($scope.svyaznoyPayControl.payType == 1) {
@@ -1161,9 +1159,9 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                             Room: null
                                         }
                                     };
-                                    $scope.reservation.hotelInfo.Hotel = data.Hotel;
-                                    $scope.reservation.hotelInfo.Room = data.Hotel.Room;
-                                    $scope.reservation.hotelInfo.Room.Price = data.Price;
+                                    // $scope.reservation.hotelInfo.Hotel = data.Hotel;
+                                    // $scope.reservation.hotelInfo.Room = data.Hotel.Room;
+                                    // $scope.reservation.hotelInfo.Room.Price = data.Price;
                                     
                                     /**
                                      * Трекаем события для GTM

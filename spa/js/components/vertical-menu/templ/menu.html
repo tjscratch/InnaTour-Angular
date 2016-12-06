@@ -1,0 +1,88 @@
+<div class="icon-menu">
+    <!--style="{{(FormExpand) ? 'background-image: url(/spa/img/Menu_W.png)' : 'background-image: url(/spa/img/Menu_G.png)'}}"-->
+    <div class="icon-hamb" ng-click="toggleVertMenu()">
+        <div class="icon-menu__line" ng-class="{'icon-menu__line-one_open': isOpen,
+                                                'icon-menu_white': etapMainPage,
+                                                'icon-menu_green': !etapMainPage}"></div>
+        <div class="icon-menu__line" ng-class="{'icon-menu__line-two_open': isOpen,
+                                                'icon-menu_white': etapMainPage,
+                                                'icon-menu_green': !etapMainPage}"></div>
+        <div class="icon-menu__line" ng-class="{'icon-menu__line-three_open': isOpen,
+                                                'icon-menu_white': etapMainPage,
+                                                'icon-menu_green': !etapMainPage}"></div>
+    </div>
+    <div class="vertical-menu" ng-class="{'vertical-menu_open': isOpen}" ng-if="isOpen">
+        <ul class="menu__ul_main-tab" style="{{(etapMainPage) ? 'display:none' : ''}}">
+            <li>
+                <!--<span class="header-nav__item-promo">-30%</span>-->
+                <a
+                   href="/#/"
+                   ng-click="gtmMainTab($event)"
+                   ng-class="{'header-nav__item-link-active':isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">
+                    Перелет + Отель
+                </a>
+            </li>
+            <li>
+                <a
+                   href="/#/avia/"
+                   ng-click="gtmMainTab($event)"
+                   ng-class="{'header-nav__item-link-active':isActive('/avia/')}">
+                    Авиабилеты
+                </a>
+            </li>
+            <li>
+                <a
+                   href="/#/hotels/"
+                   ng-click="gtmMainTab($event)"
+                   ng-class="{'header-nav__item-link-active':isActive('/hotels/')}">
+                    Отели
+                </a>
+            </li>
+            <li>
+                <a
+                   href="/#/bus/"
+                   ng-click="gtmMainTab($event)"
+                   ng-class="{'header-nav__item-link-active':isActive('/bus/')}">
+                    Автобусные туры
+                </a>
+            </li>
+        </ul>
+        <ul class="menu__ul">
+            <a class=""  href="/#/where-to-buy/" ng-click="toggleVertMenu()">
+                <li class="menu__ul-li">
+                    Где купить
+                </li>
+            </a>
+            <a class="" href="http://book.inna.ru/" ng-click="toggleVertMenu()">
+                <li class="menu__ul-li">
+                    Агентствам
+                </li>
+            </a>
+            <a class="" href="//inna.ru/catalog/visa/" ng-click="toggleVertMenu()">
+                <li class="menu__ul-li">
+                    Визы
+                </li>
+            </a>
+            <a class=""
+               ng-class="{'b-navbar-menu__link-active':isActive('/transfers/')}"
+               href="/#/transfers/" ng-click="toggleVertMenu()">
+                <li class="menu__ul-li">
+                    Трансферы
+                </li>
+            </a>
+            <a class=""
+               ng-click="toggleVertMenu()"
+               ng-class="{'b-navbar-menu__link-active':isActive('/individualtours/')}"
+               href="/#/individualtours/">
+                <li class="menu__ul-li">
+                    Программы
+                </li>
+            </a>
+            <a class="" href="http://ntp.inna.ru/" target="_blank" ng-click="toggleVertMenu()">
+                <li class="menu__ul-li">
+                    Отдых в России
+                </li>
+            </a>
+        </ul>
+    </div>
+</div>

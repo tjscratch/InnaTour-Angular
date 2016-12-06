@@ -10,5 +10,5 @@
 	{{aviaInfo['Time' + direction] | flightTimeFormatted}}
 	<br>
 
-	{{(aviaInfo['Etaps' + direction].length - 1) | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+	<span class="red_span">{{(aviaInfo['Etaps' + direction].length - 1) | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}</span>
 </p>

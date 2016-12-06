@@ -1,45 +1,80 @@
 btx-button-color1() {
-    border-top: 1px solid #f9797c;
-    border-bottom: 1px solid #de0304;
-    background: linear-gradient(top, #fe5257, #de0304);
-    border-radius: 4px;
+    padding 8px 15px
+    border: none;
+    background: $btn-red-bg;
+    border-radius: $btn-red-border-radius;
+    color $btn-red-color
+    font-size 20px
+    font-weight bold
     
     &:hover {
-        background: linear-gradient(top, #fe6d71, #e32828);
+        background: $btn-red-bg-hover
+        text-decoration: none;
+    }
+    &:active {
+        background: $btn-red-bg-active
         text-decoration: none;
     }
 }
 
 btx-button-color2() {
+    padding 6px 15px
     border: none;
-    border-top: 1px solid #f9797c;
-    border-bottom: 1px solid #de0304;
-    background: linear-gradient(top, #fe5257, #de0304);
-    border-radius: 4px;
-    
-    &:hover {
-        background: linear-gradient(top, #fe6d71, #e32828);
+    background: $btn-red-bg;
+    border-radius: $btn-red-border-radius;
+    color $btn-red-color
+    font-size 16px
+    font-weight bold
+
+    &:hover{
+        background: $btn-red-bg-hover
+        text-decoration: none;
+    }
+    &:active{
+        background: $btn-red-bg-active
+        text-decoration: none;
+    }
+}
+
+btx-button-color3() {
+    padding 6px 16px
+    border: none;
+    background: $btn-yellow-bg;
+    border-radius: $btn-red-border-radius;
+    color #000000
+    font-size 16px
+    font-weight bold
+
+    &:hover{
+        background: $btn-yellow-bg-hover
+        text-decoration: none;
+    }
+    &:active{
+        background: $btn-yellow-bg-active
         text-decoration: none;
     }
 }
 
 btx-button1() {
-    padding: 7px 16px;
+    padding: 5px 16px;
     btx-button-color1()
 }
 
 btx-button2() {
-    padding: 7px 16px;
+    padding: 5px 16px;
     btx-button-color2()
 }
 
+btx-button3() {
+    btx-button-color3()
+}
+
 btx-checkbox-bg() {
-    background: url("/spa/img/i.png") no-repeat 2px -590px #d74116;
-    border: 2px solid #d74116;
+    background: url("/spa/img/i.png") no-repeat 2px -590px $green;
 }
 
 btx-checkbox-border() {
-    border: 2px solid #cecece;
+    border: 2px solid $green;
 }
 
 .balloon-button {
