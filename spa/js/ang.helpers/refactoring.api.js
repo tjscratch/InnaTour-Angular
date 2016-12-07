@@ -18,6 +18,7 @@ innaAppServices.factory('appApi', function () {
         CHECK_SMS_CODE: url('/Verification/CheckCode'),
         
         PACKAGES_DISCOUNTED_PRICE: url('/PackagesOrder/DiscountedPrice'),
+        PACKAGES_DISCOUNTED_PRICE_ROSNEFT: url('/Loyality/check'),
         AVIA_DISCOUNTED_PRICE: url('/AviaOrder/DiscountedPrice'),
 
         HOTELS_GET_SUGGEST: url('/Hotels/SuggestionList'),
