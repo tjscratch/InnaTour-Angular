@@ -43,7 +43,12 @@
                 //и не на WL
                 $scope.isRequestEnabled = true;
             }
-            
+
+            $scope.isRosneftFamilyTeam = false;
+            if (window.partners.partner.name == 'rosneftfamilyteam') {
+                $scope.isRosneftFamilyTeam = true;
+            }
+
             /*----------------- INIT -------------------*/
             
             var children = $routeParams.Children ?
@@ -702,6 +707,37 @@
                             $scope.promoCodeSale = data.Details.PromoCode.rule_value;
                             $scope.price = data.Details.NewPrice;
                             
+                            var dataLayerObj = {
+                                'event': 'UM.Event',
+                                'Data' : {
+                                    'Category': 'Packages',
+                                    'Action'  : 'ApplyPromocode',
+                                    'Label'   : '[no data]',
+                                    'Content' : '[no data]',
+                                    'Context' : '[no data]',
+                                    'Text'    : '[no data]'
+                                }
+                            };
+                            console.table(dataLayerObj);
+                            if (window.dataLayer) {
+                                window.dataLayer.push(dataLayerObj);
+                            }
+                        }
+                    })
+            }
+            
+            $scope.checkPromoCodeRosneft = function () {
+                var checkPromoCodeParams = {
+                    number: $scope.promoCode
+                };
+               PromoCodes.getPackagesDiscountedPriceRosneft(checkPromoCodeParams)
+                    .success(function (data) {
+                        $scope.promoCodeStatus = data.Status;
+                        $scope.promoCodeDetailStatus = data.DetailStatus;
+                        if ($scope.promoCodeStatus == 1) {
+                            $scope.promoCodeSale = data.Details.PromoCode.rule_value;
+                            $scope.price = data.Details.NewPrice;
+
                             var dataLayerObj = {
                                 'event': 'UM.Event',
                                 'Data' : {
