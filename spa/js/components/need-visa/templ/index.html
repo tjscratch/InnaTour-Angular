@@ -2,10 +2,10 @@
 
     <span class="icon-sprite-visa-alert buy-warning-alert-img"></span>
     <div class="buy-warning-alert-content">
-        <div class="buy-warning-alert"
-             ng-show="visaControl.visaNeeded || visaControl.visaRulesNeeded">Обратите внимание
-        </div>
-        <span ng-show="visaControl.visaNeeded">Требуется виза.</span>
+        <!--<div class="buy-warning-alert"-->
+             <!--ng-show="visaControl.visaNeeded || visaControl.visaRulesNeeded">Обратите внимание-->
+        <!--</div>-->
+        <span class="buy-warning-alert" ng-show="visaControl.visaNeeded">Требуется виза.</span>
         <span ng-show="visaControl.visaRulesNeeded">
             <span ng-if="visaControl.cautionCountries.length > 0"> Рекомендуем ознакомиться с визовыми правилами для посещения стран:
                 <span ng-repeat="c in visaControl.cautionCountries">

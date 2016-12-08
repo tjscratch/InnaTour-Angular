@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="20px" viewBox="0 0 19 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>Иконка - Календарь Заполненый</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="8" width="19" height="12"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="19" height="12" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Поисковый-модуль---Заполненный" transform="translate(-623.000000, -10.000000)">
+            <g id="Иконка---Календарь-Заполненый">
+                <g transform="translate(620.000000, 8.000000)">
+                    <g transform="translate(3.000000, 2.000000)">
+                        <use id="Rectangle-356" stroke="#C9D2DB" mask="url(#mask-2)" stroke-width="2" fill="#FFFFFF" xlink:href="#path-1"></use>
+                        <rect id="Rectangle-356-Copy-3" fill="#C9D2DB" x="0" y="3" width="19" height="4" rx="2"></rect>
+                        <rect id="Rectangle-356-Copy" fill="#C9D2DB" x="4" y="0" width="3" height="5" rx="1.5"></rect>
+                        <rect id="Rectangle-356-Copy-2" fill="#C9D2DB" x="12" y="0" width="3" height="5" rx="1.5"></rect>
+                        <g id="Group-36" transform="translate(2.000000, 10.000000)" fill="#7CB621">
+                            <rect id="Rectangle-360" x="0" y="0" width="3" height="2"></rect>
+                            <rect id="Rectangle-360-Copy-4" x="0" y="3" width="3" height="2"></rect>
+                            <rect id="Rectangle-360-Copy-8" x="0" y="6" width="3" height="2"></rect>
+                            <rect id="Rectangle-360-Copy" x="4" y="0" width="3" height="2"></rect>
+                            <rect id="Rectangle-360-Copy-5" x="4" y="3" width="3" height="2"></rect>
+                            <rect id="Rectangle-360-Copy-9" x="4" y="6" width="3" height="2"></rect>
+                            <rect id="Rectangle-360-Copy-2" x="8" y="0" width="3" height="2"></rect>
+                            <rect id="Rectangle-360-Copy-6" x="8" y="3" width="3" height="2"></rect>
+                            <rect id="Rectangle-360-Copy-10" x="8" y="6" width="3" height="2"></rect>
+                        </g>
+                        <rect id="Rectangle-360-Copy-3" fill="#DB4437" x="14" y="10" width="3" height="2"></rect>
+                        <rect id="Rectangle-360-Copy-7" fill="#DB4437" x="14" y="13" width="3" height="2"></rect>
+                        <rect id="Rectangle-360-Copy-11" fill="#DB4437" x="14" y="16" width="3" height="2"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

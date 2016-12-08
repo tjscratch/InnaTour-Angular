@@ -1,35 +1,30 @@
-color-bg-lbl-wl(){
-    background: none;
+btn-gradient-bg() {
+    background: linear-gradient(top, #fcb715 0%, #ef870e 100%);
 }
-color-bg-share-wl(){
-    background: #61a8e1;
+color-bg-lbl-wl() {
+    background: $green;
 }
-color-bg-btn-wl(){
-    background: #FC6421;
+
+color-bg-share-wl() {
+    background: $green;
 }
+
+color-bg-btn-wl() {
+    background: $green;
+}
+
 color-border-wl(){
-    border-color: #c1579a;
+    border-color: $green;
 }
-orange-btn(){
-    background: linear-gradient(top, #ffc71e, #ff8900);
-    border 1px solid #feb128
-    border-radius 17px
-    
-    &:before{
-        content ''
-        position absolute
-        left -5%
-        top 18px
-        width 110%
-        height 34px
-        border-radius 40px
-        background: linear-gradient(top, #ff8900, #ffa906);
-    }
-    
-    &:hover{
-        background: linear-gradient(top, #ffdc0e, #ff9d00);
-    }
+
+color-datepicker-background-wl() {
+    background: $red
 }
-arrow-color-wl(){
-    background: url("/spa/img/arrow_blue.png") no-repeat 0px -3px;
+
+color-datepicker-bg() {
+    background: lighten($red, 70%);
+}
+
+arrow-color-wl() {
+    color: $green;
 }

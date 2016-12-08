@@ -3,30 +3,30 @@
 
 		{{#if Enumerable.length}}
 
-			{{#if EnumerableCount}}
-                <div class="b-switch-filters_buttons_right font-medium">
-                    {{#if iterable_hotels}}
-                        {{{pluralize((EnumerableCount),[
-                            "Еще <b>"+ EnumerableCount +"</b> вариант отеля",
-                            "Еще <b>"+ EnumerableCount +"</b> варианта отелей",
-                            "Еще <b>"+ EnumerableCount +"</b> вариантов отелей"
-                        ])}}}
-                    {{else}}
-                        {{{pluralize((EnumerableCount), [
-                            "Еще <b>"+ EnumerableCount +"</b> вариант перелета",
-                            "Еще <b>"+ EnumerableCount +"</b> варианта перелета",
-                            "Еще <b>"+ EnumerableCount +"</b> вариантов перелета"
-                        ])}}}
-                    {{/if}}
-                    {{#if iterable_hotels && EnumerableCount}}
-                            <span class="b-switch-dynamic-serp-display__title cursor-pointer"
-                                 on-click="goToMap">
-                                <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>
-                                <span class="b-switch-dynamic-serp-display__title-link">Отели на карте</span>
-                            </span>
-                    {{/if}}
-                </div>
-			{{/if}}
+			<!--{{#if EnumerableCount}}-->
+                <!--<div class="b-switch-filters_buttons_right font-medium">-->
+                    <!--{{#if iterable_hotels}}-->
+                        <!--{{{pluralize((EnumerableCount),[-->
+                            <!--"Еще <b>"+ EnumerableCount +"</b> вариант отеля",-->
+                            <!--"Еще <b>"+ EnumerableCount +"</b> варианта отелей",-->
+                            <!--"Еще <b>"+ EnumerableCount +"</b> вариантов отелей"-->
+                        <!--])}}}-->
+                    <!--{{else}}-->
+                        <!--{{{pluralize((EnumerableCount), [-->
+                            <!--"Еще <b>"+ EnumerableCount +"</b> вариант перелета",-->
+                            <!--"Еще <b>"+ EnumerableCount +"</b> варианта перелета",-->
+                            <!--"Еще <b>"+ EnumerableCount +"</b> вариантов перелета"-->
+                        <!--])}}}-->
+                    <!--{{/if}}-->
+                    <!--{{#if iterable_hotels && EnumerableCount}}-->
+                            <!--<span class="b-switch-dynamic-serp-display__title cursor-pointer"-->
+                                 <!--on-click="goToMap">-->
+                                <!--<span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>-->
+                                <!--<span class="b-switch-dynamic-serp-display__title-link">Отели на карте</span>-->
+                            <!--</span>-->
+                    <!--{{/if}}-->
+                <!--</div>-->
+			<!--{{/if}}-->
 
             <!-- Можно указать любой ( компонент - шаблон ) который будет вставлен на место EnumerableItem  -->
             <div class="b-list-panel__list b-list-panel__hotels_list {{waitData ? 'b-list-panel__wait' : '' }}">

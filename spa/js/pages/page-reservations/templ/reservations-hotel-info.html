@@ -1,36 +1,46 @@
 
-<div class="ReservationForm__head">
+<!--<div class="ReservationForm__head">-->
 
-    <h3 class="ReservationForm__title ReservationForm__title-head">
-        Оформление и оплата
-    </h3>
+    <!--<h3 class="ReservationForm__title ReservationForm__title-head">-->
+        <!--Оформление и оплата-->
+    <!--</h3>-->
 
-    <div class="ReservationForm__head-price-info" ng-if="reservation.typeProduct == 'hotels'">
-        Стоимость отеля за {{reservation.passengerCount | perPerson}}:
-        <div class="ReservationForm__head-price">
-            {{ reservation.hotelInfo.Room.Price | currency : "" : 0 }}<i class='fa fa-rub'></i>
-        </div>
-    </div>
-    <div class="ReservationForm__head-price-info" ng-if="reservation.typeProduct == 'bus'">
-        Стоимость тура за {{reservation.passengerCount | perPerson}}:
-        <div class="ReservationForm__head-price">
-            {{ reservation.hotelInfo.Room.Price | currency : "" : 0 }}<i class='fa fa-rub'></i>
-        </div>
-    </div>
-</div>
+    <!--<div class="ReservationForm__head-price-info" ng-if="reservation.typeProduct == 'hotels'">-->
+        <!--Стоимость отеля за {{reservation.passengerCount | perPerson}}:-->
+        <!--<div class="ReservationForm__head-price">-->
+            <!--{{ reservation.hotelInfo.Room.Price | currency : "" : 0 }}<i class='fa fa-rub'></i>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="ReservationForm__head-price-info" ng-if="reservation.typeProduct == 'bus'">-->
+        <!--Стоимость тура за {{reservation.passengerCount | perPerson}}:-->
+        <!--<div class="ReservationForm__head-price">-->
+            <!--{{ reservation.hotelInfo.Room.Price | currency : "" : 0 }}<i class='fa fa-rub'></i>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 
+
+<!--<hotel-card-info-->
+        <!--hotel="reservation.hotelInfo.Hotel"-->
+        <!--hotel-room="reservation.hotelInfo.Room"-->
+        <!--hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"-->
+<!--&gt;</hotel-card-info>-->
 
 <hotel-card-info
         hotel="reservation.hotelInfo.Hotel"
-        hotel-room="reservation.hotelInfo.Room"
-        hotel-url="getHotelUrl(hotel.HotelId, hotel.ProviderId)"
+        room="reservation.hotelInfo.Room"
+        guest-count="reservation.passengerCount"
+        price=""
+        style="margin-bottom: 16px;"
 ></hotel-card-info>
 
-<div class="buy__price-descr buy__alert">
-    Внимание! К отелю применяются разные условия отмены бронирования.
-    <br/>
-    Пожалуйста, ознакомьтесь с
-    <a href="" ng-click="reservation.hotelRules.show($event); gtmRules($event, 'hotel');">условиями бронирования отеля</a>.
+<div class="ReservationSection__wrap">
+    <div class="buy__price-descr buy__alert">
+        Внимание! К отелю применяются разные условия отмены бронирования.
+        <br/>
+        Пожалуйста, ознакомьтесь с
+        <a href="" ng-click="reservation.hotelRules.show($event); gtmRules($event, 'hotel');">условиями бронирования отеля</a>.
+    </div>
 </div>
 
 

@@ -4,365 +4,451 @@
 
 		<ng:include src="objectToReserveTemplate"></ng:include>
 
-		<ng:include src="'components/need-visa/templ/index.html'"></ng:include>
+		<div class="ReservationSection__wrap">
+			<ng:include src="'components/need-visa/templ/index.html'"></ng:include>
 
-		<p class="buy__price-descr buy__alert" ng-if="(hotel != null)">
-			Внимание! К компонентам пакета применяются разные условия отмены
-			бронирования.<br/>Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event); gtmRules($event,'avia');">правилами применения тарифа
-			                                                                                       авиабилета</a> и <a href="" ng-click="hotelRules.show($event); gtmRules($event, 'hotel');">условиями бронирования
-			                                                                                                                                                      отеля</a><span ng-if="item.IsTripToRussia">.</span>
-		<span ng-if="!item.IsTripToRussia">
-		и <a href="" ng-click="insuranceRules.show($event); gtmRules($event, 'insurance');">правилами медицинского страхования.</a>
+        <p class="buy__price-descr buy__alert"
+           ng-if="(hotel != null)">
+            Внимание! К компонентам пакета применяются разные условия отмены
+            бронирования.<br/>Пожалуйста, ознакомьтесь с <a href=""
+                                                            ng-click="tarifs.show($event); gtmRules($event,'avia');">правилами
+            применения тарифа
+            авиабилета</a> и <a href=""
+                                ng-click="hotelRules.show($event); gtmRules($event, 'hotel');">условиями бронирования
+            отеля</a><span ng-if="item.IsTripToRussia">.</span>
+            <span ng-if="!item.IsTripToRussia">
+		и <a href=""
+             ng-click="insuranceRules.show($event); gtmRules($event, 'insurance');">правилами медицинского страхования.</a>
 		</span>
-		</p>
+        </p>
 
-		<p class="buy__price-descr" ng-if="!(hotel != null)">
-			Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event); gtmRules($event, 'avia');">правилами
-			                                                                     применения тарифа авиабилета</a>.
-		</p>
-		<br/>
-		<header class="buy__header">
-			<h2 class="buy__title">Информация о покупателе</h2>
-		</header>
-
-		<div class="buy-passanger__block">
-			<div class="b-field-group">
-				<!--<div class="b-field-block b-field-block-auth" style="width: 388px;">-->
-				<div class="b-field-block b-field-email">
-					<label class="b-field-label">E-mail</label>
-					<input autocomplete="off" validate-events-dir ng-model="validationModel.email.value"
-					       ng-validation-model="validationModel.email" validate="validate(item, type)"
-					       validate-type="validateType.email"
-					       ng-class="{error:isFieldInvalid(validationModel.email)}"
-					       data-title="Неправильно введен email" type="text"
-					       placeholder="ivan.ivanov@gmail.com" class="b-field-text">
-					<!--<div class="b-auth">
-					   <a href="#" class="b-auth-close"></a>
-					   <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
-					   <a href="#" class="button b-auth-button">Войти</a>
-				   </div>-->
-				</div>
-				<div class="b-field-block b-field-phone">
-					<label class="b-field-label b-label-phone">Мобильный телефон</label>
-					<div citizenship-select type="phonePrefix"
-					     ng-validation-model="validationModel.phonePrefix"
-					     value="validationModel.phonePrefix.value.id"
-					     validate="validate(item, type)"
-					     validate-type="validateType.phonePrefix"
-					     list="phoneCodesList"
-					     result-set="validationModel.phonePrefix.setValue(item)"
-					     change-event="'CODE_CHANGED'"
-					     class="b-phone-prefix-select"
-					></div>
-					<input autocomplete="off"
-					       depends-on="validationModel.phonePrefix"
-					       validate-events-dir
-					       ng-model="validationModel.phoneNum.value"
-					       ng-validation-model="validationModel.phoneNum" validate="validate(item, type)"
-					       validate-type="validateType.phoneNum"
-					       ng-class="{error:isFieldInvalid(validationModel.phoneNum)}"
-					       data-title="Неправильно введен мобильный телефон" name="phone" type="text"
-					       masked-input
-					       phone-input
-					       mask="(999) 999-99-99"
-					       placeholder="(999) 999-99-99"
-					       change-event="'CODE_CHANGED'"
-					       class="b-field-text b-phone-num">
-				</div>
-			</div>
-			<!-- <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div> -->
-			<label class="b-agreement"><input ng-model="validationModel.wannaNewsletter.value" type="checkbox">
-				<ins class="b-checkbox"></ins>
-				Я хочу получать рассылку спецпредложений</label>
+			<p class="buy__price-descr" ng-if="!(hotel != null)">
+				Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event); gtmRules($event, 'avia');">правилами
+																					 применения тарифа авиабилета</a>.
+			</p>
 		</div>
 
-		<div class="buy__request-block" ng-if="isRequestEnabled">
-			<div class="buy__request-block__text">Если по какой то причине Вы сейчас не готовы сделать бронирование или оплатить путешествие банковской картой,
-			                                      или Вам нужна консультация нашего специалиста, просто сделайте заявку и наш менеджер свяжется с Вами.
-			</div>
-			<div class="buy__request-block__button">
-				<button ng-click="sendRequest($event)" class="button b-sum-button">Отправить заявку</button>
+		<!--<br/>-->
+
+		<div class="ReservationSection__wrap">
+			<header class="buy__header">
+				<h2 class="buy__title">Информация о покупателе</h2>
+			</header>
+
+        <div class="buy-passanger__block">
+            <div class="b-field-group">
+                <!--<div class="b-field-block b-field-block-auth" style="width: 388px;">-->
+                <div class="b-field-block b-field-email">
+                    <label class="b-field-label">E-mail</label>
+                    <input autocomplete="off"
+                           validate-events-dir
+                           ng-model="validationModel.email.value"
+                           ng-validation-model="validationModel.email"
+                           validate="validate(item, type)"
+                           validate-type="validateType.email"
+                           ng-class="{error:isFieldInvalid(validationModel.email)}"
+                           data-title="Неправильно введен email"
+                           type="text"
+                           placeholder="ivan.ivanov@gmail.com"
+                           class="b-field-text">
+                    <!--<div class="b-auth">
+                       <a href="#" class="b-auth-close"></a>
+                       <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
+                       <a href="#" class="button b-auth-button">Войти</a>
+                   </div>-->
+                </div>
+                <div class="b-field-block b-field-phone">
+                    <label class="b-field-label b-label-phone">Мобильный телефон</label>
+                    <div citizenship-select
+                         type="phonePrefix"
+                         ng-validation-model="validationModel.phonePrefix"
+                         value="validationModel.phonePrefix.value.id"
+                         validate="validate(item, type)"
+                         validate-type="validateType.phonePrefix"
+                         list="phoneCodesList"
+                         result-set="validationModel.phonePrefix.setValue(item)"
+                         change-event="'CODE_CHANGED'"
+                         class="b-phone-prefix-select"
+                    ></div>
+                    <input autocomplete="off"
+                           depends-on="validationModel.phonePrefix"
+                           validate-events-dir
+                           ng-model="validationModel.phoneNum.value"
+                           ng-validation-model="validationModel.phoneNum"
+                           validate="validate(item, type)"
+                           validate-type="validateType.phoneNum"
+                           ng-class="{error:isFieldInvalid(validationModel.phoneNum)}"
+                           data-title="Неправильно введен мобильный телефон"
+                           name="phone"
+                           type="text"
+                           masked-input
+                           phone-input
+                           mask="(999) 999-99-99"
+                           placeholder="(999) 999-99-99"
+                           change-event="'CODE_CHANGED'"
+                           class="b-field-text b-phone-num">
+                </div>
+            </div>
+            <!-- <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div> -->
+            <label class="b-agreement">
+                <input ng-model="validationModel.wannaNewsletter.value"
+                       type="checkbox">
+                <ins class="b-checkbox"></ins>
+                Я хочу получать рассылку спецпредложений
+            </label>
+        </div>
+
+			<div class="buy__request-block" ng-if="isRequestEnabled">
+				<div class="buy__request-block__text">Если по какой то причине Вы сейчас не готовы сделать бронирование или оплатить путешествие банковской картой,
+													  или Вам нужна консультация нашего специалиста, просто сделайте заявку и наш менеджер свяжется с Вами.
+				</div>
+				<div class="buy__request-block__button">
+					<button ng-click="sendRequest($event)" class="button b-sum-button">Отправить заявку</button>
+				</div>
 			</div>
 		</div>
 
-		<header class="buy__header">
-			<h2 class="buy__title">Пассажиры</h2>
-		</header>
+		<div class="ReservationSection__wrap">
+			<header class="buy__header">
+				<h2 class="buy__title">Пассажиры</h2>
+			</header>
 
-		<fieldset class="buy__blocks" ng-repeat="passenger in validationModel.passengers">
-			<div class="b-field-group b-field-group-passport"
-				ng-class="{'b-field-group-passport__IsTripToRussia' : item.IsTripToRussia}">
-				<div class="b-field-block"
-				     validate-events-dir ng-model="passenger.sex.value" ng-validation-model="passenger.sex"
-				     validate-type="validateType.sex" validate="validate(item, type)" data-title="Укажите пол пассажира">
+        <fieldset class="buy__blocks"
+                  ng-repeat="passenger in validationModel.passengers">
+            <div class="b-field-group b-field-group-passport"
+                 ng-class="{'b-field-group-passport__IsTripToRussia' : item.IsTripToRussia}">
+                <div class="b-field-block"
+                     validate-events-dir
+                     ng-model="passenger.sex.value"
+                     ng-validation-model="passenger.sex"
+                     validate-type="validateType.sex"
+                     validate="validate(item, type)"
+                     data-title="Укажите пол пассажира">
 
-					<label class="b-field-label">Пол</label>
-					<ul class="radio-list" ng-class="{error:passenger.sex.isInvalid && !validationModel.formPure }"
-					    ng-init="setValid(passenger.sex, passenger.sex.value != null)">
-						<li>
-							<label>
-								<input type="checkbox" name="male3" ng-model="passenger.sex.value"
-								       ng-change="setValid(passenger.sex, passenger.sex.value != null)"
-								       ng-checked="passenger.sex.value == sexType.man"
-								       ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}">
-								<ins class="radio">М</ins>
-							</label>
-						</li>
-						<li>
-							<label>
-								<input type="checkbox" name="male3" ng-model="passenger.sex.value"
-								       ng-change="setValid(passenger.sex, passenger.sex.value != null)"
-								       ng-checked="passenger.sex.value == sexType.woman"
-								       ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}">
-								<ins class="radio">Ж</ins>
-							</label>
-						</li>
-					</ul>
-				</div>
-				<div class="b-field-block b-field-second-name">
-					<label class="b-field-label">Фамилия</label>
-					<input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.secondName.value"
-					       ng-validation-model="passenger.secondName" validate="validate(item, type)"
-					       data-title="Укажите фамилию пассажира"
-					       validate-type="validateType.required"
-					       ng-class="{error:isFieldInvalid(passenger.secondName)}"
-					       type="text"
-						   placeholder="IVANOV"
-						   class="b-field-text">
-				</div>
-				<div class="b-field-block b-field-block-surname">
-					<label class="b-field-label">Имя</label>
-					<input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.name.value"
-					       data-title="Укажите имя пассажира"
-					       ng-validation-model="passenger.name" validate="validate(item, type)"
-					       validate-type="validateType.required"
-					       ng-class="{error:isFieldInvalid(passenger.name)}"
-					       type="text" placeholder="IVAN" class="b-field-text">
-				</div>
-				<div class="b-field-block b-field-block-oname"
-				     ng-if='item.IsTripToRussia'>
-					<label class="b-field-label">Отчество</label>
-					<input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.oName.value"
-						   data-title="Укажите отчество пассажира"
-						   ng-validation-model="passenger.name" validate="validate(item, type)"
-						   type="text" placeholder="IVANOVICH" class="b-field-text">
-				</div>
-				<div class="b-field-block b-field-birth">
-					<label class="b-field-label">Дата рождения</label>
+                    <label class="b-field-label">Пол</label>
+                    <ul class="radio-list"
+                        ng-class="{error:passenger.sex.isInvalid && !validationModel.formPure }"
+                        ng-init="setValid(passenger.sex, passenger.sex.value != null)">
+                        <li>
+                            <label>
+                                <input type="checkbox"
+                                       name="male3"
+                                       ng-model="passenger.sex.value"
+                                       ng-change="setValid(passenger.sex, passenger.sex.value != null)"
+                                       ng-checked="passenger.sex.value == sexType.man"
+                                       ng-true-value="{{sexType.man}}"
+                                       ng-false-value="{{sexType.woman}}">
+                                <ins class="radio">М</ins>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"
+                                       name="male3"
+                                       ng-model="passenger.sex.value"
+                                       ng-change="setValid(passenger.sex, passenger.sex.value != null)"
+                                       ng-checked="passenger.sex.value == sexType.woman"
+                                       ng-true-value="{{sexType.woman}}"
+                                       ng-false-value="{{sexType.man}}">
+                                <ins class="radio">Ж</ins>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="b-field-block b-field-second-name">
+                    <label class="b-field-label">Фамилия</label>
+                    <input autocomplete="off"
+                           upper-latin
+                           validate-events-dir
+                           ng-model="passenger.secondName.value"
+                           ng-validation-model="passenger.secondName"
+                           validate="validate(item, type)"
+                           data-title="Укажите фамилию пассажира"
+                           validate-type="validateType.required"
+                           ng-class="{error:isFieldInvalid(passenger.secondName)}"
+                           type="text"
+                           placeholder="IVANOV"
+                           class="b-field-text">
+                </div>
+                <div class="b-field-block b-field-block-surname">
+                    <label class="b-field-label">Имя</label>
+                    <input autocomplete="off"
+                           upper-latin
+                           validate-events-dir
+                           ng-model="passenger.name.value"
+                           data-title="Укажите имя пассажира"
+                           ng-validation-model="passenger.name"
+                           validate="validate(item, type)"
+                           validate-type="validateType.required"
+                           ng-class="{error:isFieldInvalid(passenger.name)}"
+                           type="text"
+                           placeholder="IVAN"
+                           class="b-field-text">
+                </div>
+                <div class="b-field-block b-field-block-oname"
+                     ng-if="item.IsTripToRussia">
+                    <label class="b-field-label">Отчество</label>
+                    <input autocomplete="off"
+                           upper-latin
+                           validate-events-dir
+                           ng-model="passenger.oName.value"
+                           data-title="Укажите отчество пассажира"
+                           ng-validation-model="passenger.name"
+                           validate="validate(item, type)"
+                           type="text"
+                           placeholder="IVANOVICH"
+                           class="b-field-text">
+                </div>
+                <div class="b-field-block b-field-birth">
+                    <label class="b-field-label">Дата рождения</label>
 
-					<input autocomplete="off"
-					       validate-events-dir
-					       ng-model="passenger.birthday.value"
-					       ng-validation-model="passenger.birthday"
-					       validate="validate(item, type, $index)"
-					       validate-type="validateType.birthdate"
-					       ng-class="{error:isFieldInvalid(passenger.birthday)}"
-					       ng-attr-data-title="{{birthTitle | breakFilter }}"
-					       masked-input
-					       mask="99.99.9999"
-					       type="text"
-					       placeholder="дд.мм.гггг"
-					       class="b-field-text">
-				</div>
-				<div class="b-field-block b-field-sitizenship">
-					<label class="b-field-label">Гражданство</label>
-
-					<div citizenship-select
-					     ng-validation-model="passenger.citizenship"
-					     value="passenger.citizenship.value.id"
-					     validate="validate(item, type)"
-					     validate-type="validateType.cit_required"
-					     list="citizenshipList" result-set="passenger.citizenship.setValue(item)"
-					></div>
-				</div>
-				<div class="b-field-block b-field-document"
-				     ng-class="{'b-field-document__IsTripToRussia' : item.IsTripToRussia}">
-					<label class="b-field-label b-field-label-docs">Документ</label>
-					<div citizenship-select
-					     ng-validation-model="passenger.doc_type"
-					     value="passenger.doc_type.value.id"
-					     validate="validate(item, type)"
-					     validate-type="validateType.doc_type"
-					     result-set="passenger.doc_type.setValue(item)"
-					     type="docType"
-					     change-event="'DOC_CHANGED_'+$index"
-					     list="passenger.documentTypeList">
+						<input autocomplete="off"
+							   validate-events-dir
+							   ng-model="passenger.birthday.value"
+							   ng-validation-model="passenger.birthday"
+							   validate="validate(item, type, $index)"
+							   validate-type="validateType.birthdate"
+							   ng-class="{error:isFieldInvalid(passenger.birthday)}"
+							   ng-attr-data-title="{{birthTitle | breakFilter }}"
+							   masked-input
+							   mask="99.99.9999"
+							   type="text"
+							   placeholder="дд.мм.гггг"
+							   class="b-field-text">
 					</div>
-				</div>
-				<div class="b-field-block b-field-doc-num">
-					<label class="b-field-label b-field-label-docs">Серия и номер</label>
-					<input autocomplete="off" validate-events-dir ng-model="passenger.doc_series_and_number.value"
-					       depends-on="passenger.citizenship"
-					       depends-on2="passenger.doc_type"
-					       ng-validation-model="passenger.doc_series_and_number" validate="validate(item, type)"
-					       validate-type="validateType.document"
-					       key-press-on-document="passenger"
-					       key-press-hide-field="doc_expirationDate"
-					       key-press-hide-field-name="needToHide"
-					       ng-class="{error:isFieldInvalid(passenger.doc_series_and_number)}"
-					       data-title="Неправильный номер документа"
-					       masked-input mask="9999 999999" placeholder="1234 123456"
-					       change-event="'DOC_CHANGED_'+$index"
-					       type="text" class="b-field-text">
-				</div>
-				<!--ng-hide="passenger.doc_expirationDate.dependsOnField.isRuPassportOrBirthAndInsideRF"-->
-				<div ng-hide="passenger.doc_expirationDate.needToHide" class="b-field-block b-field-expires">
-					<label class="b-field-label b-field-label-docs">Действителен до</label>
-					<input validate-events-dir ng-model="passenger.doc_expirationDate.value"
-					       depends-on="passenger.doc_series_and_number"
-					       ng-validation-model="passenger.doc_expirationDate" validate="validate(item, type)"
-					       validate-type="validateType.expire"
-					       ng-class="{error:isFieldInvalid(passenger.doc_expirationDate)}"
-					       ng-attr-data-title="{{passenger.doc_expirationDate.validationErrTitle }}"
-					       masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг" class="b-field-text">
-				</div>
-			</div>
-			<div class="b-field-group b-field-group-passport">
-				<div class="b-field-group b-field-group-passport">
-					<div class="b-field-block b-field-bonus-card">
-						<label class="b-agreement"><input type="checkbox"
-						                                  ng-model="passenger.bonuscard.value.haveBonusCard">
-							<ins class="b-checkbox"></ins>
-							Есть бонусная карта авиакомпании</label>
-					</div>
-					<div class="b-field-block b-field-bonus-aircompany"
-					     ng-show="passenger.bonuscard.value.haveBonusCard == true">
-						<label class="b-field-label">Авиакомпания</label>
+					<div class="b-field-block b-field-sitizenship">
+						<label class="b-field-label">Гражданство</label>
 
-						<div class="cit">
-							<input autocomplete="off" ng-click="passenger.showCardListClick($event)" type="text"
-							       value="{{passenger.bonuscard.value.airCompany.name}}"
-							       class="b-field-text b-field-select" placeholder="Выберите">
+                    <div citizenship-select
+                         ng-validation-model="passenger.citizenship"
+                         value="passenger.citizenship.value.id"
+                         validate="validate(item, type)"
+                         validate-type="validateType.cit_required"
+                         list="citizenshipList"
+                         result-set="passenger.citizenship.setValue(item)"
+                    ></div>
+                </div>
+                <div class="b-field-block b-field-document"
+                     ng-class="{'b-field-document__IsTripToRussia' : item.IsTripToRussia}">
+                    <label class="b-field-label b-field-label-docs">Документ</label>
+                    <div citizenship-select
+                         ng-validation-model="passenger.doc_type"
+                         value="passenger.doc_type.value.id"
+                         validate="validate(item, type)"
+                         validate-type="validateType.doc_type"
+                         result-set="passenger.doc_type.setValue(item)"
+                         type="docType"
+                         change-event="'DOC_CHANGED_'+$index"
+                         list="passenger.documentTypeList">
+                    </div>
+                </div>
+                <div class="b-field-block b-field-doc-num">
+                    <label class="b-field-label b-field-label-docs">Серия и номер</label>
+                    <input autocomplete="off"
+                           validate-events-dir
+                           ng-model="passenger.doc_series_and_number.value"
+                           depends-on="passenger.citizenship"
+                           depends-on2="passenger.doc_type"
+                           ng-validation-model="passenger.doc_series_and_number"
+                           validate="validate(item, type)"
+                           validate-type="validateType.document"
+                           key-press-on-document="passenger"
+                           key-press-hide-field="doc_expirationDate"
+                           key-press-hide-field-name="needToHide"
+                           ng-class="{error:isFieldInvalid(passenger.doc_series_and_number)}"
+                           data-title="Неправильный номер документа"
+                           masked-input
+                           mask="9999 999999"
+                           placeholder="1234 123456"
+                           change-event="'DOC_CHANGED_'+$index"
+                           type="text"
+                           class="b-field-text">
+                </div>
+                <!--ng-hide="passenger.doc_expirationDate.dependsOnField.isRuPassportOrBirthAndInsideRF"-->
+                <div ng-hide="passenger.doc_expirationDate.needToHide"
+                     class="b-field-block b-field-expires">
+                    <label class="b-field-label b-field-label-docs">Действителен до</label>
+                    <input validate-events-dir
+                           ng-model="passenger.doc_expirationDate.value"
+                           depends-on="passenger.doc_series_and_number"
+                           ng-validation-model="passenger.doc_expirationDate"
+                           validate="validate(item, type)"
+                           validate-type="validateType.expire"
+                           ng-class="{error:isFieldInvalid(passenger.doc_expirationDate)}"
+                           ng-attr-data-title="{{passenger.doc_expirationDate.validationErrTitle }}"
+                           masked-input
+                           mask="99.99.9999"
+                           type="text"
+                           placeholder="дд.мм.гггг"
+                           class="b-field-text">
+                </div>
+            </div>
+            <div class="b-field-group b-field-group-passport">
+                <div class="b-field-group b-field-group-passport">
+                    <div class="b-field-block b-field-bonus-card">
+                        <label class="b-agreement">
+                            <input type="checkbox"
+                                   ng-model="passenger.bonuscard.value.haveBonusCard">
+                            <ins class="b-checkbox"></ins>
+                            Есть бонусная карта авиакомпании
+                        </label>
+                    </div>
+                    <div class="b-field-block b-field-bonus-aircompany"
+                         ng-show="passenger.bonuscard.value.haveBonusCard == true">
+                        <label class="b-field-label">Авиакомпания</label>
 
-							<div partial-select list="bonusCardTransportersList"
-							     result="passenger.bonuscard.value.airCompany" is-open="passenger.dir.card.isOpen">
-							</div>
+                        <div class="cit">
+                            <input autocomplete="off"
+                                   ng-click="passenger.showCardListClick($event)"
+                                   type="text"
+                                   value="{{passenger.bonuscard.value.airCompany.name}}"
+                                   class="b-field-text b-field-select"
+                                   placeholder="Выберите">
+
+                            <div partial-select
+                                 list="bonusCardTransportersList"
+                                 result="passenger.bonuscard.value.airCompany"
+                                 is-open="passenger.dir.card.isOpen">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b-field-block b-field-bonus-card-num"
+                         ng-show="passenger.bonuscard.value.haveBonusCard == true">
+                        <label class="b-field-label">Номер карты</label>
+                        <input autocomplete="off"
+                               digits-input
+                               type="text"
+                               maxlength="16"
+                               ng-model="passenger.bonuscard.value.number"
+                               class="b-field-text"
+                               placeholder="ХХХХХХХХХХХ">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        </div>
+
+		<div class="ReservationSection__wrap" ng-if="addition != null">
+			<ng:any ng-if="addition != null">
+				<header class="buy__header">
+					<h2 class="buy__title">Пожелание к номеру</h2>
+				</header>
+				<div class="buy__comments-container">
+				<textarea cols="30" rows="10" class="buy__comments-field" ng-model="addition.customerWishlist">{{addition.customerWishlist
+					| breakFilter}}</textarea>
+
+					<p class="buy__comments-help">Ваши пожелания мы передадим в отель, но не можем гарантировать их
+												  исполнение. Пожалуйста, пишите ваши пожелания на английском языке.
+					</p>
+				</div>
+			</ng:any>
+		</div>
+
+		<!--<header class="buy__header">-->
+			<!--<h2 class="buy__title">Дополнительные услуги</h2>-->
+		<!--</header>-->
+			<!--<div class="buy__more-help">Данные услуги не включены в стоимость заказа, после оплаты заказа наш-->
+				<!--менеджер свяжется c Вами и предложит разные варианты.-->
+			<!--</div>-->
+				<div class="ReservationSection__wrap" style="height: 59px;">
+					<h2 class="buy__title" style="margin: 3px 0px;">Виза</h2>
+					<label class="b-agreement" style="clear: none; margin: 3px 0px;">
+						<input type="checkbox" ng-model="addition.isNeededVisa"/>
+						<ins class="b-checkbox"></ins>
+						Добавить к оплате
+					</label>
+				</div>
+				<!--<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededMedicalInsurance">-->
+				<!--<ins class="b-checkbox"></ins>-->
+				<!--Страховки</label></li>-->
+
+		<!--TRANSFERS-->
+				<!--<div class="ReservationSection__wrap">-->
+					<!--<h2 class="buy__title" style="margin: 3px 0px;">Трансфер</h2>-->
+					<!--<label class="b-agreement" style="clear: none; margin: 3px 0px;">-->
+						<!--<input type="checkbox" ng-model="addition.isNeededTransfer"/>-->
+						<!--<ins class="b-checkbox"></ins>-->
+						<!--Добавить трансфер в этот отель-->
+					<!--</label>-->
+                    <!--<ng:include src="'pages/page-reservations/templ/reservations-transfer.html'"></ng:include>-->
+				<!--</div>-->
+
+		<div class="ReservationSection__wrap">
+			<div class="b-promo-code">
+				<div class="b-promo-code__field">
+					<label class="b-promo-code__label" for="b-promo-code__input">
+						Ваш промо-код
+					</label>
+					<div class="b-promo-code__input-container">
+						<input id="b-promo-code__input"
+							   class="b-field-text b-promo-code__input"
+							   type="text"
+							   ng-model="promoCode"/>
+						<div class="b-promo-code__input-error-message"
+							 ng-if="promoCodeStatus == 2 || promoCodeStatus == 3"
+						>Код не опознан
 						</div>
 					</div>
-					<div class="b-field-block b-field-bonus-card-num"
-					     ng-show="passenger.bonuscard.value.haveBonusCard == true">
-						<label class="b-field-label">Номер карты</label>
-						<input autocomplete="off" digits-input type="text" maxlength="16"
-						       ng-model="passenger.bonuscard.value.number" class="b-field-text"
-						       placeholder="ХХХХХХХХХХХ">
-					</div>
+					<span class="button b-promo-code__button"
+						  ng-click="checkPromoCode()">Применить
+					</span>
 				</div>
-			</div>
-		</fieldset>
-
-		<ng:any ng-if="addition != null">
-			<header class="buy__header">
-				<h2 class="buy__title">Пожелание к номеру</h2>
-			</header>
-			<div class="buy__comments-container">
-			<textarea cols="30" rows="10" class="buy__comments-field" ng-model="addition.customerWishlist">{{addition.customerWishlist
-				| breakFilter}}</textarea>
-
-				<p class="buy__comments-help">Ваши пожелания мы передадим в отель, но не можем гарантировать их
-				                              исполнение. Пожалуйста, пишите ваши пожелания на английском языке.
-				</p>
-			</div>
-			<header class="buy__header">
-				<h2 class="buy__title">Дополнительные услуги</h2>
-			</header>
-			<div class="buy__more-container">
-				<div class="buy__more-help">Данные услуги не включены в стоимость заказа, после оплаты заказа наш
-				                            менеджер свяжется c Вами и предложит разные варианты.
+				<div class="b-promo-code__info" ng-if="promoCodeStatus == 1">
+					Ввведен промо-код
+					<b>{{ promoCode }}</b>
+					на {{ promoCodeSale }}% скидку
 				</div>
-				<ul class="buy__more-options">
-					<li>
-						<label class="b-agreement">
-							<input type="checkbox" ng-model="addition.isNeededVisa"/>
-							<ins class="b-checkbox"></ins>
-							Виза
-						</label>
-					</li>
-					<!--<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededMedicalInsurance">-->
-					<!--<ins class="b-checkbox"></ins>-->
-					<!--Страховки</label></li>-->
-					<li>
-						<label class="b-agreement">
-							<input type="checkbox" ng-model="addition.isNeededTransfer"/>
-							<ins class="b-checkbox"></ins>
-							Трансфер
-						</label>
-					</li>
-				</ul>
-			</div>
-		</ng:any>
 
-		<div class="b-promo-code">
-			<div class="b-promo-code__field">
-				<label class="b-promo-code__label" for="b-promo-code__input">
-					У меня есть промо-код
-				</label>
-				<div class="b-promo-code__input-container">
-					<input id="b-promo-code__input"
-					       class="b-field-text b-promo-code__input"
-					       type="text"
-					       ng-model="promoCode"/>
-					<div class="b-promo-code__input-error-message"
-					     ng-if="promoCodeStatus == 2 || promoCodeStatus == 3"
-					>Код не опознан
-					</div>
-				</div>
-				<span class="button b-promo-code__button"
-				      ng-click="checkPromoCode()">Применить
-				</span>
 			</div>
-			<div class="b-promo-code__info" ng-if="promoCodeStatus == 1">
-				Ввведен промо-код
-				<b>{{ promoCode }}</b>
-				на {{ promoCodeSale }}% скидку
-			</div>
-
 		</div>
 
-	</div>
+		<div class="ReservationSection__wrap">
+			<!--<div class="b-sum-container">-->
+				<div class="b-agreement-cc">
+					<label class="b-agreement">
+						<input type="checkbox" ng-model="agree"/>
+						<ins class="b-checkbox" id="agree">
+							<div class="ui-tooltip" ng-show="agreeError">
+								<div class="ui-tooltip-content ng-binding"> Нужно согласиться с условиями</div>
+							</div>
+						</ins>
+						Я принимаю условия <a ng-href="{{oferta.url()}}" ng-click="gtmRules($event, 'oferta')" target="_blank">договора-оферты</a><span ng-if="!reservationModel.IsService">,
+				<a href="http://www.iatatravelcentre.com/e-ticket-notice/Russian_Federation/Russian/"
+				   ng-click="gtmRules($event, 'iata')"
+				   target="_blank">договора IATA</a>,
+				<a ng-href="{{TKP.url()}}" ng-click="gtmRules($event, 'tkp')" target="_blank">ТКП</a>,
+				<a ng-href="#" ng-click="tarifs.show($event); gtmRules($event, 'tariffs');">тарифов</a></span>, и не возражаю против обработки моих
+						персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).
+					</label>
+				</div>
 
-	<div class="b-sum-container">
 
-		<div class="b-agreement-cc">
-			<label class="b-agreement">
-				<input type="checkbox" ng-model="agree"/>
-				<ins class="b-checkbox" id="agree">
-					<div class="ui-tooltip" ng-show="agreeError">
-						<div class="ui-tooltip-content ng-binding"> Нужно согласиться с условиями</div>
-					</div>
-				</ins>
-				Я принимаю условия <a ng-href="{{oferta.url()}}" ng-click="gtmRules($event, 'oferta')" target="_blank">договора-оферты</a><span ng-if="!reservationModel.IsService">,
-            <a href="http://www.iatatravelcentre.com/e-ticket-notice/Russian_Federation/Russian/"
-			   ng-click="gtmRules($event, 'iata')"
-               target="_blank">договора IATA</a>,
-            <a ng-href="{{TKP.url()}}" ng-click="gtmRules($event, 'tkp')" target="_blank">ТКП</a>,
-            <a ng-href="#" ng-click="tarifs.show($event); gtmRules($event, 'tariffs');">тарифов</a></span>, и не возражаю против обработки моих
-				персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).
-			</label>
+				<!--<a ng-href="#" ng-click="fillDefaultModel($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>-->
+
+				<div class="go-pay">
+					<span class="b-sum" style="">Сумма к оплате:&nbsp;</span>
+					<span class="b-tickets-sum">
+						<b>
+							<span>{{price| price}}</span>
+							<ng-include src="'components/ruble.html'"/>
+						</b>
+					</span>
+
+
+					<button type="submit"
+							class="button b-sum-button"
+							ng-if="!user.isAgency()"
+							tabindex="3">Перейти к оплате
+					</button>
+
+					<button type="submit"
+							class="button b-sum-button"
+							ng-if="user.isAgency()"
+							tabindex="3">Забронировать
+					</button>
+				</div>
+			<!--</div>-->
 		</div>
-
-
-		<!--<a ng-href="#" ng-click="fillDefaultModel($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>-->
-
-		<span class="b-sum" style="">Сумма к оплате:&nbsp;</span>
-	        <span class="b-tickets-sum">
-	            <b>
-		            <span>{{price| price}}</span>
-		            <ng-include src="'components/ruble.html'"/>
-	            </b>
-	        </span>
-
-
-		<button type="submit"
-		        class="button b-sum-button"
-		        ng-if="!user.isAgency()"
-		        tabindex="3">Перейти к оплате
-		</button>
-
-		<button type="submit"
-		        class="button b-sum-button"
-		        ng-if="user.isAgency()"
-		        tabindex="3">Забронировать
-		</button>
 	</div>
 </form>
 

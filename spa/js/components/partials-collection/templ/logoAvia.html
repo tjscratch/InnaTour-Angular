@@ -1,14 +1,17 @@
 <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
 <span>
-    <span ng-if="collectionAirlines.size <= 2"
-          ng-repeat="airlines in collectionAirlines.airlines"
-          class="result-cell__airlines">
-        <img ng-src="{{airLogo(airlines.code)}}" alt="" class="logo">
-        <span class="rl-airline-text">{{airlines.name}}</span>
+    <!--<span ng-if="collectionAirlines.size <= 2"-->
+          <!--ng-repeat="airlines in collectionAirlines.airlines"-->
+          <!--class="result-cell__airlines">-->
+        <!--<img ng-src="{{airLogo(airlines.code)}}" alt="" class="logo">-->
+        <!--<span class="rl-airline-text">{{airlines.name}}</span>-->
+    <!--</span>-->
+    <span class="result-cell__airlines">
+        <img ng-src="{{toOrBack == 'To' ? airLogo(collectionAirlines.codeTo) : airLogo(collectionAirlines.codeBack)}}" alt="" class="logo">
     </span>
 
-    <span class="rl-airline" ng-if="collectionAirlines.size > 2">
-        <img src="/spa/img/group.png" alt="">
-        <span class="rl-airline-text">Несколько авиакомпаний</span>
-    </span>
+    <!--<span class="rl-airline" ng-if="collectionAirlines.size > 2">-->
+        <!--<img src="/spa/img/group.png" alt="">-->
+        <!--<span class="rl-airline-text">Несколько авиакомпаний</span>-->
+    <!--</span>-->
 </span>

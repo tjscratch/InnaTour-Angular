@@ -7,18 +7,21 @@
 			<li class="section__crumbs__list__item">
 				<a href="/#/" class="section__crumbs__list__item__link">Главная</a>
 			</li>
+			/
 			<li class="section__crumbs__list__item" ng-if="reservation.typeProduct == 'hotels'">
 				<a ng-href="{{ reservation.hotelsIndexPath }}" class="section__crumbs__list__item__link">Результаты поиска</a>
 			</li>
 			<li class="section__crumbs__list__item" ng-if="reservation.typeProduct == 'bus'">
 				<a ng-href="{{ reservation.busIndexPath }}" class="section__crumbs__list__item__link">Результаты поиска</a>
 			</li>
+			/
 			<li class="section__crumbs__list__item" ng-if="reservation.typeProduct == 'hotels'">
 				<a ng-href="/#{{ reservation.hotelsShowPath }}" class="section__crumbs__list__item__link">Описание отеля и выбор номера</a>
 			</li>
 			<li class="section__crumbs__list__item" ng-if="reservation.typeProduct == 'bus'">
 				<a ng-href="/#{{ reservation.busShowPath }}" class="section__crumbs__list__item__link">Описание автобусного тура</a>
 			</li>
+			/
 			<li class="section__crumbs__list__item" ng-if="reservation.typeProduct == 'hotels'">
 				Бронирование номера
 			</li>
@@ -37,49 +40,49 @@
 		<ng:include src="'pages/page-reservations/templ/reservations-customer-info.html'"></ng:include>
 		<ng:include src="'pages/page-reservations/templ/reservations-passengers-info.html'"></ng:include>
 
-
-		<div class="ReservationForm__Agree">
-			<label class="FieldCheckbox">
-				<input class="FieldCheckbox__input"
-				       type="checkbox"
-				       name="ReservationModelAgree"
-				       ng-model="reservation.ReservationModel.Agree"
-				       message-id="ReservationModelAgree"
-				       validator="required"
-				       valid-method="submit"
-				       required-error-message="Нужно согласиться с условиями"/>
-				<div class="FieldCheckbox__checkbox fa fa-check"></div>
-				<div class="FieldCheckbox__label">
-					Я принимаю условия <a class="link" ng-href="{{oferta.url()}}" ng-click="gtmRules($event, 'oferta')" target="_blank">договора-оферты</a>,
-					и не возражаю против обработки моих
-					персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).
-				</div>
-			</label>
-			<div class="FieldError" id="ReservationModelAgree"></div>
-		</div>
-
-
-		<div class="ReservationFormActive">
-
-			<div class="ReservationFormSum">
-				<div class="ReservationFormSum__price-label">
-					Сумма к оплате:
-				</div>
-				<div class="ReservationFormSum__price">
-					{{ reservation.hotelInfo.Room.Price | currency : "" : 0 }}<i class='fa fa-rub'></i>
-				</div>
+		<div class="ReservationSection__wrap">
+			<div class="ReservationForm__Agree">
+				<label class="FieldCheckbox">
+					<div class="FieldCheckbox__label" style="padding-right: 30px;">
+						Я принимаю условия <a class="link" ng-href="{{oferta.url()}}" ng-click="gtmRules($event, 'oferta')" target="_blank">договора-оферты</a>,
+						и не возражаю против обработки моих
+						персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).
+					</div>
+					<input class="FieldCheckbox__input"
+						   type="checkbox"
+						   name="ReservationModelAgree"
+						   ng-model="reservation.ReservationModel.Agree"
+						   message-id="ReservationModelAgree"
+						   validator="required"
+						   valid-method="submit"
+						   required-error-message="Нужно согласиться с условиями"/>
+					<div class="FieldCheckbox__checkbox fa fa-check"></div>
+				</label>
+				<div class="FieldError" id="ReservationModelAgree"></div>
 			</div>
 
-			<div class="ReservationFormActive__btn">
-				<button class="button b-sum-button"
-				        type="submit"
-				        ng-click="reservation.form.submit($event, ReservationForm)">
-					Забронировать
-				</button>
+
+			<div class="ReservationFormActive">
+
+				<div class="ReservationFormSum">
+					<div class="ReservationFormSum__price-label">
+						Сумма к оплате:
+					</div>
+					<div class="ReservationFormSum__price">
+						{{ reservation.hotelInfo.Room.Price | currency : "" : 0 }}<i class='fa fa-rub'></i>
+					</div>
+				</div>
+
+				<div class="ReservationFormActive__btn">
+					<button class="button b-sum-button"
+							type="submit"
+							ng-click="reservation.form.submit($event, ReservationForm)">
+						Забронировать
+					</button>
+				</div>
+
 			</div>
-
 		</div>
-
 
 	</form>
 </div>

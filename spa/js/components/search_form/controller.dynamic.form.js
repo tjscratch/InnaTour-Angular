@@ -6,7 +6,11 @@ innaAppControllers
         'Validators',
         '$location',
         'innaApp.Urls',
-        function ($scope, $rootScope, serviceCache, Validators, $location, URLs) {
+        'EventManager',
+        'innaAppApiEvents',
+        function ($scope, $rootScope, serviceCache, Validators, $location, URLs, EventManager, Events) {
+
+            $scope.isOpenSearchForm = true;
 
             if (window.partners) {
                 var part = window.partners.getPartner();
@@ -14,6 +18,14 @@ innaAppControllers
                     $scope.useHorizontalForm = part.horizontalForm;
                 }
             }
+
+            $scope.$on('DYNAMIC_OPEN_SEARCH_FORM', function (event, data) {
+                if(data.open) {
+                    $scope.isOpenSearchForm = true;
+                } else {
+                    $scope.isOpenSearchForm = false;
+                }
+            });
 
             function wlDataControl() {
                 var self = this;

@@ -1,4 +1,5 @@
-<form class="b-search-form b-search-form-hotels">
+<form class="b-search-form b-search-form-hotels"
+	  ng-class="{'b-search-form_padding-1px': FormExpand, 'b-search-form_padding-16px': !FormExpand}">
 
 
 	<div class="b-search-form-hotels__field b-bus-typeahead"
@@ -47,6 +48,14 @@
 		     class="b-wrapp_type_inline no-outline-on-focus"></div>
 	</div>
 
+	<!--<people-trip-preferences tabindex="5"-->
+							 <!--adult-count="hotelsSearchForm.Adult"-->
+							 <!--children-count="hotelsSearchForm.ChildrenCount"-->
+							 <!--childrens-age="hotelsSearchForm.Children"-->
+							 <!--klass-model="klass"-->
+							 <!--type-page="'Hotel'"-->
+							 <!--class="b-wrapp_type_inline no-outline-on-focus">-->
+	<!--</people-trip-preferences>-->
 
 	<div tabindex="7" click-on-focus class="search-form__submit search-button-block_small no-outline-on-focus"
 	     ng-click="hotelsSearchStart($event)">
