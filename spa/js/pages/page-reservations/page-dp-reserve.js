@@ -44,10 +44,10 @@
                 $scope.isRequestEnabled = true;
             }
 
-            $scope.isRosneftFamilyTeam = false;
+            /*$scope.isRosneftFamilyTeam = false;
             if (window.partners.partner.name == 'rosneftfamilyteam') {
                 $scope.isRosneftFamilyTeam = true;
-            }
+            }*/
 
             /*----------------- INIT -------------------*/
             
