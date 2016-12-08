@@ -1,9 +1,9 @@
 @import "../../base.styl"
 $black = #000;
-$red = #E30514;
+$red = #e30514;
 $white = #fff;
 //$green = #df6228;
-$green = #D04138;
+$green = #d04138;
 
 $border-radius = 2px;
 
@@ -43,11 +43,9 @@ $btn-red-bg = #df6228;
 $btn-red-bg-hover = lighten($btn-red-bg, 15%);
 $btn-red-bg-active = darken($btn-red-bg, 15%);
 $btn-red-color = $white;
-$btn-yellow-bg = #FFCD29;
+$btn-yellow-bg = #ffcd29;
 $btn-yellow-color = $black;
 // end btn
-
-
 
 @import "../finam/colors.styl"
 @import "../finam/index.styl"
@@ -65,4 +63,42 @@ $btn-yellow-color = $black;
     top: 0;
     margin-bottom: 0;
     padding: 0;
+}
+.pic-cont{
+    position relative
+}
+.black-friday{
+    position absolute
+    width 100%
+    bottom 0
+    padding 16px 0
+    background #000
+}
+.black-friday-date{
+    margin 0 auto
+    color #fff
+    font-size 15px
+}
+.black-friday-title{
+    margin 10px auto 14px
+    color #7cb621
+    text-transform uppercase
+    font-size 20px
+}
+.black-friday-promo{
+    display flex
+    align-items center
+    justify-content center
+}
+.black-friday-promo__label{
+    margin-right 20px
+    color #e1e1e1
+    font-size 13px
+}
+.black-friday-promo__cod{
+    padding 7px 40px
+    color #fff
+    font-size 16px
+    border-radius 3px
+    border 1px solid #fff
 }
