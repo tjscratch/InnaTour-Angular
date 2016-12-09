@@ -44,10 +44,12 @@
                 $scope.isRequestEnabled = true;
             }
 
-            /*$scope.isRosneftFamilyTeam = false;
-            if (window.partners.partner.name == 'rosneftfamilyteam') {
-                $scope.isRosneftFamilyTeam = true;
-            }*/
+            $scope.isRosneftFamilyTeam = false;
+            if(window.partners.partner) {
+                if (window.partners.partner.name == 'rosneftfamilyteam') {
+                    $scope.isRosneftFamilyTeam = true;
+                }
+            }
 
             /*----------------- INIT -------------------*/
             
@@ -728,16 +730,22 @@
             
             $scope.checkPromoCodeRosneft = function () {
                 var checkPromoCodeParams = {
-                    number: $scope.promoCode
+                    number: 7005991003199585,
+                    cardType: 'rosneftfamily',
+                    price: 100500
                 };
+                var m = $scope.getApiModelForReserve();
+                var checkPromoCodeParams2 = m.apiModel;
+                console.log("CODE", $scope.promoCodeRosneft);
+                console.log('checkPromoCodeParams', checkPromoCodeParams);
+                console.log('checkPromoCodeParams2', checkPromoCodeParams2);
                PromoCodes.getPackagesDiscountedPriceRosneft(checkPromoCodeParams)
                     .success(function (data) {
-                        $scope.promoCodeStatus = data.Status;
-                        $scope.promoCodeDetailStatus = data.DetailStatus;
-                        if ($scope.promoCodeStatus == 1) {
-                            $scope.promoCodeSale = data.Details.PromoCode.rule_value;
-                            $scope.price = data.Details.NewPrice;
-
+                        // $scope.promoCodeStatus = data.Status;
+                        // $scope.promoCodeDetailStatus = data.DetailStatus;
+                        if (data.Result == "Success") {
+                            // $scope.promoCodeSale = data.Details.PromoCode.rule_value;
+                            $scope.bonusRosneft = data.Data;
                             var dataLayerObj = {
                                 'event': 'UM.Event',
                                 'Data' : {
@@ -753,6 +761,8 @@
                             if (window.dataLayer) {
                                 window.dataLayer.push(dataLayerObj);
                             }
+                        } else {
+
                         }
                     })
             }
