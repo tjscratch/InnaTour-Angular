@@ -199,12 +199,12 @@
         <span ng-if="typeEtap != 'Reservation'" class="icon-inform-blue" title="Подробнее о перелете"></span>
 
         <div class="wrap__flight-info">
-            <div class="flight-info" style="border-bottom: 1px dashed #DDE3E9;">
+            <div class="flight-info">
                 <ng:any partials-collection
                         partial-name="logoAvia"
                         class="recommendedPairTicket recommendedPairTicketLogo"
                         ticket-model="recommendedPair.ticket"
-                        to-or-back="To"
+                        to-or-back="true"
                         ng-if="typeEtap != 'Reservation'"/>
                 <span class="date">
                     <ng:any partials-collection

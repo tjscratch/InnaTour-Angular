@@ -1,18 +1,18 @@
 <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
 {{#if toOrBack == "To"}}
 	<!--{{#each ticketModel.collectAirlines().airlines}}-->
-		<span class="result-cell__airlines">
+		<span class="result-cell__airlines" style="width: 150px; text-align: center">
             <img src="{{ticketModel.airLogo(ticketModel.collectAirlines().codeTo)}}" alt="" class="logo">
-	        <span class="rl-airline-text">{{ticketModel.collectAirlines().nameToAirport}}</span>
+	        <span class="rl-airline-text">{{ticketModel.collectAirlines().nameToTransporter}}</span>
 		</span>
 	<!--{{/each}}-->
 {{/if}}
 
 {{#if toOrBack == "Back"}}
 <!--{{#each ticketModel.collectAirlines().airlines}}-->
-<span class="result-cell__airlines">
+<span class="result-cell__airlines" style="width: 150px; text-align: center">
             <img src="{{ticketModel.airLogo(ticketModel.collectAirlines().codeBack)}}" alt="" class="logo">
-	        <span class="rl-airline-text">{{ticketModel.collectAirlines().nameBackAirport}}</span>
+	        <span class="rl-airline-text">{{ticketModel.collectAirlines().nameBackTransporter}}</span>
 		</span>
 <!--{{/each}}-->
 {{/if}}
