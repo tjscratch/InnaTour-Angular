@@ -103,9 +103,9 @@ innaAppServices.factory('ModelTicket', [
 
             return {
                 codeTo: this.getToOutTransporterName().code,
-                nameToAirport: this.getToOutTransporterName().name,
+                nameToTransporter: this.getToOutTransporterName().name,
                 codeBack: this.getBackOutTransporterName().code,
-                nameBackAirport: this.getBackOutTransporterName().name
+                nameBackTransporter: this.getBackOutTransporterName().name
             }
         };
 
