@@ -726,7 +726,7 @@
                             }
                         }
                     })
-            }
+            };
             
             $scope.checkPromoCodeRosneft = function () {
                 var checkPromoCodeParams = {
@@ -739,12 +739,9 @@
                 console.log("CODE", $scope.promoCodeRosneft);
                 console.log('checkPromoCodeParams', checkPromoCodeParams);
                 console.log('checkPromoCodeParams2', checkPromoCodeParams2);
-               PromoCodes.getPackagesDiscountedPriceRosneft(checkPromoCodeParams)
+                PromoCodes.getPackagesDiscountedPriceRosneft(checkPromoCodeParams)
                     .success(function (data) {
-                        // $scope.promoCodeStatus = data.Status;
-                        // $scope.promoCodeDetailStatus = data.DetailStatus;
                         if (data.Result == "Success") {
-                            // $scope.promoCodeSale = data.Details.PromoCode.rule_value;
                             $scope.bonusRosneft = data.Data;
                             var dataLayerObj = {
                                 'event': 'UM.Event',
@@ -765,7 +762,7 @@
 
                         }
                     })
-            }
+            };
             /**
              * конец промо код
              */
