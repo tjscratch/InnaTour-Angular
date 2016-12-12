@@ -78,11 +78,11 @@
                         <!--&lt;!&ndash;EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));&ndash;&gt;-->
                     <!--</div>-->
 
-                    <!--<div class="hotel-info-date">-->
-                        <!--<ng:any partials-collection-->
-                                <!--partial-name="rangeShort"-->
-                                <!--hotel="recommendedPair.hotel.data"/>-->
-                    <!--</div>-->
+                    <div class="hotel-info-date">
+                        <ng:any partials-collection
+                                partial-name="rangeShort"
+                                hotel="recommendedPair.hotel.data"/>
+                    </div>
 
                     <!-- tripadvisor -->
                     <!--<div class="hotel-info__tripadvisor"-->
@@ -138,12 +138,14 @@
             <div ng-if="typeEtap == 'Search'" class="hotel-info__tripadvisor">
                 <div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>
             </div>
-            <span ng-if="typeEtap != 'Search'" class="room-title">{{recommendedPair.hotel.data.Room.RoomName}}<br/></span>
-            <span ng-if="typeEtap != 'Search'" class="room_bed-type-list">
+            <div ng-if="typeEtap != 'Search'"
+                 class="room-title"
+                 title="{{recommendedPair.hotel.data.Room.RoomName}}">{{recommendedPair.hotel.data.Room.RoomName}}<br/></div>
+            <div ng-if="typeEtap != 'Search'" class="room_bed-type-list">
 		                    <span ng-repeat="bed in recommendedPair.hotel.data.Room.BedTypeList">
 		                        {{bed.Name}}<span ng-if="!$last">,&nbsp;</span>
 		                    </span>
-            </span>
+            </div>
             <!--<div class="hotel-go-to-map">-->
                 <!--EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));-->
             <!--</div>-->
@@ -199,12 +201,12 @@
         <span ng-if="typeEtap != 'Reservation'" class="icon-inform-blue" title="Подробнее о перелете"></span>
 
         <div class="wrap__flight-info">
-            <div class="flight-info" style="border-bottom: 1px dashed #DDE3E9;">
+            <div class="flight-info">
                 <ng:any partials-collection
                         partial-name="logoAvia"
                         class="recommendedPairTicket recommendedPairTicketLogo"
                         ticket-model="recommendedPair.ticket"
-                        to-or-back="To"
+                        to-or-back="true"
                         ng-if="typeEtap != 'Reservation'"/>
                 <span class="date">
                     <ng:any partials-collection

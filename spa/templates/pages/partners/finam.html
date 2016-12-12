@@ -1,0 +1,77 @@
+<div ng-controller='DynamicFormCtrl'>
+	<div class='pic-cont'
+	     ng-class="{'horizontal-form':useHorizontalForm}">
+
+
+		<!--
+		<div class="black-friday">
+			<div class="black-friday-date">25 ноября</div>
+			<div class="black-friday-title">«День грандиозных распродаж»</div>
+			<div class="black-friday-promo">
+				<div class="black-friday-promo__label">Промо код</div>
+				<div class="black-friday-promo__cod">FINAM2511</div>
+			</div>
+		</div>
+		-->
+
+
+	</div>
+
+	<div class='partner-form-wrap'
+	     ng-class="{'horizontal-form':useHorizontalForm}">
+		<form class='b-tour-form'>
+			<span class='main-label'>Авиа + Отель</span>
+
+			<div class='b-tour-form-wrapper'>
+
+				<div location-selector
+				     theme='b-search-field b-search-field__long b-search-field__from'
+				     placeholder='Откуда'
+				     selected-value='fromCity'
+				     type-search='DP_from'></div>
+
+				<div location-selector
+				     theme='b-search-field b-search-field__long b-search-field__to'
+				     placeholder='Куда'
+				     selected-value='toCity'
+				     type-search='DP_to'></div>
+
+
+				<div date-picker-widget
+				     interval='false'
+				     date1='dateBegin'
+				     date2='dateEnd'
+				     max-date='maxDateEnd'
+				     templ='components/partners/biletix/date_picker_widget_biletix.html'
+				     class=''></div>
+
+				<div class='b-search-field-hor'>
+					<div counter-people
+					     adult-count='adultCount'
+					     children-count='childrenCount'
+					     childrens-age='childrensAge'
+					     class='b-wrapp_type_inline'
+					     templ='components/partners/biletix/counter_people_biletix.html'></div>
+
+					<div trip-preferences
+					     show-back-trip-options='false'
+					     klass-model='klass'
+					     templ='components/partners/biletix/trip_preferences_biletix.html'></div>
+
+					<div class='b-search-button'
+					     ng-click='searchStart($event)'></div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class='layout offers-layout__mod'>
+		<offers type-page="'Packages'"></offers>
+	</div>
+
+	<style>
+		.offers-card-banner-container{
+			display: none;
+		}
+	</style>
+</div>
