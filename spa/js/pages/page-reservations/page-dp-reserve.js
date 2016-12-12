@@ -45,11 +45,11 @@
             }
 
             $scope.isRosneftFamilyTeam = false;
-            if(window.partners.partner) {
-                if (window.partners.partner.name == 'rosneftfamilyteam') {
-                    $scope.isRosneftFamilyTeam = true;
-                }
-            }
+            // if(window.partners.partner) {
+            //     if (window.partners.partner.name == 'komandacard') {
+            //         $scope.isRosneftFamilyTeam = true;
+            //     }
+            // }
 
             /*----------------- INIT -------------------*/
             

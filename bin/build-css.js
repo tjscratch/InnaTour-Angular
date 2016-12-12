@@ -187,9 +187,9 @@ gulp.task('build-styles-partners-euroset', function () {
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
         .pipe(gulp.dest(distSrcPartners));
 });
-/*gulp.task('build-styles-partners-rosneftfamilyteam', function () {
-    var srcUrl = './spa/partners/rosneftfamilyteam/assets/page.base.styl',
-        distSrcPartners = './spa/partners/rosneftfamilyteam/assets';
+/*gulp.task('build-styles-partners-komandacard', function () {
+    var srcUrl = './spa/partners/komandacard/assets/page.base.styl',
+        distSrcPartners = './spa/partners/komandacard/assets';
     return gulp.src(srcUrl)
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.init()))
         .pipe(stylus({use: [nib()]}))
@@ -220,7 +220,7 @@ gulp.task('build-css', function (callback) {
         'build-styles-print',
         'build-styles-partners',
         'build-styles-partners-euroset',
-       /* 'build-styles-partners-rosneftfamilyteam',*/
+       /* 'build-styles-partners-komandacard',*/
         'build-styles-adv',
         'copy-fonts',
         callback
