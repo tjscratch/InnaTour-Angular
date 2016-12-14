@@ -374,8 +374,8 @@
 				<!--</div>-->
 
 		<div class="ReservationSection__wrap">
-			<div class="b-promo-code">
-				<div class="b-promo-code__field" ng-if="!isRosneftFamilyTeam">
+			<div class="b-promo-code" ng-class="{'block_close' : !isMainPromoCode}">
+				<div class="b-promo-code__field" style="justify-content: center;">
 					<label class="b-promo-code__label" for="b-promo-code__input">
 						Ваш промо-код
 					</label>
@@ -384,29 +384,31 @@
 							   class="b-field-text b-promo-code__input"
 							   type="text"
 							   ng-model="promoCode"/>
-						<div class="b-promo-code__input-error-message"
-							 ng-if="promoCodeStatus == 2 || promoCodeStatus == 3"
-						>Код не опознан
-						</div>
 					</div>
 					<span class="button b-promo-code__button"
 						  ng-click="checkPromoCode()">Применить
 					</span>
 				</div>
-				<div class="b-promo-code__field" ng-if="isRosneftFamilyTeam">
-					<label class="b-promo-code__label" for="b-promo-code__input" style="font-size: 15px;">
+				<div class="b-promo-code__info" ng-if="promoCodeStatus == 1">
+					Ввведен промо-код
+					<b>{{ promoCode }}</b>
+					на {{ promoCodeSale }}% скидку
+				</div>
+				<div class="b-promo-code__input-error-message"
+					 ng-if="promoCodeStatus == 2 || promoCodeStatus == 3"
+				>Код не опознан
+				</div>
+			</div>
+			<div class="b-promo-code" ng-class="{'block_close': !isRosneftKomandaCard}">
+				<div class="b-promo-code__field">
+					<label class="b-promo-code__label" for="b-promo-code__input2" style="font-size: 15px;">
 						Введите номер бонусной карты "Семейная команда"
 					</label>
 					<div class="b-promo-code__input-container">
-						<input id="b-promo-code__input "
+						<input id="b-promo-code__input2"
 							   class="b-field-text b-promo-code__input"
 							   type="text"
-							   placeholder="1234 5678 9012 3456"
 							   ng-model="promoCodeRosneft"/>
-						<div class="b-promo-code__input-error-message"
-							 ng-if="promoCodeStatus == 2 || promoCodeStatus == 3"
-						>Номер карты неверный
-						</div>
 					</div>
 					<span class="button b-promo-code__button"
 						  ng-click="checkPromoCodeRosneft()">Применить
@@ -424,7 +426,11 @@
 					<b>{{ promoCode }}</b>
 					на {{ promoCodeSale }}% скидку
 				</div>
-
+				<div class="b-promo-code__input-error-message"
+					 ng-if="promoCodeStatusRosneft == 'Error'">
+					<!--Номер карты неверный-->
+					{{ promoCodeErrorInfo }}
+				</div>
 			</div>
 		</div>
 

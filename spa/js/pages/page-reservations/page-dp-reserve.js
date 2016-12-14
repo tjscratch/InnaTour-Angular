@@ -44,12 +44,14 @@
                 $scope.isRequestEnabled = true;
             }
 
-            $scope.isRosneftFamilyTeam = false;
-            // if(window.partners.partner) {
-            //     if (window.partners.partner.name == 'komandacard') {
-            //         $scope.isRosneftFamilyTeam = true;
-            //     }
-            // }
+            $scope.isMainPromoCode = true;
+            $scope.isRosneftKomandaCard = false;
+            if(window.partners.partner) {
+                if (window.partners.partner.name == 'komandacard') {
+                    $scope.isMainPromoCode = false;
+                    $scope.isRosneftKomandaCard = true;
+                }
+            }
 
             /*----------------- INIT -------------------*/
             
@@ -686,6 +688,13 @@
                     m.PromoCode = $scope.promoCode;
                     m.promoCodeString = m.PromoCode
                 }
+
+                if($scope.isRosneftKomandaCardActive && $scope.promoCodeRosneft) {
+                    m.Loyality = {
+                        CardNumber : $scope.promoCodeRosneft,
+                        CardType : 'komandacard'
+                    }
+                }
                 if ($scope.TransferKey) {
                     m.TransferKey = $scope.TransferKey;
                 }
@@ -727,39 +736,41 @@
                         }
                     })
             };
-            
+
+            $scope.promoCodeRosneft = '';
+
             $scope.checkPromoCodeRosneft = function () {
                 var checkPromoCodeParams = {
-                    number: 7005991003199585,
-                    cardType: 'rosneftfamily',
-                    price: 100500
+                    number: $scope.promoCodeRosneft,
+                    cardType: 'komandacard',
+                    price: $scope.price
                 };
-                var m = $scope.getApiModelForReserve();
-                var checkPromoCodeParams2 = m.apiModel;
-                console.log("CODE", $scope.promoCodeRosneft);
-                console.log('checkPromoCodeParams', checkPromoCodeParams);
-                console.log('checkPromoCodeParams2', checkPromoCodeParams2);
                 PromoCodes.getPackagesDiscountedPriceRosneft(checkPromoCodeParams)
                     .success(function (data) {
                         if (data.Result == "Success") {
                             $scope.bonusRosneft = data.Data;
-                            var dataLayerObj = {
-                                'event': 'UM.Event',
-                                'Data' : {
-                                    'Category': 'Packages',
-                                    'Action'  : 'ApplyPromocode',
-                                    'Label'   : '[no data]',
-                                    'Content' : '[no data]',
-                                    'Context' : '[no data]',
-                                    'Text'    : '[no data]'
-                                }
-                            };
-                            console.table(dataLayerObj);
-                            if (window.dataLayer) {
-                                window.dataLayer.push(dataLayerObj);
-                            }
-                        } else {
-
+                            $scope.isRosneftKomandaCardActive = true;
+                            // var dataLayerObj = {
+                            //     'event': 'UM.Event',
+                            //     'Data' : {
+                            //         'Category': 'Packages',
+                            //         'Action'  : 'ApplyPromocode',
+                            //         'Label'   : '[no data]',
+                            //         'Content' : '[no data]',
+                            //         'Context' : '[no data]',
+                            //         'Text'    : '[no data]'
+                            //     }
+                            // };
+                            // console.table(dataLayerObj);
+                            // if (window.dataLayer) {
+                            //     window.dataLayer.push(dataLayerObj);
+                            // }
+                        } else if (data.Result == "Error") {
+                            console.log('Result', data.Result);
+                            console.log('Data', data.Data);
+                            $scope.promoCodeStatusRosneft = 'Error';
+                            $scope.promoCodeErrorInfo = data.Data;
+                            $scope.bonusRosneft = '';
                         }
                     })
             };
