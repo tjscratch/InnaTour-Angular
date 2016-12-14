@@ -745,35 +745,37 @@
                     cardType: 'komandacard',
                     price: $scope.price
                 };
-                PromoCodes.getPackagesDiscountedPriceRosneft(checkPromoCodeParams)
-                    .success(function (data) {
-                        if (data.Result == "Success") {
-                            $scope.bonusRosneft = data.Data;
-                            $scope.isRosneftKomandaCardActive = true;
-                            $scope.promoCodeStatusRosneftError = false;
-                            // var dataLayerObj = {
-                            //     'event': 'UM.Event',
-                            //     'Data' : {
-                            //         'Category': 'Packages',
-                            //         'Action'  : 'ApplyPromocode',
-                            //         'Label'   : '[no data]',
-                            //         'Content' : '[no data]',
-                            //         'Context' : '[no data]',
-                            //         'Text'    : '[no data]'
-                            //     }
-                            // };
-                            // console.table(dataLayerObj);
-                            // if (window.dataLayer) {
-                            //     window.dataLayer.push(dataLayerObj);
-                            // }
-                        } else if (data.Result == "Error") {
-                            console.log('Result', data.Result);
-                            console.log('Data', data.Data);
-                            $scope.promoCodeStatusRosneftError = true;
-                            $scope.promoCodeErrorInfo = data.Data;
-                            $scope.bonusRosneft = '';
-                        }
-                    })
+                if ($scope.promoCodeRosneft) {
+                    PromoCodes.getPackagesDiscountedPriceRosneft(checkPromoCodeParams)
+                        .success(function (data) {
+                            if (data.Result == "Success") {
+                                $scope.bonusRosneft = data.Data;
+                                $scope.isRosneftKomandaCardActive = true;
+                                $scope.promoCodeStatusRosneftError = false;
+                                // var dataLayerObj = {
+                                //     'event': 'UM.Event',
+                                //     'Data' : {
+                                //         'Category': 'Packages',
+                                //         'Action'  : 'ApplyPromocode',
+                                //         'Label'   : '[no data]',
+                                //         'Content' : '[no data]',
+                                //         'Context' : '[no data]',
+                                //         'Text'    : '[no data]'
+                                //     }
+                                // };
+                                // console.table(dataLayerObj);
+                                // if (window.dataLayer) {
+                                //     window.dataLayer.push(dataLayerObj);
+                                // }
+                            } else if (data.Result == "Error") {
+                                console.log('Result', data.Result);
+                                console.log('Data', data.Data);
+                                $scope.promoCodeStatusRosneftError = true;
+                                $scope.promoCodeErrorInfo = data.Data;
+                                $scope.bonusRosneft = '';
+                            }
+                        })
+                }
             };
             /**
              * конец промо код
