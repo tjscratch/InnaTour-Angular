@@ -750,6 +750,7 @@
                         if (data.Result == "Success") {
                             $scope.bonusRosneft = data.Data;
                             $scope.isRosneftKomandaCardActive = true;
+                            $scope.promoCodeStatusRosneftError = false;
                             // var dataLayerObj = {
                             //     'event': 'UM.Event',
                             //     'Data' : {
@@ -768,7 +769,7 @@
                         } else if (data.Result == "Error") {
                             console.log('Result', data.Result);
                             console.log('Data', data.Data);
-                            $scope.promoCodeStatusRosneft = 'Error';
+                            $scope.promoCodeStatusRosneftError = true;
                             $scope.promoCodeErrorInfo = data.Data;
                             $scope.bonusRosneft = '';
                         }
