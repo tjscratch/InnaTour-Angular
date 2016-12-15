@@ -1,0 +1,218 @@
+<div ng-controller='DynamicFormCtrl'>
+	<div class='pic-cont'
+		 ng-class="{'horizontal-form':useHorizontalForm}">
+			<span class="promoclogan uppercase">
+				НОВОГОДНЯЯ РАСПРОДАЖА ТУРОВ!
+			</span>
+			<span class="promoclogan">
+			С 17 декабря по 17 января
+			СКИДКА 7% по промокоду RUSLINE1216
+			</span>
+		<div class="wrapper">
+			<div class="header__container" ng-class="{'block_close': !isEnableSearchForm}">
+				<ul class="header-nav">
+					<li class="header-nav__item">
+						<!--<span class="header-nav__item-promo">-30%</span>-->
+						<a class="header-nav__item-link"
+						   href="/#/"
+						   ng-click="gtmMainTab($event)"
+						   ng-class="{'header-nav__item-link-active':isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">
+							Перелет + Отель
+						</a>
+					</li>
+					<li class="header-nav__item partners-hide">
+						<a class="header-nav__item-link"
+						   href="/#/avia/"
+						   ng-click="gtmMainTab($event)"
+						   ng-class="{'header-nav__item-link-active':isActive('/avia/')}">
+							Авиабилеты
+						</a>
+					</li>
+					<li class="header-nav__item partners-hide">
+						<a class="header-nav__item-link"
+						   href="/#/hotels/"
+						   ng-click="gtmMainTab($event)"
+						   ng-class="{'header-nav__item-link-active':isActive('/hotels/')}">
+							Отели
+						</a>
+					</li>
+					<li class="header-nav__item partners-hide">
+						<a class="header-nav__item-link"
+						   href="/#/bus/"
+						   ng-click="gtmMainTab($event)"
+						   ng-class="{'header-nav__item-link-active':isActive('/bus/')}">
+							Автобусные туры
+						</a>
+					</li>
+				</ul>
+			</div>
+			<form class="b-search-form search-ticket-form scroll-fix" ng-controller="DynamicFormCtrl" ng-if="!_dynamicSearchFormInvisible"
+				  ng-class="{'b-search-form_padding-1px': FormExpand, 'b-search-form_padding-16px': !FormExpand}"
+				  style="{{(!isOpenSearchForm) ? 'display:none' : 'display:block'}}">
+
+				<a href="/#/" class="header-info__logo" ng-class="{'block_close': isEnableSearchForm}">
+					<i class="logo_inna" alt="ИННА ТУР" title="ИННА ТУР"></i>
+				</a>
+
+				<div location-selector tab-index="1"
+					 theme="search-field-block search__city"
+					 placeholder="Откуда"
+					 selected-value="fromCity"
+					 type-search="DP_from"
+				></div>
+
+				<div location-selector tab-index="2"
+					 theme="search-field-block search__city"
+					 placeholder="Куда"
+					 selected-value="toCity"
+					 type-search="DP_to"
+				></div>
+
+				<!--
+                <div dropdown-input
+                     theme="search-field-block search__city"
+                     provide-suggest-callback="provideSuggestToFromList"
+                     suggest="fromList"
+                     result="fromCurrent"
+                     set-result-callback="setResultCallbackFrom(item)"
+                     ask-for-data="loadObjectById"
+                     placeholder="Откуда"
+                     on-error="Введите город отправления"
+                     with-country="true"
+                     event="dp_form_from_update"></div>
+
+
+            <div dropdown-input
+                 theme="search-field-block search__city"
+                 provide-suggest-callback="provideSuggestToToField"
+                 suggest="toList"
+                 result="toCurrent"
+                 set-result-callback="setResultCallbackTo(item)"
+                 ask-for-data="loadObjectById"
+                 placeholder="Куда"
+                 on-error="Введите город или страну, куда планируете поехать"
+                 with-country="true"
+                 event="dp_form_to_update"></div>
+            -->
+
+				<div date-picker-widget tab-index-from="3" tab-index-to="4"
+					 interval="false"
+					 date1="dateBegin"
+					 date2="dateEnd"
+					 max-date="maxDateEnd"
+					 type-page="'DP'"
+					 class="b-wrapp_type_inline date-picker-widget"></div>
+
+				<div counter-people click-on-focus tabindex="5"
+					 adult-count="adultCount"
+					 children-count="childrenCount"
+					 childrens-age="childrensAge"
+					 type-page="'DP'"
+					 class="b-wrapp_type_inline no-outline-on-focus"></div>
+
+				<div trip-preferences click-on-focus tabindex="6" class="no-outline-on-focus"
+					 show-back-trip-options="false"
+					 klass-model="klass"
+					 type-page="'DP'"></div>
+
+				<!--<people-trip-preferences tabindex="5"-->
+				<!--adult-count="adultCount"-->
+				<!--children-count="childrenCount"-->
+				<!--childrens-age="childrensAge"-->
+				<!--klass-model="klass"-->
+				<!--type-page="'DP'"-->
+				<!--class="b-wrapp_type_inline no-outline-on-focus">-->
+				<!--</people-trip-preferences>-->
+
+				<div tabindex="7" click-on-focus class="search-form__submit search-button-block_small no-outline-on-focus"
+					 ng-click="searchStart($event)">
+					Найти
+					<!--<i class="icon-sprite-search search-button__icon"></i>-->
+				</div>
+
+				<vertical-menu class="icon-vert-menu" ng-class="{'block_close': isEnableSearchForm}"></vertical-menu>
+
+			</form>
+		</div>
+	</div>
+
+	<!--  <div class='partner-form-wrap'
+           ng-class="{'horizontal-form':useHorizontalForm}">
+          <!--<form class='b-tour-form'>-->
+	<!--<span class='main-label'>Авиа + Отель</span>-->
+
+	<!--<div class='b-tour-form-wrapper'>-->
+
+	<!--<div location-selector-->
+	<!--theme='b-search-field b-search-field__long b-search-field__from'-->
+	<!--placeholder='Откуда'-->
+	<!--selected-value='fromCity'-->
+	<!--type-search='DP_from'></div>-->
+
+	<!--<div location-selector-->
+	<!--theme='b-search-field b-search-field__long b-search-field__to'-->
+	<!--placeholder='Куда'-->
+	<!--selected-value='toCity'-->
+	<!--type-search='DP_to'></div>-->
+
+
+	<!--<div date-picker-widget-->
+	<!--interval='false'-->
+	<!--date1='dateBegin'-->
+	<!--date2='dateEnd'-->
+	<!--max-date='maxDateEnd'-->
+	<!--templ='components/partners/biletix/date_picker_widget_biletix.html'-->
+	<!--class=''></div>-->
+
+	<!--<div class='b-search-field-hor'>-->
+	<!--<div counter-people-->
+	<!--adult-count='adultCount'-->
+	<!--children-count='childrenCount'-->
+	<!--childrens-age='childrensAge'-->
+	<!--class='b-wrapp_type_inline'-->
+	<!--templ='components/partners/biletix/counter_people_biletix.html'></div>-->
+
+	<!--<div trip-preferences-->
+	<!--show-back-trip-options='false'-->
+	<!--klass-model='klass'-->
+	<!--templ='components/partners/biletix/trip_preferences_biletix.html'></div>-->
+
+	<!--<div class='b-search-button'-->
+	<!--ng-click='searchStart($event)'></div>-->
+	<!--</div>-->
+	<!--</div>-->
+	<!--</form>-->
+
+	<!--</div>-->
+
+	<div class='layout offers-layout__mod'>
+		<offers type-page="'Packages'"></offers>
+	</div>
+
+	<style>
+		.offers-card-banner-container {
+			display: none;
+		}
+	</style>
+	<div class="container footer_block no_print">
+		<div class="footer_right">
+			<p>
+				<a target="_blank" href="#/help/">Помощь</a>
+			<p>
+				<a href="mailto:support@reservation.ru" class="t-black footer_email">finam@inna.ru</a>&nbsp;
+				<span class="fz-12 t-black blank-l">+7 (495) 796 93 88</span>
+				<br>
+			</p>
+			<p>
+			<span class="text_gray footer_about_service">
+				&copy; 1992–2015 «ИННА ТУР», Все права защищены.<br>
+						ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный комплекс туристических услуг.<br>
+				       Отдых в более чем 200 странах по всему миру. Реестр туроператоров №014050
+			</span>
+			</p>
+		</div>
+	</div>
+
+</div>
+
+</div>
