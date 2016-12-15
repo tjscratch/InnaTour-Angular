@@ -15,12 +15,13 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
     'aviaHelper',
     'urlHelper',
     'innaApp.Urls',
+    'EventManager',
     'innaAppApiEvents',
     'gtm',
     
     // components
     'PriceGeneric',
-    function ($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events, gtm, PriceGeneric) {
+    function ($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, EventManager, Events, gtm, PriceGeneric) {
         
         var self = this;
         // var header = document.querySelector('.header');
@@ -57,7 +58,7 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
             //console.log('trigger avia.search.start');
             startLoadAndInit();
         });
-        
+
         //$rootScope.$on(Events.AUTH_SIGN_IN, function (event, data) {
         //    console.log('Events.AUTH_SIGN_IN, type: %d', data.Type);
         //    if ($location.path().startsWith(Urls.URL_AVIA_SEARCH) && data != null && data.Type == 2) {
@@ -319,6 +320,8 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                         //обновляем данные
                         updateModel(data);
                     });
+
+                    EventManager.fire(Events.FOOTER_HIDDEN);
 
                     var minPrice = Number.MAX_VALUE;
 
@@ -1553,7 +1556,7 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
         
         function scrollControl() {
             var self = this;
-            self.MAX_VISIBLE_ITEMS = 5;
+            self.MAX_VISIBLE_ITEMS = 8;
             self.lastScrollOffset = 0;
             
             self.init = function () {
