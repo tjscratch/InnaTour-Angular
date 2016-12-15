@@ -171,7 +171,14 @@ app.config([
                         controller : 'FullWLMainCtrl',
                         resolve    : authController.resolve
                     }
-                } else {
+                } else if (partner.name == 'rusline') {
+                    return {
+                        templateUrl: 'pages/partners/rusline.html',
+                        controller : 'FullWLMainCtrl',
+                        resolve    : authController.resolve
+                    }
+                }
+                else {
                     return {
                         templateUrl: 'pages/partners/page.html',
                         controller : 'FullWLMainCtrl',
