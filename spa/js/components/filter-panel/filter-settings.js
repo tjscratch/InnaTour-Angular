@@ -128,7 +128,7 @@ angular.module('innaApp.services')
                                     value: 'byRecommend'
                                 },
                                 {
-                                    name: 'По времени в пути',
+                                    name: 'Время в пути',
                                     value: 'byTripTime'
                                 },
                                 // {
