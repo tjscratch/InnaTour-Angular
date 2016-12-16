@@ -15,45 +15,44 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
     'aviaHelper',
     'urlHelper',
     'innaApp.Urls',
-    'EventManager',
     'innaAppApiEvents',
+    'EventManager',
     'gtm',
-    
+
     // components
     'PriceGeneric',
     function ($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, EventManager, Events, gtm, PriceGeneric) {
-        
         var self = this;
         // var header = document.querySelector('.header');
         // var headerHeight = header.clientHeight;
         var filters__body = document.querySelector('.js-filter-scroll');
         $scope.location = document.location.href;
-        
+
         $scope.usePricePerPerson = false;
         $scope.personsCount = parseInt($routeParams.AdultCount) + parseInt($routeParams.ChildCount) + parseInt($routeParams.InfantsCount);
         //$scope.ticketsCount - кол-во билетов
-        
+
         function log(msg) {
             $log.log(msg);
         }
-        
+
         $scope.isAgency = function () {
             return ($scope.$root.user != null && $scope.$root.user.isAgency());
         };
-        
+
         if ($rootScope.$root.user) {
             $scope.AgencyType = $rootScope.$root.user.getAgencyType();
         }
-        
+
         $scope.isShowShare = true;
-        
+
         $scope.$on('avia.form.loaded', function (event) {
             //console.log('avia.form.loaded');
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
         });
-        
+
         $rootScope.$broadcast("avia.page.loaded", $routeParams);
-        
+
         $scope.$on('avia.search.start', function (event) {
             //console.log('trigger avia.search.start');
             startLoadAndInit();
@@ -69,7 +68,7 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
         //        });
         //    }
         //});
-        
+
         //$rootScope.$on(Events.AUTH_SIGN_OUT, function (event, data) {
         //    console.log('Events.AUTH_SIGN_OUT, type: %d', data.raw.Type);
         //    if ($location.path().startsWith(Urls.URL_AVIA_SEARCH) && data != null && data.Type == 2) {
@@ -77,17 +76,17 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
         //            //если залогинен и b2b (Type = 2)
         //            //запускаем поиск
         //            startLoadAndInit();
-        
+
         //            //перерисовываем
         //            //$scope.ractiveControl.reset();
         //        });
         //    }
         //});
-        
+
         $scope.getSliderTimeFormat = aviaHelper.getSliderTimeFormat;
-        
+
         $scope.helper = aviaHelper;
-        
+
         /**
          * begin
          * попап с описание тарифа
@@ -122,63 +121,63 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                 'Text': '[no data]'
             });
         };
-        
+
         $scope.recommendedClick = function () {
             $location.url(Urls.URL_DYNAMIC_PACKAGES);
         };
-        
+
         $scope.getLength = function () {
             var len = $scope.ticketsList != null ? $scope.ticketsList.length : 0;
             //if ($scope.recomendedItem != null)
             //    len++;
             return len;
         };
-        
+
         $scope.getFilteredLength = function () {
             var len = $scope.filteredTicketsList != null ? $scope.filteredTicketsList.length : 0;
             //if ($scope.recomendedItem != null)
             //    len++;
             return len;
         };
-        
+
         //начинаем поиск, после того, как подтянули все данные
         function ifDataLoadedStartSearch() {
             $scope.startSearch();
         }
-        
+
         //все обновления модели - будут раз в 100 мс, чтобы все бегало шустро
         var applyFilterThrottled = _.debounce(function ($scope) {
             //log('applyFilterThrottled');
             applyFilterDelayed($scope);
         }, 100);
-        
+
         var applyFilterDelayed = function ($scope) {
             //log('applyFilterDelayed: scope' + scope);
             $scope.$apply(function () {
                 applyFilter($scope);
             });
         };
-        
+
         //обрабатываем параметры из url'а
         var routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
         $scope.criteria = routeCriteria;
-        
+
         $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);
-        
+
         //инициализация
         initValues();
         initFuctions();
-        
+
         //log('routeCriteria: ' + angular.toJson($scope.criteria));
-        
+
         var loader = new utils.loader();
         //запрашиваем парамерты по их Url'ам
         function startLoadAndInit() {
-            
+
             //console.log('startLoadAndInit');
             $scope.baloon.showWithCancel('Ищем варианты', 'Поиск займет не более 30 секунд', function () {
                 dataService.cancelAviaSearch();
-                
+
                 //аналитика - прерывание поиска
                 track.aviaSearchInterrupted();
                 // var dataLayerObj = {
@@ -206,7 +205,7 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                 });
                 $location.path(Urls.URL_AVIA);
             });
-            
+
             var dataLayerObj = {
                 'event': 'UI.PageView',
                 'Data': {
@@ -226,45 +225,45 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
             if (window.dataLayer) {
                 window.dataLayer.push(dataLayerObj);
             }
-            
+
             loader.init([setFromFieldsFromUrl, setToFieldsFromUrl], ifDataLoadedStartSearch).run();
         }
-        
+
         startLoadAndInit();
-        
+
         function initValues() {
             //флаг индикатор загрузки
             $scope.isDataLoading = true;
-            
+
             //фильтр
             $scope.filter = new aviaFilter();
-            
+
             $scope.scrollControl = new scrollControl();
-            
+
             //списки
             $scope.ticketsList = null;
             $scope.filteredTicketsList = null;
             $scope.visibleFilteredTicketsList = null;
             $scope.searchId = 0;
-            
+
             $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $scope.criteria.CabinClass);
-            
+
             //сортировка - по-молчанию - по рекомендациям
             //$scope.sort = avia.sortType.ByRecommend;
-            
+
             function sortFilter() {
                 var self = this;
-                
+
                 self.list = [
-                    {name: "По цене", sort: avia.sortType.byPrice},
-                    {name: "По рейтингу", sort: avia.sortType.byRecommend},
+                    {name: "Цена", sort: avia.sortType.byPrice},
+                    {name: "Лучшие", sort: avia.sortType.byRecommend},
                     {name: "По времени в пути", sort: avia.sortType.byTripTime},
-                    {name: "По времени отправления ТУДА", sort: avia.sortType.byDepartureTime},
-                    {name: "По времени отправления ОБРАТНО", sort: avia.sortType.byBackDepartureTime},
-                    {name: "По времени прибытия ТУДА", sort: avia.sortType.byArrivalTime},
-                    {name: "По времени прибытия ОБРАТНО", sort: avia.sortType.byBackArrivalTime}
+                    // {name: "По времени отправления ТУДА", sort: avia.sortType.byDepartureTime},
+                    // {name: "По времени отправления ОБРАТНО", sort: avia.sortType.byBackDepartureTime},
+                    // {name: "По времени прибытия ТУДА", sort: avia.sortType.byArrivalTime},
+                    // {name: "По времени прибытия ОБРАТНО", sort: avia.sortType.byBackArrivalTime}
                 ];
-                
+
                 if ($scope.isAgency()) {
                     if ($rootScope.$root.user) {
                         if ($rootScope.$root.user.getAgencyType() != 1) {
@@ -279,48 +278,47 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                 }
                 self.reverse = false;
             }
-            
+
             $scope.SortFilter = new sortFilter();
-            
+
             $scope.dateFormat = avia.dateFormat;
             $scope.timeFormat = avia.timeFormat;
-            
+
             //флаг, когда нужно придержать обновление фильтра
             $scope.isSuspendFilterWatch = false;
         }
-        
+
         //изменение модели фильтра
         $scope.$watch('filter', function (newValue, oldValue) {
             if ($scope.isDataLoading)
                 return;
-            
+
             //if (newValue === oldValue) {
             //    return;
             //}
             //log('$scope.$watch filter, scope:' + $scope);
             applyFilterThrottled($scope);
         }, true);
-        
+
         function initFuctions() {
             $scope.startSearch = function () {
                 //log('$scope.startSearch');
-                
+
                 $scope.ticketsList = null;
                 $scope.filteredTicketsList = null;
-                
+
                 var searchCriteria = angular.copy($scope.criteria);
-                
+
                 if (searchCriteria.PathType == 1) { //только туда
                     //нужно передать только дату туда
                     searchCriteria.EndDate = null;
                 }
-                
+
                 dataService.startAviaSearch(searchCriteria, function (data) {
                     $scope.safeApply(function () {
                         //обновляем данные
                         updateModel(data);
                     });
-
                     EventManager.fire(Events.FOOTER_HIDDEN);
 
                     var minPrice = Number.MAX_VALUE;

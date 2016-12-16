@@ -256,15 +256,15 @@ function CacheLogic() {
             }
 
             //получаем объект
-            var objData = JSON.parse(data);
+            //var objData = JSON.parse(data);
 
             //проверяем что получился массив, и есть хотя бы 1 элемент
-            if(Object.prototype.toString.call(objData) === '[object Array]') {
-                if (objData.length > 0){
-                    console.log('CacheLogic:readFromFile read success, data ok');
-                    return callback(null, objData);
-                }
-            }
+            // if(Object.prototype.toString.call(objData) === '[object Array]') {
+            //     if (objData.length > 0){
+            //         console.log('CacheLogic:readFromFile read success, data ok');
+            //         return callback(null, objData);
+            //     }
+            // }
 
             //не массив - просто возвращает значение null
             console.log('CacheLogic:readFromFile read success, data err');

@@ -25,15 +25,16 @@
         background #fff
         z-index 1000
         width 290px
-        box-shadow 0 3px 5px rgba(0, 0, 0, .3)
+        //box-shadow 0 3px 5px rgba(0, 0, 0, .3)
         padding 3px 0
+        color #0054b9
         
         &.filters__baloon_show{
             display: block;
         }
         
         &.filters__baloon_avia-baloon{
-            width: 290px;
+            width: 270px;
             margin-top: 0px;
             right: 0;
             left: auto;
@@ -207,12 +208,15 @@
     display: block;
 }
 .ra-fly-type-list{
-    padding 5px 14px 0 0
-    color #1a1a1a
-    margin 0 -14px 0 0
+    padding: 4px 0 0 0
+    color: #0054b9
+    margin: 0px -68px 0 0;
     max-height 294px
     overflow-y: auto
     position relative
+}
+.ra-fly-type-list.b-display-block {
+    margin 0;
 }
 .ra-fly-type-list-container{
     position relative
@@ -297,4 +301,6 @@
 }
 .rl-filter-menu li:hover{
     background #eee
-}
+}li .current {
+     font-weight: bold;
+ }
