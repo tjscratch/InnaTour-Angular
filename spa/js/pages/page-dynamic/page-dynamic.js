@@ -186,11 +186,11 @@ innaAppControllers.controller('PageDynamicPackage', [
             },
             data: {
                 loadData: false,
-                TICKETS_TAB: null,
+                TICKETS_TAB: true,
                 HOTEL: 'hotel',
                 TICKET: 'ticket',
-                HOTELS_TAB: true,
-                defaultTab: 'hotel',
+                HOTELS_TAB: null,
+                defaultTab: 'ticket',
                 loadHotelsData: null,
                 loadTicketsData: null,
                 updateHotel: false,
@@ -217,12 +217,11 @@ innaAppControllers.controller('PageDynamicPackage', [
                 /** Слушаем событие изменения формы поиска */
                 DynamicFormSubmitListener.listen();
 
-
                 // загружаем или отели или билеты
-                if ($location.search().displayTicket || $location.search().display == 'tickets') {
-                    this.set('defaultTab', 'ticket');
-                } else if ($location.search().displayHotel) {
+                if ($location.search().displayHotel || $location.search().display == 'hotels') {
                     this.set('defaultTab', 'hotel');
+                } else if ($location.search().displayTicket) {
+                    this.set('defaultTab', 'ticket');
                 }
 
                 this.balloonSearch();
@@ -739,10 +738,10 @@ innaAppControllers.controller('PageDynamicPackage', [
 
                 this.stateTab();
 
-                if (this.get('HOTELS_TAB')) {
-                    return this.loadHotels();
-                } else if (this.get('TICKETS_TAB')) {
+                if (this.get('TICKETS_TAB')) {
                     return this.loadTickets();
+                } else if (this.get('HOTELS_TAB')) {
+                    return this.loadHotels();
                 }
             },
 

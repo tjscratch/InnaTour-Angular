@@ -93,7 +93,7 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                  * Выставляем активный таб
                  * подефолту активный таб - hotel
                  */
-                if ($location.search().displayHotel || $location.search().display == 'hotel') {
+                if ($location.search().displayHotel || $location.search().display == 'hotels') {
                     setActiveTab('hotel');
                     $scope.displayHotel = true;
                 }
@@ -143,7 +143,7 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                         $scope.stateHotel = false;
                     }
                     if (data == 'hotel') {
-                        $location.search('display', 'hotel');
+                        $location.search('display', 'hotels');
 
                         $scope.stateTicket = false;
                         $scope.stateHotel = true;
