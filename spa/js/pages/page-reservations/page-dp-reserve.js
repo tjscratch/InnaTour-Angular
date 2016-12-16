@@ -43,7 +43,14 @@
                 //и не на WL
                 $scope.isRequestEnabled = true;
             }
-            
+
+            $scope.isRosneftFamilyTeam = false;
+            // if(window.partners.partner) {
+            //     if (window.partners.partner.name == 'komandacard') {
+            //         $scope.isRosneftFamilyTeam = true;
+            //     }
+            // }
+
             /*----------------- INIT -------------------*/
             
             var children = $routeParams.Children ?
@@ -719,7 +726,43 @@
                             }
                         }
                     })
-            }
+            };
+            
+            $scope.checkPromoCodeRosneft = function () {
+                var checkPromoCodeParams = {
+                    number: 7005991003199585,
+                    cardType: 'rosneftfamily',
+                    price: 100500
+                };
+                var m = $scope.getApiModelForReserve();
+                var checkPromoCodeParams2 = m.apiModel;
+                console.log("CODE", $scope.promoCodeRosneft);
+                console.log('checkPromoCodeParams', checkPromoCodeParams);
+                console.log('checkPromoCodeParams2', checkPromoCodeParams2);
+                PromoCodes.getPackagesDiscountedPriceRosneft(checkPromoCodeParams)
+                    .success(function (data) {
+                        if (data.Result == "Success") {
+                            $scope.bonusRosneft = data.Data;
+                            var dataLayerObj = {
+                                'event': 'UM.Event',
+                                'Data' : {
+                                    'Category': 'Packages',
+                                    'Action'  : 'ApplyPromocode',
+                                    'Label'   : '[no data]',
+                                    'Content' : '[no data]',
+                                    'Context' : '[no data]',
+                                    'Text'    : '[no data]'
+                                }
+                            };
+                            console.table(dataLayerObj);
+                            if (window.dataLayer) {
+                                window.dataLayer.push(dataLayerObj);
+                            }
+                        } else {
+
+                        }
+                    })
+            };
             /**
              * конец промо код
              */

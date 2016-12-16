@@ -375,7 +375,7 @@
 
 		<div class="ReservationSection__wrap">
 			<div class="b-promo-code">
-				<div class="b-promo-code__field">
+				<div class="b-promo-code__field" ng-if="!isRosneftFamilyTeam">
 					<label class="b-promo-code__label" for="b-promo-code__input">
 						Ваш промо-код
 					</label>
@@ -392,6 +392,32 @@
 					<span class="button b-promo-code__button"
 						  ng-click="checkPromoCode()">Применить
 					</span>
+				</div>
+				<div class="b-promo-code__field" ng-if="isRosneftFamilyTeam">
+					<label class="b-promo-code__label" for="b-promo-code__input" style="font-size: 15px;">
+						Введите номер бонусной карты "Семейная команда"
+					</label>
+					<div class="b-promo-code__input-container">
+						<input id="b-promo-code__input "
+							   class="b-field-text b-promo-code__input"
+							   type="text"
+							   placeholder="1234 5678 9012 3456"
+							   ng-model="promoCodeRosneft"/>
+						<div class="b-promo-code__input-error-message"
+							 ng-if="promoCodeStatus == 2 || promoCodeStatus == 3"
+						>Номер карты неверный
+						</div>
+					</div>
+					<span class="button b-promo-code__button"
+						  ng-click="checkPromoCodeRosneft()">Применить
+					</span>
+					<div class="b-field-block b-field-bonus">
+						<label class="b-field-label b-field-label-docs">Начислено бонусов</label>
+						<input validate-events-dir
+							   type="text"
+							   class="b-field-text"
+							   ng-model="bonusRosneft">
+					</div>
 				</div>
 				<div class="b-promo-code__info" ng-if="promoCodeStatus == 1">
 					Ввведен промо-код

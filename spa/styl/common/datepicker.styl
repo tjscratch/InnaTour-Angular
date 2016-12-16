@@ -74,7 +74,10 @@
     overflow hidden
 
 .dtpk-caption
-    font bold 14px $ProximaNova
+    font-family $ProximaNova
+    font-size 15px
+    font-weight bold
+    color #303C47
     float left
 
 .dtpk-checkbox-label
@@ -192,7 +195,7 @@
 .datepickerContainer
     background #fff
     padding 14px 7px
-    font-family $ProximaNova
+    font-family $ProximaNovaLight
     box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
     margin-top 1px
 
@@ -202,9 +205,9 @@
     display block
     width 27px
     margin 2px
-    font 20px/28px $ProximaNovaLight
+    font 18px/31px $ProximaNovaLight
     text-align center
-    color #292929 !important
+    color #303C47 !important
 
     &:hover
         background #89C13A
@@ -227,6 +230,7 @@
     padding-bottom 6px
     padding-top 6px
     font-weight normal
+    line-height 17px
 
 .datepickerDoW th:nth-child(6) span
 .datepickerDoW th:nth-child(7) span
@@ -236,23 +240,25 @@
     background none !important
 
 .datepickerSelected a
-    background #e7f3d8
+    background rgba(124, 182, 33, 0.3)
 
 .datepickerMonth span
-    font 20px $ProximaNovaLight
-    color #292929
+    font 16px $ProximaNovaLight
     display block
+    color #303C47
+    letter-spacing 2px
+    text-transform uppercase
 
 .datepickerMonth a
     margin 6px 0 15px !important
 
 .datepickerGoPrev a
 .datepickerGoNext a
-    height 35px
-    width 35px
+    height 24px
+    width 24px
     display block
     font-size 0
-    top -3px
+    top -1px
     position relative
     cursor pointer
     border-radius 3px
@@ -274,8 +280,8 @@
         width 5px
         height 9px
         position absolute
-        left 14px
-        top 13px
+        left 10px
+        top 8px
         background url(/spa/img/i.png) no-repeat 0 -2113px
 
     &:hover:before
@@ -290,8 +296,8 @@
         width 5px
         height 9px
         position absolute
-        left 16px
-        top 13px
+        left 10px
+        top 8px
         background url(/spa/img/i.png) no-repeat 0 -2126px
 
     &:hover:before
@@ -345,6 +351,7 @@
 .datepicker-body
     position absolute
     z-index 900
+    //left 669px !important
 
 .datepickerDisabled a
     color #ACACAC !important
@@ -361,7 +368,7 @@
     color #FFA3A3 !important
 
 .datepickerSpace div
-    width 38px
+    width 22px
 
 .datepickerViewDays
     table-layout: fixed;

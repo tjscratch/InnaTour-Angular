@@ -27,7 +27,7 @@
                 }
             }
             if (pickerWidth <= 0) {
-                pickerWidth = 570;//ширина по-умолчанию
+                pickerWidth = 582;//ширина по-умолчанию
             }
 
             function getLeftFrom() {

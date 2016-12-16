@@ -1,163 +1,4 @@
 <div class="b-result b-result_col_three row b-result-content b-recommended_big">
-    <div class="b-result__cell b-result__cell_even"
-         ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}">
-
-        <div class="spinner spinner-hotel">
-            <div class="rect rect1"></div>
-            <div class="rect rect2"></div>
-            <div class="rect rect3"></div>
-            <div class="rect rect4"></div>
-            <div class="rect rect5"></div>
-        </div>
-
-
-        <div ng-if="!isClosed && recommendedPairStatus == 3"
-             tooltip-directive-base
-             tooltip-klass="nocorner:fixed"
-             close="true"
-             position="top_right"
-             is-visible="isVisible"
-             width="300"
-             templ="popover.hbs.html">
-            <div class="b-tooltip__header">
-                <h3>Отель был изменен</h3>
-            </div>
-            <div class="b-tooltip__body">
-                <span class="b-tooltip__body__text">
-                   К сожалению, выбранный вариант проживания уже
-                    недоступен, в пакет будет включен рекомендован-
-                    ный отель.
-                </span>
-            </div>
-        </div>
-
-        <div class="hotel-info__special-mark" ng-if="recommendedPair.getProfit() > 1000">
-            <span class="icon-crown icon-sprite-crown"></span>
-            Спецпредложение
-        </div>
-
-        <div class="hotel-info">
-            <div class="hotel-info__wrapper">
-                <!--{{bundle | console}}-->
-
-                <!--<div class="hotel-info__photo"-->
-                     <!--style="background-image: url({{recommendedPair.hotel.data.HotelPhoto180}})"-->
-                     <!--ng-if="recommendedPair.hotel.data.HotelPhoto180"-->
-                <!--&gt;</div>-->
-                <!--<div class="hotel-info__photo" style="background-image: url('/spa/img/hotels/no_photo70x70.png')"-->
-                     <!--ng-if="!recommendedPair.hotel.data.HotelPhoto180"-->
-                <!--&gt;</div>-->
-
-                <!--<img class="hotel-info__photo" ng-src="{{recommendedPair.hotel.data.HotelPhoto180}}" ng-if="recommendedPair.hotel.data.HotelPhoto180" alt="">-->
-                <!--<img class="hotel-info__photo" src="/spa/img/hotels/no_photo70x70.png" ng-if="!recommendedPair.hotel.data.HotelPhoto180" alt="">-->
-
-                <div class="hotel-info-content">
-
-                    <!-- Stars -->
-                    <span stars-directive
-                          hotel-data="recommendedPair.hotel.data.Stars"></span>
-
-                    <h3 class="hotel-info-name">
-                        <a class="hotel-info-name-link"
-                           href="{{computedUrlDetails()}}"
-                           link-in-new-window-if-can
-                           ng-click="bundleHotelDetails()"
-                           target="_blank">
-                            {{recommendedPair.hotel.data.HotelName}}
-                        </a>
-                    </h3>
-
-                    <div class="hotel-info-date" ng-if="recommendedPair.hotel.data.HotelFullAdress">
-                        {{recommendedPair.hotel.data.HotelFullAdress}}
-                    </div>
-
-                    <!--<div class="hotel-go-to-map">-->
-                        <!--<span class="hotel-info-name-link"-->
-                              <!--ng-click="recommendedHotelToMap()"-->
-                        <!--&gt;(на карте)</span>-->
-                        <!--&lt;!&ndash;EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));&ndash;&gt;-->
-                    <!--</div>-->
-
-                    <!--<div class="hotel-info-date">-->
-                        <!--<ng:any partials-collection-->
-                                <!--partial-name="rangeShort"-->
-                                <!--hotel="recommendedPair.hotel.data"/>-->
-                    <!--</div>-->
-
-                    <!-- tripadvisor -->
-                    <!--<div class="hotel-info__tripadvisor"-->
-                         <!--ng-if="!stateHotel">-->
-                        <!--<div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>-->
-                    <!--</div>-->
-
-                </div>
-            </div>
-
-        </div>
-        <span ng-if="typeEtap != 'Reservation'" class="icon-inform-blue" title="Подробнее об отеле"></span>
-
-        <a class="hotel-details-link"
-           href="{{computedUrlDetails()}}"
-           link-in-new-window-if-can
-           ng-click="bundleHotelDetails()"
-           ng-if="stateHotel"
-           target="_blank"
-        >
-        </a>
-
-        <div class="bottom-actions">
-            <!--<a href="javascript:void(0);"-->
-               <!--class="button button-middle button-orange button-replace"-->
-               <!--ng-if="!(stateHotel && !asMap) && !hotelCount"-->
-               <!--ng-click="toggleTab('hotel', $event)"-->
-            <!--&gt;-->
-                <!--Еще варианты отелей {{asMap}}-->
-            <!--</a>-->
-            <!--<a href="javascript:void(0);"-->
-               <!--class="button button-middle button-orange button-replace"-->
-               <!--ng-if="!stateHotel && !asMap && hotelCount"-->
-               <!--ng-click="toggleTab('hotel', $event)"-->
-            <!--&gt;-->
-                <!--Еще-->
-                <!--{{hotelCount}}-->
-                <!--{{hotelCount | pluralize: [-->
-                <!--"вариант отеля",-->
-                <!--"варианта отелей",-->
-                <!--"вариантов отелей"-->
-                <!--]}}-->
-            <!--</a>-->
-            <!--<a class="bottom-actions__button bottom-actions__button_action_details"-->
-               <!--href="{{computedUrlDetails()}}"-->
-               <!--link-in-new-window-if-can-->
-               <!--ng-click="bundleHotelDetails()"-->
-               <!--ng-if="stateHotel"-->
-               <!--target="_blank"-->
-               <!--style="top: -22px;right: 0; z-index: 20"-->
-            <!--&gt;Подробнее</a>-->
-            <!-- tripadvisor -->
-            <div ng-if="typeEtap == 'Search'" class="hotel-info__tripadvisor">
-                <div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>
-            </div>
-            <span ng-if="typeEtap != 'Search'" class="room-title">{{recommendedPair.hotel.data.Room.RoomName}}<br/></span>
-            <span ng-if="typeEtap != 'Search'" class="room_bed-type-list">
-		                    <span ng-repeat="bed in recommendedPair.hotel.data.Room.BedTypeList">
-		                        {{bed.Name}}<span ng-if="!$last">,&nbsp;</span>
-		                    </span>
-            </span>
-            <!--<div class="hotel-go-to-map">-->
-                <!--EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));-->
-            <!--</div>-->
-        </div>
-        <i ng-if="typeEtap != 'Reservation'" class="icon-location"
-           ng-click="recommendedHotelToMap()"
-        ></i>
-
-        <!-- separator -->
-        <!--<div class="b-result-cell__gap">-->
-            <!--<div class="b-result-cell__gap_wrap"></div>-->
-        <!--</div>-->
-    </div>
-
     <div class="b-result__cell b-result__cell_ticket"
          ng-click="bundleTicketDetails($event, recommendedPair.ticket)"
          ng-style="{cursor: (stateTicket|defined) && !stateTicket ? 'pointer' : 'default'}">
@@ -199,12 +40,13 @@
         <span ng-if="typeEtap != 'Reservation'" class="icon-inform-blue" title="Подробнее о перелете"></span>
 
         <div class="wrap__flight-info">
-            <div class="flight-info" style="border-bottom: 1px dashed #DDE3E9;">
+
+            <div class="flight-info">
                 <ng:any partials-collection
                         partial-name="logoAvia"
                         class="recommendedPairTicket recommendedPairTicketLogo"
                         ticket-model="recommendedPair.ticket"
-                        to-or-back="To"
+                        to-or-back="true"
                         ng-if="typeEtap != 'Reservation'"/>
                 <span class="date">
                     <ng:any partials-collection
@@ -296,6 +138,166 @@
         <!-- separator -->
         <!--<div class="b-result-cell__gap">-->
             <!--<div class="b-result-cell__gap_wrap"></div>-->
+        <!--</div>-->
+    </div>
+    <div class="b-result__cell b-result__cell_even"
+         ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}">
+
+        <div class="spinner spinner-hotel">
+            <div class="rect rect1"></div>
+            <div class="rect rect2"></div>
+            <div class="rect rect3"></div>
+            <div class="rect rect4"></div>
+            <div class="rect rect5"></div>
+        </div>
+
+
+        <div ng-if="!isClosed && recommendedPairStatus == 3"
+             tooltip-directive-base
+             tooltip-klass="nocorner:fixed"
+             close="true"
+             position="top_right"
+             is-visible="isVisible"
+             width="300"
+             templ="popover.hbs.html">
+            <div class="b-tooltip__header">
+                <h3>Отель был изменен</h3>
+            </div>
+            <div class="b-tooltip__body">
+                <span class="b-tooltip__body__text">
+                   К сожалению, выбранный вариант проживания уже
+                    недоступен, в пакет будет включен рекомендован-
+                    ный отель.
+                </span>
+            </div>
+        </div>
+
+        <div class="hotel-info__special-mark" ng-if="recommendedPair.getProfit() > 1000">
+            <span class="icon-crown icon-sprite-crown"></span>
+            Спецпредложение
+        </div>
+
+        <div class="hotel-info">
+            <div class="hotel-info__wrapper">
+                <!--{{bundle | console}}-->
+
+                <!--<div class="hotel-info__photo"-->
+                <!--style="background-image: url({{recommendedPair.hotel.data.HotelPhoto180}})"-->
+                <!--ng-if="recommendedPair.hotel.data.HotelPhoto180"-->
+                <!--&gt;</div>-->
+                <!--<div class="hotel-info__photo" style="background-image: url('/spa/img/hotels/no_photo70x70.png')"-->
+                <!--ng-if="!recommendedPair.hotel.data.HotelPhoto180"-->
+                <!--&gt;</div>-->
+
+                <!--<img class="hotel-info__photo" ng-src="{{recommendedPair.hotel.data.HotelPhoto180}}" ng-if="recommendedPair.hotel.data.HotelPhoto180" alt="">-->
+                <!--<img class="hotel-info__photo" src="/spa/img/hotels/no_photo70x70.png" ng-if="!recommendedPair.hotel.data.HotelPhoto180" alt="">-->
+
+                <div class="hotel-info-content">
+
+                    <!-- Stars -->
+                    <span stars-directive
+                          hotel-data="recommendedPair.hotel.data.Stars"></span>
+
+                    <h3 class="hotel-info-name">
+                        <a class="hotel-info-name-link"
+                           href="{{computedUrlDetails()}}"
+                           link-in-new-window-if-can
+                           ng-click="bundleHotelDetails()"
+                           target="_blank">
+                            {{recommendedPair.hotel.data.HotelName}}
+                        </a>
+                    </h3>
+
+                    <div class="hotel-info-date" ng-if="recommendedPair.hotel.data.HotelFullAdress">
+                        {{recommendedPair.hotel.data.HotelFullAdress}}
+                    </div>
+
+                    <!--<div class="hotel-go-to-map">-->
+                    <!--<span class="hotel-info-name-link"-->
+                    <!--ng-click="recommendedHotelToMap()"-->
+                    <!--&gt;(на карте)</span>-->
+                    <!--&lt;!&ndash;EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));&ndash;&gt;-->
+                    <!--</div>-->
+
+                    <div class="hotel-info-date">
+                        <ng:any partials-collection
+                                partial-name="rangeShort"
+                                hotel="recommendedPair.hotel.data"/>
+                    </div>
+
+                    <!-- tripadvisor -->
+                    <!--<div class="hotel-info__tripadvisor"-->
+                    <!--ng-if="!stateHotel">-->
+                    <!--<div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>-->
+                    <!--</div>-->
+
+                </div>
+            </div>
+
+        </div>
+        <span ng-if="typeEtap != 'Reservation'" class="icon-inform-blue" title="Подробнее об отеле"></span>
+
+        <a class="hotel-details-link"
+           href="{{computedUrlDetails()}}"
+           link-in-new-window-if-can
+           ng-click="bundleHotelDetails()"
+           ng-if="stateHotel"
+           target="_blank"
+        >
+        </a>
+
+        <div class="bottom-actions">
+            <!--<a href="javascript:void(0);"-->
+            <!--class="button button-middle button-orange button-replace"-->
+            <!--ng-if="!(stateHotel && !asMap) && !hotelCount"-->
+            <!--ng-click="toggleTab('hotel', $event)"-->
+            <!--&gt;-->
+            <!--Еще варианты отелей {{asMap}}-->
+            <!--</a>-->
+            <!--<a href="javascript:void(0);"-->
+            <!--class="button button-middle button-orange button-replace"-->
+            <!--ng-if="!stateHotel && !asMap && hotelCount"-->
+            <!--ng-click="toggleTab('hotel', $event)"-->
+            <!--&gt;-->
+            <!--Еще-->
+            <!--{{hotelCount}}-->
+            <!--{{hotelCount | pluralize: [-->
+            <!--"вариант отеля",-->
+            <!--"варианта отелей",-->
+            <!--"вариантов отелей"-->
+            <!--]}}-->
+            <!--</a>-->
+            <!--<a class="bottom-actions__button bottom-actions__button_action_details"-->
+            <!--href="{{computedUrlDetails()}}"-->
+            <!--link-in-new-window-if-can-->
+            <!--ng-click="bundleHotelDetails()"-->
+            <!--ng-if="stateHotel"-->
+            <!--target="_blank"-->
+            <!--style="top: -22px;right: 0; z-index: 20"-->
+            <!--&gt;Подробнее</a>-->
+            <!-- tripadvisor -->
+            <div ng-if="typeEtap == 'Search'" class="hotel-info__tripadvisor">
+                <div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>
+            </div>
+            <div ng-if="typeEtap != 'Search'"
+                 class="room-title"
+                 title="{{recommendedPair.hotel.data.Room.RoomName}}">{{recommendedPair.hotel.data.Room.RoomName}}<br/></div>
+            <div ng-if="typeEtap != 'Search'" class="room_bed-type-list">
+		                    <span ng-repeat="bed in recommendedPair.hotel.data.Room.BedTypeList">
+		                        {{bed.Name}}<span ng-if="!$last">,&nbsp;</span>
+		                    </span>
+            </div>
+            <!--<div class="hotel-go-to-map">-->
+            <!--EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));-->
+            <!--</div>-->
+        </div>
+        <i ng-if="typeEtap != 'Reservation'" class="icon-location"
+           ng-click="recommendedHotelToMap()"
+        ></i>
+
+        <!-- separator -->
+        <!--<div class="b-result-cell__gap">-->
+        <!--<div class="b-result-cell__gap_wrap"></div>-->
         <!--</div>-->
     </div>
 

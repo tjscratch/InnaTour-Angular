@@ -69,12 +69,6 @@
 
 				<!--<div recommended-pair-component-mini ng-if="!isVisible"></div>-->
 				<div class="panel-tabs-dp" ng-if="isVisible && !asMap">
-					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_hotel"
-						 ng-click="toggleTab('hotel', $event)"
-						 ng-class="{'panel-tabs-dp__tab_selected':(!stateTicket)}">
-						<i ng-class="{'icon-hotel-blue':(!stateTicket), 'icon-hotel-gray': (stateTicket)}"></i>
-						Выбрать отель
-					</div>
 					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_avia"
 						 ng-click="toggleTab('ticket', $event)"
 						 ng-class="{'panel-tabs-dp__tab_selected':(!stateHotel)}">
@@ -82,6 +76,12 @@
 						<!--'panel-tabs-dp__tab_avia': stateHotel-->
 						<i ng-class="{'icon-aircraft-blue':(!stateHotel), 'icon-aircraft-gray': (stateHotel)}"></i>
 						Выбрать перелет
+					</div>
+					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_hotel"
+						 ng-click="toggleTab('hotel', $event)"
+						 ng-class="{'panel-tabs-dp__tab_selected':(!stateTicket)}">
+						<i ng-class="{'icon-hotel-blue':(!stateTicket), 'icon-hotel-gray': (stateTicket)}"></i>
+						Выбрать отель
 					</div>
 					<!--ng-if="stateHotel"-->
 					<div class="panel-tabs-dp__tab panel-tabs-dp__tab_hotel-map"
