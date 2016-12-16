@@ -216,7 +216,7 @@ innaAppFilters.filter('lowercaseFirst', function () {
 
         var bits = text.split('');
 
-        bits[0] = bits[0].toLowerCase();
+        // bits[0] = bits[0].toLowerCase();
 
         return bits.join('');
     }

@@ -93,16 +93,16 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                  * Выставляем активный таб
                  * подефолту активный таб - hotel
                  */
-                if ($location.search().displayTicket || $location.search().display == 'tickets') {
-                    setActiveTab('ticket');
-                    $scope.displayTicket = true;
-                }
-                else if ($location.search().displayHotel) {
+                if ($location.search().displayHotel || $location.search().display == 'hotels') {
                     setActiveTab('hotel');
                     $scope.displayHotel = true;
                 }
+                else if ($location.search().displayTicket) {
+                    setActiveTab('ticket');
+                    $scope.displayTicket = true;
+                }
                 else {
-                    setActiveTab('hotel');
+                    setActiveTab('ticket');
                 }
 
 
@@ -137,13 +137,13 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                 function setActiveTab(data) {
                     $scope.tabActive = data;
                     if (data == 'ticket') {
-                        $location.search('display', 'tickets');
+                        delete $location.$$search.display;
+                        $location.$$compose();
                         $scope.stateTicket = true;
                         $scope.stateHotel = false;
                     }
                     if (data == 'hotel') {
-                        delete $location.$$search.display;
-                        $location.$$compose();
+                        $location.search('display', 'hotels');
 
                         $scope.stateTicket = false;
                         $scope.stateHotel = true;
