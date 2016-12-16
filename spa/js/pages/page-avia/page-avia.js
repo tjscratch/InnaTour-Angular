@@ -255,13 +255,13 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                 var self = this;
                 
                 self.list = [
-                    {name: "По цене", sort: avia.sortType.byPrice},
-                    {name: "По рейтингу", sort: avia.sortType.byRecommend},
-                    {name: "По времени в пути", sort: avia.sortType.byTripTime},
-                    {name: "По времени отправления ТУДА", sort: avia.sortType.byDepartureTime},
-                    {name: "По времени отправления ОБРАТНО", sort: avia.sortType.byBackDepartureTime},
-                    {name: "По времени прибытия ТУДА", sort: avia.sortType.byArrivalTime},
-                    {name: "По времени прибытия ОБРАТНО", sort: avia.sortType.byBackArrivalTime}
+                    {name: "Цена", sort: avia.sortType.byPrice},
+                    {name: "Лучшие", sort: avia.sortType.byRecommend},
+                    {name: "Время в пути", sort: avia.sortType.byTripTime},
+                    // {name: "По времени отправления ТУДА", sort: avia.sortType.byDepartureTime},
+                    // {name: "По времени отправления ОБРАТНО", sort: avia.sortType.byBackDepartureTime},
+                    // {name: "По времени прибытия ТУДА", sort: avia.sortType.byArrivalTime},
+                    // {name: "По времени прибытия ОБРАТНО", sort: avia.sortType.byBackArrivalTime}
                 ];
                 
                 if ($scope.isAgency()) {
