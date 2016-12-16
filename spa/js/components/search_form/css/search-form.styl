@@ -323,17 +323,17 @@ $count-list = 10;
 }
 
 .search__list {
-  box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+ // box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
   position absolute
-  left 0
-  padding 10px 0
-  width 100%
-  background #fff
-  margin-top 1px
+  right 1px
+  //padding 10px 0
+  //width 320px
+  //background #fff
+  //margin-top 1px
   overflow auto
   max-height 360px
-  z-index 10
-
+  z-index
+  display flex
   li {
     padding 7px 10px 5px
     cursor pointer
@@ -351,7 +351,7 @@ $count-list = 10;
     }
     label {
       cursor: pointer;
-      padding 7px 33px 5px
+      padding 7px 23px 5px
     }
   }
 
@@ -360,15 +360,15 @@ $count-list = 10;
   }
 
   .current {
-    background-color #e6e7e9
+    //background-color #e6e7e9
 
     .fa {
       display: block;
       top: 10px;
-      left: 14px;
+      left: 8px;
       position: absolute;
       font-size: 11px;
-      color: #8EC83C;
+      color: #0054b9;
     }
   }
 }

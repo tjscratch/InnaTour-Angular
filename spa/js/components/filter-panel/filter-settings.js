@@ -95,57 +95,58 @@ angular.module('innaApp.services')
                         sort: {
                             hotels: [
                                 {
-                                    name: 'По цене',
-                                    value: 'byPackagePrice',
+                                    name: 'Скидка',
+                                    value: 'byProfit',
                                     isChecked: true
                                 },
                                 {
-                                    name: isFullWL ? 'По рейтингу' : 'По рейтингу Инна Тур',
-                                    value: 'byRecommendedFactor'
-                                },
-                                {
-                                    name: 'По рейтингу Trip Advisor',
+                                    name: 'Лучшие',
                                     value: 'byTaFactor'
                                 },
                                 {
-                                    name: 'По названию',
-                                    value: 'byName'
+                                    name: 'Цена',
+                                    value: 'byPackagePrice',
                                 },
-                                {
-                                    name: 'По размеру скидки',
-                                    value: 'byProfit'
-                                }
+                                // {
+                                //     name: isFullWL ? 'По рейтингу' : 'По рейтингу Инна Тур',
+                                //     value: 'byRecommendedFactor'
+                                // },
+                                // {
+                                //     name: 'По названию',
+                                //     value: 'byName'
+                                // },
+
                             ],
                             avia: [
                                 {
-                                    name: 'По цене',
+                                    name: 'Цена',
                                     value: 'byPackagePrice',
                                     isChecked: true
                                 },
                                 {
-                                    name: 'По рейтингу',
+                                    name: 'Лучшие',
                                     value: 'byRecommend'
                                 },
                                 {
                                     name: 'По времени в пути',
                                     value: 'byTripTime'
                                 },
-                                {
-                                    name: 'По времени отправления ТУДА',
-                                    value: 'byDepartureDate'
-                                },
-                                {
-                                    name: 'По времени отправления ОБРАТНО',
-                                    value: 'byBackDepartureDate'
-                                },
-                                {
-                                    name: 'По времени прибытия ТУДА',
-                                    value: 'byArrivalDate'
-                                },
-                                {
-                                    name: 'По времени прибытия ОБРАТНО',
-                                    value: 'byBackArrivalDate'
-                                }
+                                // {
+                                //     name: 'По времени отправления ТУДА',
+                                //     value: 'byDepartureDate'
+                                // },
+                                // {
+                                //     name: 'По времени отправления ОБРАТНО',
+                                //     value: 'byBackDepartureDate'
+                                // },
+                                // {
+                                //     name: 'По времени прибытия ТУДА',
+                                //     value: 'byArrivalDate'
+                                // },
+                                // {
+                                //     name: 'По времени прибытия ОБРАТНО',
+                                //     value: 'byBackArrivalDate'
+                                // }
                             ]
                         }
                     },

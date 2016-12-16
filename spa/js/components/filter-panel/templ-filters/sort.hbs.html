@@ -3,29 +3,46 @@
 	Прячем компонент если находимся на карте
 -->
 <li class="filters__sort {{(asMap) ? 'ng-hide' : ''}}" on-hover="onHover">
-    <i class="icon-expand {{isOpen ? 'icon-expand_open' : ''}}"></i>
-    <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
-         on-click="toggle">
-        Сортировать <span>{{lowercaseFirst(current)}}</span>
-    </div>
-
-    <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
+    <!--<i class="icon-expand {{isOpen ? 'icon-expand_open' : ''}}"></i>-->
+    <!--<div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"-->
+         <!--on-click="toggle">-->
+        <!--Сортировать <span>{{lowercaseFirst(current)}}</span>-->
         <ul class="search__list search__list_sort ra-fly-type-list">
-			{{#each Sort}}
-                <!--<SortedItem data="{{.}}"/>-->
+            {{#each Sort}}
+            <!--<SortedItem data="{{.}}"/>-->
 
-                <!-- on-click='selectSort' -->
-                <li class='{{ this.isChecked ? 'current':''}}'>
-                    <i class="fa fa-check"></i>
-                    <label class="b-display-block" on-change="onSort">
-                        <input type="radio" name="sorting"
-                               value="{{this.value}}"
-                               checked="{{this.isChecked}}">
-						{{this.name}}
-                    </label>
-                </li>
+            <!-- on-click='selectSort' -->
+            <li class='{{ this.isChecked ? 'current':''}}'>
+            <i class="fa fa-check"></i>
+            <label class="b-display-block" on-change="onSort">
+                <input type="radio" name="sorting"
+                       value="{{this.value}}"
+                       checked="{{this.isChecked}}">
+                {{this.name}}
+            </label>
+            </li>
 
-			{{/each}}
+            {{/each}}
         </ul>
-    </div>
+   </div>
+
+    <!--<div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">-->
+        <!--<ul class="search__list search__list_sort ra-fly-type-list">-->
+			<!--{{#each Sort}}-->
+                <!--&lt;!&ndash;<SortedItem data="{{.}}"/>&ndash;&gt;-->
+
+                <!--&lt;!&ndash; on-click='selectSort' &ndash;&gt;-->
+                <!--<li class='{{ this.isChecked ? 'current':''}}'>-->
+                    <!--<i class="fa fa-check"></i>-->
+                    <!--<label class="b-display-block" on-change="onSort">-->
+                        <!--<input type="radio" name="sorting"-->
+                               <!--value="{{this.value}}"-->
+                               <!--checked="{{this.isChecked}}">-->
+						<!--{{this.name}}-->
+                    <!--</label>-->
+                <!--</li>-->
+
+			<!--{{/each}}-->
+        <!--</ul>-->
+    <!--</div>-->
 </li>

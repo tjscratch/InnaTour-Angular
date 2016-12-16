@@ -2,12 +2,12 @@
     <div class="{{(asMap) ? 'col-xs-9 col-no-padding' : ''}}">
         <ul class="filters__container">
             <FilterStars FilterData="{{filtersModel.Hotels.Stars}}" updateModel="{{updateModel}}"/>
+            <FilterTaFactor FilterData="{{filtersModel.Hotels.TaFactor}}" updateModel="{{updateModel}}"/>
             <FilterPrice FilterData="{{filtersModel.Hotels.Price}}" updateModel="{{updateModel}}"/>
             <FilterName FilterData="{{filtersModel.HotelName}}" updateModel="{{updateModel}}"/>
-            <FilterTaFactor FilterData="{{filtersModel.Hotels.TaFactor}}" updateModel="{{updateModel}}"/>
-            <FilterType FilterData="{{filtersModel.Hotels.HotelType}}" updateModel="{{updateModel}}"/>
-            <FilterExtra FilterData="{{filtersModel.Hotels.Extra}}" updateModel="{{updateModel}}"/>
-            <FilterMeal FilterData="{{filtersModel.Hotels.Meal}}" updateModel="{{updateModel}}"/>
+            <!--<FilterType FilterData="{{filtersModel.Hotels.HotelType}}" updateModel="{{updateModel}}"/>-->
+            <!--<FilterExtra FilterData="{{filtersModel.Hotels.Extra}}" updateModel="{{updateModel}}"/>-->
+            <!--<FilterMeal FilterData="{{filtersModel.Hotels.Meal}}" updateModel="{{updateModel}}"/>-->
             <FilterSort Sort="{{filtersModel.sort.hotels}}" asMap="{{asMap}}" updateModel="{{updateModel}}"/>
         </ul>
     </div>
