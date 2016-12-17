@@ -18,7 +18,7 @@ angular.module('innaApp.components').
                     sortValue: {
                         name: 'Sort',
                         val: '',
-                        defaultSort: 'byPackagePrice'
+                        defaultSort: 'byProfit'
                     }
                 },
                 onrender: function (options) {
@@ -58,7 +58,7 @@ angular.module('innaApp.components').
                         if (item.isChecked) {
                             that.set({
                                 'current': item.name,
-                                'sortValue.val': 'byPackagePrice'
+                                'sortValue.val': 'byProfit'
                             });
                             that.fire('onSorting', that.get('sortValue'));
                             that.hasSelected();

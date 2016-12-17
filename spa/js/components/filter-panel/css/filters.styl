@@ -25,19 +25,24 @@
         background #fff
         z-index 1000
         width 290px
-        box-shadow 0 3px 5px rgba(0, 0, 0, .3)
+        //box-shadow 0 3px 5px rgba(0, 0, 0, .3)
         padding 3px 0
+        color #666
+        box-shadow: 0 5px 10px rgba(50, 50, 50, 0.25)
+        margin-top: 3px;
         
         &.filters__baloon_show{
             display: block;
         }
         
         &.filters__baloon_avia-baloon{
-            width: 290px;
+            width: 270px;
             margin-top: 0px;
             right: 0;
             left: auto;
             z-index: 101;
+            box-shadow: none;
+            color: #0054b9;
         }
     }
     
@@ -82,6 +87,7 @@
             .ra-fly-type-list__item{
                 width 50%
                 float left
+                color: #666;
             }
         }
     }
@@ -207,12 +213,15 @@
     display: block;
 }
 .ra-fly-type-list{
-    padding 5px 14px 0 0
-    color #1a1a1a
-    margin 0 -14px 0 0
+    padding: 4px 0 0 0
+    color: #0054b9
+    //margin: 0px -68px 0 0;
     max-height 294px
     overflow-y: auto
     position relative
+}
+.ra-fly-type-list.b-display-block {
+    margin 0;
 }
 .ra-fly-type-list-container{
     position relative
@@ -253,6 +262,7 @@
 .ra-fly-type{
     float left
     max-width 200px
+    color: #666;
 }
 .ra-checkbox{
     width 15px
@@ -270,6 +280,8 @@
 .ra-fly-price{
     float right
     color #666
+    right: 0px;
+    position: absolute;
 }
 .rl-filter{
     float right
@@ -297,4 +309,6 @@
 }
 .rl-filter-menu li:hover{
     background #eee
-}
+}li .current {
+     font-weight: bold;
+ }

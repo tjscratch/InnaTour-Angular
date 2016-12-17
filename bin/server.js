@@ -13,7 +13,7 @@ gulp.task('browser-sync', ['nodemon'], function() {
         //files: [
         //    "./dist"
         //],
-        browser: "google chrome",
+        browser: "chrome" || "google chrome",
         port: 3000,
     });
 });
