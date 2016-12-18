@@ -75,7 +75,9 @@ angular.module('innaApp.directives')
                                             providerId
                                         ].join('-');
 
-                                if (window.partners && window.partners.isFullWL()) {
+                                if (window.partners
+                                    && window.partners.isFullWL()
+                                    && window.partners.partner.name != 'komandacard') {
                                     urlDetails = window.partners.getParentLocationWithUrl(urlDetails);
                                 }
 
