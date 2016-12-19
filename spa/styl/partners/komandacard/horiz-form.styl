@@ -1,0 +1,238 @@
+.layout.partner.horizontal-form {
+    //top: 155px;
+    //margin-bottom: 150px;
+    padding: 0;
+}
+
+.partner-form-wrap.horizontal-form {
+    z-index: 1000;
+    margin: 0 auto;
+    max-width: 974px;
+}
+
+.horizontal-form {
+    //padding 50px 0 10px
+
+    .b-tour-form {
+        padding-left 0
+        position: absolute
+        top 60px
+    }
+    .main-label {
+        display inline-block
+        font-size $form-label-font-size
+        color $form-input-bg
+        padding 8px 20px
+        background-color $form-bg
+        border-radius $form-border-radius $form-border-radius 0 0
+    }
+    .b-tour-form-wrapper {
+        width 960px
+        padding 7px
+        background-color $form-bg
+    }
+    .search-field {
+        box-sizing border-box
+        border 0
+        /*height 100*/
+        width 100%
+        /*padding 0 10px*/
+        font-size 15px
+        //border-radius $form-border-radius
+    }
+    .b-search-field {
+        border none
+        display inline-block
+        height $form-input-height
+        margin 0 3px
+        vertical-align top
+        border-radius $form-border-radius
+    }
+    .b-search-field__from {
+        width $form-input-from-width
+        margin-left 0
+    }
+    .b-search-field__to {
+        width $form-input-to-width
+    }
+    .b-search-field__long {
+        .ui-tooltip {
+            position: absolute;
+            margin-top -15px
+
+            .ui-tooltip-content {
+                white-space nowrap;
+            }
+        }
+    }
+    .b-search-field-hor {
+        display: inline-block;
+        text-align justify
+        vertical-align top
+        font-size 0
+
+        &:after {
+            width 100%
+            content: ''
+            display inline-block
+            height 0
+        }
+    }
+    .b-search-field__calendar,
+    .b-search-field__list {
+        position relative
+
+        &:after {
+            background url("/spa/img/i.png") no-repeat
+            content ''
+            display block
+            position absolute
+            top 50%;
+            right 9px
+        }
+    }
+    .b-search-field__calendar {
+        width $form-calendar-input-widht
+
+        &:after {
+            background-position -39px -1830px
+            width 17px
+            height 16px
+            margin-top -8px
+        }
+    }
+    .b-search-field__list {
+        width $form-list-input-widht
+
+        &:after {
+            background-position -45px -194px
+            width 11px
+            height 6px
+            margin-top -3px
+        }
+    }
+    .b_people {
+        background-color: $form-input-bg;
+    }
+    .search-people {
+        //border-radius $form-border-radius
+        background-image none
+        background-color $form-input-bg
+    }
+    .search-autocomplete {
+        padding: 0;
+        margin-left: 0;
+    }
+    .search-date-block__date {
+        font-size 15px
+        border-radius $form-border-radius
+        background-color $form-input-bg
+    }
+    .ui-tooltip {
+        background-color $form-input-error-color
+
+        &:before {
+            border-color: transparent transparent $form-input-error-color;
+        }
+    }
+    .b-search-button {
+        position: relative;
+        display inline-block
+        height $form-input-height
+        width $form-btn-width
+        line-height 1.3
+        margin-left 3px
+        padding 7px 10px
+        font-size $form-btn-font-size
+        color $form-btn-color
+        background-color $form-btn-bg
+        box-sizing border-box
+        border-radius $form-btn-border-radius
+        text-align center
+        cursor: pointer;
+
+        &:after {
+            content: 'Найти';
+            display: block;
+        }
+
+        &:hover {
+            background-color lighten($form-btn-bg, 15%)
+        }
+        &:active {
+            background-color darken($form-btn-bg, 15%)
+        }
+    }
+    .search-form-dialog-row {
+        .button-group {
+            .button {
+                &.active {
+                    background-color: $btn-red-bg
+                }
+            }
+        }
+    }
+}
+
+.dtpk-checkbox {
+    border-color $btn-green-bg
+    border-radius 0
+}
+
+.dtpk-checkbox-label input:checked + .dtpk-checkbox {
+    background-color $btn-green-bg
+}
+
+.ui-datepicker td a.ui-state-active,
+.ui-datepicker td a.ui-state-hover {
+    background-color $btn-green-bg
+}
+
+.datepickerSelected-start a
+.datepickerSelected-end a {
+    background: $form-datapicker-bg !important
+}
+
+.datepickerSelected a {
+    background: $form-datapicker-bg-lighten
+}
+
+.datePicker-today a {
+    border-color: $form-datapicker-border-color;
+}
+
+.datepickerDays a {
+    &:hover {
+        background: $form-datapicker-bg
+    }
+}
+
+.datepickerGoPrev a
+.datepickerGoNext a {
+    &:hover {
+        background: $form-datapicker-bg
+    }
+}
+
+.horizontal-form {
+    .datepicker-field {
+        position: relative;
+
+        .ui-tooltip {
+            position absolute;
+            bottom -40px
+
+            &.ui-tooltip-date-to {
+                left: -45px
+            }
+
+            &.ui-tooltip-date-back {
+                left: 75px
+            }
+
+            .ui-tooltip-content {
+                white-space nowrap;
+            }
+        }
+    }
+}
