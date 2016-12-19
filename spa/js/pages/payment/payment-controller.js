@@ -19,6 +19,13 @@ innaAppControllers.controller('PaymentController',
         self.paySuccess = true;
         self.OrderNum = $routeParams.OrderNum;
         var baloon = aviaHelper.baloon;
+
+        $scope.isNSPK = false;
+        if(window.partners.partner) {
+            if (window.partners.partner.name == 'nspk') {
+                $scope.isNSPK = true;
+            }
+        }
         
         /*watch для отправки событий в GTM, при выборе способа оплаты*/
         $scope.$watch('payment.payType', function (newValue, oldValue) {
@@ -195,6 +202,14 @@ innaAppControllers.controller('PaymentController',
             if (data != null) {
                 self.data = data;
 
+                if($scope.isNSPK) {
+                    self.data.ParamsNSPK = 'ticket=' + self.OrderNum +
+                                           '&passenger=' + self.data.Name +
+                                           '&amount=' + self.data.Price +
+                                           '&email=' + self.data.Email;
+                }
+
+                console.log('DATA', self.data);
                 //для рекомендованного варианта на оплате
                 self.data.recPair = {
                     ticket: {
@@ -205,8 +220,7 @@ innaAppControllers.controller('PaymentController',
                     },
                     priceReservation: data.Price
                 };
-                console.log('AAAAAAAAA', self.data);
-                console.log('DDDDDDD', self.data.recPair);
+
                 self.searchUrl = self.data.Filter ? Payment.getSearchUrl(self.data) : null; // url для нового поиска
                 self.paySuccess = false;
                 self.productType = data.ProductType;

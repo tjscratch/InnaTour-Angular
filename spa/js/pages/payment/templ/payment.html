@@ -113,7 +113,8 @@
                 <div class='Payment__iframe-container'
                      ng-if='payment.payType == 1'>
                     <iframe class='Payment__iframe'
-                            ng-src='{{payment.data.IFrame}}'></iframe>
+                            ng-src='{{payment.data.IFrame}}' ng-if="!isNSPK"></iframe>
+                    <ng:include ng-if="isNSPK" src="'pages/payment/templ/pay-form-nspk.html'"></ng:include>
                 </div>
 
                 <div id='svyaznoy_print_block'
