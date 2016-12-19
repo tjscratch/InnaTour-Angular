@@ -3,7 +3,7 @@
        style="position: absolute; top: 18px; right: 9px;"
        ng-class="{'icon-expand-gray_open': isOpen}"></i>
     <div class="search-people">{{klassModel.display}}</div>
-    <ul class="search__list" ng-show="isOpen" ng-mouseleave="isOpen = false">
+    <ul class="flyclass" ng-show="isOpen" ng-mouseleave="isOpen = false">
         <li
                 ng-repeat="option in klassModel.getOptions()"
                 ng-class="({'true': 'current', 'false':''})[option == klassModel]"
