@@ -177,6 +177,12 @@ app.config([
                         controller : 'FullWLMainCtrl',
                         resolve    : authController.resolve
                     }
+                } else if (partner.name == 'komandacard') {
+                    return {
+                        templateUrl: 'pages/partners/komandacrd.html',
+                        controller : 'FullWLMainCtrl',
+                        resolve    : authController.resolve
+                    }
                 }
                 else {
                     return {
