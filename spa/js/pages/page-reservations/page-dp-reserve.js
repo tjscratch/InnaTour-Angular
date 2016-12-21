@@ -789,8 +789,11 @@
                                 //     window.dataLayer.push(dataLayerObj);
                                 // }
                             } else if (data.Result == "Error") {
-                                console.log('Result', data.Result);
-                                console.log('Data', data.Data);
+                                if (type == 'komandacard') {
+                                    $scope.isRosneftKomandaCardActive = false;
+                                } else if (type == 'bpclub') {
+                                    $scope.isRosneftBpClubActive = false;
+                                }
                                 $scope.promoCodeStatusRosneftError = true;
                                 $scope.promoCodeErrorInfo = data.Data;
                                 $scope.bonusRosneft = '';
