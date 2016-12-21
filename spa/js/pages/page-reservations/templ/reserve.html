@@ -363,15 +363,15 @@
 				<!--Страховки</label></li>-->
 
 		<!--TRANSFERS-->
-				<!--<div class="ReservationSection__wrap">-->
+				<div class="ReservationSection__wrap">
 					<!--<h2 class="buy__title" style="margin: 3px 0px;">Трансфер</h2>-->
 					<!--<label class="b-agreement" style="clear: none; margin: 3px 0px;">-->
 						<!--<input type="checkbox" ng-model="addition.isNeededTransfer"/>-->
 						<!--<ins class="b-checkbox"></ins>-->
 						<!--Добавить трансфер в этот отель-->
 					<!--</label>-->
-                    <!--<ng:include src="'pages/page-reservations/templ/reservations-transfer.html'"></ng:include>-->
-				<!--</div>-->
+                    <ng:include src="'pages/page-reservations/templ/reservations-transfer.html'"></ng:include>
+				</div>
 
 		<div class="ReservationSection__wrap">
 			<div class="b-promo-code" ng-class="{'block_close' : !isMainPromoCode}">
@@ -413,7 +413,43 @@
 							   ng-model="promoCodeRosneft"/>
 					</div>
 					<span class="button b-promo-code__button"
-						  ng-click="checkPromoCodeRosneft()">Применить
+						  ng-click="checkPromoCodeRosneft('komandacard')">Применить
+					</span>
+					<div class="b-field-block b-field-bonus">
+						<label class="b-field-label b-field-label-docs">Начислено бонусов</label>
+						<input validate-events-dir
+							   type="text"
+							   class="b-field-text"
+							   ng-model="bonusRosneft">
+					</div>
+				</div>
+				<div class="b-promo-code__info" ng-if="promoCodeStatus == 1">
+					Ввведен промо-код
+					<b>{{ promoCode }}</b>
+					на {{ promoCodeSale }}% скидку
+				</div>
+				<div class="b-promo-code__input-error-message"
+					 ng-if="promoCodeStatusRosneftError">
+					<!--Номер карты неверный-->
+					{{ promoCodeErrorInfo }}
+				</div>
+			</div>
+			<div class="b-promo-code" ng-class="{'block_close': !isRosneftBpClub}">
+				<div class="b-promo-code__field" style="justify-content: center;">
+					<label class="b-promo-code__label" for="b-promo-code__input3" style="font-size: 15px;">
+						Введите номер карты лояльности "BP CLUB"
+					</label>
+					<div class="b-promo-code__static-number">7005993</div>
+					<div class="b-promo-code__input-container">
+						<input id="b-promo-code__input3"
+							   class="b-field-text b-promo-code__input b-promo-code__input_bpclub"
+							   type="text"
+							   digits-input
+							   maxlength="25"
+							   ng-model="promoCodeRosneft"/>
+					</div>
+					<span class="button b-promo-code__button"
+						  ng-click="checkPromoCodeRosneft('bpclub')">Применить
 					</span>
 					<div class="b-field-block b-field-bonus">
 						<label class="b-field-label b-field-label-docs">Начислено бонусов</label>
