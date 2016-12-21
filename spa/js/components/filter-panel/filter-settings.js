@@ -97,7 +97,6 @@ angular.module('innaApp.services')
                                 {
                                     name: 'Скидка',
                                     value: 'byProfit',
-                                    isChecked: true
                                 },
                                 {
                                     name: 'Лучшие',
@@ -106,6 +105,7 @@ angular.module('innaApp.services')
                                 {
                                     name: 'Цена',
                                     value: 'byPackagePrice',
+                                    isChecked: true
                                 },
                                 // {
                                 //     name: isFullWL ? 'По рейтингу' : 'По рейтингу Инна Тур',
