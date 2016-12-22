@@ -84,50 +84,5 @@
                 </li>
             </a>
         </ul>
-        <ul class="b2binter" style="{{(etapMainPage) ? 'display:none' : ''}}">
-            <div class="header-user partners-hide loginmenu" ng-controller="AuthCtrl">
-
-                <div class="header-user__items" ng-if="user">
-
-                    <div class="header-user__item" ng-click="showProfile($event)">
-                        <!--<i class="fa fa-user header-user__item-icon"></i>-->
-                        <i class="icon-login-white" ng-if="!StaticPage"></i>
-                        <i class="icon-login-black" ng-if="StaticPage"></i>
-                        <div class="header-user__item-text" ng-class="{'header-user__item-text_black': StaticPage}">
-                            {{user.displayName()}}
-                        </div>
-                    </div>
-
-                    <div class="header-user__item" ng-if="user.raw.MessagesCount > 0">
-                        <!--<i class="fa fa-envelope header-user__item-icon"></i>-->
-                        <i class="icon-mail-white" ng-if="!StaticPage"></i>
-                        <i class="icon-mail-black" ng-if="StaticPage"></i>
-                        <a class="header-user__item-text" ng-class="{'header-user__item-text_black': StaticPage}" href="{{B2B_HOST}}/Message">
-                            {{+user.raw.MessagesCount}}
-                        </a>
-                    </div>
-
-                    <div class="header-user__item">
-                        <div class="header-user__item-text" ng-class="{'header-user__item-text_black': StaticPage}" ng-click="logout()">Выйти</div>
-                    </div>
-
-                </div>
-
-                <div class="header-user__items" ng-if="!user">
-                    <div class="header-user__item">
-                        <!--<i class="fa fa-user header-user__item-icon"></i>-->
-                        <i class="icon-login-white inmnenu" ng-if="!StaticPage"></i>
-                        <i class="icon-login-black" ng-if="StaticPage"></i>
-                        <div class="header-user__item-text logintext" ng-class="{'header-user__item-text_black': StaticPage}" ng-click="regOpenClick()">
-                            {{ authLinkTitile }}
-                        </div>
-                    </div>
-                </div>
-
-                <!-- user comes from rootScope -->
-                <ng:include src="'auth/form.html'"></ng:include>
-
-            </div>
-        </ul>
     </div>
 </div>

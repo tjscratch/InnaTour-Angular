@@ -183,6 +183,12 @@ app.config([
                         controller : 'FullWLMainCtrl',
                         resolve    : authController.resolve
                     }
+                } else if (partner.name == 'bpclub') {
+                    return {
+                        templateUrl: 'pages/partners/bpclub.html',
+                        controller : 'FullWLMainCtrl',
+                        resolve    : authController.resolve
+                    }
                 }
                 else {
                     return {
