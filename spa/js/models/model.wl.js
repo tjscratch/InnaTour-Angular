@@ -2,8 +2,8 @@ inna.Models.WlNewSearch = function (data) {
     var self = this;
 
     if (window.partners.partner &&
-        (window.partner.getPartner().name == 'komandacard' ||
-        window.partner.getPartner().name == 'bpclub')) {
+        (window.partners.getPartner().name == 'komandacard' ||
+        window.partners.getPartner().name == 'bpclub')) {
         self.linkHref = '/';
     } else {
         self.linkHref = document.referrer;
