@@ -208,8 +208,8 @@
     align-items: center;
 }
 .header-user__item {
-    padding: 0 10px;
-    border-left: 1px solid $header-user__item-border-color;
+    padding: 3px 10px;
+    border-left: 1px solid #303C47;
     white-space: nowrap;
     cursor: pointer;
     display flex
@@ -221,6 +221,7 @@
     }
     &:last-child {
         padding-right: 0;
+        padding-top: 2px;
     }
 }
 .header-user__item-icon {
@@ -231,7 +232,7 @@
 }
 .header-user__item-text {
     display: inline-block;
-    color: $header-user__item-text-color;
+    color: #303C47;
     font-size: 14px;
 }
 .header-user__item-text_black, .header-info_black {
@@ -301,6 +302,8 @@
     display: flex;
     align-items: flex-start;
     margin-top: 3px;
+    position: relative;
+    left: 20px;
 }
 .header-info__phone-icon {
     margin-right: 11px;
@@ -309,11 +312,11 @@
 }
 .header-info__phone-number {
     font-size: 14px;
-    color: $header-white;
+    color: $header-grey;
 }
 .header-info__phone-info {
     font-size: 11px;
-    color: $header-white;
+    color: $header-grey;
     text-align: center;
 }
 // end header-info
@@ -362,4 +365,19 @@
     position: absolute;
     top: 0px;
     right: 135px;
+}
+.authinavia{
+    position: relative;
+    right: 800px;
+    margin-bottom: 10px;
+}
+.authinhotel {
+    position: relative;
+    right: 800px;
+    margin-bottom: 10px;
+    margin-top: 75px;
+}
+.loghoteldetails{
+    position: relative;
+    bottom: 10px;
 }

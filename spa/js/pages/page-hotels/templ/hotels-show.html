@@ -170,6 +170,7 @@
 	<div class="hotel-details__wrap main__center">
 
 		<div class="hotel-details__section hotel-details__section__crumbs" ng-if="!OrderId">
+
 			<ul class="section__crumbs__list">
 				<li class="section__crumbs__list__item">
 					<a href="/#/" class="section__crumbs__list__item__link">Главная</a>
@@ -183,6 +184,10 @@
 					Описание отеля и выбор номера
 				</li>
 			</ul>
+		</div>
+		<div class="header-info__right loginindp">
+			<ng:include src="'auth/header.html'" class="loghoteldetails"></ng:include>
+
 		</div>
 		<!--<div recommended-pair-component-big-->
 			 <!--class="recommended-pair"-->
