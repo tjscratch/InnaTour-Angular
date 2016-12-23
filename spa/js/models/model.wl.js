@@ -1,7 +1,9 @@
 inna.Models.WlNewSearch = function (data) {
     var self = this;
 
-    self.linkHref = document.referrer;
+    self.linkHref = '/';
+
+    // self.linkHref = document.location.host;
 
     self.from = '';
     self.to = '';
