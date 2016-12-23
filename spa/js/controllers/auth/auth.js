@@ -413,7 +413,7 @@ var authController = angular.module('innaApp.controllers')
 
 
             $scope.$on('$destroy', function () {
-                reloadChecker.destroy();
+               reloadChecker.destroy();
             });
         }
     ]);
