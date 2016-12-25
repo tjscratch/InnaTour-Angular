@@ -257,7 +257,7 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                 self.list = [
                     {name: "Цена", sort: avia.sortType.byPrice},
                     {name: "Лучшие", sort: avia.sortType.byRecommend},
-                    {name: "По времени в пути", sort: avia.sortType.byTripTime},
+                    {name: "Время в пути", sort: avia.sortType.byTripTime},
                     // {name: "По времени отправления ТУДА", sort: avia.sortType.byDepartureTime},
                     // {name: "По времени отправления ОБРАТНО", sort: avia.sortType.byBackDepartureTime},
                     // {name: "По времени прибытия ТУДА", sort: avia.sortType.byArrivalTime},
@@ -267,7 +267,7 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                 if ($scope.isAgency()) {
                     if ($rootScope.$root.user) {
                         if ($rootScope.$root.user.getAgencyType() != 1) {
-                            self.list.push({name: "По доходности", sort: avia.sortType.byAgencyProfit});
+                            self.list.push({name: "Доход Агента", sort: avia.sortType.byAgencyProfit});
                             //self.sortType = avia.sortType.byAgencyProfit;
                         }
                     }
