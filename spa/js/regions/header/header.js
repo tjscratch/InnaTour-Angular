@@ -208,3 +208,11 @@ innaAppControllers
             };
             
         }]);
+$(window).scroll(function(){
+    if($(this).scrollTop()>200) {
+        $('.loginndp').css("bottom", "0px");
+    }
+    else if ($(this).scrollTop()<200) {
+        $('.loginndp').css("bottom", "10px");
+    }
+});
