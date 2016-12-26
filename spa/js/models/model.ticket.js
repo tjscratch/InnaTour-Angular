@@ -109,6 +109,33 @@ innaAppServices.factory('ModelTicket', [
             }
         };
 
+        Avia.Ticket.prototype.collectAirlines2 = function () {
+            var airlines = [];
+            var transportersList = [];
+
+            this.everyEtap(function(etap){
+                airlines.push([etap.data.TransporterCode, etap.data.TransporterName]);
+                transportersList.push({
+                    code : etap.data.TransporterCode,
+                    name : etap.data.TransporterName
+                });
+            });
+
+            // TODO: deprecated
+            var collected = _.object(airlines);
+
+            var transportersListUniq = _.uniq(angular.copy(transportersList), false, function (tr) {
+                return tr.code
+            });
+
+            return {
+                airlines : transportersListUniq,
+                size: transportersListUniq.length,
+                // TODO: deprecated
+                etap: collected
+            }
+        };
+
         Avia.Ticket.prototype.getToOutTransporterName = function () {
             var etapsTo = this.getEtaps('To');
             var oneEtap = etapsTo[0];
@@ -118,7 +145,7 @@ innaAppServices.factory('ModelTicket', [
                 code: oneEtap.data.TransporterCode,
                 name: oneEtap.data.TransporterName
             }
-        }
+        };
 
         Avia.Ticket.prototype.getBackOutTransporterName = function () {
             var etapsBack = this.getEtaps('Back');
