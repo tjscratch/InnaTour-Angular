@@ -34,18 +34,18 @@
 	<div class="b-hotel-data__text">
 	{{hotel.HotelCityName}} {{hotel.Address}}
 	</div>
-	<!--<div class="b-hotel-data__text">-->
-		<!--с {{moment(hotel.CheckIn).format("D MMM")}}-->
-		<!--по {{moment(hotel.CheckOut).format("D MMM")}},-->
-		<!--{{hotel.NightCount}}-->
-		<!--{{pluralize(hotel.NightCount, ["ночь","ночи","ночей"])}},-->
-		<!--{{#if hotel.MealCode == 'RO'}}Без питания (RO),{{/if}}-->
-		<!--{{#if hotel.MealCode == 'BB'}}Завтрак (BB),{{/if}}-->
-		<!--{{#if hotel.MealCode == 'HB'}}Полупансион (HB),{{/if}}-->
-		<!--{{#if hotel.MealCode == 'FB'}}Полный пансион (FB),{{/if}}-->
-		<!--{{#if hotel.MealCode == 'AI'}}Все включено (AI),{{/if}}-->
-		<!--&lt;!&ndash;перелет включен&ndash;&gt;-->
-	<!--</div>-->
+	<div class="b-hotel-data__text">
+		с {{moment(hotel.CheckIn).format("D MMM")}}
+		по {{moment(hotel.CheckOut).format("D MMM")}},
+		{{hotel.NightCount}}
+		{{pluralize(hotel.NightCount, ["ночь","ночи","ночей"])}},
+		{{#if hotel.MealCode == 'RO'}}Без питания (RO),{{/if}}
+		{{#if hotel.MealCode == 'BB'}}Завтрак (BB),{{/if}}
+		{{#if hotel.MealCode == 'HB'}}Полупансион (HB),{{/if}}
+		{{#if hotel.MealCode == 'FB'}}Полный пансион (FB),{{/if}}
+		{{#if hotel.MealCode == 'AI'}}Все включено (AI),{{/if}}
+		<!--перелет включен-->
+	</div>
 
 	{{#if hotel.RoomCount <= 3}}
 	<div class="b-hotel-data__text b-hotel-data__text-warning">
