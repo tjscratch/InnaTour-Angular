@@ -8,6 +8,14 @@ innaAppServices.service('Payment', function ($http, appApi, AppRouteUrls) {
                 cache : false
             });
         },
+        getPaymentDataNSPK: function (params) {
+            return $http({
+                url   : appApi.GET_PAYMENT_NSPK,
+                method: 'GET',
+                params: params,
+                cache : false
+            });
+        },
         getRepricing  : function (orderNumber) {
             return $http({
                 url   : appApi.GET_PAYMENT_REPRICING,

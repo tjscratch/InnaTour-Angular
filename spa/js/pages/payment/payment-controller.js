@@ -13,7 +13,8 @@ innaAppControllers.controller('PaymentController',
               Payment,
               aviaHelper,
               dataService,
-              gtm) {
+              gtm,
+              $q) {
         
         var self = this;
         self.paySuccess = true;
@@ -178,11 +179,22 @@ innaAppControllers.controller('PaymentController',
          */
         function getOrderData() {
             baloon.show('Подготовка к оплате', 'Это может занять несколько секунд');
-            Payment.getPaymentData({orderNum: self.OrderNum})
-                .then(
+
+            if($scope.isNSPK) {
+                $q.all([
+                    Payment.getPaymentData({orderNum: self.OrderNum}),
+                    Payment.getPaymentDataNSPK({orderNumber: self.OrderNum})
+                ]).then(
                     getPaymentDataSuccess,
                     getPaymentDataError
                 );
+            } else {
+                Payment.getPaymentData({orderNum: self.OrderNum})
+                    .then(
+                        getPaymentDataSuccess,
+                        getPaymentDataError
+                    );
+            }
         }
         
         /**
@@ -198,7 +210,16 @@ innaAppControllers.controller('PaymentController',
          * Не определен = 0
          */
         function getPaymentDataSuccess(response) {
-            var data = response.data;
+            if($scope.isNSPK) {
+                console.log('DATA1', response);
+                var data = response[0]. data;
+                var dataNSPK = response[1].data;
+                console.log('DATA', data);
+                console.log('DATA_NSPK', dataNSPK);
+            } else {
+                var data = response.data;
+            }
+
             if (data != null) {
                 self.data = data;
 
@@ -207,9 +228,13 @@ innaAppControllers.controller('PaymentController',
                                            '&passenger=' + self.data.Name +
                                            '&amount=' + self.data.Price +
                                            '&email=' + self.data.Email;
+                    self.data.NSPK = {
+                        id: dataNSPK.Id,
+                        hash: dataNSPK.Hash,
+                        merchant: dataNSPK.MerchantId
+                    }
                 }
 
-                console.log('DATA', self.data);
                 //для рекомендованного варианта на оплате
                 self.data.recPair = {
                     ticket: {
