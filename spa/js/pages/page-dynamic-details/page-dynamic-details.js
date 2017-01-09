@@ -363,6 +363,11 @@ innaAppControllers
     
                             parseAmenities(data.Hotel);
     
+                            if (data.Rooms){
+                                data.Hotel.PackagePrice = data.Rooms[0].PackagePrice;
+                                // !dataFullyLoaded
+                            }
+                            
                             var hotel = new ModelHotel(data.Hotel);
                             var ticket = new ModelTicket(data.AviaInfo);
                             //ticket.modelTicket = ticket;
@@ -395,7 +400,9 @@ innaAppControllers
                             $scope.Included = data.Included;
     
     
-                            if (data.Rooms && $scope.isLanding) {
+                            // console.log('$scope.isLanding')
+                            // console.log($scope.isLanding)
+                            if (data.Rooms && routParam.departureSlug) {
         
                                 $scope.hotelRooms = data.Rooms;
         

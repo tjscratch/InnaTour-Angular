@@ -1,7 +1,15 @@
 inna.Models.WlNewSearch = function (data) {
     var self = this;
 
-    self.linkHref = document.referrer;
+    if (window.partners.partner &&
+        (window.partners.getPartner().name == 'komandacard' ||
+        window.partners.getPartner().name == 'bpclub')) {
+        self.linkHref = '/';
+    } else {
+        self.linkHref = document.referrer;
+    }
+
+    // self.linkHref = document.location.host;
 
     self.from = '';
     self.to = '';
