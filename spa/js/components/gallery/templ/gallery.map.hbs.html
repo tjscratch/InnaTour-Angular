@@ -13,15 +13,14 @@
         <span class="hotel-gallery-photo-button">{{countPhoto}}</span>
 	{{/if}}
 
-    <div class="hotel-gallery-container b-carousel__holder b-carousel__holder_map" style="width:{{width}}px;
-		    height:160px;">
+    <div class="hotel-gallery-container b-carousel__holder b-carousel__holder_map" style="width:{{width}}px;height:{{height}}px;">
 
         <!-- Slider -->
         <div class="b-carousel__slider" style="width:{{(PhotoHotel[imageSize].length * width) + 10}}px;">
 
             <!-- показываем первую картинку -->
-            <div class="b-carousel_item">
-                 <!--style="width:{{width}}px;height:{{height}}px;">-->
+            <div class="b-carousel_item"
+                 style="width:{{width}}px;height:{{height}}px;">
 
                 <div class="b-carousel_item_image"
                      style="background-image: url({{photoList[0]}});"></div>
