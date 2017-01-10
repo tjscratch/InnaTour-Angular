@@ -17,7 +17,7 @@ angular.module('innaApp.components').
                     photoList: [],
                     photoCollection: [],
                     width: 200,
-                    height: 190
+                    height: 160
                 },
 
 

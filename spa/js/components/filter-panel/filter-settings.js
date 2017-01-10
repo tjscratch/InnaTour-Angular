@@ -95,6 +95,11 @@ angular.module('innaApp.services')
                         sort: {
                             hotels: [
                                 {
+                                    name: 'Цена',
+                                    value: 'byPackagePrice',
+                                    isChecked: true
+                                },
+                                {
                                     name: 'Скидка',
                                     value: 'byProfit',
                                 },
@@ -102,11 +107,7 @@ angular.module('innaApp.services')
                                     name: 'Лучшие',
                                     value: 'byTaFactor'
                                 },
-                                {
-                                    name: 'Цена',
-                                    value: 'byPackagePrice',
-                                    isChecked: true
-                                },
+
                                 // {
                                 //     name: isFullWL ? 'По рейтингу' : 'По рейтингу Инна Тур',
                                 //     value: 'byRecommendedFactor'
