@@ -143,7 +143,7 @@ innaAppControllers.
             $scope.FormExpand = false;
             $scope.isEnableSearchForm = false;
             $scope.StaticPage = false;
-            $scope.isVisibleNotifNewDesign = false;
+            // $scope.isVisibleNotifNewDesign = false;
             
             $scope.$on('$routeChangeStart', function (next, current) {
                 switch ($location.$$path) {
@@ -156,17 +156,17 @@ innaAppControllers.
                         // if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
                         //     $scope.SearchFormExpandPadding = {'padding-top': 0}
                         // }else{
-                        $timeout(function () {
-                            $scope.isVisibleNotifNewDesign = true;
-
-                        }, 3000);
+                        // $timeout(function () {
+                        //     $scope.isVisibleNotifNewDesign = true;
+                        //
+                        // }, 3000);
                         $scope.FormExpand = true;
                         $scope.SearchFormExpandPadding = {'padding-top': 250};
                         document.addEventListener('scroll', onScroll, false);
                         // }
                         break;
                     default:
-                        $scope.isVisibleNotifNewDesign = false;
+                        // $scope.isVisibleNotifNewDesign = false;
                         $scope.FormExpand = false;
                         $scope.SearchFormExpandPadding = {'padding-top': 0};
                         document.removeEventListener('scroll', onScroll, false);
@@ -203,9 +203,9 @@ innaAppControllers.
                 }
             });
 
-            $scope.closeNotifNewDesign = function () {
-                $scope.isVisibleNotifNewDesign = false;
-            };
+            // $scope.closeNotifNewDesign = function () {
+            //     $scope.isVisibleNotifNewDesign = false;
+            // };
 
             var onScroll = function () {
                 var scroll = utils.getScrollTop();
