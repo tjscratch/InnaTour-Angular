@@ -898,3 +898,8 @@ innaAppControllers
             })
         }
     ]);
+jQuery(function($) {
+        $(".header-expanded").css("height", "auto");
+        console.log(window.location.hash);
+
+});

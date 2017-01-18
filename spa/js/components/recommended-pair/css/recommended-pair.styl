@@ -2,14 +2,12 @@
     transform-style: preserve-3d;
 }
 .recommend-bundle-container{
-    position fixed
+    position relative
     //top $padding_over_search
     //top 50px
     width 100%
-    z-index 5
-    background-color #EFF2F5
-    background url(/spa/img/banners/banner-dp.jpg) no-repeat center;
-    background-size cover;
+    z-index 300
+    //background-color #EFF2F5
 
     &.recommend-bundle-container_short{
         top $padding_over_head
@@ -119,6 +117,7 @@
 
     .b-result {
         padding: 0px;
+        border: none;
     }
 
     .spinner{
