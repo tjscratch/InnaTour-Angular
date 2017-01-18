@@ -88,10 +88,12 @@ innaAppControllers.
 
             function setTitle() {
                 var partner = window.partners ? window.partners.getPartner() : null;
-                if (partner && partner.realType == window.partners.WLType.b2b){
-                    $scope.title = partner.title + " - " + $scope.getPartnersTitle();
-                }
-                else {
+                // if (partner && partner.realType == window.partners.WLType.b2b){
+                //     $scope.title = partner.title + " - " + $scope.getPartnersTitle();
+                // }
+                if (partner && partner.name){
+                    $scope.title = partner.name + " - " + $scope.getPartnersTitle();
+                } else {
                     $scope.title = "ИННА ТУР - " + $scope.getTitle();
                 }
             }
