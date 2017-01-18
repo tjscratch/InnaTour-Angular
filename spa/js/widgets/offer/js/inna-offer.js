@@ -132,9 +132,10 @@
             countryIdTo = result2[0][0].Id;
             return $.ajax({
                 type: 'GET',
-                url : 'https://inna.ru/api/v1/bestoffer/GetOffersForLocation?ArrivalLocation=' + countryIdTo + '&Location=18820'
+                url : 'https://inna.ru/api/v1/bestoffer/GetOffersForLocation?ArrivalLocation=' + countryIdTo + '&Location=' + countryIdLocation
             })
         }).then(function (result) {
+            console.log(result);
             if (result.Offers.length) {
                 var peopleCount = '';
                 if (result.Offers[0].Adults == 1) {

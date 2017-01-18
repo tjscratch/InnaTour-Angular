@@ -22,9 +22,9 @@ innaAppDirectives.directive('innaOffer', function () {
             
             $scope.widgetShow = false;
             $scope.getOfferCode = function () {
-                $scope.widgetCode = '<div class="widget-inna-offer" data-location="'+$scope.offerLocation.name+'"></div><script charset="utf-8" src="//inna.ru/spa/js/widgets/offer/inna-offer.js"></script>'
+                $scope.widgetCode = '<div class="widget-inna-offer" data-location="'+$scope.offerLocation.name+'"></div><script charset="utf-8" src="https://inna.ru/spa/js/widgets/offer/inna-offer.js"></script>'
                 $timeout(function () {
-                    $(".widget-preview").html($scope.widgetCode);
+                    $("#widget-offer-preview").html($scope.widgetCode);
                 },150)
                 $scope.widgetShow = true;
             };
@@ -53,7 +53,7 @@ innaAppDirectives.directive('innaOffer', function () {
                     return $http({
                         method: 'GET',
                         url   : 'https://inna.ru/api/v1/bestoffer/GetOffersForLocation',
-                        params: {ArrivalLocation: countryIdTo, Location: 18820},
+                        params: {ArrivalLocation: countryIdTo, Location: countryIdLocation},
                         cache : true
                     })
                 }).then(function (result) {
