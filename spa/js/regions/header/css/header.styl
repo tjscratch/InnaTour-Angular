@@ -39,12 +39,20 @@
     position: relative;
     top: -10px;
     width: 100%;
-    z-index: -1;
+    z-index: -9999;
     background-color: #eff2f5;
+}
+.header-banner-big{
     height: 355px;
     background: url(/spa/img/banners/banner-dp.jpg) no-repeat center;
     background-size: cover;
 }
+.header-banner-small{
+    height: 290px;
+    background: url(/spa/img/banners/banner-dp.jpg) no-repeat center;
+    background-size: cover;
+}
+
 .header__container {
 }
 .header-nav {
@@ -297,6 +305,7 @@
 .loginndp{
     position: relative;
     bottom: 10px;
+    z-index: 9999;
 }
 .authindp.icon-login-white{
     background-position: 145.6140350877193% 181.9672131147541%;
@@ -364,10 +373,10 @@
 .search-form-expand {
 
 }
-.dpresultslogin{
-    position: absolute;
-    top: 0px;
-    right: 135px;
+.dp-details-login{
+    position: relative;
+    bottom: 20px;
+    z-index: 9999;
 }
 .authinavia{
     position: relative;
@@ -376,7 +385,7 @@
 }
 .authinhotel {
     position: relative;
-    right: 475px;
+    right: 795px;
     margin-bottom: 10px;
     margin-top: 75px;
 }
