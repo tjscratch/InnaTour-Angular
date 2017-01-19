@@ -148,6 +148,11 @@ innaAppControllers.
             // $scope.isVisibleNotifNewDesign = false;
             
             $scope.$on('$routeChangeStart', function (next, current) {
+                if ($location.$$path.indexOf("/packages/search") > -1) {
+                    $scope.bannerBig = true;
+                } else if($location.$$path.indexOf("packages/details") > -1 || $location.$$path.indexOf("packages/reservation") > -1)  {
+                    $scope.bannerSmall = true;
+                }
                 switch ($location.$$path) {
                     case '/':
                     case '/avia/':
@@ -165,6 +170,8 @@ innaAppControllers.
                         $scope.FormExpand = true;
                         $scope.SearchFormExpandPadding = {'padding-top': 250};
                         document.addEventListener('scroll', onScroll, false);
+                        $scope.bannerBig = false;
+                        $scope.bannerSmall = false;
                         // }
                         break;
                     default:
