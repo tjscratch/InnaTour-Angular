@@ -24,7 +24,7 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                 $scope.displayHotel = false;
                 $scope.displayTicket = false;
 
-                $scope.styleRecBundleContainer = { top : '72px'};
+                $scope.styleRecBundleContainer = { top : '55px'};
 
                 var scroll = false;
                 var doc = $(document);
@@ -176,7 +176,7 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                         }, 1000);
                         $scope.isVisible = true;
                         $rootScope.$broadcast('DYNAMIC_OPEN_SEARCH_FORM', { open : true});
-                        $scope.styleRecBundleContainer = { top : '72px' };
+                        $scope.styleRecBundleContainer = { top : '55px' };
                         EventManager.fire(Events.DYNAMIC_SERP_OPEN_BUNDLE, true);
                     }
 
