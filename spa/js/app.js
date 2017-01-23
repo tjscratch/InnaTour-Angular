@@ -189,6 +189,12 @@ app.config([
                         controller : 'FullWLMainCtrl',
                         resolve    : authController.resolve
                     }
+                } else if (partner.name == 'touron') {
+                    return {
+                        templateUrl: 'pages/partners/touron.html',
+                        controller : 'FullWLMainCtrl',
+                        resolve    : authController.resolve
+                    }
                 }
                 else {
                     return {

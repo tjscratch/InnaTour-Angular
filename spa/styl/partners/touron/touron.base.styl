@@ -1,0 +1,142 @@
+@import "../../base.styl"
+$black = #000;
+$red = #49B42F;
+$white = #fff;
+//$green = #df6228;
+$green = #49B42F;
+
+$border-radius = 2px;
+
+// begin form
+$form-bg = $black;
+$form-border-radius = $border-radius;
+$form-label-font-size = 17px;
+$form-font-size = 13px;
+$form-input-bg = $white;
+$form-input-error-color = $red;
+
+$form-btn-color = $white;
+$form-btn-bg = $green;
+$form-btn-font-size = 18px;
+$form-btn-width = 80px;
+$form-btn-border-radius = $border-radius;
+
+$form-input-height = 36px;
+$form-input-from-width = 174px;
+$form-input-to-width = 200px;
+$form-calendar-input-widht = 125px;
+$form-list-input-widht = 110px;
+
+$form-datapicker-bg = $green;
+$form-datapicker-bg-lighten = lighten($form-datapicker-bg, 70%);
+$form-datapicker-border-color = $green;
+// end form
+
+// begin btn
+$btn-green-bg = $green;
+$btn-green-bg-hover = lighten($green, 15%);
+$btn-green-bg-active = darken($green, 15%);
+$btn-green-color = $white;
+$btn-green-border-radius = 4px;
+$btn-red-border-radius = 4px;
+$btn-red-bg = #49B42F;
+$btn-red-bg-hover = lighten($btn-red-bg, 15%);
+$btn-red-bg-active = darken($btn-red-bg, 15%);
+$btn-red-color = $white;
+$btn-yellow-bg = #49B42F;
+$btn-yellow-color = $white;
+// end btn
+
+@import "../touron/colors.styl"
+@import "../touron/index.styl"
+@import "../touron/controls.styl"
+@import "../touron/buttons.styl"
+@import "../touron/horiz-form.styl"
+@import "../touron/avia.styl"
+@import "../touron/dp.search.result.styl"
+@import "../touron/dp.hotel.details.styl"
+@import "../touron/dp.buy.styl"
+@import "../touron/map.styl"
+@import "../touron/gallery.styl"
+
+.layout.partner{
+    top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+.pic-cont{
+    position relative
+}
+.black-friday{
+    position absolute
+    width 100%
+    bottom 0
+    padding 16px 0
+    background #000
+}
+.black-friday-date{
+    margin 0 auto
+    color #fff
+    font-size 15px
+}
+.black-friday-title{
+    margin 10px auto 14px
+    color #7cb621
+    text-transform uppercase
+    font-size 20px
+}
+.black-friday-promo{
+    display flex
+    align-items center
+    justify-content center
+}
+.black-friday-promo__label{
+    margin-right 20px
+    color #e1e1e1
+    font-size 13px
+}
+.black-friday-promo__cod{
+    padding 7px 40px
+    color #fff
+    font-size 16px
+    border-radius 3px
+    border 1px solid #fff
+}
+.footer_right {
+    float: right;
+    text-align: right;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+.container {
+    width: 970px;
+    margin: 0 auto;
+}
+.footer_block {
+    //padding-top: 30px;
+}
+.footer_block {
+    //margin-top: 45px;
+    //margin-bottom: 20px;
+    position: relative;
+}
+.footer_right > p {
+    margin-top: 6px !important;
+}
+a {
+    color: #00aaf0;
+    font-weight: normal;
+    text-decoration: none;
+}
+.promoclogan{
+    display: block;
+    text-align: center;
+    top: 200px;
+    position: relative;
+    color: #fff;
+    font-size: 18px;
+}
+.uppercase{
+    font-size: 32px;
+}
+
