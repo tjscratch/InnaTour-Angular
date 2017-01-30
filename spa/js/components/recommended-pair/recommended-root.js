@@ -75,10 +75,8 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                     if ($scope.asMap) {
                         EventManager.fire(Events.MAP_CLOSE);
                     }
-
                     if ($scope.tabActive == data) return false;
                     setActiveTab(data);
-
                     EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, data);
                 };
 
@@ -86,6 +84,7 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                     EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, 'hotel');
                     setActiveTab('hotel');
                     EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP);
+                    $('.light-theme').css("background-color","#DDE3E9");
                 };
 
 

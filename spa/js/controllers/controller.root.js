@@ -148,6 +148,12 @@ innaAppControllers.
             // $scope.isVisibleNotifNewDesign = false;
             
             $scope.$on('$routeChangeStart', function (next, current) {
+                if ($location.$$search.map === 'show') {
+                    $scope.bannerGrey = true;
+                }else $scope.bannerGrey = false;
+                if ($location.$$path.indexOf("/packages/search") > -1) {
+                    $('.light-theme').css("background-color","#FFF");
+                }
                 switch ($location.$$path) {
                     case '/':
                     case '/avia/':
