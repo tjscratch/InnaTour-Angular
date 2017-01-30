@@ -268,7 +268,6 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                     if ($rootScope.$root.user) {
                         if ($rootScope.$root.user.getAgencyType() != 1) {
                             self.list.push({name: "Доход Агента", sort: avia.sortType.byAgencyProfit});
-                            $('.filters__baloon_avia-baloon').css("width","342px");
                             //self.sortType = avia.sortType.byAgencyProfit;
                         }
                     }
