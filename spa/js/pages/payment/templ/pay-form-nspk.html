@@ -1,17 +1,3 @@
-<!--<html>-->
-<!--<head>-->
-    <!--<meta charset="UTF-8">-->
-    <!--<title>Document</title>-->
-    <!--<link rel="stylesheet" type="text/css"-->
-          <!--href="https://gate.minbank.ru/api-client/template.css" />-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="mb-gate-template" data-id="58" data-values="{{payment.data.ParamsNSPK}}"></div>-->
-<!--<script src="https://gate.minbank.ru/api-client/lib.min.js"-->
-        <!--data-mb-merchant="6" data-demo="1"></script>-->
-<!--</body>-->
-<!--</html>-->
-
 <html>
 <head>
     <meta charset="UTF-8">
@@ -22,7 +8,7 @@
 <body>
 <div class="mb-gate-order" data-id="{{payment.data.NSPK.id}}" data-hash="{{payment.data.NSPK.hash}}"></div>
 <script src="https://gate.minbank.ru/api-client/lib.min.js"
-        data-mb-merchant="{{payment.data.NSPK.merchant}}" data-demo="1">
+        data-mb-merchant="{{payment.data.NSPK.merchant}}">
 </script>
 </body>
 </html>
