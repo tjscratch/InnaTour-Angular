@@ -154,12 +154,22 @@ innaAppControllers
              * устанавливаем значение города вылета и города назначения
              */
 
-            $scope.$watchGroup(['fromCity', 'toCity'], function (data) {
-                $scope.fromCity = data[0];
-                $scope.toCity = data[1];
+            // $scope.$watchGroup(['fromCity', 'toCity'], function (data) {
+            //     $scope.fromCity = data[0];
+            //     $scope.toCity = data[1];
+            // });
+
+            $scope.$watch('fromCity', function (data) {
+                $scope.fromCity = data;
+            });
+
+            $scope.$watch('toCity', function (data) {
+                $scope.toCity = data;
             });
 
             function validate() {
+                console.log('fromCity', $scope.fromCity);
+                console.log('toCity', $scope.toCity);
                 Validators.required($scope.fromCity, Error('fromCity'), "Введите город отправления");
                 Validators.required($scope.toCity, Error('toCity'), "Введите город или страну, куда планируете поехать");
                 Validators.noEqual($scope.fromCity.Id, $scope.toCity.Id, Error('toCity'), "Города отправления и назначения должны отличаться");

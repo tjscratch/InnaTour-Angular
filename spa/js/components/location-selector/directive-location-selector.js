@@ -22,7 +22,7 @@ innaAppDirectives.directive('locationSelector', [
             scope: {
                 theme: '@',
                 placeholder: '@',
-                selectedValue: '=selectedValue',
+                selectedValue: '=',
                 typeSearch: '@',
                 useHorizontalForm: '=',
                 tabIndex: '='
@@ -48,8 +48,12 @@ innaAppDirectives.directive('locationSelector', [
                         $scope.currentCity = name.join(', ');
                         EventManager.fire("locationSelectorChange", data);
                     }
-
+                    if($scope.typeSearch == 'DP_from') {
+                        console.log('typeSeacrg', $scope.typeSearch);
+                        console.log('DATA', data);
+                    }
                     $scope.selectedValue = data;
+                    // console.log('selectedValue', data);
                 };
 
                 $scope.clearCityField = function () {
@@ -88,6 +92,10 @@ innaAppDirectives.directive('locationSelector', [
                  */
                 var cacheLocation = serviceCache.getObject($scope.typeSearch);
                 var cacheLocationId = cacheLocation ? cacheLocation.Id : undefined;
+
+                if ($scope.typeSearch == 'DP_from') {
+                    console.log('cacheLocation', cacheLocation);
+                }
 
                 /**
                  * установка локации для ДП
