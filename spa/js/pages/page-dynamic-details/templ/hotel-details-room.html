@@ -147,7 +147,7 @@
 		<div class="hotel-details-rooms__room__desc" ng-click="toggleRoom(room)" style="position: relative;">
 			<div class="hotel-details-rooms__room-title" title="{{room.RoomName}}">{{room.RoomName}}</div>
 			<span tooltip-directive-base
-				  ng-if="userIsAgency && (AgencyId == 20005)"
+				  ng-if="userIsAgency && (AgencyId == 2 || AgencyId == 20005)"
 				  templ="empty.hbs.html"
 				  el="true"
 				  tooltip-klass="agency-inna"
