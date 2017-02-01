@@ -108,8 +108,8 @@
 								ng-model="country"
 								typeahead="state as state.name for state in getCountryListByTerm($viewValue) | filter:$viewValue"
 								typeahead-template-url="components/search-form-hotels/templ/typeaheadTemplateCustom.html"
-								typeahead-wait-ms="300"
-								ng-class="{'error': agencyReg.CountryId == null}"
+								<!--typeahead-wait-ms="300"-->
+								ng-class="{'error': agencyReg.CountryId === null}"
 						/>
 					</div>
 					<div class="b-field-block" style="width: 260px">
