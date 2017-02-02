@@ -139,7 +139,7 @@
                         'form-type-active="' + $scope.style.formTypeActive + '" ',
                         '></inna-form>',
                         '</div>',
-                        '<script src="http://inna.ru/spa/js/widgets/search/inna-search.js" async="true" charset="utf-8"></script>',
+                        '<script src="https://inna.ru/spa/js/widgets/search/inna-search.js" async="true" charset="utf-8"></script>',
                         $scope.formStyle,
                         '</textarea>']
                         .join("\n");
