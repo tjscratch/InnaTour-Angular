@@ -77,7 +77,9 @@ angular.module('innaApp.directives')
 
                                 if (window.partners
                                     && window.partners.isFullWL()
-                                    && window.partners.partner.name != 'komandacard') {
+                                    && window.partners.partner.name != 'komandacard'
+                                    && window.partners.partner.name != 'nspk'
+                                    && window.partners.partner.name != 'bpclub') {
                                     urlDetails = window.partners.getParentLocationWithUrl(urlDetails);
                                 }
 
