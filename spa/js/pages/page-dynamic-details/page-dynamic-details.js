@@ -111,7 +111,8 @@ innaAppControllers
                     start: searchParams.StartVoyageDate,
                     end: searchParams.EndVoyageDate,
                     passengerCount: parseInt(searchParams.Adult) + (searchParams.ChildrenAges ? searchParams.ChildrenAges.length : 0),
-                    ticketClass: searchParams.TicketClass
+                    ticketClass: searchParams.TicketClass,
+                    linkHref: "/"
                 });
             }
             
