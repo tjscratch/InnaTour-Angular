@@ -1,13 +1,6 @@
 <div class="inna-dropdown js-inna-dropdown">
 	<div class="inna-dropdown-action js-inna-dropdown-action">
-		<!--[if lte IE 8]>
-		<script>
-			document.createElement('ng-include');
-			document.createElement('ng-pluralize');
-			document.createElement('ng-view');
-			 </script>
-		<![endif]-->
-		<span>{{ (adultCount + childrenCount) | WidgetAsQuantity:"человек":"человека":"человек"}}</span>
+		<span id="people-count">{{ 2 | WidgetAsQuantity:"человек":"человека":"человек"}}</span>
 		<span class="avia-tickets_class">{{ticketsClassHumanize}}</span>
 		<i class="inna-arrow-bottom"></i>
 	</div>
@@ -17,10 +10,12 @@
 		<ul class="inna-dropdown-dialog-btns">
 			<li
 					class="inna-dropdown-dialog-btns_btn"
+					id="adultCount"
 					ng-repeat="count in [] | widgetRange:5"
 					ng-if="count > 0"
 					ng-class="{selected:adultCount == count}"
 					ng-click="onCounterClick('adultCount', count)"
+					onclick="pushPeople()"
 					>
 				{{ count }}
 			</li>
@@ -30,9 +25,11 @@
 		<ul class="inna-dropdown-dialog-btns">
 			<li
 					class="inna-dropdown-dialog-btns_btn"
+					id="childrenCount"
 					ng-repeat="count in [] | widgetRange:4"
 					ng-class="{selected:childrenCount == count}"
 					ng-click="onCounterClick('childrenCount', count)"
+					onclick="pushPeople()"
 					>
 				{{ count }}
 			</li>

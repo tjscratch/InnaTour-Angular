@@ -313,6 +313,8 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                  * BEGIN PEOPLE_COUNTER
                  */
                 $scope.adultCount = 2;
+                function changePeople() {
+                }
                 /**
                  * END PEOPLE_COUNTER
                  */
@@ -543,3 +545,10 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
     }
 )
 ;
+
+function pushPeople(model, count){
+    // console.log(document.getElementById('adultCount').innerText)
+    document.getElementById('people-count').innerText= document.getElementById('adultCount').innerText +  document.getElementById('childrenCount').innerText;
+    console.log(document.getElementById('adultCount').value);
+    console.log(document.getElementById('childrenCount').value);
+};
