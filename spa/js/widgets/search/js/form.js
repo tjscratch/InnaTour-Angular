@@ -546,9 +546,11 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
 )
 ;
 
-function pushPeople(model, count){
+function pushPeople() {
     // console.log(document.getElementById('adultCount').innerText)
-    document.getElementById('people-count').innerText= document.getElementById('adultCount').innerText +  document.getElementById('childrenCount').innerText;
-    console.log(document.getElementById('adultCount').value);
-    console.log(document.getElementById('childrenCount').value);
+    var adultCount = parseInt(document.getElementById('adultCount').lastChild.data);
+    var childrenCount = parseInt(document.getElementById('childrenCount').lastChild.data);
+    // document.getElementById('people-count').innerText = adultCount + childrenCount;
+    console.log(document.getElementById('adultCount').innerHTML);
+    console.log(document.getElementById('childrenCount').innerHTML);
 };
