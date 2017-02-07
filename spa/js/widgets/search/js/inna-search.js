@@ -116,12 +116,12 @@
 
     $script(sources.app, 'app');
 
-    function bootstrap() {
-        if (window.$ && angular.bootstrap) {
-            $(function () {
-                angular.bootstrap($(".b-inna-search-widget"), ['innaSearchForm']);
-            });
-        }
-    }
+    // function bootstrap() {
+    //     if (window.$ && angular.bootstrap) {
+    //         $(function () {
+    //             angular.bootstrap($(".b-inna-search-widget"), ['innaSearchForm']);
+    //         });
+    //     }
+    // }
 
 }());
