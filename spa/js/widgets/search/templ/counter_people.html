@@ -1,5 +1,12 @@
 <div class="inna-dropdown js-inna-dropdown">
 	<div class="inna-dropdown-action js-inna-dropdown-action">
+		<!--[if lte IE 8]>
+		<script>
+			document.createElement('ng-include');
+			document.createElement('ng-pluralize');
+			document.createElement('ng-view');
+			 </script>
+		<![endif]-->
 		<span>{{ (adultCount + childrenCount) | WidgetAsQuantity:"человек":"человека":"человек"}}</span>
 		<span class="avia-tickets_class">{{ticketsClassHumanize}}</span>
 		<i class="inna-arrow-bottom"></i>
