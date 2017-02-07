@@ -1,16 +1,6 @@
 <div class="inna-dropdown js-inna-dropdown">
-	<configuration>
-		<system.webServer>
-			<httpProtocol>
-				<customHeaders>
-					<clear />
-					<add name="X-UA-Compatible" value="IE=11" />
-				</customHeaders>
-			</httpProtocol>
-		</system.webServer>
-	</configuration>
 	<div class="inna-dropdown-action js-inna-dropdown-action">
-		{{ (adultCount + childrenCount) | WidgetAsQuantity:"человек":"человека":"человек"}}
+		<span>{{ (adultCount + childrenCount) | WidgetAsQuantity:"человек":"человека":"человек"}}</span>
 		<span class="avia-tickets_class">{{ticketsClassHumanize}}</span>
 		<i class="inna-arrow-bottom"></i>
 	</div>
