@@ -1,6 +1,6 @@
 <div class="inna-dropdown js-inna-dropdown">
 	<div class="inna-dropdown-action js-inna-dropdown-action">
-		{{ adultCount + childrenCount | WidgetAsQuantity:"человек":"человека":"человек"}}
+		{{ (adultCount + childrenCount) | WidgetAsQuantity:"человек":"человека":"человек"}}
 		<span class="avia-tickets_class">{{ticketsClassHumanize}}</span>
 		<i class="inna-arrow-bottom"></i>
 	</div>
