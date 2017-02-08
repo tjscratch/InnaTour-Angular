@@ -1,7 +1,6 @@
 <div class="inna-dropdown js-inna-dropdown">
 	<div class="inna-dropdown-action js-inna-dropdown-action">
-		<!--<span>{{ (adultCount + childrenCount) | WidgetAsQuantity:"человек":"человека":"человек"}}</span>-->
-		<span id="people-count"> 2 человека</span>
+		<span>{{ (adultCount + childrenCount) | WidgetAsQuantity:"человек":"человека":"человек"}}
 		<span class="avia-tickets_class">{{ticketsClassHumanize}}</span>
 		<i class="inna-arrow-bottom"></i>
 	</div>
@@ -15,7 +14,6 @@
 					ng-if="count > 0"
 					ng-class="{selected:adultCount == count}"
 					ng-click="onCounterClick('adultCount', count)"
-					onclick="pushPeople()"
 					>
 				<span id="adultCount">{{ count }}</span>
 			</li>
@@ -28,7 +26,6 @@
 					ng-repeat="count in [] | widgetRange:4"
 					ng-class="{selected:childrenCount == count}"
 					ng-click="onCounterClick('childrenCount', count)"
-					onclick="pushPeople()"
 					>
 				<span id="childrenCount">{{ count }}</span>
 			</li>
