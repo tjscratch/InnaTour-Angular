@@ -1,6 +1,6 @@
 <div class="inna-dropdown js-inna-dropdown">
 	<div class="inna-dropdown-action js-inna-dropdown-action">
-		<span></span>
+		<span bind-html-unsafe="(adultCount + childrenCount) | WidgetAsQuantity:'человек':'человека':'человек'"></span>
 		<span class="avia-tickets_class" bind-html-unsafe="ticketsClassHumanize"></span>
 		<i class="inna-arrow-bottom"></i>
 	</div>
@@ -15,7 +15,7 @@
 					ng-class="{selected:adultCount == count}"
 					ng-click="onCounterClick('adultCount', count)"
 					>
-				<span id="adultCount">{{ count }}</span>
+				<span id="adultCount" bind-html-unsafe="count"></span>
 			</li>
 		</ul>
 
@@ -27,7 +27,7 @@
 					ng-class="{selected:childrenCount == count}"
 					ng-click="onCounterClick('childrenCount', count)"
 					>
-				<span id="childrenCount">{{ count }}</span>
+				<span id="childrenCount" bind-html-unsafe="count"></span>
 			</li>
 		</ul>
 
