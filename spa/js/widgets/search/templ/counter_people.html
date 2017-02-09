@@ -1,7 +1,7 @@
 <div class="inna-dropdown js-inna-dropdown">
 	<div class="inna-dropdown-action js-inna-dropdown-action">
 		<span>{{ (adultCount + childrenCount) | WidgetAsQuantity:"человек":"человека":"человек"}}</span>
-		<span class="avia-tickets_class" ng-bind="ticketsClassHumanize"></span>
+		<span class="avia-tickets_class" bind-html-unsafe="ticketsClassHumanize"></span>
 		<i class="inna-arrow-bottom"></i>
 	</div>
 	<div class="inna-dropdown-dialog js-inna-dropdown-dialog">
