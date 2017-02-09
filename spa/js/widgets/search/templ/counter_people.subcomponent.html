@@ -7,8 +7,8 @@
 		<li
 				ng-repeat="age  in [] | widgetRange:18"
 				ng-click="onChoose(age)"
+				bind-html-unsafe="age | WidgetAsQuantity:'год':'года':'лет'"
 				>
-			{{ age | WidgetAsQuantity:"год":"года":"лет"}}
 		</li>
 	</ul>
 </div>
