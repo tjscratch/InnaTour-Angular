@@ -24,6 +24,7 @@
 			<li
 					class="inna-dropdown-dialog-btns_btn"
 					ng-repeat="count in [] | widgetRange:4"
+					ng-if="count > -1"
 					ng-class="{selected:childrenCount == count}"
 					ng-click="onCounterClick('childrenCount', count)"
 					>
