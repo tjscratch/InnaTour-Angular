@@ -11,6 +11,7 @@
 			<li
 					class="inna-dropdown-dialog-btns_btn"
 					ng-repeat="count in [] | widgetRange:5"
+					ng-if="count > 0"
 					ng-class="{selected:adultCount == count}"
 					ng-click="onCounterClick('adultCount', count)"
 					>
@@ -22,8 +23,15 @@
 		<ul class="inna-dropdown-dialog-btns">
 			<li
 					class="inna-dropdown-dialog-btns_btn"
+					ng-class="{selected:childrenCount == 0}"
+					ng-click="onCounterClick('childrenCount', 0)"
+			>
+				<span id="childrenCount">0</span>
+			</li>
+			<li
+					class="inna-dropdown-dialog-btns_btn"
 					ng-repeat="count in [] | widgetRange:4"
-					ng-if="count > -1"
+					ng-if="count > 0"
 					ng-class="{selected:childrenCount == count}"
 					ng-click="onCounterClick('childrenCount', count)"
 					>
