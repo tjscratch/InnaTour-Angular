@@ -5,7 +5,10 @@
         <li class="align-left"
             ng-class="{current:item.sort == sort.sortType}"
             ng-click="applySort($event, item.sort)"
-            ng-repeat="item in sort.list">{{item.name}}</li>
+            ng-repeat="item in sort.list">{{item.name}}
+
+            <i class="fa fa-check"></i>
+        </li>
     </ul>
 <!--
 <div class="rl-filter">
