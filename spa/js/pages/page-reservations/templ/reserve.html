@@ -50,7 +50,8 @@
                            data-title="Неправильно введен email"
                            type="text"
                            placeholder="ivan.ivanov@gmail.com"
-                           class="b-field-text">
+                           class="b-field-text"
+						   tabindex="10">
                     <!--<div class="b-auth">
                        <a href="#" class="b-auth-close"></a>
                        <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
@@ -69,6 +70,7 @@
                          result-set="validationModel.phonePrefix.setValue(item)"
                          change-event="'CODE_CHANGED'"
                          class="b-phone-prefix-select"
+						 tabindex="11"
                     ></div>
                     <input autocomplete="off"
                            depends-on="validationModel.phonePrefix"
@@ -86,7 +88,8 @@
                            mask="(999) 999-99-99"
                            placeholder="(999) 999-99-99"
                            change-event="'CODE_CHANGED'"
-                           class="b-field-text b-phone-num">
+                           class="b-field-text b-phone-num"
+						   tabindex="12">
                 </div>
             </div>
             <!-- <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div> -->
@@ -138,19 +141,20 @@
                                        ng-checked="passenger.sex.value == sexType.man"
                                        ng-true-value="{{sexType.man}}"
                                        ng-false-value="{{sexType.woman}}">
-                                <ins class="radio">М</ins>
+                                <ins class="radio" tabindex="13">М</ins>
                             </label>
                         </li>
                         <li>
-                            <label>
+                            <label >
                                 <input type="checkbox"
                                        name="male3"
                                        ng-model="passenger.sex.value"
                                        ng-change="setValid(passenger.sex, passenger.sex.value != null)"
                                        ng-checked="passenger.sex.value == sexType.woman"
                                        ng-true-value="{{sexType.woman}}"
-                                       ng-false-value="{{sexType.man}}">
-                                <ins class="radio">Ж</ins>
+                                       ng-false-value="{{sexType.man}}"
+									   >
+                                <ins class="radio" tabindex="14">Ж</ins>
                             </label>
                         </li>
                     </ul>
@@ -168,7 +172,8 @@
                            ng-class="{error:isFieldInvalid(passenger.secondName)}"
                            type="text"
                            placeholder="IVANOV"
-                           class="b-field-text">
+                           class="b-field-text"
+						   tabindex="15">
                 </div>
                 <div class="b-field-block b-field-block-surname">
                     <label class="b-field-label">Имя</label>
@@ -183,7 +188,8 @@
                            ng-class="{error:isFieldInvalid(passenger.name)}"
                            type="text"
                            placeholder="IVAN"
-                           class="b-field-text">
+                           class="b-field-text"
+						   tabindex="16">
                 </div>
                 <div class="b-field-block b-field-block-oname"
                      ng-if="item.IsTripToRussia">
@@ -197,7 +203,8 @@
                            validate="validate(item, type)"
                            type="text"
                            placeholder="IVANOVICH"
-                           class="b-field-text">
+                           class="b-field-text"
+						   tabindex="17">
                 </div>
                 <div class="b-field-block b-field-birth">
                     <label class="b-field-label">Дата рождения</label>
@@ -214,7 +221,8 @@
 							   mask="99.99.9999"
 							   type="text"
 							   placeholder="дд.мм.гггг"
-							   class="b-field-text">
+							   class="b-field-text"
+							   tabindex="18">
 					</div>
 					<div class="b-field-block b-field-sitizenship">
 						<label class="b-field-label">Гражданство</label>
@@ -226,6 +234,7 @@
                          validate-type="validateType.cit_required"
                          list="citizenshipList"
                          result-set="passenger.citizenship.setValue(item)"
+						 tabindex="19"
                     ></div>
                 </div>
                 <div class="b-field-block b-field-document"
@@ -239,7 +248,8 @@
                          result-set="passenger.doc_type.setValue(item)"
                          type="docType"
                          change-event="'DOC_CHANGED_'+$index"
-                         list="passenger.documentTypeList">
+                         list="passenger.documentTypeList"
+						 tabindex="20">
                     </div>
                 </div>
                 <div class="b-field-block b-field-doc-num">
@@ -262,7 +272,8 @@
                            placeholder="1234 123456"
                            change-event="'DOC_CHANGED_'+$index"
                            type="text"
-                           class="b-field-text">
+                           class="b-field-text"
+						   tabindex="21">
                 </div>
                 <!--ng-hide="passenger.doc_expirationDate.dependsOnField.isRuPassportOrBirthAndInsideRF"-->
                 <div ng-hide="passenger.doc_expirationDate.needToHide"
@@ -280,7 +291,8 @@
                            mask="99.99.9999"
                            type="text"
                            placeholder="дд.мм.гггг"
-                           class="b-field-text">
+                           class="b-field-text"
+						   tabindex="22">
                 </div>
             </div>
             <div class="b-field-group b-field-group-passport">
@@ -334,7 +346,7 @@
 					<h2 class="buy__title">Пожелание к номеру</h2>
 				</header>
 				<div class="buy__comments-container">
-				<textarea cols="30" rows="10" class="buy__comments-field" ng-model="addition.customerWishlist">{{addition.customerWishlist
+				<textarea tabindex="23" cols="30" rows="10" class="buy__comments-field" ng-model="addition.customerWishlist">{{addition.customerWishlist
 					| breakFilter}}</textarea>
 
 					<p class="buy__comments-help">Ваши пожелания мы передадим в отель, но не можем гарантировать их
@@ -383,7 +395,8 @@
 						<input id="b-promo-code__input"
 							   class="b-field-text b-promo-code__input"
 							   type="text"
-							   ng-model="promoCode"/>
+							   ng-model="promoCode"
+							   tabindex="24"/>
 					</div>
 					<span class="button b-promo-code__button"
 						  ng-click="checkPromoCode()">Применить
@@ -410,7 +423,8 @@
 							   type="text"
 							   digits-input
 							   maxlength="25"
-							   ng-model="promoCodeRosneft"/>
+							   ng-model="promoCodeRosneft"
+							   tabindex="24"/>
 					</div>
 					<span class="button b-promo-code__button"
 						  ng-click="checkPromoCodeRosneft('komandacard')">Применить
@@ -446,7 +460,8 @@
 							   type="text"
 							   digits-input
 							   maxlength="25"
-							   ng-model="promoCodeRosneft"/>
+							   ng-model="promoCodeRosneft"
+							   tabindex="24"/>
 					</div>
 					<span class="button b-promo-code__button"
 						  ng-click="checkPromoCodeRosneft('bpclub')">Применить
