@@ -48,10 +48,6 @@ innaAppDirectives.directive('locationSelector', [
                         $scope.currentCity = name.join(', ');
                         EventManager.fire("locationSelectorChange", data);
                     }
-                    if($scope.typeSearch == 'DP_from') {
-                        console.log('typeSeacrg', $scope.typeSearch);
-                        console.log('DATA', data);
-                    }
                     $scope.selectedValue = data;
                     // console.log('selectedValue', data);
                 };
@@ -64,21 +60,22 @@ innaAppDirectives.directive('locationSelector', [
                     } else if ($scope.typeSearch == 'DP_to') {
                         action = 'RemoveCityTo';
                     }
-                        var dataLayerObj = {
-                            'event': 'UM.Event',
-                            'Data': {
-                                'Category': 'Packages',
-                                'Action': action ? action : '[na data]',
-                                'Label':  $scope.selectedValue && $scope.selectedValue.CodeIata ? $scope.selectedValue.CodeIata : '[no data]',
-                                'Content': '[no data]',
-                                'Context': '[no data]',
-                                'Text': '[no data]'
-                            }
+
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data': {
+                            'Category': 'Packages',
+                            'Action': action ? action : '[na data]',
+                            'Label':  $scope.selectedValue && $scope.selectedValue.CodeIata ? $scope.selectedValue.CodeIata : '[no data]',
+                            'Content': '[no data]',
+                            'Context': '[no data]',
+                            'Text': '[no data]'
                         }
-                        console.table(dataLayerObj);
-                        if (window.dataLayer) {
-                            window.dataLayer.push(dataLayerObj);
-                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
 
                     $scope.currentCity = null;
                     $scope.selectedValue = null;
