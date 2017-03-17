@@ -243,6 +243,17 @@ app.config([
         
         //чтобы работал кросдоменный post
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $httpProvider.interceptors.push(function (guid) {
+            return {
+                'request' : function (config) {
+                    if(config.params) {
+                        config.params.clientId = guid.setGuid();
+                        console.log('REQUEST-CONFIG', config);
+                    }
+                    return config;
+                }
+            }
+        });
         $httpProvider.defaults.transformRequest = function (data) {
             return angular.isObject(data) && String(data) !== '[object File]' ? angular.toParam(data) : data;
         };
