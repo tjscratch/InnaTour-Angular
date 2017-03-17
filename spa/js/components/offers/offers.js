@@ -36,16 +36,8 @@ innaAppDirectives.directive('offers', function ($templateCache) {
 
                 var cacheArrivalLocation = serviceCache.getObject('DP_to');
                 var cacheArrivalLocationId = cacheArrivalLocation ? cacheArrivalLocation.Id : null;
-                console.log('GET-OBJECT', cacheArrivalLocation);
 
                 $scope.filter.Location = cacheLocationId;
-
-                if(cacheArrivalLocationId) {
-                    $scope.filter.ArrivalLocation = cacheArrivalLocationId;
-                }
-                console.log('FILTER', $scope.filter);
-
-                
                 
                 var MonthObj = _.find($scope.Months, function (item) {
                     return item.Selected == true;
@@ -134,7 +126,11 @@ innaAppDirectives.directive('offers', function ($templateCache) {
 
                 $scope.filter.Location = cacheLocationId;
 
-                if(cacheArrivalLocationId) {
+                //переменная sendArrivalLocation, настройка для отправки значения поля "куда"
+                //если true, то для офферов учитываем значение поля "куда"
+                var sendArrivalLocation = false;
+
+                if(cacheArrivalLocationId && sendArrivalLocation) {
                     $scope.filter.ArrivalLocation = cacheArrivalLocationId;
                 }
 
