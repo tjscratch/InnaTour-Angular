@@ -52,11 +52,12 @@ innaAppControllers.
                         }
                         
                         if($scope.isRosneftWL.cardType) {
-                            PromoCodes.getCurrentBonus($scope.isRosneftWL).then(
+                            PromoCodes.getCurrentBonus($scope.isRosneftWL).success(
                                 function (res) {
                                     if(res.Result == 'Success') {
-                                        $scope.currentBonusRosneft = res.Data;
+                                        $scope.currentBonusRosneft = parseFloat((res.Data).replace(',','.'));
                                         console.log('CURRENT-BONUS', $scope.currentBonusRosneft);
+                                        console.log(typeof($scope.currentBonusRosneft));
                                     }
                                 }
                             );
