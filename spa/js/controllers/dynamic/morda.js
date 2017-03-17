@@ -6,11 +6,12 @@ innaAppControllers.
         'DynamicFormSubmitListener',
         'innaApp.services.PageContentLoader',
         'innaApp.API.pageContent.DYNAMIC',
-        function ($scope, $location, URLs, DynamicFormSubmitListener, PageContentLoader, sectionID) {
+        'PromoCodes',
+        function ($scope, $location, URLs, DynamicFormSubmitListener, PageContentLoader, sectionID, PromoCodes) {
             
             $scope.pageTitle = "Поиск туров на регулярных рейсах";
             $scope.pageTitleSub = "АВИАБИЛЕТ + ОТЕЛЬ = ВМЕСТЕ выгоднее";
-
+            console.log('TTTTTTTTTTTTTTT');
             DynamicFormSubmitListener.listen();
 
             function getSectionId (path) {
@@ -33,11 +34,34 @@ innaAppControllers.
 
 
             PageContentLoader.getSectionById(sectionID, function (data) {
-
+                console.log('NOT-NULL');
                 //обновляем данные
                 if (data != null) {
                     $scope.$apply(function ($scope) {
+                        console.log('NOT-NULL');
+                        $scope.isRosneftWL = {
+                            cardType: null,
+                            price: 10000
+                        }
+                        if(window.partners.partner) {
+                            if (window.partners.partner.name == 'komandacard') {
+                                $scope.isRosneftWL.cardType = 'komandacard';
+                            } else if (window.partners.partner.name == 'bpclub') {
+                                $scope.isRosneftWL.cardType = 'bpclub';
+                            }
+                        }
                         
+                        if($scope.isRosneftWL.cardType) {
+                            PromoCodes.getCurrentBonus($scope.isRosneftWL).then(
+                                function (res) {
+                                    if(res.Result == 'Success') {
+                                        $scope.currentBonusRosneft = res.Data;
+                                        console.log('CURRENT-BONUS', $scope.currentBonusRosneft);
+                                    }
+                                }
+                            );
+                        }
+
                         if (data.Landing != null) {
                             //включаем отображение доп. полей
                             if (routeSectionID != null) {

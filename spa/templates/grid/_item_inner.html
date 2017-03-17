@@ -9,6 +9,11 @@
         <p class="offer-price" ng-if="!isNullOrEmpty(item.FrontPrice)">
             от <span class="offer-price-number" ng-bind="item.FrontPrice">-</span>
         </p>
+        <div ng-if="currentBonusRosneft" style="display: flex; justify-content: center; align-items: center;background-color: white;width:280px;margin:auto;margin-top:10px;padding:10px 0px;">
+            <span style="color:orangered;">{{ (parseFloat(item.FrontPrice) * parseFloat(currentBonusRosneft)) | currency : "" : 0}}</span>
+            {{ (parseFloat(item.FrontPrice) * parseFloat(currentBonusRosneft)) | asQuantity:"балл":"балла":"баллов"}}
+            за 1 чел.
+        </div>
     </div>
 </div>
 <div class="offer-info-hover" ng-if="hasImgBack(item)" ng-click="clickOnShadow(item, $event)">
