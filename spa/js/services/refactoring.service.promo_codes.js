@@ -1,5 +1,12 @@
 innaAppServices.service('PromoCodes', function ($http, appApi) {
     return {
+        getCurrentBonus: function (params) {
+            return $http({
+                url: 'https://inna.ru/api/v1/Loyality/Current',
+                method: 'GET',
+                data: params
+            });
+        },
         getPackagesDiscountedPrice: function (params) {
             return $http({
                 url: appApi.PACKAGES_DISCOUNTED_PRICE,

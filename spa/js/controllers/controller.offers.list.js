@@ -18,6 +18,8 @@ innaAppControllers.
                 $log.log(msg);
             }
 
+            console.log('PPPPPPPP');
+
             $scope.getInnerTemplate = function () {
                 return urlHelper.getInnerTemplate();
             };

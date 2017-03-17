@@ -5,7 +5,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
         scope     : {
             typePage: '='
         },
-        controller: function ($scope, RavenWrapper, serviceCache, Offer, $timeout, EventManager) {
+        controller: function ($scope, RavenWrapper, serviceCache, Offer, $timeout, EventManager, PromoCodes) {
             
             $scope.price = null;
             
@@ -126,6 +126,20 @@ innaAppDirectives.directive('offers', function ($templateCache) {
             $scope.filterChange = function (filter) {
                 $scope.loadingOffers = true;
                 $scope.showOffers = true;
+                $scope.isMainPromoCode = true;
+
+                $scope.isRosneftWL = {
+                    cardType: null,
+                    price: 10000
+                }
+                if(window.partners.partner) {
+                    if (window.partners.partner.name == 'komandacard') {
+                        $scope.isRosneftWL.cardType = 'komandacard';
+                    } else if (window.partners.partner.name == 'bpclub') {
+                        $scope.isRosneftWL.cardType = 'bpclub';
+                    }
+                }
+
                 Offer.getOffers(filter).then(
                     function (res) {
                         if (res.data.Offers.length == 0 && $scope.filter.Location != 6733) {
@@ -137,6 +151,13 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                             $scope.loadingOffers = false;
                             $scope.offersSort($scope.Sort, $scope.offersServer, false);
                         }
+                    PromoCodes.getCurrentBonus($scope.isRosneftWL).then(
+                        function (res) {
+                            if(res.Result == 'Success') {
+                                $scope.currentBonusRosneft = res.Data;
+                            }
+                        }
+                    );
                     }, function (res) {
                         RavenWrapper.raven({
                             captureMessage: 'Offer.getOffers(filter): ERROR!',

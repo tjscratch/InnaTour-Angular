@@ -34,6 +34,8 @@ innaAppServices.factory('appApi', function () {
         GET_OFFERS: url('/BestOffer/GetOffers'),
 
         GET_MANAGER_STATUS: url('/TalkingHeadSupportApi/GetManagerStatus2'),
+
+        GET_CURRENT_BONUS_ROSNEFT: url('/Loyality/Current'),
     
         GET_PAYMENT: url('/Payment/Index'),
         GET_PAYMENT_NSPK: url('/minb/create'),
