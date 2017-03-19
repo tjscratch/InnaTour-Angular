@@ -9,8 +9,8 @@
         <p class="offer-price" ng-if="!isNullOrEmpty(item.FrontPrice)">
             от <span class="offer-price-number" ng-bind="item.FrontPrice">-</span>
         </p>
-        <div ng-if="currentBonusRosneft" style="display: flex; justify-content: center; align-items: center;background-color: white;width:280px;margin:auto;margin-top:10px;padding:10px 0px;">
-            <span style="color:orangered;">{{ +(item.FrontPrice).replace(/[^0-9]/g,'') * currentBonusRosneft | asQuantity:"балл":"балла":"баллов"}}</span>
+        <div ng-if="isEnableBonus" style="display: flex; justify-content: center; align-items: center;background-color: white;width:280px;margin:auto;margin-top:10px;padding:10px 0px;">
+            
             &nbsp;
             <span>за 1 чел.</span>
         </div>
@@ -25,8 +25,8 @@
         <p class="offer-price" ng-if="!isNullOrEmpty(item.BackPrice)">
             от <span class="offer-price-number" ng-bind="item.BackPrice">-</span>
         </p>
-        <div ng-if="currentBonusRosneft" style="display: flex; justify-content: center; align-items: center;background-color: white;width:280px;margin:auto;margin-top:10px;padding:10px 0px;">
-            <span style="color:orangered;">{{ +(item.FrontPrice).replace(/[^0-9]/g,'') * currentBonusRosneft | asQuantity:"балл":"балла":"баллов"}}</span>
+        <div ng-if="isEnableBonus" style="display: flex; justify-content: center; align-items: center;background-color: white;width:280px;margin:auto;margin-top:10px;padding:10px 0px;">
+            
             &nbsp;
             <span>за 1 чел.</span>
         </div>
