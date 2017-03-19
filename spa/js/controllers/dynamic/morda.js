@@ -37,26 +37,29 @@ innaAppControllers.
                 //обновляем данные
                 if (data != null) {
                     $scope.$apply(function ($scope) {
-                        $scope.isRosneftWL = {
-                            cardType: null,
-                            price: 10000
-                        }
+                        $scope.isEnableBonus = false;
                         if(window.partners.partner) {
+                            $scope.isRosneftWL = {
+                                cardType: null,
+                                price: 10000
+                            }
                             if (window.partners.partner.name == 'komandacard') {
                                 $scope.isRosneftWL.cardType = 'komandacard';
                             } else if (window.partners.partner.name == 'bpclub') {
                                 $scope.isRosneftWL.cardType = 'bpclub';
                             }
-                        }
-                        
-                        if($scope.isRosneftWL.cardType) {
+
+                            if($scope.isRosneftWL.cardType) {
                             PromoCodes.getCurrentBonus($scope.isRosneftWL).success(
                                 function (res) {
                                     if(res.Result == 'Success') {
                                         $scope.currentBonusRosneft = parseFloat((res.Data).replace(',','.'));
+                                        $scope.isEnableBonus = true;
+                                        console.log('jdkjhkjdhkjd',$scope.currentBonusRosneft);
                                     }
                                 }
                             );
+                        }
                         }
 
                         if (data.Landing != null) {
