@@ -11,7 +11,7 @@ innaAppControllers.
             
             $scope.pageTitle = "Поиск туров на регулярных рейсах";
             $scope.pageTitleSub = "АВИАБИЛЕТ + ОТЕЛЬ = ВМЕСТЕ выгоднее";
-            console.log('TTTTTTTTTTTTTTT');
+            
             DynamicFormSubmitListener.listen();
 
             function getSectionId (path) {
@@ -34,11 +34,9 @@ innaAppControllers.
 
 
             PageContentLoader.getSectionById(sectionID, function (data) {
-                console.log('NOT-NULL');
                 //обновляем данные
                 if (data != null) {
                     $scope.$apply(function ($scope) {
-                        console.log('NOT-NULL');
                         $scope.isRosneftWL = {
                             cardType: null,
                             price: 10000
@@ -56,8 +54,6 @@ innaAppControllers.
                                 function (res) {
                                     if(res.Result == 'Success') {
                                         $scope.currentBonusRosneft = parseFloat((res.Data).replace(',','.'));
-                                        console.log('CURRENT-BONUS', $scope.currentBonusRosneft);
-                                        console.log(typeof($scope.currentBonusRosneft));
                                     }
                                 }
                             );
