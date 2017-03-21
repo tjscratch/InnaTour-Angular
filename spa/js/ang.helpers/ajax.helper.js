@@ -4,7 +4,8 @@ angular.module('innaApp.services')
         '$templateCache',
         'ErrorManager',
         'innaAppApiEvents',
-        function (EventManager, $templateCache, ErrorManager, Events) {
+        'guid',
+        function (EventManager, $templateCache, ErrorManager, Events, guid) {
             var that = this;
             var ajax = {};
             var ajaxCollection = [];
@@ -33,6 +34,8 @@ angular.module('innaApp.services')
                 if(!params.data) {
                     params.data = {};
                 }
+
+                params.data.clientId = guid.setGuid();
 
                 if (typeof params.cache !== 'undefined') {
                     angular.extend(params, {cache: cache});
