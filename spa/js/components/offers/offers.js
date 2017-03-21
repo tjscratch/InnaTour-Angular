@@ -33,8 +33,11 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 //}
                 var cacheLocation = serviceCache.getObject('DP_from');
                 var cacheLocationId = cacheLocation ? cacheLocation.Id : 6733;
+
+                var cacheArrivalLocation = serviceCache.getObject('DP_to');
+                var cacheArrivalLocationId = cacheArrivalLocation ? cacheArrivalLocation.Id : null;
+
                 $scope.filter.Location = cacheLocationId;
-                
                 
                 var MonthObj = _.find($scope.Months, function (item) {
                     return item.Selected == true;
@@ -114,11 +117,28 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                  * если локация сохранена в кеше то берем её оттуда
                  * если кэш путой подставляем id Москвы 6733
                  */
+                var cacheLocation = serviceCache.getObject('DP_from');
+                var cacheLocationId = cacheLocation ? cacheLocation.Id : 6733;
+
+                var cacheArrivalLocation = serviceCache.getObject('DP_to');
+                var cacheArrivalLocationId = cacheArrivalLocation ? cacheArrivalLocation.Id : null;
+                console.log('GET-OBJECT', cacheArrivalLocation);
+
+                $scope.filter.Location = cacheLocationId;
+
+                //переменная sendArrivalLocation, настройка для отправки значения поля "куда"
+                //если true, то для офферов учитываем значение поля "куда"
+                var sendArrivalLocation = false;
+
+                if(cacheArrivalLocationId && sendArrivalLocation) {
+                    $scope.filter.ArrivalLocation = cacheArrivalLocationId;
+                }
+
                 $scope.filterChange($scope.filter);
-                EventManager.on("locationSelectorChange", function (data) {
-                    $scope.filter.Location = data.Id;
-                    $scope.filterChange($scope.filter);
-                });
+                // EventManager.on("locationSelectorChange", function (data) {
+                //     $scope.filter.Location = data.Id;
+                //     $scope.filterChange($scope.filter);
+                // });
                 
             };
             
