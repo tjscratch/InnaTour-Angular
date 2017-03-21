@@ -60,7 +60,7 @@ innaAppDirectives.directive('hotelCardInfo', function ($templateCache) {
         },
         controller: function ($scope, $location) {
 
-            console.log('DADSDASD', $scope.hotelRoom);
+            console.log('DADSDASD', $scope.room);
             console.log('DADSDASD', $scope.hotel);
 
             $scope.currentActive = function(route) {

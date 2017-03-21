@@ -1,0 +1,12 @@
+<div class="HotelCardInfo__text">
+    с
+    {{hotel.CheckIn | date :"dd MMM"}}
+    по
+    {{hotel.CheckOut | date :"dd MMM"}},
+    {{hotel.NightCount | asQuantity:"ночь":"ночи":"ночей"}},
+    <span ng-if="room.MealCode == 'RO'">Без питания (RO)</span>
+    <span ng-if="room.MealCode == 'BB'">Завтрак (BB)</span>
+    <span ng-if="room.MealCode == 'HB'">Полупансион (HB)</span>
+    <span ng-if="room.MealCode == 'FB'">Полный пансион (FB)</span>
+    <span ng-if="room.MealCode == 'AI'">Все включено (AI)</span>
+</div>
