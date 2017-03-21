@@ -55,7 +55,6 @@ innaAppControllers.
                                     if(res.Result == 'Success') {
                                         $scope.currentBonusRosneft = parseFloat((res.Data).replace(',','.'));
                                         $scope.isEnableBonus = true;
-                                        console.log('jdkjhkjdhkjd',$scope.currentBonusRosneft);
                                     }
                                 }
                             );
