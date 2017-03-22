@@ -34,8 +34,12 @@ angular.module('innaApp.services')
                 if(!params.data) {
                     params.data = {};
                 }
-
-                params.data.clientId = guid.setGuid();
+    
+                if(typeof(params.data) == 'string') {
+                    params.data = params.data + "&clientId=" + guid.setGuid();;
+                } else {
+                    params.data.clientId = guid.setGuid();;
+                }
 
                 if (typeof params.cache !== 'undefined') {
                     angular.extend(params, {cache: cache});
