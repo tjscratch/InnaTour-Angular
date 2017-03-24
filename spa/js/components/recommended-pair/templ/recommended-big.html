@@ -219,10 +219,23 @@
                     <!--&lt;!&ndash;EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));&ndash;&gt;-->
                     <!--</div>-->
 
-                    <div class="hotel-info-date">
+                    <div ng-if="typeEtap == 'Search'" class="hotel-info-date">
                         <ng:any partials-collection
                                 partial-name="rangeShort"
                                 hotel="recommendedPair.hotel.data"/>
+                    </div>
+
+                    <div ng-if="typeEtap != 'Search'" class="hotel-info-date">
+                        <span>
+                            с {{recommendedPair.hotel.data.CheckIn | date: 'd MMM'}}
+                            по {{recommendedPair.hotel.data.CheckOut | date: 'd MMM'}},&nbsp;
+                            {{recommendedPair.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+                            <span ng-if="recommendedPair.hotel.data.Room.MealCode == 'RO'">, без питания (RO)</span>
+                            <span ng-if="recommendedPair.hotel.data.Room.MealCode == 'BB'">, завтрак (BB)</span>
+                            <span ng-if="recommendedPair.hotel.data.Room.MealCode == 'HB'">, полупансион (HB)</span>
+                            <span ng-if="recommendedPair.hotel.data.Room.MealCode == 'FB'">, полный пансион (FB)</span>
+                            <span ng-if="recommendedPair.hotel.data.Room.MealCode == 'AI'">, все включено (AI)</span>
+                        </span>
                     </div>
 
                     <!-- tripadvisor -->
