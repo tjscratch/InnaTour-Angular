@@ -86,23 +86,22 @@ innaAppControllers.controller('PageDynamicPackage', [
                             }
                         ); 
                 } else
-                        gtm.GtmTrack(
-                            {
-                                'PageType': 'PackagesSearchLoading',
-                            },
-                            {
-                                'CityFrom': results[0].data.Location.City.Code,
-                                'CityTo': results[1].data.Location.City.Code,
-                                'DateFrom': searchParams.StartVoyageDate,
-                                'DateTo': searchParams.EndVoyageDate,
-                                'Travelers': searchParams.Adult + '-' + ('Children' in searchParams ? searchParams.Children.split('_').length : '0'),
-                                'TotalTravelers': 'Children' in searchParams ?
-                                parseInt(searchParams.Adult) + searchParams.Children.split('_').length
-                                    : searchParams.Adult,
-                                'ServiceClass': searchParams.TicketClass == 0 ? 'Economy' : 'Business'
-                            }
-                        );
-            console.log(results[1].data.Location.City);
+                    gtm.GtmTrack(
+                        {
+                            'PageType': 'PackagesSearchLoading',
+                        },
+                        {
+                            'CityFrom': results[0].data.Location.City.Code,
+                            'CityTo': results[1].data.Location.City.Code,
+                            'DateFrom': searchParams.StartVoyageDate,
+                            'DateTo': searchParams.EndVoyageDate,
+                            'Travelers': searchParams.Adult + '-' + ('Children' in searchParams ? searchParams.Children.split('_').length : '0'),
+                            'TotalTravelers': 'Children' in searchParams ?
+                            parseInt(searchParams.Adult) + searchParams.Children.split('_').length
+                                : searchParams.Adult,
+                            'ServiceClass': searchParams.TicketClass == 0 ? 'Economy' : 'Business'
+                        }
+                    );
         });
         
 
