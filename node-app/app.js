@@ -23,7 +23,7 @@ app.set('port', port);
 app.set('views', __templDir__);
 
 app.engine('hbs', exphbs({
-    extname:'hbs',
+    extname:'hbs', 
     defaultLayout:'index',
     layoutsDir : __templDir__ + "/layouts/",
     partialsDir : __templDir__ + "/partials/"
