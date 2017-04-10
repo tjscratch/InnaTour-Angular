@@ -260,6 +260,7 @@ var authController = angular.module('innaApp.controllers')
 
             if ($scope.restoreToken) {
                 $scope.display = $scope.DISPLAY_FORGOTTEN;
+                $location.path(app.URL_AUTH_RESTORE+'token='+$scope.restoreToken).replace();
                 $scope.open();
             } else if ($scope.signUpToken) {
                 $scope.display = $scope.DISPLAY_SIGNUP;
