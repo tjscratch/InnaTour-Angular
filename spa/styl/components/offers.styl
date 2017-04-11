@@ -177,7 +177,7 @@ $banner-item-height = 670px;
 
     &-card {
         &-banner-container {
-            height: $banner-item-height;
+            //height: 90vh;
             position: relative;
 
             &.programm {
@@ -270,9 +270,11 @@ $banner-item-height = 670px;
         }
 
         &-banner-list {
-            height: 100%;
-            position: relative;
-            z-index: 1;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            min-height: 850px;
         }
     }
 
@@ -518,12 +520,12 @@ $banner-item-height = 670px;
 
         &-banner-item {
             //background: #000;
-            height: $banner-item-height;
+            height: 90vh;
             overflow: hidden;
             position: absolute;
             top: 0;
             width: 100%;
-            z-index: 1;
+            //z-index: 1;
 
             &.programm {
                 height: 300px;
