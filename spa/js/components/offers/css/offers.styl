@@ -494,7 +494,7 @@ $b-offer-row-size-2 = 33.3333%;
     display flex;
 }
 .home-page-slogan {
-    width: $site-width;
+    max-width: $site-width;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -530,8 +530,10 @@ $b-offer-row-size-2 = 33.3333%;
     margin: 0 auto;
     align-items: center;
 }
-//@media all and (max-width: 1024px) {
-//    .offer-text {
-//       margin-bottom 0;
-//    }
-//}
+@media all and (max-width: 768px) {
+    .b-offers-category {
+       flex-basis: 19%;
+       border-left: 1px solid #c9d2db !important;
+       border-right: 0;
+    }
+}

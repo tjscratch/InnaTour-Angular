@@ -16,26 +16,26 @@
     margin: 0 auto;
 
     .search-field-block:first-child > .search-field {
-        border-radius 3px 0px 0px 3px
+        border-radius 3px 0px 0px 3px;
     }
 
-    //.b-wrapp_type_inline {
-    //    &:nth-child(2) {
-    //        .search-field {
-    //            border-radius 3px 0px 0px 3px
-    //        }
-    //    }
-    //}
-    //
-    //.b-location_selector {
-    //    &:nth-child(2) {
-    //        margin-left 0
-    //
-    //        .search-field {
-    //            border-radius 3px 0px 0px 3px
-    //        }
-    //    }
-    //}
+    .b-wrapp_type_inline {
+        &:nth-child(2) {
+            .search-field {
+                border-radius 3px 0px 0px 3px
+            }
+        }
+    }
+
+    .b-location_selector {
+        &:nth-child(2) {
+            //margin-left 0
+
+            .search-field {
+                border-radius 3px 0px 0px 3px
+            }
+        }
+    }
 
     .header-info__logo {
         position absolute
@@ -446,7 +446,6 @@
     .search__city {
         flex-basis: 49%;
     }
-
     .search-date-block {
         margin-top: 2px;
     }
@@ -462,7 +461,7 @@
         flex-basis 39%;
         border-radius: 0;
     }
-    .b-search-form .search-field-block:first-child > .search-field {
+    .b-search-form .b-location_selector:nth-child(2) .search-field {
         border-radius: 0;
     }
     .b-wrapp_type_inline:first-child {
