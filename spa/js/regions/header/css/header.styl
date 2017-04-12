@@ -51,6 +51,7 @@
     font-size: 15px;
     font-family: $ProximaNovaMedium;
     color: #778695;
+    z-index: 300;
 }
 .header-nav__item {
     &:first-child{
@@ -282,11 +283,11 @@
 }
 .header-info__container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-
     position: relative;
-    width: $site-width;
+    max-width: $site-width;
     margin: 0 auto;
 }
 .header-info__right {

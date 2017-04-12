@@ -273,7 +273,7 @@ var authController = angular.module('innaApp.controllers')
                         setUserInfo(data, needInitLastUserAfterLoginCheck);
 
                         $scope.safeApply(function () {
-                            $scope.$emit(Events.AUTH_USER_SET, $scope.$root.user);
+                            $scope.$emit(Events.AUTH_USER_SET, $scope.$roogt.user);
                         });
                     },
                     function (err) {

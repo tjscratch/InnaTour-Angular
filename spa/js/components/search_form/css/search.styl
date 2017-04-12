@@ -9,35 +9,40 @@
     height 40px
     color #242424
     position relative
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+    max-width: 961px;
+    margin: 0 auto;
 
     .search-field-block:first-child > .search-field {
         border-radius 3px 0px 0px 3px
     }
 
-    .b-wrapp_type_inline {
-        &:nth-child(2) {
-            .search-field {
-                border-radius 3px 0px 0px 3px
-            }
-        }
-    }
-
-    .b-location_selector {
-        &:nth-child(2) {
-            margin-left 0
-
-            .search-field {
-                border-radius 3px 0px 0px 3px
-            }
-        }
-    }
+    //.b-wrapp_type_inline {
+    //    &:nth-child(2) {
+    //        .search-field {
+    //            border-radius 3px 0px 0px 3px
+    //        }
+    //    }
+    //}
+    //
+    //.b-location_selector {
+    //    &:nth-child(2) {
+    //        margin-left 0
+    //
+    //        .search-field {
+    //            border-radius 3px 0px 0px 3px
+    //        }
+    //    }
+    //}
 
     .header-info__logo {
         position absolute
         left -115px
     }
 .b-search-form_padding-1px {
-    padding 1px 0px
+    padding: 16px 0px;
 }
 .b-search-form_padding-16px {
     padding 16px 0px
@@ -166,26 +171,25 @@
     font-weight bold
     transition background-color 0.3s linear
 .search-form__submit {
-    border 0
-    position absolute
-    //top: 7px;
-    //right: 7px;
-    overflow hidden
-    height 40px
-    width 112px !important
-    margin 0
-    //padding 7px 10px
-    padding 12px 10px
-    transition background-color 0.3s linear
+    border: 0;
+    /* position: absolute; */
+    /* overflow: hidden; */
+    height: 40px;
+    width: 112px !important;
+    /* margin: 0; */
+    padding: 12px 10px;
+    transition: background-color 0.3s linear;
     background-color: #89c13a;
-    cursor pointer;
-    //font-size 18px;
-    fint-size 16px
+    cursor: pointer;
+    fint-size: 16px;
     color: #fff;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     text-align: center;
     border-radius: 0px 3px 3px 0px;
-    right 0px
+    /* right: 0px; */
+    margin-left: 1px;
 
     .search-button__icon {
         position: absolute;
@@ -437,4 +441,35 @@
     position absolute
     right -40px
     top 23px
+}
+@media all and (max-width: 768px) {
+    .search__city {
+        flex-basis: 49%;
+    }
+
+    .search-date-block {
+        margin-top: 2px;
+    }
+
+    .search-form-humans {
+        margin-top: 2px;
+    }
+    .search-people {
+        margin-top: 2px;
+    }
+    .search-form__submit{
+        margin-top: 2px;
+        flex-basis 39%;
+        border-radius: 0;
+    }
+    .b-search-form .search-field-block:first-child > .search-field {
+        border-radius: 0;
+    }
+    .b-wrapp_type_inline:first-child {
+        margin-left: 1px;
+    }
+    .header-info__container{
+        width: 97%;
+    }
+
 }
