@@ -25,29 +25,29 @@ innaAppControllers
                 $scope.headerTemplateSrc = 'regions/header/templ/header.html';
             }
             
-            $(window).on('unload beforeunload', function () {
-                serviceCache.drop('isMobile');
-            });
-            var md = new MobileDetect(window.navigator.userAgent);
-            if (serviceCache.getObject('isMobile') != 'hide' && md.mobile()) {
-                if (window.partners && window.partners.isFullWL()) {
-                    
-                } else {
-                    serviceCache.createObj('isMobile', 'show');
-                    $scope.baloon.showMobile(
-                        '',
-                        '',
-                        function () {
-                            serviceCache.createObj('isMobile', 'hide');
-                        }
-                    );
-                    // document.body.classList.add('inject-toggle-mobile');
-                }
-            }
-            $scope.isMobileClose = function () {
-                serviceCache.createObj('isMobile', 'hide');
-                // document.body.classList.remove('inject-toggle-mobile');
-            };
+            // $(window).on('unload beforeunload', function () {
+            //     serviceCache.drop('isMobile');
+            // });
+            // var md = new MobileDetect(window.navigator.userAgent);
+            // if (serviceCache.getObject('isMobile') != 'hide' && md.mobile()) {
+            //     if (window.partners && window.partners.isFullWL()) {
+            //
+            //     } else {
+            //         serviceCache.createObj('isMobile', 'show');
+            //         $scope.baloon.showMobile(
+            //             '',
+            //             '',
+            //             function () {
+            //                 serviceCache.createObj('isMobile', 'hide');
+            //             }
+            //         );
+            //         // document.body.classList.add('inject-toggle-mobile');
+            //     }
+            // }
+            // $scope.isMobileClose = function () {
+            //     serviceCache.createObj('isMobile', 'hide');
+            //     // document.body.classList.remove('inject-toggle-mobile');
+            // };
             
             /**
              * Отели у нас работают только для b2b клиентов
