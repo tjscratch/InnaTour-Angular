@@ -169,14 +169,14 @@ innaAppControllers.
                         //
                         // }, 3000);
                         $scope.FormExpand = true;
-                        $scope.SearchFormExpandPadding = {'padding-top': 250};
+                        $scope.SearchFormExpandPadding = {'display': 'flex'};
                         document.addEventListener('scroll', onScroll, false);
                         // }
                         break;
                     default:
                         // $scope.isVisibleNotifNewDesign = false;
                         $scope.FormExpand = false;
-                        $scope.SearchFormExpandPadding = {'padding-top': 0};
+                        $scope.SearchFormExpandPadding = {'display': 'none'};
                         document.removeEventListener('scroll', onScroll, false);
                         break;
                 }

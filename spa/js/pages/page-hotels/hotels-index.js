@@ -1,12 +1,12 @@
 innaAppControllers.controller('HotelsIndexController', function ($rootScope, $scope, $routeParams, $location, $timeout,
                                                                  AppRouteUrls, Balloon, HotelService, dataService,
                                                                  EventManager, innaAppApiEvents, gtm) {
-    
+
     // toDo хрень какая то, удалить надо бы
     document.body.classList.add('bg_gray-light');
     document.body.classList.remove('light-theme');
-    
-    
+
+
     /**
      * при переходе на данную страницу
      * показываем прелоадер на время
@@ -37,8 +37,8 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
             $scope.redirectHotels();
         }
     });
-    
-    
+
+
     /**
      * клик на балуне, по кнопке закрыть или "прервать поиск"
      * редиректим на /hotels/
@@ -48,23 +48,23 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
         $scope.baloonHotelNotFound.teardown();
         $location.path(AppRouteUrls.URL_HOTELS);
     };
-    
+
     $scope.filtersSettingsHotels = null;
     $scope.asMap = false;
     $scope.activePanel = 'hotels';
-    
-    
+
+
     if ($routeParams) {
         var searchParams = angular.copy($routeParams);
         //self.passengerCount = Math.ceil($routeParams.Adult) + Math.ceil($routeParams.ChildrenCount);
         //searchParams.Adult = self.passengerCount;
         searchParams.Adult = $routeParams.Adult;
         //searchParams.ChildrenCount = null;
-        
+
         if (searchParams.Children) {
             searchParams.ChildrenAges = searchParams.Children.split('_');
         }
-        
+
         var help = dateHelper;
         var today = help.getTodayDate();
         var startDate = dateHelper.apiDateToJsDate(searchParams.StartVoyageDate);
@@ -101,14 +101,14 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                         }
                     );
                 });
-            
+
             HotelService.getHotelsList(searchParams)
                 .then(function (response) {
                     if (response.status == 200 && response.data.Hotels.length > 0) {
                         $scope.hotels = response.data.Hotels;
                         $scope.guestCount = response.data.GuestCount;
                         $scope.baloonHotelLoad.teardown();
-                        
+
                         /* данный для настроек панели фильтров */
                         $scope.filtersSettingsHotels = {
                             filtersData: response.data.Filter,
@@ -116,7 +116,7 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                             filter_hotel: true,
                             filter_avia: false
                         };
-                        
+
                         /**
                          * Трекаем события для GTM
                          * https://innatec.atlassian.net/browse/IN-7071
@@ -132,7 +132,7 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                         $scope.baloonHotelNotFound = new Balloon();
                         var Label = 'Мы ничего не нашли';
                         var Text = 'Попробуйте изменить условия поиска';
-                        
+
                         /**
                          * Трекаем события для GTM
                          * https://innatec.atlassian.net/browse/IN-7071
@@ -164,7 +164,7 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                 }, function (response) {
                     var Label = 'Что-то пошло не так';
                     var Text = 'Попробуйте начать поиск заново';
-    
+
                     /**
                      * Трекаем события для GTM
                      * https://innatec.atlassian.net/browse/IN-7071
@@ -175,7 +175,7 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                             'Text': Text
                         }
                     );
-                    
+
                     $scope.baloonHotelLoad.updateView({
                         template: 'err.html',
                         title: Label,
@@ -189,10 +189,10 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                     });
                 });
         } else {
-            
+
             var Label = 'Дата заезда должна быть больше текущей даты!';
             var Text = 'Попробуйте начать поиск заново';
-    
+
             /**
              * Трекаем события для GTM
              * https://innatec.atlassian.net/browse/IN-7071
@@ -203,7 +203,7 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
                     'Text': Text
                 }
             );
-            
+
             $scope.baloonHotelLoad.updateView({
                 template: 'err.html',
                 title: Label,
@@ -217,16 +217,16 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
             });
         }
     }
-    
+
     EventManager.on(innaAppApiEvents.FILTER_PANEL_CHANGE, function (data) {
         $scope.$apply(function () {
             $scope.hotels = data;
         })
     });
-    
+
     $scope.filters = HotelService.getHotelFilters();
-    
-    
+
+
     //var datasource = {};
     //
     //datasource.get = function (index, count, success) {
@@ -236,8 +236,8 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
     //};
     //
     //$scope.datasource = datasource;
-    
-    
+
+
     if ($routeParams) {
         var searchParams = angular.copy($routeParams);
         if (searchParams.Children) {
@@ -250,8 +250,8 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
             return url
         };
     }
-    
-    
+
+
     $scope.$on('$destroy', function () {
         if ($scope.baloonHotelLoad) {
             $scope.baloonHotelLoad.teardown();
@@ -262,4 +262,5 @@ innaAppControllers.controller('HotelsIndexController', function ($rootScope, $sc
             $scope.baloonHotelNotFound = null;
         }
     });
+
 });
