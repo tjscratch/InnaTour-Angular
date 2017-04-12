@@ -2,7 +2,7 @@
 	<div class="offers-card-banner-container main" ng-controller="SliderCtrl" ng-show="slides.length > 0" app-slider>
 		<ul class="offers-card-banner-list Offer-card-banners">
 			<li class="offer-card-banner-item" ng-repeat="slide in slides track by $index"
-			class="img" style="background: url('{{slide.Image}}')" center/cover no-repeat
+			class="img" style="background: url('{{slide.Image}}') center/cover no-repeat"
 			>
 				<!--<img class="img" ng-src="slide.Image" />-->
 				<div class="offer-text">
