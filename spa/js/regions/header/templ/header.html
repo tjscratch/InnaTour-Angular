@@ -82,49 +82,97 @@
     </div>
 </div>
 
-<!--<div class="header-menu"-->
-     <!--ng-style="SearchFormExpandPadding" ng-cloak>-->
-    <!--&lt;!&ndash;ng-show="isHeaderVisible"&ndash;&gt;-->
-    <!--<div class="scroll-fix">-->
-        <!--<div class="wrapper">-->
-            <!--<div class="header__container" ng-class="{'block_close': !isEnableSearchForm}">-->
-                <!--<ul class="header-nav">-->
-                    <!--<li class="header-nav__item">-->
-                        <!--&lt;!&ndash;<span class="header-nav__item-promo">-30%</span>&ndash;&gt;-->
-                        <!--<a class="header-nav__item-link"-->
-                           <!--href="/#/"-->
-                           <!--ng-click="gtmMainTab($event)"-->
-                           <!--ng-class="{'header-nav__item-link-active':isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">-->
-                            <!--Перелет + Отель-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="header-nav__item partners-hide">-->
-                        <!--<a class="header-nav__item-link"-->
-                           <!--href="/#/avia/"-->
-                           <!--ng-click="gtmMainTab($event)"-->
-                           <!--ng-class="{'header-nav__item-link-active':isActive('/avia/')}">-->
-                            <!--Авиабилеты-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="header-nav__item partners-hide">-->
-                        <!--<a class="header-nav__item-link"-->
-                           <!--href="/#/hotels/"-->
-                           <!--ng-click="gtmMainTab($event)"-->
-                           <!--ng-class="{'header-nav__item-link-active':isActive('/hotels/')}">-->
-                            <!--Отели-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="header-nav__item partners-hide">-->
-                        <!--<a class="header-nav__item-link"-->
-                           <!--href="/#/bus/"-->
-                           <!--ng-click="gtmMainTab($event)"-->
-                           <!--ng-class="{'header-nav__item-link-active':isActive('/bus/')}">-->
-                            <!--Автобусные туры-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</div>-->
-            <!--<ng:include src="getHeadForm()"></ng:include>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
+<div class="header-menu"
+     ng-style="SearchFormExpandPadding" ng-cloak>
+    <!--ng-show="isHeaderVisible"-->
+    <div class="scroll-fix">
+        <div class='offer-text'>
+        <span class='offer-text__title'>
+            КОНСТРУКТОР ИНДИВИДУАЛЬНЫХ ТУРОВ
+        </span>
+            <span class='offer-text__subtitle'>
+            АВИАБИЛЕТ + ОТЕЛЬ = ВМЕСТЕ выгоднее
+        </span>
+        </div>
+        <div class="wrapper">
+            <div class="header__container" ng-class="{'block_close': !isEnableSearchForm}">
+                <ul class="header-nav">
+                    <li class="header-nav__item">
+                        <!--<span class="header-nav__item-promo">-30%</span>-->
+                        <a class="header-nav__item-link"
+                           href="/#/"
+                           ng-click="gtmMainTab($event)"
+                           ng-class="{'header-nav__item-link-active':isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">
+                            Перелет + Отель
+                        </a>
+                    </li>
+                    <li class="header-nav__item partners-hide">
+                        <a class="header-nav__item-link"
+                           href="/#/avia/"
+                           ng-click="gtmMainTab($event)"
+                           ng-class="{'header-nav__item-link-active':isActive('/avia/')}">
+                            Авиабилеты
+                        </a>
+                    </li>
+                    <li class="header-nav__item partners-hide">
+                        <a class="header-nav__item-link"
+                           href="/#/hotels/"
+                           ng-click="gtmMainTab($event)"
+                           ng-class="{'header-nav__item-link-active':isActive('/hotels/')}">
+                            Отели
+                        </a>
+                    </li>
+                    <li class="header-nav__item partners-hide">
+                        <a class="header-nav__item-link"
+                           href="/#/bus/"
+                           ng-click="gtmMainTab($event)"
+                           ng-class="{'header-nav__item-link-active':isActive('/bus/')}">
+                            Автобусные туры
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <ng:include src="getHeadForm()"></ng:include>
+        </div>
+    </div>
+    <div class="slogan-container">
+    <div class='home-page-slogan'>
+        <div class='home-page-slogan__item'>
+            <h2 class='home-page-slogan__title'>
+                ВЫГОДА
+            </h2>
+            <div class='home-page-slogan__text'>
+                Экономия до 30 % за счет
+                <br>
+                специальных пакетных цен
+                <br>
+                Страховка в подарок
+            </div>
+        </div>
+        <div class='home-page-slogan__item'>
+            <h2 class='home-page-slogan__title'>
+                СВОБОДА
+            </h2>
+            <div class='home-page-slogan__text'>
+                200 стран 670 000 отелей 
+                <br>
+                500 авиакомпаний
+                <br>
+                Сам себе турагент
+            </div>
+        </div>
+        <div class='home-page-slogan__item'>
+            <h2 class='home-page-slogan__title'>
+                НАДЕЖНОСТЬ
+            </h2>
+            <div class='home-page-slogan__text'>
+                Перелет на регулярных рейсах.
+                <br>
+                Моментальная оплата поставщикам
+                <br>
+                Гарантия поездки
+            </div>
+        </div>
+    </div>
+</div>
+</div>

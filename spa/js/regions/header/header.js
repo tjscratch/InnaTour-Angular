@@ -206,7 +206,7 @@ innaAppControllers
                 eventsHelper.preventBubbling($event);
                 $scope.$root.isLoginPopupOpened = true;
             };
-            
+
         }]);
 $(window).scroll(function(){
     if($(this).scrollTop()>200) {

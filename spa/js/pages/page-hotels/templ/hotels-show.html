@@ -166,6 +166,71 @@
 
 
 <div class="hotel-details ng-cloak" ng-class="{'hotel-details_display-order' : isDisplayOrder}" ng-if="hotelLoaded">
+	<form class="b-search-form b-search-form-hotels"
+		  ng-class="{'b-search-form_padding-1px': FormExpand, 'b-search-form_padding-16px': !FormExpand}">
+
+
+		<div class="b-search-form-hotels__field b-bus-typeahead"
+			 ng-class="{'b-search-form-hotels__field-error' : ArrivalIdError}">
+
+			<ui-select ng-model="hotelsSearchForm.ArrivalId"
+					   theme="selectize"
+			>
+				<ui-select-match placeholder="Город отправления">{{$select.selected.Name}}</ui-select-match>
+				<ui-select-choices repeat="city.Id as city in cities | filter: $select.search" refresh-delay="0">
+					<span ng-bind-html="city.Name | highlight: $select.search"></span>
+				</ui-select-choices>
+			</ui-select>
+
+		</div>
+
+
+		<div class="b-search-form-hotels__field b-bus-daterange"
+			 ng-class="{'b-search-form-hotels__field-error' : StartVoyageDateError}">
+			<input date-picker-date-format-hotels
+				   class="b-search-form-hotels__input b-search-form-hotels__input-datapicker"
+				   type="text"
+				   name="startDate"
+				   ng-model="hotelsSearchForm.StartVoyageDate"
+				   placeholder="Дата отправления"
+				   ng-focus="StartVoyageDateError = null"
+				   autocomplete="off"
+			/>
+			<i class="fa fa-calendar b-search-form-hotels__field-icon"></i>
+
+			<div error-tooltip
+				 useHorizontalForm={{true}}
+				 position-top="44px"
+				 align="width-center"
+				 message="{{StartVoyageDateError}}"
+			></div>
+		</div>
+
+		<div class="b-search-form-hotels__field">
+			<div counter-people
+				 click-on-focus
+				 tabindex="5"
+				 adult-count="hotelsSearchForm.Adult"
+				 children-count="hotelsSearchForm.ChildrenCount"
+				 childrens-age="hotelsSearchForm.Children"
+				 class="b-wrapp_type_inline no-outline-on-focus"></div>
+		</div>
+
+		<!--<people-trip-preferences tabindex="5"-->
+		<!--adult-count="hotelsSearchForm.Adult"-->
+		<!--children-count="hotelsSearchForm.ChildrenCount"-->
+		<!--childrens-age="hotelsSearchForm.Children"-->
+		<!--klass-model="klass"-->
+		<!--type-page="'Hotel'"-->
+		<!--class="b-wrapp_type_inline no-outline-on-focus">-->
+		<!--</people-trip-preferences>-->
+
+		<div tabindex="7" click-on-focus class="search-form__submit search-button-block_small no-outline-on-focus"
+			 ng-click="hotelsSearchStart($event)">
+			Найти
+		</div>
+
+	</form>
 
 	<div class="hotel-details__wrap main__center">
 
@@ -186,7 +251,7 @@
 			</ul>
 		</div>
 		<div class="header-info__right loginindp">
-			<ng:include src="'auth/header.html'" class="loghoteldetails"></ng:include>
+			<ng:include src="'auth/header_black.html'" class="loghoteldetails"></ng:include>
 
 		</div>
 		<!--<div recommended-pair-component-big-->
