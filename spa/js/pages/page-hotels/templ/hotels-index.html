@@ -1,9 +1,4 @@
 <div class="results-body" id="top">
-
-	<div class="header-info__right authinavia">
-		<ng:include src="'auth/header_black.html'" class="authiavia"></ng:include>
-
-	</div>
 	<div class="results-container results-container_list"
 	     ng-class="{'results-container__short':!padding}"
 	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)">
@@ -15,6 +10,10 @@
 			<!--<span class="SearchHotelResultsSale__logo-dp">Перелет + Отель</span>-->
 		<!--</div>-->
 		<div class="SearchHotelResultsFilters">
+			<div class="header-info__right authhotelresults">
+				<ng:include src="'auth/header_black.html'" class="authiavia"></ng:include>
+
+			</div>
 			<ng:any filter-panel-hotel
 			        filters-settings="filtersSettingsHotels"
 			        as-map="asMap"
