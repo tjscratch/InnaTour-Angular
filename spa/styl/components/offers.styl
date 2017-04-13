@@ -111,7 +111,7 @@ $banner-item-height = 670px;
     }
 
     &-list {
-        text-align: justify;
+        //text-align: justify;
         line-height: 0;
 
         &:after {
@@ -347,9 +347,9 @@ $banner-item-height = 670px;
     &-small, &-middle, &-large, &-extra-large {
         cursor: pointer;
         display: inline-block;
-        font-size: 16px;
+        font-size: 2px;
         overflow: hidden;
-        margin-top: 10px;
+        margin-top: 4px;
         line-height: normal;
         position: relative;
 
@@ -392,7 +392,7 @@ $banner-item-height = 670px;
     }
 
     &-large {
-        height: 428px;
+        height: 422px;
         width: 637px;
     }
 
@@ -650,20 +650,18 @@ $banner-item-height = 670px;
         width 17px
     }
 }
-@media screen and (orientation: portrait) {
-    .offer {
-        &-small {
-            width 312px;
-        }
-
-        &-middle {
-            width 474px;
-        }
-
-        &-large {
-            width 636px
-        }
+@media all and (max-width: 768px) {
+    .offer-large {
+        width: 50%
+        margin-left: 2px;
     }
+    .offer-small {
+        width: 90%;
+    }
+    .offer-extra-large {
+        width: 89%;
+    }
+
 }
 .header-banner {
 
