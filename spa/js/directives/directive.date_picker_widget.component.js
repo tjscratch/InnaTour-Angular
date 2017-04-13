@@ -2,7 +2,7 @@
     '$templateCache',
     'eventsHelper',
     '$filter',
-    function ($templateCache, eventsHelper, $filter) {
+    function ($templateCache, eventsHelper, $location, $filter) {
 
 
         /**
@@ -31,14 +31,23 @@
             }
 
             function getLeftFrom() {
+                if (location.href.indexOf("/packages/search") == 23 || location.href.indexOf("/packages/details") == 23) {
+                    return (coords.left + 1186);
+                }
+                console.log($location.$$path);
                 return (coords.left + fromWidth - (pickerWidth / 2) - (fromWidth / 5));
             }
 
             function getLeftTo() {
                 return (coords.left - (pickerWidth / 2) + (toWidth / 5));
             }
-
-            if (opt_data.from) {
+            if (opt_data.from && location.href.indexOf("/packages/search") == 23 || opt_data.from && location.href.indexOf("/packages/details") == 23) {
+                coords = utils.getCoords(inpFrom[0]);
+                opt_data.picker.css({
+                    left: getLeftFrom() + 'px',
+                    top : coords.top + 56 + 'px'
+                });
+            }else if (opt_data.from) {
                 coords = utils.getCoords(inpFrom[0]);
                 opt_data.picker.css({
                     left: getLeftFrom() + 'px',

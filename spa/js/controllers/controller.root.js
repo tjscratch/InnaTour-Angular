@@ -151,18 +151,25 @@ innaAppControllers.
                 if ($location.$$search.map === 'show') {
                     $scope.bannerGrey = true;
                 }else $scope.bannerGrey = false;
-                if ($location.$$path.indexOf("/packages/search") > -1 || $location.$$path.indexOf("/packages/details") > -1 || $location.$$path.indexOf("/packages/reservation") > -1
-                    || $location.$$path.indexOf("/avia/search") > -1 || $location.$$path.indexOf("/avia/reservation") > -1) {
+                if ($location.$$path.indexOf("/packages/search") > -1 || $location.$$path.indexOf("/packages/details") > -1) {
+
                     $scope.SearchFormExpandPadding = {'display': 'none'};
                 }
-               if ($location.$$path.indexOf('/hotels/') > -1 && $location.$$path.length > 8) {
-                   $(window).load(function(){
-                       $(".offer-text, .slogan-container").css("display", "none");
-                       $(".header-menu").css("height", "100%");
-                   });
+               if ($location.$$path.indexOf('/hotels/') > -1 && $location.$$path.length > 8)  {
                     $(".offer-text, .slogan-container").css("display", "none");
-                    $(".header-menu").css("height", "100%");
-               }
+                    $(".header-menu").css("display", "flex").css("height", "100%");
+                   $(document).ready(function(){
+                       $(".offer-text, .slogan-container").css("display", "none");
+                       $(".header-menu").css("display", "flex").css("height", "100%");
+                   });
+               }else if ($location.$$path.indexOf("/packages/reservation") > -1 || $location.$$path.indexOf("/avia/search") > -1 || $location.$$path.indexOf("/avia/reservation") > -1) {
+                   $(".offer-text, .slogan-container").css("display", "none");
+                   $(".header-menu").css("height", "100%");
+                   $(document).ready(function(){
+                       $(".offer-text, .slogan-container").css("display", "none");
+                       $(".header-menu").css("display", "flex").css("height", "100%");
+                   });
+                }
                else {
                    $(".offer-text, .slogan-container").css("display", "flex");
                    $(".header-menu").css("height", "85vh");
