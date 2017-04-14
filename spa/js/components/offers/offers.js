@@ -49,11 +49,11 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 });
                 $scope.filter.Period = PeriodObj.Value;
                 
-                var CategoryObj = _.find($scope.Categories, function (item) {
-                   return item.Selected == true;
-                });
-                $scope.filter.Category = CategoryObj.Value;
-                $scope.setCategory(CategoryObj);
+                // var CategoryObj = _.find($scope.Categories, function (item) {
+                //    return item.Selected == true;
+                // });
+                // $scope.filter.Category = CategoryObj.Value;
+                // $scope.setCategory(CategoryObj);
                 
                 var SortObj = _.find($scope.Sorts, function (item) {
                     return item.Selected == true;
