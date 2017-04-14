@@ -222,8 +222,8 @@ innaAppControllers.
                     case '/individualtours/':
                     case '/transfers/':
                         $scope.FormExpand = true;
-                        $scope.StaticPage = true;
-                        $scope.SearchFormExpandPadding = {'padding-top': 0};
+                        $scope.StaticPage = false;
+                        $scope.SearchFormExpandPadding = {'display': 'none'};
                         break;
                     default:
                         $scope.StaticPage = false;
