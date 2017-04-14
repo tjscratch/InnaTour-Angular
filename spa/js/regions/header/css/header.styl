@@ -54,6 +54,7 @@
     z-index: 300;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .header-nav__item {
     &:first-child{
@@ -414,3 +415,25 @@
             padding-bottom: 5px;
             padding-top: 50px;
         }
+
+@media all and (max-width: 414px) {
+    .header-nav__item {
+        flex-basis: 49%;
+        margin-bottom: 1px;
+    }
+    .header-nav__item-link, .header-nav__item:first-child a, .header-nav__item:last-child a{
+        border-radius 0;
+    }
+    .search-date-block {
+        width: 144px !important;
+    }
+    .search-form-humans {
+        width: 118px;
+    }
+    .search-form__submit {
+        flex-basis: 75%;
+    }
+    .b-offers-category {
+        flex-basis: 40%;
+    }
+}
