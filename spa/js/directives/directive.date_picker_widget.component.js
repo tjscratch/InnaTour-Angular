@@ -10,6 +10,7 @@
          * @param opt_data
          */
         function setPosition(opt_data) {
+            console.log('yo', location.href.indexOf("/packages/search"))
             var coords = null;
 
             var inpFrom = $(".js-field-from-inp");
@@ -32,7 +33,7 @@
 
             function getLeftFrom() {
                 if (location.href.indexOf("/packages/search") == 23 || location.href.indexOf("/packages/details") == 23) {
-                    return (coords.left + 1186);
+                    return (coords.left + 867);
                 }
                 console.log($location.$$path);
                 return (coords.left + fromWidth - (pickerWidth / 2) - (fromWidth / 5));
@@ -45,7 +46,7 @@
                 coords = utils.getCoords(inpFrom[0]);
                 opt_data.picker.css({
                     left: getLeftFrom() + 'px',
-                    top : coords.top + 56 + 'px'
+                    top : coords.top + 64 + 'px'
                 });
             }else if (opt_data.from) {
                 coords = utils.getCoords(inpFrom[0]);
