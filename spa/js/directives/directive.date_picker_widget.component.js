@@ -32,7 +32,7 @@
             }
 
             function getLeftFrom() {
-                if (location.href.indexOf("/packages/search") == 23 || location.href.indexOf("/packages/details") == 23) {
+                if (location.href.indexOf("/packages/search") > -1 || location.href.indexOf("/packages/details") > -1) {
                     return (coords.left + 867);
                 }
                 console.log($location.$$path);
@@ -42,7 +42,7 @@
             function getLeftTo() {
                 return (coords.left - (pickerWidth / 2) + (toWidth / 5));
             }
-            if (opt_data.from && location.href.indexOf("/packages/search") == 23 || opt_data.from && location.href.indexOf("/packages/details") == 23) {
+            if (opt_data.from && location.href.indexOf("/packages/search") > -1 || opt_data.from && location.href.indexOf("/packages/details") > -1) {
                 coords = utils.getCoords(inpFrom[0]);
                 opt_data.picker.css({
                     left: getLeftFrom() + 'px',
