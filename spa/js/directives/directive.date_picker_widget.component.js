@@ -10,7 +10,6 @@
          * @param opt_data
          */
         function setPosition(opt_data) {
-            console.log('yo', location.href.indexOf("/packages/search"))
             var coords = null;
 
             var inpFrom = $(".js-field-from-inp");
@@ -33,7 +32,7 @@
 
             function getLeftFrom() {
                 if (location.href.indexOf("/packages/search") > -1 || location.href.indexOf("/packages/details") > -1) {
-                    return (coords.left + 867);
+                    return (coords.left + 670);
                 }
                 console.log($location.$$path);
                 return (coords.left + fromWidth - (pickerWidth / 2) - (fromWidth / 5));
@@ -55,7 +54,7 @@
                     top : (coords.top + $(inpFrom[0]).height()) + 'px'
                 });
             }
-            else if (opt_data.to || opt_data.slide) {
+            if (opt_data.to && location.href.indexOf("/packages/search") > -1 || opt_data.from && location.href.indexOf("/packages/details") > -1 || opt_data.slide && location.href.indexOf("/packages/search") > -1 || opt_data.from && location.href.indexOf("/packages/details") > -1) {
                 coords = utils.getCoords(enpTo[0]);
 
                 if (opt_data.slide) {
@@ -63,7 +62,20 @@
                 }
                 else {
                     opt_data.picker.css({
-                        left: getLeftTo() + 'px',
+                        left: getLeftTo() + 941 + 'px',
+                        top : (coords.top + 64) + 'px'
+                    });
+                }
+            }
+            else if (opt_data.to  || opt_data.slide) {
+                coords = utils.getCoords(enpTo[0]);
+
+                if (opt_data.slide) {
+                    $(opt_data.picker).animate({ left: getLeftTo() }, 300);
+                }
+                else {
+                    opt_data.picker.css({
+                        left: getLeftTo() -49 + 'px',
                         top : (coords.top + $(enpTo[0]).height()) + 'px'
                     });
                 }
