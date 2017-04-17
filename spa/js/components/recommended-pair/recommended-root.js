@@ -17,6 +17,10 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
             'innaAppApiEvents',
             '$rootScope',
             function (EventManager, $scope, aviaHelper, $location, $element, Events, $rootScope) {
+            if ($location.$$host === 'localhost') {
+                $('.visible_for_inna').css('display', 'none');
+            }
+            console.log($location.$$host)
 
                 $scope.isChooseHotel = null;
                 $scope.isVisible = true;
