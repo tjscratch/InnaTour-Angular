@@ -1,3 +1,20 @@
+@font-face {
+    font-family: Roboto-Regular;
+    font-weight: 400;
+    src: url('/spa/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: Roboto-Medium;
+    font-weight: 500;
+    src: url('/spa/fonts/Roboto-Medium.ttf');
+}
+
+@font-face {
+    font-family: Roboto-Bold;
+    font-weight: 700;
+    src: url('/spa/fonts/Roboto-Bold.ttf');
+}
 .hidden
     display none
 .b-search-form
@@ -121,8 +138,9 @@
     }
 }
 .search-date-block
-    width 118px !important
+    //width 118px !important
     position: relative;
+    margin-right: 1px;
 
     &:focus {
         outline: none;
@@ -152,7 +170,7 @@
         @extend .icon-calendar;
         content: '';
         position absolute;
-        right: 3px;
+        right: 5px;
         top: 13px;
         cursor: pointer;
         //margin-top: -8px;
@@ -184,7 +202,8 @@
     transition: background-color 0.3s linear;
     background-color: #89c13a;
     cursor: pointer;
-    fint-size: 16px;
+    font-size: 16px;
+    font-family: Roboto-Medium;
     color: #fff;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -192,7 +211,7 @@
     text-align: center;
     border-radius: 0px 3px 3px 0px;
     /* right: 0px; */
-    margin-left: 1px;
+    //margin-left: 1px;
 
     .search-button__icon {
         position: absolute;
@@ -220,13 +239,14 @@
     margin 0
     padding 0
 .search-people-block {
-    width 96px !important
+    width 85px !important
     height 40px
     z-index 2
-    margin-left 1px
+    //margin-left 1px
+    margin-right: 1px;
 
     &.search-people-choose {
-        width 119px !important
+        width 108px !important
 
         .search-people {
             //background: #fff url("/spa/img/i.png") no-repeat 55px -1879px;
@@ -430,9 +450,9 @@
 
 }
 .search__city
-    width 196px
+    width 201px
 .search__120
-    width 120px
+    width 123px
 .tours-calendar-input {
     position: absolute;
     top: 0;
@@ -445,23 +465,31 @@
     right -40px
     top 23px
 }
+.counter-people{
+    margin-left: 0 !important;
+}
+    .dp-search-reserve{
+        margin-left: 0 !important;
+    }
 @media all and (max-width: 768px) {
     .search__city {
         flex-basis: 49%;
     }
     .search-date-block {
         margin-top: 2px;
+        width: 45.7%;
     }
 
     .search-form-humans {
         margin-top: 2px;
+        margin-left: -33px;
     }
     .search-people {
         margin-top: 2px;
     }
     .search-form__submit{
         margin-top: 2px;
-        flex-basis 39%;
+        flex-basis: 23.6%;
         border-radius: 0;
     }
     .b-search-form .b-location_selector:nth-child(2) .search-field {
