@@ -7,7 +7,7 @@
         <p class="offer-date" ng-if="!isNullOrEmpty(item.FrontSubTitleRow1)" ng-bind="item.FrontSubTitleRow1"></p>
         <p class="offer-date" ng-if="!isNullOrEmpty(item.FrontSubTitleRow2)" ng-bind="item.FrontSubTitleRow2"></p>
         <p class="offer-price" ng-if="!isNullOrEmpty(item.FrontPrice)">
-            от <span class="offer-price-number" ng-bind="item.FrontPrice">-</span>
+            от <span class="offer-price-number" ng-bind="item.FrontPrice">-</span><i className="fa fa-rub"></i>
         </p>
         <div ng-if="isEnableBonus" style="display: flex; justify-content: center; align-items: center;background-color: white;width:280px;margin:auto;margin-top:10px;padding:10px 0px;">
             <span style="color:orangered;">{{ item.OriginalPrice * currentBonusRosneft | currency : "" : 0 | asQuantity:'балл':'балла':'баллов' }}</span>
