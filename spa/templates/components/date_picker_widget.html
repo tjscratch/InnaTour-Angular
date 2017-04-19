@@ -5,13 +5,14 @@
          data-title="Выберите дату отправления туда">
         <input type="text" ng-value="long(date1)" class="js-field-from-inp search-date search-date-arr" placeholder="Туда"/>
 
-        <div class="search-date-block__date" ng-class="{'search-date-block__date_display_placeholder': !date1}">{{date1 ? long(date1) : 'Туда'}}</div>
+        <div class="search-date-block__date" bind-html-unsafe="long(date1)" ng-class="{'search-date-block__date_display_placeholder': !date1}">{{date1 ? long(date1) : 'Туда'}}
+        </div>
     </div>
 
     <div click-on-focus tabindex="{{tabIndexTo}}"
          class="js-field-to-block search-date-block search__120" ng-click="toggleTo($event)" data-title="Выберите дату отправления обратно">
         <input type="text" ng-value="long(date2)" class="js-field-to-inp search-date search-date-arr" placeholder="Обратно"/>
-        <div class="search-date-block__date" ng-class="{'search-date-block__date_display_placeholder': !date2}">{{date2 ? long(date2) : 'Обратно'}}</div>
+        <div class="search-date-block__date" bind-html-unsafe="long(date1)" ng-class="{'search-date-block__date_display_placeholder': !date2}">{{date2 ? long(date2) : 'Обратно'}}</div>
     </div>
 
     <div class="js-datepicker datepicker-body" id="datepicker-body" ng-show="isOpen" ng-mouseleave="isOpen = false">
