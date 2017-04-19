@@ -13,7 +13,7 @@
 		<li ng-repeat="item in fromList" ng-click="setCurrentCityClick($event, item)">
             <span class="search-autocomplete-block" ng-class="{selected:selectionControl.isItemSelected(item)}">
                 <span class="search-autocomplete-city">
-	                {{item.Name}}, 
+	                {{item.Name}},
 	                <b>{{item.CountryName}}</b><em ng-show="item.Airport">, (все аэропорты)</em></span>
                 <span class="search-autocomplete-abbr">{{item.CodeIata}}</span>
             </span>
