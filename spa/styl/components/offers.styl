@@ -47,6 +47,12 @@ $banner-item-height = 670px;
         margin: 0 0 16px 0;
     }
 }
+ .offers-list{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+ }
 .offers {
 
     &-black, &-dark-grey, &-white, &-light-grey {
@@ -74,6 +80,8 @@ $banner-item-height = 670px;
     &-container {
         @extend .main__center;
         padding-top: 40px;
+        width: 100%;
+        max-width: 960px;
     }
 
     &-title {
@@ -652,15 +660,17 @@ $banner-item-height = 670px;
         width 17px
     }
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 914px) {
     .offer-middle {
-        width: 39.4%
-    }
-    .offers-container {
-        margin-left: 4px;
+        width: 49.7%
     }
     .offer-extra-large {
-        width: 79.3%;
+        width: 100%;
+    }
+}
+@media all and (max-width: 414px) {
+    .offer-middle {
+        width: 99%
     }
 }
 .header-banner__item {

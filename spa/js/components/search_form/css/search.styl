@@ -29,7 +29,7 @@
     display: flex !important
     flex-wrap: wrap
     justify-content: center
-    max-width: 961px;
+    max-width: 960px;
     margin: 0 auto;
 
     .search-field-block:first-child > .search-field {
@@ -89,8 +89,9 @@
     margin-left 0px
     border-radius 3px 0px 0px 3px
 .b-wrapp_type_inline
-    position relative
-    float left
+    //position relative
+    //float left
+    display: flex;
     margin-left 1px
 .search-field-block
     width 170px
@@ -471,29 +472,42 @@
     .dp-search-reserve{
         margin-left: 0 !important;
     }
-@media all and (max-width: 768px) {
-    .offers-card-banner-list{
-        height: 80vh !important;
+        .human-class{
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+@media all and (max-width: 974px) {
+    .dp-search-reserve {
+        flex-basis: 50%;
+        display: flex;
+    }
+    .b-wrapp_type_inline {
+        display: flex;
+        flex: 1;
+        flex-basis: 46%;
     }
     .search__city {
         flex-basis: 49%;
     }
+
     .search-date-block {
         margin-top: 2px;
-        width: 45.7%;
+        width: 100%;
     }
-
     .search-form-humans {
+        flex: 1;
         margin-top: 2px;
-        margin-left: -33px;
     }
-    .search-people {
+    .search-people-block{
         margin-top: 2px;
+        flex-basis: 49% !important;
+        flex: 1;
     }
     .search-form__submit{
-        margin-top: 2px;
-        flex-basis: 23.6%;
+        margin: 2px 1px 2px 1px;
         border-radius: 0;
+        flex-basis: 100%;
     }
     .search-field, .search-date{
         border-radius: 0;
@@ -501,34 +515,72 @@
     .b-search-form .b-location_selector:nth-child(2) .search-field {
         border-radius: 0;
     }
-    .b-wrapp_type_inline:first-child {
-        margin-left: 1px;
+    .search-device{
+        margin-right: 1px;
     }
-    .header-info__container{
-        width: 97%;
+    .human-class{
+        display: flex;
+        flex: 1;
+        flex-wrap: wrap;
+        flex-basis: 46%;
     }
 
 }
-@media all and (max-width: 414px) {
-    .search-date-block{
-        width: 203px;
-    }
-    .header-nav{
-        margin-left: 1px;
-    }
-    .search-form-humans{
-        margin-left: 1px;
-    }
-    .search-form__submit {
-        flex-basis: 49%;
-    }
-    .offer-text__title{
-      font-size: 19px;
-    }
-    .offer-text__subtitle {
-        font-size: 16px;
-    }
-    .search-form-humans {
-        width: 117px;
-    }
-}
+//@media all and (max-width: 768px) {
+//    .search__city {
+//        flex-basis: 49%;
+//    }
+//    .search-date-block {
+//        margin-top: 2px;
+//        width: 45.7%;
+//    }
+//
+//    .search-form-humans {
+//        margin-top: 2px;
+//        margin-left: -33px;
+//    }
+//    .search-people {
+//        margin-top: 2px;
+//    }
+//    .search-form__submit{
+//        margin-top: 2px;
+//        flex-basis: 23.6%;
+//        border-radius: 0;
+//    }
+//    .search-field, .search-date{
+//        border-radius: 0;
+//    }
+//    .b-search-form .b-location_selector:nth-child(2) .search-field {
+//        border-radius: 0;
+//    }
+//    .b-wrapp_type_inline:first-child {
+//        margin-left: 1px;
+//    }
+//    .header-info__container{
+//        width: 97%;
+//    }
+//
+//}
+//@media all and (max-width: 414px) {
+//    .search-date-block{
+//        width: 203px;
+//    }
+//    .header-nav{
+//        margin-left: 1px;
+//    }
+//    .search-form-humans{
+//        margin-left: 1px;
+//    }
+//    .search-form__submit {
+//        flex-basis: 49%;
+//    }
+//    .offer-text__title{
+//      font-size: 19px;
+//    }
+//    .offer-text__subtitle {
+//        font-size: 16px;
+//    }
+//    .search-form-humans {
+//        width: 117px;
+//    }
+//}
