@@ -1,4 +1,5 @@
 <div ng-controller='DynamicFormCtrl'>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport">
     <div class='pic-cont'
          ng-class="{'horizontal-form':useHorizontalForm}">
         <div class="wrapper">
@@ -47,81 +48,84 @@
                     <!--<i class="logo_inna" alt="ИННА ТУР" title="ИННА ТУР"></i>-->
                 <!--</a>-->
 
-                <div location-selector tab-index="1"
-                     theme="search-field-block search__city"
-                     placeholder="Откуда"
-                     selected-value="fromCity"
-                     type-search="DP_from"
-                ></div>
+                <!--<div location-selector tab-index="1"-->
+                     <!--theme="search-field-block search__city"-->
+                     <!--placeholder="Откуда"-->
+                     <!--selected-value="fromCity"-->
+                     <!--type-search="DP_from"-->
+                <!--&gt;</div>-->
 
-                <div location-selector tab-index="2"
-                     theme="search-field-block search__city"
-                     placeholder="Куда"
-                     selected-value="toCity"
-                     type-search="DP_to"
-                ></div>
+                <!--<div location-selector tab-index="2"-->
+                     <!--theme="search-field-block search__city search-device"-->
+                     <!--placeholder="Куда"-->
+                     <!--selected-value="toCity"-->
+                     <!--type-search="DP_to"-->
+                <!--&gt;</div>-->
 
-                <!--
-                <div dropdown-input
-                     theme="search-field-block search__city"
-                     provide-suggest-callback="provideSuggestToFromList"
-                     suggest="fromList"
-                     result="fromCurrent"
-                     set-result-callback="setResultCallbackFrom(item)"
-                     ask-for-data="loadObjectById"
-                     placeholder="Откуда"
-                     on-error="Введите город отправления"
-                     with-country="true"
-                     event="dp_form_from_update"></div>
+                <!--&lt;!&ndash;-->
+                <!--<div dropdown-input-->
+                     <!--theme="search-field-block search__city"-->
+                     <!--provide-suggest-callback="provideSuggestToFromList"-->
+                     <!--suggest="fromList"-->
+                     <!--result="fromCurrent"-->
+                     <!--set-result-callback="setResultCallbackFrom(item)"-->
+                     <!--ask-for-data="loadObjectById"-->
+                     <!--placeholder="Откуда"-->
+                     <!--on-error="Введите город отправления"-->
+                     <!--with-country="true"-->
+                     <!--event="dp_form_from_update"></div>-->
 
 
-            <div dropdown-input
-                 theme="search-field-block search__city"
-                 provide-suggest-callback="provideSuggestToToField"
-                 suggest="toList"
-                 result="toCurrent"
-                 set-result-callback="setResultCallbackTo(item)"
-                 ask-for-data="loadObjectById"
-                 placeholder="Куда"
-                 on-error="Введите город или страну, куда планируете поехать"
-                 with-country="true"
-                 event="dp_form_to_update"></div>
-            -->
+            <!--<div dropdown-input-->
+                 <!--theme="search-field-block search__city"-->
+                 <!--provide-suggest-callback="provideSuggestToToField"-->
+                 <!--suggest="toList"-->
+                 <!--result="toCurrent"-->
+                 <!--set-result-callback="setResultCallbackTo(item)"-->
+                 <!--ask-for-data="loadObjectById"-->
+                 <!--placeholder="Куда"-->
+                 <!--on-error="Введите город или страну, куда планируете поехать"-->
+                 <!--with-country="true"-->
+                 <!--event="dp_form_to_update"></div>-->
+            <!--&ndash;&gt;-->
 
-                <div date-picker-widget tab-index-from="3" tab-index-to="4"
-                     interval="false"
-                     date1="dateBegin"
-                     date2="dateEnd"
-                     max-date="maxDateEnd"
-                     type-page="'DP'"
-                     class="b-wrapp_type_inline date-picker-widget"></div>
+                <!--<div date-picker-widget tab-index-from="3" tab-index-to="4"-->
+                     <!--interval="false"-->
+                     <!--date1="dateBegin"-->
+                     <!--date2="dateEnd"-->
+                     <!--max-date="maxDateEnd"-->
+                     <!--type-page="'DP'"-->
+                     <!--class="b-wrapp_type_inline date-picker-widget"></div>-->
+                <!--<div class="human-class">-->
+                    <!--<div counter-people click-on-focus tabindex="5"-->
+                         <!--adult-count="adultCount"-->
+                         <!--children-count="childrenCount"-->
+                         <!--childrens-age="childrensAge"-->
+                         <!--type-page="'DP'"-->
+                         <!--class="no-outline-on-focus counter-people dp-search-reserve"></div>-->
 
-                <div counter-people click-on-focus tabindex="5"
-                     adult-count="adultCount"
-                     children-count="childrenCount"
-                     childrens-age="childrensAge"
-                     type-page="'DP'"
-                     class="b-wrapp_type_inline no-outline-on-focus"></div>
+                    <!--<div trip-preferences click-on-focus tabindex="6" class="no-outline-on-focus"-->
+                         <!--show-back-trip-options="false"-->
+                         <!--klass-model="klass"-->
+                         <!--type-page="'DP'"></div>-->
 
-                <div trip-preferences click-on-focus tabindex="6" class="no-outline-on-focus"
-                     show-back-trip-options="false"
-                     klass-model="klass"
-                     type-page="'DP'"></div>
+                <!--</div>-->
 
-                <!--<people-trip-preferences tabindex="5"-->
-                <!--adult-count="adultCount"-->
-                <!--children-count="childrenCount"-->
-                <!--childrens-age="childrensAge"-->
-                <!--klass-model="klass"-->
-                <!--type-page="'DP'"-->
-                <!--class="b-wrapp_type_inline no-outline-on-focus">-->
-                <!--</people-trip-preferences>-->
 
-                <div tabindex="7" click-on-focus class="search-form__submit search-button-block_small no-outline-on-focus"
-                     ng-click="searchStart($event)">
-                    Найти
-                    <!--<i class="icon-sprite-search search-button__icon"></i>-->
-                </div>
+                <!--&lt;!&ndash;<people-trip-preferences tabindex="5"&ndash;&gt;-->
+                <!--&lt;!&ndash;adult-count="adultCount"&ndash;&gt;-->
+                <!--&lt;!&ndash;children-count="childrenCount"&ndash;&gt;-->
+                <!--&lt;!&ndash;childrens-age="childrensAge"&ndash;&gt;-->
+                <!--&lt;!&ndash;klass-model="klass"&ndash;&gt;-->
+                <!--&lt;!&ndash;type-page="'DP'"&ndash;&gt;-->
+                <!--&lt;!&ndash;class="b-wrapp_type_inline no-outline-on-focus">&ndash;&gt;-->
+                <!--&lt;!&ndash;</people-trip-preferences>&ndash;&gt;-->
+
+                <!--<div tabindex="7" click-on-focus class="search-form__submit search-button-block_small no-outline-on-focus"-->
+                     <!--ng-click="searchStart($event)">-->
+                    <!--Найти-->
+                    <!--&lt;!&ndash;<i class="icon-sprite-search search-button__icon"></i>&ndash;&gt;-->
+                <!--</div>-->
 
                 <!--<vertical-menu class="icon-vert-menu" ng-class="{'block_close': isEnableSearchForm}"></vertical-menu>-->
 

@@ -171,8 +171,8 @@ innaAppControllers.
                    });
                 }
                else {
-                   $(".offer-text, .slogan-container").css("display", "flex");
-                   $(".header-menu").css("height", "85vh");
+                   // $(".offer-text, .slogan-container").css("display", "flex");
+                   // $(".header-menu").css("height", "85vh");
                }
                 switch ($location.$$path) {
                     case '/':
