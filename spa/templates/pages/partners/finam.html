@@ -1,4 +1,5 @@
 <div ng-controller='DynamicFormCtrl'>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport">
 	<div class='pic-cont'
 		 ng-class="{'horizontal-form':useHorizontalForm}">
 			<!--<span class="wrap-additions uppercase">-->
@@ -64,7 +65,7 @@
 				></div>
 
 				<div location-selector tab-index="2"
-					 theme="search-field-block search__city"
+					 theme="search-field-block search__city search-device"
 					 placeholder="Куда"
 					 selected-value="toCity"
 					 type-search="DP_to"
@@ -104,18 +105,21 @@
 					 max-date="maxDateEnd"
 					 type-page="'DP'"
 					 class="b-wrapp_type_inline date-picker-widget"></div>
+				<div class="human-class">
+					<div counter-people click-on-focus tabindex="5"
+						 adult-count="adultCount"
+						 children-count="childrenCount"
+						 childrens-age="childrensAge"
+						 type-page="'DP'"
+						 class="no-outline-on-focus counter-people dp-search-reserve"></div>
 
-				<div counter-people click-on-focus tabindex="5"
-					 adult-count="adultCount"
-					 children-count="childrenCount"
-					 childrens-age="childrensAge"
-					 type-page="'DP'"
-					 class="b-wrapp_type_inline no-outline-on-focus"></div>
+					<div trip-preferences click-on-focus tabindex="6" class="no-outline-on-focus"
+						 show-back-trip-options="false"
+						 klass-model="klass"
+						 type-page="'DP'"></div>
 
-				<div trip-preferences click-on-focus tabindex="6" class="no-outline-on-focus"
-					 show-back-trip-options="false"
-					 klass-model="klass"
-					 type-page="'DP'"></div>
+				</div>
+
 
 				<!--<people-trip-preferences tabindex="5"-->
 				<!--adult-count="adultCount"-->
