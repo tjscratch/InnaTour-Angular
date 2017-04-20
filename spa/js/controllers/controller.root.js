@@ -154,7 +154,7 @@ innaAppControllers.
                 if ($location.$$path.indexOf("/packages/search") > -1 || $location.$$path.indexOf("/packages/details") > -1 || $location.$$path.indexOf("/payment") > -1) {
 
                     $scope.SearchFormExpandPadding = {'display': 'none'};
-                }
+                }z
                if ($location.$$path.indexOf('/hotels/') > -1 && $location.$$path.length > 8)  {
                     $(".offer-text, .slogan-container").css("display", "none");
                     $(".header-menu").css("display", "flex").css("height", "100%");
