@@ -421,13 +421,16 @@
 
 @media all and (max-width: 414px) {
     .header-nav__item {
-        flex-basis: 49%;
-        margin-bottom: 1px;
+        flex-basis: 49.6%;
+    }
+    .header-nav__item:nth-child(even) {
+        margin-right:0;
+
     }
     .header-nav__item-link, .header-nav__item:first-child a, .header-nav__item:last-child a{
         border-radius 0;
     } flex-basis: 75%;
-    //}
+//}
     .b-offers-category {
         flex-basis: 40%;
     }
@@ -435,3 +438,6 @@
         justify-content: center !important;
     }
 }
+
+
+
