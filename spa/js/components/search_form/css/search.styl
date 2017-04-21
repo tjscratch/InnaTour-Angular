@@ -38,9 +38,9 @@
 
     .b-wrapp_type_inline {
         &:nth-child(2) {
-            .search-field {
-                border-radius 3px 0px 0px 3px
-            }
+            //.search-field {
+            //    border-radius 3px 0px 0px 3px
+            //}
         }
     }
 
@@ -48,9 +48,9 @@
         &:nth-child(2) {
             //margin-left 0
 
-            .search-field {
-                border-radius 3px 0px 0px 3px
-            }
+            //.search-field {
+            //    border-radius 3px 0px 0px 3px
+            //}
         }
     }
 
@@ -62,7 +62,10 @@
     padding: 16px 0px;
 }
 .b-search-form_padding-16px {
-    padding 16px 0px
+    padding: 80px 0px 16px 0;
+}
+.search-ticket-form{
+    padding: 10px 0px 16px 0
 }
 .i-close
     position: absolute
@@ -478,12 +481,13 @@
             display: flex;
             flex-wrap: wrap;
         }
-.search-field, .search-date{
+.search-date{
     border-radius: 0;
 }
 .b-search-form .b-location_selector:nth-child(2) .search-field {
     border-radius: 0;
 }
+
 @media all and (max-width: 974px) {
     .dp-search-reserve {
         flex-basis: 50%;
@@ -496,6 +500,7 @@
     }
     .search__city {
         flex-basis: 49%;
+        margin-left: 1px !important;
     }
 
     .search-date-block {
@@ -517,7 +522,7 @@
         flex-basis: 100%;
     }
     .search-field, .search-date{
-        border-radius: 0;
+        border-radius: 0 !important;
     }
     .b-search-form .b-location_selector:nth-child(2) .search-field {
         border-radius: 0;

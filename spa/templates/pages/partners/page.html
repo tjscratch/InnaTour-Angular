@@ -4,128 +4,128 @@
          ng-class="{'horizontal-form':useHorizontalForm}">
         <div class="wrapper">
             <div class="header__container" ng-class="{'block_close': !isEnableSearchForm}">
-                <ul class="header-nav">
-                    <li class="header-nav__item">
-                        <!--<span class="header-nav__item-promo">-30%</span>-->
-                        <a class="header-nav__item-link"
-                           href="/#/"
-                           ng-click="gtmMainTab($event)"
-                           ng-class="{'header-nav__item-link-active':isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">
-                            Перелет + Отель
-                        </a>
-                    </li>
-                    <li class="header-nav__item partners-hide">
-                        <a class="header-nav__item-link"
-                           href="/#/avia/"
-                           ng-click="gtmMainTab($event)"
-                           ng-class="{'header-nav__item-link-active':isActive('/avia/')}">
-                            Авиабилеты
-                        </a>
-                    </li>
-                    <li class="header-nav__item partners-hide">
-                        <a class="header-nav__item-link"
-                           href="/#/hotels/"
-                           ng-click="gtmMainTab($event)"
-                           ng-class="{'header-nav__item-link-active':isActive('/hotels/')}">
-                            Отели
-                        </a>
-                    </li>
-                    <li class="header-nav__item partners-hide">
-                        <a class="header-nav__item-link"
-                           href="/#/bus/"
-                           ng-click="gtmMainTab($event)"
-                           ng-class="{'header-nav__item-link-active':isActive('/bus/')}">
-                            Автобусные туры
-                        </a>
-                    </li>
-                </ul>
+                <!--<ul class="header-nav">-->
+                    <!--<li class="header-nav__item">-->
+                        <!--&lt;!&ndash;<span class="header-nav__item-promo">-30%</span>&ndash;&gt;-->
+                        <!--<a class="header-nav__item-link"-->
+                           <!--href="/#/"-->
+                           <!--ng-click="gtmMainTab($event)"-->
+                           <!--ng-class="{'header-nav__item-link-active':isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">-->
+                            <!--Перелет + Отель-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="header-nav__item partners-hide">-->
+                        <!--<a class="header-nav__item-link"-->
+                           <!--href="/#/avia/"-->
+                           <!--ng-click="gtmMainTab($event)"-->
+                           <!--ng-class="{'header-nav__item-link-active':isActive('/avia/')}">-->
+                            <!--Авиабилеты-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="header-nav__item partners-hide">-->
+                        <!--<a class="header-nav__item-link"-->
+                           <!--href="/#/hotels/"-->
+                           <!--ng-click="gtmMainTab($event)"-->
+                           <!--ng-class="{'header-nav__item-link-active':isActive('/hotels/')}">-->
+                            <!--Отели-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="header-nav__item partners-hide">-->
+                        <!--<a class="header-nav__item-link"-->
+                           <!--href="/#/bus/"-->
+                           <!--ng-click="gtmMainTab($event)"-->
+                           <!--ng-class="{'header-nav__item-link-active':isActive('/bus/')}">-->
+                            <!--Автобусные туры-->
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
             </div>
-            <form class="b-search-form search-ticket-form scroll-fix" ng-controller="DynamicFormCtrl" ng-if="!_dynamicSearchFormInvisible"
+            <form class="b-search-form" ng-controller="DynamicFormCtrl" ng-if="!_dynamicSearchFormInvisible"
                   ng-class="{'b-search-form_padding-1px': FormExpand, 'b-search-form_padding-16px': !FormExpand}"
                   style="{{(!isOpenSearchForm) ? 'display:none' : 'display:block'}}">
 
                 <!--<a href="/#/" class="header-info__logo" ng-class="{'block_close': isEnableSearchForm}">-->
-                    <!--<i class="logo_inna" alt="ИННА ТУР" title="ИННА ТУР"></i>-->
+                <!--<i class="logo_inna" alt="ИННА ТУР" title="ИННА ТУР"></i>-->
                 <!--</a>-->
 
-                <!--<div location-selector tab-index="1"-->
-                     <!--theme="search-field-block search__city"-->
-                     <!--placeholder="Откуда"-->
-                     <!--selected-value="fromCity"-->
-                     <!--type-search="DP_from"-->
-                <!--&gt;</div>-->
+                <div location-selector tab-index="1"
+                     theme="search-field-block search__city dp-border"
+                     placeholder="Откуда"
+                     selected-value="fromCity"
+                     type-search="DP_from"
+                ></div>
 
-                <!--<div location-selector tab-index="2"-->
-                     <!--theme="search-field-block search__city search-device"-->
-                     <!--placeholder="Куда"-->
-                     <!--selected-value="toCity"-->
-                     <!--type-search="DP_to"-->
-                <!--&gt;</div>-->
+                <div location-selector tab-index="2"
+                     theme="search-field-block search__city search-device"
+                     placeholder="Куда"
+                     selected-value="toCity"
+                     type-search="DP_to"
+                ></div>
 
-                <!--&lt;!&ndash;-->
-                <!--<div dropdown-input-->
-                     <!--theme="search-field-block search__city"-->
-                     <!--provide-suggest-callback="provideSuggestToFromList"-->
-                     <!--suggest="fromList"-->
-                     <!--result="fromCurrent"-->
-                     <!--set-result-callback="setResultCallbackFrom(item)"-->
-                     <!--ask-for-data="loadObjectById"-->
-                     <!--placeholder="Откуда"-->
-                     <!--on-error="Введите город отправления"-->
-                     <!--with-country="true"-->
-                     <!--event="dp_form_from_update"></div>-->
-
-
-            <!--<div dropdown-input-->
-                 <!--theme="search-field-block search__city"-->
-                 <!--provide-suggest-callback="provideSuggestToToField"-->
-                 <!--suggest="toList"-->
-                 <!--result="toCurrent"-->
-                 <!--set-result-callback="setResultCallbackTo(item)"-->
-                 <!--ask-for-data="loadObjectById"-->
-                 <!--placeholder="Куда"-->
-                 <!--on-error="Введите город или страну, куда планируете поехать"-->
-                 <!--with-country="true"-->
-                 <!--event="dp_form_to_update"></div>-->
-            <!--&ndash;&gt;-->
-
-                <!--<div date-picker-widget tab-index-from="3" tab-index-to="4"-->
-                     <!--interval="false"-->
-                     <!--date1="dateBegin"-->
-                     <!--date2="dateEnd"-->
-                     <!--max-date="maxDateEnd"-->
-                     <!--type-page="'DP'"-->
-                     <!--class="b-wrapp_type_inline date-picker-widget"></div>-->
-                <!--<div class="human-class">-->
-                    <!--<div counter-people click-on-focus tabindex="5"-->
-                         <!--adult-count="adultCount"-->
-                         <!--children-count="childrenCount"-->
-                         <!--childrens-age="childrensAge"-->
-                         <!--type-page="'DP'"-->
-                         <!--class="no-outline-on-focus counter-people dp-search-reserve"></div>-->
-
-                    <!--<div trip-preferences click-on-focus tabindex="6" class="no-outline-on-focus"-->
-                         <!--show-back-trip-options="false"-->
-                         <!--klass-model="klass"-->
-                         <!--type-page="'DP'"></div>-->
-
-                <!--</div>-->
+                <!--
+                <div dropdown-input
+                     theme="search-field-block search__city"
+                     provide-suggest-callback="provideSuggestToFromList"
+                     suggest="fromList"
+                     result="fromCurrent"
+                     set-result-callback="setResultCallbackFrom(item)"
+                     ask-for-data="loadObjectById"
+                     placeholder="Откуда"
+                     on-error="Введите город отправления"
+                     with-country="true"
+                     event="dp_form_from_update"></div>
 
 
-                <!--&lt;!&ndash;<people-trip-preferences tabindex="5"&ndash;&gt;-->
-                <!--&lt;!&ndash;adult-count="adultCount"&ndash;&gt;-->
-                <!--&lt;!&ndash;children-count="childrenCount"&ndash;&gt;-->
-                <!--&lt;!&ndash;childrens-age="childrensAge"&ndash;&gt;-->
-                <!--&lt;!&ndash;klass-model="klass"&ndash;&gt;-->
-                <!--&lt;!&ndash;type-page="'DP'"&ndash;&gt;-->
-                <!--&lt;!&ndash;class="b-wrapp_type_inline no-outline-on-focus">&ndash;&gt;-->
-                <!--&lt;!&ndash;</people-trip-preferences>&ndash;&gt;-->
+            <div dropdown-input
+                 theme="search-field-block search__city"
+                 provide-suggest-callback="provideSuggestToToField"
+                 suggest="toList"
+                 result="toCurrent"
+                 set-result-callback="setResultCallbackTo(item)"
+                 ask-for-data="loadObjectById"
+                 placeholder="Куда"
+                 on-error="Введите город или страну, куда планируете поехать"
+                 with-country="true"
+                 event="dp_form_to_update"></div>
+            -->
 
-                <!--<div tabindex="7" click-on-focus class="search-form__submit search-button-block_small no-outline-on-focus"-->
-                     <!--ng-click="searchStart($event)">-->
-                    <!--Найти-->
-                    <!--&lt;!&ndash;<i class="icon-sprite-search search-button__icon"></i>&ndash;&gt;-->
-                <!--</div>-->
+                <div date-picker-widget tab-index-from="3" tab-index-to="4"
+                     interval="false"
+                     date1="dateBegin"
+                     date2="dateEnd"
+                     max-date="maxDateEnd"
+                     type-page="'DP'"
+                     class="b-wrapp_type_inline date-picker-widget"></div>
+
+                <div class="human-class">
+                    <div counter-people click-on-focus tabindex="5"
+                         adult-count="adultCount"
+                         children-count="childrenCount"
+                         childrens-age="childrensAge"
+                         type-page="'DP'"
+
+                         class="no-outline-on-focus counter-people dp-search-reserve"></div>
+
+                    <div trip-preferences click-on-focus tabindex="6" class="no-outline-on-focus"
+                         show-back-trip-options="false"
+                         klass-model="klass"
+                         type-page="'DP'"></div>
+                </div>
+
+                <!--<people-trip-preferences tabindex="5"-->
+                <!--adult-count="adultCount"-->
+                <!--children-count="childrenCount"-->
+                <!--childrens-age="childrensAge"-->
+                <!--klass-model="klass"-->
+                <!--type-page="'DP'"-->
+                <!--class="b-wrapp_type_inline no-outline-on-focus">-->
+                <!--</people-trip-preferences>-->
+
+                <div tabindex="7" click-on-focus class="search-form__submit search-button-block_small no-outline-on-focus"
+                     ng-click="searchStart($event)">
+                    Найти
+                    <!--<i class="icon-sprite-search search-button__icon"></i>-->
+                </div>
 
                 <!--<vertical-menu class="icon-vert-menu" ng-class="{'block_close': isEnableSearchForm}"></vertical-menu>-->
 
