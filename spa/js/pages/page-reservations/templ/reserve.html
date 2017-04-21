@@ -412,79 +412,79 @@
 				>Код не опознан
 				</div>
 			</div>
-			<div class="b-promo-code" ng-class="{'block_close': !isRosneftKomandaCard}">
-				<div class="b-promo-code__field">
-					<label class="b-promo-code__label" for="b-promo-code__input2" style="font-size: 15px;">
-						Введите номер бонусной карты "Семейная команда"
-					</label>
-					<div class="b-promo-code__input-container">
-						<input id="b-promo-code__input2"
-							   class="b-field-text b-promo-code__input"
-							   type="text"
-							   digits-input
-							   maxlength="25"
-							   ng-model="promoCodeRosneft"
-							   tabindex="24"/>
-					</div>
-					<span class="button b-promo-code__button"
-						  ng-click="checkPromoCodeRosneft('komandacard')">Применить
-					</span>
-					<div class="b-field-block b-field-bonus">
-						<label class="b-field-label b-field-label-docs">Начислено бонусов</label>
-						<input validate-events-dir
-							   type="text"
-							   class="b-field-text"
-							   ng-model="bonusRosneft">
-					</div>
-				</div>
-				<div class="b-promo-code__info" ng-if="promoCodeStatus == 1">
-					Ввведен промо-код
-					<b>{{ promoCode }}</b>
-					на {{ promoCodeSale }}% скидку
-				</div>
-				<div class="b-promo-code__input-error-message"
-					 ng-if="promoCodeStatusRosneftError">
-					<!--Номер карты неверный-->
-					{{ promoCodeErrorInfo }}
-				</div>
-			</div>
-			<div class="b-promo-code" ng-class="{'block_close': !isRosneftBpClub}">
-				<div class="b-promo-code__field" style="justify-content: center;">
-					<label class="b-promo-code__label" for="b-promo-code__input3" style="font-size: 15px;">
-						Введите номер карты лояльности "BP CLUB"
-					</label>
-					<div class="b-promo-code__static-number">7005993</div>
-					<div class="b-promo-code__input-container">
-						<input id="b-promo-code__input3"
-							   class="b-field-text b-promo-code__input b-promo-code__input_bpclub"
-							   type="text"
-							   digits-input
-							   maxlength="25"
-							   ng-model="promoCodeRosneft"
-							   tabindex="24"/>
-					</div>
-					<span class="button b-promo-code__button"
-						  ng-click="checkPromoCodeRosneft('bpclub')">Применить
-					</span>
-					<div class="b-field-block b-field-bonus">
-						<label class="b-field-label b-field-label-docs">Начислено бонусов</label>
-						<input validate-events-dir
-							   type="text"
-							   class="b-field-text"
-							   ng-model="bonusRosneft">
-					</div>
-				</div>
-				<div class="b-promo-code__info" ng-if="promoCodeStatus == 1">
-					Ввведен промо-код
-					<b>{{ promoCode }}</b>
-					на {{ promoCodeSale }}% скидку
-				</div>
-				<div class="b-promo-code__input-error-message"
-					 ng-if="promoCodeStatusRosneftError">
-					<!--Номер карты неверный-->
-					{{ promoCodeErrorInfo }}
-				</div>
-			</div>
+			<!--<div class="b-promo-code" ng-class="{'block_close': !isRosneftKomandaCard}">-->
+				<!--<div class="b-promo-code__field">-->
+					<!--<label class="b-promo-code__label" for="b-promo-code__input2" style="font-size: 15px;">-->
+						<!--Введите номер бонусной карты "Семейная команда"-->
+					<!--</label>-->
+					<!--<div class="b-promo-code__input-container">-->
+						<!--<input id="b-promo-code__input2"-->
+							   <!--class="b-field-text b-promo-code__input"-->
+							   <!--type="text"-->
+							   <!--digits-input-->
+							   <!--maxlength="25"-->
+							   <!--ng-model="promoCodeRosneft"-->
+							   <!--tabindex="24"/>-->
+					<!--</div>-->
+					<!--<span class="button b-promo-code__button"-->
+						  <!--ng-click="checkPromoCodeRosneft('komandacard')">Применить-->
+					<!--</span>-->
+					<!--<div class="b-field-block b-field-bonus">-->
+						<!--<label class="b-field-label b-field-label-docs">Начислено бонусов</label>-->
+						<!--<input validate-events-dir-->
+							   <!--type="text"-->
+							   <!--class="b-field-text"-->
+							   <!--ng-model="bonusRosneft">-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="b-promo-code__info" ng-if="promoCodeStatus == 1">-->
+					<!--Ввведен промо-код-->
+					<!--<b>{{ promoCode }}</b>-->
+					<!--на {{ promoCodeSale }}% скидку-->
+				<!--</div>-->
+				<!--<div class="b-promo-code__input-error-message"-->
+					 <!--ng-if="promoCodeStatusRosneftError">-->
+					<!--&lt;!&ndash;Номер карты неверный&ndash;&gt;-->
+					<!--{{ promoCodeErrorInfo }}-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="b-promo-code" ng-class="{'block_close': !isRosneftBpClub}">-->
+				<!--<div class="b-promo-code__field" style="justify-content: center;">-->
+					<!--<label class="b-promo-code__label" for="b-promo-code__input3" style="font-size: 15px;">-->
+						<!--Введите номер карты лояльности "BP CLUB"-->
+					<!--</label>-->
+					<!--<div class="b-promo-code__static-number">7005993</div>-->
+					<!--<div class="b-promo-code__input-container">-->
+						<!--<input id="b-promo-code__input3"-->
+							   <!--class="b-field-text b-promo-code__input b-promo-code__input_bpclub"-->
+							   <!--type="text"-->
+							   <!--digits-input-->
+							   <!--maxlength="25"-->
+							   <!--ng-model="promoCodeRosneft"-->
+							   <!--tabindex="24"/>-->
+					<!--</div>-->
+					<!--<span class="button b-promo-code__button"-->
+						  <!--ng-click="checkPromoCodeRosneft('bpclub')">Применить-->
+					<!--</span>-->
+					<!--<div class="b-field-block b-field-bonus">-->
+						<!--<label class="b-field-label b-field-label-docs">Начислено бонусов</label>-->
+						<!--<input validate-events-dir-->
+							   <!--type="text"-->
+							   <!--class="b-field-text"-->
+							   <!--ng-model="bonusRosneft">-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="b-promo-code__info" ng-if="promoCodeStatus == 1">-->
+					<!--Ввведен промо-код-->
+					<!--<b>{{ promoCode }}</b>-->
+					<!--на {{ promoCodeSale }}% скидку-->
+				<!--</div>-->
+				<!--<div class="b-promo-code__input-error-message"-->
+					 <!--ng-if="promoCodeStatusRosneftError">-->
+					<!--&lt;!&ndash;Номер карты неверный&ndash;&gt;-->
+					<!--{{ promoCodeErrorInfo }}-->
+				<!--</div>-->
+			<!--</div>-->
 		</div>
 
 		<div class="ReservationSection__wrap">
