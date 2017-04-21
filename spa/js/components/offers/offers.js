@@ -49,11 +49,11 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                 });
                 $scope.filter.Period = PeriodObj.Value;
                 
-                //var CategoryObj = _.find($scope.Categories, function (item) {
+                // var CategoryObj = _.find($scope.Categories, function (item) {
                 //    return item.Selected == true;
-                //});
-                //$scope.filter.Category = CategoryObj.Value;
-                //$scope.setCategory(CategoryObj);
+                // });
+                // $scope.filter.Category = CategoryObj.Value;
+                // $scope.setCategory(CategoryObj);
                 
                 var SortObj = _.find($scope.Sorts, function (item) {
                     return item.Selected == true;
@@ -82,65 +82,65 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                     });
                 });
             
-            // $scope.setCategory = function (category) {
-            //     if ($scope.typePage) {
-            //         var dataLayerObj = {
-            //             'event': 'UM.Event',
-            //             'Data' : {
-            //                 'Category': $scope.typePage ? $scope.typePage : '[no data]',
-            //                 'Action'  : $scope.typePage + 'Tab',
-            //                 'Label'   : category.Text,
-            //                 'Content' : '[no data]',
-            //                 'Context' : '[no data]',
-            //                 'Text'    : '[no data]'
-            //             }
-            //         };
-            //         console.table(dataLayerObj);
-            //         if (window.dataLayer) {
-            //             window.dataLayer.push(dataLayerObj);
-            //         }
-            //     }
-            //
-            //     var categories = [];
-            //     for (var i = 0; i < $scope.Categories.length; i++) {
-            //         var item = $scope.Categories[i];
-            //         if (category == item) {
-            //             item.Active = true;
-            //         } else {
-            //             item.Active = false;
-            //         }
-            //         categories.push(item);
-            //     }
-            //     $scope.Categories = categories;
-            //     $scope.filter.Category = category.Value;
-            //     /**
-            //      * если локация сохранена в кеше то берем её оттуда
-            //      * если кэш путой подставляем id Москвы 6733
-            //      */
-            //     var cacheLocation = serviceCache.getObject('DP_from');
-            //     var cacheLocationId = cacheLocation ? cacheLocation.Id : 6733;
-            //
-            //     var cacheArrivalLocation = serviceCache.getObject('DP_to');
-            //     var cacheArrivalLocationId = cacheArrivalLocation ? cacheArrivalLocation.Id : null;
-            //     console.log('GET-OBJECT', cacheArrivalLocation);
-            //
-            //     $scope.filter.Location = cacheLocationId;
-            //
-            //     //переменная sendArrivalLocation, настройка для отправки значения поля "куда"
-            //     //если true, то для офферов учитываем значение поля "куда"
-            //     var sendArrivalLocation = false;
-            //
-            //     if(cacheArrivalLocationId && sendArrivalLocation) {
-            //         $scope.filter.ArrivalLocation = cacheArrivalLocationId;
-            //     }
-            //
-            //     $scope.filterChange($scope.filter);
-            //     // EventManager.on("locationSelectorChange", function (data) {
-            //     //     $scope.filter.Location = data.Id;
-            //     //     $scope.filterChange($scope.filter);
-            //     // });
-            //
-            // };
+            $scope.setCategory = function (category) {
+                if ($scope.typePage) {
+                    var dataLayerObj = {
+                        'event': 'UM.Event',
+                        'Data' : {
+                            'Category': $scope.typePage ? $scope.typePage : '[no data]',
+                            'Action'  : $scope.typePage + 'Tab',
+                            'Label'   : category.Text,
+                            'Content' : '[no data]',
+                            'Context' : '[no data]',
+                            'Text'    : '[no data]'
+                        }
+                    };
+                    console.table(dataLayerObj);
+                    if (window.dataLayer) {
+                        window.dataLayer.push(dataLayerObj);
+                    }
+                }
+
+                var categories = [];
+                for (var i = 0; i < $scope.Categories.length; i++) {
+                    var item = $scope.Categories[i];
+                    if (category == item) {
+                        item.Active = true;
+                    } else {
+                        item.Active = false;
+                    }
+                    categories.push(item);
+                }
+                $scope.Categories = categories;
+                $scope.filter.Category = category.Value;
+                /**
+                 * если локация сохранена в кеше то берем её оттуда
+                 * если кэш путой подставляем id Москвы 6733
+                 */
+                var cacheLocation = serviceCache.getObject('DP_from');
+                var cacheLocationId = cacheLocation ? cacheLocation.Id : 6733;
+
+                var cacheArrivalLocation = serviceCache.getObject('DP_to');
+                var cacheArrivalLocationId = cacheArrivalLocation ? cacheArrivalLocation.Id : null;
+                console.log('GET-OBJECT', cacheArrivalLocation);
+
+                $scope.filter.Location = cacheLocationId;
+
+                //переменная sendArrivalLocation, настройка для отправки значения поля "куда"
+                //если true, то для офферов учитываем значение поля "куда"
+                var sendArrivalLocation = false;
+
+                if(cacheArrivalLocationId && sendArrivalLocation) {
+                    $scope.filter.ArrivalLocation = cacheArrivalLocationId;
+                }
+
+                $scope.filterChange($scope.filter);
+                // EventManager.on("locationSelectorChange", function (data) {
+                //     $scope.filter.Location = data.Id;
+                //     $scope.filterChange($scope.filter);
+                // });
+
+            };
             
             $scope.loadingOffers = false;
             $scope.filterChange = function (filter) {

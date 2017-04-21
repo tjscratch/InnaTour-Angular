@@ -40,7 +40,7 @@
     top 0px
     width 100%
     z-index: 300;
-    background-color #DDE3E9
+    //background-color #DDE3E9
 }
 .header-banner-grey{
     background #DDE3E9
@@ -54,23 +54,25 @@
     z-index: 300;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .header-nav__item {
+    flex-basis: 160px;
     &:first-child{
         a{
-            border-radius 3px 3px 3px 3px
+            border-radius 3px 0 0 3px
         }
     }
     &:last-child{
         a{
-            border-radius 3px 3px 3px 3px
+            border-radius 0 3px 3px 0
         }
     }
 
     position: relative;
     display: inline-block;
     //margin: 0 2px 0 0;
-    margin: 0 1px 0 0;
+    margin: 1px 1px 0 0;
 }
 .header-nav__item-promo {
     position: absolute;
@@ -93,11 +95,12 @@
     //background-color: $header-nav__item-link-bg;
     //color: $header-white;
     font-size: 15px;
-    line-height: 24px;
+    line-height: 32px;
     font-weight: normal;
     background-color #DDE3E9
     color #778695
-    border-radius: 3px 3px 3px 3px;
+    //border-radius: 3px 3px 3px 3px;
+    text-align center;
 
     &:hover {
         color $header-white
@@ -271,7 +274,7 @@
     }
 }
 .block_close {
-    display none
+    //display none
 }
 .icon-logo {
     height: 39px;
@@ -290,6 +293,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 
     position: relative;
     max-width: $site-width;
@@ -338,7 +342,7 @@
     font-size: 15px;
     flex-direction: column;
     justify-content: space-between;
-    height: 85vh;
+    //height: 85vh;
     align-items: center;
 }
 .search-form-expanded {
@@ -402,3 +406,38 @@
     position: relative;
     bottom: 10px;
 }
+    .authinavia-results{
+        max-width: 960px;
+        margin: 0 auto;
+        padding-bottom: 5px;
+        padding-top: 73px
+    }
+        .authhotelresults{
+            max-width: 960px;
+            margin: 0 auto;
+            padding-bottom: 5px;
+            padding-top: 50px;
+        }
+
+@media all and (max-width: 414px) {
+    .header-nav__item {
+        flex-basis: 49.6%;
+    }
+    .header-nav__item:nth-child(even) {
+        margin-right:0;
+
+    }
+    .header-nav__item-link, .header-nav__item:first-child a, .header-nav__item:last-child a{
+        border-radius 0;
+    } flex-basis: 75%;
+//}
+    .b-offers-category {
+        flex-basis: 40%;
+    }
+    .header-info__container{
+        justify-content: center !important;
+    }
+}
+
+
+

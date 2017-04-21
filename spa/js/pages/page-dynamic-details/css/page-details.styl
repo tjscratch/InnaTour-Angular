@@ -37,6 +37,12 @@
         }
     }
 }
+.page-hoteldetails{
+    padding-top: 72px;
+}
+    .b-hotel-details{
+        margin 0;
+    }
 .hotel-details__section_wrap{
     padding 16px
     margin-top 16px
@@ -55,8 +61,13 @@
     }
 
     &__crumbs{
-        margin: 5px 0px -10px 0px
-        
+        width: 960px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        line-height: 30px;
+        margin-bottom: 8px;
+
         .section__crumbs__list{
             
         }
@@ -69,7 +80,7 @@
             color: #212121 !important;
             
             &__link{
-                color: #0277bd !important;
+                color: #0277bd;
             }
             
             //&:after{
@@ -725,4 +736,44 @@
 }
 .hotel-details__section-services{
     margin: 0 0 20px;
+}
+    .recblock-banner{
+        background: url(https://s.inna.ru/Files/Photos/160527135902/170419145418/p_O.jpg) center/cover no-repeat;
+        width: 100%;
+        display: flex;npm
+        flex-direction: column;
+    }
+        .recommended-pair{
+            width: 960px;
+            margin: 0 auto;
+        }
+@media all and (max-width: 768px) {
+    .hotel-details__section__crumbs {
+        padding-top: 100px;
+        flex-direction: column;
+        margin-bottom: -20px
+    }
+
+    .hotel-details__wrap {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .hotel-details__section_wrap {
+        width: 100%;
+        .hotel-details__section {
+            justify-content: center;
+            display: flex;
+        }
+        #SectionRoom {
+            flex-direction column
+        }
+        .hotel-details-rooms__room {
+            width: 99%;
+        }
+        .hotel-details-rooms__room__desc {
+            width: 46%;
+        }
+    }
 }

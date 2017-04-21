@@ -15,7 +15,7 @@
     justify-content: center;
     margin: 0 auto;
     align-items: center;
-    background: url(http://s.test.inna.ru/Files/Photos/140221190450/170411154712/p_O.jpg) center/cover no-repeat;
+    background: url(https://s.inna.ru/Files/Photos/160527135902/170419145418/p_O.jpg) center/cover no-repeat;
 
     &.recommend-bundle-container_short{
         top $padding_over_head
@@ -53,7 +53,7 @@
     display flex
     align-items center
     justify-content space-between
-    margin: 5px 0px -10px 0px;
+    margin: 5px 0px 10px 0px;
 
     .icon-crown{
         position: relative;
@@ -125,6 +125,7 @@
 
     .b-result {
         padding: 0px;
+        border: 0;
     }
 
     .spinner{
@@ -218,16 +219,92 @@
     /*opacity: 0;*/
     /*padding: 0 10px;*/
 /*}*/
-@media screen{
-    .sidebar{
-        width: 300px;
+//@media screen{
+//    .sidebar{
+//        width: 300px;
+//    }
+//    // mobile
+//    @media (orientation: landscape){
+//        /*.recommend-bundle-container {
+//          display : none;
+//        }*/
+//    }
+//}
+//@media screen{
+//    .sidebar{
+//        width: 300px;
+//    }
+//    // mobile
+//    @media (orientation: landscape){
+//        /*.recommend-bundle-container {
+//          display : none;
+//        }*/
+//    }
+//}
+@media all and (max-width: 768px) {
+    .recommend-bundle-title{
+        margin: 110px 0 0 5px;
     }
-    // mobile
-    @media (orientation: landscape){
-        /*.recommend-bundle-container {
-          display : none;
-        }*/
-    }
+.loginndp {
+    bottom: 21px !important;
+    right: 220px;
+}
+
+.b-list-panel .b-list-panel__list {
+    padding: 160px 10px 0px 5px;
+}
+.recommended-pair .b-result {
+    width: 80%;
+}
+.b-price-block__margin-top {
+    margin-top: 20px;
+}
+.panel-tabs-dp__tab_avia {
+    width: 30%;
+}
+.panel-tabs-dp__tab_hotel {
+    width: 30%;
+}
+.panel-tabs-dp__tab:last-child {
+    width: 19%;
+}
+.filters__body .filters__container {
+    width: 90%;
+}
+.b-result.b-result_col_two_short .b-result__cell:nth-child(1) {
+    width: 60%;
+}
+.b-result.b-result_col_two_short .b-result__cell:nth-child(2) {
+    width: 21%;
+}
+.b-result-content .result-cell__airlines {
+    width: 15%;
+}
+.b-switch-filters {
+    right: 93px;
+}
+.b-switch-filters__item {
+    width: 75%;
+}
+.b-result.b-result_col_three_galary .b-result__cell:nth-child(even) {
+    width: 30%;
+}
+.b-result.b-result_middle .b-result__cell {
+    width: 20%;
+}
+.b-dp-services {
+    padding-left: 0px;
+}
+.b-dp-services__title {
+    font-size: 13px;
+}
+.col-xs-9 {
+    width: 65% !important;
+}
+.filters__body .filters__container > li, .filters__body .filters__container li.filter {
+    padding-left: 5px;
+
+}
 }
 
 

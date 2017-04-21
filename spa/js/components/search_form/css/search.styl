@@ -1,3 +1,20 @@
+@font-face {
+    font-family: Roboto-Regular;
+    font-weight: 400;
+    src: url('/spa/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: Roboto-Medium;
+    font-weight: 500;
+    src: url('/spa/fonts/Roboto-Medium.ttf');
+}
+
+@font-face {
+    font-family: Roboto-Bold;
+    font-weight: 700;
+    src: url('/spa/fonts/Roboto-Bold.ttf');
+}
 .hidden
     display none
 .b-search-form
@@ -12,7 +29,7 @@
     display: flex !important
     flex-wrap: wrap
     justify-content: center
-    max-width: 961px;
+    //max-width: 960px;
     margin: 0 auto;
 
     .search-field-block:first-child > .search-field {
@@ -21,9 +38,9 @@
 
     .b-wrapp_type_inline {
         &:nth-child(2) {
-            .search-field {
-                border-radius 3px 0px 0px 3px
-            }
+            //.search-field {
+            //    border-radius 3px 0px 0px 3px
+            //}
         }
     }
 
@@ -31,9 +48,9 @@
         &:nth-child(2) {
             //margin-left 0
 
-            .search-field {
-                border-radius 3px 0px 0px 3px
-            }
+            //.search-field {
+            //    border-radius 3px 0px 0px 3px
+            //}
         }
     }
 
@@ -45,7 +62,10 @@
     padding: 16px 0px;
 }
 .b-search-form_padding-16px {
-    padding 16px 0px
+    padding: 80px 0px 16px 0;
+}
+.search-ticket-form{
+    padding: 10px 0px 16px 0
 }
 .i-close
     position: absolute
@@ -72,8 +92,9 @@
     margin-left 0px
     border-radius 3px 0px 0px 3px
 .b-wrapp_type_inline
-    position relative
-    float left
+    //position relative
+    //float left
+    display: flex;
     margin-left 1px
 .search-field-block
     width 170px
@@ -121,8 +142,10 @@
     }
 }
 .search-date-block
-    width 118px !important
+    //width 118px !important
     position: relative;
+    margin-right: 1px;
+    width: 121px;
 
     &:focus {
         outline: none;
@@ -138,6 +161,9 @@
         left: 1px;
         bottom: 1px;
         right: 0;
+        align-items: center;
+        display: flex;
+        padding-top: 5px;
 
         &_display_placeholder {
             //color: #666;
@@ -151,7 +177,8 @@
         content: '';
         position absolute;
         right: 5px;
-        top: 8px;
+        top: 13px;
+        cursor: pointer;
         //margin-top: -8px;
     }
 .search-date
@@ -174,14 +201,15 @@
     border: 0;
     /* position: absolute; */
     /* overflow: hidden; */
-    height: 40px;
+    height: 48px;
     width: 112px !important;
     /* margin: 0; */
-    padding: 12px 10px;
+    padding: 14px 10px;
     transition: background-color 0.3s linear;
     background-color: #89c13a;
     cursor: pointer;
-    fint-size: 16px;
+    font-size: 16px;
+    font-family: Roboto-Medium;
     color: #fff;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -189,7 +217,7 @@
     text-align: center;
     border-radius: 0px 3px 3px 0px;
     /* right: 0px; */
-    margin-left: 1px;
+    //margin-left: 1px;
 
     .search-button__icon {
         position: absolute;
@@ -217,13 +245,14 @@
     margin 0
     padding 0
 .search-people-block {
-    width 96px !important
+    width 90px
     height 40px
     z-index 2
-    margin-left 1px
+    //margin-left 1px
+    margin-right: 1px;
 
     &.search-people-choose {
-        width 119px !important
+        width 108px !important
 
         .search-people {
             //background: #fff url("/spa/img/i.png") no-repeat 55px -1879px;
@@ -232,9 +261,9 @@
 }
 .search-people
     background #fff
-    height 40px
-    line-height 40px !important
-    padding 0 10px
+    height: 44px;
+    line-height: 38px !important;
+    padding 4px 0 0 10px
     //font 14px / 36px $ProximaNova
     font-size 15px
     cursor pointer
@@ -368,7 +397,7 @@
     letter-spacing -.025em
     padding 5px 0
     box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
-    margin-top 1px
+    margin-top 49px
 
     > li:last-child
         > ul:after
@@ -427,9 +456,9 @@
 
 }
 .search__city
-    width 196px
-.search__120
-    width 120px
+    width 201px
+//.search__120
+//    width 123px
 .tours-calendar-input {
     position: absolute;
     top: 0;
@@ -442,33 +471,90 @@
     right -40px
     top 23px
 }
-@media all and (max-width: 768px) {
+.counter-people{
+    margin-left: 0 !important;
+}
+    .dp-search-reserve{
+        margin-left: 0 !important;
+    }
+        .human-class{
+            display: flex;
+            flex-wrap: wrap;
+        }
+.search-date{
+    border-radius: 0;
+}
+.b-search-form .b-location_selector:nth-child(2) .search-field {
+    border-radius: 0;
+}
+
+@media all and (max-width: 974px) {
+    .dp-search-reserve {
+        flex-basis: 50%;
+        display: flex;
+    }
+    .b-wrapp_type_inline {
+        display: flex;
+        flex: 1;
+        flex-basis: 46%;
+    }
     .search__city {
         flex-basis: 49%;
-    }
-    .search-date-block {
-        margin-top: 2px;
+        margin-left: 1px !important;
     }
 
-    .search-form-humans {
-        margin-top: 2px;
+    .search-date-block {
+        margin-top: 1px;
+        width: 100%;
     }
-    .search-people {
-        margin-top: 2px;
+    .search-form-humans {
+        flex: 1;
+        margin-top: 1px;
+    }
+    .search-people-block{
+        margin-top: 1px;
+        flex-basis: 49%;
+        flex: 1;
     }
     .search-form__submit{
-        margin-top: 2px;
-        flex-basis 39%;
+        margin: 1px 1px 2px 1px;
         border-radius: 0;
+        flex-basis: 100%;
+    }
+    .search-field, .search-date{
+        border-radius: 0 !important;
     }
     .b-search-form .b-location_selector:nth-child(2) .search-field {
         border-radius: 0;
     }
-    .b-wrapp_type_inline:first-child {
-        margin-left: 1px;
+    .search-device{
+        margin-right: 1px;
+    }
+    .human-class{
+        display: flex;
+        flex: 1;
+        flex-wrap: wrap;
+        flex-basis: 46%;
     }
     .header-info__container{
-        width: 97%;
+        width 98%;
     }
-
+}
+@media (max-width: 375px) {
+    .b-wrapp_type_inline{
+        flex-basis: 99%;
+    }
+    .search__city {
+        margin-top: 1px;
+    }
+}
+@media all and (max-width: 320px) {
+    .search__city {
+        flex-basis: 100%;
+        margin-top: 1px;
+        margin-right: 1px;
+    }
+    .b-wrapp_type_inline{
+        flex-basis: 100%;
+    }
 }

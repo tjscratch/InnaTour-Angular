@@ -1,4 +1,5 @@
 <div ng-controller='DynamicFormCtrl'>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport">
 	<div class='pic-cont'
 		 ng-class="{'horizontal-form':useHorizontalForm}">
 			<!--<span class="wrap-additions uppercase">-->
@@ -48,23 +49,23 @@
 					</li>
 				</ul>
 			</div>
-			<form class="b-search-form search-ticket-form scroll-fix" ng-controller="DynamicFormCtrl" ng-if="!_dynamicSearchFormInvisible"
+			<form class="b-search-form" ng-controller="DynamicFormCtrl" ng-if="!_dynamicSearchFormInvisible"
 				  ng-class="{'b-search-form_padding-1px': FormExpand, 'b-search-form_padding-16px': !FormExpand}"
 				  style="{{(!isOpenSearchForm) ? 'display:none' : 'display:block'}}">
 
-				<a href="/#/" class="header-info__logo" ng-class="{'block_close': isEnableSearchForm}">
-					<i class="logo_inna" alt="ИННА ТУР" title="ИННА ТУР"></i>
-				</a>
+				<!--<a href="/#/" class="header-info__logo" ng-class="{'block_close': isEnableSearchForm}">-->
+				<!--<i class="logo_inna" alt="ИННА ТУР" title="ИННА ТУР"></i>-->
+				<!--</a>-->
 
 				<div location-selector tab-index="1"
-					 theme="search-field-block search__city"
+					 theme="search-field-block search__city dp-border"
 					 placeholder="Откуда"
 					 selected-value="fromCity"
 					 type-search="DP_from"
 				></div>
 
 				<div location-selector tab-index="2"
-					 theme="search-field-block search__city"
+					 theme="search-field-block search__city search-device"
 					 placeholder="Куда"
 					 selected-value="toCity"
 					 type-search="DP_to"
@@ -105,17 +106,20 @@
 					 type-page="'DP'"
 					 class="b-wrapp_type_inline date-picker-widget"></div>
 
-				<div counter-people click-on-focus tabindex="5"
-					 adult-count="adultCount"
-					 children-count="childrenCount"
-					 childrens-age="childrensAge"
-					 type-page="'DP'"
-					 class="b-wrapp_type_inline no-outline-on-focus"></div>
+				<div class="human-class">
+					<div counter-people click-on-focus tabindex="5"
+						 adult-count="adultCount"
+						 children-count="childrenCount"
+						 childrens-age="childrensAge"
+						 type-page="'DP'"
 
-				<div trip-preferences click-on-focus tabindex="6" class="no-outline-on-focus"
-					 show-back-trip-options="false"
-					 klass-model="klass"
-					 type-page="'DP'"></div>
+						 class="no-outline-on-focus counter-people dp-search-reserve"></div>
+
+					<div trip-preferences click-on-focus tabindex="6" class="no-outline-on-focus"
+						 show-back-trip-options="false"
+						 klass-model="klass"
+						 type-page="'DP'"></div>
+				</div>
 
 				<!--<people-trip-preferences tabindex="5"-->
 				<!--adult-count="adultCount"-->
@@ -132,7 +136,7 @@
 					<!--<i class="icon-sprite-search search-button__icon"></i>-->
 				</div>
 
-				<vertical-menu class="icon-vert-menu" ng-class="{'block_close': isEnableSearchForm}"></vertical-menu>
+				<!--<vertical-menu class="icon-vert-menu" ng-class="{'block_close': isEnableSearchForm}"></vertical-menu>-->
 
 			</form>
 		</div>
