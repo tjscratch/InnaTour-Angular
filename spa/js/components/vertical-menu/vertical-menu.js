@@ -36,6 +36,7 @@ innaAppDirectives
                             case '/avia/':
                             case '/tours/':
                             case '/packages/':
+                            case '/packages/search':
                             case '/hotels/':
                             case '/bus/':
                                     $scope.etapMainPage = true;
