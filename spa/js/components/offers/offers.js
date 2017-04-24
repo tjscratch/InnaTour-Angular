@@ -5,9 +5,11 @@ innaAppDirectives.directive('offers', function ($templateCache) {
         scope     : {
             typePage: '='
         },
-        controller: function ($scope, RavenWrapper, serviceCache, Offer, $timeout, EventManager) {
+        controller: function ($scope, RavenWrapper, serviceCache, Offer, $timeout, EventManager, PromoCodes) {
             
             $scope.price = null;
+
+
             
             function setDefaultValue(res) {
                 
@@ -152,6 +154,31 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                             $scope.filter.Location = 6733;
                             $scope.filterChange($scope.filter);
                         } else {
+                            $scope.isEnableBonus = false;
+
+                            if(window.partners.partner) {
+                                $scope.isRosneftWL = {
+                                    cardType: null,
+                                    price: 10000
+                                }
+                                if (window.partners.partner.name == 'komandacard') {
+                                    $scope.isRosneftWL.cardType = 'komandacard';
+                                } else if (window.partners.partner.name == 'bpclub') {
+                                    $scope.isRosneftWL.cardType = 'bpclub';
+                                }
+
+                                if($scope.isRosneftWL.cardType) {
+                                    PromoCodes.getCurrentBonus($scope.isRosneftWL).success(
+                                        function (res) {
+                                            if(res.Result == 'Success') {
+                                                $scope.currentBonusRosneft = parseFloat((res.Data).replace(',','.'));
+                                                $scope.isEnableBonus = true;
+                                            }
+                                        }
+                                    );
+                                }
+                            }
+
                             $scope.offersServer = res.data.Offers;
                             $scope.showOffers = true;
                             $scope.loadingOffers = false;
