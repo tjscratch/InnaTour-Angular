@@ -403,6 +403,12 @@
                             </div>
                         </div>
 
+                        <div ng-if="isEnableBonus" style="display: flex; justify-content: center; align-items: center;background-color: white;width:280px;position:absolute;bottom:15px;right:15px;padding:10px 0px;">
+                            <span style="color:orangered;">{{ offer.Price * currentBonusRosneft | currency : "" : 0 | asQuantity:'балл':'балла':'баллов' }}</span>
+                            &nbsp;
+                            <span style="color:black;">за 1 чел.</span>
+                        </div>
+
                     </div>
                 </div>
             </div>
