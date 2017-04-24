@@ -51,7 +51,8 @@ $banner-item-height = 670px;
      display: flex;
      flex-direction: column;
      justify-content: center;
-     align-items: center;
+     max-width: 960px;
+     margin: 0 auto;
  }
 .offers {
 
@@ -79,9 +80,8 @@ $banner-item-height = 670px;
 
     &-container {
         @extend .main__center;
-        padding-top: 40px;
+        //padding-top: 40px;
         width: 100%;
-        max-width: 960px;
     }
 
     &-title {
@@ -355,7 +355,7 @@ $banner-item-height = 670px;
 .offer {
     &-small, &-middle, &-large, &-extra-large {
         cursor: pointer;
-        display: inline-block;
+        display: inline-flex;
         font-size: 16px;
         overflow: hidden;
         line-height: normal;
@@ -396,7 +396,7 @@ $banner-item-height = 670px;
 
     &-middle {
         height: 320px;
-        width: 475px;
+        width: 49.75%;
         border-radius: 4px;
     }
 
@@ -407,7 +407,7 @@ $banner-item-height = 670px;
 
     &-extra-large {
         height: 428px;
-        width: 954px;
+        width: 100%;
         border-radius: 4px;
     }
 
@@ -660,17 +660,24 @@ $banner-item-height = 670px;
         width 17px
     }
 }
-@media all and (max-width: 914px) {
+@media all and (max-width: 974px) {
     .offer-middle {
         width: 49.7%
-    }
-    .offer-extra-large {
-        width: 90%;
     }
 }
 @media all and (max-width: 414px) {
     .offer-middle {
-        width: 98%
+        width: 100%;
+        margin: -2px -4px -2px 0px;
+    }
+    .offer-extra-large {
+        margin-top: -2px;
+    }
+    .offer-extra-large .offer-title {
+        font-size: 32px;
+    }
+    .footer-menu-info {
+        top: 15px;
     }
 }
 .header-banner__item {

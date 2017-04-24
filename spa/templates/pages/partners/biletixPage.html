@@ -105,12 +105,12 @@
                 <!--<p class="offers-description" ng-if="!landing.canDisplayDataForLandingPages">
                     {{::section.Description}}
                 </p>-->
-                <div class="offers-list" ng-controller="OffersListCtrl">
+                <ul class="offers-list" ng-controller="OffersListCtrl">
                     <ng:any ng-repeat="block in section.OfferLayouts track by $index">
                         <ng:include src="getTemplateUrlByBlockType(block.OfferLayoutType)">
                         </ng:include>
                     </ng:any>
-                </div>
+                </ul>
             </div>
         </div>
     </div>

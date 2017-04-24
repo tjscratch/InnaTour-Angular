@@ -13,7 +13,7 @@
     </div>
     <div class="vertical-menu" ng-class="{'vertical-menu_open': isOpen}" ng-if="isOpen">
         <ul class="menu__ul_main-tab" style="{{(etapMainPage) ? 'display:none' : ''}}">
-            <li>
+            <li class="menu__ul-li">
                 <!--<span class="header-nav__item-promo">-30%</span>-->
                 <a
                    href="/#/"
@@ -22,7 +22,7 @@
                     Перелет + Отель
                 </a>
             </li>
-            <li>
+            <li class="menu__ul-li">
                 <a
                    href="/#/avia/"
                    ng-click="gtmMainTab($event)"
@@ -30,7 +30,7 @@
                     Авиабилеты
                 </a>
             </li>
-            <li>
+            <li class="menu__ul-li">
                 <a
                    href="/#/hotels/"
                    ng-click="gtmMainTab($event)"
@@ -38,7 +38,7 @@
                     Отели
                 </a>
             </li>
-            <li>
+            <li class="menu__ul-li">
                 <a
                    href="/#/bus/"
                    ng-click="gtmMainTab($event)"
@@ -48,36 +48,36 @@
             </li>
         </ul>
         <ul class="menu__ul">
-            <a class=""  href="/#/where-to-buy/">
-                <li class="menu__ul-li" ng-click="toggleVertMenu()">
-                    Где купить
-                </li>
-            </a>
-            <a class="" href="http://book.inna.ru/" ng-click="toggleVertMenu()">
                 <li class="menu__ul-li">
-                    Агентствам
+                    <a class=""  href="/#/where-to-buy/">
+                    <span>Где купить</span>
+                    </a>
                 </li>
-            </a>
-            <a class="" href="//inna.ru/catalog/visa/" ng-click="toggleVertMenu()">
                 <li class="menu__ul-li">
-                    Визы
+                    <a class="" href="http://book.inna.ru/">
+                    <span>Агентствам</span>
+                    </a>
                 </li>
-            </a>
-            <a class=""
-               ng-class="{'b-navbar-menu__link-active':isActive('/transfers/')}"
-               href="/#/transfers/" ng-click="toggleVertMenu()">
                 <li class="menu__ul-li">
-                    Трансферы
+                    <a class="" href="//inna.ru/catalog/visa/">
+                    <span>Визы</span>
+                    </a>
                 </li>
-            </a>
-            <a class=""
-               ng-click="toggleVertMenu()"
-               ng-class="{'b-navbar-menu__link-active':isActive('/individualtours/')}"
-               href="/#/individualtours/">
                 <li class="menu__ul-li">
-                    Программы
+                    <a class=""
+                       ng-class="{'b-navbar-menu__link-active':isActive('/transfers/')}"
+                       href="/#/transfers/">
+                    <span>Трансферы</span>
+                    </a>
                 </li>
-            </a>
+                <li class="menu__ul-li">
+                    <a class=""
+                       ng-click="toggleVertMenu()"
+                       ng-class="{'b-navbar-menu__link-active':isActive('/individualtours/')}"
+                       href="/#/individualtours/">
+                    <span>Программы</span>
+                    </a>
+                </li>
             <!--<a class="" href="http://ntp.inna.ru/" target="_blank" ng-click="toggleVertMenu()">-->
                 <!--<li class="menu__ul-li">-->
                     <!--Отдых в России-->
