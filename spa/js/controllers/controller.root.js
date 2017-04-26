@@ -151,14 +151,17 @@ innaAppControllers.
                 console.log($location.$$path.length)
                if ($location.$$path.indexOf('/') == 0) {
                    $('.header-nav').css("display", "flex");
-                   $(".offer-text, .slogan-container").css("display", "flex");
                }
                 if ($location.$$search.map === 'show') {
                     $scope.bannerGrey = true;
                 }else $scope.bannerGrey = false;
-                if ($location.$$path.indexOf("/packages/search") > -1 || $location.$$path.indexOf("/packages/details") > -1 || $location.$$path.indexOf("/packages/reservation") > -1 || $location.$$path.indexOf("/payment") > -1) {
+                if ($location.$$path.indexOf("/packages/search") > -1 || $location.$$path.indexOf("/packages/details") > -1 || $location.$$path.indexOf("/packages/reservation") > -1 || $location.$$path.indexOf("/payment") > -1 || $location.$$path.indexOf("/display-order") > -1) {
 
                     $scope.SearchFormExpandPadding = {'display': 'none'};
+                }
+                if ($location.$$path.indexOf("/display-order") > -1) {
+                    $('.header-nav').css("display", "flex");
+                    $(".offer-text, .slogan-container").css("display", "flex");
                 }
                if ($location.$$path.indexOf("hotels") > -1 && $location.$$path.length > 8)  {
                     console.log($location.$$path.length)
