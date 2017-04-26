@@ -420,7 +420,7 @@ app.config([
                 //resolve: authController.resolve
             })
             .when('/tours/', {
-                templateUrl: 'pages/page-wltours/page-tours.html',
+                templateUrl: 'pages/page-wltours/page-tours.html'
             })
             /**
              * begin bus tours

@@ -148,15 +148,23 @@ innaAppControllers.
             // $scope.isVisibleNotifNewDesign = false;
             
             $scope.$on('$routeChangeStart', function (next, current) {
-                console.log($location.$$path.length)
+                console.log($location.$$path.indexOf("/tours/"))
                if ($location.$$path.indexOf('/') == 0) {
                    $('.header-nav').css("display", "flex");
                    $(".offer-text, .slogan-container").css("display", "flex");
                }
+                if ($location.$$path.indexOf("/tours/") ==0) {
+                    $('.header-nav').css("display", "none");
+                    $(".offer-text, .slogan-container").css("display", "none");
+                    $(document).ready(function(){
+                        $('.header-nav').css("display", "none");
+                        $(".offer-text, .slogan-container").css("display", "none");
+                    });
+                }
                 if ($location.$$search.map === 'show') {
                     $scope.bannerGrey = true;
                 }else $scope.bannerGrey = false;
-                if ($location.$$path.indexOf("/packages/search") > -1 || $location.$$path.indexOf("/packages/details") > -1 || $location.$$path.indexOf("/packages/reservation") > -1 || $location.$$path.indexOf("/payment") > -1) {
+                if ($location.$$path.indexOf("/packages/search") > -1 || $location.$$path.indexOf("/packages/details") > -1 || $location.$$path.indexOf("/packages/reservation") > -1) {
 
                     $scope.SearchFormExpandPadding = {'display': 'none'};
                 }

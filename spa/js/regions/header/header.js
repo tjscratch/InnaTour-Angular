@@ -117,9 +117,9 @@ innaAppControllers
                 var isDynamic = (
                         loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
                     ) || loc == appUrls.URL_ROOT;
-                // if (loc == appUrls.URL_TOURS || abs.indexOf(appUrls.URL_TOURS + '?') > -1) {
-                //     return 'components/search_form/templ/tours_search_form.html';
-                // }
+                if (loc == appUrls.URL_TOURS || abs.indexOf(appUrls.URL_TOURS + '?') > -1) {
+                    return 'components/search_form/templ/tours_search_form.html';
+                }
                 if (isDynamic) {
                     category = 'Packages';
                 }
