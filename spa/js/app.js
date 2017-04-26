@@ -419,8 +419,8 @@ app.config([
                 controller : 'HotelsShowController',
                 //resolve: authController.resolve
             })
-            .when('/touron/', {
-                templateUrl: 'pages/page-touron/page-touron.html',
+            .when('/tours/', {
+                templateUrl: 'pages/page-wltours/page-tours.html',
             })
             /**
              * begin bus tours
