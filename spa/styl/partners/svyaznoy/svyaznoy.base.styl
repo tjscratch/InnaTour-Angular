@@ -1,198 +1,70 @@
-//@import "../../base.styl"
-//VARS
-//$bg-color = #f5f8fa
-//$white = #fff
-//$light-blue = #eef1f3
-//$gray = #757575
-//$light-gray = #f7f7f7
-//$light-blue2 = #afc0cd
-//$light-blue3 = #c8dee8
-//$dark-blue = #777893
-//$orange = #ffb42f
-//$light-orange = #fff0d5
-//
-//$border-radius ?= 10px
-//
-//$dp-title-color = #65a7c0
+@import "../../base.styl"
+$black = #000;
+$red = #E30514;
+$white = #fff;
+$green = #89c13a;
 
-//@import "../svyaznoy/colors.styl"
-//@import "../svyaznoy/index.styl"
-//@import "../full_wl/controls.styl"
-//@import "../svyaznoy/buttons.styl"
-//@import "../svyaznoy/form.styl"
-//@import "../svyaznoy/horiz-form.styl"
-//@import "../full_wl/avia.styl"
-//@import "../svyaznoy/dp.search.result.styl"
-//@import "../full_wl/dp.hotel.details.styl"
-//@import "../svyaznoy/dp.buy.styl"
-//@import "../svyaznoy/map.styl"
-//@import "../full_wl/gallery.styl"
+$border-radius = 2px;
 
-@import "../full_wl/full_wl.base.styl"
+// begin form
+$form-bg = $black;
+$form-border-radius = $border-radius;
+$form-label-font-size = 17px;
+$form-font-size = 13px;
+$form-input-bg = $white;
+$form-input-error-color = $red;
 
-.partner-wl{
-    
-    .error{
-        border none !important
-        box-shadow 0px 0px 0px 1px $orange !important
-        background $light-orange
-    }
-    
-    .b-field-text{
-        &:focus{
-            border-color $orange
-            background-color #fff
-            box-shadow none
-        }
-    }
-    
-    .ui-tooltip-content::before{
-        content url('/spa/img/partners/svyaznoy/validation-error.png')
-    }
-        
-    .pic-cont{
-        height: 0px;
-        width: 0px;
-        background: transparent;
-    }
-    .search-autocomplete{
-        width 300px
-        margin-top 0
-        padding 0
-        border 1px solid $dark-blue
-        
-        .search-autocomplete-block{
-            &:hover,
-            &.selected{
-                background-color: $light-orange;
-            }
-        }
-    }
-    .offers-container{
-        padding-top 13px
-        
-        .landing-title{
-            display none
-        }
-    }
-    
-    .datepicker-body{
-        z-index 1001
-        margin-top 5px
-        border 2px solid $light-blue3
-        border-radius 6px
-        
-        .dp-head-cont{
-            border none
-            box-shadow none
-            border-radius 6px 6px 0 0
-            
-            .dtpk-head{
-                /*border none*/
-            }
-            
-            .dtpk-caption{
-                font-size 14px
-                text-transform none
-            }
-        }
-        .datepickerContainer{
-            box-shadow none
-            border-radius 0 0 6px 6px
-        }
-        .datepickerMonth span{
-            font-size 18px
-            color $dp-title-color
-            text-transform uppercase
-            font-weight bold
-        }
-        .datepickerGoPrev a, .datepickerGoNext a{
-            display inline-block
-            top 0
-            width 24px
-            height 24px
-            vertical-align top
-            
-            &:before{
-                display none
-            }
-        }
-        .datepickerGoPrev{
-            vertical-align top
-            text-align center
-            
-            a{
-                background url("/spa/img/partners/svyaznoy/calendar-left.png") no-repeat 0 0
-            }
-            &.datepickerGoPrev__disabled{
-                a{
-                    background url("/spa/img/partners/svyaznoy/calendar-left-disabled.png") no-repeat 0 0
-                }
-            }
-        }
-        .datepickerGoNext{
-            vertical-align top
-            text-align center
-            
-            a{
-                background url("/spa/img/partners/svyaznoy/calendar-right.png") no-repeat 0 0
-            }
-            &.datepickerGoNext__disabled{
-                a{
-                    background url("/spa/img/partners/svyaznoy/calendar-right-disabled.png") no-repeat 0 0
-                }
-            }
-        }
-        .calendar-0 .datepickerGoNext *, .calendar-1 .datepickerGoPrev *{
-            display: none;
-        }
-    }
-    
-    .search-form-dialog-row{
-        .button-group{
-            .button{
-                height 28px
-                width 28px
-                border 1px solid #afc0cd
-                background-color #fff
-                
-                &.active{
-                    background #FC6421
-                    border-color #FC6421
-                }
-            }
-        }
-    }
-    .search-form-list-item:hover{
-        background-color $light-orange
-    }
-    .spinner{
-        height 85px
-        background url("/spa/img/partners/svyaznoy/ball_85x85-cikl.gif") no-repeat center center
-        
-        .rect{
-            display none
-            /*background #FC6421*/
-        }
-    }
-    .search__list{
-        .current{
-            .fa-check{
-                color #777893
-            }
-        }
-    }
-    .gallery__list{
-        
-    }
-    .filters__body.filters__body_dp{
-        bottom -39px
-    }
-        
-    .b-dp-services__list-item-icon{
-        color $orange
-    }
+$form-btn-color = $white;
+$form-btn-bg = $green;
+$form-btn-font-size = 18px;
+$form-btn-width = 80px;
+$form-btn-border-radius = $border-radius;
+
+$form-input-height = 36px;
+$form-input-from-width = 174px;
+$form-input-to-width = 200px;
+$form-calendar-input-widht = 125px;
+$form-list-input-widht = 110px;
+
+$form-datapicker-bg = $green;
+$form-datapicker-bg-lighten = lighten($form-datapicker-bg, 70%);
+$form-datapicker-border-color = $green;
+// end form
+
+// begin btn
+$btn-green-bg = $green;
+$btn-green-bg-hover = lighten($green, 15%);
+$btn-green-bg-active = darken($green, 15%);
+$btn-green-color = $white;
+$btn-green-border-radius = 4px;
+$btn-red-border-radius = 4px;
+$btn-red-bg = $green;
+$btn-red-bg-hover = lighten($btn-red-bg, 15%);
+$btn-red-bg-active = darken($btn-red-bg, 15%);
+$btn-red-color = $white;
+$btn-yellow-bg = #FFCD29;
+$btn-yellow-color = $black;
+// end btn
+
+
+
+@import "../full_wl/colors.styl"
+@import "../full_wl/index.styl"
+@import "../full_wl/controls.styl"
+@import "../full_wl/buttons.styl"
+@import "../full_wl/horiz-form.styl"
+@import "../full_wl/avia.styl"
+@import "../full_wl/dp.search.result.styl"
+@import "../full_wl/dp.hotel.details.styl"
+@import "../full_wl/dp.buy.styl"
+@import "../full_wl/map.styl"
+@import "../full_wl/gallery.styl"
+
+.layout.partner{
+    top: 0;
+    margin-bottom: 0;
+    padding: 0;
 }
 .hotel-details__section__crumbs{
-    margin: 5px 0px;
+    margin: 5px auto;
 }
