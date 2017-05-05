@@ -66,7 +66,6 @@ angular.module('innaApp.controllers')
             $scope.signIn = function () {
                 try {
                     validate();
-
                     //if ok
                     signIn();
                 } catch (fieldName) {
@@ -81,6 +80,11 @@ angular.module('innaApp.controllers')
 
             $scope.switchRememberMe = function () {
                 $scope.rememberMe = !$scope.rememberMe;
+            };
+            $scope.addActiveUserClass = function () {
+
+
             }
         }
+
     ]);
