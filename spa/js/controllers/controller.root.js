@@ -155,7 +155,8 @@ innaAppControllers.
                 if ($location.$$search.map === 'show') {
                     $scope.bannerGrey = true;
                 }else $scope.bannerGrey = false;
-                if ($location.$$path.indexOf("/packages/search") > -1 || $location.$$path.indexOf("/packages/details") > -1 || $location.$$path.indexOf("/packages/reservation") > -1 || $location.$$path.indexOf("/payment") > -1 || $location.$$path.indexOf("/display-order") > -1) {
+                if ($location.$$path.indexOf("/packages/search") > -1 || $location.$$path.indexOf("/packages/details") > -1 || $location.$$path.indexOf("/packages/reservation") > -1
+                    || $location.$$path.indexOf("/payment") > -1 || $location.$$path.indexOf("/display-order") > -1 || $location.$$path.indexOf("/individualtours/category") > -1)  {
 
                     $scope.SearchFormExpandPadding = {'display': 'none'};
                 }

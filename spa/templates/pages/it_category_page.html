@@ -4,11 +4,12 @@
             <li class="crumb"><a href="#">Главная</a></li>
             <li class="crumb"><a href="#">Индивидуальные программы</a></li>
         </ul>-->
+
         <div class="offers-card-banner-container programm" ng-controller="SliderCtrl" app-slider>
             <ul class="offers-card-banner-list Offer-card-banners" ng-show="slides.length > 0">
                 <li class="offer-card-banner-item programm" ng-repeat="slide in slides track by $index">
-                    <img ng-src="{{slide.Url}}" />
-                    <!--<div class="img" style="background-image: url('{{slide.Url}}')"></div>-->
+                    <!--<img ng-src="{{slide.Url}}" />-->
+                   <!--<div class="img" style="background-image: url('{{slide.Url}}')"></div>-->
                 </li>
             </ul>
             <div class="darken-container" ng-if="isFirstSlideDarken()"></div>
