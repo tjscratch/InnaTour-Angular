@@ -148,7 +148,6 @@ innaAppControllers.
             // $scope.isVisibleNotifNewDesign = false;
             
             $scope.$on('$routeChangeStart', function (next, current) {
-                console.log($location.$$path.length)
                if ($location.$$path.indexOf('/') == 0) {
                    $('.header-nav').css("display", "flex");
                }
@@ -165,7 +164,6 @@ innaAppControllers.
                     $(".offer-text, .slogan-container").css("display", "flex");
                 }
                if ($location.$$path.indexOf("hotels") > -1 && $location.$$path.length > 8)  {
-                    console.log($location.$$path.length)
                    $('.header-nav').css("display", "none");
                     $(".offer-text, .slogan-container").css("display", "none");
                     $(".header-menu").css("display", "flex").css("height", "100%");
@@ -185,7 +183,7 @@ innaAppControllers.
                    });
                 }
                else {
-                   // $(".offer-text, .slogan-container").css("display", "flex");
+                   $(".offer-text, .slogan-container").css("display", "flex");
                    // $(".header-menu").css("height", "85vh");
                }
                 switch ($location.$$path) {
