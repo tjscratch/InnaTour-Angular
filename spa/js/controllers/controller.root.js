@@ -148,32 +148,27 @@ innaAppControllers.
             // $scope.isVisibleNotifNewDesign = false;
             
             $scope.$on('$routeChangeStart', function (next, current) {
-                console.log($location.$$path.indexOf("/tours/"))
                if ($location.$$path.indexOf('/') == 0) {
                    $('.header-nav').css("display", "flex");
-                   $(".offer-text, .slogan-container").css("display", "flex");
                }
-                if ($location.$$path.indexOf("/tours/") ==0) {
-                    $('.header-nav').css("display", "none");
-                    $(".offer-text, .slogan-container").css("display", "none");
-                    $(document).ready(function(){
-                        $('.header-nav').css("display", "none");
-                        $(".offer-text, .slogan-container").css("display", "none");
-                    });
-                }
                 if ($location.$$search.map === 'show') {
                     $scope.bannerGrey = true;
                 }else $scope.bannerGrey = false;
-                if ($location.$$path.indexOf("/packages/search") > -1 || $location.$$path.indexOf("/packages/details") > -1 || $location.$$path.indexOf("/packages/reservation") > -1) {
+                if ($location.$$path.indexOf("/packages/search") > -1 || $location.$$path.indexOf("/packages/details") > -1 || $location.$$path.indexOf("/packages/reservation") > -1
+                    || $location.$$path.indexOf("/payment") > -1 || $location.$$path.indexOf("/display-order") > -1 || $location.$$path.indexOf("/individualtours/category") > -1
+                    || $location.$$path.indexOf("/registration/") > -1
+                )  {
 
                     $scope.SearchFormExpandPadding = {'display': 'none'};
                 }
+                if ($location.$$path.indexOf("/display-order") > -1) {
+                    $('.header-nav').css("display", "flex");
+                    $(".offer-text, .slogan-container").css("display", "flex");
+                }
                if ($location.$$path.indexOf("hotels") > -1 && $location.$$path.length > 8)  {
-                    console.log($location.$$path.length)
                    $('.header-nav').css("display", "none");
                     $(".offer-text, .slogan-container").css("display", "none");
                     $(".header-menu").css("display", "flex").css("height", "100%");
-
                    $(document).ready(function(){
                        $('.header-nav').css("display", "none");
                        $(".offer-text, .slogan-container").css("display", "none");
@@ -190,7 +185,7 @@ innaAppControllers.
                    });
                 }
                else {
-                   // $(".offer-text, .slogan-container").css("display", "flex");
+                   $(".offer-text, .slogan-container").css("display", "flex");
                    // $(".header-menu").css("height", "85vh");
                }
                 switch ($location.$$path) {
@@ -200,7 +195,6 @@ innaAppControllers.
                     case '/packages/':
                     case '/hotels/':
                     case '/bus/':
-                    case '/touron/':
                         // if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
                         //     $scope.SearchFormExpandPadding = {'padding-top': 0}
                         // }else{

@@ -1,18 +1,18 @@
 <div class="hotel-details ng-cloak">
-	<div class="hotel-details__wrap main__center">
+	<div class="hotel-details__wrap main__center hotels-order-details">
 
 		<div class="hotel-details__section hotel-details__section_layout_context">
-			<div class="hotel-details__ta hotel-details-ta-info"
-			     ng-click="goToScroll('SectionReviews')" ng-if="hotel.TaFactor">
-				<div trip-advisor-directive
-				     hotel-data="hotel"
-				     templ="ta.detail.html"></div>
-			</div>
+			<!--<div class="hotel-details__ta hotel-details-ta-info"-->
+			     <!--ng-click="goToScroll('SectionReviews')" ng-if="hotel.TaFactor">-->
+				<!--<div trip-advisor-directive-->
+				     <!--hotel-data="hotel"-->
+				     <!--templ="ta.detail.html"></div>-->
+			<!--</div>-->
 			<div class="hotel-details-name">
 				<div stars-directive
 				     hotel-data="hotel.Stars"
 				     class="hotel-details-stars"></div>
-				<div class="hotel-details-name__title">
+				<div class="hotel-details-name__title order-details-title">
 					{{hotel.HotelName}}
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 		</div>
 
 
-		<div class="hotel-details__section hotel-details__section_gallery">
+		<div class="hotel-details__section hotel-details__section_gallery order-details-gallary">
 			<div inna-gallery
 			     ng-if="(hotel.Photos && (hotel.Photos.LargePhotos.length || hotel.Photos.MediumPhotos.length))"
 			     photos="hotel.Photos"></div>
