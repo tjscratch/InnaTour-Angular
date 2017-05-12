@@ -229,6 +229,7 @@ innaAppControllers.
                 }
                 switch ($location.$$path) {
                     case '/contacts/':
+                    case '/tours/':
                     case '/about/':
                     case '/where-to-buy/':
                     case '/certificates/':
