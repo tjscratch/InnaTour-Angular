@@ -644,19 +644,19 @@
                 m.Phone = data.phone;
                 m.IsSubscribe = data.wannaNewsletter;
 
-                // var pasList = [];
-                // _.each(data.passengers, function (item) {
-                //     pasList.push($scope.getPassenger(item));
-                // });
-                // m.Passengers = pasList;
-                //
-                // //Children: "1_2"
-                // var childAgers = [];
-                // if ($routeParams.Children != null && $routeParams.Children.length > 0) {
-                //     _.each($routeParams.Children.split('_'), function (item) {
-                //         childAgers.push(item);
-                //     });
-                // }
+                var pasList = [];
+                _.each(data.passengers, function (item) {
+                    pasList.push($scope.getPassenger(item));
+                });
+                m.Passengers = pasList;
+
+                //Children: "1_2"
+                var childAgers = [];
+                if ($routeParams.Children != null && $routeParams.Children.length > 0) {
+                    _.each($routeParams.Children.split('_'), function (item) {
+                        childAgers.push(item);
+                    });
+                }
                 
                 m.IsNeededVisa = $scope.addition.isNeededVisa;
                 m.IsNeededTransfer = $scope.addition.isNeededTransfer;
