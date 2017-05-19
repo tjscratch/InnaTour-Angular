@@ -549,28 +549,52 @@
         padding-top: 360px !important;
     }
 }
-@media (max-width: 375px) {
-    .b-wrapp_type_inline{
-        flex-basis: 99%;
-    }
+@media (max-width: 414px) {
     .search__city {
-        margin-top: 1px;
-        margin-right: 1px;
+        -webkit-flex-basis: 49%;
+        flex-basis: 50%;
+        margin: 2px 2px 0px 2px !important;
     }
-    .search-form-humans {
+    .b-wrapp_type_inline{
+        flex-basis: 100%;
+    }
+    .search-date-block {
+        margin: 2px 2px 1px 1px;
+        width: 100%;
+    }
+    .search-date-block:nth-child(2) {
+        margin-left 0px;
+    }
+    .search-form-humans{
+        margin: 1px 1px 2px 2px;
+    }
+    .search-people-block {
         margin-left: 1px;
-    }
-    .offer-extra-large .offer-title {
-        font-size: 25px;
+        margin-right: 2px;
     }
 }
-@media all and (max-width: 320px) {
-    .search__city {
-        flex-basis: 100%;
-        margin-top: 1px;
-        margin-right: 1px;
-    }
-    .b-wrapp_type_inline{
-        flex-basis: 100%;
-    }
-}
+//@media (max-width: 375px) {
+//    .b-wrapp_type_inline{
+//        flex-basis: 99%;
+//    }
+//    .search__city {
+//        margin-top: 1px;
+//        margin-right: 1px;
+//    }
+//    .search-form-humans {
+//        margin-left: 1px;
+//    }
+//    .offer-extra-large .offer-title {
+//        font-size: 25px;
+//    }
+//}
+//@media all and (max-width: 320px) {
+//    .search__city {
+//        flex-basis: 100%;
+//        margin-top: 1px;
+//        margin-right: 1px;
+//    }
+//    .b-wrapp_type_inline{
+//        flex-basis: 100%;
+//    }
+//}
