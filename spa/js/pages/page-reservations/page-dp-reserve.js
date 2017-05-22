@@ -911,8 +911,6 @@
                     }
                 });
             };
-            
-            
             /**
              * begin transfers
              */
@@ -920,15 +918,19 @@
             $scope.transfersShow = false;
             $scope.transferSingle = 0;
             $scope.includeTransferChange = function (data, transferSingle) {
+                // $scope.AdultCount = parseInt($routeParams.Adult);
+                // $scope.ChildCount = children[0].length;
+                // $scope.Child = children[0];
+                // $scope.InfantsCount = children[1].length;
                 $scope.Transfers = null;
                 if (data) {
                     Transfer.getTransfers(
                         {
                             HotelId           : $scope.hotel.InnaHotelId,
                             DeparturePointCode: $scope.combination.Ticket.InCode,
-                            Adults            : $scope.combination.Ticket.AdultCount,
-                            Children          : $scope.combination.Ticket.ChildCount,
-                            Infants           : $scope.combination.Ticket.InfantCount,
+                            Adults            : $scope.AdultCount,
+                            Children          : $scope.ChildCount,
+                            Infants           : $scope.InfantsCount,
                             Single            : (transferSingle == 1) ? true : false,
                             Arrival           : $filter('date')($scope.combination.Ticket.ArrivalDate, 'dd.MM.yyyy HH:mm'),
                             Departure         : $filter('date')($scope.combination.Ticket.BackDepartureDate, 'dd.MM.yyyy HH:mm'),
