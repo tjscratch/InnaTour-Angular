@@ -32,22 +32,20 @@
 
             function getLeftFrom() {
                 if (location.href.indexOf("/packages/search") > -1 || location.href.indexOf("/packages/details") > -1) {
-                    return (coords.left + 35.45);
+                    return (coords.left + 35.3);
                 }
+                console.log($location.$$path);
                 return (coords.left + fromWidth - (pickerWidth / 2) - (fromWidth / 5));
             }
 
             function getLeftTo() {
-                if (location.href.indexOf("/packages/search") > -1 || location.href.indexOf("/packages/details") > -1) {
-                    return (coords.left + 36);
-                }
                 return (coords.left - (pickerWidth / 2) + (toWidth / 5));
             }
             if (opt_data.from && location.href.indexOf("/packages/search") > -1 || opt_data.from && location.href.indexOf("/packages/details") > -1) {
                 coords = utils.getCoords(inpFrom[0]);
                 opt_data.picker.css({
                     left: getLeftFrom() + '%',
-                    top : coords.top + 128 + 'px'
+                    top : coords.top + 64 + 'px'
                 });
             }else if (opt_data.from) {
                 coords = utils.getCoords(inpFrom[0]);
@@ -56,22 +54,16 @@
                     top : (coords.top + $(inpFrom[0]).height()) + 'px'
                 });
             }
-            if (opt_data.to && location.href.indexOf("/packages/search") > -1
-                || opt_data.slide && location.href.indexOf("/packages/search") > -1
-                || opt_data.to && location.href.indexOf("/packages/details") > -1
-                || opt_data.from && location.href.indexOf("/packages/details") > -1
-                || opt_data.slide && location.href.indexOf("/packages/details") > -1
-
-            ) {
+            if (opt_data.to && location.href.indexOf("/packages/search") > -1 || opt_data.from && location.href.indexOf("/packages/details") > -1 || opt_data.slide && location.href.indexOf("/packages/search") > -1 || opt_data.from && location.href.indexOf("/packages/details") > -1) {
                 coords = utils.getCoords(enpTo[0]);
 
                 if (opt_data.slide) {
-                    $(opt_data.picker).animate({ left: getLeftTo() + '%'}, 300);
+                    $(opt_data.picker).animate({ left: getLeftTo() }, 300);
                 }
                 else {
                     opt_data.picker.css({
-                        left: getLeftTo() + '%',
-                        top : (coords.top) + 128 + 'px'
+                        left: getLeftTo() + 949 + 'px',
+                        top : (coords.top + 64) + 'px'
                     });
                 }
             }
