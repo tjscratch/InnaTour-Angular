@@ -219,7 +219,7 @@
 }
 .header-user__item {
     padding: 3px 10px;
-    border-left: 1px solid #eff2f5;
+    border-left: 1px solid #303C47;
     white-space: nowrap;
     cursor: pointer;
     display flex
@@ -245,7 +245,7 @@
     display: inline-block;
     font-size: 18px;
     color: #EFF2F5;
-    font-family: Roboto;
+    font-family: $ProximaNovaMedium;
 }
 .header-user__item-text_black, .header-info_black {
     color #303C47 !important
@@ -302,6 +302,8 @@
 }
 .header-info__right {
     display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
 }
 .loginndp{
     position: relative;
@@ -323,9 +325,8 @@
     font-size: 1.5rem !important;
 }
 .header-info__phone-number {
-    font-size: 18px;
-    color: #eff2f5;
-    font-family: roboto;
+    font-size: 20px;
+    color: #EFF2F5;
 }
 .header-info__phone-info {
     font-size: 16px;
@@ -418,23 +419,10 @@
             padding-bottom: 5px;
             padding-top: 50px;
         }
-.active-user{
-    justify-content: center !important;
-}
-@media all and (max-width: 794px) {
-    .header-info__container{
-        width 98%;
-    }
-}
-@media all and (max-width: 768px) {
-    .big-logo_inna{
-        width 105px;
-    }
-}
+
 @media all and (max-width: 414px) {
     .header-nav__item {
-        flex-basis: 49.3%;
-        margin: 2px 2px 0 0;
+        flex-basis: 49.6%;
     }
     .header-nav__item:nth-child(even) {
         margin-right:0;
