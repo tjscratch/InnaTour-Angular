@@ -167,7 +167,7 @@
 <div class="hotel-details ng-cloak" ng-class="{'hotel-details_display-order' : isDisplayOrder}" ng-if="hotelLoaded">
 	<div class="hotel-details__wrap main__center page-hoteldetails">
 
-		<div class="hotel-details__section hotel-details__section__crumbs" ng-if="!OrderId">
+		<div class="hotel-details__section hotel-details__section__crumbs hotels_only" ng-if="!OrderId">
 
 			<ul class="section__crumbs__list">
 				<li class="section__crumbs__list__item">
@@ -182,10 +182,6 @@
 					Описание отеля и выбор номера
 				</li>
 			</ul>
-		</div>
-		<div class="header-info__right loginindp">
-			<ng:include src="'auth/header_black.html'" class="loghoteldetails"></ng:include>
-
 		</div>
 		<!--<div recommended-pair-component-big-->
 			 <!--class="recommended-pair"-->

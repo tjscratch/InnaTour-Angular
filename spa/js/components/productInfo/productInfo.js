@@ -120,6 +120,6 @@ innaAppDirectives.directive('productInfo', function ($templateCache, gtm) {
         link: function (scope, element, attrs) {
             
         },
-        template: '<div class="productInfo" ng-include="templateUrl"></div>'
+        template: '<div class="productInfo" style="margin-top: 60px" ng-include="templateUrl"></div>'
     }
 });
