@@ -514,7 +514,7 @@
 					<span class="b-sum" style="">Сумма к оплате:&nbsp;</span>
 					<span class="b-tickets-sum">
 						<b>
-							<span>{{price| price}}</span>
+							<span>{{price + transfer.Price| price}}</span>
 							<ng-include src="'components/ruble.html'"/>
 						</b>
 					</span>

@@ -963,6 +963,7 @@
                 $scope.priceInTransfer = $scope.price + transfer.Price;
                 $scope.transfersShow = true;
                 $scope.includeTransfer = true;
+                console.log($scope.priceInTransfer, $scope.price, transfer.Price);
             };
             $scope.transferInfo = [];
             $scope.openTransferInfo = function (index) {
