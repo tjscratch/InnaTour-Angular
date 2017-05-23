@@ -15,7 +15,7 @@
 				days: 'datepickerViewDays'
 			},
 			tpl = {
-				wrapper: '<div class="datepicker"><div class="datepickerContainer"><table cellspacing="0" cellpadding="0"><tbody><tr></tr></tbody></table></div></div>',
+                wrapper: '<div class="datepicker"><div class="datepickerContainer"><table cellspacing="0" cellpadding="0"><tbody><tr class="calendar-tr"></tr></tbody></table></div></div>',
 				head: [
 					'<td class="calendar calendar-<%=calendarNo%>">',
 					'<table cellspacing="0" cellpadding="0" border="0" width="<%=37*7%>">',

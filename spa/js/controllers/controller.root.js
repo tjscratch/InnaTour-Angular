@@ -154,11 +154,18 @@ innaAppControllers.
                    $(".offer-text, .slogan-container").css("display", "flex");
                }
                 if ($location.$$path.indexOf("/tours/") ==0) {
+                    $('html').css("overflow-y", "hidden");
                     $('.header-nav').css("display", "none");
                     $(".offer-text, .slogan-container").css("display", "none");
                     $(document).ready(function(){
+                        $('html').css("overflow-y", "hidden");
                         $('.header-nav').css("display", "none");
                         $(".offer-text, .slogan-container").css("display", "none");
+                    });
+                }else {
+                    $('html').css("overflow-y", "auto");
+                    $(document).ready(function () {
+                        $('html').css("overflow-y", "auto");
                     });
                 }
                 if ($location.$$search.map === 'show') {
@@ -168,6 +175,10 @@ innaAppControllers.
                     || $location.$$path.indexOf("/payment") > -1 || $location.$$path.indexOf("/display-order") > -1 || $location.$$path.indexOf("/individualtours/category") > -1 || $location.$$path.indexOf("/registration/") > -1)  {
 
                     $scope.SearchFormExpandPadding = {'display': 'none'};
+                }
+                if ($location.$$path.indexOf("/display-order") > -1) {
+                    $('.header-nav').css("display", "flex");
+                    $(".offer-text, .slogan-container").css("display", "flex");
                 }
                if ($location.$$path.indexOf("hotels") > -1 && $location.$$path.length > 8)  {
                     console.log($location.$$path.length)
