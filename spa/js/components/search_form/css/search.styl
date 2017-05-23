@@ -202,7 +202,7 @@
     /* position: absolute; */
     /* overflow: hidden; */
     height: 48px;
-    width: 99px;
+    width: 112px !important;
     /* margin: 0; */
     padding: 14px 10px;
     transition: background-color 0.3s linear;
@@ -252,7 +252,7 @@
     margin-right: 1px;
 
     &.search-people-choose {
-        width 121px !important
+        width 108px !important
 
         .search-people {
             //background: #fff url("/spa/img/i.png") no-repeat 55px -1879px;
@@ -515,7 +515,6 @@
         margin-top: 1px;
         flex-basis: 49%;
         flex: 1;
-        width: 40%;
     }
     .search-form__submit{
         margin: 1px 1px 2px 1px;
@@ -548,55 +547,29 @@
     .search-autocomplete {
         right: 42px
     }
-    .results-container {
-        padding-top: 360px !important;
+}
+@media (max-width: 375px) {
+    .b-wrapp_type_inline{
+        flex-basis: 99%;
+    }
+    .search__city {
+        margin-top: 1px;
+        margin-right: 1px;
+    }
+    .search-form-humans {
+        margin-left: 1px;
+    }
+    .offer-extra-large .offer-title {
+        font-size: 25px;
     }
 }
-@media (max-width: 414px) {
+@media all and (max-width: 320px) {
     .search__city {
-        flex-basis: 50%;
-        margin: 2px 2px 0px 2px !important;
+        flex-basis: 100%;
+        margin-top: 1px;
+        margin-right: 1px;
     }
     .b-wrapp_type_inline{
         flex-basis: 100%;
     }
-    .search-date-block {
-        margin: 2px 2px 1px 1px;
-        width: 100%;
-    }
-    .search-date-block:nth-child(2) {
-        margin-left 0px;
-    }
-    .search-form-humans{
-        margin: 1px 1px 2px 2px;
-    }
-    .search-people-block {
-        margin-left: 1px;
-        margin-right: 2px;
-    }
 }
-//@media (max-width: 375px) {
-//    .b-wrapp_type_inline{
-//        flex-basis: 99%;
-//    }
-//    .search__city {
-//        margin-top: 1px;
-//        margin-right: 1px;
-//    }
-//    .search-form-humans {
-//        margin-left: 1px;
-//    }
-//    .offer-extra-large .offer-title {
-//        font-size: 25px;
-//    }
-//}
-//@media all and (max-width: 320px) {
-//    .search__city {
-//        flex-basis: 100%;
-//        margin-top: 1px;
-//        margin-right: 1px;
-//    }
-//    .b-wrapp_type_inline{
-//        flex-basis: 100%;
-//    }
-//}
