@@ -57,6 +57,9 @@ innaAppControllers
             $scope.isAgency = false;
             $scope.$on(Events.AUTH_USER_SET, function (e, data) {
                 if (data) {
+                    console.log(parseInt(data.getAgencyId()));
+                    $('.b2bhide').css("display", "none");
+                    $('.b2chide').css("display", "block");
                     if (parseInt(data.getAgencyId()) == 20005 || parseInt(data.getAgencyId()) == 2) {
                         $scope.isAgency = true;
                     }
