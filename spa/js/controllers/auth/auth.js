@@ -77,8 +77,9 @@ var authController = angular.module('innaApp.controllers')
 
             $scope.logout = function (silent) {
                 var wasLoggedUser = $scope.$root.user;
-
                 $scope.$root.user = null;
+                $('.b2chide').css("display", "none");
+                $('.b2bhide').css("display", "block");
 
                 if (!silent) {
                     function onLogoutCompleteOrError() {
