@@ -50,6 +50,9 @@ var authController = angular.module('innaApp.controllers')
                 }
 
                 $scope.safeApply(function () {
+                    if ($location.$$path.indexOf("/tours/") ==0) {
+                        document.location = '/';
+                    }
                     $scope.$root.user = new modelAuth(data);
                     //console.log('set user', $scope.$root.user);
                     $scope.$emit(Events.AUTH_USER_SET, $scope.$root.user);
@@ -60,8 +63,6 @@ var authController = angular.module('innaApp.controllers')
 
                     //проверяем, нужно ли перезагрузить страницу
                     if ($scope.reloadChecker) {
-                        document.location = '/';
-
                         if (needInitLastUserAfterLoginCheck) {//флаг, говорит, что нужно проинициализировать последнего пользователя
                             $scope.reloadChecker.saveLastUser();
                         }
@@ -80,7 +81,7 @@ var authController = angular.module('innaApp.controllers')
             $scope.logout = function (silent) {
                 var wasLoggedUser = $scope.$root.user;
                 $scope.$root.user = null;
-                $('.b2chide').css("display", "block");
+                $('.b2chide').css("display", "none");
                 $('.b2bhide').css("display", "block");
 
                 if (!silent) {
