@@ -122,7 +122,7 @@
                             Отели
                         </a>
                     </li>
-                    <li class="header-nav__item partners-hide">
+                    <li class="header-nav__item partners-hide b2bhide">
                         <a class="header-nav__item-link"
                            href="/#/tours/"
                            ng-click="gtmMainTab($event)"
@@ -130,14 +130,14 @@
                             Туры
                         </a>
                     </li>
-                    <!--<li class="header-nav__item partners-hide">-->
-                        <!--<a class="header-nav__item-link"-->
-                           <!--href="/#/bus/"-->
-                           <!--ng-click="gtmMainTab($event)"-->
-                           <!--ng-class="{'header-nav__item-link-active':isActive('/bus/')}">-->
-                            <!--Туры-->
-                        <!--</a>-->
-                    <!--</li>-->
+                    <li class="header-nav__item partners-hide b2chide">
+                        <a class="header-nav__item-link"
+                           href="/#/bus/"
+                           ng-click="gtmMainTab($event)"
+                           ng-class="{'header-nav__item-link-active':isActive('/bus/')}">
+                            Автобусные Туры
+                        </a>
+                    </li>
                 </ul>
             </div>
             <ng:include src="getHeadForm()"></ng:include>
