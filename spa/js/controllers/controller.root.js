@@ -154,18 +154,18 @@ innaAppControllers.
                    $(".offer-text, .slogan-container").css("display", "flex");
                }
                 if ($location.$$path.indexOf("/tours/") ==0) {
-                    $('html').css("overflow-y", "hidden");
+                    $('html').css("overflow-x", "hidden");
                     $('.header-nav').css("display", "none");
                     $(".offer-text, .slogan-container").css("display", "none");
                     $(document).ready(function(){
-                        $('html').css("overflow-y", "hidden");
+                        $('html').css("overflow-x", "hidden");
                         $('.header-nav').css("display", "none");
                         $(".offer-text, .slogan-container").css("display", "none");
                     });
                 }else {
-                    $('html').css("overflow-y", "auto");
+                    $('html').css("overflow-x", "auto");
                     $(document).ready(function () {
-                        $('html').css("overflow-y", "auto");
+                        $('html').css("overflow-x", "auto");
                     });
                 }
                 if ($location.$$search.map === 'show') {
