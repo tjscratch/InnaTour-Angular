@@ -50,6 +50,9 @@ var authController = angular.module('innaApp.controllers')
                 }
 
                 $scope.safeApply(function () {
+                    if ($location.$$path.indexOf("/tours/") ==0) {
+                        document.location = '/';
+                    }
                     $scope.$root.user = new modelAuth(data);
                     //console.log('set user', $scope.$root.user);
                     $scope.$emit(Events.AUTH_USER_SET, $scope.$root.user);
@@ -167,7 +170,6 @@ var authController = angular.module('innaApp.controllers')
                 var login = function () {
                     AuthDataProvider.recognize(function (data) {
                         console.log('auth success:', method);
-
                         //analytics
                         trackLogin(method);
 
