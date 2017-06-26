@@ -71,7 +71,9 @@ innaAppControllers.
                 $location.search('country', item.id);
                 applyFilter();
             };
-
+            $scope.gotoComments = function () {
+                $("html,body").animate({scrollTop: $('#mc-review').offset().top}, 1000);
+            };
             //слушаем клик на body
 
 
