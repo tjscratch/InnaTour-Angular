@@ -48,6 +48,7 @@
                     <span>{{data.User.Position}} {{data.User.I}} {{data.User.F}}</span>
                     <span class="phone">{{data.User.Phone}}</span>
                 </div>
+                <button class="show-comments" ng-click="gotoComments()">Посмотреть отзывы</button>
             </div>
         </div>
         <div class="offers-container">
@@ -66,4 +67,18 @@
             </ul>
         </div>
     </div>
+    <btn-top></btn-top>
+    <div id="mc-review"></div>
+    <script type="text/javascript">
+        cackle_widget = window.cackle_widget || [];
+        cackle_widget.push({widget: 'Review', id: 53692});
+        (function() {
+            var mc = document.createElement('script');
+            mc.type = 'text/javascript';
+            mc.async = true;
+            mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+        })();
+    </script>
+    <a id="mc-link" href="http://cackle.me">Отзывы для сайта <b style="color:#4FA3DA">Cackl</b><b style="color:#F65077">e</b></a>
 </div>
