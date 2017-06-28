@@ -154,9 +154,9 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             return category;
         }
 
-        console.log('aviaInfo', $scope.aviaInfo);
-        console.log('hotel', $scope.hotel);
-        console.log('reservation.hotelInfo', $scope.reservation.hotelInfo);
+        // console.log('aviaInfo', $scope.aviaInfo);
+        // console.log('hotel', $scope.hotel);
+        // console.log('reservation.hotelInfo', $scope.reservation.hotelInfo);
         
         //$rootScope.$broadcast("avia.page.loaded", $routeParams);
         
@@ -318,7 +318,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                         
                         if (data && data.link && data.link.length > 0) {
                             var url = data.link;
-                            console.log('redirecting to url:', url);
+                            // console.log('redirecting to url:', url);
                             location.href = url;
                         }
                         else {
@@ -1663,7 +1663,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                         }
                         
                         var b2bOrder = $scope.B2B_HOST_Order + $scope.orderId;
-                        console.log('redirecting to: ' + b2bOrder);
+                        // console.log('redirecting to: ' + b2bOrder);
                         window.location = b2bOrder;
                     }
                     
@@ -1738,7 +1738,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
             
             self.listenCloseEvent = function () {
                 $('#buy-listener').on('inna.buy.close', function (event, data) {
-                    console.log('triggered inna.buy.close, isOrderPaid:', $scope.isOrderPaid, data);
+                    // console.log('triggered inna.buy.close, isOrderPaid:', $scope.isOrderPaid, data);
                     $scope.safeApply(function () {
                         if (data && data.result == 0) {//все ок
                             setSuccessBuyResult(data.type);
@@ -2253,7 +2253,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                 self.form.$dirty = true;
                 
                 function showError() {
-                    console.log('send buy comment error', status);
+                    // console.log('send buy comment error', status);
                     
                     $scope.baloon.show(null, null,
                         aviaHelper.baloonType.err, function () {
@@ -2269,11 +2269,11 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                 }
                 
                 if (self.form.$valid) {
-                    console.log('form valid');
+                    // console.log('form valid');
                     paymentService.createBuyComment({orderNum: $scope.orderNum, orderMessage: self.comments},
                         function (data, status) {
                             if (data && data.Status == 1) {
-                                console.log('send buy comment success', data, status);
+                                // console.log('send buy comment success', data, status);
                                 //показываем попап
                                 $scope.baloon.show("Сообщение отправлено", "В ближайшее время наш менеджер свяжется с Вами", aviaHelper.baloonType.success);
                             }
@@ -2285,7 +2285,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                         });
                 }
                 else {
-                    console.log('form not valid');
+                    // console.log('form not valid');
                 }
             }
         }

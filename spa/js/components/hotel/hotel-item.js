@@ -60,7 +60,7 @@ angular.module('innaApp.components').
                         var TicketClass = searchParams.TicketClass;
                         var Adult = searchParams.Adult || 0;
                         var Children = searchParams.Children || '';
-                        var hotelID = this.get('hotel.HotelId');
+                        // var hotelID = this.get('hotel.HotelId');
                         var ticketId = this.get('combinationModel').ticket.data.VariantId1;
                         var ticketBackId = this.get('combinationModel').ticket.data.VariantId2;
                         var providerId = this.get('hotel.ProviderId');
@@ -162,7 +162,7 @@ angular.module('innaApp.components').
                     this.set('hidden', true);
                     EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, this.get('modelHotel'), this.get('hotel.HotelId'));
                     var hotel = this.get('modelHotel');
-                    console.log('HOTELHOTEL', hotel);
+                    // console.log('HOTELHOTEL', hotel);
                     var dataLayerObj = {
                         'event': 'UM.Event',
                         'Data': {

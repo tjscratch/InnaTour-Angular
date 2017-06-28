@@ -38,7 +38,7 @@ innaAppControllers.controller('BusIndexController', function ($scope, $routePara
 
     if ($routeParams) {
         var searchParams = angular.copy($routeParams);
-        console.log('SEARCH_PARAMrr', $routeParams);
+        // console.log('SEARCH_PARAMrr', $routeParams);
 
         if(searchParams.Children){
             searchParams.ChildrenAges = searchParams.Children.split('_');
@@ -71,7 +71,7 @@ innaAppControllers.controller('BusIndexController', function ($scope, $routePara
                     });
                 }
             }, function (response) {
-                console.log(response)
+                // console.log(response)
                 $scope.baloonHotelLoad.updateView({
                     template: 'err.html',
                     title: 'Что-то пошло не так',

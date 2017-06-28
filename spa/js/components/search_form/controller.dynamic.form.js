@@ -168,8 +168,8 @@ innaAppControllers
             });
 
             function validate() {
-                console.log('fromCity', $scope.fromCity);
-                console.log('toCity', $scope.toCity);
+                // console.log('fromCity', $scope.fromCity);
+                // console.log('toCity', $scope.toCity);
                 Validators.required($scope.fromCity, Error('fromCity'), "Введите город отправления");
                 Validators.required($scope.toCity, Error('toCity'), "Введите город или страну, куда планируете поехать");
                 Validators.noEqual($scope.fromCity.Id, $scope.toCity.Id, Error('toCity'), "Города отправления и назначения должны отличаться");

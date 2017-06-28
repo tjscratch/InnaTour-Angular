@@ -128,7 +128,7 @@ angular.module('innaApp.components').directive('dynamicBlock', [
 				}, true);
 
 				$scope.$on('$destroy', function () {
-					console.log('$destroy dynamicBlock');
+					// console.log('$destroy dynamicBlock');
 					$scope.model = null;
 					$scope.partials = null;
 				});

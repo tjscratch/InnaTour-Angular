@@ -264,7 +264,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                     baloonError(response.data.Message ? response.data.Message : null);
                 }
             }, function (response) {
-                console.log(response)
+                // console.log(response)
                 baloonError();
             });
     } else {
@@ -302,7 +302,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
 
 
     function reservation () {
-        console.log('start reservation');
+        // console.log('start reservation');
         baloonReservation();
 
         var dataLayerObj = {
@@ -353,7 +353,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         ReservationService.reservation(self.ReservationModel)
             .then(
                 function (res) {
-                    console.log('reservation success', res);
+                    // console.log('reservation success', res);
                     self.baloonHotelReservation.teardown();
                     if (res.data.OrderNum) {
                         var url = res.data.RedirectUrl;
@@ -382,7 +382,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
         $scope.timer = 60000;
         CheckSmsService.getSmsCode({ Phone: self.ReservationModel.Phone })
             .success(function (data) {
-                console.log(data)
+                // console.log(data)
             })
     }
 
@@ -434,7 +434,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
             self.countries = data;
         })
         .error(function (data) {
-            console.log('ReservationService.countries: ' + data);
+            // console.log('ReservationService.countries: ' + data);
         });
 
 

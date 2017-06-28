@@ -51,7 +51,7 @@
                         //console.log('dropdownInput event, id:', id);
                         if (id != null) {
                             if (id instanceof Error) {
-                                console.log(id)
+                                // console.log(id)
                                 $scope.input.tooltip({
                                     position: {
                                         my: 'center top+22',

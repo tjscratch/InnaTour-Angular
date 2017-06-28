@@ -124,7 +124,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
 
                 var cacheArrivalLocation = serviceCache.getObject('DP_to');
                 var cacheArrivalLocationId = cacheArrivalLocation ? cacheArrivalLocation.Id : null;
-                console.log('GET-OBJECT', cacheArrivalLocation);
+                // console.log('GET-OBJECT', cacheArrivalLocation);
 
                 $scope.filter.Location = cacheLocationId;
 

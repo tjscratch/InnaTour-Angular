@@ -407,7 +407,7 @@ function CommandManager() {
             var host = location.host;
             location.href = url;
 
-            console.log('location.host: ' + host + ' data.url: ' + data.url);
+            // console.log('location.host: ' + host + ' data.url: ' + data.url);
             //если урл, по которому нужно перейти на том же домене - рефрешим, чтобы ангулар перезагрузил страницу
             //if (host && host.length > 0 && url.indexOf(host) > -1 || (url.indexOf('file://') == 0)) {
             //    console.log('reload');

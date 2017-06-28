@@ -432,7 +432,7 @@
                     $scope.room = data.Hotel.Room;
                     $scope.price = data.Price;
                     $scope.NeedSmsValidation = data.NeedSmsValidation;
-                    console.log('NeedSmsValidation - ' + $scope.NeedSmsValidation);
+                    // console.log('NeedSmsValidation - ' + $scope.NeedSmsValidation);
                     //$scope.NeedSmsValidation = true;
                     
                     //ищем страховку
@@ -936,15 +936,15 @@
                     )
                         .then(
                             function (res) {
-                                console.log(res.data)
+                                // console.log(res.data)
                                 if (res.data.Transfers) {
                                     $scope.transfersShow = true;
                                     $scope.Transfers = res.data.Transfers;
                                 }
                             },
                             function (res) {
-                                console.log('err')
-                                console.log(res)
+                                // console.log('err')
+                                // console.log(res)
                             }
                         );
                 }else{
@@ -963,7 +963,7 @@
                 $scope.priceInTransfer = $scope.price + transfer.Price;
                 $scope.transfersShow = true;
                 $scope.includeTransfer = true;
-                console.log($scope.priceInTransfer, $scope.price, transfer.Price);
+                // console.log($scope.priceInTransfer, $scope.price, transfer.Price);
             };
             $scope.transferInfo = [];
             $scope.openTransferInfo = function (index) {

@@ -670,7 +670,7 @@ innaAppControllers
                 room.Default = true;
                 $scope.recommendedPair.setRoom(room);
                 $scope.recommendedPair.setFullPackagePrice(room);
-                console.log('RECPAIR', $scope.recommendedPair);
+                // console.log('RECPAIR', $scope.recommendedPair);
             };
             
             $scope.goReservation = function (room) {

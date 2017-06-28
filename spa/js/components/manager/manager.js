@@ -52,7 +52,7 @@ innaAppDirectives.directive('managerWidget', function ($rootScope, $templateCach
 
 
             function setManager() {
-                console.log('getManagerStatus', $scope.showChat)
+                // console.log('getManagerStatus', $scope.showChat)
                 ManagerService.getManagerStatus()
                     .then(function (res) {
                         if (res) {

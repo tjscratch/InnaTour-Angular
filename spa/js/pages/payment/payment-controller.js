@@ -211,11 +211,11 @@ innaAppControllers.controller('PaymentController',
          */
         function getPaymentDataSuccess(response) {
             if($scope.isNSPK) {
-                console.log('DATA1', response);
+                // console.log('DATA1', response);
                 var data = response[0]. data;
                 var dataNSPK = response[1].data;
-                console.log('DATA', data);
-                console.log('DATA_NSPK', dataNSPK);
+                // console.log('DATA', data);
+                // console.log('DATA_NSPK', dataNSPK);
             } else {
                 var data = response.data;
             }

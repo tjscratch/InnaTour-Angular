@@ -241,7 +241,7 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
                     baloonError();
                 }
             }, function (response) {
-                console.log(response)
+                // console.log(response)
                 baloonError();
             });
     } else {
@@ -356,7 +356,7 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
         }
 
         var searchParams = angular.copy($routeParams);
-        console.log(searchParams)
+        // console.log(searchParams)
         if(searchParams.Children){
             searchParams.Children = searchParams.Children.split('_').map(function (age) {
                 return { value: age };

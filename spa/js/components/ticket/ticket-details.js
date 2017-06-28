@@ -108,7 +108,7 @@ angular.module('innaApp.directives')
                      */
                     $scope.tarifs = new aviaHelper.tarifs();
                     $scope.showTarif = function ($event, aviaInfo) {
-                        console.log(aviaInfo);
+                        // console.log(aviaInfo);
                         $scope.tarifs.fillInfo(aviaInfo);
                         paymentService.getTarifs({
                                 variantTo: aviaInfo.VariantId1,

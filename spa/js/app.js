@@ -69,7 +69,7 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
         //аналитика
         //console.log('$window._gaq.push $location.path(): ' + $location.path());
         if ($window.ga != null && newUrl.loadedTemplateUrl != undefined) {
-            console.log('$routeChangeSuccess write ga - pageview');
+            // console.log('$routeChangeSuccess write ga - pageview');
             $window.ga('send', 'pageview', $location.path());
         }
         
@@ -248,7 +248,7 @@ app.config([
                 'request' : function (config) {
                     if(config.params) {
                         config.params.clientId = guid.setGuid();
-                        console.log('REQUEST-CONFIG', config);
+                        // console.log('REQUEST-CONFIG', config);
                     }
                     return config;
                 }
@@ -685,17 +685,17 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
                 //пробуем открыть новое окно
                 var winOpenRes = window.open(link);
                 if (winOpenRes) {
-                    console.log('window opened:', link);
+                    // console.log('window opened:', link);
                 }
                 else {
-                    console.log('window blocked:', link);
+                    // console.log('window blocked:', link);
                     if (window.partners && window.partners.isFullWL()) {
-                        console.log('loading url: ', key);
+                        // console.log('loading url: ', key);
                         //т.к на партнере ссылка типа http://biletix.ru/packages/#/packages/details/...
                         location.href = key;
                     }
                     else {
-                        console.log('loading url: ', link);
+                        // console.log('loading url: ', link);
                         location.href = link;
                     }
                 }

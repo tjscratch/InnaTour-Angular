@@ -91,7 +91,7 @@ innaAppDirectives.directive('locationSelector', [
                 var cacheLocationId = cacheLocation ? cacheLocation.Id : undefined;
 
                 if ($scope.typeSearch == 'DP_from') {
-                    console.log('cacheLocation', cacheLocation);
+                    // console.log('cacheLocation', cacheLocation);
                 }
 
                 /**

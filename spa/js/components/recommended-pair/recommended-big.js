@@ -56,10 +56,10 @@ angular.module('innaApp.directives')
                                 var TicketClass = searchParams.TicketClass;
                                 var Adult = searchParams.Adult || 0;
                                 var Children = searchParams.Children || '';
-                                var hotelID = $scope.recommendedPair.hotel.data.HotelId;
-                                var ticketId = $scope.recommendedPair.ticket.data.VariantId1;
-                                var ticketBackId = $scope.recommendedPair.ticket.data.VariantId2;
-                                var providerId = $scope.recommendedPair.hotel.data.ProviderId;
+                                var hotelID = searchParams.hotel;
+                                var ticketId = searchParams.TicketId;
+                                var ticketBackId = searchParams.TicketBackId;
+                                var providerId = searchParams.ProviderId;
 
                                 var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
                                             DepartureId,

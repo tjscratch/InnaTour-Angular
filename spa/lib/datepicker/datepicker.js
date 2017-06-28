@@ -639,7 +639,7 @@
 			},
 			show = function (ev) {
 				var cal = $('#' + $(this).data('datepickerId'));
-				console.log('Ид элемента' + $(this).data('datepickerId'));
+				// console.log('Ид элемента' + $(this).data('datepickerId'));
 				if (!cal.is(':visible')) {
 					var calEl = cal.get(0);
 					fill(calEl);
