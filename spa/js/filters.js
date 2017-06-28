@@ -246,7 +246,7 @@ innaAppFilters.filter('negativeNumbers',['$filter', function ($filter) {
 
 innaAppFilters.filter('console', function () {
     return  function (input) {
-        console.log(input);
+        // console.log(input);
 
         return '';
     };

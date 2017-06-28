@@ -43,7 +43,7 @@
             })(document);
         }
         catch(e) {
-            console.log(e);
+//            console.log(e);
         }
     </script>
     <script type="text/javascript">
@@ -182,7 +182,7 @@
                     var iframe = document.getElementById(data.id);
                     if (iframe == null) return;
                     iframe.style.height = (data.height+0).toString() + "px";
-                    console.log((data.height+0).toString());
+//                    console.log((data.height+0).toString());
                 });
             }
         };
@@ -210,12 +210,12 @@
             if ($("#ts_ag_reservation_curtain__all_in_one").length > 0) {
                 var bFinishSubmited = false;
                 (window.PSconv || (PSconv=[])).push({aid:8674, convid:3167, value:'0', orderid:''});
-                console.log("iMarker-new code 1:", window.PSconv);
+//                console.log("iMarker-new code 1:", window.PSconv);
                 document.body.appendChild(document.createElement('SCRIPT')).src = '//c.imrk.net/tag/conv.js';
 
                 $("#ts_ag_reservation_curtain__all_in_one").on("click", "#ts_ag_reservation_container__form_top input[type='submit']", function(){
                     (window.PSconv || (PSconv=[])).push({aid:8674, convid:3168, value:'0', orderid:''});
-                    console.log("iMarker-new code 2:", window.PSconv);
+//                    console.log("iMarker-new code 2:", window.PSconv);
                     document.body.appendChild(document.createElement('SCRIPT')).src = '//c.imrk.net/tag/conv.js';
                 });
 
@@ -223,7 +223,7 @@
                     if (!bFinishSubmited) {
                         bFinishSubmited = true;
                         (window.PSconv || (PSconv=[])).push({aid:8674, convid:3951, value:'', orderid:''});
-                        console.log("iMarker-new code 3:", window.PSconv);
+//                        console.log("iMarker-new code 3:", window.PSconv);
                         document.body.appendChild(document.createElement('SCRIPT')).src = '//c.imrk.net/tag/conv.js';
                     }
                 });
@@ -233,14 +233,14 @@
                         "#ts_ag_reservation_container__offer input[type='submit'], #ts_ag_reservation_container__personal_data input[type='submit'], #ts_ag_reservation_container__precommit div.button",
                         function(){
                             (window.PSconv || (PSconv=[])).push({aid:8674, convid:3950, value:'', orderid:''});
-                            console.log("iMarker-new code 4:", window.PSconv);
+//                            console.log("iMarker-new code 4:", window.PSconv);
                             document.body.appendChild(document.createElement('SCRIPT')).src = '//c.imrk.net/tag/conv.js';
                         }
                 );
             }
             else {
                 (window.PSconv || (PSconv=[])).push({aid:8674, convid:3950, value:'', orderid:''});
-                console.log("iMarker-new code 4:", window.PSconv);
+//                console.log("iMarker-new code 4:", window.PSconv);
                 document.body.appendChild(document.createElement('SCRIPT')).src = '//c.imrk.net/tag/conv.js';
             }
         });

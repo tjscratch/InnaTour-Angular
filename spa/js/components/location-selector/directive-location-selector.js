@@ -72,7 +72,7 @@ innaAppDirectives.directive('locationSelector', [
                             'Text': '[no data]'
                         }
                     };
-                    console.table(dataLayerObj);
+                    //console.table(dataLayerObj);
                     if (window.dataLayer) {
                         window.dataLayer.push(dataLayerObj);
                     }
@@ -91,7 +91,7 @@ innaAppDirectives.directive('locationSelector', [
                 var cacheLocationId = cacheLocation ? cacheLocation.Id : undefined;
 
                 if ($scope.typeSearch == 'DP_from') {
-                    console.log('cacheLocation', cacheLocation);
+                    // console.log('cacheLocation', cacheLocation);
                 }
 
                 /**

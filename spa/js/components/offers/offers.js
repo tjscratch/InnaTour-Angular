@@ -97,7 +97,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                             'Text'    : '[no data]'
                         }
                     };
-                    console.table(dataLayerObj);
+                    //console.table(dataLayerObj);
                     if (window.dataLayer) {
                         window.dataLayer.push(dataLayerObj);
                     }
@@ -124,7 +124,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
 
                 var cacheArrivalLocation = serviceCache.getObject('DP_to');
                 var cacheArrivalLocationId = cacheArrivalLocation ? cacheArrivalLocation.Id : null;
-                console.log('GET-OBJECT', cacheArrivalLocation);
+                // console.log('GET-OBJECT', cacheArrivalLocation);
 
                 $scope.filter.Location = cacheLocationId;
 

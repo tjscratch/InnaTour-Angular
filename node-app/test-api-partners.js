@@ -54,7 +54,7 @@ function getApiPartners() {
 
     (async () => {
         let {statusCode, result} = await api.getJSON(options);
-        console.log('Всего партнеров:', result.length);
+        // console.log('Всего партнеров:', result.length);
 
         let wlItems = result.filter((item) => {
             if (item.offertaContractLink && item.offertaContractLink.length > 0
@@ -64,13 +64,13 @@ function getApiPartners() {
             return false;
         });
 
-        console.log('Типов WLReservation или WLSearch:', wlItems.length);
-        console.log('');
+        // console.log('Типов WLReservation или WLSearch:', wlItems.length);
+        // console.log('');
 
         processItem(wlItems, 0, () => {
-            console.log('');
-            console.log('status 200 (ok) count:', status200Count);
-            console.log('other status (err) count:', statusNot200Count);
+            // console.log('');
+            // console.log('status 200 (ok) count:', status200Count);
+            // console.log('other status (err) count:', statusNot200Count);
         });
     })();
 

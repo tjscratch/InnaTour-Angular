@@ -54,7 +54,7 @@ else if (conf.apiHost) {
         apiHost = conf.apiHost.replace('http://', '');
     }
 }
-console.log('apiHost:', apiHost, 'port:', apiPort);
+// console.log('apiHost:', apiHost, 'port:', apiPort);
 
 var domainsList = ['lh.bookinna.ru', 'test.bookinna.ru', 'beta.bookinna.ru', 'bookinna.ru',
     'lh.inna.ru', 'localhost', 'test.inna.ru', 'beta.inna.ru', 'inna.ru'];
@@ -240,7 +240,7 @@ function CacheLogic() {
         var stringData = JSON.stringify(data);
         fs.writeFile(self.CACHE_FILE_NAME, stringData, function(err) {
             if(err) {
-                console.log('CacheLogic:saveToFile err:', err.message);
+                // console.log('CacheLogic:saveToFile err:', err.message);
                 return;
             }
 
@@ -251,7 +251,7 @@ function CacheLogic() {
     self.readFromFile = function (callback) {
         fs.readFile(self.CACHE_FILE_NAME, function (err, data) {
             if (err) {
-                console.log('CacheLogic:readFromFile err:', err.message);
+                // console.log('CacheLogic:readFromFile err:', err.message);
                 return callback(err, null);
             }
 
@@ -267,7 +267,7 @@ function CacheLogic() {
             // }
 
             //не массив - просто возвращает значение null
-            console.log('CacheLogic:readFromFile read success, data err');
+            // console.log('CacheLogic:readFromFile read success, data err');
             callback(null, null);
         });
     };

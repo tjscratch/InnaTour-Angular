@@ -49,8 +49,8 @@ gulp.task('concat-styles-libs', ['copy-font-font-awesome'], function () {
                 compatibility: 'ie10'
             },
             function (details) {
-                console.log(details.name + ' originalSize: ' + details.stats.originalSize);
-                console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
+                // console.log(details.name + ' originalSize: ' + details.stats.originalSize);
+                // console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
             }))
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
         .pipe(gulp.dest(config.styles.distSrc));
@@ -91,8 +91,8 @@ gulp.task('build-styles-common', function () {
                 compatibility: 'ie9'
             },
             function (details) {
-                console.log(details.name + ' originalSize: ' + details.stats.originalSize);
-                console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
+                // console.log(details.name + ' originalSize: ' + details.stats.originalSize);
+                // console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
             })))
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
         .pipe(gulp.dest(config.styles.distSrc));
@@ -164,8 +164,8 @@ gulp.task('build-styles-partners', function () {
                 compatibility: 'ie9'
             },
             function (details) {
-                console.log(details.name + ' originalSize: ' + details.stats.originalSize);
-                console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
+                // console.log(details.name + ' originalSize: ' + details.stats.originalSize);
+                // console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
             })))
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
         .pipe(gulp.dest(config.partners.css.distSrc));
@@ -181,8 +181,8 @@ gulp.task('build-styles-partners-euroset', function () {
                 compatibility: 'ie9'
             },
             function (details) {
-                console.log(details.name + ' originalSize: ' + details.stats.originalSize);
-                console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
+                // console.log(details.name + ' originalSize: ' + details.stats.originalSize);
+                // console.log(details.name + ' minifiedSize: ' + details.stats.minifiedSize);
             })))
         .pipe(gulpif(_ENV_ != 'production', sourcemaps.write()))
         .pipe(gulp.dest(distSrcPartners));

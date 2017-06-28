@@ -34,7 +34,6 @@
                 if (location.href.indexOf("/packages/search") > -1 || location.href.indexOf("/packages/details") > -1) {
                     return (coords.left + 35.45);
                 }
-                console.log($location.$$path);
                 return (coords.left + fromWidth - (pickerWidth / 2) - (fromWidth / 5));
             }
 
@@ -175,7 +174,7 @@
                                             'Text': '[no data]'
                                         }
                                     };
-                                    console.table(dataLayerObj);
+                                    // console.table(dataLayerObj);
                                     if (window.dataLayer) {
                                         window.dataLayer.push(dataLayerObj);
                                     }
@@ -208,7 +207,7 @@
                                             'Text': '[no data]'
                                         }
                                     };
-                                    console.table(dataLayerObj);
+                                    // console.table(dataLayerObj);
                                     if (window.dataLayer) {
                                         window.dataLayer.push(dataLayerObj);
                                     }

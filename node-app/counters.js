@@ -22,7 +22,7 @@ module.exports = {
         //    console.log('time:', reqCountTime, 'ms', 'reqPerSec:', reqPerSec);
         //}
 
-        console.log('req', req.originalUrl, '-', duration + 'ms');
+        // console.log('req', req.originalUrl, '-', duration + 'ms');
         res.setHeader('X-Response-Time', duration + 'ms');
     },
     eof: null

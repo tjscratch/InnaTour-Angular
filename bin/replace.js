@@ -10,7 +10,7 @@ var _ENV_ = process.env.NODE_ENV || 'DEV';
 var __PROTOCOL__ = (_ENV_ === 'production') ? config.protocol.https : config.protocol.http;
 
 
-console.log(_ENV_);
+// console.log(_ENV_);
 var apiDevHost = '';
 if (_ENV_ === 'production') {
     var env = 'prod'
@@ -92,7 +92,7 @@ gulp.task('replace-config', function () {
 //Конфиг для api запросов ноды
 gulp.task('replace-node-config', function (cb) {
     setTimeout(function () {
-        console.log(port)
+        // console.log(port)
         gulp.src(config.nodeApp.configSrc)
             .pipe(replace({
                 patterns: [

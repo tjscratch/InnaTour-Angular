@@ -30,8 +30,8 @@ angular.module('innaApp.components')
                         avia.TimeToFormatted = aviaHelper.getFlightTimeFormatted(avia.TimeTo);
                         avia.TimeBackFormatted = aviaHelper.getFlightTimeFormatted(avia.TimeBack);
 
-                        console.log(avia.TimeBackFormatted);
-                        console.log(avia.TimeToFormatted);
+                        // console.log(avia.TimeBackFormatted);
+                        // console.log(avia.TimeToFormatted);
                     }
 
                     $scope.$watch('ticketModel',function(value){
