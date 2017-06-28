@@ -109,8 +109,8 @@ innaAppDirectives.directive('searchFormBus', function ($templateCache) {
                 var validateArrivalId = widgetValidators.required($scope.hotelsSearchForm.ArrivalId, 'ArrivalId', 'Введите город или страну, куда планируете поехать');
                 var validateStartVoyageDate = widgetValidators.required($scope.hotelsSearchForm.StartVoyageDate, 'StartVoyageDate', 'Выберите дату заезда');
 
-                console.log(searchUrl);
-                console.log('ADULT', $scope.hotelsSearchForm.Adult);
+                // console.log(searchUrl);
+                // console.log('ADULT', $scope.hotelsSearchForm.Adult);
                 $q.all([validateArrivalId, validateStartVoyageDate])
                     .then(function (data) {
                         $location.path(searchUrl);

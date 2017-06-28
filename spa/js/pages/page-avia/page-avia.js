@@ -221,7 +221,7 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                     'ServiceClass': $scope.criteria.CabinClass == 0 ? 'Economy' : 'Business'
                 }
             };
-            console.table(dataLayerObj);
+            //console.table(dataLayerObj);
             if (window.dataLayer) {
                 window.dataLayer.push(dataLayerObj);
             }
@@ -346,7 +346,7 @@ innaAppControllers.controller('AviaSearchResultsCtrl', [
                             'AviaResultsQuantity': data.Items.length - 1
                         }
                     };
-                    console.table(dataLayerObj);
+                    //console.table(dataLayerObj);
                     if (window.dataLayer) {
                         window.dataLayer.push(dataLayerObj);
                     }

@@ -20,7 +20,7 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
             if ($location.$$host === 'localhost') {
                 $('.visible_for_inna').css('display', 'none');
             }
-            console.log($location.$$host)
+            // console.log($location.$$host)
 
                 $scope.isChooseHotel = null;
                 $scope.isVisible = true;

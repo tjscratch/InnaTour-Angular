@@ -86,7 +86,7 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
 
     $scope.agencySubmit = function (form) {
         if (form.$valid && $scope.agencyReg.CountryId != null) {
-            console.log('$scope.agencyReg', $scope.agencyReg);
+            // console.log('$scope.agencyReg', $scope.agencyReg);
             dataService.agencyCreate($scope.agencyReg)
                 .success(function (data) {
                     switch (data.Status) {

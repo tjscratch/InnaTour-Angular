@@ -108,7 +108,7 @@ angular.module('innaApp.components').directive('dynamicBlock', [
 							'Text': '[no data]'
 						}
 					};
-					console.table(dataLayerObj);
+					//console.table(dataLayerObj);
 					if (window.dataLayer) {
 						window.dataLayer.push(dataLayerObj);
 					}
@@ -128,7 +128,7 @@ angular.module('innaApp.components').directive('dynamicBlock', [
 				}, true);
 
 				$scope.$on('$destroy', function () {
-					console.log('$destroy dynamicBlock');
+					// console.log('$destroy dynamicBlock');
 					$scope.model = null;
 					$scope.partials = null;
 				});
@@ -147,7 +147,7 @@ angular.module('innaApp.components').directive('dynamicBlock', [
 							'Text': '[no data]'
 						}
 					};
-					console.table(dataLayerObj);
+					//console.table(dataLayerObj);
 					if (window.dataLayer) {
 						window.dataLayer.push(dataLayerObj);
 					}

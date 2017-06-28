@@ -78,7 +78,6 @@ angular.module('innaApp.components').
                             ticketBackId,
                             providerId
                         ].join('-');
-
                         if (window.partners && window.partners.isFullWL()) {
                             urlDetails = window.partners.getParentLocationWithUrl(urlDetails);
                         }
@@ -162,7 +161,7 @@ angular.module('innaApp.components').
                     this.set('hidden', true);
                     EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, this.get('modelHotel'), this.get('hotel.HotelId'));
                     var hotel = this.get('modelHotel');
-                    console.log('HOTELHOTEL', hotel);
+                    // console.log('HOTELHOTEL', hotel);
                     var dataLayerObj = {
                         'event': 'UM.Event',
                         'Data': {
@@ -174,7 +173,7 @@ angular.module('innaApp.components').
                             'Text': '[no data]'
                         }
                     };
-                    console.table(dataLayerObj);
+                    //console.table(dataLayerObj);
                     if (window.dataLayer) {
                         window.dataLayer.push(dataLayerObj);
                     }

@@ -1196,7 +1196,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
         
         //удаляем из списка гражданств страну назначения
         function filterCitizenshipList(data) {
-            console.log('filterCitizenshipList Is_it_tarif:', $scope.Is_it_tarif);
+            // console.log('filterCitizenshipList Is_it_tarif:', $scope.Is_it_tarif);
             if ($scope.Is_it_tarif == true) {
                 //находим страну назначения
                 //AviaInfo
@@ -1211,7 +1211,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                         //фильтруем
                         data = _.filter(data, function (cit) {
                             if (cit.Id == countryId) {
-                                console.log('removed Id: ' + cit.Id + ' name: ' + cit.Name);
+                                // console.log('removed Id: ' + cit.Id + ' name: ' + cit.Name);
                             }
                             return cit.Id != countryId;
                         });
@@ -1395,7 +1395,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
             };
             
             $scope.tripInsideRFFlag = $scope.isTripInsideRF($scope.item);
-            console.log('$scope.tripInsideRFFlag', $scope.tripInsideRFFlag);
+            // console.log('$scope.tripInsideRFFlag', $scope.tripInsideRFFlag);
             
             //$scope.fillDefaultModel();
             $scope.fillStoredModel();
@@ -1525,7 +1525,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                         'Text': '[no data]'
                     }
                 };
-                console.table(dataLayerObj);
+                //console.table(dataLayerObj);
                 if (window.dataLayer) {
                     window.dataLayer.push(dataLayerObj);
                 }
@@ -1558,7 +1558,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                                     'Text': '[no data]'
                                 }
                             };
-                            console.table(dataLayerObj);
+                            //console.table(dataLayerObj);
                             if (window.dataLayer) {
                                 window.dataLayer.push(dataLayerObj);
                             }
@@ -1661,7 +1661,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                         'Text': '[no data]'
                     }
                 };
-                console.table(dataLayerObj);
+                //console.table(dataLayerObj);
                 if (window.dataLayer) {
                     window.dataLayer.push(dataLayerObj);
                 }
@@ -2084,7 +2084,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                                         'Text': '[no data]'
                                     }
                                 };
-                                console.table(dataLayerObj);
+                                //console.table(dataLayerObj);
                                 if (window.dataLayer) {
                                     window.dataLayer.push(dataLayerObj);
                                 }
@@ -2095,7 +2095,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                                 $scope.baloon.showGlobalErr();
                             }
                         }, function (status) {
-                            console.log('sendRequest error', status);
+                            //console.log('sendRequest error', status);
                             
                             $scope.baloon.showGlobalErr();
                         });

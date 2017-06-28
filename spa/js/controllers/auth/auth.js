@@ -26,7 +26,7 @@ var authController = angular.module('innaApp.controllers')
                     var redirectUrl = loc.substring(startIndex, toIndex);
                     redirectUrl = decodeURIComponent(redirectUrl);
                     $scope.needRedirectAfterLoginUrl = redirectUrl;
-                    console.log('need redirect after login:', $scope.needRedirectAfterLoginUrl);
+                    // console.log('need redirect after login:', $scope.needRedirectAfterLoginUrl);
 
                     $timeout(function () {
                         $scope.open();
@@ -169,14 +169,14 @@ var authController = angular.module('innaApp.controllers')
 
                 var login = function () {
                     AuthDataProvider.recognize(function (data) {
-                        console.log('auth success:', method);
+                        // console.log('auth success:', method);
                         //analytics
                         trackLogin(method);
 
                         setUserInfo(data);
                         $scope.close();
                     }, function (err, data) {
-                        console.log('auth err:', err, data);
+                        // console.log('auth err:', err, data);
                         $scope.safeApply(function () {
                             $scope.$emit(Events.AUTH_USER_SET, $scope.$root.user);
                         });
@@ -326,7 +326,7 @@ var authController = angular.module('innaApp.controllers')
                              * https://innatec.atlassian.net/browse/IN-4960
                              * */
                             if ($scope.needRedirectAfterLoginUrl){
-                                console.log('redirect after login:', $scope.needRedirectAfterLoginUrl);
+                                // console.log('redirect after login:', $scope.needRedirectAfterLoginUrl);
                                 location.href = $scope.needRedirectAfterLoginUrl;
                             }
                             else {

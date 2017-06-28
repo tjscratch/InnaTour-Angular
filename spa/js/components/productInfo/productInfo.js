@@ -101,7 +101,7 @@ innaAppDirectives.directive('productInfo', function ($templateCache, gtm) {
                         $scope.tarifs.tarifsData = data;
                     },
                     function (data, status) {
-                        console.log('paymentService.getTarifs error');
+                        // console.log('paymentService.getTarifs error');
                     });
             }
     

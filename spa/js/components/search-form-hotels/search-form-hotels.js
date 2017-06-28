@@ -92,7 +92,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                             'Text': '[no data]'
                         }
                     };
-                    console.table(dataLayerObj);
+                    //console.table(dataLayerObj);
                     if (window.dataLayer) {
                         window.dataLayer.push(dataLayerObj);
                     }
@@ -208,7 +208,7 @@ innaAppDirectives.directive('searchFormHotels', function ($templateCache) {
                         'Text': '[no data]'
                     }
                 };
-                console.table(dataLayerObj);
+                //console.table(dataLayerObj);
                 if (window.dataLayer) {
                     window.dataLayer.push(dataLayerObj);
                 }

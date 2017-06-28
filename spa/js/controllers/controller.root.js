@@ -148,7 +148,7 @@ innaAppControllers.
             // $scope.isVisibleNotifNewDesign = false;
             
             $scope.$on('$routeChangeStart', function (next, current) {
-                console.log($location.$$path.indexOf("/tours/"))
+                // console.log($location.$$path.indexOf("/tours/"))
                if ($location.$$path.indexOf('/') == 0) {
                    $('.header-nav').css("display", "flex");
                    $(".offer-text, .slogan-container").css("display", "flex");
@@ -181,7 +181,7 @@ innaAppControllers.
                     $(".offer-text, .slogan-container").css("display", "flex");
                 }
                if ($location.$$path.indexOf("hotels") > -1 && $location.$$path.length > 8)  {
-                    console.log($location.$$path.length)
+                    // console.log($location.$$path.length)
                    $('.header-nav').css("display", "none");
                     $(".offer-text, .slogan-container").css("display", "none");
                     $(".header-menu").css("display", "flex").css("height", "100%");
@@ -318,7 +318,7 @@ innaAppControllers.
                 delete $location.$$search.data;
                 $location.$$compose();
                 if(advParams.from || advParams.PartnerMarker){
-                    console.log('advParams', advParams);
+                    // console.log('advParams', advParams);
                     dataService.getPartnershipCookie(advParams);
                 }
 
@@ -336,13 +336,13 @@ innaAppControllers.
                         InnaUserId: window.partners.innaOperatorId,
                         ExternalUserId: window.partners.partnerOperatorId
                     };
-                    console.log('AuthDataProvider.signIn', dataSingIn);
+                    // console.log('AuthDataProvider.signIn', dataSingIn);
                     AuthDataProvider.signInWL(dataSingIn,
                         function (data) { //success
-                            console.log('AuthDataProvider.signIn success', data);
+                            // console.log('AuthDataProvider.signIn success', data);
                             $scope.$emit(Events.AUTH_SIGN_IN, data);
                         }, function (err) { //error
-                            console.log('AuthDataProvider.signIn error', err);
+                            // console.log('AuthDataProvider.signIn error', err);
                         });
                 }
             })();

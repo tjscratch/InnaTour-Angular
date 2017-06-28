@@ -343,7 +343,7 @@
             link.href = "/spa/css/partners/lite_wl/lite_wl.base.css" + '?' + uniqKey;
         }
         insertAfter(link, d.getElementById("partners-css-inject"))
-        console.log('partner css loaded', link.href);
+        // console.log('partner css loaded', link.href);
 
         var html = document.getElementsByTagName('html')[0];
         //навешиваем стиль партнера
@@ -441,24 +441,24 @@
                 link.href = data.options.css;
                 //var uniqKey = Math.random(1000).toString(16);
                 insertAfter(link, d.getElementById("partners-css-inject"))
-                console.log('custom partner css loaded', link.href);
+                // console.log('custom partner css loaded', link.href);
             }
 
             if (data.options.jumpto != null && data.options.jumpto.length > 0) {
                 self.jumptoUrl = data.options.jumpto;
-                console.log('jumptoUrl set:', self.jumptoUrl);
+                // console.log('jumptoUrl set:', self.jumptoUrl);
             }
 
             if (data.options.partnerMarker != null && data.options.partnerMarker.length > 0) {
                 self.partnerMarker = data.options.partnerMarker;
-                console.log('partnerMarker set:', self.partnerMarker);
+                // console.log('partnerMarker set:', self.partnerMarker);
             }
 
             if (data.options.partnerOperatorId && data.options.innaOperatorId) {
                 self.partnerOperatorId = data.options.partnerOperatorId;
                 self.innaOperatorId = data.options.innaOperatorId;
-                console.log('partnerOperatorId set:', self.partnerOperatorId);
-                console.log('innaOperatorId set:', self.innaOperatorId);
+                // console.log('partnerOperatorId set:', self.partnerOperatorId);
+                // console.log('innaOperatorId set:', self.innaOperatorId);
             }
         }
     }

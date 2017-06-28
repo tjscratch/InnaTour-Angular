@@ -25,7 +25,7 @@ innaAppDirectives.directive('hotelCard', function ($templateCache) {
                         'Text': '[no data]'
                     }
                 };
-                console.table(dataLayerObj);
+                // console.table(dataLayerObj);
                 if (window.dataLayer) {
                     window.dataLayer.push(dataLayerObj);
                 }
@@ -60,8 +60,8 @@ innaAppDirectives.directive('hotelCardInfo', function ($templateCache) {
         },
         controller: function ($scope, $location) {
 
-            console.log('DADSDASD', $scope.room);
-            console.log('DADSDASD', $scope.hotel);
+            // console.log('DADSDASD', $scope.room);
+            // console.log('DADSDASD', $scope.hotel);
 
             $scope.currentActive = function(route) {
                 var loc = $location.path();

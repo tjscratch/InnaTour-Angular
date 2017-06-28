@@ -23,7 +23,7 @@ innaAppServices.service('gtm', function () {
             if (window.dataLayer) {
                 window.dataLayer.push(dataLayerObj);
             }
-            console.table(dataLayerObj);
+            //console.table(dataLayerObj);
         },
         TrackDataEvent: {},
         /**
@@ -52,7 +52,7 @@ innaAppServices.service('gtm', function () {
             if (window.dataLayer) {
                 window.dataLayer.push(dataLayerObj);
             }
-            console.table(dataLayerObj);
+            //console.table(dataLayerObj);
         },
         
     }

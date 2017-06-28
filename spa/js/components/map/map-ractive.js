@@ -39,7 +39,7 @@ angular.module('innaApp.directives')
                     var that = this;
 
 
-                    console.log('map init');
+                    // console.log('map init');
 
                     this.on({
                         teardown: function (evt) {
@@ -93,7 +93,7 @@ angular.module('innaApp.directives')
                      * Также работает переход с карточки отеля
                      */
                     EventManager.observe('DYNAMIC_SERP_TOGGLE_MAP', function (value) {
-                        console.log(value, 'DYNAMIC_SERP_TOGGLE_MAP');
+                        // console.log(value, 'DYNAMIC_SERP_TOGGLE_MAP');
 
                         EventManager.fire(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
                         EventManager.fire(Events.DYNAMIC_SERP_MAP_LOAD);
@@ -417,7 +417,7 @@ angular.module('innaApp.directives')
                 showOneHotel: function (data_hotel) {
                     var that = this;
 
-                    console.log('showOneHotel');
+                    // console.log('showOneHotel');
 
                     // проходм по всем маркерам
                     var mark = this.get('markers').filter(function (marker) {

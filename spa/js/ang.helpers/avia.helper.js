@@ -1129,7 +1129,7 @@
                                 }
                             }
                             self.cautionCountries = cautionCountries;
-                            console.log('cautionCountries:', cautionCountries);
+                            // console.log('cautionCountries:', cautionCountries);
                         }
 
                         if (isAllPassRussia && visaEtapNeeded) {
