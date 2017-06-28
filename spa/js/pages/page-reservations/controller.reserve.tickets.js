@@ -1525,7 +1525,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                         'Text': '[no data]'
                     }
                 };
-                console.table(dataLayerObj);
+                //console.table(dataLayerObj);
                 if (window.dataLayer) {
                     window.dataLayer.push(dataLayerObj);
                 }
@@ -1558,7 +1558,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                                     'Text': '[no data]'
                                 }
                             };
-                            console.table(dataLayerObj);
+                            //console.table(dataLayerObj);
                             if (window.dataLayer) {
                                 window.dataLayer.push(dataLayerObj);
                             }
@@ -1661,7 +1661,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                         'Text': '[no data]'
                     }
                 };
-                console.table(dataLayerObj);
+                //console.table(dataLayerObj);
                 if (window.dataLayer) {
                     window.dataLayer.push(dataLayerObj);
                 }
@@ -2084,7 +2084,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                                         'Text': '[no data]'
                                     }
                                 };
-                                console.table(dataLayerObj);
+                                //console.table(dataLayerObj);
                                 if (window.dataLayer) {
                                     window.dataLayer.push(dataLayerObj);
                                 }
@@ -2095,7 +2095,7 @@ innaAppControllers.controller('ReserveTicketsCtrl',
                                 $scope.baloon.showGlobalErr();
                             }
                         }, function (status) {
-                            console.log('sendRequest error', status);
+                            //console.log('sendRequest error', status);
                             
                             $scope.baloon.showGlobalErr();
                         });

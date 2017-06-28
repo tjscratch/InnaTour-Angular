@@ -108,7 +108,7 @@ angular.module('innaApp.components').directive('dynamicBlock', [
 							'Text': '[no data]'
 						}
 					};
-					console.table(dataLayerObj);
+					//console.table(dataLayerObj);
 					if (window.dataLayer) {
 						window.dataLayer.push(dataLayerObj);
 					}
@@ -147,7 +147,7 @@ angular.module('innaApp.components').directive('dynamicBlock', [
 							'Text': '[no data]'
 						}
 					};
-					console.table(dataLayerObj);
+					//console.table(dataLayerObj);
 					if (window.dataLayer) {
 						window.dataLayer.push(dataLayerObj);
 					}

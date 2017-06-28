@@ -62,7 +62,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                         'Text': '[no data]'
                     }
                 };
-                console.table(dataLayerObj);
+                // console.table(dataLayerObj);
                 if (window.dataLayer) {
                     window.dataLayer.push(dataLayerObj);
                 }
@@ -81,7 +81,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     'Text': '[no data]'
                 }
             };
-            console.table(dataLayerObj);
+            //console.table(dataLayerObj);
             if (window.dataLayer) {
                 window.dataLayer.push(dataLayerObj);
             }
@@ -113,7 +113,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     'Text': '[no data]'
                 }
             };
-            console.table(dataLayerObj);
+            //console.table(dataLayerObj);
             if (window.dataLayer) {
                 window.dataLayer.push(dataLayerObj);
             }
@@ -131,7 +131,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                     'Text': '[no data]'
                 }
             };
-            console.table(dataLayerObj);
+            //console.table(dataLayerObj);
             if (window.dataLayer) {
                 window.dataLayer.push(dataLayerObj);
             }
@@ -1374,7 +1374,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                 'Text': '[no data]'
                             }
                         };
-                        console.table(dataLayerObj);
+                        //console.table(dataLayerObj);
                         if (window.dataLayer) {
                             window.dataLayer.push(dataLayerObj);
                         }
@@ -1403,7 +1403,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                 'Text': '[no data]'
                             }
                         };
-                        console.table(dataLayerObj);
+                        //console.table(dataLayerObj);
                         if (window.dataLayer) {
                             window.dataLayer.push(dataLayerObj);
                         }
@@ -1429,7 +1429,7 @@ innaAppControllers.controller('AviaBuyTicketsCtrl', [
                                 'Text': '[no data]'
                             }
                         };
-                        console.table(dataLayerObj);
+                        //console.table(dataLayerObj);
                         if (window.dataLayer) {
                             window.dataLayer.push(dataLayerObj);
                         }

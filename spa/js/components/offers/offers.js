@@ -97,7 +97,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                             'Text'    : '[no data]'
                         }
                     };
-                    console.table(dataLayerObj);
+                    //console.table(dataLayerObj);
                     if (window.dataLayer) {
                         window.dataLayer.push(dataLayerObj);
                     }

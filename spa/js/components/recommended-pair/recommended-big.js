@@ -49,18 +49,31 @@ angular.module('innaApp.directives')
 
                             $scope.computedUrlDetails = function (opt_param) {
 
-                                var DepartureId = searchParams.DepartureId;
-                                var ArrivalId = searchParams.ArrivalId;
-                                var StartVoyageDate = searchParams.StartVoyageDate;
-                                var EndVoyageDate = searchParams.EndVoyageDate;
-                                var TicketClass = searchParams.TicketClass;
-                                var Adult = searchParams.Adult || 0;
-                                var Children = searchParams.Children || '';
-                                var hotelID = searchParams.hotel;
-                                var ticketId = searchParams.TicketId;
-                                var ticketBackId = searchParams.TicketBackId;
-                                var providerId = searchParams.ProviderId;
-
+                                if ($location.$$path.indexOf("/packages/reservation") > -1) {
+                                    var DepartureId = searchParams.DepartureId;
+                                    var ArrivalId = searchParams.ArrivalId;
+                                    var StartVoyageDate = searchParams.StartVoyageDate;
+                                    var EndVoyageDate = searchParams.EndVoyageDate;
+                                    var TicketClass = searchParams.TicketClass;
+                                    var Adult = searchParams.Adult || 0;
+                                    var Children = searchParams.Children || '';
+                                    var hotelID = searchParams.HotelId;
+                                    var ticketId = searchParams.TicketId;
+                                    var ticketBackId = searchParams.TicketBackId;
+                                    var providerId = searchParams.ProviderId;
+                                }else{
+                                    var DepartureId = searchParams.DepartureId;
+                                    var ArrivalId = searchParams.ArrivalId;
+                                    var StartVoyageDate = searchParams.StartVoyageDate;
+                                    var EndVoyageDate = searchParams.EndVoyageDate;
+                                    var TicketClass = searchParams.TicketClass;
+                                    var Adult = searchParams.Adult || 0;
+                                    var Children = searchParams.Children || '';
+                                    var hotelID = $scope.recommendedPair.hotel.data.HotelId;
+                                    var ticketId = $scope.recommendedPair.ticket.data.VariantId1;
+                                    var ticketBackId = $scope.recommendedPair.ticket.data.VariantId2;
+                                    var providerId = $scope.recommendedPair.hotel.data.ProviderId;
+                                }
                                 var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
                                             DepartureId,
                                             ArrivalId,
@@ -74,7 +87,6 @@ angular.module('innaApp.directives')
                                             ticketBackId,
                                             providerId
                                         ].join('-');
-
                                 if (window.partners
                                     && window.partners.isFullWL()
                                     && window.partners.partner.name != 'komandacard'
@@ -98,7 +110,7 @@ angular.module('innaApp.directives')
                                         'Text': '[no data]'
                                     }
                                 };
-                                console.table(dataLayerObj);
+                                //console.table(dataLayerObj);
                                 if (window.dataLayer) {
                                     window.dataLayer.push(dataLayerObj);
                                 }
@@ -173,7 +185,7 @@ angular.module('innaApp.directives')
                                         'Text': '[no data]'
                                     }
                                 };
-                                console.table(dataLayerObj);
+                                //console.table(dataLayerObj);
                                 if (window.dataLayer) {
                                     window.dataLayer.push(dataLayerObj);
                                 }
@@ -193,7 +205,7 @@ angular.module('innaApp.directives')
                                         'Text': '[no data]'
                                     }
                                 };
-                                console.table(dataLayerObj);
+                                //console.table(dataLayerObj);
                                 if (window.dataLayer) {
                                     window.dataLayer.push(dataLayerObj);
                                 }
@@ -219,7 +231,7 @@ angular.module('innaApp.directives')
                                         'Text': '[no data]'
                                     }
                                 };
-                                console.table(dataLayerObj);
+                                //console.table(dataLayerObj);
                                 if (window.dataLayer) {
                                     window.dataLayer.push(dataLayerObj);
                                 }

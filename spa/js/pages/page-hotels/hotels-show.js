@@ -117,7 +117,7 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
                 'Text': Text
             }
         };
-        console.table(dataLayerObj);
+        //console.table(dataLayerObj);
         if (window.dataLayer) {
             window.dataLayer.push(dataLayerObj);
         }
@@ -187,7 +187,7 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
                         'TotalTravelers': TotalTravelers
                     }
                 };
-                console.table(dataLayerObj);
+                //console.table(dataLayerObj);
                 if (window.dataLayer) {
                     window.dataLayer.push(dataLayerObj);
                 }
@@ -231,7 +231,7 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
                                     'HotelName': response.data.Hotel.HotelName
                                 }
                             };
-                            console.table(dataLayerObj);
+                            //console.table(dataLayerObj);
                             if (window.dataLayer) {
                                 window.dataLayer.push(dataLayerObj);
                             }
@@ -261,7 +261,7 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
                 'Text': Text
             }
         };
-        console.table(dataLayerObj);
+        //console.table(dataLayerObj);
         if (window.dataLayer) {
             window.dataLayer.push(dataLayerObj);
         }
@@ -350,7 +350,7 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
                 'Text': '[no data]'
             }
         };
-        console.table(dataLayerObj);
+        //console.table(dataLayerObj);
         if (window.dataLayer) {
             window.dataLayer.push(dataLayerObj);
         }
@@ -385,7 +385,7 @@ innaAppControllers.controller('HotelsShowController', function ($rootScope, $sco
                     'Text': '[no data]'
                 }
             };
-            console.table(dataLayerObj);
+            //console.table(dataLayerObj);
             if (window.dataLayer) {
                 window.dataLayer.push(dataLayerObj);
             }

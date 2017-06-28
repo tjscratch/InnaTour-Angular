@@ -67,7 +67,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                     'Text': '[no data]'
                 }
             };
-            console.table(dataLayerObj);
+            // console.table(dataLayerObj);
             if (window.dataLayer) {
                 window.dataLayer.push(dataLayerObj);
             }
@@ -86,7 +86,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                 'Text': '[no data]'
             }
         };
-        console.table(dataLayerObj);
+        // console.table(dataLayerObj);
         if (window.dataLayer) {
             window.dataLayer.push(dataLayerObj);
         }
@@ -215,7 +215,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                         //'HotelName': ''
                     }
                 };
-                console.table(dataLayerObj);
+                // console.table(dataLayerObj);
                 if (window.dataLayer) {
                     window.dataLayer.push(dataLayerObj);
                 }
@@ -254,7 +254,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                                     'roomId': buyParams.roomId
                                 }
                             };
-                            console.table(dataLayerObj);
+                            // console.table(dataLayerObj);
                             if (window.dataLayer) {
                                 window.dataLayer.push(dataLayerObj);
                             }
@@ -316,7 +316,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                 'Text': '[no data]'
             }
         };
-        console.table(dataLayerObj);
+        // console.table(dataLayerObj);
         if (window.dataLayer) {
             window.dataLayer.push(dataLayerObj);
         }
@@ -343,7 +343,7 @@ innaAppControllers.controller('ReservationsController', function ($rootScope,
                         'roomId': buyParams.roomId
                     }
                 };
-                console.table(dataLayerObj);
+                // console.table(dataLayerObj);
                 if (window.dataLayer) {
                     window.dataLayer.push(dataLayerObj);
                 }

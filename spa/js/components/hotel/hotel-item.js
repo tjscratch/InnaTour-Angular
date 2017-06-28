@@ -60,7 +60,7 @@ angular.module('innaApp.components').
                         var TicketClass = searchParams.TicketClass;
                         var Adult = searchParams.Adult || 0;
                         var Children = searchParams.Children || '';
-                        // var hotelID = this.get('hotel.HotelId');
+                        var hotelID = this.get('hotel.HotelId');
                         var ticketId = this.get('combinationModel').ticket.data.VariantId1;
                         var ticketBackId = this.get('combinationModel').ticket.data.VariantId2;
                         var providerId = this.get('hotel.ProviderId');
@@ -78,7 +78,6 @@ angular.module('innaApp.components').
                             ticketBackId,
                             providerId
                         ].join('-');
-
                         if (window.partners && window.partners.isFullWL()) {
                             urlDetails = window.partners.getParentLocationWithUrl(urlDetails);
                         }
@@ -174,7 +173,7 @@ angular.module('innaApp.components').
                             'Text': '[no data]'
                         }
                     };
-                    console.table(dataLayerObj);
+                    //console.table(dataLayerObj);
                     if (window.dataLayer) {
                         window.dataLayer.push(dataLayerObj);
                     }

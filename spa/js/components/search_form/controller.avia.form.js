@@ -94,7 +94,7 @@ innaAppControllers.
                             'Text': '[no data]'
                         }
                     };
-                    console.table(dataLayerObj);
+                    //console.table(dataLayerObj);
                     if (window.dataLayer) {
                         window.dataLayer.push(dataLayerObj);
                     }
@@ -114,7 +114,7 @@ innaAppControllers.
                             'Text': '[no data]'
                         }
                     };
-                    console.table(dataLayerObj);
+                    //console.table(dataLayerObj);
                     if (window.dataLayer) {
                         window.dataLayer.push(dataLayerObj);
                     }
@@ -134,7 +134,7 @@ innaAppControllers.
                             'Text': '[no data]'
                         }
                     };
-                    console.table(dataLayerObj);
+                    //console.table(dataLayerObj);
                     if (window.dataLayer) {
                         window.dataLayer.push(dataLayerObj);
                     }
@@ -427,7 +427,7 @@ innaAppControllers.
                             'Text': '[no data]'
                         }
                     };
-                    console.table(dataLayerObj);
+                    //console.table(dataLayerObj);
                     if (window.dataLayer) {
                         window.dataLayer.push(dataLayerObj);
                     }
