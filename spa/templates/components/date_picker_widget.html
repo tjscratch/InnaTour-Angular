@@ -3,7 +3,7 @@
          class="js-field-from-block search-date-block search__120"
          ng-click="toggleFrom($event)"
          data-title="Выберите дату отправления туда">
-        <input type="text" ng-value="long(date1)" class="js-field-from-inp search-date search-date-arr" placeholder="Туда"/>
+        <input type="text" ng-value="long(date1)" class="js-field-from-inp search-date search-date-arr search-date-to" placeholder="Туда"/>
 
         <div class="search-date-block__date" ng-class="{'search-date-block__date_display_placeholder': !date1}">{{date1 ? long(date1) : 'Туда'}}</div>
     </div>

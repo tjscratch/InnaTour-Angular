@@ -263,10 +263,10 @@
     margin-left: -2px;
 }
 .search-people
-    background #fff
+    //background #fff
     height: 44px;
     line-height: 38px !important;
-    padding 4px 0 0 10px
+    padding 5px 0 0 10px
     //font 14px / 36px $ProximaNova
     font-size 15px
     cursor pointer
@@ -483,6 +483,9 @@
         .human-class{
             display: flex;
             flex-wrap: wrap;
+            background: #fff;
+            height: 48px;
+            margin-right: 2px;
         }
 .search-date{
     border-radius: 0;
@@ -490,68 +493,51 @@
 .b-search-form .b-location_selector:nth-child(2) .search-field {
     border-radius: 0;
 }
-
-@media all and (max-width: 974px) {
-    .dp-search-reserve {
-        flex-basis: 50%;
-        display: flex;
-    }
+@media all and (max-width: 962px) {
+//.dp-search-reserve {
+//    flex-basis: 50%;
+//    display: flex;
+//}
     .b-wrapp_type_inline {
         display: flex;
-        //flex: 1;
-        flex-basis: 49%;
+        flex-basis: 48%;
+        margin-bottom: 2px;
     }
-    .search__city {
-        margin-left: 2px;
-    }
-
-    .search-date-block {
-        margin-top: 2px;
-        flex-basis: 50%;
-    }
-    .search-form-humans {
-        margin-top: 2px;
-        flex-basis: 100%;
-    }
-    .search-people-block{
-        margin-top: 2px;
-        flex-basis: 49%;
-    }
-    .search-form__submit{
-        margin: 1px 1px 2px 1px;
-        border-radius: 0;
-        flex-basis: 100%;
-    }
-    .search-field, .search-date{
-        border-radius: 0 !important;
+    .b-search-form .search-field-block:first-child > .search-field {
+        border-radius: 3px 0px 0px 0px;
     }
     .b-search-form .b-location_selector:nth-child(2) .search-field {
-        border-radius: 0;
+        border-radius: 0px 3px 0px 0px;
     }
-    .search-device{
-        margin-right: 1px;
+    .search-date-to {
+        border-radius: 0px 0px 0px 3px;
     }
     .human-class{
-        display: flex;
-        //flex: 1;
-        flex-wrap: wrap;
-        flex-basis: 49%;
+        border-radius: 0px 0px 3px 0px;
     }
-    .header-info__container{
-        width 98%;
+    .search-date-block {
+        flex-basis: 50%;
     }
-}
-@media (max-width: 768px) {
-    .b-search-form_padding-16px {
-        padding: 67px 0px 107px 0;
-    }
-    .search-autocomplete {
-        right: 42px
-    }
-    .results-container {
-        padding-top: 360px !important;
+    .human-class{
+        flex-basis: 48%;
+      }
+    .search-form__submit{
+        flex-basis: 50%;
+        margin-top: 10px;
+        border-radius: 3px;
     }
 }
+//@media (max-width: 768px) {
+//    .b-search-form_padding-16px {
+//        padding: 67px 0px 107px 0;
+//    }
+//    .search-autocomplete {
+//        right: 42px
+//    }
+//    .results-container {
+//        padding-top: 360px !important;
+//    }
+//}
 @media (max-width: 414px) {
     .search__city {
         flex-basis: 50%;
