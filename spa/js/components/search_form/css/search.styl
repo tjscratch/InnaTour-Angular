@@ -89,13 +89,12 @@
     vertical-align top
     position relative
 .b-wrapp_type_inline:first-child
-    margin-left 0px
     border-radius 3px 0px 0px 3px
 .b-wrapp_type_inline
     //position relative
     //float left
     display: flex;
-    margin-left 1px
+    margin-right: 2px;
 .search-field-block
     width 170px
 .search-field
@@ -144,16 +143,17 @@
 .search-date-block
     //width 118px !important
     position: relative;
-    margin-right: 1px;
-    width: 121px;
-
+    width: 130px;
+    &:nth-child(1){
+      margin-right 2px;
+    }
     &:focus {
         outline: none;
     }
 
     &__date {
         background: #fff;
-        padding-left: 5px;
+        padding-left: 10px;
         //height: 36px;
         line-height: 38px;
         position: absolute;
@@ -202,7 +202,7 @@
     /* position: absolute; */
     /* overflow: hidden; */
     height: 48px;
-    width: 99px;
+    width: 100px;
     /* margin: 0; */
     padding: 14px 10px;
     transition: background-color 0.3s linear;
@@ -249,15 +249,18 @@
     height 40px
     z-index 2
     //margin-left 1px
-    margin-right: 1px;
+    margin-right: 2px;
 
     &.search-people-choose {
-        width 121px !important
+        width 100px
 
         .search-people {
             //background: #fff url("/spa/img/i.png") no-repeat 55px -1879px;
         }
     }
+}
+.avia-block-people{
+    margin-left: -2px;
 }
 .search-people
     background #fff
@@ -456,7 +459,7 @@
 
 }
 .search__city
-    width 201px
+    width 200px
 //.search__120
 //    width 123px
 .tours-calendar-input {
@@ -495,27 +498,24 @@
     }
     .b-wrapp_type_inline {
         display: flex;
-        flex: 1;
-        flex-basis: 46%;
+        //flex: 1;
+        flex-basis: 49%;
     }
     .search__city {
-        flex-basis: 49%;
-        margin-left: 1px !important;
+        margin-left: 2px;
     }
 
     .search-date-block {
-        margin-top: 1px;
-        width: 100%;
+        margin-top: 2px;
+        flex-basis: 50%;
     }
     .search-form-humans {
-        flex: 1;
-        margin-top: 1px;
+        margin-top: 2px;
+        flex-basis: 100%;
     }
     .search-people-block{
-        margin-top: 1px;
+        margin-top: 2px;
         flex-basis: 49%;
-        flex: 1;
-        width: 40%;
     }
     .search-form__submit{
         margin: 1px 1px 2px 1px;
@@ -533,9 +533,9 @@
     }
     .human-class{
         display: flex;
-        flex: 1;
+        //flex: 1;
         flex-wrap: wrap;
-        flex-basis: 46%;
+        flex-basis: 49%;
     }
     .header-info__container{
         width 98%;
