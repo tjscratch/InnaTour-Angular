@@ -296,7 +296,6 @@ innaAppControllers.controller('PageDynamicPackage', [
                     $scope.safeApply(function () {
                         that.setAsMap((that.getAsMap()) ? 0 : 1);
                         that.locatioAsMap();
-                        $('.light-theme').css("background-color","#FFF");
                     })
                 });
 

@@ -1,6 +1,6 @@
-<div class="search-form-item search-form-humans" click="peopleFormClick($event)">
+<div class="search-form-item search-form-humans" id="hotel-only" click="peopleFormClick($event)">
     <i class="icon-expand-gray"
-       style="position: absolute; top: 22px; right: 9px;"
+       <!--style="position: absolute; top: 22px; right: 9px;"-->
        ng-class="{'icon-expand-gray_open': isOpen}"></i>
     <div class="search-form-item-current" style="display:block;" data-title="Количество пассажиров с местом может быть не больше 6">
         {{sum(adultCount, childrenCount) | asQuantity:"человек":"человека":"человек"}}

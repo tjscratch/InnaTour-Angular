@@ -88,7 +88,7 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                     EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, 'hotel');
                     setActiveTab('hotel');
                     EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP);
-                    $('.light-theme').css("background-color","#DDE3E9");
+                    // $('.light-theme').css("background-color","#DDE3E9");
                 };
 
 

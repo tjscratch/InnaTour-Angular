@@ -1244,6 +1244,8 @@
 .reserve-form {
     //padding-top: $padding_over_search - 20;
    padding-top: 73px;
+    max-width: 960px;
+    margin: 0 auto;
 }
     .avia-reservation-results{
         padding-top: 60px;
@@ -1343,12 +1345,9 @@
 .b-field-document__IsTripToRussia{
     margin-left 66px !important
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 962px) {
     .b-field-email {
         width: 40%;
-    }
-    .ReservationSection__wrap{
-        max-width: 80%;
     }
     .b-field-group {
         display: flex;
@@ -1359,5 +1358,8 @@
     }
     .radio-list{
         display: flex;
+    }
+    .avia-reservation-results {
+        padding-top: 175px;
     }
 }

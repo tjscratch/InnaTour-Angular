@@ -3,14 +3,16 @@
 //b-filter-panel
 .filters__body{
     //min-height 41px
-    height 40px
+    //height 48px
     position relative;
+    max-width 960px;
+    z-index: 2;
     
     &.filters__body_dp{
-        position: absolute;
+        //position: absolute;
         left: 50%;
         margin-left: -($site-width / 2);
-        bottom: -41px;
+        bottom: -48px;
     }
     
     &.b-filter-panel{
@@ -20,16 +22,19 @@
     }
     
     .filters__baloon{
-        position absolute
+        //position absolute
         left 0
         background #fff
         z-index 1000
         width 290px
         //box-shadow 0 3px 5px rgba(0, 0, 0, .3)
-        padding 3px 0
+        //padding 3px 0
         color #666
         box-shadow: 0 5px 10px rgba(50, 50, 50, 0.25)
         margin-top: 3px;
+        display: flex;
+        position: absolute;
+        flex-direction: column;
         
         &.filters__baloon_show{
             display: block;
@@ -42,7 +47,7 @@
             left: auto;
             z-index: 101;
             box-shadow: none;
-            color: #0054b9;
+            color: #313c48;
             background #FFF
 
             .current {
@@ -102,18 +107,27 @@
             }
         }
     }
-    
+    .avia-sort-block{
+        display flex
+        flex-direction: row;
+    }
     .filters__container{
-        clearfix()
+        //clearfix()
         //background: #fff;
         //background-color #f9c623
         background-color #ffffff
         //min-height: 41px;
-        height 40px
+        //height 48px
         //box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
         //border-top 1px solid #DDE3E9
         border-bottom 1px solid #DDE3E9
         box-sizing border-box
+        display: flex;
+        justify-content: space-around;
+        flex-wrap wrap;
+        max-width: 960px;
+        width: 100%;
+        padding 8px 0px;
 
         > li
         li.filter{
@@ -148,13 +162,15 @@
         transition all .3s
         display block
         //padding 14px 30px 13px 8px
-        padding 11px 30px 12px 8px
+        padding: 8px 25px 8px 13px;
         //color #000000
         color #0054B9
         font-size 14px
         line-height 1
         position relative
         cursor: pointer;
+        border: rgba(0, 84, 185, 0.3);
+        border-radius: 4px;
         
         //&:before{
         //    content ''
@@ -223,9 +239,12 @@
     cursor: pointer;
     display: block;
 }
+.search__list_sort{
+    display flex;
+}
 .ra-fly-type-list{
-    padding: 4px 0 0 0
-    color: #0054b9
+    //padding: 4px 0 0 0
+    color: #313c48
     //margin: 0px -68px 0 0;
     max-height 294px
     overflow-y: auto
@@ -326,11 +345,27 @@
 .avia-filters{
     background #dde3e9 !important
 }
-@media all and (max-width: 768px) {
-    .filters__body.filters__body_dp {
+.filter-panel-avia, .filter-panel-hotel{
+    width: 100%;
+    max-width: 960px;
+}
+@media all and (max-width: 962px) {
+    .filters__body {
         position: absolute;
-        left: 54%;
-        margin-left: -480px;
-        bottom: -41px;
+        width: 19%;
+        padding-top: 15px;
     }
+    .filters__body .filters__container{
+        flex-direction: column;
+    }
+    .search__list_sort{
+        flex-direction: column;
+        padding-top: 4px;
+    }
+    //.filters__body.filters__body_dp {
+    //    position: absolute;
+    //    left: 54%;
+    //    margin-left: -480px;
+    //    bottom: -41px;
+    //}
 }
