@@ -26,7 +26,8 @@ $border-color-gray = #bdbdbd;
     //margin 0 3px 0 0;
 }
 .b-hotels-typeahead{
-    width 420px
+    //width 420px
+    background-color: #fff;
 
     .b-search-form-hotels__input-typeahead {
         width 400px
@@ -34,7 +35,8 @@ $border-color-gray = #bdbdbd;
     }
 }
 .b-hotels-daterange{
-    width 150px
+    //width 150px
+    background-color: #fff;
 }
 .dropdown-menu{
     position absolute
@@ -81,6 +83,7 @@ $border-color-gray = #bdbdbd;
     border-radius $border-radius
     background-color #fff
     border none
+    box-sizing: border-box;
 
     &:invalid{
         box-shadow: none
@@ -128,5 +131,29 @@ $border-color-gray = #bdbdbd;
         &:before{
             border-color: transparent transparent $red transparent;
         }
+    }
+}
+@media all and (max-width: 962px) {
+    .b-hotels-typeahead , .b-hotels-daterange{
+        width: 49%;
+    }
+     .b-search-form-hotels__input-typeahead, .b-search-form-hotels__input-datapicker{
+         width: 100% !important;
+    }
+    .b-search-form-hotels__input-datapicker {
+        border-radius: 0px 3px 3px 0px;
+    }
+    .b-search-form-hotels__field {
+        margin-left: 2px;
+        margin-top: 2px;
+    }
+    .NightCount{
+        background-color: #fff;
+        width: 49%;
+        border-radius: 3px 0px 0px 3px;
+    }
+    .search-hotel-only{
+        width: 49%;
+        border-radius: 0px 3px 3px 0px;
     }
 }
