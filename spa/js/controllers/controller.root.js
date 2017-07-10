@@ -173,16 +173,23 @@ innaAppControllers.
                 }else $scope.bannerGrey = false;
                 if ($location.$$path.indexOf("/packages/search") > -1 || $location.$$path.indexOf("/packages/details") > -1 || $location.$$path.indexOf("/packages/reservation") > -1
                     || $location.$$path.indexOf("/payment") > -1 || $location.$$path.indexOf("/display-order") > -1 || $location.$$path.indexOf("/individualtours/category") > -1 || $location.$$path.indexOf("/registration/") > -1)  {
-
+                    $('.search-form-item-current').addClass('withComma');
+                    $(document).ready(function(){
+                        $('.search-form-item-current').addClass('withComma');
+                            })
                     $scope.SearchFormExpandPadding = {'display': 'none'};
                 }
                 if ($location.$$path.indexOf("/display-order") > -1) {
                     $('.header-nav').css("display", "flex");
                     $(".offer-text, .slogan-container").css("display", "flex");
                 }
+                if ($location.$$path.indexOf("/hotels/") > -1 ) {
+                    $(document).ready(function(){
+                        $('.search-form-item-current').addClass('no_comma');
+                    });
+                }
                if ($location.$$path.indexOf("hotels") > -1 && $location.$$path.length > 8)  {
-                    // console.log($location.$$path.length)
-                   $('.header-nav').css("display", "none");
+                    $('.header-nav').css("display", "none");
                     $(".offer-text, .slogan-container").css("display", "none");
                     $(".header-menu").css("display", "flex").css("height", "100%");
                    $(document).ready(function(){

@@ -108,6 +108,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                     var item = $scope.Categories[i];
                     if (category == item) {
                         item.Active = true;
+                        // $('.offers-list').slideToggle(600).css("display", "flex");
                     } else {
                         item.Active = false;
                     }

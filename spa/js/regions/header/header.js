@@ -108,10 +108,11 @@ innaAppControllers
             });
             
             $scope.urls = appUrls;
-            
+
             $scope.gtmMainTab = function ($event) {
+                $('.search-form-item-current').addClass('no_comma');
                 // console.log('$location.absUrl()', $location.absUrl());
-                // console.log('$location.path()', $location.path());
+                //console.log('$location.path()', $location.path());
                 var loc = $location.path();
                 var abs = $location.absUrl();
                 
@@ -211,6 +212,9 @@ innaAppControllers
             };
 
         }]);
+function noComma() {
+    $('.search-form-item-current').addClass('no_comma');
+}
 $(window).scroll(function(){
     if($(this).scrollTop()>200) {
         $('.loginndp').css("bottom", "0px");
