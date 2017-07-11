@@ -34,18 +34,16 @@ offerSize(width, height) {
 .b-offers-category__list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 0 0 0 1px;
+    justify-content: space-around;
     align-items: center;
     min-height: 48px;
 }
 .b-offers-category {
     position: relative;
     z-index: 1;
-    flex: 2 1 auto;
-    margin: 0 0 0 -1px;
     //padding: 15px 10px;
     padding: 11px 10px;
+    margin: 4px 0px;
     //background-color: rgba(255, 255, 255, 1);
 
     //border: 1px solid #b8b8b8;
@@ -103,12 +101,13 @@ offerSize(width, height) {
     max-width: 960px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap
 }
 .b-offers-filters__group-left {
     display: flex;
+    max-width: 585px;
     .b-offers-filter__container {
         margin-right: 10px;
-
         &:last-child {
             margin-right: 0;
         }
@@ -202,7 +201,8 @@ offerSize(width, height) {
 }
 .b-offers-filter-Price {
     position: relative;
-    width: 100px;
+    //max-width: 100px;
+    width: 100%;
 }
 .b-offers-filter-Price__input {
     width: 100%;
@@ -212,13 +212,14 @@ offerSize(width, height) {
     font-size: 14.4px;
     color #757575;
     font-family ProximaNova, Arial, sans-serif
+    height: 36px;
 
     placeholder((font-size 14.4px) (color #757575))
 }
 .b-offers-filter-Price__icon {
     position: absolute;
     right: 1px;
-    top: 1px;
+    top: 4px;
     bottom: 1px;
     padding: 6px 7px 5px;
     font-size: 14.4px;
@@ -552,16 +553,25 @@ $b-offer-row-size-2 = 33.3333%;
     //border-left: 1px solid #c9d2db !important;
         border-right: 0;
     }
+    .b-offers-filters{
+        justify-content center
+    }
 }
 @media all and (max-width: 414px) {
+    .b-offers-category__list{
+        justify-content center
+    }
     .b-offer {
-        offerSize(100%, $b-offer-row-size-2);
+        offerSize(100% !important, $b-offer-row-size-2);
     }
     .offer-text {
         padding-top: 5px;
     }
     .offer-text__title {
         font-size: 1rem;
+    }
+    .b-offers-filters__group-left{
+        flex-direction column
     }
 }
 @media all and (max-width: 320px) {

@@ -14,7 +14,7 @@ innaAppDirectives.directive('offers', function ($templateCache) {
             function setDefaultValue(res) {
                 
                 $scope.Categories = res.data.Categories;
-                $scope.Categories.length = 8;
+                $scope.Categories.length = 7;
                 $scope.Locations = res.data.Locations;
                 $scope.Months = res.data.Month;
                 $scope.Periods = res.data.Period;
@@ -83,8 +83,14 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                         dataRequest   : null
                     });
                 });
-            
-            $scope.setCategory = function (category) {
+
+            $scope.showBannerwall= function() {
+                $scope.showOffers = false;
+                $('.b-offers-category').removeClass('active');
+                $('.hot-offers').addClass('active');
+            };
+            $scope.setCategory = function (category, element) {
+                $('.hot-offers').removeClass('active');
                 if ($scope.typePage) {
                     var dataLayerObj = {
                         'event': 'UM.Event',
@@ -108,12 +114,12 @@ innaAppDirectives.directive('offers', function ($templateCache) {
                     var item = $scope.Categories[i];
                     if (category == item) {
                         item.Active = true;
-                        // $('.offers-list').slideToggle(600).css("display", "flex");
                     } else {
                         item.Active = false;
                     }
                     categories.push(item);
                 }
+
                 $scope.Categories = categories;
                 $scope.filter.Category = category.Value;
                 /**
