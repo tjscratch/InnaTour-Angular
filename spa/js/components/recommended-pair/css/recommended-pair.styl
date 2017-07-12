@@ -258,18 +258,24 @@
     .b-result.b-result_col_three .b-result__cell{
         width 100% !important;
         margin-bottom: 2px;
-        height: 120px;
+        height: 135px;
     }
     .panel-tabs-dp{
       font-size: .8rem;
+    }
+    .filters__body .filters__container{
+        display none;
     }
     .filters__body .filters__link{
         padding: 8px 25px 8px 6px;
         font-size: .6rem;
     }
+    .b-result{
+        flex-direction column
+    }
     .b-results-list_dp {
-        padding-top: 88%;
-        padding-left: 16%;
+        padding-top: 99%;
+        padding-left 0;
     }
     .icon-expand{
         position inherit;
@@ -282,6 +288,27 @@
         top: 9px;
         left: 4px;
         font-size: .6rem;
+    }
+    .b-result.b-result_col_two_short .b-result__cell:nth-child(1), .b-result.b-result_col_two_short .b-result__cell:nth-child(2){
+        width:100%;
+        margin-bottom: 2px;
+    }
+    .b-list-panel .b-list-panel__list {
+        padding: 60px 0px 0px 0px;
+    }
+    .b-result.b-result_col_three_galary .b-result__cell:first-child{
+        width 100%;
+        margin-bottom: 2px;
+    }
+    .b-carousel__holder{
+        max-width 100%;
+    }
+    .b-result.b-result_col_three_galary .b-result__cell:nth-child(even){
+        width: 100%;
+        margin-bottom 2px;
+    }
+    .b-result.b-result_middle .b-result__cell{
+        width: 100%;
     }
 }
 
