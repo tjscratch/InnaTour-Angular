@@ -171,7 +171,7 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                     }
 
                     this.fullDisplay = function (opt_param) {
-                        if (!opt_param) doc.on('scroll', onScroll);
+                        // if (!opt_param) doc.on('scroll', onScroll);
 
                         timeOutCloseBundle = setTimeout(function () {
                             clearTimeout(timeOutCloseBundle);
@@ -233,20 +233,20 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
 
                 $scope.scrollTop = 0;
 
-                var onScroll = function () {
-                    scroll = true;
-                    var currentScrollTop = utils.getScrollTop();
-                    if (currentScrollTop >= 200) {
-                        if(currentScrollTop > $scope.scrollTop) {
-                            $scope.display.shortDisplay(true);
-                        } else if (currentScrollTop < $scope.scrollTop) {
-                            $scope.display.fullDisplay(true);
-                        }
-                    } else {
-                        $scope.display.fullDisplay(true);
-                    }
-                    $scope.scrollTop = currentScrollTop;
-                };
+                // var onScroll = function () {
+                //     scroll = true;
+                //     var currentScrollTop = utils.getScrollTop();
+                //     if (currentScrollTop >= 200) {
+                //         if(currentScrollTop > $scope.scrollTop) {
+                //             $scope.display.shortDisplay(true);
+                //         } else if (currentScrollTop < $scope.scrollTop) {
+                //             $scope.display.fullDisplay(true);
+                //         }
+                //     } else {
+                //         $scope.display.fullDisplay(true);
+                //     }
+                //     $scope.scrollTop = currentScrollTop;
+                // };
 
                 function openBundle() {
                     $scope.safeApply(function () {
@@ -267,12 +267,12 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                 EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, closeBundle);
 
 
-                var unwatchScroll = function () {
-                    doc.off('scroll', onScroll);
-                    scroll = false;
-                };
-
-                doc.on('scroll', onScroll);
+                // var unwatchScroll = function () {
+                //     doc.off('scroll', onScroll);
+                //     scroll = false;
+                // };
+                //
+                // doc.on('scroll', onScroll);
 
 
                 /**
