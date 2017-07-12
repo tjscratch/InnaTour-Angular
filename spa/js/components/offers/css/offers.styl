@@ -550,7 +550,6 @@ $b-offer-row-size-2 = 33.3333%;
     }
     .b-offers-category {
         flex-basis: 19%;
-    //border-left: 1px solid #c9d2db !important;
         border-right: 0;
     }
     .b-offers-filters{
@@ -560,6 +559,10 @@ $b-offer-row-size-2 = 33.3333%;
 @media all and (max-width: 414px) {
     .b-offers-category__list{
         justify-content center
+    }
+    .b-offers-category {
+        flex-basis: 40%;
+        border-right: 0;
     }
     .b-offer {
         offerSize(100% !important, $b-offer-row-size-2);
