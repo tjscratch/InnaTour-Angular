@@ -105,9 +105,11 @@ offerSize(width, height) {
 }
 .b-offers-filters__group-left {
     display: flex;
-    max-width: 585px;
+    flex-wrap: wrap;
+    //max-width: 585px;
     .b-offers-filter__container {
         margin-right: 10px;
+        width: 160px;
         &:last-child {
             margin-right: 0;
         }
@@ -187,15 +189,15 @@ offerSize(width, height) {
         }
     }
 }
-.b-offers-filter__location {
-    min-width: 180px;
-}
-.b-offers-filter__Month {
-    min-width: 170px;
-}
-.b-offers-filter__Period {
-    min-width: 160px;
-}
+//.b-offers-filter__location {
+//    min-width: 180px;
+//}
+//.b-offers-filter__Month {
+//    min-width: 170px;
+//}
+//.b-offers-filter__Period {
+//    min-width: 160px;
+//}
 .b-offers-filter__sort {
     //width: 31%;
 }
@@ -545,6 +547,9 @@ $b-offer-row-size-2 = 33.3333%;
     align-items: center;
 }
 @media all and (max-width: 768px) {
+    .b-offers-filters__group-left{
+        flex-basis: 60%;
+    }
     .offer-text{
         padding-top: 50px;
     }
@@ -575,6 +580,12 @@ $b-offer-row-size-2 = 33.3333%;
     }
     .b-offers-filters__group-left{
         flex-direction column
+    }
+    .b-offers-filters__group-left{
+        flex-basis: 100%;
+    }
+    .b-offers-filters__group-left .b-offers-filter__container{
+     width 100%;
     }
 }
 @media all and (max-width: 320px) {
